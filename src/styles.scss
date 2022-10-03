@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/onboarding";
+@import "./assets/scss/fonts";
+@import "./assets/scss/authCommon";
+
+:root{
+    --dark-background: #000000;
+}
+
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}

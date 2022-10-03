@@ -1,0 +1,121 @@
+.auth-parent-section{
+    height: 100vh;
+    position: relative;
+    .auth-main-body{
+        width: 75%;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 25px;
+        overflow: hidden;
+        .auth-left-section{
+            background: #ffffff;
+            padding: 4.5vw 3.85vw 0.75vw;
+            height: 100%;
+            .welcome-heading{
+                font-family: "Helvetica-Medium";
+                color: #1DA1F1;
+                font-size: 2.15vw;
+            }
+            .logo-span{
+                width: 9vw;
+                height: auto;
+            }
+            .signin-text{
+                font-family: "Helvetica-Medium";
+                font-size: 1.563vw;
+            }
+
+            .signin-form-parent{
+                .form-inner-div{
+                    &:first-child{
+                        margin-top: 1.75vw;
+                    }
+                    &:nth-last-child(2){
+                        margin-top: 2.25vw;
+                    }
+                    .form-label{
+                        font-family: "Helvetica-Medium";
+                        font-size: 0.94vw;
+                        color: #3C3C3C;
+                    }
+                    .form-control{
+                        border: 1px solid #969696;
+                        border-radius: 15px; 
+                        font-size: 0.94vw;
+                        padding: 0.5vw 0.75vw;
+                        &::placeholder{
+                            font-family: "Helvetica-Light";
+                            color: #8D8D8D;
+                        }
+                        &:focus{
+                            box-shadow: none;
+                        }
+                    }
+                    .reset-pass-text{
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        // left: 50%;
+                        transform: translate(-5%, -50%);
+                        margin-bottom: 0;
+                        background-color: #ffffff;
+                        height: inherit;
+                        padding-right: 1.5vw;
+                        a{
+                            color: #1DA1F1;
+                            font-family: "Helvetica-Light";
+                            font-size: 0.94vw;
+                            text-decoration: none;
+                        }
+                    }
+                }
+                .auth-btn{
+                    background: #1DA1F1 0% 0% no-repeat padding-box;
+                    margin-top: 2vw;
+                }
+                .common-btn{
+                    width: 100%;
+                    border-radius: 15px;
+                    color: #ffffff;
+                    font-family: "Helvetica-Light";
+                    font-size: 0.94vw;
+                    padding: 0.70vw;
+                }
+                .cancel-btn{
+                    background: #000850 0% 0% no-repeat padding-box;
+                    margin-top: 1.25vw;
+                }
+            }
+            .privacy-policy-text{
+                font-family: "Helvetica-Light";
+                font-size: 0.94vw;
+                margin-top: 4.5vw;
+                a{
+                   color: #000D7B; 
+                   text-decoration: none;
+                }
+            }
+        }
+        .auth-right-section{
+            background: #000850;
+            // padding: 96px;
+            padding: 4.5vw 0 4.5vw 4.5vw;
+            height: 100%;
+            .auth-right-text{
+                font-size: 1.46vw;
+                font-family: "Helvetica";
+                letter-spacing: 1.25px;
+                color: #1DA1F1;
+                line-height: 1.7;
+            }
+            .autn-img-div{
+                width: 25vw;
+                margin-left: auto;
+                height: auto;
+            }
+        }
+    }
+}
