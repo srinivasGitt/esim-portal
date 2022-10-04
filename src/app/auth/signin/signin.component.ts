@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SubscriptionComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { DialogService } from 'src/app/shared/service/dialog';
@@ -16,7 +17,7 @@ export class SigninComponent implements OnInit {
   err = false;
   constructor(private dialogService: DialogService,
               private authService: AuthService,
-              private fb: FormBuilder) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
@@ -50,6 +51,7 @@ export class SigninComponent implements OnInit {
     this.authService.signin(userData)
     .subscribe( (data: any) => {
       localStorage.setItem('authToken', data.token);
+      this.router.navigate(['/']);
     }, err => {
       this.err = true;
       console.log(err);

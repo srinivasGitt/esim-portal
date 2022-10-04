@@ -12,6 +12,7 @@ import { AuthService } from './shared/service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
+import { ModulesModule } from './modules/modules.module';
 
 @NgModule({
   declarations: [
@@ -20,14 +21,15 @@ import { SharedModule } from './shared/shared.module';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     DialogComponent,
-    CoreComponent
+    CoreComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    ModulesModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
