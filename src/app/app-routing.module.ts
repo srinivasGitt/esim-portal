@@ -9,15 +9,16 @@ const routes: Routes = [
   {
     path: '',
     component: SigninComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'reset-password',
-    component: ResetPasswordComponent
-  },
+  }
+  // ,
+  // {
+  //   path: 'forgot-password',
+  //   component: ForgotPasswordComponent
+  // },
+  // {
+  //   path: 'reset-password',
+  //   component: ResetPasswordComponent
+  // },
 ];
 
 @NgModule({
