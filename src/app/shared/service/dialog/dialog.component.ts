@@ -9,8 +9,7 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private compiler: Compiler,
-    private injector: Injector,
-    private componentFactoryResolver: ComponentFactoryResolver) { }
+    private injector: Injector) { }
   @Output() close = new EventEmitter();
   @Input() template: any;
   @Input() context: any;

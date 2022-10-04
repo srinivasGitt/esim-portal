@@ -6,11 +6,8 @@ import { DialogService } from "./service/dialog";
 import { SubscriptionComponent } from './dialog/subscription/subscription.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
-// import { CustomerDialogComponent } from './components/customer-dialog/customer-dialog.component';
-
-// ---------------- Material -----------------------
-// import { MaterialModule } from './material.module';  // common material design module
-
+import { HttpClientModule } from "@angular/common/http";
+import { AuthService } from "./service/auth.service";
 @NgModule({
   declarations: [
     SubscriptionComponent,
@@ -21,6 +18,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   exports: [
     SubscriptionComponent,
