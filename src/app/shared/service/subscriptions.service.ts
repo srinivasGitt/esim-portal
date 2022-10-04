@@ -26,22 +26,23 @@ export class SubscriptionsService {
   }
 
   createSubscription(data: any) {
-    data = {
-      subscriptionNumber: 87654390,
-      amount: 120,
-      profile: 'This is my profile',
-      status: 'Active',
-      autoRefill: true,
-      startDate:  new Date(),
-      endDate: new Date(),
-      userId: '633c417b4a43b0703742cfa3',
-      planId: '633c417b4a43b0703742cfa3',
-    };
+    // data = {
+    //   subscriptionNumber: 87654390,
+    //   amount: 120,
+    //   profile: 'This is my profile',
+    //   status: 'active',
+    //   autoRefill: true,
+    //   startDate:  new Date(),
+    //   endDate: new Date(),
+    //   userId: '633c417b4a43b0703742cfa3',
+    //   planId: '633c417b4a43b0703742cfa3',
+    // };
+    data.userId = '633c417b4a43b0703742cfa3';
     return this.http.post(`${this.serverUrl}/subscriptions`, data, this.getHeader());
   }
 
-  updateSubscription(data: any) {
+  updateSubscription(id: any, data: any) {
     console.log(data);
-    return this.http.put(`${this.serverUrl}/subscriptions/${data._id}`, data, this.getHeader());
+    return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data, this.getHeader());
   }
 }
