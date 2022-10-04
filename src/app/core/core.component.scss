@@ -1,0 +1,16 @@
+.main{
+    background: var(--dark-background-v1);
+}
+.main-base-container{
+    display: flex;
+    height: calc(100vh - 72px);
+    .sidebar-main{
+        width: 250px;
+        background-color: red
+    }
+    .dashboard-main{
+        flex: 1;
+       ;
+
+    }
+}

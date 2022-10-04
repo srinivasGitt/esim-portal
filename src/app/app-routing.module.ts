@@ -3,14 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './auth/signin/signin.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { CoreComponent } from './core/core.component';
 
 
 const routes: Routes = [
   {
     path: '',
+    component: CoreComponent
+  },
+  {
+    path: 'signin',
     component: SigninComponent
   }
-  // ,
+  ,
   // {
   //   path: 'forgot-password',
   //   component: ForgotPasswordComponent
