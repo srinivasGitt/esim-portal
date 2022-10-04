@@ -7,6 +7,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { DialogComponent } from './shared/service/dialog/dialog.component';
+import { CoreComponent } from './core/core.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DialogComponent } from './shared/service/dialog/dialog.component';
     SigninComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    DialogComponent
+    DialogComponent,
+    CoreComponent
   ],
   imports: [
     BrowserModule,

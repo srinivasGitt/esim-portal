@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { DialogService } from "./service/dialog";
 import { SubscriptionComponent } from './dialog/subscription/subscription.component';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
 // import { CustomerDialogComponent } from './components/customer-dialog/customer-dialog.component';
 
 // ---------------- Material -----------------------
@@ -11,7 +13,9 @@ import { SubscriptionComponent } from './dialog/subscription/subscription.compon
 
 @NgModule({
   declarations: [
-    SubscriptionComponent
+    SubscriptionComponent,
+    SidebarComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +23,9 @@ import { SubscriptionComponent } from './dialog/subscription/subscription.compon
     ReactiveFormsModule,
   ],
   exports: [
-    SubscriptionComponent
+    SubscriptionComponent,
+    SidebarComponent,
+    NavbarComponent
   ],
   providers: [CurrencyPipe]
 })

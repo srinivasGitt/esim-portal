@@ -16,8 +16,9 @@ export class SubscriptionComponent  implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.dialogRef);
   }
   close(data: any): void {
-    this.dialogRef.close.emit(data)
+    this.dialogRef.close.emit({data: 'I am closing'});
   }
 }
