@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -9,11 +9,34 @@ export class SubscriptionsService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
-
-  signin(userData: any) {
-    return this.http.post(`${this.serverUrl}/auth/signin`, userData);
+  getHeader() {
+    const authToken = localStorage.getItem('authToken');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${authToken}`,
+        'Content-Type': 'application/json',
+      })
+    };
+    return httpOptions;
   }
-  signup(userData: any) {
-    return this.http.post(`${this.serverUrl}/auth/signin`, userData);
+
+  subscriptionList() {
+    return this.http.get(`${this.serverUrl}/subscriptions`, this.getHeader());
+  }
+
+  createSubscription(data: any) {
+    data = {
+      subscriptionNumber: 87654390,
+      amount: 120,
+      profile: 'This is my profile',
+      status: 'Active',
+      autoRefill: true,
+      startDate:  new Date(),
+      endDate: new Date(),
+      userId: '633c417b4a43b0703742cfa3',
+      planId: '633c417b4a43b0703742cfa3',
+    };
+    return this.http.post(`${this.serverUrl}/subscriptions`, data, this.getHeader());
   }
 }

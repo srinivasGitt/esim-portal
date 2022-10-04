@@ -1,5 +1,5 @@
 import { ComponentFactoryResolver, ModuleWithProviders, NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, CurrencyPipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UserComponent } from "./user/user.component";
 import { SubscriptionComponent } from "./subscription/subscription.component";
@@ -28,14 +28,14 @@ import { InventoryComponent } from './inventory/inventory.component';
     PlanComponent,
     DashboardComponent
   ],
-  providers: []
+  providers: [CurrencyPipe]
 })
 
 export class ModulesModule {
   static forRoot(): ModuleWithProviders<ModulesModule> {
     return {
       ngModule: ModulesModule,
-      providers: []
+      providers: [CurrencyPipe]
     }
   }
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {

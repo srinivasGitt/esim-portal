@@ -28,11 +28,9 @@ export class PlanComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.plansList = data;
-
       }, err => {
         console.log(err);
       }
     );
-
   }
 }

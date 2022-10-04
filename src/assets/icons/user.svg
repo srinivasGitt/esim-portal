@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.337" height="24.336" viewBox="0 0 24.337 24.336">
+  <g id="Layer_2" data-name="Layer 2" transform="translate(0 0)">
+    <ellipse id="Ellipse_11" data-name="Ellipse 11" cx="0.811" cy="0.811" rx="0.811" ry="0.811" transform="translate(14.553 18.658)" fill="#959595"/>
+    <ellipse id="Ellipse_12" data-name="Ellipse 12" cx="0.811" cy="0.811" rx="0.811" ry="0.811" transform="translate(11.406 18.658)" fill="#959595"/>
+    <ellipse id="Ellipse_13" data-name="Ellipse 13" cx="0.811" cy="0.811" rx="0.811" ry="0.811" transform="translate(8.161 18.658)" fill="#959595"/>
+    <path id="Path_100" data-name="Path 100" d="M23.381,28.735H2.955A1.955,1.955,0,0,1,1,26.78,7.788,7.788,0,0,1,8.78,19h8.777a7.788,7.788,0,0,1,7.78,7.78A1.955,1.955,0,0,1,23.381,28.735ZM8.78,20.622A6.165,6.165,0,0,0,2.622,26.78a.333.333,0,0,0,.333.333H23.381a.333.333,0,0,0,.333-.333,6.165,6.165,0,0,0-6.157-6.157Z" transform="translate(-1 -4.398)" fill="#959595"/>
+    <path id="Path_101" data-name="Path 101" d="M14.49,13.979a6.49,6.49,0,1,1,6.49-6.49A6.49,6.49,0,0,1,14.49,13.979Zm0-11.357A4.867,4.867,0,1,0,19.357,7.49,4.867,4.867,0,0,0,14.49,2.622Z" transform="translate(-2.321 -1)" fill="#959595"/>
+  </g>
+</svg>
