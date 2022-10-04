@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { DialogComponent } from './shared/service/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
