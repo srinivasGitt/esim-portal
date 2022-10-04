@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
+    this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-md', context: 'Hi I am modal' })
       .instance.close.subscribe((data: any) => {
         console.log(data);
         });
@@ -56,10 +56,7 @@ export class SigninComponent implements OnInit {
       this.err = true;
       console.log(err);
     })
-    // this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
-    //   .instance.close.subscribe((data: any) => {
-    //     console.log(data);
-    //     })
+    
   }
 
 }
