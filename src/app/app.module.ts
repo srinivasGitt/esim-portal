@@ -11,6 +11,7 @@ import { CoreComponent } from './core/core.component';
 import { AuthService } from './shared/service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

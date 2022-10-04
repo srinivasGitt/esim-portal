@@ -54,6 +54,10 @@ export class SigninComponent implements OnInit {
       this.err = true;
       console.log(err);
     })
+    // this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
+    //   .instance.close.subscribe((data: any) => {
+    //     console.log(data);
+    //     })
   }
 
 }
