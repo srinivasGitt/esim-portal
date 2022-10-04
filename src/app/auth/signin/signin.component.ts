@@ -12,10 +12,10 @@ export class SigninComponent implements OnInit {
   constructor(private dialogService: DialogService) { }
 
   ngOnInit(): void {
-    this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
-      .instance.close.subscribe((data: any) => {
-        console.log(data);
-        })
+    // this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
+    //   .instance.close.subscribe((data: any) => {
+    //     console.log(data);
+    //     })
   }
 
 }
