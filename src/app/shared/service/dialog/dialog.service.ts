@@ -16,7 +16,6 @@ export class DialogService {
 
     let className = 'main-container'
     if( document.getElementsByClassName("body-container") && document.getElementsByClassName("body-container")[0]) {
-      // Running the cash register as separate app will have a different container
       className = 'body-container'
     }
     document.getElementsByClassName(className)[0].appendChild(popup);
