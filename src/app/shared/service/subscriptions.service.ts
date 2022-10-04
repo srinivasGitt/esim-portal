@@ -39,4 +39,9 @@ export class SubscriptionsService {
     };
     return this.http.post(`${this.serverUrl}/subscriptions`, data, this.getHeader());
   }
+
+  updateSubscription(data: any) {
+    console.log(data);
+    return this.http.put(`${this.serverUrl}/subscriptions/${data._id}`, data, this.getHeader());
+  }
 }

@@ -3,14 +3,16 @@ import { CommonModule, CurrencyPipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { DialogService } from "./service/dialog";
-import { SubscriptionComponent } from './dialog/subscription/subscription.component';
+import { SubscriptionDialogComponent } from './dialog/subscription/subscription.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "./service/auth.service";
+// import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
-    SubscriptionComponent,
+    // SubscriptionComponent,
+    SubscriptionDialogComponent,
     SidebarComponent,
     NavbarComponent
   ],
@@ -21,7 +23,8 @@ import { AuthService } from "./service/auth.service";
     HttpClientModule,
   ],
   exports: [
-    SubscriptionComponent,
+    // SubscriptionComponent,
+    SubscriptionDialogComponent,
     SidebarComponent,
     NavbarComponent
   ],

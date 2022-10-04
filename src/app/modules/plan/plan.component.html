@@ -22,7 +22,7 @@
                     <div class="t-box a px-2">Action</div>
                 </div>
                 <div class="t-body-overflow">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of plansList">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of plansList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                         <div class="t-box a px-2">{{plan.name}}</div>
                         <div class="t-box b px-2">{{plan.validity}} Days</div>
                         <div class="t-box a px-1">{{plan.dataSize}} GB</div>

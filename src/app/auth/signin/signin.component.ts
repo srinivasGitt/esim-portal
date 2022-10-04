@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SubscriptionComponent } from 'src/app/shared/dialog/subscription/subscription.component';
+// import { SubscriptionComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { DialogService } from 'src/app/shared/service/dialog';
 
@@ -20,10 +20,10 @@ export class SigninComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
-      .instance.close.subscribe((data: any) => {
-        console.log(data);
-        });
+    // this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
+    //   .instance.close.subscribe((data: any) => {
+    //     console.log(data);
+    //     });
     this.createForm();
   }
   createForm() {
@@ -55,11 +55,7 @@ export class SigninComponent implements OnInit {
     }, err => {
       this.err = true;
       console.log(err);
-    })
-    // this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
-    //   .instance.close.subscribe((data: any) => {
-    //     console.log(data);
-    //     })
+    });
   }
 
 }
