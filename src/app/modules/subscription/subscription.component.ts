@@ -17,7 +17,6 @@ export class SubscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.getAllSubscription();
   }
-
   createSubscription() {
     this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Subscription'} })
       .instance.close.subscribe((data: any) => {
@@ -44,7 +43,6 @@ export class SubscriptionComponent implements OnInit {
     );
 
   }
-
   editSubscription(index: number) {
     this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-md', context: {data: this.subscriptionList[index], title: 'Edit Subscription'} })
       .instance.close.subscribe((data: any) => {

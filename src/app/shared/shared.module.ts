@@ -8,13 +8,17 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "./service/auth.service";
+import { UserMgmtComponent } from './dialog/user-mgmt/user-mgmt.component';
+import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component';
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
     // SubscriptionComponent,
     SubscriptionDialogComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserMgmtComponent,
+    PlanDialogComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,8 @@ import { AuthService } from "./service/auth.service";
     // SubscriptionComponent,
     SubscriptionDialogComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserMgmtComponent,
   ],
   providers: [CurrencyPipe]
 })

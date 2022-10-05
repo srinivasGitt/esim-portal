@@ -5,11 +5,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class PlansService {
+export class RegionsService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
-
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -22,15 +21,17 @@ export class PlansService {
     return httpOptions;
   }
 
-  listPlans() {
-    return this.http.get(`${this.serverUrl}/plans`, this.getHeader());
+  getAllRegions() {
+    return this.http.get(`${this.serverUrl}/regions`, this.getHeader());
   }
 
-  createPlan(data: any) {
-    return this.http.post(`${this.serverUrl}/plans`, data, this.getHeader());
+  createSubscription(data: any) {
+    // data.userId = '633c417b4a43b0703742cfa3';
+    return this.http.post(`${this.serverUrl}/subscriptions`, data, this.getHeader());
   }
 
-  updatePlan(id: any, data: any) {
-    return this.http.put(`${this.serverUrl}/plans/${id}`, data, this.getHeader());
+  updateSubscription(id: any, data: any) {
+    // console.log(data);
+    return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data, this.getHeader());
   }
 }

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
-
 @Component({
   selector: 'app-dialog-subscription',
   templateUrl: './subscription.component.html',
