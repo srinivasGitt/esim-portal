@@ -8,13 +8,16 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "./service/auth.service";
+import { ConfirmComponent } from './dialog/confirm/confirm.component';
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
     // SubscriptionComponent,
     SubscriptionDialogComponent,
+    ConfirmComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    ConfirmComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,8 @@ import { AuthService } from "./service/auth.service";
     // SubscriptionComponent,
     SubscriptionDialogComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    ConfirmComponent
   ],
   providers: [CurrencyPipe]
 })
