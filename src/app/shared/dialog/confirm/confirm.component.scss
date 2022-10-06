@@ -1,0 +1,32 @@
+.es-modal{
+    background-color: var(--dark-background);
+    border-radius: 8px;
+    border: 1px solid var(--dark-text-white-v3);
+    .modal-header-flex{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--dark-text-white-v3);
+        .modal-header-text-container{
+            .modal-header-text{
+                color: var(--dark-text-white-v1);
+                font-size: 18px;
+            }
+        }
+        .es-btn-close-container{
+            .es-btn-close{
+                color: var(--dark-theme-blue-v1);
+                background-color: transparent;
+                border: none;
+            }
+        }
+    }
+    .es-modal-body{
+        padding: 15px;
+        .modal-header-text{
+            color: var(--dark-text-white-v1);
+            font-size: 16px;
+        }
+    }
+}

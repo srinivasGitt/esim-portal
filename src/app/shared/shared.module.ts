@@ -8,6 +8,7 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "./service/auth.service";
+import { ConfirmComponent } from './dialog/confirm/confirm.component';
 import { UserMgmtComponent } from './dialog/user-mgmt/user-mgmt.component';
 import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component';
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
@@ -15,8 +16,10 @@ import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component'
   declarations: [
     // SubscriptionComponent,
     SubscriptionDialogComponent,
+    ConfirmComponent,
     SidebarComponent,
     NavbarComponent,
+    ConfirmComponent
     UserMgmtComponent,
     PlanDialogComponent
   ],
@@ -31,6 +34,7 @@ import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component'
     SubscriptionDialogComponent,
     SidebarComponent,
     NavbarComponent,
+    ConfirmComponent
     UserMgmtComponent,
   ],
   providers: [CurrencyPipe]
