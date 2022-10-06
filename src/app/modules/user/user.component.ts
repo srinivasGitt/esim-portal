@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { UserMgmtComponent } from 'src/app/shared/dialog/user-mgmt/user-mgmt.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
@@ -93,4 +94,20 @@ export class UserComponent implements OnInit {
         vm.usersList[index] = data;
         });
   }
+
+  deleteUser( index: number) {
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this user?'} })
+    .instance.close.subscribe((data: any) => {
+      const vm = this;
+      if (data) {
+        vm.usersService.deleteUser(vm.usersList[index]._id)
+        .subscribe(res => {
+          vm.usersList.splice(index, 1);
+        }, err => {
+          console.log(err);
+        })
+      }
+      console.log(data);
+      });
+    }
 }

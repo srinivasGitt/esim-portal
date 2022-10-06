@@ -5,7 +5,7 @@
     <div class="main-base-container">
         <div class="sidebar-main">
             <div class="sidebar-inner">
-                <a href="/" class="sidebar-anchor-tab">
+                <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
                     <div class="sidebar-anchor-tab-flex">
                         <div class="sidebar-anchor-tab-flex-img-container">
                             <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
@@ -55,17 +55,18 @@
                         </div>
                     </div>
                 </a>
-                <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
-                    <div class="sidebar-anchor-tab-flex">
-                        <div class="sidebar-anchor-tab-flex-img-container">
-                            <img class="sidebar-anchor-tab-flex-img" src="assets/icons/reports.svg" alt="">
-                        </div> 
-                        <div class="sidebar-anchor-tab-flex-text-container">
-                            <p class="sidebar-anchor-tab-flex-text">Reports</p>
+                <div class="cursor-not-allowed">
+                    <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
+                        <div class="sidebar-anchor-tab-flex ">
+                            <div class="sidebar-anchor-tab-flex-img-container">
+                                <img class="sidebar-anchor-tab-flex-img" src="assets/icons/reports.svg" alt="">
+                            </div> 
+                            <div class="sidebar-anchor-tab-flex-text-container">
+                                <p class="sidebar-anchor-tab-flex-text">Reports</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                
+                    </a>
+                </div>
             </div>
         </div>
         <div class="dashboard-main">

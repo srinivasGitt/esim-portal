@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { PlanDialogComponent } from 'src/app/shared/dialog/plan-dialog/plan-dialog.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
@@ -9,7 +10,6 @@ import { PlansService } from 'src/app/shared/service/plans.service';
 })
 export class PlanComponent implements OnInit {
   plansList: any = [];
-  // East Asia, Southeast Asia, South Asia, Central Asia, and West Asia
   constructor(private plansService: PlansService,
               private dialogService: DialogService) { }
   ngOnInit(): void {
@@ -45,4 +45,20 @@ export class PlanComponent implements OnInit {
           console.log(err);
         });
   }
+
+  deletePlan( index: number) {
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this plan?'} })
+    .instance.close.subscribe((data: any) => {
+      const vm = this;
+      if (data) {
+        vm.plansService.deletePlan(vm.plansList[index]._id)
+        .subscribe(res => {
+          vm.plansList.splice(index, 1);
+        }, err => {
+          console.log(err);
+        })
+      }
+      console.log(data);
+      });
+    }
 }

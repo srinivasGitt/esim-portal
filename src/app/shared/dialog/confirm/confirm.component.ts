@@ -7,10 +7,9 @@ import { DialogComponent } from '../../service/dialog';
   styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent implements OnInit {
-
+  message = 'Are you sure want to delete this.'
   dialogRef: DialogComponent;
   data: any;
-  title: string = 'Add Subscription';
   constructor(
     private viewContainer: ViewContainerRef) {
     const _injector = this.viewContainer.injector;
@@ -18,10 +17,11 @@ export class ConfirmComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.message = this.dialogRef.context.message;
   }
   
-  close(state: any): void {
-    this.dialogRef.close.emit(this.data);
+  close(value: Boolean): void {
+    this.dialogRef.close.emit(value);
   }
 
 }

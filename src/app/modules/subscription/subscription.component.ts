@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { V4MAPPED } from 'dns';
+import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { SubscriptionsService } from 'src/app/shared/service/subscriptions.service';
@@ -54,5 +54,21 @@ export class SubscriptionComponent implements OnInit {
           console.log(err);
         })
         });
+  }
+
+  deleteSubscription( index: number) {
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this subscription?'} })
+    .instance.close.subscribe((data: any) => {
+      const vm = this;
+      if (data) {
+        vm.subscriptionsService.deleteSubscription(vm.subscriptionList[index]._id)
+        .subscribe(res => {
+          vm.subscriptionList.splice(index, 1);
+        }, err => {
+          console.log(err);
+        })
+      }
+      console.log(data);
+      });
   }
 }

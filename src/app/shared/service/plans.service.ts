@@ -33,4 +33,8 @@ export class PlansService {
   updatePlan(id: any, data: any) {
     return this.http.put(`${this.serverUrl}/plans/${id}`, data, this.getHeader());
   }
+
+  deletePlan(id: any) {
+    return this.http.delete(`${this.serverUrl}/plans/${id}`, this.getHeader());
+  }
 }

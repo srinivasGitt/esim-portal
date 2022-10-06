@@ -36,4 +36,7 @@ export class UsersService {
   updateUser(id: any, data: any) {
     return this.http.put(`${this.serverUrl}/users/${id}`, data, this.getHeader());
   }
+  deleteUser(id: any) {
+    return this.http.delete(`${this.serverUrl}/users/${id}`, this.getHeader());
+  }
 }

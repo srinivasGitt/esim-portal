@@ -9,7 +9,7 @@
             </button>
         </div> -->
     </div>
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-lg-4">
             <div>
                 <div class="row">
@@ -67,7 +67,7 @@
                             <div class="t-box a px-2 t-head">Available</div>
                             <div class="t-box b px-2 t-head">Downloaded</div>
                         </div>
-                        <div class="dashboard-profile-t bg-odd-row border-bottom-light">
+                        <div class="dashboard-profile-t bg-odd-row border-bottom-light" *ngFor="let item of [1,2,3,4,5,6]; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                             <div class="t-box a px-2 t-box-data">eSIM_CMHK_Plus01</div>
                             <div class="t-box b px-2 t-box-data">35</div>
                             <div class="t-box a px-2 t-box-data">05</div>
@@ -79,8 +79,11 @@
         </div>
     </div>
 
-    <div>
-        <div class="download-trend-graph-parent">
+    <div class="row">
+        <div class="col-6">
+            <img class="img-fluid" src="/assets/images/dashboard/icon/download-trend-graph.svg" alt="">
+        </div>
+        <div class="col-6">
             <img class="img-fluid" src="/assets/images/dashboard/icon/download-trend-graph.svg" alt="">
         </div>
     </div>

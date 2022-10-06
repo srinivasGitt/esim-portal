@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
-// import { SubscriptionComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { AuthService } from 'src/app/shared/service/auth.service';
-import { DialogService } from 'src/app/shared/service/dialog';
 
 @Component({
   selector: 'app-signin',
@@ -16,19 +13,10 @@ export class SigninComponent implements OnInit {
   signinForm: any;
   submitted = false;
   err = false;
-  constructor(private dialogService: DialogService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit(): void {
-    // this.dialogService.openModal(SubscriptionComponent, { cssClass: 'modal-lg', context: 'Hi I am modal' })
-    //   .instance.close.subscribe((data: any) => {
-    //     console.log(data);
-    //     });
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: 'Hi I am modal' })
-      .instance.close.subscribe((data: any) => {
-        console.log(data);
-        });
     this.createForm();
   }
   createForm() {
