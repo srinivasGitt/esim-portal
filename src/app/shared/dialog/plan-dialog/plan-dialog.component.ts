@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
 import { RegionsService } from '../../service/regions.service';
@@ -43,13 +43,13 @@ export class PlanDialogComponent implements OnInit {
   }
 
   createPlanForm(): void {
-    this.planForm = new FormGroup({
-      name: new FormControl(this.data?.name, [Validators.required]),
-      dataSize: new FormControl(this.data?.dataSize, [Validators.required]),
-      validity: new FormControl(this.data?.validity, [Validators.required]),
-      sms: new FormControl(this.data?.sms, [Validators.required]),
-      voice: new FormControl(this.data?.voice, [Validators.required]),
-      regionId: new FormControl(this.data?.regionId, [Validators.required]),
+    this.planForm = new UntypedFormGroup({
+      name: new UntypedFormControl(this.data?.name, [Validators.required]),
+      dataSize: new UntypedFormControl(this.data?.dataSize, [Validators.required]),
+      validity: new UntypedFormControl(this.data?.validity, [Validators.required]),
+      sms: new UntypedFormControl(this.data?.sms, [Validators.required]),
+      voice: new UntypedFormControl(this.data?.voice, [Validators.required]),
+      regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
     });
   }
   submit() {

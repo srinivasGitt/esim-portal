@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
 import { RegionsService } from '../../service/regions.service';
@@ -56,14 +56,14 @@ export class UserMgmtComponent implements OnInit {
   }
   createuserForm() {
     // console.log(this.data?.amount);
-    this.userForm = new FormGroup({
-      email: new FormControl(this.data?.email, [Validators.required, Validators.email]),
-      firstName: new FormControl(this.data?.firstName, [Validators.required]),
-      lastName: new FormControl(this.data?.lastName, [Validators.required]),
-      regionId: new FormControl(this.data?.regionId, [Validators.required]),
-      planId: new FormControl(this.data?.planId, [Validators.required]),
-      endDate: new FormControl(this.data?.endDate, [Validators.required]),
-      mobile: new FormControl(this.data?.mobile, [Validators.required]),
+    this.userForm = new UntypedFormGroup({
+      email: new UntypedFormControl(this.data?.email, [Validators.required, Validators.email]),
+      firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
+      lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
+      regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
+      planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
+      endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
+      mobile: new UntypedFormControl(this.data?.mobile, [Validators.required]),
     });
   }
   submit() {

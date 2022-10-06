@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 // import { SubscriptionComponent } from 'src/app/shared/dialog/subscription/subscription.component';
@@ -32,9 +32,9 @@ export class SigninComponent implements OnInit {
     this.createForm();
   }
   createForm() {
-    this.signinForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required])
+    this.signinForm = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [Validators.required, Validators.email]),
+      password: new UntypedFormControl(null, [Validators.required])
     });
     
   }
