@@ -53,7 +53,7 @@ export class PlanDialogComponent implements OnInit {
     });
   }
   submit() {
-    if (this.title === 'Edit User') {
+    if (this.title === 'Edit Plan') {
       this.update();
     } else {
       this.createUser();

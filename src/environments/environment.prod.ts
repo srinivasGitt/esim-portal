@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverUrl: 'http://localhost:3021',
+  serverUrl: 'https://dev-api.esim.management.portal.penpenny.xyz',
 };

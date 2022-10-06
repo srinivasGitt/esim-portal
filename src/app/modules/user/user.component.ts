@@ -66,7 +66,8 @@ export class UserComponent implements OnInit {
         console.log(data);
         if (data) {
           let vm  = this;
-          vm.usersList.push(data);
+          this.getAllUsers();
+          // vm.usersList.push(data);
         }
         });
   }
