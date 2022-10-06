@@ -15,7 +15,7 @@ RUN ng build
 FROM nginx:1.16.0-alpine
 
 COPY ./nginx-docker.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/ /usr/share/nginx/html
+COPY --from=build /app/dist/esim-managment-portal/ /usr/share/nginx/html
 
 EXPOSE 80
 
