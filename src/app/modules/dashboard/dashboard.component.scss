@@ -7,6 +7,17 @@
     padding: 1.85vw;
     background: var(--dark-background) 0% 0% no-repeat padding-box;
     border-radius: 7px;
+    position: relative;
+    height: 100%;
+    .blue-border-bottom{
+        height: 1px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        background: var(--dark-theme-blue-v1);
+    }
     .user-icon-parent{
         background: var(--dark-background-v1) 0% 0% no-repeat padding-box;
         border-radius: 13px;
@@ -34,10 +45,14 @@
 }
 .dark-bg-card{
     background: var(--dark-background) 0% 0% no-repeat padding-box;
+    height: 100%;
     padding-bottom: 1rem;
+    position: relative;
     .blue-border-bottom{
         height: 1px;
         width: 100%;
+        position: absolute;
+        bottom: 10px;
         background: var(--dark-theme-blue-v1);
     }
 }
@@ -50,7 +65,7 @@
 
 .download-trend-graph-parent{
     margin-top: 30px;
-    width: 100%;
+    // width: 100%;
     border: 1px solid var(--dark-text-white-v5);
     padding: 30px;
     .img-fluid{
