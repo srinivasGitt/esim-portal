@@ -19,7 +19,7 @@ import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component'
     ConfirmComponent,
     SidebarComponent,
     NavbarComponent,
-    ConfirmComponent
+    ConfirmComponent,
     UserMgmtComponent,
     PlanDialogComponent
   ],
@@ -34,7 +34,7 @@ import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component'
     SubscriptionDialogComponent,
     SidebarComponent,
     NavbarComponent,
-    ConfirmComponent
+    ConfirmComponent,
     UserMgmtComponent,
   ],
   providers: [CurrencyPipe]
