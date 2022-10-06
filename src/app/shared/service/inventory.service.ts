@@ -22,7 +22,7 @@ export class InventoryService {
     return httpOptions;
   }
 
-  listPlans() {
-    return this.http.get(`${this.serverUrl}/plans`, this.getHeader());
+  listInventory() {
+    return this.http.get(`${this.serverUrl}/inventories`, this.getHeader());
   }
 }

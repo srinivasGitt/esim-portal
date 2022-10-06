@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
 @Component({
   selector: 'app-dialog-subscription',
@@ -25,13 +25,13 @@ export class SubscriptionDialogComponent  implements OnInit {
   }
   createSubscriptionForm() {
     console.log(this.data?.amount);
-    this.subscriptionForm = new FormGroup({
-      subscriptionNumber: new FormControl(this.data?.subscriptionNumber, [Validators.required]),
-      amount: new FormControl(this.data?.amount, [Validators.required]),
-      startDate: new FormControl(this.data?.startDate, [Validators.required]),
-      endDate: new FormControl(this.data?.endDate, [Validators.required]),
-      planId: new FormControl(this.data?.planId, [Validators.required]),
-      userEmail: new FormControl(this.data?.userEmail, [Validators.required, Validators.email]),
+    this.subscriptionForm = new UntypedFormGroup({
+      subscriptionNumber: new UntypedFormControl(this.data?.subscriptionNumber, [Validators.required]),
+      amount: new UntypedFormControl(this.data?.amount, [Validators.required]),
+      startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
+      endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
+      planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
+      userEmail: new UntypedFormControl(this.data?.userEmail, [Validators.required, Validators.email]),
     });
   }
   submit() {

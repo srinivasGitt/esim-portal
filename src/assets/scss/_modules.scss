@@ -4,14 +4,14 @@
 .main-base-container{
     display: flex;
     // height: calc(100vh - 72px);
-    height: calc(100vh - 100px);
+    height: calc(100vh - 93px);
     .sidebar-main{
         width: 250px;
         padding: 20px;
         overflow: scroll;
         .sidebar-inner{
             background: var(--dark-background);
-            height: calc(100vh - 110px);
+            height: calc(100vh - 120px);
             border-radius: 10px;
             .sidebar-anchor-tab{
                 text-decoration: none;
@@ -220,7 +220,7 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr 150px;
+            grid-template-columns: 200px 200px 1fr 1fr 1fr 1fr 150px;
 
             grid-gap: 1;
         }

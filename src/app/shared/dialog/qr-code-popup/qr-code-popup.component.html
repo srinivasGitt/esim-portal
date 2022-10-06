@@ -1,0 +1,36 @@
+<div class="es-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <p class="modal-header-text mb-0">{{title}}</p>
+        </div>
+        <div class="es-btn-close-container">
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        </div>
+    </div>
+    <div class="es-modal-body">
+        <div class="qrcodeImage text-center mb-3">
+            <qrcode
+              [qrdata]="data.lpa"
+              [allowEmptyString]="true"
+              [ariaLabel]="'QR Code image with the following content...'"
+              [cssClass]="'center'"
+              [colorDark]="'#000000ff'"
+              [colorLight]="'#ffffffff'"
+              [elementType]="'canvas'"
+              [errorCorrectionLevel]="'M'"
+              [imageHeight]="75"
+              [imageWidth]="75"
+              [margin]="2"
+              [scale]="1"
+              [title]="data.lpa"
+              [width]="300"
+            ></qrcode>
+          </div>
+          <div>
+            <p class="font-color-v2">SM-DP+ Address: {{data.smdp}}</p>
+            <p class="font-color-v2"> LPA: {{data.lpa}} </p>
+            <p class="font-color-v2">MatchingId: {{data.matchingId}}</p>
+          </div>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>
