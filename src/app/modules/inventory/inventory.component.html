@@ -3,39 +3,40 @@
         <div class="dashboard-head-text">
             <h2>Plan Management</h2>
         </div>
-        <div>
+        <!-- <div>
             <button type="button" class="btn btn-dashboard-head" (click)="createPlan()">
                 <img src="" alt=""> Add New Plan
             </button>
-        </div>
+        </div> -->
     </div>
     <div class="user-dashboard-table-container">
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
-                    <div class="t-box a px-2">Plan Name</div>
-                    <div class="t-box b px-2">Expiry Interval</div>
-                    <div class="t-box a px-2">Data</div>
-                    <div class="t-box b px-2">Voice Calls</div>
-                    <div class="t-box a px-2">SMS</div>
-                    <div class="t-box b px-2">Region</div>
+                    <div class="t-box a px-2">ICCID</div>
+                    <div class="t-box b px-2">IMSI</div>
+                    <div class="t-box a px-2">Profile-Type</div>
+                    <div class="t-box b px-2">SM-PD+ Address</div>
+                    <!-- <div class="t-box a px-2">MatchingId</div> -->
+                    <div class="t-box a px-2">State</div>
+                    <div class="t-box b px-2">Creation Date</div>
                     <div class="t-box a px-2">Action</div>
                 </div>
                 <div class="t-body-overflow">
-                    <!-- <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of plansList">
-                        <div class="t-box a px-2">{{plan.name}}</div>
-                        <div class="t-box b px-2">{{plan.validity}} Days</div>
-                        <div class="t-box a px-1">{{plan.dataSize}} GB</div>
-                        <div class="t-box b px-2">{{plan.voice}} Minutes</div>
-                        <div class="t-box a px-1">{{plan.sms}}</div>
-                        <div class="t-box b px-2">{{plan.region}}</div>
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light" *ngFor="let info of inventory; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+                        <div class="t-box a px-2">{{info.iccid}}</div>
+                        <div class="t-box b px-2">{{info.imsi}}</div>
+                        <div class="t-box a px-1">{{info.profile}}</div>
+                        <div class="t-box b px-2">{{info.smdp}}</div>
+                        <div class="t-box a px-1">{{info.status}}</div>
+                        <div class="t-box b px-2">{{info.createdAt| date: 'medium'}}</div>
                         <div class="t-box a px-2">
                             <div class="user-table-action">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt="">
+                                <img class="user-table-action-icon" src="assets/icons/tInfo.svg" alt="" (click)="openQRCODEpopup(i)">
+                                <!-- <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt=""> -->
                             </div>
                         </div>
-                    </div> -->
+                    </div>
             </div>
         </div>
     </div>
