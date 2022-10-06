@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1039" height="396" viewBox="0 0 1039 396">
+  <g id="Group_106" data-name="Group 106" transform="translate(-295 -155)">
+    <text id="Download_Trend" data-name="Download Trend" transform="translate(295 184)" fill="#fff" font-size="24" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">Download Trend</tspan></text>
+    <text id="_2500" data-name="2500" transform="translate(295 259)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">2500</tspan></text>
+    <text id="_2000" data-name="2000" transform="translate(295 309)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">2000</tspan></text>
+    <text id="_1500" data-name="1500" transform="translate(295 358)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">1500</tspan></text>
+    <text id="_1000" data-name="1000" transform="translate(295 408)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">1000</tspan></text>
+    <text id="_500" data-name="500" transform="translate(303 457)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">500</tspan></text>
+    <text id="_00" data-name="00" transform="translate(311 507)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">00</tspan></text>
+    <rect id="Rectangle_38" data-name="Rectangle 38" width="307" height="0.5" rx="0.25" transform="translate(345.09 244) rotate(90)" fill="#707070"/>
+    <rect id="Rectangle_39" data-name="Rectangle 39" width="24" height="24" rx="12" transform="translate(1030 163)" fill="#3d44f5"/>
+    <text id="Available" transform="translate(1069 183)" fill="#959595" font-size="20" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">Available</tspan></text>
+    <rect id="Rectangle_40" data-name="Rectangle 40" width="24" height="24" rx="12" transform="translate(1234 163)" fill="#71c6fc"/>
+    <text id="Others" transform="translate(1273 183)" fill="#959595" font-size="20" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">Others</tspan></text>
+    <text id="Day_1" data-name="Day 1" transform="translate(368 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 1</tspan></text>
+    <text id="Day_2" data-name="Day 2" transform="translate(523 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 2</tspan></text>
+    <text id="Day_3" data-name="Day 3" transform="translate(677 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 3</tspan></text>
+    <text id="Day_4" data-name="Day 4" transform="translate(832 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 4</tspan></text>
+    <text id="Day_5" data-name="Day 5" transform="translate(986 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 5</tspan></text>
+    <text id="Day_6" data-name="Day 6" transform="translate(1141 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 6</tspan></text>
+    <text id="Day_7" data-name="Day 7" transform="translate(1295 548)" fill="#707070" font-size="15" font-family="HelveticaNeue-Light, Helvetica Neue" font-weight="300"><tspan x="0" y="0">Day 7</tspan></text>
+    <path id="Path_72" data-name="Path 72" d="M361.848,435.578s32.67,12.186,61.323-31.571,46.392-94.41,93.792-93.739S624.7,479.984,717.049,473s101.18-210.3,217.391-210.654,135.669,187.726,187.182,191.045,59.614-56.594,103.026-60.76,54.032,101.478,102.644,99.649" transform="translate(5.708 -0.349)" fill="none" stroke="#3d44f5" stroke-width="2"/>
+    <path id="Path_73" data-name="Path 73" d="M361.848,285s32.67-4.866,61.323,12.606,46.392,37.7,93.792,37.43S624.7,267.27,717.049,270.057s101.18,83.969,217.391,84.112,135.669-74.958,187.182-76.283,59.614,22.6,103.026,24.261,54.032-40.519,102.644-39.789" transform="translate(5.708 137.788)" fill="none" stroke="#71c6fc" stroke-width="2"/>
+    <g id="Rectangle_47" data-name="Rectangle 47" transform="translate(842 155)" fill="none" stroke="#707070" stroke-width="0.5">
+      <rect width="103" height="42" rx="7" stroke="none"/>
+      <rect x="0.25" y="0.25" width="102.5" height="41.5" rx="6.75" fill="none"/>
+    </g>
+    <text id="Day" transform="translate(855 183)" fill="#707070" font-size="20" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">Day</tspan></text>
+    <path id="Down_Arrow_3_" d="M28.431,49.2a.764.764,0,0,1-.542-.225l-7.665-7.665a.766.766,0,1,1,1.084-1.084l7.123,7.123,7.123-7.123a.766.766,0,1,1,1.084,1.084l-7.665,7.665a.764.764,0,0,1-.542.225Z" transform="translate(894.138 131.401)" fill="#707070"/>
+  </g>
+</svg>
