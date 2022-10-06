@@ -1,69 +1,44 @@
-<!-- <div class="card shadow-sm">
-    <div class="card-header">
-        <button type="button" class="btn btn-sm btn-light" (click)="close(false)">
-                X
-            </button>
-    </div>
-    <div class="card-body row">
-        Hiiiiiiii
-    </div>
-
-    <div class="card-footer">
-    </div>
-</div> -->
-
 <div class="es-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <p class="modal-header-text mb-0">Add New User</p>
+            <p class="modal-header-text mb-0">{{title}}</p>
         </div>
         <div class="es-btn-close-container">
-            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close(false)">X</button>
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
         </div>
     </div>
     <div class="es-modal-body">
-        <form class="es-modal-form">
+        <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label es-modal-form-label">User Name</label>
-              <input type="email" class="form-control es-input" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div  class="form-text text-danger">We'll never share your email with anyone else.</div>
+                <label for="subscriptionNumber" class="form-label es-modal-form-label">Subscription Number</label>
+                <input type="text" class="form-control es-input" id="subscriptionNumber" aria-describedby="emailHelp" formControlName="subscriptionNumber">
+              </div>
+            <div class="mb-3 row">
+                <div class="col-6">
+                    <label for="startDate" class="form-label es-modal-form-label">Date</label>
+                    <input type="date" class="form-control es-input" id="startDate" aria-describedby="emailHelp" formControlName="startDate">
+                </div>
+                <div class="col-6">
+                    <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
+                    <input type="date" class="form-control es-input" id="endDate" aria-describedby="emailHelp" formControlName="endDate">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-6">
+                    <label for="amount" class="form-label es-modal-form-label">Amount</label>
+                    <input type="number" class="form-control es-input" id="amount" aria-describedby="emailHelp" formControlName="amount">
+                </div>
+                <div class="col-6">
+                    <label for="planId" class="form-label es-modal-form-label">Plan ID</label>
+                    <input type="text" class="form-control es-input" id="planId" aria-describedby="emailHelp" formControlName="planId">
+                </div>
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label es-modal-form-label">Email Address</label>
-              <input type="email" class="form-control es-input" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label es-modal-form-label">Region</label>
-                <input type="text" class="form-control es-input" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label es-modal-form-label">Current Plan</label>
-                <input type="text" class="form-control es-input" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label es-modal-form-label">Plan Expiry</label>
-                <input type="text" class="form-control es-input" id="exampleInputPassword1">
-            </div>
+                <label for="userEmail" class="form-label es-modal-form-label">User Email</label>
+                <input type="email" class="form-control es-input" id="userEmail" aria-describedby="emailHelp" formControlName="userEmail">
+              </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>
     </div>
     <div class="es-modal-footer"></div>
-
 </div>
-
-
-    <!-- <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-    </div> -->

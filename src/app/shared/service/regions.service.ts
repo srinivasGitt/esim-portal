@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class SubscriptionsService {
+export class RegionsService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
@@ -21,28 +21,17 @@ export class SubscriptionsService {
     return httpOptions;
   }
 
-  subscriptionList() {
-    return this.http.get(`${this.serverUrl}/subscriptions`, this.getHeader());
+  getAllRegions() {
+    return this.http.get(`${this.serverUrl}/regions`, this.getHeader());
   }
 
   createSubscription(data: any) {
-    // data = {
-    //   subscriptionNumber: 87654390,
-    //   amount: 120,
-    //   profile: 'This is my profile',
-    //   status: 'active',
-    //   autoRefill: true,
-    //   startDate:  new Date(),
-    //   endDate: new Date(),
-    //   userId: '633c417b4a43b0703742cfa3',
-    //   planId: '633c417b4a43b0703742cfa3',
-    // };
-    data.userId = '633c417b4a43b0703742cfa3';
+    // data.userId = '633c417b4a43b0703742cfa3';
     return this.http.post(`${this.serverUrl}/subscriptions`, data, this.getHeader());
   }
 
   updateSubscription(id: any, data: any) {
-    console.log(data);
+    // console.log(data);
     return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data, this.getHeader());
   }
 }

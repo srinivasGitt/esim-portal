@@ -27,19 +27,10 @@ export class PlansService {
   }
 
   createPlan(data: any) {
-    data = {
-      name: 'Great',
-      type: 'One time',
-      dataSize: '200',
-      cost: '20',
-      costUnit: '450',
-      validity: '28',
-      description: 'Good to have',
-      popular: '2' ,
-      sms: 300,
-      voice: 400,
-      region: 'East Asia',
-    }
     return this.http.post(`${this.serverUrl}/plans`, data, this.getHeader());
+  }
+
+  updatePlan(id: any, data: any) {
+    return this.http.put(`${this.serverUrl}/plans/${id}`, data, this.getHeader());
   }
 }
