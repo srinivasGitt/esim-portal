@@ -10,6 +10,8 @@ import { PlanComponent } from './modules/plan/plan.component';
 import { SubscriptionComponent } from './modules/subscription/subscription.component';
 import { ReportsComponent } from './modules/reports/reports.component';
 import { InventoryComponent } from './modules/inventory/inventory.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -28,6 +30,14 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
   }
   ,
   // {
