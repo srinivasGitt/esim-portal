@@ -41,18 +41,28 @@ export class ResetPasswordComponent implements OnInit {
 
 
   submit(){
-
     this.err = false;
     this.submitted = true;
+
     if (this.resetPasswordForm.invalid) {
       return;
     }
 
     const userData = {
       email: this.resetPasswordForm.get('email').value,
-     
     };
 
-
+    this.authService.resetPssword(userData)
+    .subscribe( (data: any) => {
+     
+      this.router.navigate(['/']);
+    }, err => {
+      this.err = true;
+      console.log(err);
+    });
   }
+
+
+
+  
 }
