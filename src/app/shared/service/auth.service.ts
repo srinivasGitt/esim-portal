@@ -23,12 +23,11 @@ export class AuthService {
     return this.http.post(`${this.serverUrl}/auth/forgot`, userData);
   }
 
-  checkLinkValidation(userData: any){
-    return this.http.get(`${this.serverUrl}/auth/reset/:token/:email`);
-   
+  checkLinkValidation(token: any){
+    return this.http.get(`${this.serverUrl}/auth/reset/${token}`);
   }
 
-  resetPssword(userData: any){
-    return this.http.post(`${this.serverUrl}/auth/reset/:token`, userData);
+  resetPssword(token: any, userData: any){
+    return this.http.post(`${this.serverUrl}/auth/reset/${token}`, userData);
   }
 }

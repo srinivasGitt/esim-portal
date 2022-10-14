@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import {  Router } from '@angular/router';
+import {  ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { CustomValidators } from 'src/app/shared/validators/custom-validators';
 
@@ -13,12 +13,38 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: any;
   submitted = false;
   err = false;
+  token: any;
+ 
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.resetForm();
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params);  
+        this.token = params['token']; 
+        if (this.token) {
+          this.checkLinValidation();
+        }  
+        console.log(this.token);          // test
+      }
+    ); 
+  }
+
+  checkLinValidation() {
+    this.authService.checkLinkValidation(this.token)
+            .subscribe((res: any) => {
+              console.log(res);
+            }, err => {
+              console.log(err.error.message);
+              if(err.error.message === 'Invalid Token.') {
+                alert(err.error.message);
+                this.router.navigate(['/signin']);
+              }
+            });
   }
   
   resetForm(){
@@ -41,26 +67,39 @@ export class ResetPasswordComponent implements OnInit {
 
 
   submit(){
+    console.log('hy8uyhihnuu');
     this.err = false;
     this.submitted = true;
+
+    console.log(this.resetPasswordForm.invalid);
+    console.log(this.resetPasswordForm);
 
     if (this.resetPasswordForm.invalid) {
       return;
     }
 
     const userData = {
-      email: this.resetPasswordForm.get('email').value,
+      newPassword: this.resetPasswordForm.get('password').value,
+      repeatPassword: this.resetPasswordForm.get('confirmPassword').value,
     };
 
-    this.authService.resetPssword(userData)
+    this.authService.resetPssword(this.token, userData)
     .subscribe( (data: any) => {
-     
-      this.router.navigate(['/']);
+      alert(data.message)
+      this.router.navigate(['/signin']);
     }, err => {
       this.err = true;
       console.log(err);
     });
-  }
+
+
+   
+  
+  
+
+ 
+}
+  
 
 
 
