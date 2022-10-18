@@ -20,6 +20,7 @@ const routes: Routes = [
     component: CoreComponent,
     children: [
       { path: '', component: DashboardComponent },
+      { path: 'customer-management', component: UserComponent },
       { path: 'users', component: UserComponent },
       { path: 'plans', component: PlanComponent },
       { path: 'subscriptions', component: SubscriptionComponent },

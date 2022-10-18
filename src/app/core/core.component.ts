@@ -7,15 +7,8 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./core.component.scss']
 })
 export class CoreComponent implements OnInit {
-  activeUrl = 'dashboard';
-  constructor(private router:Router) { 
-    router.events.subscribe(
-      (data: any) => {
-        this.activeUrl = this.router.url;
-      }
-    )
-  }
-
+  
+  constructor(private router:Router) { }
   ngOnInit(): void {
   }
 
