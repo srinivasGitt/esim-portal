@@ -7,6 +7,8 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   activeUrl = 'dashboard';
+  show:boolean=false;
+  
   constructor(private router:Router) { 
     router.events.subscribe(
       (data: any) => {
@@ -17,6 +19,10 @@ export class SidebarComponent implements OnInit {
  
 
   ngOnInit(): void {
+  }
+
+  customerSidebar(){
+    this.show=!this.show;
   }
 
 }

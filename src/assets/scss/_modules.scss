@@ -69,7 +69,7 @@
         }
         
         .sidebar-inner-2{
-            background: #1E1F23 !important;
+            background:var(--dark-background) !important;
            
         }   
     }
@@ -231,6 +231,72 @@
             display: grid;
             grid-template-columns: 200px 200px 1fr 1fr 1fr 1fr 150px;
 
+            grid-gap: 1;
+        }
+        .t-box {
+            padding: 14px 0;
+            padding-left: .5rem !important;
+            width: 100%;
+            justify-content: center;
+            color: var(--dark-text-white-v1);
+            // overflow: auto;
+        }
+        .t-body-bg{
+            .t-box{
+                color: var(--dark-text-white-v2);
+            }
+        }
+        .bg-body-table-dark-bg{
+            background-color: var(--dark-background-v2);
+            border-radius: 8px;
+        }
+        .user-table-action{
+            display: flex;
+            align-items: center;
+            .user-table-action-icon{
+                width: 15px;
+                margin-right: 25px;
+                cursor: pointer;
+            }
+        }
+        
+    }
+}
+
+.customer-management{
+    .dashboard-head-flex{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        .dashboard-head-text{
+            color: var(--dark-text-white-v1);
+            margin-bottom: 0;
+            .dashboard-head-text-subtext{
+                color: #1DA1F1;
+                margin-left: 15px;
+                font-size: 20px;
+                margin-top: 5px;
+            }
+        }
+        .btn-dashboard-head{
+            color: var(--dark-theme-blue-v1);
+            background-color: var(--dark-background);
+            border: 1px solid var(--dark-theme-blue-v1);
+        }
+    }
+    .t-grid-table-new {
+        @media screen and (max-width: 1500px) {
+            min-width: 470px;
+        }
+        .t-body-overflow {
+            overflow: auto;
+            height: calc(95vh - 200px);
+            padding-top: 10px;
+            overflow-x: hidden;
+        }
+        .t-grid-table-wrapper {
+            display: grid;
+            grid-template-columns: 370px 260px 4fr 4fr 2fr;
             grid-gap: 1;
         }
         .t-box {

@@ -1,16 +1,18 @@
 .sidebar-left{
-    background-color: #000000;
-    width: 35px !important;
+    background-color:var(--dark-background);
+    width: 40px !important;
     height: 100% ;
     margin-right: 5px;
+    flex-shrink: 0;
     .sidebar-anchor-tab-flex-img {
         width: 15px !important;
-        margin-left: 1px !important ;
+        margin-left: 3px !important;
+        margin-right: 0px !important;
     }
 }
 
 .sidebar-right{
-    background-color: #000000;
+    background-color:var(--dark-background);
     color:#FFFFFF;
     width: 100%;
     height: 100%;
@@ -23,17 +25,17 @@
     color:#1DA1F1 ;
     span{
         border: 1px solid #1DA1F1;
-        border-radius: 5px;
-        padding-left: 5px;
-        padding-top: 5px;
+        border-radius: 3px;
+        padding-left: 4px;
+        padding-top: 2px;
         padding-right: 2px;
-        padding-bottom: 0px;
-        padding-right: 5px;
-        margin-left: 10px;
-        border: -24px;
+        padding-bottom: -2px;
+        padding-right: 4px;
+        margin-left: 7px;
+        margin-top: 31px;
     }
     i{
-        font-size: 20px;
+        font-size: 15px;
     }
    
 }   
@@ -41,8 +43,8 @@
 .sidebar-accordion{
     
     .accordion{
-        --bs-accordion-color: white !important;
-        --bs-accordion-bg: black !important;
+        --bs-accordion-color:var(--dark-background);
+        --bs-accordion-bg: var(--dark-background) !important;
         --bs-accordion-border:0px !important;
         --bs-accordion--inner-border: 0px  !important;
         --bs-accordion-border-color: none !important;
@@ -53,15 +55,15 @@
         --bs-accordion-btn-color:white !important;
         --bs-accordion-btn-focus-border-color: none !important;
         --bs-accordion-btn-focus-box-shadow: none !important;
+        --bs-accordion-body-padding-y: unset !important;
+        --bs-accordion-body-padding-x:unset !important;
+
       
-        .accordion-body {
-            padding: 10px !important;
-        
-        }
-        .accordion-child {
-            padding: 15px !important;
-        
-        }
+      .accordion-body {
+            padding-left: 15px !important;
+            padding-top: 10px !important;
+       }
+       
         .accordion-button {
             font-family: "Helvetica-Medium";
             position: relative;
@@ -69,7 +71,7 @@
             display: flex;
             width: 100%;
             padding: unset !important;
-            color: var(--bs-accordion-btn-color);
+            color: var(--dark-text-white-v2);
             text-align: left;
             background-color:unset!important;
             overflow-anchor: none;
@@ -119,4 +121,8 @@
     
 
 
+}
+
+.d-none {
+    display:none;
 }
