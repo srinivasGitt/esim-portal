@@ -4,70 +4,7 @@
     </div>
     <div class="main-base-container">
         <div class="sidebar-main">
-            <div class="sidebar-inner">
-                <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
-                    <div class="sidebar-anchor-tab-flex">
-                        <div class="sidebar-anchor-tab-flex-img-container">
-                            <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
-                        </div> 
-                        <div class="sidebar-anchor-tab-flex-text-container">
-                            <p class="sidebar-anchor-tab-flex-text">Dashboard</p> 
-                        </div>
-                    </div>
-                </a>
-                <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}">
-                    <div class="sidebar-anchor-tab-flex">
-                        <div class="sidebar-anchor-tab-flex-img-container">
-                            <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
-                        </div> 
-                        <div class="sidebar-anchor-tab-flex-text-container">
-                            <p class="sidebar-anchor-tab-flex-text">Inventory</p> 
-                        </div>
-                    </div>
-                </a>
-                <a [routerLink]="['/users']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/users'}">
-                    <div class="sidebar-anchor-tab-flex">
-                        <div class="sidebar-anchor-tab-flex-img-container">
-                            <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/users'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
-                        </div> 
-                        <div class="sidebar-anchor-tab-flex-text-container">
-                            <p class="sidebar-anchor-tab-flex-text">User Management</p> 
-                        </div>
-                    </div>
-                </a>
-                <a [routerLink]="['/plans']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/plans'}">
-                    <div class="sidebar-anchor-tab-flex">
-                        <div class="sidebar-anchor-tab-flex-img-container">
-                            <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/plans' ? 'assets/icons/shopping-list-selected.svg':'assets/icons/shopping-list.svg'" alt="">
-                        </div> 
-                        <div class="sidebar-anchor-tab-flex-text-container">
-                            <p class="sidebar-anchor-tab-flex-text">Plan Management</p> 
-                        </div>
-                    </div>
-                </a>
-                <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
-                    <div class="sidebar-anchor-tab-flex">
-                        <div class="sidebar-anchor-tab-flex-img-container">
-                            <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
-                        </div> 
-                        <div class="sidebar-anchor-tab-flex-text-container">
-                            <p class="sidebar-anchor-tab-flex-text">Subscriptions</p> 
-                        </div>
-                    </div>
-                </a>
-                <div class="cursor-not-allowed">
-                    <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
-                        <div class="sidebar-anchor-tab-flex ">
-                            <div class="sidebar-anchor-tab-flex-img-container">
-                                <img class="sidebar-anchor-tab-flex-img" src="assets/icons/reports.svg" alt="">
-                            </div> 
-                            <div class="sidebar-anchor-tab-flex-text-container">
-                                <p class="sidebar-anchor-tab-flex-text">Reports</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+           <app-sidebar></app-sidebar> 
         </div>
         <div class="dashboard-main">
             <router-outlet></router-outlet>

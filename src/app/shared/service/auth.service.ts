@@ -14,7 +14,20 @@ export class AuthService {
   signin(userData: any) {
     return this.http.post(`${this.serverUrl}/auth/signin`, userData);
   }
+
   signup(userData: any) {
     return this.http.post(`${this.serverUrl}/auth/signin`, userData);
+  }
+  
+  forgotPassword(userData: any) {
+    return this.http.post(`${this.serverUrl}/auth/forgot`, userData);
+  }
+
+  checkLinkValidation(token: any){
+    return this.http.get(`${this.serverUrl}/auth/reset/${token}`);
+  }
+
+  resetPssword(token: any, userData: any){
+    return this.http.post(`${this.serverUrl}/auth/reset/${token}`, userData);
   }
 }

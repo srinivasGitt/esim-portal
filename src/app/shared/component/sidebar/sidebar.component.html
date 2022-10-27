@@ -1,1 +1,184 @@
-<p>sidebar works!</p>
+<div class="sidebar-inner sidebar-inner-1" [ngClass]="{'d-none': show}"  id="sidebar-1">
+    <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
+        <div class="sidebar-anchor-tab-flex">
+            <div class="sidebar-anchor-tab-flex-img-container">
+                <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+            </div> 
+            <div class="sidebar-anchor-tab-flex-text-container">
+                <p class="sidebar-anchor-tab-flex-text">Dashboard</p> 
+            </div>
+        </div>
+    </a>
+    <a [routerLink]="['/customer-management']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/customer-management'}">
+        <div class="sidebar-anchor-tab-flex" (click)="customerSidebar()">
+            <div class="sidebar-anchor-tab-flex-img-container">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/customer-management'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+            </div> 
+            <div class="sidebar-anchor-tab-flex-text-container">
+                <p class="sidebar-anchor-tab-flex-text">Customer management</p> 
+            </div>
+        </div>
+    </a>
+    <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}">
+        <div class="sidebar-anchor-tab-flex">
+            <div class="sidebar-anchor-tab-flex-img-container">
+                <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+            </div> 
+            <div class="sidebar-anchor-tab-flex-text-container">
+                <p class="sidebar-anchor-tab-flex-text">Inventory</p> 
+            </div>
+        </div>
+    </a>
+    <a [routerLink]="['/users']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/users'}">
+        <div class="sidebar-anchor-tab-flex">
+            <div class="sidebar-anchor-tab-flex-img-container">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/users'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+            </div> 
+            <div class="sidebar-anchor-tab-flex-text-container">
+                <p class="sidebar-anchor-tab-flex-text">User Management</p> 
+            </div>
+        </div>
+    </a>
+    <a [routerLink]="['/plans']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/plans'}">
+        <div class="sidebar-anchor-tab-flex">
+            <div class="sidebar-anchor-tab-flex-img-container">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/plans' ? 'assets/icons/shopping-list-selected.svg':'assets/icons/shopping-list.svg'" alt="">
+            </div> 
+            <div class="sidebar-anchor-tab-flex-text-container">
+                <p class="sidebar-anchor-tab-flex-text">Plan Management</p> 
+            </div>
+        </div>
+    </a>
+    <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
+        <div class="sidebar-anchor-tab-flex">
+            <div class="sidebar-anchor-tab-flex-img-container">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
+            </div> 
+            <div class="sidebar-anchor-tab-flex-text-container">
+                <p class="sidebar-anchor-tab-flex-text">Subscriptions</p> 
+            </div>
+        </div>
+    </a>
+    <div class="cursor-not-allowed">
+        <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
+            <div class="sidebar-anchor-tab-flex ">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" src="assets/icons/reports.svg" alt="">
+                </div> 
+                <div class="sidebar-anchor-tab-flex-text-container">
+                    <p class="sidebar-anchor-tab-flex-text">Reports</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="sidebar-inner sidebar-inner-2 d-flex" [ngClass]="{'d-none': !show}" id="sidebar-2" >
+    <div class="sidebar-inner sidebar-left " >
+        <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img " src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+                </div> 
+                
+            </div>
+        </a>
+        <a [routerLink]="['']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === ''}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === ''? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+                </div> 
+                
+            </div>
+        </a>
+        <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+                </div> 
+               
+            </div>
+        </a>
+        <a [routerLink]="['/users']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/users'}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/users'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+                </div> 
+               
+            </div>
+        </a>
+        <a [routerLink]="['/plans']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/plans'}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/plans' ? 'assets/icons/shopping-list-selected.svg':'assets/icons/shopping-list.svg'" alt="">
+                </div> 
+                
+            </div>
+        </a>
+        <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
+                </div> 
+               
+            </div>
+        </a>
+    </div>
+    <div class="sidebar-inner sidebar-right sidebar-accordion "  >
+            <div class="sidebar-right-heading mt-3" >
+                <p class="">Customer Management<span><i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i></span></p>
+                
+            </div>
+            
+            
+            
+            <div class="accordion open" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header d-flex" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Customer 1
+                        </button>
+                        <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" data-bs-target="#collapseOne"></div>
+                    </h2>
+                  
+                    <div id="collapseOne" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne">
+                        <h2 class="accordion-header d-flex " id="subheadingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#subOne" aria-expanded="false" aria-controls="subOne">
+                                Sub Customer 1
+                            </button>
+                            <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" data-bs-target="#subOne"></div>
+
+                        </h2>
+                            
+                        <div id="subOne" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#subheadingOne">
+                            <h2 class="accordion-header d-flex  " id="childOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
+                                    Child Customer1
+                                </button>
+                                <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" data-bs-target="#childSubOne"></div>
+                            </h2>
+
+                            <div id="childSubOne" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#childOne">
+                                <h2 class="accordion-header " >
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
+                                        Customer xyz 
+                                    </button>
+                                </h2>
+                                <h2 class="accordion-header  subchild" >
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
+                                        Customer xyz 
+                                    </button>
+                                </h2>
+                                <h2 class="accordion-header  subchild " >
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
+                                        Customer xyz 
+                                    </button>
+                                </h2>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            
+    </div>
+</div>

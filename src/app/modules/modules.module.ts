@@ -7,6 +7,7 @@ import { PlanComponent } from "./plan/plan.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReportsComponent } from './reports/reports.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { CustomerManagementComponent } from './customer-management/customer-management.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { InventoryComponent } from './inventory/inventory.component';
     PlanComponent,
     DashboardComponent,
     ReportsComponent,
-    InventoryComponent
+    InventoryComponent,
+    CustomerManagementComponent
   ],
   imports: [
     CommonModule,

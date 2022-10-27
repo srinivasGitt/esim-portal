@@ -10,6 +10,9 @@ import { PlanComponent } from './modules/plan/plan.component';
 import { SubscriptionComponent } from './modules/subscription/subscription.component';
 import { ReportsComponent } from './modules/reports/reports.component';
 import { InventoryComponent } from './modules/inventory/inventory.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { CustomerManagementComponent } from './modules/customer-management/customer-management.component';
 
 
 const routes: Routes = [
@@ -18,6 +21,7 @@ const routes: Routes = [
     component: CoreComponent,
     children: [
       { path: '', component: DashboardComponent },
+      { path: 'customer-management', component: CustomerManagementComponent },
       { path: 'users', component: UserComponent },
       { path: 'plans', component: PlanComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
@@ -28,6 +32,14 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
   }
   ,
   // {

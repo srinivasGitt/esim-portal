@@ -1,0 +1,45 @@
+ <div class="customer-management">
+    <div class="dashboard-head-flex">
+        <div class="dashboard-head-text d-flex">
+            <h2>Customer Management</h2>
+                <p class="dashboard-head-text-subtext"> - Sub Customer</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-dashboard-head" (click)="createCustomer()">
+                <img src="" alt=""> Add New Customer
+            </button>
+        </div>
+    </div>
+    <div class="user-dashboard-table-container">
+        <div class="user-dashboard-table">
+            <div class="t-grid-table-new">
+                <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
+                    <div class="t-box b px-2">Customer Name</div>
+                    <div class="t-box b px-2">Creation Date</div>
+                    <div class="t-box a px-2">Number Of Profile</div>
+                    <div class="t-box a px-2">Created By</div>
+                    
+                    <div class="t-box b px-2">
+                        Action
+                    </div>
+                </div>
+                <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let cutomer of customerList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+                       
+                        <div class="t-box a px-2" (click)="selectCustomer(i)">{{cutomer.name}}</div>
+                        <div class="t-box b px-2">{{cutomer.createdAt}}</div>
+                        <div class="t-box a px-2">{{cutomer.numberOfProfile}}</div>
+                        <div class="t-box a px-2">{{cutomer.createdBy}}</div>
+
+                        <div class="t-box b px-2">
+                            <div class="user-table-action">
+                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" >
+                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt="" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

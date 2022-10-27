@@ -13,6 +13,8 @@ import { UserMgmtComponent } from './dialog/user-mgmt/user-mgmt.component';
 import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component';
 import { QrCodePopupComponent } from './dialog/qr-code-popup/qr-code-popup.component';
 import { QRCodeModule } from "angularx-qrcode";
+import {RouterModule} from '@angular/router';
+import { CustomerComponent } from './dialog/customer/customer.component';
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { QRCodeModule } from "angularx-qrcode";
     ConfirmComponent,
     UserMgmtComponent,
     PlanDialogComponent,
-    QrCodePopupComponent
+    QrCodePopupComponent,
+    CustomerComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { QRCodeModule } from "angularx-qrcode";
     ReactiveFormsModule,
     HttpClientModule,
     QRCodeModule,
+    RouterModule
   ],
   exports: [
     // SubscriptionComponent,
