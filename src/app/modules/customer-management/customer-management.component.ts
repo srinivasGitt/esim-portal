@@ -14,22 +14,37 @@ import { DialogService } from 'src/app/shared/service/dialog';
 export class CustomerManagementComponent implements OnInit {
   customerList: any = [];
   customerId:any = null;
+  customer:any
 
   constructor(private customerService: CustomerService,
               private dialogService: DialogService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.route.params
         .subscribe(params => {
           console.log(params);
-          this.customerId = params['id'];  
+          this.customerId = params['id']; 
           console.log(this.customerId);
-          this.getAllCustomer();
+
+          if(this.customerId){
+            this.getSingleCustomer();
           }
-    );  
+          this.getAllCustomer();
+        });  
   }
-  
+
+  getSingleCustomer() {
+        this.customerService.getSingleCustomer(this.customerId)
+        .subscribe((data: any) => {
+              console.log(data);
+              this.customer = data;
+        }, err => {
+          console.log(err);
+        });
+
+  }
 
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
@@ -38,7 +53,7 @@ export class CustomerManagementComponent implements OnInit {
         if (data) {
           const customer= {
             name: data.customerName,
-            parentId: null,
+            parentId: this.customerId,
           };
           let vm  = this;
           vm.customerService.createCustomer(customer)
