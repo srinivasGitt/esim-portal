@@ -24,17 +24,17 @@
                     </div>
                 </div>
                 <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let cutomer of customerList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let customer of customerList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                        
-                        <div class="t-box a px-2" (click)="selectCustomer(i)">{{cutomer.name}}</div>
-                        <div class="t-box b px-2">{{cutomer.createdAt}}</div>
-                        <div class="t-box a px-2">{{cutomer.numberOfProfile}}</div>
-                        <div class="t-box a px-2">{{cutomer.createdBy}}</div>
+                        <div class="t-box a px-2"  [routerLink]="['/customer-management', customer._id]" >{{customer.name}}</div>
+                        <div class="t-box b px-2">{{customer.createdAt}}</div>
+                        <div class="t-box a px-2">{{customer.numberOfProfile}}</div>
+                        <div class="t-box a px-2">{{customer.createdBy}}</div>
 
                         <div class="t-box b px-2">
                             <div class="user-table-action">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" >
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt="" >
+                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" (click)="editCustomer(i)">
+                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt="" (click)="deleteCustomer(i)">
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReportsComponent } from './reports/reports.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CustomerManagementComponent } from './customer-management/customer-mana
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
   ],

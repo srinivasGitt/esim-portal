@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { CustomerComponent } from 'src/app/shared/dialog/customer/customer.component';
+import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
 
@@ -10,11 +13,21 @@ import { DialogService } from 'src/app/shared/service/dialog';
 })
 export class CustomerManagementComponent implements OnInit {
   customerList: any = [];
+  customerId:any = null;
+
   constructor(private customerService: CustomerService,
-    private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getAllCustomer();
+    this.route.params
+        .subscribe(params => {
+          console.log(params);
+          this.customerId = params['id'];  
+          console.log(this.customerId);
+          this.getAllCustomer();
+          }
+    );  
   }
   
 
@@ -41,7 +54,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getAllCustomer() {
-    this.customerService.customerList()
+    this.customerService.customerList(this.customerId)
      .subscribe(
       (data: any) => {
       console.log(data);
@@ -52,6 +65,34 @@ export class CustomerManagementComponent implements OnInit {
    );
   }
 
+  editCustomer(index: number) {
+    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Edit Subscription'} })
+      .instance.close.subscribe((data: any) => {
+        let vm  = this;
+        vm.customerService.updateCustomer(vm.customerList[index]._id, data)
+        .subscribe( (res: any) => {
+          vm.customerList[index] = res;
+        }, err => {
+          console.log(err);
+        })
+        });
+  }
+
+  deleteCustomer( index: number) {
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this subscription?'} })
+    .instance.close.subscribe((data: any) => {
+      const vm = this;
+      if (data) {
+        vm.customerService.deleteCustomer(vm.customerList[index]._id)
+        .subscribe(res => {
+          vm.customerList.splice(index, 1);
+        }, err => {
+          console.log(err);
+        })
+      }
+      console.log(data);
+      });
+  }
   selectCustomer(i:any){
     console.log(this.customerList[i]._id);
     localStorage.setItem("customerId",this.customerList[i]._id);

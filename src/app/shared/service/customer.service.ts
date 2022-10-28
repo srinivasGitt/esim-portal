@@ -22,11 +22,25 @@ export class CustomerService {
         return httpOptions;
     }
 
-    customerList(){
+    customerList(customerId:any){
+      if(customerId){
+        return this.http.get(`${this.serverUrl}/customer&parentId=${customerId}`, this.getHeader());
+      }else{
         return this.http.get(`${this.serverUrl}/customer`, this.getHeader());
+      }
+      
     }
 
     createCustomer(data:any){
        return this.http.post(`${this.serverUrl}/customer`, data, this.getHeader());
+    }
+
+    updateCustomer(id: any, data: any) {
+      console.log(data);
+      return this.http.put(`${this.serverUrl}/customer/${id}`, data, this.getHeader());
+    }
+
+    deleteCustomer(id: any) {
+      return this.http.delete(`${this.serverUrl}/customer/${id}`, this.getHeader());
     }
 } 

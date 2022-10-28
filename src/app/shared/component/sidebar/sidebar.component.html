@@ -128,19 +128,17 @@
                 <p class="">Customer Management<span><i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i></span></p>
                 
             </div>
-            
-            
-            
+
             <div class="accordion open" id="accordionExample">
-                <div class="accordion-item">
+                <div class="accordion-item"  *ngFor="let cutomer of customerList; index as i">
                     <h2 class="accordion-header d-flex" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Customer 1
+                        <button class="accordion-button" type="button"  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" aria-controls="collapseOne">
+                            {{cutomer.name}}
                         </button>
-                        <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" data-bs-target="#collapseOne"></div>
+                        <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i"></div>
                     </h2>
                   
-                    <div id="collapseOne" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne">
+                    <div id="collapseOne_{{i}}" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne">
                         <h2 class="accordion-header d-flex " id="subheadingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#subOne" aria-expanded="false" aria-controls="subOne">
                                 Sub Customer 1

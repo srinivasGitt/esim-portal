@@ -75,6 +75,7 @@
             text-align: left;
             background-color:unset!important;
             overflow-anchor: none;
+           
             &::after {
                 background-image: unset !important;
                
@@ -83,7 +84,8 @@
         }  
         
         .accordion-button:not(.collapsed)::after {
-            background-image: unset !important;
+            background-image: unset !important; 
+            
            
         }
     }
@@ -92,6 +94,8 @@
         width: 15px;
         height: 15px;
         position: relative;
+        color: var(--dark-text-white-v1) !important;
+
         &::after{
             font-family: FontAwesome;
             content: "\f106";
@@ -101,11 +105,14 @@
             font-size: 15px;
             pointer-events: none;
             cursor: pointer;
+            color: var(--dark-text-white-v1) !important;
+
         }
     }
     .cutomer-mgmt-collapse.collapsed {
         width: 15px;
         height: 15px;
+        background: var(--dark-background) !important;
         &::after{
             font-family: FontAwesome;
             content: "\f107";
@@ -115,6 +122,7 @@
             font-size: 15px;
             pointer-events: none;
             cursor: pointer;
+            background: var(--dark-background) !important;
         }
     }
     
