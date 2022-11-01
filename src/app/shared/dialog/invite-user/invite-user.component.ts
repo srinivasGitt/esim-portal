@@ -29,19 +29,13 @@ export class InviteUserComponent implements OnInit {
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       customerId: new UntypedFormControl(localStorage.getItem('customerId'))
     })
-    console.log(this.userForm);
-    
   }
 
   submitForm(){
-    console.log(this.userForm.value);
-    
     this.usersService.inviteUser(this.userForm.value)
     .subscribe((res:any)=>{
-      console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
-      // console.log(err);
       alert(err.error.message);
     })
   }

@@ -30,7 +30,6 @@ export class UserComponent implements OnInit {
     this.regionService.getAllRegions()
     .subscribe(
       res => {
-        console.log(res);
         this.regionList = res;
         this.usersList.forEach((element: any) => {
           const tRegion = this.regionList.find((o: any) => o._id === element.regionId);
@@ -39,7 +38,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        console.log(err);
+        alert(err);
       }
     )
   }
@@ -47,7 +46,6 @@ export class UserComponent implements OnInit {
     this.planService.listPlans()
     .subscribe(
       res => {
-        console.log(res);
         this.planList = res;
         this.usersList.forEach((element: any) => {
           const tRegion = this.planList.find((o: any) => o._id === element.planId);
@@ -56,7 +54,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        console.log(err);
+        alert(err)
       }
     )
   }
@@ -64,7 +62,6 @@ export class UserComponent implements OnInit {
   createUser() {
     this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data);
         if (data) {
           let vm  = this;
           this.getAllUsers();
@@ -77,12 +74,11 @@ export class UserComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.usersList = data;
-        console.log(data);
         this.getAllRegions();
       this.getAllPlans();
         // this.subscriptionList = data;
       }, err => {
-        console.log(err);
+        alert(err);
       }
     );
 
@@ -91,7 +87,6 @@ export class UserComponent implements OnInit {
   editUser(index: number) {
     this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: this.usersList[index], title: 'Edit User'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data);
         let vm  = this;
         vm.usersList[index] = data;
         });
@@ -106,10 +101,8 @@ export class UserComponent implements OnInit {
         .subscribe(res => {
           vm.usersList.splice(index, 1);
         }, err => {
-          console.log(err);
         })
       }
-      console.log(data);
       });
     }
 
