@@ -26,8 +26,6 @@ export class CustomerManagementComponent implements OnInit {
         .subscribe(params => {
           console.log(params);
           this.customerId = params['id']; 
-          console.log(this.customerId);
-
           if(this.customerId){
             this.getSingleCustomer();
           }
