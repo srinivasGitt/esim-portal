@@ -22,6 +22,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'customer-management', component: CustomerManagementComponent },
+      { path: 'customer-management/:id', component: CustomerManagementComponent },
       { path: 'users', component: UserComponent },
       { path: 'plans', component: PlanComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
@@ -40,16 +41,12 @@ const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent
+  },
+  {
+    path: '',
+    component: ResetPasswordComponent
   }
-  ,
-  // {
-  //   path: 'forgot-password',
-  //   component: ForgotPasswordComponent
-  // },
-  // {
-  //   path: 'reset-password',
-  //   component: ResetPasswordComponent
-  // },
+  
 ];
 
 @NgModule({

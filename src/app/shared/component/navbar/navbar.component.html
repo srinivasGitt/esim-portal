@@ -1,9 +1,10 @@
 <nav class="navbar navbar-expand-lg main-navbar">
     <div class="container-fluid justify-content-start">
       <div class="navbar-brand-parent">
-        <a class="navbar-brand" href="#">
-          <img class="brand-logo" src="/assets/images/auth/anuyat-white-logo.png" alt="">
-        </a>
+          <a class="navbar-brand" href="#">
+            <img class="brand-logo" *ngIf="!isDarkTheme" src="/assets/images/auth/anuyat-white-logo.png" alt="">
+            <img class="brand-logo" *ngIf="isDarkTheme" src="/assets/images/navbar/Group 221.png" alt="">
+          </a>
       </div>
       <div class="navbar-toggler-parent">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" disabled>
