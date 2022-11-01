@@ -37,13 +37,12 @@ export class CustomerManagementComponent implements OnInit {
 
   getSingleCustomer() {
         this.customerService.getSingleCustomer(this.customerId)
-        .subscribe((data: any) => {
-              console.log(data);
-              this.customer = data;
-        }, err => {
-          console.log(err);
-        });
-
+          .subscribe((data: any) => {
+                console.log(data);
+                this.customer = data;
+          }, err => {
+            console.log(err);
+          });
   }
 
   createCustomer() {
