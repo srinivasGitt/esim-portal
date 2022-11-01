@@ -15,6 +15,7 @@ import { QrCodePopupComponent } from './dialog/qr-code-popup/qr-code-popup.compo
 import { QRCodeModule } from "angularx-qrcode";
 import {RouterModule} from '@angular/router';
 import { CustomerComponent } from './dialog/customer/customer.component';
+import { InviteUserComponent } from './dialog/invite-user/invite-user.component';
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CustomerComponent } from './dialog/customer/customer.component';
     UserMgmtComponent,
     PlanDialogComponent,
     QrCodePopupComponent,
-    CustomerComponent
+    CustomerComponent,
+    InviteUserComponent
   ],
   imports: [
     CommonModule,

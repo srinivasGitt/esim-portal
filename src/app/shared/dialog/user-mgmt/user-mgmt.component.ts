@@ -35,7 +35,7 @@ export class UserMgmtComponent implements OnInit {
   getAllRegions(): void {
     this.regionService.getAllRegions()
     .subscribe(
-      res => {
+      (res:any) => {
         console.log(res);
         this.regionList = res;
       }, err => {
@@ -75,7 +75,7 @@ export class UserMgmtComponent implements OnInit {
   }
   createUser() {
     this.usersService.createUsers(this.userForm.value)
-    .subscribe( (res: any) => {
+    .subscribe((res: any) => {
       console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
