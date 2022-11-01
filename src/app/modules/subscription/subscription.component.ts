@@ -23,7 +23,7 @@ export class SubscriptionComponent implements OnInit {
         let vm  = this;
         vm.subscriptionsService.createSubscription(data)
         .subscribe( (res: any) => {
-          console.log(res);
+        
           vm.subscriptionList.push(res);
         }, err => {
           console.log(err);
@@ -34,7 +34,6 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionsService.subscriptionList()
     .subscribe(
       (data: any) => {
-        console.log(data);
         this.subscriptionList = data;
 
       }, err => {
@@ -68,7 +67,6 @@ export class SubscriptionComponent implements OnInit {
           console.log(err);
         })
       }
-      console.log(data);
       });
   }
 }

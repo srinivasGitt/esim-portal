@@ -29,7 +29,7 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.listInventory()
     .subscribe(
       (data: any) => {
-        console.log(data);
+        
         this.inventory = data;
 
       }, err => {
@@ -42,7 +42,7 @@ export class InventoryComponent implements OnInit {
   openQRCODEpopup(index: number) {
     this.dialogService.openModal(QrCodePopupComponent, { cssClass: 'modal-md', context: {data: this.inventory[index], title: 'Profile Information'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data);
+       
         // let vm  = this;
         // vm.plansList.push(data);
         }, err => {

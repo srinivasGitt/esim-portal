@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
     this.customerService.customerList(null)
      .subscribe(
       (data: any) => {
-      console.log(data);
+    
       this.customerList = data;
      }, err => {
         console.log(err);

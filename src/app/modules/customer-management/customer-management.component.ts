@@ -24,10 +24,7 @@ export class CustomerManagementComponent implements OnInit {
 
     this.route.params
         .subscribe(params => {
-          console.log(params);
           this.customerId = params['id']; 
-          console.log(this.customerId);
-
           if(this.customerId){
             this.getSingleCustomer();
           }
@@ -37,19 +34,17 @@ export class CustomerManagementComponent implements OnInit {
 
   getSingleCustomer() {
         this.customerService.getSingleCustomer(this.customerId)
-        .subscribe((data: any) => {
-              console.log(data);
-              this.customer = data;
-        }, err => {
-          console.log(err);
-        });
-
+          .subscribe((data: any) => {
+                this.customer = data;
+          }, err => {
+            console.log(err);
+          });
   }
 
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data);
+       
         if (data) {
           const customer= {
             name: data.customerName,
@@ -58,7 +53,7 @@ export class CustomerManagementComponent implements OnInit {
           let vm  = this;
           vm.customerService.createCustomer(customer)
           .subscribe( (res: any) => {
-            console.log(res);
+           
             this.getAllCustomer();
           }, err => {
             console.log(err);
@@ -72,7 +67,6 @@ export class CustomerManagementComponent implements OnInit {
     this.customerService.customerList(this.customerId)
      .subscribe(
       (data: any) => {
-      console.log(data);
       this.customerList = data;
      }, err => {
         console.log(err);
