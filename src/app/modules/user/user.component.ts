@@ -5,6 +5,7 @@ import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
 import { RegionsService } from 'src/app/shared/service/regions.service';
 import { UsersService } from 'src/app/shared/service/users.service';
+import { InviteUserComponent } from 'src/app/shared/dialog/invite-user/invite-user.component'
 
 @Component({
   selector: 'app-user',
@@ -110,5 +111,18 @@ export class UserComponent implements OnInit {
       }
       console.log(data);
       });
+    }
+
+    // Invite User
+    userInvite(){
+      this.dialogService.openModal(InviteUserComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
+      .instance.close.subscribe((data: any) => {
+        console.log(data);
+        // if (data) {
+        //   let vm  = this;
+        //   this.getAllUsers();
+        //   // vm.usersList.push(data);
+        // }
+        });
     }
 }
