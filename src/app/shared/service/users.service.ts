@@ -39,4 +39,9 @@ export class UsersService {
   deleteUser(id: any) {
     return this.http.delete(`${this.serverUrl}/users/${id}`, this.getHeader());
   }
+
+  // Invite User
+  inviteUser(data:any){
+    return this.http.post(`${this.serverUrl}/users/invite-user`, data, this.getHeader());
+  }
 }

@@ -5,6 +5,7 @@ import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
 import { RegionsService } from 'src/app/shared/service/regions.service';
 import { UsersService } from 'src/app/shared/service/users.service';
+import { InviteUserComponent } from 'src/app/shared/dialog/invite-user/invite-user.component'
 
 @Component({
   selector: 'app-user',
@@ -29,7 +30,6 @@ export class UserComponent implements OnInit {
     this.regionService.getAllRegions()
     .subscribe(
       res => {
-      
         this.regionList = res;
         this.usersList.forEach((element: any) => {
           const tRegion = this.regionList.find((o: any) => o._id === element.regionId);
@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        console.log(err);
+        alert(err);
       }
     )
   }
@@ -46,7 +46,6 @@ export class UserComponent implements OnInit {
     this.planService.listPlans()
     .subscribe(
       res => {
-       
         this.planList = res;
         this.usersList.forEach((element: any) => {
           const tRegion = this.planList.find((o: any) => o._id === element.planId);
@@ -55,7 +54,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        console.log(err);
+        alert(err)
       }
     )
   }
@@ -63,7 +62,6 @@ export class UserComponent implements OnInit {
   createUser() {
     this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User'} })
       .instance.close.subscribe((data: any) => {
-       
         if (data) {
           let vm  = this;
           this.getAllUsers();
@@ -76,12 +74,11 @@ export class UserComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.usersList = data;
-      
         this.getAllRegions();
       this.getAllPlans();
         // this.subscriptionList = data;
       }, err => {
-        console.log(err);
+        alert(err);
       }
     );
 
@@ -90,7 +87,6 @@ export class UserComponent implements OnInit {
   editUser(index: number) {
     this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: this.usersList[index], title: 'Edit User'} })
       .instance.close.subscribe((data: any) => {
-       
         let vm  = this;
         vm.usersList[index] = data;
         });
@@ -105,10 +101,21 @@ export class UserComponent implements OnInit {
         .subscribe(res => {
           vm.usersList.splice(index, 1);
         }, err => {
-          console.log(err);
         })
       }
-     
       });
+    }
+
+    // Invite User
+    userInvite(){
+      this.dialogService.openModal(InviteUserComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
+      .instance.close.subscribe((data: any) => {
+        console.log(data);
+        // if (data) {
+        //   let vm  = this;
+        //   this.getAllUsers();
+        //   // vm.usersList.push(data);
+        // }
+        });
     }
 }
