@@ -25,14 +25,14 @@ export class CustomerComponent implements OnInit {
   }
   
   newCustomerForm() {
-    console.log(this.data?.customerName);
+   
     this.customerForm = new UntypedFormGroup({
       customerName: new UntypedFormControl(this.data?.customerName, [Validators.required]),
     });
   }
 
   submit() {
-    console.log(this.customerForm.value);
+   
     this.close();
   }
   close(): void {

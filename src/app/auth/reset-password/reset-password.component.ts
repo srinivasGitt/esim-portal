@@ -24,12 +24,12 @@ export class ResetPasswordComponent implements OnInit {
     this.resetForm();
     this.route.queryParams
       .subscribe(params => {
-        console.log(params);  
+        
         this.token = params['token']; 
         if (this.token) {
           this.checkLinValidation();
         }  
-        console.log(this.token);          // test
+      
       }
     ); 
   }
@@ -37,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
   checkLinValidation() {
     this.authService.checkLinkValidation(this.token)
             .subscribe((res: any) => {
-              console.log(res);
+             
             }, err => {
               console.log(err.error.message);
               if(err.error.message === 'Invalid Token.') {
@@ -67,13 +67,9 @@ export class ResetPasswordComponent implements OnInit {
 
 
   submit(){
-    console.log('hy8uyhihnuu');
+   
     this.err = false;
     this.submitted = true;
-
-    console.log(this.resetPasswordForm.invalid);
-    console.log(this.resetPasswordForm);
-
     if (this.resetPasswordForm.invalid) {
       return;
     }

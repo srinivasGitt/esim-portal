@@ -29,7 +29,7 @@ export class PlanComponent implements OnInit {
     this.plansService.listPlans()
     .subscribe(
       (data: any) => {
-        console.log(data);
+       
         this.plansList = data;
       }, err => {
         console.log(err);
@@ -58,7 +58,7 @@ export class PlanComponent implements OnInit {
           console.log(err);
         })
       }
-      console.log(data);
+     
       });
     }
 }
