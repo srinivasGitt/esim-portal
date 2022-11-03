@@ -13,8 +13,7 @@ export class SidebarComponent implements OnInit {
   customerList: any = [];
   
   constructor(private router:Router,
-              private customerService: CustomerService,
-              private dialogService: DialogService) { 
+              private customerService: CustomerService) { 
 
     router.events.subscribe(
       (data: any) => {
