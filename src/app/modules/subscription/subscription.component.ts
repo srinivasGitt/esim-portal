@@ -3,7 +3,6 @@ import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.componen
 import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { SubscriptionsService } from 'src/app/shared/service/subscriptions.service';
-import { AlertComponent } from 'src/app/shared/dialog/alert/alert.component';
 import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
