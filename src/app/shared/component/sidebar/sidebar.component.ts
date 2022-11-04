@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
       (data: any) => {
       console.log(data);
       
-      this.customerList = data.childCustomer;
+      this.customerList = data;
      }, err => {
         console.log(err);
       }
