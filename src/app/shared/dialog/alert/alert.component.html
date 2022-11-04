@@ -9,14 +9,12 @@
     </div>
     <div class="es-modal-body">
         <div class="success-error-img-div">
-            <img class="img-fluid" src="/assets/images/modal/error-image.png" alt="">
+            <img class="img-fluid" [src]="title === 'Success'?'/assets/images/modal/success-image.png' : '/assets/images/modal/error-image.png'" alt="">
         </div>
         <div class="text-center">
-            <p class="success-error-heading">Something Went Wrong</p>
-            <p class="success-error-text">We are not able to updated user details successfully,<br> Please try again.</p>
+            <p class="success-error-text">{{body}}</p>
         </div>
     </div>
     <div class="es-modal-footer"></div>
 </div>
-
 

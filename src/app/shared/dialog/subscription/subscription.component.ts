@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogComponent, DialogService } from '../../service/dialog';
-import { SuccessfullComponent } from '../successfull/successfull.component';
 @Component({
   selector: 'app-dialog-subscription',
   templateUrl: './subscription.component.html',
@@ -33,17 +32,11 @@ export class SubscriptionDialogComponent  implements OnInit {
       startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
       endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
       planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
-      userEmail: new UntypedFormControl(this.data?.userEmail, [Validators.required, Validators.email]),
+      userEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
   submit() {
-    console.log(this.subscriptionForm.value);
-    this.close();
-    // alert('success');
-      this.dialogService.openModal(SuccessfullComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Successfully Updated'} })
-      .instance.close.subscribe((data: any) => {
-        
-        });
+    this.close();   
     
   }
   close(): void {
