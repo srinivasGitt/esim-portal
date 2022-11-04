@@ -64,7 +64,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getAllCustomer() {
-    this.customerService.customerList(this.customerId)
+    this.customerService.customerList()
      .subscribe(
       (data: any) => {
       this.customerList = data;
