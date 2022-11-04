@@ -33,7 +33,10 @@ export class CustomerService {
 
     getSingleCustomer(customerId:any){
       return this.http.get(`${this.serverUrl}/customer/${customerId}`, this.getHeader());
+    }
 
+    getSubCustomer(subCustomerName:any){
+      return this.http.get(`${this.serverUrl}/customer/${subCustomerName}`, this.getHeader());
     }
 
     createCustomer(data:any){

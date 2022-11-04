@@ -133,44 +133,35 @@
                 <div class="accordion-item"  *ngFor="let customer of customerList; index as i">
                     <h2 class="accordion-header d-flex" id="headingOne">
                         <button class="accordion-button" type="button"  data-bs-toggle="collapse" [routerLink]="['/customer-management', customer._id]"  [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" aria-controls="collapseOne">
-                            {{customer.name}}
+                            {{customer.name}} 
                         </button>
                         <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i"></div>
                     </h2>
                   
-                    <div id="collapseOne_{{i}}" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne">
-                        <h2 class="accordion-header d-flex " id="subheadingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#subOne" aria-expanded="false" aria-controls="subOne">
-                                Sub Customer 1
+                    <div id="collapseOne_{{i}}" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne" *ngFor="let subCustomer of customer.childCustomer; index as j">
+                        <h2 class="accordion-header d-flex " id="subheadingOne" >
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" [routerLink]="['/customer-management', subCustomer._id]" [attr.data-bs-target]="'#subOne_'+ i + j" aria-expanded="false" aria-controls="subOne">
+                               {{subCustomer.name}}
                             </button>
-                            <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" data-bs-target="#subOne"></div>
+                            <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#subOne_'+ i + j"></div>
 
                         </h2>
                             
-                        <div id="subOne" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#subheadingOne">
-                            <h2 class="accordion-header d-flex  " id="childOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
-                                    Child Customer1
+                        <div id="subOne_{{i}}{{j}}" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#subheadingOne" *ngFor="let childCustomer of subCustomer.childCustomer; index as k">
+                            <h2 class="accordion-header d-flex  " id="childOne" >
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" [routerLink]="['/customer-management', childCustomer._id]"  [attr.data-bs-target]="'#childSubOne_'+ i + j + k" aria-expanded="false" aria-controls="childSubOne">
+                                 {{childCustomer.name}}
                                 </button>
-                                <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" data-bs-target="#childSubOne"></div>
+                                <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#childSubOne_'+ i + j + k"></div>
                             </h2>
 
-                            <div id="childSubOne" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#childOne">
-                                <h2 class="accordion-header " >
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
-                                        Customer xyz 
+                            <div id="childSubOne_{{i}}{{j}}{{k}}" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#childOne" *ngFor="let childSubCustomer of childCustomer.childCustomer; index as l">
+                                <h2 class="accordion-header"  >
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" [routerLink]="['/customer-management', childSubCustomer._id]" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
+                                       {{childSubCustomer.name}}
                                     </button>
                                 </h2>
-                                <h2 class="accordion-header  subchild" >
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
-                                        Customer xyz 
-                                    </button>
-                                </h2>
-                                <h2 class="accordion-header  subchild " >
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
-                                        Customer xyz 
-                                    </button>
-                                </h2>
+                              
                             </div>   
                         </div>
                     </div>
