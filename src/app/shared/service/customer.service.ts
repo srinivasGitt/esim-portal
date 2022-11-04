@@ -22,12 +22,12 @@ export class CustomerService {
         return httpOptions;
     }
 
-    customerList(customerId:any){
-      if(customerId){
-        return this.http.get(`${this.serverUrl}/customers?parentId=${customerId}`, this.getHeader());
-      }else{
+    customerList(){
+      // if(customerId){
+      //   return this.http.get(`${this.serverUrl}/customers?parentId=${customerId}`, this.getHeader());
+      // }else{
         return this.http.get(`${this.serverUrl}/customer`, this.getHeader());
-      }
+      // }
       
     }
 

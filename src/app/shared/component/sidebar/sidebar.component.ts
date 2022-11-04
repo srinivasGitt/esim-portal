@@ -28,10 +28,11 @@ export class SidebarComponent implements OnInit {
     
   }
   getAllCustomer() {
-    this.customerService.customerList(null)
+    this.customerService.customerList()
      .subscribe(
       (data: any) => {
-    
+      console.log(data);
+      
       this.customerList = data;
      }, err => {
         console.log(err);
