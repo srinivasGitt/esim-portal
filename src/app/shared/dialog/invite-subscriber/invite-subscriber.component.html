@@ -1,0 +1,21 @@
+<div class="es-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <p class="modal-header-text mb-0">{{title}}</p>
+        </div>
+        <div class="es-btn-close-container">
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        </div>
+    </div>
+    <div class="es-modal-body">
+        <form class="es-modal-form" [formGroup]="subscriberForm" novalidate (ngSubmit)="submitForm()">
+            <div class="mb-3">
+                <label for="email" class="form-label es-modal-form-label">Email Address</label>
+                <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
+            </div>
+            <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
+          </form>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>
+

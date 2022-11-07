@@ -5,6 +5,7 @@ import { CustomerComponent } from 'src/app/shared/dialog/customer/customer.compo
 import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
+import { UsersService } from 'src/app/shared/service/users.service';
 
 @Component({
   selector: 'app-customer-management',
@@ -14,22 +15,42 @@ import { DialogService } from 'src/app/shared/service/dialog';
 export class CustomerManagementComponent implements OnInit {
   customerList: any = [];
   customerId:any = null;
+  currentCustomerId:any = null;
+
+  subCustomerName : any = null;
   customer:any
 
   constructor(private customerService: CustomerService,
+              private usersService: UsersService,
               private dialogService: DialogService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
     this.route.params
         .subscribe(params => {
+          console.log(params);
           this.customerId = params['id']; 
-          if(this.customerId){
-            this.getSingleCustomer();
-          }
-          this.getAllCustomer();
+          this.changeCurrentCustomer(); 
+          // if(this.customerId){
+          //   this.getSingleCustomer();
+          // }
+          // this.getAllCustomer();
         });  
+  }
+  
+  changeCurrentCustomer(){
+        const currentCustomer =  {currentCustomerId: this.customerId}    //json
+        this.usersService.changeCurrentCustomer(currentCustomer)
+        .subscribe((data:any)=>{
+          console.log(data);
+          localStorage.setItem("authToken",data.token);
+            if(this.customerId){
+              this.getSingleCustomer();
+            }
+              this.getAllCustomer();
+        }, err => {
+          console.log(err);
+        });
   }
 
   getSingleCustomer() {
@@ -41,10 +62,18 @@ export class CustomerManagementComponent implements OnInit {
           });
   }
 
+  getSubCustomer(){
+    this.customerService.getSubCustomer(this.subCustomerName)
+    .subscribe((data: any)=>{
+       this.subCustomerName = data;
+    },err => {
+      console.log(err);
+    });
+  }
+
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-       
         if (data) {
           const customer= {
             name: data.customerName,
@@ -53,12 +82,11 @@ export class CustomerManagementComponent implements OnInit {
           let vm  = this;
           vm.customerService.createCustomer(customer)
           .subscribe( (res: any) => {
-           
             this.getAllCustomer();
           }, err => {
             console.log(err);
           })
-          // this.getAllCustomer();
+           this.getAllCustomer();
         }
         });
   }
@@ -67,7 +95,13 @@ export class CustomerManagementComponent implements OnInit {
     this.customerService.customerList(this.customerId)
      .subscribe(
       (data: any) => {
-      this.customerList = data;
+        console.log(data);
+          if(!this.customerId){
+            this.customerList = data.childCustomer; //object data type
+          }else{
+            this.customerList = data;
+            console.log(this.customerList.length); //array data type
+          }
      }, err => {
         console.log(err);
       }

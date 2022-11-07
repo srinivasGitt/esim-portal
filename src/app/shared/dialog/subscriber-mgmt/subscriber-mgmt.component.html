@@ -1,0 +1,47 @@
+<div class="es-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <p class="modal-header-text mb-0">{{title}}</p>
+        </div>
+        <div class="es-btn-close-container">
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        </div>
+    </div>
+    <div class="es-modal-body">
+        <form class="es-modal-form" [formGroup]="subscriberForm" novalidate (ngSubmit)="submit()">
+            <div class="mb-3 row">
+                <div class="col-6">
+                    <label for="firstName" class="form-label es-modal-form-label">First Name</label>
+                    <input type="text" class="form-control es-input" id="firstName" aria-describedby="firstName" formControlName="firstName">
+                </div>
+                <div class="col-6">
+                    <label for="lastName" class="form-label es-modal-form-label">Last Name</label>
+                    <input type="text" class="form-control es-input" id="lastName" aria-describedby="lastName" formControlName="lastName">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label es-modal-form-label">Email Address</label>
+                <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="planId" class="form-label es-modal-form-label">Region</label>
+                <select formControlName="regionId" class="form-control">  
+                    <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="planId" class="form-label es-modal-form-label">Current Plan</label>
+                <select formControlName="planId" class="form-control">  
+                    <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="endDate" class="form-label es-modal-form-label">Plan Expiry</label>
+                <input type="date" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate">
+            </div>
+            <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
+          </form>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>
+

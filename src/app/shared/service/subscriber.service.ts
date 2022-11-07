@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class subscriberService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
@@ -27,26 +27,21 @@ export class UsersService {
   // signup(userData: any) {
   //   return this.http.post(`${this.serverUrl}/auth/signin`, userData);
   // }
-
-  changeCurrentCustomer( data:any){
-    return this.http.post(`${this.serverUrl}/users/change-customer`, data, this.getHeader());
+  createSubscriber(data: any) {
+    return this.http.post(`${this.serverUrl}/subscriber`, data, this.getHeader());
+  }
+  getAllSubscriber() {
+    return this.http.get(`${this.serverUrl}/subscriber`, this.getHeader());
+  }
+  updateSubscriber(id: any, data: any) {
+    return this.http.put(`${this.serverUrl}/subscriber/${id}`, data, this.getHeader());
+  }
+  deleteSubscriber(id: any) {
+    return this.http.delete(`${this.serverUrl}/subscriber/${id}`, this.getHeader());
   }
 
-  createUsers(data: any) {
-    return this.http.post(`${this.serverUrl}/users`, data, this.getHeader());
-  }
-  getAllUsers() {
-    return this.http.get(`${this.serverUrl}/users`, this.getHeader());
-  }
-  updateUser(id: any, data: any) {
-    return this.http.put(`${this.serverUrl}/users/${id}`, data, this.getHeader());
-  }
-  deleteUser(id: any) {
-    return this.http.delete(`${this.serverUrl}/users/${id}`, this.getHeader());
-  }
-
-  // Invite User
-  inviteUser(data:any){
-    return this.http.post(`${this.serverUrl}/users/invite-user`, data, this.getHeader());
+  // Invite Subscriber
+  inviteSubscriber(data:any){
+    return this.http.post(`${this.serverUrl}/subscriber/invite-subscriber`, data, this.getHeader());
   }
 }
