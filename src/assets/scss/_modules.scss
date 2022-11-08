@@ -1,20 +1,34 @@
 .main{
     background: var(--dark-background-v1);
 }
+.main::-webkit-scrollbar {
+    display: none;
+}
+.main::-webkit-scrollbar-track {
+    display: none;
+}
 .main-base-container{
     display: flex;
     // height: calc(100vh - 72px);
     height: calc(100vh - 93px);
+    &::-webkit-scrollbar {
+        display: none;
+    }
     .sidebar-main{
         width: 256px;
         padding-left:30px;
         overflow: scroll;
 
         .sidebar-inner{
-           
+            overflow: auto;
             height: calc(100vh - 120px);
             border-radius: 10px;
-            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            &::-webkit-scrollbar-track {
+                background-color: #fff;
+            }
             .sidebar-anchor-tab{
                 text-decoration: none;
                 margin-bottom: 5px;
@@ -76,6 +90,14 @@
         flex: 1;
         padding: 20px;
         overflow: scroll;
+    }
+    .dashboard-main::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* background of the scrollbar except button or resizer */
+    .dashboard-main::-webkit-scrollbar-track {
+        display: none;
     }
 }
 
