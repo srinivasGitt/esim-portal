@@ -32,6 +32,10 @@ export class UsersService {
     return this.http.post(`${this.serverUrl}/users/change-customer`, data, this.getHeader());
   }
 
+  setDefaultCustomer(){
+    return this.http.get(`${this.serverUrl}/users/set-default-customer`, this.getHeader());
+  }
+
   createUsers(data: any) {
     return this.http.post(`${this.serverUrl}/users`, data, this.getHeader());
   }
