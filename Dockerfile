@@ -9,7 +9,7 @@ RUN npm install -g @angular/cli@11.2.3
 
 COPY . /app
 
-RUN ng build --prod --configuration=qa
+RUN ng build --configuration=qa
 
 # base image
 FROM nginx:1.16.0-alpine
