@@ -16,7 +16,6 @@ export class CustomerManagementComponent implements OnInit {
   customerList: any = [];
   customerId:any = null;
   currentCustomerId:any = null;
-
   subCustomerName : any = null;
   customer:any
 
@@ -28,13 +27,8 @@ export class CustomerManagementComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
         .subscribe(params => {
-          console.log(params);
           this.customerId = params['id']; 
-          this.changeCurrentCustomer(); 
-          // if(this.customerId){
-          //   this.getSingleCustomer();
-          // }
-          // this.getAllCustomer();
+          this.changeCurrentCustomer();
         });  
   }
   
@@ -42,7 +36,6 @@ export class CustomerManagementComponent implements OnInit {
         const currentCustomer =  {currentCustomerId: this.customerId}    //json
         this.usersService.changeCurrentCustomer(currentCustomer)
         .subscribe((data:any)=>{
-          console.log(data);
           localStorage.setItem("authToken",data.token);
             if(this.customerId){
               this.getSingleCustomer();
@@ -92,15 +85,13 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getAllCustomer() {
-    this.customerService.customerList()
+    this.customerService.customerList(this.customerId)
      .subscribe(
       (data: any) => {
-        console.log(data);
           if(!this.customerId){
             this.customerList = data.childCustomer; //object data type
           }else{
             this.customerList = data;
-            console.log(this.customerList.length); //array data type
           }
      }, err => {
         console.log(err);
@@ -133,11 +124,9 @@ export class CustomerManagementComponent implements OnInit {
           console.log(err);
         })
       }
-      console.log(data);
       });
   }
   selectCustomer(i:any){
-    console.log(this.customerList[i]._id);
     localStorage.setItem("customerId",this.customerList[i]._id);
   }
     
