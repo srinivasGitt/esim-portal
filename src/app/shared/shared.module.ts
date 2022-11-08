@@ -35,12 +35,9 @@ import { AlertComponent } from './dialog/alert/alert.component';
     QrCodePopupComponent,
     CustomerComponent,
     InviteUserComponent,
-
     InviteSubscriberComponent,
-    SubscriberMgmtComponent
-
-    AlertComponent,
-
+    SubscriberMgmtComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
