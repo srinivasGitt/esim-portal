@@ -13,6 +13,7 @@ import { InventoryComponent } from './modules/inventory/inventory.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { CustomerManagementComponent } from './modules/customer-management/customer-management.component';
+import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'customer-management', component: CustomerManagementComponent },
       { path: 'customer-management/:id', component: CustomerManagementComponent },
+      { path: 'subscriber', component: SubscribeManagementComponent },
       { path: 'users', component: UserComponent },
       { path: 'plans', component: PlanComponent },
       { path: 'subscriptions', component: SubscriptionComponent },

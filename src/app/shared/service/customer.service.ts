@@ -22,18 +22,21 @@ export class CustomerService {
         return httpOptions;
     }
 
-    customerList(){
-      // if(customerId){
-      //   return this.http.get(`${this.serverUrl}/customers?parentId=${customerId}`, this.getHeader());
-      // }else{
+    customerList(customerId:any){
+      if(customerId){
+        return this.http.get(`${this.serverUrl}/customers?parentId=${customerId}`, this.getHeader());
+       }else{
         return this.http.get(`${this.serverUrl}/customer`, this.getHeader());
-      // }
+       }
       
     }
 
     getSingleCustomer(customerId:any){
       return this.http.get(`${this.serverUrl}/customer/${customerId}`, this.getHeader());
+    }
 
+    getSubCustomer(subCustomerName:any){
+      return this.http.get(`${this.serverUrl}/customer/${subCustomerName}`, this.getHeader());
     }
 
     createCustomer(data:any){

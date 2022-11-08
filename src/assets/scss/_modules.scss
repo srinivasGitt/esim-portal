@@ -69,6 +69,11 @@
             background: var(--dark-background);
         }
         
+
+        // .sidebar-inner-2{
+        //     // background:var(--dark-background) !important;
+        // }   
+
         .sidebar-inner-2{
             background:var(--dark-background) !important;
            .sidebar-left{
@@ -77,6 +82,7 @@
                align-items: center;
            }
         }   
+
     }
     .dashboard-main{
         flex: 1;

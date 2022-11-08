@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { CustomerService } from '../../service/customer.service';
+import { DialogComponent, DialogService } from '../../service/dialog';
+import { UsersService } from '../../service/users.service';
 import { AlertService } from '../../service/alert.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+ defaultId:any;
   activeUrl = 'dashboard';
   show:boolean=false;
   customerList: any = [];
   
   constructor(private router:Router,
               private customerService: CustomerService,
-              private alertService: AlertService) { 
+              private usersService: UsersService,
+              private dialogService: DialogService, 
+              private alertService: AlertService,) { 
 
     router.events.subscribe(
       (data: any) => {
@@ -28,11 +34,28 @@ export class SidebarComponent implements OnInit {
     this.getAllCustomer();
     
   }
-  getAllCustomer() {
-    this.customerService.customerList()
+
+  setDefaultCustomer(){
+    this.usersService.setDefaultCustomer()
      .subscribe(
       (data: any) => {
-        this.customerList = data;
+      localStorage.setItem("authToken",data.token);
+      this.getAllCustomer();
+      }, err => {
+        console.log(err);
+      }
+   );
+  }
+
+
+
+  getAllCustomer() {
+    this.customerService.customerList('')
+     .subscribe(
+      (data: any) => {
+
+      console.log(data);
+      this.customerList = data.childCustomer;
      }, err => {
         this.alertService.error(err.error.message);
       }
@@ -43,6 +66,10 @@ export class SidebarComponent implements OnInit {
     this.show=!this.show;
   }
 
+  // close(): void {
+  //   this.dialogRef.close.emit(this.customerForm.value);
+  // }
   
-
 }
+
+

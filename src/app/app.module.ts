@@ -15,6 +15,8 @@ import { SharedModule } from './shared/shared.module';
 import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,7 @@ import { RouterModule } from '@angular/router';
     ResetPasswordComponent,
     DialogComponent,
     CoreComponent,
+    
   ],
   imports: [
     BrowserModule,
