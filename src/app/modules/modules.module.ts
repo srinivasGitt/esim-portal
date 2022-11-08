@@ -9,6 +9,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { RouterModule } from "@angular/router";
+import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RouterModule } from "@angular/router";
     DashboardComponent,
     ReportsComponent,
     InventoryComponent,
-    CustomerManagementComponent
+    CustomerManagementComponent,
+    SubscribeManagementComponent
   ],
   imports: [
     CommonModule,
