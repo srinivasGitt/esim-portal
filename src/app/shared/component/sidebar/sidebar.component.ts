@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
 
 
   getAllCustomer() {
-    this.customerService.customerList()
+    this.customerService.customerList('')
      .subscribe(
       (data: any) => {
 
