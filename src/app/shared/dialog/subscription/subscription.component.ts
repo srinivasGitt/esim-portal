@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { DialogComponent } from '../../service/dialog';
+import { DialogComponent, DialogService } from '../../service/dialog';
 @Component({
   selector: 'app-dialog-subscription',
   templateUrl: './subscription.component.html',
@@ -12,7 +12,8 @@ export class SubscriptionDialogComponent  implements OnInit {
   subscriptionForm: any;
   title: string = 'Add Subscription';
   constructor(
-    private viewContainer: ViewContainerRef) {
+    private viewContainer: ViewContainerRef,
+    private dialogService: DialogService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
@@ -31,12 +32,12 @@ export class SubscriptionDialogComponent  implements OnInit {
       startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
       endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
       planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
-      userEmail: new UntypedFormControl(this.data?.userEmail, [Validators.required, Validators.email]),
+      userEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
   submit() {
-    console.log(this.subscriptionForm.value);
-    this.close();
+    this.close();   
+    
   }
   close(): void {
     // this.data.amount = 343;

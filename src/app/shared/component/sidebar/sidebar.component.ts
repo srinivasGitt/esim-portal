@@ -3,6 +3,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { CustomerService } from '../../service/customer.service';
 import { DialogComponent, DialogService } from '../../service/dialog';
 import { UsersService } from '../../service/users.service';
+import { AlertService } from '../../service/alert.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -17,8 +19,8 @@ export class SidebarComponent implements OnInit {
   constructor(private router:Router,
               private customerService: CustomerService,
               private usersService: UsersService,
-              private dialogService: DialogService,) {
-              
+              private dialogService: DialogService, 
+              private alertService: AlertService,) { 
 
     router.events.subscribe(
       (data: any) => {
@@ -48,13 +50,14 @@ export class SidebarComponent implements OnInit {
 
 
   getAllCustomer() {
-    this.customerService.customerList(null)
+    this.customerService.customerList()
      .subscribe(
       (data: any) => {
+
       console.log(data);
       this.customerList = data.childCustomer;
      }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
    );
   }

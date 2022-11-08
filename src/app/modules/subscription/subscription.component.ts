@@ -3,6 +3,7 @@ import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.componen
 import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { SubscriptionsService } from 'src/app/shared/service/subscriptions.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-subscription',
@@ -13,7 +14,8 @@ export class SubscriptionComponent implements OnInit {
 
   subscriptionList: any = [];
   constructor(private subscriptionsService: SubscriptionsService,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private alertService : AlertService) { }
   ngOnInit(): void {
     this.getAllSubscription();
   }
@@ -25,8 +27,10 @@ export class SubscriptionComponent implements OnInit {
         .subscribe( (res: any) => {
         
           vm.subscriptionList.push(res);
+          this.alertService.success('Subscription Created');
         }, err => {
           console.log(err);
+          this.alertService.error(err.error.message);
         })
         });
   }
@@ -37,7 +41,7 @@ export class SubscriptionComponent implements OnInit {
         this.subscriptionList = data;
 
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
     );
 
@@ -49,8 +53,9 @@ export class SubscriptionComponent implements OnInit {
         vm.subscriptionsService.updateSubscription(vm.subscriptionList[index]._id, data)
         .subscribe( (res: any) => {
           vm.subscriptionList[index] = res;
+          this.alertService.success('Subscription Updated');
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
         });
   }
@@ -63,8 +68,9 @@ export class SubscriptionComponent implements OnInit {
         vm.subscriptionsService.deleteSubscription(vm.subscriptionList[index]._id)
         .subscribe(res => {
           vm.subscriptionList.splice(index, 1);
+          this.alertService.success('Subscription Deleted');
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
       }
       });

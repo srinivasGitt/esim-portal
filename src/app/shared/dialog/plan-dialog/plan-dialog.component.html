@@ -20,7 +20,7 @@
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="dataSize" class="form-label es-modal-form-label">Data</label>
-                    <input type="number" class="form-control es-input" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
+                    <input type="text" class="form-control es-input" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
                 </div>
                 <div class="col-6">
                     <label for="voice" class="form-label es-modal-form-label">Voice Calls</label>
@@ -32,7 +32,7 @@
                     <label for="sms" class="form-label es-modal-form-label">SMS</label>
                     <input type="number" class="form-control es-input" id="sms" aria-describedby="sms" formControlName="sms">
                 </div>
-                <div class="mb-3">
+                <div class="col-6 mb-3">
                     <label for="planId" class="form-label es-modal-form-label">Region</label>
                     <select formControlName="regionId" class="form-control">  
                         <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  

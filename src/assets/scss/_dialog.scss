@@ -13,6 +13,7 @@
                 color: var(--dark-text-white-v1);
                 font-size: 18px;
             }
+
         }
         .es-btn-close-container{
             .es-btn-close{
@@ -33,6 +34,12 @@
                 color: var(--dark-text-white-v1);
                 border: 1px solid var(--dark-text-white-v3);
             }
+        }
+        .success-error-heading{
+            color: var(--dark-text-white-v1);
+        }
+        .success-error-text{
+            color: var(--dark-text-white-v1);
         }
     }
 }
