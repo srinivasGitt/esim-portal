@@ -36,7 +36,7 @@ export class InventoryComponent implements OnInit {
         this.inventory = data;
 
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
     );
 

@@ -11,21 +11,21 @@ export class ProfileLogComponent implements OnInit {
   profileLog: any = [
     {
       timeStamp: "2022-11-01T18:31:34.430Z",
-      actionStatus: "RELEASED",
+      actionStatus: "AVAILABLE",
       EID: "",
-      deviceModel: ""
+      deviceModel: "Samsung z flip"
+    },
+    {
+      timeStamp: "2022-11-01T18:31:34.430Z",
+      actionStatus: "ALLOCATED",
+      EID: "",
+      deviceModel: "Pixel 6"
     },
     {
       timeStamp: "2022-11-01T18:31:34.430Z",
       actionStatus: "RELEASED",
       EID: "",
-      deviceModel: ""
-    },
-    {
-      timeStamp: "2022-11-01T18:31:34.430Z",
-      actionStatus: "RELEASED",
-      EID: "",
-      deviceModel: ""
+      deviceModel: "Iphone 14"
     }
   ]
   constructor(private dialogRef: DialogComponent) { }

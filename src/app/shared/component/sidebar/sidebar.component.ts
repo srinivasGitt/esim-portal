@@ -42,7 +42,7 @@ export class SidebarComponent implements OnInit {
       localStorage.setItem("authToken",data.token);
       this.getAllCustomer();
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
    );
   }

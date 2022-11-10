@@ -29,7 +29,6 @@ export class SubscriptionComponent implements OnInit {
           vm.subscriptionList.push(res);
           this.alertService.success('Subscription Created');
         }, err => {
-          console.log(err);
           this.alertService.error(err.error.message);
         })
         });

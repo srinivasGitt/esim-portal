@@ -6,6 +6,7 @@ import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { UsersService } from 'src/app/shared/service/users.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-customer-management',
@@ -22,7 +23,8 @@ export class CustomerManagementComponent implements OnInit {
   constructor(private customerService: CustomerService,
               private usersService: UsersService,
               private dialogService: DialogService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -42,7 +44,7 @@ export class CustomerManagementComponent implements OnInit {
             }
               this.getAllCustomer();
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         });
   }
 
@@ -51,7 +53,7 @@ export class CustomerManagementComponent implements OnInit {
           .subscribe((data: any) => {
                 this.customer = data;
           }, err => {
-            console.log(err);
+            this.alertService.error(err.error.message);
           });
   }
 
@@ -60,7 +62,7 @@ export class CustomerManagementComponent implements OnInit {
     .subscribe((data: any)=>{
        this.subCustomerName = data;
     },err => {
-      console.log(err);
+      this.alertService.error(err.error.message);
     });
   }
 
@@ -77,7 +79,7 @@ export class CustomerManagementComponent implements OnInit {
           .subscribe( (res: any) => {
             this.getAllCustomer();
           }, err => {
-            console.log(err);
+            this.alertService.error(err.error.message);
           })
            this.getAllCustomer();
         }
@@ -94,7 +96,7 @@ export class CustomerManagementComponent implements OnInit {
             this.customerList = data;
           }
      }, err => {
-        console.log(err);
+      this.alertService.error(err.error.message);
       }
    );
   }
@@ -107,7 +109,7 @@ export class CustomerManagementComponent implements OnInit {
         .subscribe( (res: any) => {
           vm.customerList[index] = res;
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
         });
   }
@@ -121,7 +123,7 @@ export class CustomerManagementComponent implements OnInit {
         .subscribe(res => {
           vm.customerList.splice(index, 1);
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
       }
       });
