@@ -3,6 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import {  ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { CustomValidators } from 'src/app/shared/validators/custom-validators';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,7 +19,8 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.resetForm();
@@ -39,9 +41,8 @@ export class ResetPasswordComponent implements OnInit {
             .subscribe((res: any) => {
              
             }, err => {
-              console.log(err.error.message);
               if(err.error.message === 'Invalid Token.') {
-                alert(err.error.message);
+                this.alertService.error(err.error.message);
                 this.router.navigate(['/signin']);
               }
             });
@@ -85,7 +86,8 @@ export class ResetPasswordComponent implements OnInit {
       this.router.navigate(['/signin']);
     }, err => {
       this.err = true;
-      console.log(err);
+      this.alertService.error(err.error.message);
+      // console.log(err);
     });
 
 

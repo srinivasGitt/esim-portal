@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { UsersService } from '../../service/users.service';
 import { DialogComponent } from '../../service/dialog';
+import { AlertService } from '../../service/alert.service';
 
 @Component({
   selector: 'app-invite-user',
@@ -15,6 +16,7 @@ export class InviteUserComponent implements OnInit {
   constructor(
     private viewContainer: ViewContainerRef,
     private usersService : UsersService,
+    private alertService: AlertService
   ) { 
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
@@ -36,7 +38,7 @@ export class InviteUserComponent implements OnInit {
     .subscribe((res:any)=>{
       this.dialogRef.close.emit(res);
     }, err => {
-      alert(err.error.message);
+      this.alertService.error(err.error.message);
     })
   }
 
