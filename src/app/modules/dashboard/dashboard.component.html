@@ -12,47 +12,59 @@
     <div class="row mb-2">
         <div class="col-lg-12">
             <div>
-                <div class="row">
-                    <div class="col-lg-3">
+                <div class="dashboard-card-row">
+                    <div class="dashboard-card-parent">
                         <div class="profile-mgmt-card">
                             <div class="user-icon-parent">
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
                             <p class="user-profile-text">Available Profiles</p>
-                            <p class="user-profile-count">2394</p>
+                            <p class="user-profile-count">{{totalProfiles.availableProfiles}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="dashboard-card-parent">
                         <div class="profile-mgmt-card">
                             <div class="user-icon-parent">
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
                             <p class="user-profile-text">Installed Profiles</p>
-                            <p class="user-profile-count">1397</p>
+                            <p class="user-profile-count">{{totalProfiles.installedProfiles}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="dashboard-card-parent">
                         <div class="profile-mgmt-card">
                             <div class="user-icon-parent">
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
                             <p class="user-profile-text total-user-text">Total Users</p>
-                            <p class="user-profile-count">645</p>
+                            <p class="user-profile-count">{{totalProfiles.totalCount}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                         <!-- <div class="dark-bg-card">
                             
                         </div> -->
                     </div>
-                    <div class="col-lg-3">
+                    <div class="dashboard-card-parent">
                         <div class="profile-mgmt-card">
                             <div class="user-icon-parent">
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
                             <p class="user-profile-text total-user-text">Active Subscriptions</p>
-                            <p class="user-profile-count">55</p>
+                            <p class="user-profile-count">{{totalProfiles.subscriberCount}}</p>
+                            <div class="blue-border-bottom"></div>
+                        </div>
+                        <!-- <div class="dark-bg-card">
+                        </div> -->
+                    </div>
+                    <div class="dashboard-card-parent">
+                        <div class="profile-mgmt-card">
+                            <div class="user-icon-parent">
+                                <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
+                            </div>
+                            <p class="user-profile-text total-user-text">Subscribers</p>
+                            <p class="user-profile-count">{{totalProfiles.allocatedProfiles}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                         <!-- <div class="dark-bg-card">
@@ -64,13 +76,20 @@
     </div>
 
     <div class="row mt-5">
+        <div class="col-6">
+            <div class="download-trend-graph-parent">
+                <p class="download-trend-heading">Installed</p>
+                <!-- <img class="img-fluid" src="/assets/images/dashboard/icon/download-trend-graph.svg" alt=""> -->
+                <canvas id="downloadChart"></canvas>
+            </div>
+        </div>
         <div class="col-lg-6">
             <div class="profile-type-parent">
                 <div class="w-100">
-                    <p class="profile-type-heading">Profile Type Status</p>
+                    <p class="profile-type-heading">Inventory Status</p>
                     <div class="t-grid-table-new">
                         <div class="dashboard-profile-t t-head-bg border-bottom-light">
-                            <div class="t-box a px-2 t-head">Profile Type</div>
+                            <div class="t-box a px-2 t-head">Customer Name</div>
                             <div class="t-box b px-2 t-head">Total Profile</div>
                             <div class="t-box a px-2 t-head">Available</div>
                             <div class="t-box b px-2 t-head">Downloaded</div>
@@ -83,13 +102,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="download-trend-graph-parent">
-                <p class="download-trend-heading">Installed</p>
-                <!-- <img class="img-fluid" src="/assets/images/dashboard/icon/download-trend-graph.svg" alt=""> -->
-                <canvas id="downloadChart"></canvas>
             </div>
         </div>
         <!-- <div class="col-6">
