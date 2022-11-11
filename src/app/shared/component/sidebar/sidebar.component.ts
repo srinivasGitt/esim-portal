@@ -45,7 +45,7 @@ export class SidebarComponent implements OnInit {
         this.getAllCustomer();
         this.router.navigate(['/customer-management']);
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
    )
   }

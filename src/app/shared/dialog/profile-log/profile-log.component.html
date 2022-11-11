@@ -1,0 +1,37 @@
+<div class="es-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <p class="modal-header-text mb-0">{{title}}</p>
+        </div>
+        <div class="es-btn-close-container">
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        </div>
+    </div>
+    <div class="es-modal-body">
+        <div class="user-dashboard">
+            <div class="user-dashboard-table-container">
+                <div class="user-dashboard-table">
+                    <div class="t-grid-table-new">
+                        <div class="t-grid-profile-log t-head-bg border-bottom-light">
+                            <div class="t-box a px-2">Time Stamp</div>
+                            <div class="t-box b px-2">State</div>
+                            <div class="t-box a px-2">EID</div>
+                            <div class="t-box b px-2">Device Model</div>
+                        </div>
+                    </div>
+                    <div class="t-body-parent">
+                        <div class="t-grid-table-new">
+                            <div class="t-grid-profile-log t-head-bg border-bottom-light" *ngFor="let logs of profileLog; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+                                <div class="t-box a px-2">{{logs.timeStamp | date: 'medium'}}</div>
+                                <div class="t-box b px-2">{{logs.actionStatus}}</div>
+                                <div class="t-box a px-2">{{logs.EID}}</div>
+                                <div class="t-box b px-2">{{logs.deviceModel}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>

@@ -7,6 +7,7 @@ import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
 import { RegionsService } from 'src/app/shared/service/regions.service';
 import { subscriberService } from 'src/app/shared/service/subscriber.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-subscribe-management',
@@ -22,7 +23,8 @@ export class SubscribeManagementComponent implements OnInit {
     private subscriberService: subscriberService,
               private regionService: RegionsService,
               private planService: PlansService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.getAllSubscriber();
@@ -40,7 +42,7 @@ export class SubscribeManagementComponent implements OnInit {
           }
         });
       }, err => {
-        alert(err);
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -56,7 +58,7 @@ export class SubscribeManagementComponent implements OnInit {
           }
         });
       }, err => {
-        alert(err)
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -81,7 +83,7 @@ export class SubscribeManagementComponent implements OnInit {
       this.getAllPlans();
         // this.subscriptionList = data;
       }, err => {
-        alert(err);
+        this.alertService.error(err.error.message);
       }
     );
 
@@ -102,6 +104,7 @@ export class SubscribeManagementComponent implements OnInit {
         .subscribe(res => {
           vm.subscriberList.splice(index, 1);
         }, err => {
+          this.alertService.error(err.error.message);
         })
       }
       });
