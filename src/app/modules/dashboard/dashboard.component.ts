@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
               pointBorderColor: ['#3d44f5'],
           },
           {
-            label: 'Others',
+            label: 'Installed',
             data: [10, 13, 2, 9, 5, 14, 16],
             backgroundColor: [
                 '#71c6fc'

@@ -31,6 +31,7 @@ export class PlanDialogComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.createPlanForm();
     this.getAllRegions();
+    console.log(this.planForm.value)
   }
   getAllRegions(): void {
     this.regionService.getAllRegions()
@@ -52,6 +53,7 @@ export class PlanDialogComponent implements OnInit {
       sms: new UntypedFormControl(this.data?.sms, [Validators.required]),
       voice: new UntypedFormControl(this.data?.voice, [Validators.required]),
       regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
+      cost: new UntypedFormControl(this.data?.cost, [Validators.required]),
     });
   }
   submit() {
