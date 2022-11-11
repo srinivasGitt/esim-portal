@@ -12,7 +12,7 @@
             <div class="mb-3">
                 <label for="subscriptionNumber" class="form-label es-modal-form-label">Subscription Number</label>
                 <input type="text" class="form-control es-input" id="subscriptionNumber" aria-describedby="emailHelp" formControlName="subscriptionNumber">
-              </div>
+            </div>
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="startDate" class="form-label es-modal-form-label">Date</label>
@@ -36,6 +36,13 @@
             <div class="mb-3">
                 <label for="userEmail" class="form-label es-modal-form-label">User Email</label>
                 <input type="email" class="form-control es-input" id="userEmail" aria-describedby="emailHelp" formControlName="userEmail">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.userEmail.touched && f.userEmail.pristine) || (f.userEmail.errors && submitted)">
+                        <span class="small" *ngIf="f.userEmail.errors.required">
+                            User Email is required!
+                        </span>
+                    </span>
+                </div>
               </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>

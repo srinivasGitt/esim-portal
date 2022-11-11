@@ -62,7 +62,7 @@ export class SubscribeManagementComponent implements OnInit {
   }
 
   createSubscriber() {
-    this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User'} })
+    this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Subscriber'} })
       .instance.close.subscribe((data: any) => {
         if (data) {
           let vm  = this;
@@ -108,15 +108,15 @@ export class SubscribeManagementComponent implements OnInit {
     }
 
 
-  SubscriberInvite(){
-    this.dialogService.openModal(InviteSubscriberComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
-    .instance.close.subscribe((data: any) => {
-      console.log(data);
-      // if (data) {
-      //   let vm  = this;
-      //   this.getAllUsers();
-      //   // vm.usersList.push(data);
-      // }
-      });
-  }
+  // SubscriberInvite(){
+  //   this.dialogService.openModal(InviteSubscriberComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
+  //   .instance.close.subscribe((data: any) => {
+  //     console.log(data);
+  //     // if (data) {
+  //     //   let vm  = this;
+  //     //   this.getAllUsers();
+  //     //   // vm.usersList.push(data);
+  //     // }
+  //     });
+  // }
 }
