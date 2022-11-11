@@ -13,17 +13,17 @@ export class ProfileLogComponent implements OnInit {
       timeStamp: "2022-11-01T18:31:34.430Z",
       actionStatus: "AVAILABLE",
       EID: "",
-      deviceModel: "Samsung z flip"
+      deviceModel: "Iphone 14"
     },
     {
       timeStamp: "2022-11-01T18:31:34.430Z",
       actionStatus: "ALLOCATED",
       EID: "",
-      deviceModel: "Pixel 6"
+      deviceModel: "Iphone 14"
     },
     {
       timeStamp: "2022-11-01T18:31:34.430Z",
-      actionStatus: "RELEASED",
+      actionStatus: "INSTALLED",
       EID: "",
       deviceModel: "Iphone 14"
     }
