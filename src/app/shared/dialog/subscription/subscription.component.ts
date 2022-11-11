@@ -10,6 +10,8 @@ export class SubscriptionDialogComponent  implements OnInit {
   dialogRef: DialogComponent;
   data: any;
   subscriptionForm: any;
+  submitted = false;
+
   title: string = 'Add Subscription';
   constructor(
     private viewContainer: ViewContainerRef,
@@ -24,6 +26,7 @@ export class SubscriptionDialogComponent  implements OnInit {
     this.title = this.dialogRef.context.title;
     this.createSubscriptionForm();
   }
+
   createSubscriptionForm() {
     console.log(this.data?.amount);
     this.subscriptionForm = new UntypedFormGroup({
@@ -35,10 +38,17 @@ export class SubscriptionDialogComponent  implements OnInit {
       userEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
+
+  get f() { return this.subscriptionForm.controls; }
+
   submit() {
-    this.close();   
-    
+    this.submitted = true;
+    if (this.subscriptionForm.invalid) {
+      return;
+    }
+    this.close(); 
   }
+  
   close(): void {
     // this.data.amount = 343;
     this.dialogRef.close.emit(this.subscriptionForm.value);

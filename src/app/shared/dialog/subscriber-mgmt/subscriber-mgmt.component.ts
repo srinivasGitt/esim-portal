@@ -14,9 +14,10 @@ export class SubscriberMgmtComponent implements OnInit {
   dialogRef: DialogComponent;
   data: any;
   subscriberForm: any;
-  title: string = 'Add New User';
+  title: string = 'Add New Subscriber';
   regionList: any = [];
   planList: any = [];
+  submitted = false;
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -64,15 +65,21 @@ export class SubscriberMgmtComponent implements OnInit {
       email: new UntypedFormControl(this.data?.email, [Validators.required, Validators.email]),
       firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
       lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
-      regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
+      regionId: new UntypedFormControl(this.data?.regionId, [Validators.required, Validators.min(1)]),
       planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
       endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
-      mobile: new UntypedFormControl(this.data?.mobile, [Validators.required]),
     });
   }
 
+  get f() { return this.subscriberForm.controls; }
+
+
   submit() {
-    if (this.title === 'Edit User') {
+    this.submitted = true;
+    if (this.subscriberForm.invalid) {
+      return;
+    }
+    if (this.title === 'Edit Subscriber') {
       this.update();
     } else {
       this.createSubscriber();
@@ -82,7 +89,6 @@ export class SubscriberMgmtComponent implements OnInit {
   createSubscriber() {
     this.subscriberService.createSubscriber(this.subscriberForm.value)
     .subscribe((res: any) => {
-      console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
       alert(err.error.message);

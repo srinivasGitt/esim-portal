@@ -11,10 +11,12 @@ import { AlertService } from '../../service/alert.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
- defaultId:any;
+  defaultId:any;
   activeUrl = 'dashboard';
   show:boolean=false;
   customerList: any = [];
+  parentCustomer:any;
+
   
   constructor(private router:Router,
               private customerService: CustomerService,
@@ -39,12 +41,13 @@ export class SidebarComponent implements OnInit {
     this.usersService.setDefaultCustomer()
      .subscribe(
       (data: any) => {
-      localStorage.setItem("authToken",data.token);
-      this.getAllCustomer();
+        localStorage.setItem("authToken",data.token);
+        this.getAllCustomer();
+        this.router.navigate(['/customer-management']);
       }, err => {
         console.log(err);
       }
-   );
+   )
   }
 
 
@@ -53,10 +56,9 @@ export class SidebarComponent implements OnInit {
     this.customerService.customerList('')
      .subscribe(
       (data: any) => {
-
-      console.log(data);
-      this.customerList = data.childCustomer;
-     }, err => {
+      this.parentCustomer = data.name;       //parent customer name
+      this.customerList = data.childCustomer; //anuyat under child
+      }, err => {
         this.alertService.error(err.error.message);
       }
    );

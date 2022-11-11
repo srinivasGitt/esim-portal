@@ -13,31 +13,79 @@
                 <div class="col-6">
                     <label for="firstName" class="form-label es-modal-form-label">First Name</label>
                     <input type="text" class="form-control es-input" id="firstName" aria-describedby="firstName" formControlName="firstName">
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
+                            <span class="small" *ngIf="f.firstName.errors.required">
+                                FirstName  is required!
+                            </span>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="lastName" class="form-label es-modal-form-label">Last Name</label>
                     <input type="text" class="form-control es-input" id="lastName" aria-describedby="lastName" formControlName="lastName">
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
+                            <span class="small" *ngIf="f.lastName.errors.required">
+                                LastName  is required!
+                            </span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label es-modal-form-label">Email Address</label>
                 <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
+                <div>
+                                   
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.email.valid && f.email.pristine) || (f.email.errors && submitted)">
+                        <span class="small" *ngIf="f.email.errors.required">
+                            Email is required!
+                        </span>
+                    </span>
+                    <span class="help-block ng-invalid text-danger" *ngIf="f.email.errors && submitted">
+                        <span class="small" *ngIf="f.email.errors.email">
+                            Enter valid email!
+                        </span>
+                    </span>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="planId" class="form-label es-modal-form-label">Region</label>
                 <select formControlName="regionId" class="form-control">  
                     <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
                 </select>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.regionId.pristine) || (f.planId.errors && submitted)">
+                        <span class="small" *ngIf="f.regionId.errors.required">
+                            Region is required!
+                        </span>
+                    </span>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="planId" class="form-label es-modal-form-label">Current Plan</label>
                 <select formControlName="planId" class="form-control">  
                     <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
                 </select>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.regionId.pristine) || (f.planId.errors && submitted)">
+                        <span class="small" *ngIf="f.planId.errors.required">
+                            Plan is necessary!
+                        </span>
+                    </span>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="endDate" class="form-label es-modal-form-label">Plan Expiry</label>
                 <input type="date" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.endDate.touched && f.endDate.pristine) || (f.endDate.errors && submitted)">
+                        <span class="small" *ngIf="f.endDate.errors.required">
+                            EndDate is required!
+                        </span>
+                    </span>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>
