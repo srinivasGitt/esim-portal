@@ -65,7 +65,7 @@
             </div>
             <div class="mb-3">
                 <label for="planId" class="form-label es-modal-form-label">Current Plan</label>
-                <select formControlName="planId" class="form-control es-input">  
+                <select formControlName="planId" class="form-control es-input" (change)="assignPlan()">  
                     <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
                 </select>
                 <div>
@@ -78,7 +78,7 @@
             </div>
             <div class="mb-3">
                 <label for="endDate" class="form-label es-modal-form-label">Plan Expiry</label>
-                <input type="date" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate">
+                <input type="text" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate" [attr.disabled]="true">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.endDate.touched && f.endDate.pristine) || (f.endDate.errors && submitted)">
                         <span class="small" *ngIf="f.endDate.errors.required">

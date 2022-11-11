@@ -40,12 +40,10 @@ export class SubscriptionDialogComponent  implements OnInit {
   }
 
   createSubscriptionForm() {
-    console.log(this.data?.amount);
     this.subscriptionForm = new UntypedFormGroup({
-      // subscriptionNumber: new UntypedFormControl(this.data?.subscriptionNumber, [Validators.required]),
-      amount: new UntypedFormControl({value:this.data?.amount, disabled: true}, [Validators.required],),
-      startDate: new UntypedFormControl({value:this.data?.startDate, disabled: true}, [Validators.required]),
-      endDate: new UntypedFormControl({value:this.data?.endDate, disabled: true}, [Validators.required]),
+      amount: new UntypedFormControl(this.data?.amount, [Validators.required],),
+      startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
+      endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
       planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
       userEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
@@ -55,14 +53,11 @@ export class SubscriptionDialogComponent  implements OnInit {
 
   submit() {
     this.dialogRef.close.emit(this.subscriptionForm.value); 
-    // console.log(this.subscriptionForm);
-    // console.log(this.subscriptionForm.value);
   }
   getAllPlanId(){
     this.planService.listPlans()
     .subscribe(
       res => {
-        console.log(res);
         this.planList = res;
       }, err => {
         this.alertService.error(err.error.message);
@@ -74,12 +69,10 @@ export class SubscriptionDialogComponent  implements OnInit {
     const plan = this.planList.find((o:any)=>o._id === planId);
     if(plan){
       this.subscriptionForm.get('amount').setValue(plan.cost);
-      // this.subscriptionForm.controls(['amount']).setValue(plan.cost);
       const endDate = new Date();
       endDate.setDate(endDate.getDate() + plan.validity);
       this.subscriptionForm.get('endDate').setValue(endDate);
       this.subscriptionForm.get('startDate').setValue(new Date());
-      console.log(this.subscriptionForm.value)
     }
   }
 
@@ -94,8 +87,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       }
     )
   }
-  close(flag: boolean): void {
-    // this.data.amount = 343;
+  close(): void {
     this.dialogRef.close.emit(false);
   }
 }
