@@ -74,8 +74,6 @@ export class SubscriberMgmtComponent implements OnInit {
   }
 
   get f() { return this.subscriberForm.controls; }
-
-
   submit() {
     this.submitted = true;
     if (this.subscriberForm.invalid) {
@@ -104,6 +102,17 @@ export class SubscriberMgmtComponent implements OnInit {
     }, err => {
       this.alertService.error(err.error.message);
     })
+  }
+
+  assignPlan(){
+    const planId = this.subscriberForm.get('planId').value;
+    const plan = this.planList.find((o:any)=>o._id === planId);
+    if(plan){
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + plan.validity);
+      this.subscriberForm.get('endDate').setValue(endDate);
+      console.log(this.subscriberForm.value)
+    }
   }
   
   close(): void {

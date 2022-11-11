@@ -27,7 +27,7 @@
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let customer of customerList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                        
                         <div class="t-box a px-2"  [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
-                        <div class="t-box b px-2">{{customer.createdAt}}</div>
+                        <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
                         <div class="t-box a px-2">{{customer.numberOfProfile}}</div>
                         <div class="t-box a px-2">{{customer.createdBy}}</div>
 

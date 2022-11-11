@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { QrCodePopupComponent } from 'src/app/shared/dialog/qr-code-popup/qr-code-popup.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { InventoryService } from 'src/app/shared/service/inventory.service';
-import { PlansService } from 'src/app/shared/service/plans.service';
 import { ProfileLogComponent } from 'src/app/shared/dialog/profile-log/profile-log.component';
 import { AlertService } from 'src/app/shared/service/alert.service';
 
@@ -13,11 +12,14 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 })
 export class InventoryComponent implements OnInit {
   inventory: any = [];
+  data: any;
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
-              private alertService : AlertService) { }
+              private alertService : AlertService) { 
+              }
   ngOnInit(): void {
     this.getInventory();
+    console.log(this.data);
   }
 
   // createPlan() {
@@ -53,8 +55,8 @@ export class InventoryComponent implements OnInit {
         });
   }
 
-  openProfileLog(){
-    this.dialogService.openModal(ProfileLogComponent, {cssClass: 'modal-xl', context: {data: {}, title: 'Profile Log'}})
+  openProfileLog(profileInfo: any){
+    this.dialogService.openModal(ProfileLogComponent, {cssClass: 'modal-xl', context: {data: profileInfo, title: 'Profile Log'}})
     .instance.close.subscribe((data: any) => {
 
     }, err => {

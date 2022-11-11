@@ -23,7 +23,7 @@
                         <div class="t-grid-table-new">
                             <div class="t-grid-profile-log t-head-bg border-bottom-light" *ngFor="let logs of profileLog; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                                 <div class="t-box a px-2">{{logs.timeStamp | date: 'medium'}}</div>
-                                <div class="t-box b px-2">{{logs.actionStatus}}</div>
+                                <div class="t-box b px-2">{{logs.actionStatus | uppercase}}</div>
                                 <div class="t-box a px-2">{{logs.EID}}</div>
                                 <div class="t-box b px-2">{{logs.deviceModel}}</div>
                             </div>
