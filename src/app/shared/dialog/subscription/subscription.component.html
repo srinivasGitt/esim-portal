@@ -4,38 +4,44 @@
             <p class="modal-header-text mb-0">{{title}}</p>
         </div>
         <div class="es-btn-close-container">
-            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close(false)">X</button>
         </div>
     </div>
     <div class="es-modal-body">
         <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()">
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="subscriptionNumber" class="form-label es-modal-form-label">Subscription Number</label>
                 <input type="text" class="form-control es-input" id="subscriptionNumber" aria-describedby="emailHelp" formControlName="subscriptionNumber">
-              </div>
+            </div> -->
             <div class="mb-3 row">
                 <div class="col-6">
-                    <label for="startDate" class="form-label es-modal-form-label">Date</label>
-                    <input type="date" class="form-control es-input" id="startDate" aria-describedby="emailHelp" formControlName="startDate">
+                    <label for="planId" class="form-label es-modal-form-label">Plan</label>
+                    <!-- <input type="text" class="form-control es-input" id="planId" aria-describedby="emailHelp" formControlName="planId"> -->
+                    <select formControlName="planId" class="form-control es-input" (change)="assignPlan()"> 
+                        <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
+                    </select>
                 </div>
                 <div class="col-6">
-                    <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
-                    <input type="date" class="form-control es-input" id="endDate" aria-describedby="emailHelp" formControlName="endDate">
+                    <label for="amount" class="form-label es-modal-form-label">Amount</label>
+                    <input type="number" class="form-control es-input cursor-not-allowed" id="amount" aria-describedby="emailHelp" formControlName="amount">
                 </div>
             </div>
             <div class="mb-3 row">
                 <div class="col-6">
-                    <label for="amount" class="form-label es-modal-form-label">Amount</label>
-                    <input type="number" class="form-control es-input" id="amount" aria-describedby="emailHelp" formControlName="amount">
+                    <label for="startDate" class="form-label es-modal-form-label">Date</label>
+                    <input type="text" class="form-control es-input cursor-not-allowed" id="startDate" aria-describedby="emailHelp" formControlName="startDate">
                 </div>
                 <div class="col-6">
-                    <label for="planId" class="form-label es-modal-form-label">Plan ID</label>
-                    <input type="text" class="form-control es-input" id="planId" aria-describedby="emailHelp" formControlName="planId">
+                    <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
+                    <input type="text" class="form-control es-input cursor-not-allowed" id="endDate" aria-describedby="emailHelp" formControlName="endDate">
                 </div>
             </div>
             <div class="mb-3">
                 <label for="userEmail" class="form-label es-modal-form-label">User Email</label>
-                <input type="email" class="form-control es-input" id="userEmail" aria-describedby="emailHelp" formControlName="userEmail">
+                <select formControlName="userEmail" class="form-control es-input"> 
+                    <option *ngFor="let subscriber of subscribeList" [value]="subscriber._id">{{subscriber.email}}</option>  
+                </select>
+                <!-- <input type="email" class="form-control es-input" id="userEmail" aria-describedby="emailHelp" formControlName="userEmail"> -->
               </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>
