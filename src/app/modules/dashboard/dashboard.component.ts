@@ -20,10 +20,8 @@ export class DashboardComponent implements OnInit {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     }else{
-
-    this.downloadTrendChart();
-    this.totalProfileCount();
-    console.log('I am there')
+      this.downloadTrendChart();
+      this.totalProfileCount();
     }
 
   }
