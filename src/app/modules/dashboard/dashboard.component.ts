@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart, registerables } from 'node_modules/chart.js'
+import { Chart, registerables } from 'chart.js'
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
 Chart.register(...registerables)
 

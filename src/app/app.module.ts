@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
-import { NgChartsModule } from 'ng2-charts';
+// import { NgChartsModule } from 'chart.js';
 
 
 
@@ -36,7 +36,7 @@ import { NgChartsModule } from 'ng2-charts';
     ReactiveFormsModule,
     SharedModule,
     ModulesModule,
-    NgChartsModule
+    // NgChartsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
