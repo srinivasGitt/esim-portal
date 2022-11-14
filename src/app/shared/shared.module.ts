@@ -7,7 +7,6 @@ import { SubscriptionDialogComponent } from './dialog/subscription/subscription.
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { HttpClientModule } from "@angular/common/http";
-import { AuthService } from "./service/auth.service";
 import { ConfirmComponent } from './dialog/confirm/confirm.component';
 import { UserMgmtComponent } from './dialog/user-mgmt/user-mgmt.component';
 import { PlanDialogComponent } from './dialog/plan-dialog/plan-dialog.component';
@@ -16,8 +15,13 @@ import { QRCodeModule } from "angularx-qrcode";
 import {RouterModule} from '@angular/router';
 import { CustomerComponent } from './dialog/customer/customer.component';
 import { InviteUserComponent } from './dialog/invite-user/invite-user.component';
+
 import { InviteSubscriberComponent } from './dialog/invite-subscriber/invite-subscriber.component';
 import { SubscriberMgmtComponent } from './dialog/subscriber-mgmt/subscriber-mgmt.component';
+
+import { AlertComponent } from './dialog/alert/alert.component';
+import { ProfileLogComponent } from './dialog/profile-log/profile-log.component';
+
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
@@ -33,7 +37,9 @@ import { SubscriberMgmtComponent } from './dialog/subscriber-mgmt/subscriber-mgm
     CustomerComponent,
     InviteUserComponent,
     InviteSubscriberComponent,
-    SubscriberMgmtComponent
+    SubscriberMgmtComponent,
+    AlertComponent,
+    ProfileLogComponent
   ],
   imports: [
     CommonModule,

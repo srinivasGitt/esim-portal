@@ -13,14 +13,20 @@
                 <label for="name" class="form-label es-modal-form-label">Plan Name</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name">
             </div>
-            <div class="mb-3">
-                <label for="validity" class="form-label es-modal-form-label">Expiry Interval</label>
-                <input type="text" class="form-control es-input" id="validity" aria-describedby="validity" formControlName="validity">
+            <div class="mb-3 row">
+                <div class="col-6">
+                    <label for="validity" class="form-label es-modal-form-label">Expiry Interval</label>
+                    <input type="text" class="form-control es-input" id="validity" aria-describedby="validity" formControlName="validity">
+                </div>
+                <div class="col-6">
+                    <label for="cost" class="form-label es-modal-form-label">Cost</label>
+                    <input type="text" class="form-control es-input" id="cost" aria-describedby="cost" formControlName="cost">
+                </div>
             </div>
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="dataSize" class="form-label es-modal-form-label">Data</label>
-                    <input type="number" class="form-control es-input" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
+                    <input type="text" class="form-control es-input" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
                 </div>
                 <div class="col-6">
                     <label for="voice" class="form-label es-modal-form-label">Voice Calls</label>
@@ -32,9 +38,9 @@
                     <label for="sms" class="form-label es-modal-form-label">SMS</label>
                     <input type="number" class="form-control es-input" id="sms" aria-describedby="sms" formControlName="sms">
                 </div>
-                <div class="mb-3">
+                <div class="col-6 mb-3">
                     <label for="planId" class="form-label es-modal-form-label">Region</label>
-                    <select formControlName="regionId" class="form-control">  
+                    <select formControlName="regionId" class="form-control es-input">  
                         <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
                     </select>
                 </div>

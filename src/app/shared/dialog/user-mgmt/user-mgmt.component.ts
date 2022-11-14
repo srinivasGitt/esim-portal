@@ -4,6 +4,7 @@ import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
 import { RegionsService } from '../../service/regions.service';
 import { UsersService } from '../../service/users.service';
+import { AlertService } from '../../service/alert.service';
 
 @Component({
   selector: 'app-user-mgmt',
@@ -21,7 +22,8 @@ export class UserMgmtComponent implements OnInit {
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
     private planService: PlansService,
-    private usersService: UsersService) {
+    private usersService: UsersService,
+    private alertService: AlertService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
@@ -39,7 +41,7 @@ export class UserMgmtComponent implements OnInit {
         console.log(res);
         this.regionList = res;
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -50,7 +52,7 @@ export class UserMgmtComponent implements OnInit {
         console.log(res);
         this.planList = res;
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -79,7 +81,7 @@ export class UserMgmtComponent implements OnInit {
       console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
-      alert(err.error.message);
+      this.alertService.error(err.error.message);
     })
   }
   update() {
@@ -87,7 +89,7 @@ export class UserMgmtComponent implements OnInit {
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      console.log(err);
+      this.alertService.error(err.error.message);
     })
   }
   close(): void {

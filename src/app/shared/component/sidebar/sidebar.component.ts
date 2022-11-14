@@ -3,22 +3,26 @@ import { Router, NavigationEnd } from '@angular/router';
 import { CustomerService } from '../../service/customer.service';
 import { DialogComponent, DialogService } from '../../service/dialog';
 import { UsersService } from '../../service/users.service';
+import { AlertService } from '../../service/alert.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
- defaultId:any;
+  defaultId:any;
   activeUrl = 'dashboard';
   show:boolean=false;
   customerList: any = [];
+  parentCustomer:any;
+
   
   constructor(private router:Router,
               private customerService: CustomerService,
               private usersService: UsersService,
-              private dialogService: DialogService,) {
-              
+              private dialogService: DialogService, 
+              private alertService: AlertService,) { 
 
     router.events.subscribe(
       (data: any) => {
@@ -29,7 +33,11 @@ export class SidebarComponent implements OnInit {
  
 
   ngOnInit(): void {
-    this.getAllCustomer();
+    if (!localStorage.getItem('authToken')) {
+      this.router.navigate(['/signin']);
+    }else{
+      this.getAllCustomer();
+    }
     
   }
 
@@ -37,24 +45,25 @@ export class SidebarComponent implements OnInit {
     this.usersService.setDefaultCustomer()
      .subscribe(
       (data: any) => {
-      localStorage.setItem("authToken",data.token);
-      this.getAllCustomer();
+        localStorage.setItem("authToken",data.token);
+        this.getAllCustomer();
+        this.router.navigate(['/customer-management']);
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
-   );
+   )
   }
 
 
 
   getAllCustomer() {
-    this.customerService.customerList(null)
+    this.customerService.customerList('')
      .subscribe(
       (data: any) => {
-      console.log(data);
-      this.customerList = data.childCustomer;
-     }, err => {
-        console.log(err);
+      this.parentCustomer = data.name;       //parent customer name
+      this.customerList = data.childCustomer; //anuyat under child
+      }, err => {
+        this.alertService.error(err.error.message);
       }
    );
   }

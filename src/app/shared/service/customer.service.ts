@@ -25,9 +25,9 @@ export class CustomerService {
     customerList(customerId:any){
       if(customerId){
         return this.http.get(`${this.serverUrl}/customers?parentId=${customerId}`, this.getHeader());
-      }else{
+       }else{
         return this.http.get(`${this.serverUrl}/customer`, this.getHeader());
-      }
+       }
       
     }
 

@@ -1,13 +1,13 @@
 .navbar.main-navbar{
     .navbar-brand-parent{
-        width: 250px;
+        width: 289px;
         padding: 20px 35px;
         .brand-logo{
             width: 150px;
         }
     }
     .navbar-toggler-parent{
-        width: 3.5vw;
+        width: 3.25vw;
         height: auto;
         .navbar-toggler{
             &:focus{
@@ -21,7 +21,7 @@
             font-family: "Helvetica-Medium";
             color:var(--dark-text-white-v1);
             font-size: 30px;
-            font-size: 1.570vw;
+            font-size: 1.2570vw;
         }
         .user-dashboard-text{
             font-family: "Helvetica-Light";
@@ -92,6 +92,16 @@
         img{
             width: 100%;
             height: auto;
+        }
+    }
+
+    .dropdown-menu{
+        background-color: var(--dark-background) !important;
+        .dropdown-item{
+            color: var(--dark-text-white-v2) !important;
+            &:hover{
+                background-color: var(--dark-background-v2) !important;
+            }
         }
     }
 }

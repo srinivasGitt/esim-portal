@@ -88,3 +88,25 @@
     font-family: "Helvetica-Light";
     color: var(--dark-text-white-v4) !important;
 }
+.download-trend-heading{
+    font-size: 20px;
+    font-family: "Helvetica-Light";
+    color: var(--dark-text-white-v1) !important;
+    margin-bottom: 0;
+}
+.profile-type-parent{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.dashboard-card-row{
+    display: flex;
+    flex-direction: row;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    .dashboard-card-parent{
+        width: 20%;
+        flex: 1 1 20%;
+        padding: 0 1rem;
+    }
+}

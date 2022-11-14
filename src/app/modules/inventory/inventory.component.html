@@ -23,7 +23,8 @@
                     <div class="t-box a px-2">Action</div>
                 </div>
                 <div class="t-body-overflow">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light" *ngFor="let info of inventory; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"
+                        *ngFor="let info of inventory; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                         <div class="t-box a px-2">{{info.iccid}}</div>
                         <div class="t-box b px-2">{{info.imsi}}</div>
                         <div class="t-box a px-1">{{info.profile}}</div>
@@ -32,12 +33,22 @@
                         <div class="t-box b px-2">{{info.createdAt| date: 'medium'}}</div>
                         <div class="t-box a px-2">
                             <div class="user-table-action">
-                                <img class="user-table-action-icon" src="assets/icons/tInfo.svg" alt="" (click)="openQRCODEpopup(i)">
+                                <img class="user-table-action-icon" src="assets/icons/tInfo.svg" alt=""
+                                    (click)="openQRCODEpopup(i)">
                                 <!-- <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt=""> -->
+                                <span class="information-icon" (click)="openProfileLog(info)">
+                                    <svg class="feather feather-info" fill="none" height="24" stroke="#1DA1F1"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="12" x2="12" y1="16" y2="12" />
+                                        <line x1="12" x2="12.01" y1="8" y2="8" />
+                                    </svg>
+                                </span>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-</div>

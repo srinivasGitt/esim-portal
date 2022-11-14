@@ -3,6 +3,7 @@ import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.componen
 import { PlanDialogComponent } from 'src/app/shared/dialog/plan-dialog/plan-dialog.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -11,7 +12,8 @@ import { PlansService } from 'src/app/shared/service/plans.service';
 export class PlanComponent implements OnInit {
   plansList: any = [];
   constructor(private plansService: PlansService,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService,
+              private alertService: AlertService) { }
   ngOnInit(): void {
     this.getAllPlans();
   }
@@ -19,11 +21,11 @@ export class PlanComponent implements OnInit {
   createPlan() {
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Plan'} })
       .instance.close.subscribe((data: any) => {
-        let vm  = this;
-        vm.plansList.push(data);
-        }, err => {
-          console.log(err);
-        });
+        if(data){
+          let vm  = this;
+          vm.plansList.push(data);
+        }
+        })
   }
   getAllPlans() {
     this.plansService.listPlans()
@@ -32,7 +34,7 @@ export class PlanComponent implements OnInit {
        
         this.plansList = data;
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
     );
   }
@@ -42,7 +44,7 @@ export class PlanComponent implements OnInit {
         let vm  = this;
         vm.plansList[index] = data;
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         });
   }
 
@@ -55,7 +57,7 @@ export class PlanComponent implements OnInit {
         .subscribe(res => {
           vm.plansList.splice(index, 1);
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
       }
      

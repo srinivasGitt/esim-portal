@@ -6,6 +6,7 @@ import { PlansService } from 'src/app/shared/service/plans.service';
 import { RegionsService } from 'src/app/shared/service/regions.service';
 import { UsersService } from 'src/app/shared/service/users.service';
 import { InviteUserComponent } from 'src/app/shared/dialog/invite-user/invite-user.component'
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,8 @@ export class UserComponent implements OnInit {
   constructor(private dialogService: DialogService,
               private usersService: UsersService,
               private regionService: RegionsService,
-              private planService: PlansService) { }
+              private planService: PlansService,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -38,7 +40,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        alert(err);
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -54,7 +56,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        alert(err)
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -78,7 +80,7 @@ export class UserComponent implements OnInit {
       this.getAllPlans();
         // this.subscriptionList = data;
       }, err => {
-        alert(err);
+        this.alertService.error(err.error.message);
       }
     );
 
@@ -101,6 +103,7 @@ export class UserComponent implements OnInit {
         .subscribe(res => {
           vm.usersList.splice(index, 1);
         }, err => {
+          this.alertService.error(err.error.message);
         })
       }
       });
