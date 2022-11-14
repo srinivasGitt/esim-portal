@@ -29,7 +29,7 @@
             </div>
         </div>
     </a>
-    <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber-management'}">
+    <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber'}">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
                 <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
@@ -135,8 +135,8 @@
     </div>
     <div class="sidebar-inner sidebar-right sidebar-accordion "  >
             <div class="sidebar-right-heading mt-3" >
-                <p class="">Customer Management<button type="button" class="btn-close btn-close-white close-button" aria-label="Close" (click)="setDefaultCustomer()"></button><span><i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i></span></p>
-                
+                <p class="">Customer Management<span><i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i></span></p>
+                <p class="">{{parentCustomer}}<span class="close-button"><i class="fa fa-times close-icon " aria-hidden="true" (click)="setDefaultCustomer()"></i></span></p>
             </div>
 
             <div class="accordion open" id="accordionExample">
@@ -169,9 +169,6 @@
                                 <h2 class="accordion-header"  >
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" [routerLink]="['/customer-management', childSubCustomer._id]" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
                                        {{childSubCustomer.name}}
-                                       <div class="es-btn-close-container">
-                                        <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="setDefaultCustomer()" >X</button>
-                                    </div>
                                     </button>
                                 </h2>
                               

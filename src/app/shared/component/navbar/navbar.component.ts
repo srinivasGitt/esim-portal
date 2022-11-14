@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../../service/customer.service';
+import { AlertService } from '../../service/alert.service';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -9,15 +12,41 @@ declare var $: any;
 export class NavbarComponent implements OnInit {
   isDarkTheme = false;
   screenMode:any;
+  parentCustomer: any;
+  customerList: any = [];
 
-  constructor() { }
+  constructor(private customerService: CustomerService,
+              private alertService : AlertService,
+              private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    if (!localStorage.getItem('authToken')) {
+      this.router.navigate(['/signin']);
+    }else{
+      this.getAllCustomer();
+    }
   }
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
     $('#body').toggleClass('lightMode');
+  }
+
+  getAllCustomer() {
+    this.customerService.customers()
+     .subscribe(
+      (data: any) => {
+        this.parentCustomer = data.name;       //parent customer name
+        this.customerList = data.childCustomer; //anuyat under child
+      }, err => {
+        this.alertService.error(err.error.message);
+      }
+   );
+  }
+
+  signout(){
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/signin']);
   }
  
 }

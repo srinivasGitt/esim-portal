@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
 import { subscriberService } from '../../service/subscriber.service';
+import { AlertService } from '../../service/alert.service';
 
 @Component({
   selector: 'app-invite-subscriber',
@@ -15,7 +16,8 @@ export class InviteSubscriberComponent implements OnInit {
   title: string = 'Add Subscriber';
   
   constructor(private viewContainer: ViewContainerRef,
-    private subscriberService : subscriberService,) { const _injector = this.viewContainer.injector;
+    private subscriberService : subscriberService,
+    private alertService: AlertService) { const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);}
 
   ngOnInit(): void {
@@ -36,7 +38,7 @@ export class InviteSubscriberComponent implements OnInit {
     .subscribe((res:any)=>{
       this.dialogRef.close.emit(res);
     }, err => {
-      alert(err.error.message);
+      this.alertService.error(err.error.message);
     })
   }
 

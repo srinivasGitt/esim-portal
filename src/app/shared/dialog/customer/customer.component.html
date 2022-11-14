@@ -12,9 +12,16 @@
             <div class="mb-3">
                 <label for="customerName" class="form-label es-modal-form-label">Customer Name</label>
                 <input type="text" class="form-control es-input" id="customerName"  formControlName="customerName">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.customerName.touched && f.customerName.pristine) || (f.customerName.errors && submitted)">
+                        <span class="small" *ngIf="f.customerName.errors.required">
+                            Customer Name is required!
+                        </span>
+                    </span>
+                </div>
               </div>
-           
-            <button type="submit" class="btn btn-primary my-4 w-100"  >Submit</button>
+            
+            <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>
     </div>
     <div class="es-modal-footer"></div>

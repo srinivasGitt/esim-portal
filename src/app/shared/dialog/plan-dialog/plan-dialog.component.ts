@@ -3,6 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
 import { RegionsService } from '../../service/regions.service';
+import { AlertService } from '../../service/alert.service';
 
 @Component({
   selector: 'app-plan-dialog',
@@ -14,11 +15,14 @@ export class PlanDialogComponent implements OnInit {
   data: any;
   planForm: any;
   regionList: any = [];
+  submitted = false;
   title: string = 'Add New Plan';
+
   constructor(
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
-    private planService: PlansService) {
+    private planService: PlansService,
+    private alertService: AlertService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
@@ -29,6 +33,7 @@ export class PlanDialogComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.createPlanForm();
     this.getAllRegions();
+    console.log(this.planForm.value)
   }
   getAllRegions(): void {
     this.regionService.getAllRegions()
@@ -37,7 +42,7 @@ export class PlanDialogComponent implements OnInit {
         console.log(res);
         this.regionList = res;
       }, err => {
-        console.log(err);
+        this.alertService.error(err.error.message);
       }
     )
   }
@@ -50,9 +55,18 @@ export class PlanDialogComponent implements OnInit {
       sms: new UntypedFormControl(this.data?.sms, [Validators.required]),
       voice: new UntypedFormControl(this.data?.voice, [Validators.required]),
       regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
+      cost: new UntypedFormControl(this.data?.cost, [Validators.required]),
     });
   }
+
+  get f() { return this.planForm.controls; }
+
+
   submit() {
+    this.submitted = true;
+    if (this.planForm.invalid) {
+      return;
+    }
     if (this.title === 'Edit Plan') {
       this.update();
     } else {
@@ -65,7 +79,7 @@ export class PlanDialogComponent implements OnInit {
       console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
-      alert(err.error.message);
+      this.alertService.error(err.error.message);
     })
   }
   update() {
@@ -73,7 +87,7 @@ export class PlanDialogComponent implements OnInit {
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      console.log(err);
+      this.alertService.error(err.error.message);
     })
   }
   close(): void {

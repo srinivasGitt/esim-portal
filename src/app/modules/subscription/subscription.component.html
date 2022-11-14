@@ -33,11 +33,11 @@
                 <div class="t-body-overflow">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let subscription of subscriptionList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                         <div class="t-box a px-2">{{subscription.subscriptionNumber}}</div>
-                        <div class="t-box b px-2">{{subscription.startDate | date: 'shortDate'}}</div>
-                        <div class="t-box a px-2">{{subscription.amount | currency: 'INR'}}</div>
+                        <div class="t-box b px-2">{{subscription.startDate | date: 'medium'}}</div>
+                        <div class="t-box a px-2">{{subscription.cost | currency: 'INR'}}</div>
                         <div class="t-box a px-2">{{subscription.planId}}</div>
                         <div class="t-box b px-2">{{subscription.userEmail}}</div>
-                        <div class="t-box a px-2">{{subscription.endDate | date: 'shortDate'}}</div>
+                        <div class="t-box a px-2">{{subscription.endDate | date: 'medium'}}</div>
                         <div class="t-box b px-2">
                             <div class="user-table-action">
                                 <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" (click)="editSubscription(i)">

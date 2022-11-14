@@ -20,6 +20,7 @@ import { InviteSubscriberComponent } from './dialog/invite-subscriber/invite-sub
 import { SubscriberMgmtComponent } from './dialog/subscriber-mgmt/subscriber-mgmt.component';
 
 import { AlertComponent } from './dialog/alert/alert.component';
+import { ProfileLogComponent } from './dialog/profile-log/profile-log.component';
 
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
@@ -37,7 +38,8 @@ import { AlertComponent } from './dialog/alert/alert.component';
     InviteUserComponent,
     InviteSubscriberComponent,
     SubscriberMgmtComponent,
-    AlertComponent
+    AlertComponent,
+    ProfileLogComponent
   ],
   imports: [
     CommonModule,

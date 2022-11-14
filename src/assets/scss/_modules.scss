@@ -1,10 +1,19 @@
 .main{
     background: var(--dark-background-v1);
 }
+.main::-webkit-scrollbar {
+    display: none;
+}
+.main::-webkit-scrollbar-track {
+    display: none;
+}
 .main-base-container{
     display: flex;
     // height: calc(100vh - 72px);
     height: calc(100vh - 93px);
+    &::-webkit-scrollbar {
+        display: none;
+    }
     .sidebar-main{
         // width: 256px;
         width: 289px;
@@ -70,12 +79,10 @@
         }
         
 
-        // .sidebar-inner-2{
-        //     // background:var(--dark-background) !important;
-        // }   
+       
 
         .sidebar-inner-2{
-            background:var(--dark-background) !important;
+           
            .sidebar-left{
                display: flex;
                flex-direction: column;
@@ -89,9 +96,77 @@
         padding: 20px;
         overflow: scroll;
     }
+    .dashboard-main::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* background of the scrollbar except button or resizer */
+    .dashboard-main::-webkit-scrollbar-track {
+        display: none;
+    }
 }
 
 .user-dashboard{
+    .dashboard-head-flex{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        .dashboard-head-text{
+            color: var(--dark-text-white-v1);
+            margin-bottom: 0;
+        }
+        .btn-dashboard-head{
+            color: var(--dark-theme-blue-v1);
+            background-color: var(--dark-background);
+            border: 1px solid var(--dark-theme-blue-v1);
+        }
+    }
+    .t-grid-table-new {
+        @media screen and (max-width: 1500px) {
+            min-width: 470px;
+        }
+        .t-body-overflow {
+            overflow: auto;
+            height: calc(95vh - 200px);
+            padding-top: 10px;
+            overflow-x: hidden;
+        }
+        .t-grid-table-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+
+            grid-gap: 1;
+        }
+        .t-box {
+            padding: 14px 0;
+            padding-left: .5rem !important;
+            width: 100%;
+            justify-content: center;
+            color: var(--dark-text-white-v1);
+            // overflow: auto;
+        }
+        .t-body-bg{
+            .t-box{
+                color: var(--dark-text-white-v2);
+            }
+        }
+        .bg-body-table-dark-bg{
+            background-color: var(--dark-background-v2);
+            border-radius: 8px;
+        }
+        .user-table-action{
+            display: flex;
+            align-items: center;
+            .user-table-action-icon{
+                width: 15px;
+                margin-right: 25px;
+                cursor: pointer;
+            }
+        }
+        
+    }
+}
+.subscriber-dashboard{
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
@@ -151,6 +226,7 @@
         
     }
 }
+
 
 .plan-management{
     .dashboard-head-flex{

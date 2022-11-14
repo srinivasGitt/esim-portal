@@ -1,0 +1,10 @@
+.t-grid-profile-log{
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+}
+.t-body-parent{
+    overflow: auto;
+    // height: calc(95vh - 200px);
+    padding-top: 10px;
+    overflow-x: hidden;
+}

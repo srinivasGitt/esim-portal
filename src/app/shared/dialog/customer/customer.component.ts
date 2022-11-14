@@ -12,6 +12,8 @@ export class CustomerComponent implements OnInit {
   data: any;
   customerForm: any;
   title: string = 'Add Customer';
+  submitted = false;
+
   constructor(
     private viewContainer: ViewContainerRef) {
     const _injector = this.viewContainer.injector;
@@ -25,16 +27,22 @@ export class CustomerComponent implements OnInit {
   }
   
   newCustomerForm() {
-   
     this.customerForm = new UntypedFormGroup({
       customerName: new UntypedFormControl(this.data?.customerName, [Validators.required]),
     });
   }
 
+  get f() { return this.customerForm.controls; }
+
+
   submit() {
-   
+    this.submitted = true;
+    if (this.customerForm.invalid) {
+      return;
+    }
     this.close();
   }
+
   close(): void {
     this.dialogRef.close.emit(this.customerForm.value);
   }

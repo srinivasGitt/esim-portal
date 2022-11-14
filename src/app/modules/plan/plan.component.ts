@@ -21,11 +21,11 @@ export class PlanComponent implements OnInit {
   createPlan() {
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Plan'} })
       .instance.close.subscribe((data: any) => {
-        let vm  = this;
-        vm.plansList.push(data);
-        }, err => {
-          this.alertService.error(err.error.message);
-        });
+        if(data){
+          let vm  = this;
+          vm.plansList.push(data);
+        }
+        })
   }
   getAllPlans() {
     this.plansService.listPlans()

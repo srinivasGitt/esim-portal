@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +15,8 @@ export class SigninComponent implements OnInit {
   submitted = false;
   err = false;
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private alertService : AlertService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -45,9 +47,6 @@ export class SigninComponent implements OnInit {
     .subscribe( (data: any) => {
       localStorage.setItem('authToken', data.token);
       this.router.navigate(['/']);
-    }, err => {
-      this.err = true;
-      console.log(err);
     });
   }
 

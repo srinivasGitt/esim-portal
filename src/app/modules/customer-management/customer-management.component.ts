@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { CustomerComponent } from 'src/app/shared/dialog/customer/customer.component';
-import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/subscription.component';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { UsersService } from 'src/app/shared/service/users.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
   selector: 'app-customer-management',
@@ -22,7 +22,8 @@ export class CustomerManagementComponent implements OnInit {
   constructor(private customerService: CustomerService,
               private usersService: UsersService,
               private dialogService: DialogService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -42,7 +43,7 @@ export class CustomerManagementComponent implements OnInit {
             }
               this.getAllCustomer();
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         });
   }
 
@@ -51,7 +52,7 @@ export class CustomerManagementComponent implements OnInit {
           .subscribe((data: any) => {
                 this.customer = data;
           }, err => {
-            console.log(err);
+            this.alertService.error(err.error.message);
           });
   }
 
@@ -60,14 +61,14 @@ export class CustomerManagementComponent implements OnInit {
     .subscribe((data: any)=>{
        this.subCustomerName = data;
     },err => {
-      console.log(err);
+      this.alertService.error(err.error.message);
     });
   }
 
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        if (data) {
+        if (data && data.customerName != null ) {
           const customer= {
             name: data.customerName,
             parentId: this.customerId,
@@ -77,7 +78,7 @@ export class CustomerManagementComponent implements OnInit {
           .subscribe( (res: any) => {
             this.getAllCustomer();
           }, err => {
-            console.log(err);
+            this.alertService.error(err.error.message);
           })
            this.getAllCustomer();
         }
@@ -85,16 +86,12 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getAllCustomer() {
-    this.customerService.customerList(this.customerId)
+    this.customerService.childCustomers()
      .subscribe(
       (data: any) => {
-          if(!this.customerId){
-            this.customerList = data.childCustomer; //object data type
-          }else{
-            this.customerList = data;
-          }
+        this.customerList = data;
      }, err => {
-        console.log(err);
+      this.alertService.error(err.error.message);
       }
    );
   }
@@ -107,7 +104,7 @@ export class CustomerManagementComponent implements OnInit {
         .subscribe( (res: any) => {
           vm.customerList[index] = res;
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
         });
   }
@@ -121,7 +118,7 @@ export class CustomerManagementComponent implements OnInit {
         .subscribe(res => {
           vm.customerList.splice(index, 1);
         }, err => {
-          console.log(err);
+          this.alertService.error(err.error.message);
         })
       }
       });
