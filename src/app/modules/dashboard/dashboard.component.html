@@ -94,11 +94,11 @@
                             <div class="t-box a px-2 t-head">Available</div>
                             <div class="t-box b px-2 t-head">Installed</div>
                         </div>
-                        <div class="dashboard-profile-t border-bottom-light" *ngFor="let item of [1,2,3,4,5]; index as i" [ngClass]="{'bg-odd-row': i % 2 === 0}">
-                            <div class="t-box a px-2 t-box-data">eSIM_CMHK_Plus01</div>
-                            <div class="t-box b px-2 t-box-data">35</div>
-                            <div class="t-box a px-2 t-box-data">05</div>
-                            <div class="t-box b px-2 t-box-data">05</div>
+                        <div class="dashboard-profile-t border-bottom-light" *ngFor="let customer of customerList; index as i" [ngClass]="{'bg-odd-row': i % 2 === 0}">
+                            <div class="t-box a px-2 t-box-data">{{customer.name}}</div>
+                            <div class="t-box b px-2 t-box-data">{{customer.totalCount}}</div>
+                            <div class="t-box a px-2 t-box-data">{{customer.available}}</div>
+                            <div class="t-box b px-2 t-box-data">{{customer.installed}}</div>
                         </div>
                     </div>
                 </div>

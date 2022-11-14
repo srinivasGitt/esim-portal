@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getAllCustomer() {
-    this.customerService.customerList('')
+    this.customerService.customers()
      .subscribe(
       (data: any) => {
         this.parentCustomer = data.name;       //parent customer name

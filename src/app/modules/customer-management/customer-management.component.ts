@@ -86,15 +86,10 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getAllCustomer() {
-    this.customerService.customerList(this.customerId)
+    this.customerService.childCustomers()
      .subscribe(
       (data: any) => {
-        console.log(data);
-          if(!this.customerId){
-            this.customerList = data.childCustomer; //object data type
-          }else{
-            this.customerList = data;
-          }
+        this.customerList = data;
      }, err => {
       this.alertService.error(err.error.message);
       }

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CustomerService } from '../../service/customer.service';
-import { DialogComponent, DialogService } from '../../service/dialog';
+import { DialogService } from '../../service/dialog';
 import { UsersService } from '../../service/users.service';
 import { AlertService } from '../../service/alert.service';
 
@@ -21,7 +21,6 @@ export class SidebarComponent implements OnInit {
   constructor(private router:Router,
               private customerService: CustomerService,
               private usersService: UsersService,
-              private dialogService: DialogService, 
               private alertService: AlertService,) { 
 
     router.events.subscribe(
@@ -57,7 +56,7 @@ export class SidebarComponent implements OnInit {
 
 
   getAllCustomer() {
-    this.customerService.customerList('')
+    this.customerService.customers()
      .subscribe(
       (data: any) => {
       this.parentCustomer = data.name;       //parent customer name
