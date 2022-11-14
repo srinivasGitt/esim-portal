@@ -65,7 +65,6 @@ export class PlanDialogComponent implements OnInit {
   submit() {
     this.submitted = true;
     if (this.planForm.invalid) {
-      console.log(this.submitted);
       return;
     }
     if (this.title === 'Edit Plan') {
