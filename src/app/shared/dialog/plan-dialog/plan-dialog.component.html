@@ -12,6 +12,13 @@
             <div class="mb-3">
                 <label for="name" class="form-label es-modal-form-label">Plan Name</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
+                        <span class="small" *ngIf="f.name.errors.required">
+                            Plan Name is required!
+                        </span>
+                    </span>
+                </div>
             </div>
             <div class="mb-3 row">
                 <div class="col-6">

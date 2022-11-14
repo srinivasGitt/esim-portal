@@ -68,7 +68,7 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        if (data) {
+        if (data && data.customerName != null ) {
           const customer= {
             name: data.customerName,
             parentId: this.customerId,
@@ -89,6 +89,7 @@ export class CustomerManagementComponent implements OnInit {
     this.customerService.customerList(this.customerId)
      .subscribe(
       (data: any) => {
+        console.log(data);
           if(!this.customerId){
             this.customerList = data.childCustomer; //object data type
           }else{

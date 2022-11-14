@@ -42,6 +42,7 @@ export class CustomerComponent implements OnInit {
     }
     this.close();
   }
+
   close(): void {
     this.dialogRef.close.emit(this.customerForm.value);
   }
