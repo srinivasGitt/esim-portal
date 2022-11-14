@@ -47,10 +47,6 @@ export class SigninComponent implements OnInit {
     .subscribe( (data: any) => {
       localStorage.setItem('authToken', data.token);
       this.router.navigate(['/']);
-    }, err => {
-      this.err = true;
-      console.log(err);
-      this.alertService.error(err.error.message);
     });
   }
 

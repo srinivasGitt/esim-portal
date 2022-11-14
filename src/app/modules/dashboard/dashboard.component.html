@@ -12,7 +12,7 @@
     <div class="row mb-2">
         <div class="col-lg-12">
             <div>
-                <div class="dashboard-card-row">
+                <div class="dashboard-card-row" *ngIf="totalProfiles">
                     <div class="dashboard-card-parent">
                         <div class="profile-mgmt-card">
                             <div class="user-icon-parent">
@@ -38,8 +38,8 @@
                             <div class="user-icon-parent">
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
-                            <p class="user-profile-text total-user-text">Total Users</p>
-                            <p class="user-profile-count">{{totalProfiles.totalCount}}</p>
+                            <p class="user-profile-text total-user-text">Allocated Profiles</p>
+                            <p class="user-profile-count">{{totalProfiles.allocatedProfiles}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                         <!-- <div class="dark-bg-card">
@@ -52,7 +52,7 @@
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
                             <p class="user-profile-text total-user-text">Active Subscriptions</p>
-                            <p class="user-profile-count">{{totalProfiles.subscriberCount}}</p>
+                            <p class="user-profile-count">{{totalProfiles.totalCount}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                         <!-- <div class="dark-bg-card">
@@ -64,7 +64,7 @@
                                 <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                             </div>
                             <p class="user-profile-text total-user-text">Subscribers</p>
-                            <p class="user-profile-count">{{totalProfiles.allocatedProfiles}}</p>
+                            <p class="user-profile-count">{{totalProfiles.subscriberCount}}</p>
                             <div class="blue-border-bottom"></div>
                         </div>
                         <!-- <div class="dark-bg-card">
@@ -92,7 +92,7 @@
                             <div class="t-box a px-2 t-head">Customer Name</div>
                             <div class="t-box b px-2 t-head">Total Profile</div>
                             <div class="t-box a px-2 t-head">Available</div>
-                            <div class="t-box b px-2 t-head">Downloaded</div>
+                            <div class="t-box b px-2 t-head">Installed</div>
                         </div>
                         <div class="dashboard-profile-t border-bottom-light" *ngFor="let item of [1,2,3,4,5]; index as i" [ngClass]="{'bg-odd-row': i % 2 === 0}">
                             <div class="t-box a px-2 t-box-data">eSIM_CMHK_Plus01</div>

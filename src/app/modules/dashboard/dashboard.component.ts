@@ -19,11 +19,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
+    }else{
+      this.downloadTrendChart();
+      this.totalProfileCount();
     }
 
-    this.downloadTrendChart();
-    this.totalProfileCount();
-    console.log(this.totalProfileCount())
   }
 
   downloadTrendChart() {

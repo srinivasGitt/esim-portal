@@ -33,7 +33,11 @@ export class SidebarComponent implements OnInit {
  
 
   ngOnInit(): void {
-    this.getAllCustomer();
+    if (!localStorage.getItem('authToken')) {
+      this.router.navigate(['/signin']);
+    }else{
+      this.getAllCustomer();
+    }
     
   }
 
