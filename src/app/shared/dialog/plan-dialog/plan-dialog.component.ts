@@ -15,7 +15,9 @@ export class PlanDialogComponent implements OnInit {
   data: any;
   planForm: any;
   regionList: any = [];
+  submitted = false;
   title: string = 'Add New Plan';
+
   constructor(
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
@@ -56,7 +58,16 @@ export class PlanDialogComponent implements OnInit {
       cost: new UntypedFormControl(this.data?.cost, [Validators.required]),
     });
   }
+
+  get f() { return this.planForm.controls; }
+
+
   submit() {
+    this.submitted = true;
+    if (this.planForm.invalid) {
+      console.log(this.submitted);
+      return;
+    }
     if (this.title === 'Edit Plan') {
       this.update();
     } else {

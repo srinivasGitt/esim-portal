@@ -52,6 +52,10 @@ export class SubscriptionDialogComponent  implements OnInit {
   get f() { return this.subscriptionForm.controls; }
 
   submit() {
+    this.submitted = true;
+    if (this.subscriptionForm.invalid) {
+      return;
+    }
     this.dialogRef.close.emit(this.subscriptionForm.value); 
   }
   getAllPlanId(){

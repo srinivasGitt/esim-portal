@@ -74,6 +74,7 @@ export class SubscriberMgmtComponent implements OnInit {
   }
 
   get f() { return this.subscriberForm.controls; }
+  
   submit() {
     this.submitted = true;
     if (this.subscriberForm.invalid) {

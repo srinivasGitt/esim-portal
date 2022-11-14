@@ -16,7 +16,7 @@
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
                             <span class="small" *ngIf="f.firstName.errors.required">
-                                FirstName  is required!
+                                First Name  is required!
                             </span>
                         </span>
                     </div>
@@ -27,7 +27,7 @@
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
                             <span class="small" *ngIf="f.lastName.errors.required">
-                                LastName  is required!
+                                Last Name  is required!
                             </span>
                         </span>
                     </div>
@@ -36,8 +36,7 @@
             <div class="mb-3">
                 <label for="email" class="form-label es-modal-form-label">Email Address</label>
                 <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
-                <div>
-                                   
+                <div>           
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.email.valid && f.email.pristine) || (f.email.errors && submitted)">
                         <span class="small" *ngIf="f.email.errors.required">
                             Email is required!
