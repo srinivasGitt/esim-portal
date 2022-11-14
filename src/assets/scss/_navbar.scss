@@ -94,6 +94,16 @@
             height: auto;
         }
     }
+
+    .dropdown-menu{
+        background-color: var(--dark-background) !important;
+        .dropdown-item{
+            color: var(--dark-text-white-v2) !important;
+            &:hover{
+                background-color: var(--dark-background-v2) !important;
+            }
+        }
+    }
 }
 .enve-toggle-parent {
     display: flex;
