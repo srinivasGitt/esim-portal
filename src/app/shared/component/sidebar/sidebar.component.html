@@ -2,7 +2,7 @@
     <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
             </div> 
             <div class="sidebar-anchor-tab-flex-text-container">
                 <p class="sidebar-anchor-tab-flex-text">Dashboard</p> 
@@ -22,7 +22,7 @@
     <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/inventory'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
             </div> 
             <div class="sidebar-anchor-tab-flex-text-container">
                 <p class="sidebar-anchor-tab-flex-text">Inventory</p> 
@@ -87,15 +87,15 @@
         <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
             <div class="sidebar-anchor-tab-flex">
                 <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img " src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+                    <img class="sidebar-anchor-tab-flex-img " [src]="activeUrl === '/'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
                 </div> 
                 
             </div>
         </a>
-        <a [routerLink]="['']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === ''}">
+        <a [routerLink]="['/customer-management']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/customer-management'}">
             <div class="sidebar-anchor-tab-flex">
                 <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === ''? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/customer-management'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
                 </div> 
                 
             </div>
@@ -103,7 +103,7 @@
         <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}">
             <div class="sidebar-anchor-tab-flex">
                 <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" src="assets/images/dashboard/icon/dashboard-icon.svg" alt="">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/inventory'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
                 </div> 
                
             </div>
@@ -155,13 +155,13 @@
                 <div class="alignment-text">
                     <span>Customer Management</span>
                     <span>
-                        <i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i>
+                        <i class="fa fa-angle-left cursor-pointer" aria-hidden="true"  (click)="customerSidebar()"></i>
                     </span>
                 </div>
                 <div class="alignment-text">
                     <span>{{parentCustomer}}</span>
                     <span class="close-button">
-                        <i class="fa fa-times close-icon " aria-hidden="true" (click)="setDefaultCustomer()"></i>
+                        <i class="fa fa-times close-icon cursor-pointer" aria-hidden="true" (click)="setDefaultCustomer()"></i>
                     </span>
                 </div>
             </div>
@@ -169,27 +169,27 @@
             <div class="accordion open" id="accordionExample">
                 <div class="accordion-item"  *ngFor="let customer of customerList; index as i">
                     <div class="accordion-header d-flex" id="headingOne">
-                        <button class="accordion-button" type="button"  data-bs-toggle="collapse" [routerLink]="['/customer-management', customer._id]"  [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="accordion-button" type="button" [routerLink]="['/customer-management', customer._id]">
                             {{customer.name}} 
                         </button>
-                        <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i"></div>
+                        <div class="cutomer-mgmt-collapse collapsed cursor-pointer" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" aria-controls="collapseOne"></div>
                     </div>
                   
                     <div id="collapseOne_{{i}}" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne" *ngFor="let subCustomer of customer.childCustomer; index as j">
                         <h2 class="accordion-header d-flex " id="subheadingOne" >
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" [routerLink]="['/customer-management', subCustomer._id]" [attr.data-bs-target]="'#subOne_'+ i + j" aria-expanded="false" aria-controls="subOne">
+                            <button class="accordion-button" type="button" [routerLink]="['/customer-management', subCustomer._id]">
                                {{subCustomer.name}}
                             </button>
-                            <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#subOne_'+ i + j"></div>
+                            <div class="cutomer-mgmt-collapse collapsed cursor-pointer" data-bs-toggle="collapse" [attr.data-bs-target]="'#subOne_'+ i + j"  aria-expanded="false" aria-controls="subOne"></div>
 
                         </h2>
                             
                         <div id="subOne_{{i}}{{j}}" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#subheadingOne" *ngFor="let childCustomer of subCustomer.childCustomer; index as k">
                             <h2 class="accordion-header d-flex  " id="childOne" >
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" [routerLink]="['/customer-management', childCustomer._id]"  [attr.data-bs-target]="'#childSubOne_'+ i + j + k" aria-expanded="false" aria-controls="childSubOne">
+                                <button class="accordion-button" type="button" [routerLink]="['/customer-management', childCustomer._id]">
                                  {{childCustomer.name}}
                                 </button>
-                                <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#childSubOne_'+ i + j + k"></div>
+                                <div class="cutomer-mgmt-collapse collapsed cursor-pointer" data-bs-toggle="collapse" [attr.data-bs-target]="'#childSubOne_'+ i + j + k" aria-expanded="false" aria-controls="childSubOne"></div>
                             </h2>
 
                             <div id="childSubOne_{{i}}{{j}}{{k}}" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#childOne" *ngFor="let childSubCustomer of childCustomer.childCustomer; index as l">
