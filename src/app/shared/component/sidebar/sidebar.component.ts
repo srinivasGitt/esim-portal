@@ -4,6 +4,7 @@ import { CustomerService } from '../../service/customer.service';
 import { DialogService } from '../../service/dialog';
 import { UsersService } from '../../service/users.service';
 import { AlertService } from '../../service/alert.service';
+import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +22,8 @@ export class SidebarComponent implements OnInit {
   constructor(private router:Router,
               private customerService: CustomerService,
               private usersService: UsersService,
-              private alertService: AlertService,) { 
+              private alertService: AlertService,
+              private dialogService: DialogService) { 
 
     router.events.subscribe(
       (data: any) => {
@@ -41,16 +43,21 @@ export class SidebarComponent implements OnInit {
   }
 
   setDefaultCustomer(){
-    this.usersService.setDefaultCustomer()
-     .subscribe(
-      (data: any) => {
-        localStorage.setItem("authToken",data.token);
-        this.getAllCustomer();
-        this.router.navigate(['/customer-management']);
-      }, err => {
-        this.alertService.error(err.error.message);
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to default customer?`} })
+    .instance.close.subscribe((data: any) => {
+      const vm = this;
+      if (data) {
+        this.usersService.setDefaultCustomer()
+      .subscribe(
+        (data: any) => {
+          localStorage.setItem("authToken",data.token);
+          this.getAllCustomer();
+          this.router.navigate(['/customer-management']);
+        }, err => {
+          this.alertService.error(err.error.message);
+        });
       }
-   )
+    });
   }
 
 
@@ -71,9 +78,26 @@ export class SidebarComponent implements OnInit {
     this.show=!this.show;
   }
 
-  // close(): void {
-  //   this.dialogRef.close.emit(this.customerForm.value);
-  // }
+  switchTocustomer(customerId: any){
+    const currentCustomer =  {currentCustomerId: customerId}
+    this.usersService.changeCurrentCustomer(currentCustomer)
+    .subscribe((data:any)=>{
+      localStorage.setItem("authToken",data.token);
+        window.location.href = '/';
+    }, err => {
+      this.alertService.error(err.error.message);
+    });
+  }
+
+  changeCustomer(customer: any) {
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to customer - ${customer.name}?`} })
+    .instance.close.subscribe((data: any) => {
+      const vm = this;
+      if (data) {
+        this.switchTocustomer(customer._id);
+      }
+      });
+    }
   
 }
 
