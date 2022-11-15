@@ -74,7 +74,7 @@ export class SubscriberMgmtComponent implements OnInit {
   }
 
   get f() { return this.subscriberForm.controls; }
-  
+
   submit() {
     this.submitted = true;
     if (this.subscriberForm.invalid) {
@@ -118,7 +118,7 @@ export class SubscriberMgmtComponent implements OnInit {
   
   close(): void {
     // this.data.amount = 343;
-    this.dialogRef.close.emit(false);
+    this.dialogRef.close.emit(this.subscriberForm.value);
   }
 
 }
