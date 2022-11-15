@@ -8,7 +8,17 @@
                 Invite Subscriber
             </button> -->
             <button type="button" class="btn btn-dashboard-head" (click)="createSubscriber()">
-                <img src="" alt=""> Add New Subscriber
+                <img src="" alt="">
+                <span class="me-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 19 19">
+                        <g id="Group_231" data-name="Group 231" transform="translate(-1712.5 -176)">
+                          <g id="Group_230" data-name="Group 230">
+                            <rect id="Rectangle_160" data-name="Rectangle 160" width="2" height="19" rx="1" transform="translate(1721 176)" fill="#1da1f1"/>
+                            <rect id="Rectangle_161" data-name="Rectangle 161" width="2" height="19" rx="1" transform="translate(1712.5 186.5) rotate(-90)" fill="#1da1f1"/>
+                          </g>
+                        </g>
+                    </svg>                      
+                </span>Add New Subscriber
             </button>
         </div>
     </div>
@@ -25,13 +35,13 @@
                         Action
                     </div>
                 </div>
-                <div class="t-body-overflow">
+                <div class="t-body-overflow" *ngIf="subscriberList && subscriberList.length > 0">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let subscriber of subscriberList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
                         <div class="t-box a px-2">{{subscriber.firstName}} {{subscriber.lastName}}</div>
                         <div class="t-box b px-2">{{subscriber.email}}</div>
                         <div class="t-box a px-2">{{subscriber.region}}</div>
                         <div class="t-box b px-2">{{subscriber.planName}}</div>
-                        <div class="t-box a px-2">{{subscriber.endDate | date: 'shortDate'}}</div>
+                        <div class="t-box a px-2">{{subscriber.endDate | date: 'medium'}}</div>
                         <div class="t-box b px-2">
                             <div class="user-table-action">
                                 <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" (click)="editSubscriber(i)">

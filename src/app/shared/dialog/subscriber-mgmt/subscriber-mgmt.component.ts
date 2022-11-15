@@ -41,7 +41,6 @@ export class SubscriberMgmtComponent implements OnInit {
     this.regionService.getAllRegions()
     .subscribe(
       (res:any) => {
-        console.log(res);
         this.regionList = res;
       }, err => {
         this.alertService.error(err.error.message);
@@ -53,7 +52,6 @@ export class SubscriberMgmtComponent implements OnInit {
     this.planService.listPlans()
     .subscribe(
       res => {
-        console.log(res);
         this.planList = res;
       }, err => {
         this.alertService.error(err.error.message);
@@ -62,7 +60,6 @@ export class SubscriberMgmtComponent implements OnInit {
   }
 
   createsubscriberForm() {
-    // console.log(this.data?.amount);
     this.subscriberForm = new UntypedFormGroup({
       email: new UntypedFormControl(this.data?.email, [Validators.required, Validators.email]),
       firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
@@ -74,7 +71,7 @@ export class SubscriberMgmtComponent implements OnInit {
   }
 
   get f() { return this.subscriberForm.controls; }
-  
+
   submit() {
     this.submitted = true;
     if (this.subscriberForm.invalid) {
@@ -112,13 +109,12 @@ export class SubscriberMgmtComponent implements OnInit {
       const endDate = new Date();
       endDate.setDate(endDate.getDate() + plan.validity);
       this.subscriberForm.get('endDate').setValue(endDate);
-      console.log(this.subscriberForm.value)
     }
   }
   
   close(): void {
     // this.data.amount = 343;
-    this.dialogRef.close.emit(false);
+    this.dialogRef.close.emit();
   }
 
 }

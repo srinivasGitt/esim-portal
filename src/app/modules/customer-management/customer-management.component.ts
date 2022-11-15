@@ -20,33 +20,15 @@ export class CustomerManagementComponent implements OnInit {
   customer:any
 
   constructor(private customerService: CustomerService,
-              private usersService: UsersService,
+              // private usersService: UsersService,
               private dialogService: DialogService,
-              private route: ActivatedRoute,
+              // private route: ActivatedRoute,
               private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.route.params
-        .subscribe(params => {
-          this.customerId = params['id']; 
-          this.changeCurrentCustomer();
-        });  
+    this.getAllCustomer();
   }
   
-  changeCurrentCustomer(){
-        const currentCustomer =  {currentCustomerId: this.customerId}    //json
-        this.usersService.changeCurrentCustomer(currentCustomer)
-        .subscribe((data:any)=>{
-          localStorage.setItem("authToken",data.token);
-            if(this.customerId){
-              this.getSingleCustomer();
-            }
-              this.getAllCustomer();
-        }, err => {
-          this.alertService.error(err.error.message);
-        });
-  }
-
   getSingleCustomer() {
         this.customerService.getSingleCustomer(this.customerId)
           .subscribe((data: any) => {
@@ -103,6 +85,7 @@ export class CustomerManagementComponent implements OnInit {
         vm.customerService.updateCustomer(vm.customerList[index]._id, data)
         .subscribe( (res: any) => {
           vm.customerList[index] = res;
+          this.getAllCustomer();
         }, err => {
           this.alertService.error(err.error.message);
         })

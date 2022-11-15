@@ -15,7 +15,7 @@
                     <input type="text" class="form-control es-input" id="firstName" aria-describedby="firstName" formControlName="firstName">
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
-                            <span class="small" *ngIf="f.firstName.errors.required">
+                            <span class="small" *ngIf="f.email.errors && f.firstName.errors.required">
                                 First Name  is required!
                             </span>
                         </span>
@@ -26,7 +26,7 @@
                     <input type="text" class="form-control es-input" id="lastName" aria-describedby="lastName" formControlName="lastName">
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
-                            <span class="small" *ngIf="f.lastName.errors.required">
+                            <span class="small" *ngIf="f.email.errors && f.lastName.errors.required">
                                 Last Name  is required!
                             </span>
                         </span>
@@ -38,12 +38,12 @@
                 <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
                 <div>           
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.email.valid && f.email.pristine) || (f.email.errors && submitted)">
-                        <span class="small" *ngIf="f.email.errors.required">
+                        <span class="small" *ngIf="f.email.errors && f.email.errors && f.email.errors.required">
                             Email is required!
                         </span>
                     </span>
                     <span class="help-block ng-invalid text-danger" *ngIf="f.email.errors && submitted">
-                        <span class="small" *ngIf="f.email.errors.email">
+                        <span class="small" *ngIf="f.email.errors && f.email.errors.email">
                             Enter valid email!
                         </span>
                     </span>
@@ -56,7 +56,7 @@
                 </select>
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.regionId.pristine) || (f.planId.errors && submitted)">
-                        <span class="small" *ngIf="f.regionId.errors.required">
+                        <span class="small" *ngIf="f.email.errors && f.regionId.errors.required">
                             Region is required!
                         </span>
                     </span>
@@ -69,7 +69,7 @@
                 </select>
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.regionId.pristine) || (f.planId.errors && submitted)">
-                        <span class="small" *ngIf="f.planId.errors.required">
+                        <span class="small" *ngIf="f.email.errors && f.planId.errors.required">
                             Plan is necessary!
                         </span>
                     </span>
@@ -80,7 +80,7 @@
                 <input type="text" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate" [attr.disabled]="true">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.endDate.touched && f.endDate.pristine) || (f.endDate.errors && submitted)">
-                        <span class="small" *ngIf="f.endDate.errors.required">
+                        <span class="small" *ngIf="f.email.errors && f.endDate.errors.required">
                             EndDate is required!
                         </span>
                     </span>
