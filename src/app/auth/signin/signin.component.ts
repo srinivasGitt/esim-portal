@@ -44,10 +44,12 @@ export class SigninComponent implements OnInit {
     };
 
     this.authService.signin(userData)
-    .subscribe( (data: any) => {
-      localStorage.setItem('authToken', data.token);
-      this.router.navigate(['/']);
-    });
+      .subscribe((res: any) =>{
+        localStorage.setItem('authToken', res.token);
+          window.location.href = '/';
+      }, (err: any) =>{
+        this.err = true;
+      })
   }
 
 }

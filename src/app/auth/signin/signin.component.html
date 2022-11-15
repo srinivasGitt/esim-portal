@@ -11,6 +11,7 @@
                     </div>
                     <div class="mt-5">
                         <p class="signin-text mb-0">Sign In</p>
+                        <p class="text-danger small" *ngIf="err">Invalid email or password</p>
                         <form class="signin-form-parent" [formGroup]="signinForm" novalidate (ngSubmit)="submit()">
                             <div class="form-inner-div">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -43,7 +44,6 @@
                                     </p>
                                 </div>
                             </div>
-                            <p class="text-danger small" *ngIf="err"><small>The username or password you have entered is incorrect.</small></p>
                             <button type="submit" class="btn auth-btn common-btn">Sign In</button>
                         </form>
                     </div>
