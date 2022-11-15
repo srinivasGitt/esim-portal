@@ -108,6 +108,14 @@
                
             </div>
         </a>
+        <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber'}">
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+                </div> 
+               
+            </div>
+        </a>
         <a [routerLink]="['/users']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/users'}">
             <div class="sidebar-anchor-tab-flex">
                 <div class="sidebar-anchor-tab-flex-img-container">
@@ -132,21 +140,40 @@
                
             </div>
         </a>
+
+        <a class="sidebar-anchor-tab cursor-none noClick" disabled>
+            <div class="sidebar-anchor-tab-flex">
+                <div class="sidebar-anchor-tab-flex-img-container">
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/reports.svg': 'assets/icons/reports.svg'" alt="">
+                </div> 
+               
+            </div>
+        </a>
     </div>
     <div class="sidebar-inner sidebar-right sidebar-accordion "  >
             <div class="sidebar-right-heading mt-3" >
-                <p class="">Customer Management<span><i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i></span></p>
-                <p class="">{{parentCustomer}}<span class="close-button"><i class="fa fa-times close-icon " aria-hidden="true" (click)="setDefaultCustomer()"></i></span></p>
+                <div class="alignment-text">
+                    <span>Customer Management</span>
+                    <span>
+                        <i class="fa fa-angle-left" aria-hidden="true"  (click)="customerSidebar()"></i>
+                    </span>
+                </div>
+                <div class="alignment-text">
+                    <span>{{parentCustomer}}</span>
+                    <span class="close-button">
+                        <i class="fa fa-times close-icon " aria-hidden="true" (click)="setDefaultCustomer()"></i>
+                    </span>
+                </div>
             </div>
 
             <div class="accordion open" id="accordionExample">
                 <div class="accordion-item"  *ngFor="let customer of customerList; index as i">
-                    <h2 class="accordion-header d-flex" id="headingOne">
+                    <div class="accordion-header d-flex" id="headingOne">
                         <button class="accordion-button" type="button"  data-bs-toggle="collapse" [routerLink]="['/customer-management', customer._id]"  [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" aria-controls="collapseOne">
                             {{customer.name}} 
                         </button>
                         <div class="cutomer-mgmt-collapse collapsed cursor-p" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i"></div>
-                    </h2>
+                    </div>
                   
                     <div id="collapseOne_{{i}}" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne" *ngFor="let subCustomer of customer.childCustomer; index as j">
                         <h2 class="accordion-header d-flex " id="subheadingOne" >

@@ -1,13 +1,13 @@
 .sidebar-left{
     background-color:var(--dark-background);
-    width: 40px !important;
+    // width: 40px !important;
     height: 100% ;
     margin-right: 5px;
     flex-shrink: 0;
     .sidebar-anchor-tab-flex-img {
-        width: 15px !important;
-        margin-left: 3px !important;
-        margin-right: 0px !important;
+        // width: 15px !important;
+        // margin-left: 3px !important;
+        // margin-right: 0px !important;
     }
 }
 
@@ -16,13 +16,19 @@
     color:#FFFFFF;
     width: 100%;
     height: 100%;
-    padding-left: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .sidebar-right-heading{
     font-family: "Helvetica-Medium";
     font-size: 12px !important;
     color:#1DA1F1 ;
+    .alignment-text{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
     .close-button{
         margin-left: 61% !important;
     }
@@ -30,16 +36,11 @@
         font-size: 10px !important;
         
     }
-    span{
-        border-radius: 3px;
-        padding-left: 4px;
-        padding-top: 2px;
-        padding-right: 2px;
-        padding-bottom: -2px;
-        padding-right: 4px;
-        margin-left: 7px;
-        margin-top: 31px;
-    }
+    // span{
+    //     border-radius: 3px;
+    //     padding-top: 2px;
+    //     margin-top: 31px;
+    // }
     i{
         font-size: 15px;
     }
@@ -107,7 +108,7 @@
             content: "\f106";
             position: absolute;
             top: 1px;
-            right:10px;
+            right:0px;
             font-size: 15px;
             pointer-events: none;
             cursor: pointer;
@@ -124,7 +125,7 @@
             content: "\f107";
             position: absolute;
             top: 2px;
-            right: 10px;
+            right: 0px;
             font-size: 15px;
             pointer-events: none;
             cursor: pointer;
