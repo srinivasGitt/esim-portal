@@ -20,7 +20,7 @@ export class SubscribeManagementComponent implements OnInit {
   planList: any = [];
 
   constructor( private dialogService: DialogService,
-    private subscriberService: subscriberService,
+              private subscriberService: subscriberService,
               private regionService: RegionsService,
               private planService: PlansService,
               private route: ActivatedRoute,
@@ -46,6 +46,7 @@ export class SubscribeManagementComponent implements OnInit {
       }
     )
   }
+  
   getAllPlans(): void {
     this.planService.listPlans()
     .subscribe(
@@ -80,7 +81,7 @@ export class SubscribeManagementComponent implements OnInit {
       (data: any) => {
         this.subscriberList = data;
         this.getAllRegions();
-      this.getAllPlans();
+        this.getAllPlans();
         // this.subscriptionList = data;
       }, err => {
         this.alertService.error(err.error.message);
@@ -89,12 +90,16 @@ export class SubscribeManagementComponent implements OnInit {
 
   }
   editSubscriber(index: number) {
-    this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: this.subscriberList[index], title: 'Edit User'} })
+    this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: this.subscriberList[index], title: 'Edit Subscriber'} })
       .instance.close.subscribe((data: any) => {
-        let vm  = this;
-        vm.subscriberList[index] = data;
-        });
+        if(data){
+          let vm  = this;
+          vm.subscriberList[index] = data.data;
+          this.getAllSubscriber();
+        }
+      });
   }
+
   deleteSubscriber( index: number) {
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this user?'} })
     .instance.close.subscribe((data: any) => {

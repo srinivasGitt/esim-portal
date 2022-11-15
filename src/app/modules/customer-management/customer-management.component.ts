@@ -103,6 +103,7 @@ export class CustomerManagementComponent implements OnInit {
         vm.customerService.updateCustomer(vm.customerList[index]._id, data)
         .subscribe( (res: any) => {
           vm.customerList[index] = res;
+          this.getAllCustomer();
         }, err => {
           this.alertService.error(err.error.message);
         })
