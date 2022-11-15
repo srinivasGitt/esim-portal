@@ -51,8 +51,7 @@ export class SidebarComponent implements OnInit {
       .subscribe(
         (data: any) => {
           localStorage.setItem("authToken",data.token);
-          this.getAllCustomer();
-          this.router.navigate(['/customer-management']);
+          window.location.href = '/';
         }, err => {
           this.alertService.error(err.error.message);
         });
