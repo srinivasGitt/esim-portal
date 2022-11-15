@@ -29,9 +29,9 @@
         justify-content: space-between;
         margin-bottom: 1rem;
     }
-    .close-button{
-        margin-left: 61% !important;
-    }
+    // .close-button{
+    //     margin-left: 61% !important;
+    // }
     .close-icon{
         font-size: 10px !important;
         
@@ -107,7 +107,7 @@
             font-family: FontAwesome;
             content: "\f106";
             position: absolute;
-            top: 1px;
+            top: 0px;
             right:0px;
             font-size: 15px;
             pointer-events: none;
@@ -124,7 +124,7 @@
             font-family: FontAwesome;
             content: "\f107";
             position: absolute;
-            top: 2px;
+            top: 0px;
             right: 0px;
             font-size: 15px;
             pointer-events: none;
