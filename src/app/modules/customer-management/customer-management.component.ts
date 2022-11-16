@@ -68,7 +68,7 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        if (data && data.name != null ) {
+        if (data && data.name !== null ) {
           this.alertService.success('Customer Created');
           this.getAllCustomer();
         }
@@ -87,10 +87,8 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   editCustomer(index: number) {
-    console.log(this.customerList[index]);
     this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Edit Customer'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data);
         if(data){
           let vm  = this;
           vm.customerList[index] = data;

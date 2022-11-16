@@ -48,7 +48,6 @@ export class CustomerComponent implements OnInit {
     } else {
       this.createCustomer();
     }
-    console.log(this.submitted);
   }
 
 
