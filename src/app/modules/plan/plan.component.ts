@@ -25,7 +25,7 @@ export class PlanComponent implements OnInit {
           let vm  = this;
           vm.plansList.push(data);
         }
-        })
+      })
   }
   getAllPlans() {
     this.plansService.listPlans()

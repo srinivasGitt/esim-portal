@@ -45,7 +45,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
       endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
       planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
-      userEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
+      userEmail: new UntypedFormControl('', [Validators.required]),
     });
   }
 
@@ -54,9 +54,10 @@ export class SubscriptionDialogComponent  implements OnInit {
   submit() {
     this.submitted = true;
     if (this.subscriptionForm.invalid) {
-      return;
-    }
-    this.dialogRef.close.emit(this.subscriptionForm.value); 
+      this.submitted = false;
+      return
+    } 
+    this.dialogRef.close.emit(this.subscriptionForm.value);
   }
   getAllPlanId(){
     this.planService.listPlans()
@@ -83,7 +84,7 @@ export class SubscriptionDialogComponent  implements OnInit {
   getUserId(){
     this.subscriberService.getAllSubscriber()
     .subscribe(
-      res => {
+      (res : any) => {
         console.log(res);
         this.subscribeList = res;
       }, err => {
