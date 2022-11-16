@@ -15,7 +15,7 @@
                 <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/customer-management'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
             </div> 
             <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Customer management</p> 
+                <p class="sidebar-anchor-tab-flex-text">Customer Management</p> 
             </div>
         </div>
     </a>
@@ -32,7 +32,7 @@
     <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber'}">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
             </div> 
             <div class="sidebar-anchor-tab-flex-text-container">
                 <p class="sidebar-anchor-tab-flex-text">Subscriber Management</p> 
@@ -59,7 +59,7 @@
             </div>
         </div>
     </a>
-    <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
+    <!-- <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
                 <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
@@ -68,7 +68,7 @@
                 <p class="sidebar-anchor-tab-flex-text">Subscriptions</p> 
             </div>
         </div>
-    </a>
+    </a> -->
     <div class="cursor-not-allowed">
         <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
             <div class="sidebar-anchor-tab-flex ">
@@ -111,7 +111,8 @@
         <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber'}">
             <div class="sidebar-anchor-tab-flex">
                 <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
+                    <!-- <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt=""> -->
+                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
                 </div> 
                
             </div>
@@ -132,14 +133,14 @@
                 
             </div>
         </a>
-        <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
+        <!-- <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
             <div class="sidebar-anchor-tab-flex">
                 <div class="sidebar-anchor-tab-flex-img-container">
                     <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
                 </div> 
                
             </div>
-        </a>
+        </a> -->
 
         <a class="sidebar-anchor-tab cursor-none noClick" disabled>
             <div class="sidebar-anchor-tab-flex">

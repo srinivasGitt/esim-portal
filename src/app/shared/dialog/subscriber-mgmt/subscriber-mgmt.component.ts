@@ -113,7 +113,6 @@ export class SubscriberMgmtComponent implements OnInit {
   }
   
   close(): void {
-    // this.data.amount = 343;
     this.dialogRef.close.emit();
   }
 
