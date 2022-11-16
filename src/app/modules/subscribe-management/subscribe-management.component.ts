@@ -68,9 +68,8 @@ export class SubscribeManagementComponent implements OnInit {
     this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Subscriber'} })
       .instance.close.subscribe((data: any) => {
         if (data) {
-          let vm  = this;
+          this.alertService.success('Subscriber Created');
           this.getAllSubscriber();
-          // vm.usersList.push(data);
         }
         });
   }
@@ -95,6 +94,7 @@ export class SubscribeManagementComponent implements OnInit {
         if(data){
           let vm  = this;
           vm.subscriberList[index] = data.data;
+          this.alertService.success('Subscriber Updated');
           this.getAllSubscriber();
         }
       });
