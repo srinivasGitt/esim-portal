@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../service/alert.service';
+import { CustomerService } from '../../service/customer.service';
 import { DialogComponent } from '../../service/dialog';
 
 @Component({
@@ -14,8 +16,9 @@ export class CustomerComponent implements OnInit {
   title: string = 'Add Customer';
   submitted = false;
 
-  constructor(
-    private viewContainer: ViewContainerRef) {
+  constructor(private customerService: CustomerService,
+    private viewContainer: ViewContainerRef,
+    private alertService: AlertService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
@@ -28,7 +31,7 @@ export class CustomerComponent implements OnInit {
   
   newCustomerForm() {
     this.customerForm = new UntypedFormGroup({
-      customerName: new UntypedFormControl(this.data?.customerName, [Validators.required]),
+      name: new UntypedFormControl(this.data?.name, [Validators.required]),
     });
   }
 
@@ -40,11 +43,40 @@ export class CustomerComponent implements OnInit {
     if (this.customerForm.invalid) {
       return;
     }
-    this.close();
+    if (this.title === 'Edit Customer') {
+      this.update();
+    } else {
+      this.createCustomer();
+    }
+    console.log(this.submitted);
+  }
+
+
+  update() {
+    const formData = {
+      name: this.customerForm.get('name').value,
+    };
+    console.log(formData);
+    this.customerService.updateCustomer(this.data._id, formData)
+    .subscribe((res: any) => {
+      this.dialogRef.close.emit(res);
+    }, err => {
+      this.alertService.error(err.error.message);
+    })
+  }
+    
+  createCustomer() {
+    this.customerService.createCustomer(this.customerForm.value)
+    .subscribe((res: any) => {
+      console.log(res);
+      this.dialogRef.close.emit(res);
+    }, err => {
+      this.alertService.error(err.error.message);
+    })
   }
 
   close(): void {
-    this.dialogRef.close.emit(this.customerForm.value);
+    this.dialogRef.close.emit();
   }
 
 }

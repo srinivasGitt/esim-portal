@@ -68,21 +68,11 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        if (data && data.customerName != null ) {
-          const customer= {
-            name: data.customerName,
-            parentId: this.customerId,
-          };
-          let vm  = this;
-          vm.customerService.createCustomer(customer)
-          .subscribe( (res: any) => {
-            this.getAllCustomer();
-          }, err => {
-            this.alertService.error(err.error.message);
-          })
-           this.getAllCustomer();
+        if (data && data.name != null ) {
+          this.alertService.success('Customer Created');
+          this.getAllCustomer();
         }
-        });
+      });
   }
 
   getAllCustomer() {
@@ -97,17 +87,18 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   editCustomer(index: number) {
-    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Edit Subscription'} })
+    console.log(this.customerList[index]);
+    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Edit Customer'} })
       .instance.close.subscribe((data: any) => {
-        let vm  = this;
-        vm.customerService.updateCustomer(vm.customerList[index]._id, data)
-        .subscribe( (res: any) => {
-          vm.customerList[index] = res;
+        console.log(data);
+        if(data){
+          let vm  = this;
+          vm.customerList[index] = data;
+          this.alertService.success('Custommer Updated');
           this.getAllCustomer();
-        }, err => {
-          this.alertService.error(err.error.message);
-        })
-        });
+        }
+        
+    });
   }
 
   deleteCustomer( index: number) {
@@ -124,6 +115,7 @@ export class CustomerManagementComponent implements OnInit {
       }
       });
   }
+
   selectCustomer(i:any){
     localStorage.setItem("customerId",this.customerList[i]._id);
   }
