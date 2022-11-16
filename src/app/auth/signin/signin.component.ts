@@ -46,7 +46,7 @@ export class SigninComponent implements OnInit {
     this.authService.signin(userData)
       .subscribe((res: any) =>{
         localStorage.setItem('authToken', res.token);
-          window.location.href = '/';
+        window.location.href = '/';
       }, (err: any) =>{
         this.err = true;
       })

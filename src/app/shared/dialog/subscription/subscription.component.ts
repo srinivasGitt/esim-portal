@@ -54,9 +54,9 @@ export class SubscriptionDialogComponent  implements OnInit {
   submit() {
     this.submitted = true;
     if (this.subscriptionForm.invalid) {
-      return;
-    }
-    this.dialogRef.close.emit(this.subscriptionForm.value); 
+      this.submitted = false;
+    } 
+    this.dialogRef.close.emit(this.subscriptionForm.value);
   }
   getAllPlanId(){
     this.planService.listPlans()
@@ -83,7 +83,7 @@ export class SubscriptionDialogComponent  implements OnInit {
   getUserId(){
     this.subscriberService.getAllSubscriber()
     .subscribe(
-      res => {
+      (res : any) => {
         console.log(res);
         this.subscribeList = res;
       }, err => {

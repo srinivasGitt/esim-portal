@@ -16,7 +16,7 @@
                         <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
                     </select>
                     <div>
-                        <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.lastName.pristine) || (f.planId.errors && submitted)">
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.planId.pristine) || (f.planId.errors && submitted)">
                             <span class="small" *ngIf="f.planId.errors.required">
                                 Plan ID is required!
                             </span>
@@ -49,11 +49,11 @@
                           User Email is required!
                         </span>
                     </span>
-                    <span class="help-block ng-invalid text-danger" *ngIf="f.userEmail.errors && submitted">
-                        <span class="small" *ngIf="f.userEmail.errors.email">
+                    <!-- <span class="help-block ng-invalid text-danger" *ngIf="f.userEmail.errors && submitted">
+                        <span class="small">
                             Enter valid email!
                         </span>
-                    </span>
+                    </span> -->
                 </div>
               </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
