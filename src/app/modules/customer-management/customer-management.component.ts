@@ -89,6 +89,7 @@ export class CustomerManagementComponent implements OnInit {
         vm.customerService.deleteCustomer(vm.customerList[index]._id)
         .subscribe(res => {
           vm.customerList.splice(index, 1);
+          this.alertService.success('Customer Deleted');
         }, err => {
           this.alertService.error(err.error.message);
         })

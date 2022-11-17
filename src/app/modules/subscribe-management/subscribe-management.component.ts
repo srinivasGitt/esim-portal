@@ -108,6 +108,7 @@ export class SubscribeManagementComponent implements OnInit {
         vm.subscriberService.deleteSubscriber(vm.subscriberList[index]._id)
         .subscribe(res => {
           vm.subscriberList.splice(index, 1);
+          this.alertService.success('Subscriber Deleted');
         }, err => {
           this.alertService.error(err.error.message);
         })
