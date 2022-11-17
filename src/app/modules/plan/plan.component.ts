@@ -24,6 +24,7 @@ export class PlanComponent implements OnInit {
         if(data){
           let vm  = this;
           vm.plansList.push(data);
+          this.alertService.success('Plan Created');
         }
       })
   }
@@ -31,7 +32,6 @@ export class PlanComponent implements OnInit {
     this.plansService.listPlans()
     .subscribe(
       (data: any) => {
-       
         this.plansList = data;
       }, err => {
         this.alertService.error(err.error.message);
@@ -43,6 +43,7 @@ export class PlanComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         let vm  = this;
         vm.plansList[index] = data;
+        this.alertService.success('Plan Updated');
         }, err => {
           this.alertService.error(err.error.message);
         });
@@ -56,6 +57,7 @@ export class PlanComponent implements OnInit {
         vm.plansService.deletePlan(vm.plansList[index]._id)
         .subscribe(res => {
           vm.plansList.splice(index, 1);
+          this.alertService.success('Plan Deleted');
         }, err => {
           this.alertService.error(err.error.message);
         })

@@ -66,6 +66,7 @@ export class UserComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         if (data) {
           let vm  = this;
+          this.alertService.success('User Created');
           this.getAllUsers();
           // vm.usersList.push(data);
         }
@@ -91,6 +92,7 @@ export class UserComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         let vm  = this;
         vm.usersList[index] = data;
+        this.alertService.success('User Updated');
         });
   }
 
@@ -102,6 +104,7 @@ export class UserComponent implements OnInit {
         vm.usersService.deleteUser(vm.usersList[index]._id)
         .subscribe(res => {
           vm.usersList.splice(index, 1);
+          this.alertService.success('User Deleted');
         }, err => {
           this.alertService.error(err.error.message);
         })
