@@ -9,6 +9,71 @@
             </button>
         </div> -->
     </div>
+    <div>
+        <div class="row mb-2">
+            <div class="col-lg-12">
+                <div>
+                    <div class="dashboard-card-row" *ngIf="totalProfiles">
+                        <div class="dashboard-card-parent">
+                            <div class="profile-mgmt-card">
+                                <div class="user-icon-parent">
+                                    <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
+                                </div>
+                                <p class="user-profile-text">Available Profiles</p>
+                                <p class="user-profile-count">{{totalProfiles.availableProfiles}}</p>
+                                <div class="blue-border-bottom"></div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-parent">
+                            <div class="profile-mgmt-card">
+                                <div class="user-icon-parent">
+                                    <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
+                                </div>
+                                <p class="user-profile-text">Installed Profiles</p>
+                                <p class="user-profile-count">{{totalProfiles.installedProfiles}}</p>
+                                <div class="blue-border-bottom"></div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-parent">
+                            <div class="profile-mgmt-card">
+                                <div class="user-icon-parent">
+                                    <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
+                                </div>
+                                <p class="user-profile-text total-user-text">Allocated Profiles</p>
+                                <p class="user-profile-count">{{totalProfiles.allocatedProfiles}}</p>
+                                <div class="blue-border-bottom"></div>
+                            </div>
+                            <!-- <div class="dark-bg-card">
+                                
+                            </div> -->
+                        </div>
+                        <!-- <div class="dashboard-card-parent">
+                            <div class="profile-mgmt-card">
+                                <div class="user-icon-parent">
+                                    <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
+                                </div>
+                                <p class="user-profile-text total-user-text">Active Subscriptions</p>
+                                <p class="user-profile-count">{{totalProfiles.totalCount}}</p>
+                                <div class="blue-border-bottom"></div>
+                            </div>
+                        </div> -->
+                        <div class="dashboard-card-parent">
+                            <div class="profile-mgmt-card">
+                                <div class="user-icon-parent">
+                                    <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
+                                </div>
+                                <p class="user-profile-text total-user-text">Subscribers</p>
+                                <p class="user-profile-count">{{totalProfiles.subscriberCount}}</p>
+                                <div class="blue-border-bottom"></div>
+                            </div>
+                            <!-- <div class="dark-bg-card">
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="user-dashboard-table-container">
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">

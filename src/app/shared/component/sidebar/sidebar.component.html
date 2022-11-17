@@ -1,3 +1,4 @@
+<!-- Default Sidebar -->
 <div class="sidebar-inner sidebar-inner-1" [ngClass]="{'d-none': show}"  id="sidebar-1">
     <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
         <div class="sidebar-anchor-tab-flex">
@@ -82,6 +83,8 @@
         </a>
     </div>
 </div>
+
+<!-- Customer Management Sidebar -->
 <div class="sidebar-inner sidebar-inner-2 d-flex" [ngClass]="{'d-none': !show}" id="sidebar-2" >
     <div class="sidebar-inner sidebar-left " >
         <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
