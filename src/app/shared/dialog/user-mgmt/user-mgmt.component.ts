@@ -58,7 +58,7 @@ export class UserMgmtComponent implements OnInit {
   }
   createuserForm() {
     this.userForm = new UntypedFormGroup({
-      email: new UntypedFormControl({value: this.data?.email, disabled: true}, [Validators.required, Validators.email]),
+      email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
       firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
       lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
       regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
