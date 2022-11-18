@@ -77,6 +77,12 @@ export class SidebarComponent implements OnInit {
     this.show=!this.show;
   }
 
+  closeSidebar(){
+    if(this.show === true){
+      this.show = false;
+    }
+  }
+
   switchTocustomer(customerId: any){
     const currentCustomer =  {currentCustomerId: customerId}
     this.usersService.changeCurrentCustomer(currentCustomer)
