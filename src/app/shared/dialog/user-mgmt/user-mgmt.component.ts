@@ -93,6 +93,6 @@ export class UserMgmtComponent implements OnInit {
   }
   close(): void {
     // this.data.amount = 343;
-    this.dialogRef.close.emit(false);
+    this.dialogRef.close.emit();
   }
 }
