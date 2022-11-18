@@ -93,6 +93,7 @@ export class UserComponent implements OnInit {
         let vm  = this;
         vm.usersList[index] = data;
         this.alertService.success('User Updated');
+        this.getAllUsers();
         });
   }
 
