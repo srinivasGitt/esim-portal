@@ -4,6 +4,7 @@ import { DialogService } from 'src/app/shared/service/dialog';
 import { InventoryService } from 'src/app/shared/service/inventory.service';
 import { ProfileLogComponent } from 'src/app/shared/dialog/profile-log/profile-log.component';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { DashboardService } from 'src/app/shared/service/dashboard.service';
 
 @Component({
   selector: 'app-inventory',
@@ -13,13 +14,15 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 export class InventoryComponent implements OnInit {
   inventory: any = [];
   data: any;
+  totalProfiles: any;
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
-              private alertService : AlertService) { 
+              private alertService : AlertService,
+              private dashboardService: DashboardService) { 
               }
   ngOnInit(): void {
     this.getInventory();
-    console.log(this.data);
+    this.totalProfileCount();
   }
 
   // createPlan() {
@@ -62,5 +65,12 @@ export class InventoryComponent implements OnInit {
     }, err => {
       this.alertService.error(err.error.message);
     });
+  }
+
+  totalProfileCount() {
+    this.dashboardService.getProfiles()
+      .subscribe((data: any) => {
+        this.totalProfiles = data;
+      })
   }
 }

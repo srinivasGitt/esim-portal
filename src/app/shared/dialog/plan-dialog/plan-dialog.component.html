@@ -82,8 +82,8 @@
                 </div>
                 <div class="col-6 mb-3">
                     <label for="planId" class="form-label es-modal-form-label">Region</label>
-                    <select formControlName="regionId" class="form-control es-input">  
-                        <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
+                    <select formControlName="regionId" class="form-control es-input select-bg">  
+                        <option class="select-bg" *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
                     </select>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.regionId.touched && f.regionId.pristine) || (f.regionId.errors && submitted)">
