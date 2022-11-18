@@ -78,7 +78,7 @@ export class UserComponent implements OnInit {
       (data: any) => {
         this.usersList = data;
         this.getAllRegions();
-      this.getAllPlans();
+        this.getAllPlans();
         // this.subscriptionList = data;
       }, err => {
         this.alertService.error(err.error.message);
@@ -91,9 +91,11 @@ export class UserComponent implements OnInit {
     this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: this.usersList[index], title: 'Edit User'} })
       .instance.close.subscribe((data: any) => {
         let vm  = this;
-        vm.usersList[index] = data;
-        this.alertService.success('User Updated');
-        this.getAllUsers();
+        if(data){
+          vm.usersList[index] = data;
+          this.alertService.success('User Updated');
+          this.getAllUsers();
+        }
         });
   }
 

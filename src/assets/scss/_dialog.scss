@@ -34,6 +34,9 @@
                 color: var(--dark-text-white-v1);
                 border: 1px solid var(--dark-text-white-v3);
             }
+            option{
+                color: black !important;
+            }
         }
         .success-error-heading{
             color: var(--dark-text-white-v1);
