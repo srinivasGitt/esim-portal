@@ -18,6 +18,7 @@ export class UserMgmtComponent implements OnInit {
   title: string = 'Add New User';
   regionList: any = [];
   planList: any = [];
+  
   constructor(
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
@@ -27,6 +28,7 @@ export class UserMgmtComponent implements OnInit {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
+
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
@@ -34,6 +36,7 @@ export class UserMgmtComponent implements OnInit {
     this.getAllRegions();
     this.getAlPlans();
   }
+
   getAllRegions(): void {
     this.regionService.getAllRegions()
     .subscribe(
@@ -45,6 +48,7 @@ export class UserMgmtComponent implements OnInit {
       }
     )
   }
+
   getAlPlans(): void {
     this.planService.listPlans()
     .subscribe(
@@ -56,6 +60,7 @@ export class UserMgmtComponent implements OnInit {
       }
     )
   }
+
   createuserForm() {
     this.userForm = new UntypedFormGroup({
       email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
@@ -67,6 +72,7 @@ export class UserMgmtComponent implements OnInit {
       mobile: new UntypedFormControl(this.data?.mobile, [Validators.required]),
     });
   }
+
   submit() {
     if (this.title === 'Edit User') {
       this.update();
@@ -74,15 +80,16 @@ export class UserMgmtComponent implements OnInit {
       this.createUser();
     }
   }
+
   createUser() {
     this.usersService.createUsers(this.userForm.value)
     .subscribe((res: any) => {
-      console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error('User Already Exist');
+      this.alertService.error(err.error.message);
     })
   }
+
   update() {
     this.usersService.updateUser(this.data._id, this.userForm.value)
     .subscribe( (res: any) => {
@@ -91,6 +98,7 @@ export class UserMgmtComponent implements OnInit {
       this.alertService.error(err.error.message);
     })
   }
+
   close(): void {
     // this.data.amount = 343;
     this.dialogRef.close.emit();
