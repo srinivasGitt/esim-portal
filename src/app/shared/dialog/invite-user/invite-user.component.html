@@ -12,6 +12,13 @@
             <div class="mb-3">
                 <label for="email" class="form-label es-modal-form-label">Email Address</label>
                 <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.email.touched && f.email.pristine) || (f.email.errors && submitted)">
+                        <span class="small" *ngIf="f.email.errors.required">
+                            Email is required!
+                        </span>
+                    </span>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>

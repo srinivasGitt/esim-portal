@@ -80,7 +80,7 @@ export class UserMgmtComponent implements OnInit {
       console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error('User Already Exist');
     })
   }
   update() {
