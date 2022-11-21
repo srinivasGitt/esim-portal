@@ -89,7 +89,7 @@ export class SubscriberMgmtComponent implements OnInit {
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error('Subscriber Already Exist');
+      this.alertService.error(err.error.message);
     })
   }
 
