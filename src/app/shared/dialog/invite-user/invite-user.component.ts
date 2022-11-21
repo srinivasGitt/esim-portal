@@ -47,7 +47,7 @@ export class InviteUserComponent implements OnInit {
       this.dialogRef.close.emit(res);
       this.alertService.success('Successfully Invited');
     }, err => {
-      this.alertService.error('Enter Email ID');
+      this.alertService.error(err.error.message);
     })
   }
 
