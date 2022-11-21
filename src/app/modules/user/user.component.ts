@@ -65,13 +65,12 @@ export class UserComponent implements OnInit {
     this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User'} })
       .instance.close.subscribe((data: any) => {
         if (data) {
-          let vm  = this;
-          this.alertService.success('User Created');
           this.getAllUsers();
-          // vm.usersList.push(data);
+          this.alertService.success('User Created');
         }
-        });
+      });
   }
+
   getAllUsers() {
     this.usersService.getAllUsers()
     .subscribe(
@@ -79,7 +78,6 @@ export class UserComponent implements OnInit {
         this.usersList = data;
         this.getAllRegions();
         this.getAllPlans();
-        // this.subscriptionList = data;
       }, err => {
         this.alertService.error(err.error.message);
       }
@@ -119,12 +117,10 @@ export class UserComponent implements OnInit {
     userInvite(){
       this.dialogService.openModal(InviteUserComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data);
-        // if (data) {
-        //   let vm  = this;
-        //   this.getAllUsers();
-        //   // vm.usersList.push(data);
-        // }
+        if (data) {
+          this.getAllUsers();
+        // vm.usersList.push(data);
+        }
         });
     }
 }
