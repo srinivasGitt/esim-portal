@@ -13,6 +13,8 @@ export class InviteUserComponent implements OnInit {
   dialogRef: DialogComponent;
   title: any = 'Invite User'
   userForm: any;
+  submitted = false;
+  
   constructor(
     private viewContainer: ViewContainerRef,
     private usersService : UsersService,
@@ -33,7 +35,13 @@ export class InviteUserComponent implements OnInit {
     })
   }
 
+  get f() { return this.userForm.controls; } 
+
   submitForm(){
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      return;
+    }
     this.usersService.inviteUser(this.userForm.value)
     .subscribe((res:any)=>{
       this.dialogRef.close.emit(res);
@@ -44,7 +52,6 @@ export class InviteUserComponent implements OnInit {
   }
 
   close(): void {
-    // this.data.amount = 343;
-    this.dialogRef.close.emit(false);
+    this.dialogRef.close.emit(this.userForm.value);
   }
 }
