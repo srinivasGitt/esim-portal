@@ -51,7 +51,7 @@
             </div>
             <div class="mb-3">
                 <label for="planId" class="form-label es-modal-form-label">Region</label>
-                <select formControlName="regionId" class="form-control es-input">  
+                <select formControlName="regionId" class="form-control es-input" (change)="fetchPlans()">  
                     <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
                 </select>
                 <div>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="planId" class="form-label es-modal-form-label">Current Plan</label>
+                <label for="planId" class="form-label es-modal-form-label">Plan</label>
                 <select formControlName="planId" class="form-control es-input" (change)="assignPlan()">  
                     <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
                 </select>
@@ -77,14 +77,15 @@
             </div>
             <div class="mb-3">
                 <label for="endDate" class="form-label es-modal-form-label">Plan Details</label>
-                <input type="text" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate" [attr.disabled]="true">
-                <div>
+                Data: {{planDetails?.dataSize || 0}} MB, Voice: {{planDetails?.voiceCalls || 0 }} Minutes, SMS: {{planDetails?.sms || 0}}, Expires on: {{f.endDate.value | date: 'medium'}}
+                <!-- <input type="text" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate" [attr.disabled]="true"> -->
+                <!-- <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.endDate.touched && f.endDate.pristine) || (f.endDate.errors && submitted)">
                         <span class="small" *ngIf="f.email.errors && f.endDate.errors.required">
                             EndDate is required!
                         </span>
                     </span>
-                </div>
+                </div> -->
             </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Invite</button>
           </form>
