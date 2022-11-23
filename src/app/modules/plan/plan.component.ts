@@ -41,9 +41,11 @@ export class PlanComponent implements OnInit {
   editPlans(index: number) {
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: this.plansList[index], title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
-        let vm  = this;
-        vm.plansList[index] = data;
-        this.alertService.success('Plan Updated');
+          if(data){
+            let vm  = this;
+            vm.plansList[index] = data;
+            this.alertService.success('Plan Updated');
+          }
         }, err => {
           this.alertService.error(err.error.message);
         });
