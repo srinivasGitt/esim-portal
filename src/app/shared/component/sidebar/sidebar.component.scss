@@ -1,14 +1,8 @@
 .sidebar-left{
     background-color:var(--dark-background);
-    // width: 40px !important;
     height: 100% ;
     margin-right: 5px;
     flex-shrink: 0;
-    .sidebar-anchor-tab-flex-img {
-        // width: 15px !important;
-        // margin-left: 3px !important;
-        // margin-right: 0px !important;
-    }
 }
 
 .sidebar-right{
@@ -22,25 +16,17 @@
 
 .sidebar-right-heading{
     font-family: "Helvetica-Medium";
-    font-size: 12px !important;
-    color:#1DA1F1 ;
+    font-size: 16px !important;
+    color: #1DA1F1 ;
     .alignment-text{
         display: flex;
         justify-content: space-between;
         margin-bottom: 1rem;
     }
-    // .close-button{
-    //     margin-left: 61% !important;
-    // }
     .close-icon{
         font-size: 10px !important;
         
     }
-    // span{
-    //     border-radius: 3px;
-    //     padding-top: 2px;
-    //     margin-top: 31px;
-    // }
     i{
         font-size: 15px;
     }
@@ -74,7 +60,7 @@
         .accordion-button {
             font-family: "Helvetica-Medium";
             position: relative;
-            font-size: 12px !important;
+            font-size: 14px !important;
             display: flex;
             width: 100%;
             padding: unset !important;

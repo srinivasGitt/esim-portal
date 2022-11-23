@@ -384,7 +384,7 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 370px 260px 4fr 4fr 2fr;
+            grid-template-columns: 4fr 4fr 4fr 4fr;
             grid-gap: 1;
         }
         .t-box {
@@ -393,6 +393,7 @@
             width: 100%;
             justify-content: center;
             color: var(--dark-text-white-v1);
+            font-size: 18px;
             // overflow: auto;
         }
         .t-body-bg{
