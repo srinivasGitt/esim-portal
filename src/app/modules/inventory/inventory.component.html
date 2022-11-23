@@ -62,7 +62,7 @@
                                 <!-- <div class="user-icon-parent">
                                     <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
                                 </div> -->
-                                <p class="user-profile-text total-user-text">Subscribers : {{totalProfiles.subscriberCount}}</p>
+                                <p class="user-profile-text total-user-text">Total Profiles : {{totalProfiles.availableProfiles + totalProfiles.installedProfiles + totalProfiles.allocatedProfiles}}</p>
                                 <!-- <p class="user-profile-count"></p> -->
                                 <div class="blue-border-bottom"></div>
                             </div>
@@ -94,7 +94,7 @@
                         <div class="t-box b px-2">{{info.imsi}}</div>
                         <div class="t-box a px-1">{{info.profile}}</div>
                         <div class="t-box b px-2">{{info.smdp}}</div>
-                        <div class="t-box a px-1">{{info.status}}</div>
+                        <div class="t-box a px-1">{{info.status | uppercase}}</div>
                         <div class="t-box b px-2">{{info.createdAt| date: 'medium'}}</div>
                         <div class="t-box a px-2">
                             <div class="user-table-action">

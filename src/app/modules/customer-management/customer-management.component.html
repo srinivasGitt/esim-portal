@@ -26,8 +26,8 @@
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
                     <div class="t-box b px-2">Customer Name</div>
                     <div class="t-box b px-2">Creation Date</div>
-                    <div class="t-box a px-2">Number Of Profile</div>
-                    <div class="t-box a px-2">Created By</div>
+                    <div class="t-box a px-2">Number Of Profiles</div>
+                    <!-- <div class="t-box a px-2">Created By</div> -->
                     
                     <div class="t-box b px-2">
                         Action
@@ -39,7 +39,7 @@
                         <div class="t-box a px-2"  [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
                         <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
                         <div class="t-box a px-2">{{customer.totalCount}}</div>
-                        <div class="t-box a px-2">{{customer.createdBy}}</div>
+                        <!-- <div class="t-box a px-2">{{customer.createdBy}}</div> -->
 
                         <div class="t-box b px-2">
                             <div class="user-table-action">

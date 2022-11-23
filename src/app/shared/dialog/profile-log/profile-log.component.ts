@@ -15,19 +15,19 @@ export class ProfileLogComponent implements OnInit {
       timeStamp: "2022-10-04T22:12:06.430Z",
       actionStatus: "ALLOCATED",
       EID: '89049032005008882600040700344582',
-      deviceModel: "Iphone 14"
+      deviceModel: "iPhone 12"
     },
     {
       timeStamp: "2022-10-03T21:31:34.430Z",
       actionStatus: "INSTALLED",
       EID: '89049032005008882600040700344582',
-      deviceModel: "Iphone 14"
+      deviceModel: "iPhone 13 pro"
     },
     {
       timeStamp: "2022-10-03T12:38:57.430Z",
       actionStatus: "AVAILABLE",
       EID: '89049032005008882600040700344582',
-      deviceModel: "Iphone 14"
+      deviceModel: "iPhone 14"
     },
   ]
   constructor(
