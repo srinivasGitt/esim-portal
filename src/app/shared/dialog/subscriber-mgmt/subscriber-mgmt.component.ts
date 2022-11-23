@@ -19,7 +19,7 @@ export class SubscriberMgmtComponent implements OnInit {
   regionList: any = [];
   planList: any = [];
   submitted = false;
-
+  planDetails: any;
   constructor(
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
@@ -48,6 +48,16 @@ export class SubscriberMgmtComponent implements OnInit {
     )
   }
 
+  fetchPlans() {
+    this.planService.fetchPlansByRegion(this.subscriberForm.get('regionId').value)
+    .subscribe(
+      res => {
+        this.planList = res;
+      }, err => {
+        this.alertService.error(err.error.message);
+      }
+    )
+  }
   getAlPlans(): void {
     this.planService.listPlans()
     .subscribe(
@@ -105,6 +115,7 @@ export class SubscriberMgmtComponent implements OnInit {
   assignPlan(){
     const planId = this.subscriberForm.get('planId').value;
     const plan = this.planList.find((o:any)=>o._id === planId);
+    this.planDetails = plan;
     if(plan){
       const endDate = new Date();
       endDate.setDate(endDate.getDate() + plan.validity);
