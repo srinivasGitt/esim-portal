@@ -43,7 +43,7 @@ export class ProfileLogComponent implements OnInit {
       timeStamp: this.data.updatedAt || this.data.createdAt,
       actionStatus: this.data.status,
       EID: '89049032004008882600016698204368',
-      deviceModel: "Iphone 14"
+      deviceModel: "iPhone 11 pro"
     },)
   }
 
