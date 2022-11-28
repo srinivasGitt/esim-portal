@@ -82,7 +82,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   deleteCustomer( index: number) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this subscription?'} })
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this customer?'} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
