@@ -20,6 +20,7 @@ export class SubscriberMgmtComponent implements OnInit {
   planList: any = [];
   submitted = false;
   planDetails: any;
+  buttonLabel: any = 'Invite';
   constructor(
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
@@ -35,6 +36,9 @@ export class SubscriberMgmtComponent implements OnInit {
     this.createsubscriberForm();
     this.getAllRegions();
     this.getAlPlans();
+    if(this.title === 'Edit Subscriber'){
+      this.buttonLabel = 'Update'
+    }
   }
 
   getAllRegions(): void {
@@ -63,6 +67,11 @@ export class SubscriberMgmtComponent implements OnInit {
     .subscribe(
       res => {
         this.planList = res;
+        const planId = this.subscriberForm.get('planId').value;
+        const plan = this.planList.find((o:any)=>o._id === planId);
+        if(this.data._id){
+          this.planDetails = plan;
+        }
       }, err => {
         this.alertService.error(err.error.message);
       }

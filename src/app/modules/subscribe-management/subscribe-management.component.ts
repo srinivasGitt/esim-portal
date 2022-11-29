@@ -101,7 +101,7 @@ export class SubscribeManagementComponent implements OnInit {
   }
 
   deleteSubscriber( index: number) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this user?'} })
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this subscriber?'} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
