@@ -39,7 +39,6 @@ export class PlanDialogComponent implements OnInit {
     this.regionService.getAllRegions()
     .subscribe(
       res => {
-        console.log(res);
         this.regionList = res;
       }, err => {
         this.alertService.error(err.error.message);

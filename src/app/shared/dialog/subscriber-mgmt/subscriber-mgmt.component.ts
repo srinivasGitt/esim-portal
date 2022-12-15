@@ -57,6 +57,11 @@ export class SubscriberMgmtComponent implements OnInit {
     .subscribe(
       res => {
         this.planList = res;
+        const planId = this.subscriberForm.get('planId').value;
+        const plan = this.planList.find((o:any)=>o._id === planId);
+        if(this.data._id){
+          this.planDetails = plan;
+        }
       }, err => {
         this.alertService.error(err.error.message);
       }

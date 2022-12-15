@@ -8,17 +8,17 @@
         </div>
     </div>
     <div class="es-modal-body">
-        <form class="es-modal-form" [formGroup]="customerForm" novalidate (ngSubmit)="submit()">
+        <form class="es-modal-form" [formGroup]="assignProfileForm" (ngSubmit)="submit()" novalidate>
             <div class="mb-3">
-                <label for="name" class="form-label es-modal-form-label">Customer Name</label>
-                <input type="text" class="form-control es-input" id="customerName"  formControlName="name">
-                <div>
+                <label for="file" class="form-label es-modal-form-label">Enter number of profiles</label>
+                <input type="number" class="form-control es-input" id="assignProfiles" formControlName="profileCount">
+                <!-- <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
                         <span class="small" *ngIf="f.name.errors.required">
                             Customer Name is required!
                         </span>
                     </span>
-                </div>
+                </div> -->
               </div>
             
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
@@ -26,4 +26,3 @@
     </div>
     <div class="es-modal-footer"></div>
 </div>
-
