@@ -21,6 +21,8 @@ import { SubscriberMgmtComponent } from './dialog/subscriber-mgmt/subscriber-mgm
 
 import { AlertComponent } from './dialog/alert/alert.component';
 import { ProfileLogComponent } from './dialog/profile-log/profile-log.component';
+import { ImportProfileComponent } from './dialog/import-profile/import-profile.component';
+import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profiles.component';
 
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
@@ -39,7 +41,9 @@ import { ProfileLogComponent } from './dialog/profile-log/profile-log.component'
     InviteSubscriberComponent,
     SubscriberMgmtComponent,
     AlertComponent,
-    ProfileLogComponent
+    ProfileLogComponent,
+    ImportProfileComponent,
+    AssignProfilesComponent
   ],
   imports: [
     CommonModule,

@@ -1,32 +1,30 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InventoryService {
+export class FileUploadService {
   serverUrl = environment.serverUrl;
-
-  constructor(private http: HttpClient ) { }
+  constructor(private http : HttpClient) { }
 
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/x-www-form-urlencoded',
+        Accept: '*/*',
         Authorization: `Bearer ${authToken}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       })
     };
     return httpOptions;
   }
 
-  listInventory() {
-    return this.http.get(`${this.serverUrl}/inventories`, this.getHeader());
-  }
-
-  assignProfile(data: any){
-    return this.http.post(`${this.serverUrl}/customer/inventory`, data, this.getHeader())
+  onUpload(file: any):Observable<any> {
+    const formData = new FormData();
+    formData.append("file", file, file.name)
+    return this.http.post(`${this.serverUrl}/inventory/import`, formData, this.getHeader())
   }
 }

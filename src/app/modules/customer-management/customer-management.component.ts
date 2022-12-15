@@ -6,6 +6,8 @@ import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { UsersService } from 'src/app/shared/service/users.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { ImportProfileComponent } from 'src/app/shared/dialog/import-profile/import-profile.component';
+import { AssignProfilesComponent } from 'src/app/shared/dialog/assign-profiles/assign-profiles.component';
 
 @Component({
   selector: 'app-customer-management',
@@ -99,6 +101,24 @@ export class CustomerManagementComponent implements OnInit {
 
   selectCustomer(i:any){
     localStorage.setItem("customerId",this.customerList[i]._id);
+  }
+
+  importProfile(){
+    this.dialogService.openModal(ImportProfileComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Select File'} })
+      .instance.close.subscribe(() => {
+        
+      });
+  }
+
+  assignProfiles(index: number){
+    this.dialogService.openModal(AssignProfilesComponent, {cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Assign Profiles'}})
+    .instance.close.subscribe((data: any) => {
+        if(data){
+          this.customerList[index] = data;
+          this.alertService.success('Profiles assigned successfully');
+          this.getAllCustomer();
+        }
+    });
   }
     
 }

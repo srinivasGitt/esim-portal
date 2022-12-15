@@ -33,13 +33,11 @@ export class PlanDialogComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.createPlanForm();
     this.getAllRegions();
-    console.log(this.planForm.value)
   }
   getAllRegions(): void {
     this.regionService.getAllRegions()
     .subscribe(
       res => {
-        console.log(res);
         this.regionList = res;
       }, err => {
         this.alertService.error(err.error.message);
@@ -75,7 +73,6 @@ export class PlanDialogComponent implements OnInit {
   createUser() {
     this.planService.createPlan(this.planForm.value)
     .subscribe( (res: any) => {
-      console.log(res);
       this.dialogRef.close.emit(res);
     }, err => {
       this.alertService.error(err.error.message);

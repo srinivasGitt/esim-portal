@@ -8,22 +8,22 @@
         </div>
     </div>
     <div class="es-modal-body">
-        <form class="es-modal-form" [formGroup]="customerForm" novalidate (ngSubmit)="submit()">
+        <div class="es-modal-form">
             <div class="mb-3">
-                <label for="name" class="form-label es-modal-form-label">Customer Name</label>
-                <input type="text" class="form-control es-input" id="customerName"  formControlName="name">
-                <div>
+                <!-- <label for="file" class="form-label es-modal-form-label">Customer Name</label> -->
+                <input type="file" class="form-control es-input" id="file" accept=".csv" (change)="onChange($event)">
+                <!-- <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
                         <span class="small" *ngIf="f.name.errors.required">
                             Customer Name is required!
                         </span>
                     </span>
-                </div>
+                </div> -->
               </div>
             
-            <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
-        </form>
+            <button type="submit" class="btn btn-primary my-4" (click)="onUpload()">Submit</button>
+            <button type="button" class="btn btn-danger ms-4" (click)="close()">Cancel</button>
+        </div>
     </div>
     <div class="es-modal-footer"></div>
 </div>
-
