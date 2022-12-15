@@ -25,7 +25,6 @@ export class FileUploadService {
   onUpload(file: any):Observable<any> {
     const formData = new FormData();
     formData.append("file", file, file.name)
-    console.log(file)
     return this.http.post(`${this.serverUrl}/inventory/import`, formData, this.getHeader())
   }
 }

@@ -52,7 +52,6 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data)
         if (data && data.name !== null ) {
           this.alertService.success('Customer Created');
           this.getAllCustomer();
@@ -77,7 +76,6 @@ export class CustomerManagementComponent implements OnInit {
         if(data){
           let vm  = this;
           vm.customerList[index] = data;
-          console.log(vm.customerList[index]._id);
           this.alertService.success('Custommer Updated');
           this.getAllCustomer();
         }
@@ -117,7 +115,6 @@ export class CustomerManagementComponent implements OnInit {
     .instance.close.subscribe((data: any) => {
         if(data){
           this.customerList[index] = data;
-          console.log(this.customerList[index]._id);
           this.alertService.success('Profiles assigned successfully');
           this.getAllCustomer();
         }

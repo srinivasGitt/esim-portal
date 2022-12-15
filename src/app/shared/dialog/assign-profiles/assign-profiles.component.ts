@@ -34,7 +34,6 @@ export class AssignProfilesComponent implements OnInit {
     this.assignProfileForm = new UntypedFormGroup({
       profileCount: new UntypedFormControl(this.data?.value, [Validators.required])
     })
-    console.log(this.assignProfileForm)
   }
 
   get f() { return this.assignProfileForm.controls};
@@ -46,7 +45,6 @@ export class AssignProfilesComponent implements OnInit {
       profileCount : this.assignProfileForm.get('profileCount').value
 
     }
-    console.log(userData)
     this.inventoryService.assignProfile(userData)
     .subscribe((res: any)=> {
       this.dialogRef.close.emit(res);

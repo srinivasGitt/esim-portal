@@ -42,12 +42,10 @@ export class ImportProfileComponent implements OnInit {
 
   onChange(event: any){
     this.file = event.target.files[0];
-    console.log(this.file)
   }
 
   onUpload(){
     this.loading = !this.loading;
-    console.log(this.file);
     this.fileUploadService.onUpload(this.file).subscribe((data : any) => {
       this.alertService.success("File has been uploaded successfully");
     },
