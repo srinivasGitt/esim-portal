@@ -46,7 +46,7 @@
 
     - name: Start the container
       docker_container:
-        name: dev-esim-management-portal-application-ansible
+        name: ansible-dev-esim-management-portal-application
         image: "myselfjivan/esim-management-portal-application:development"
         state: started
         networks:
