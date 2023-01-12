@@ -1,5 +1,5 @@
 ---
-- hosts: penpenny-production
+- hosts: penpennyProduction
   become: true
   tasks:
     - name: Install aptitude
