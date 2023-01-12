@@ -41,12 +41,6 @@
       pip:
         name: docker
 
-    - name: Build image docker
-      command: docker build -t myselfjivan/esim-management-portal-application:development .
-
-    - name: Push image to docker hub
-      command: docker push myselfjivan/esim-management-portal-application:development 
-
     - name: Pull image from docker hub
       command: docker pull myselfjivan/esim-management-portal-application:development
 
