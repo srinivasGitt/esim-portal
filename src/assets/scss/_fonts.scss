@@ -14,3 +14,50 @@
     font-family: "Helvetica-Thin";
     src: url("/assets/fonts/helvetica-font/HelveticaNeueThin.ttf");
 }
+
+@font-face {
+    font-family: 'Futura PT Book';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura PT Book'), url('/assets/fonts/futura-pt-font/FuturaCyrillicBook.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'Futura PT Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura PT Light'), url('/assets/fonts/futura-pt-font/FuturaCyrillicLight.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'Futura PT Medium';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura PT Medium'), url('/assets/fonts/futura-pt-font/FuturaCyrillicMedium.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'Futura PT Demi';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura PT Demi'), url('/assets/fonts/futura-pt-font/FuturaCyrillicDemi.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'Futura PT Heavy';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura PT Heavy'), url('/assets/fonts/futura-pt-font/FuturaCyrillicHeavy.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'Futura PT Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Futura PT Bold'), url('/assets/fonts/futura-pt-font/FuturaCyrillicBold.woff') format('woff');
+}
