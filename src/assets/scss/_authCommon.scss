@@ -45,24 +45,27 @@
                         font-size: 16px;
                         color: #73707B;
                     }
-                    .form-control{
-                        border: 1px solid #969696;
-                        border-radius: 10px; 
-                        font-size: 0.94vw;
-                        padding: 0.5vw 0.75vw;
-                        &::placeholder{
-                            font-family: "Futura PT Medium";
-                            color: #B9B9B9;
-                        }
-                        &:focus{
-                            box-shadow: none;
-                        }
-                        &.ng-dirty.ng-invalid{
+                    &:not(.form-otp-input){
+                        .form-control{
+                            border: 1px solid #e0e0e0;
+                            border-radius: 10px; 
+                            font-size: 0.94vw;
+                            padding: 0.5vw 0.75vw;
+                            height: 50px;
                             &::placeholder{
-                                color: #D32F2F;    
+                                font-family: "Futura PT Medium";
+                                color: #B9B9B9;
                             }
-                            border: 1px solid rgba(255, 71, 71, 0.34);
-                            color: #D32F2F;
+                            &:focus{
+                                box-shadow: none;
+                            }
+                            &.ng-dirty.ng-invalid{
+                                &::placeholder{
+                                    color: #D32F2F;    
+                                }
+                                border: 1px solid rgba(255, 71, 71, 0.34);
+                                color: #D32F2F;
+                            }
                         }
                     }
                     .show-hide-password{
@@ -72,6 +75,9 @@
                     }
                     .help-block{
                         font-family: "Futura PT Medium";
+                        &.text-success{
+                            color: #00C853 !important;
+                        }
                     }
                 }
                 .reset-pass-text{

@@ -12,7 +12,15 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: any;
   submitted = false;
   err = false;
-
+  showOTPSection = false;
+  otpError = false;
+  public settings = {
+    length: 6,
+    numbersOnly: true,
+    timer: 120,
+    timerType: 1
+  }
+  
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -36,21 +44,36 @@ export class ForgotPasswordComponent implements OnInit {
 
     const userData = {
       email: this.forgotPasswordForm.get('email').value,
-     
     };
 
       this.authService.forgotPassword(userData)           //api call
       .subscribe( (data: any) => {
-     
-        alert(data.message);
-        this.router.navigate(['/signin']);
+        this.showOTPSection = true;
       }, error => {
-        this.err =  error.error.message;
+        // this.err =  error.error.message;
+        this.showOTPSection = false;
+        this.forgotPasswordForm.controls['email'].setErrors({'incorrect' : true});
+        this.err = true;
         console.log(error);
       });
     }
 
-    
+    onOTPChange(e : any) {
+      if(e.length == this.settings.length) {
+        const userData = {
+          email: this.forgotPasswordForm.get('email').value,
+          otp: e
+        };
+        this.authService.validateOTP(userData).subscribe(( data: any) => {
+          this.router.navigate(['/reset-password']);
+        }, error => {
+          this.otpError = true;
+          console.log(error)
+        })
+      } else if(e == -2){
+        this.submit();
+      }
+    }
   }
 
 
