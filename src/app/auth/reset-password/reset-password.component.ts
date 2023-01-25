@@ -15,6 +15,11 @@ export class ResetPasswordComponent implements OnInit {
   submitted = false;
   err = false;
   token: any;
+  passwordStrength: string = 'Weak';
+  passwordStrengthIndex: number = 0;
+  passwordStrengthColors: Array<string> = ['darkred', '#FFC400', 'yellowgreen', '#00C853'];
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
  
 
   constructor(private authService: AuthService,
@@ -26,14 +31,15 @@ export class ResetPasswordComponent implements OnInit {
     this.resetForm();
     this.route.queryParams
       .subscribe(params => {
-        
         this.token = params['token']; 
         if (this.token) {
           this.checkLinValidation();
-        }  
-      
+        }
       }
-    ); 
+    );
+    if(window.history?.state?.otp){
+      this.token = window.history.state.otp;
+    }
   }
 
   checkLinValidation() {
@@ -50,8 +56,8 @@ export class ResetPasswordComponent implements OnInit {
   
   resetForm(){
     this.resetPasswordForm = new UntypedFormGroup({
-      password: new UntypedFormControl(null, [Validators.required, Validators.email]),
-      confirmPassword: new UntypedFormControl(null, [Validators.required]),
+      password: new UntypedFormControl(null, [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new UntypedFormControl(null, {updateOn: 'change', validators: [Validators.required, Validators.minLength(8)]}),
     },
     [CustomValidators.MatchValidator('password', 'confirmPassword')]
     );
@@ -76,28 +82,38 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     const userData = {
+      otp: this.token,
       newPassword: this.resetPasswordForm.get('password').value,
-      repeatPassword: this.resetPasswordForm.get('confirmPassword').value,
+      reEnterPassword: this.resetPasswordForm.get('confirmPassword').value,
     };
 
-    this.authService.resetPssword(this.token, userData)
+    this.authService.resetPssword(userData)
     .subscribe( (data: any) => {
-      alert(data.message)
+      alert(data.message);
       this.router.navigate(['/signin']);
     }, err => {
       this.err = true;
       this.alertService.error(err.error.message);
       // console.log(err);
     });
-
-
-   
-  
-  
-
+  }
  
-}
-  
+  onChangePasswordStrength(value: any){
+    this.passwordStrengthIndex = value;
+    switch(value){
+      case 2:
+        this.passwordStrength = 'Fair';
+        break;
+      case 3:
+        this.passwordStrength = 'Strong';
+        break;
+      case 4:
+        this.passwordStrength = 'Very strong';
+        break;
+      default:
+        this.passwordStrength = 'Weak'
+    }
+  }
 
 
 

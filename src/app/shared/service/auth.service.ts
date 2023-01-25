@@ -27,7 +27,11 @@ export class AuthService {
     return this.http.get(`${this.serverUrl}/auth/reset/${token}`);
   }
 
-  resetPssword(token: any, userData: any){
-    return this.http.post(`${this.serverUrl}/auth/reset/${token}`, userData);
+  validateOTP(userData: any){
+    return this.http.get(`${this.serverUrl}/auth/reset/${userData.otp}/${userData.email}`);
+  }
+
+  resetPssword(userData: any){
+    return this.http.post(`${this.serverUrl}/auth/reset`, userData);
   }
 }

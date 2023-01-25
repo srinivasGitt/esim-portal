@@ -14,6 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 // import { NgChartsModule } from 'chart.js';
 
 
@@ -36,6 +38,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     SharedModule,
     ModulesModule,
+    AngularOtpLibModule,
+    PasswordStrengthMeterModule.forRoot()
     // NgChartsModule
   ],
   providers: [AuthService],

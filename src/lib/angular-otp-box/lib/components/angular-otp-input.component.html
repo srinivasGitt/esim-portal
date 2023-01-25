@@ -1,0 +1,32 @@
+<div class="otp-container {{setting.wrapperClass}}" id="c_{{componentKey}}" *ngIf="otpForm?.controls"
+    [ngStyle]="setting.wrapperStyles" [formGroup]="otpForm">
+    <div class="d-flex otp-input-group">
+        <input 
+            [type]="setting.numbersOnly ? 'tel' : 'text'" 
+            numberOnly [disabledNumberOnly]="!setting.numbersOnly"
+            [ngStyle]="setting.inputStyles" 
+            maxlength="1" 
+            class="form-control my-auto otp-input {{setting.inputClass}}" 
+            autocomplete="off"
+            *ngFor="let item of otpForm?.controls | keys; let i = index" 
+            [formControlName]="'ctrl_' + i"
+            id="otp_{{i}}_{{componentKey}}"
+            (keyup)="keyUp($event, i)"
+        >
+    </div>
+    <ng-container counter [counter]="setting.timer" (value)="onCounterChange($event)">
+        <div class="my-2 reset-pass-text">
+            <a class="{{setting.btnClass}}" [class.disabled]="counter != 0" (click)="ressendOtp()">
+                Resend OTP 
+                <span *ngIf="counter && counter != 0">
+                    <ng-container *ngIf="!setting.timerType">
+                        in {{ counter }} seconds.
+                    </ng-container>
+                    <ng-container *ngIf="setting.timerType">
+                        in {{ formatSecsToMins(counter) }} minutes.
+                    </ng-container>
+                </span>
+            </a>
+        </div>
+    </ng-container>
+</div>
