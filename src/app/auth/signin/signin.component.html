@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="sign-in-vedio-container" *ngIf="!err">
-                        <video autoplay muted loop>
+                        <video autoplay [muted]="true" loop>
                             <source src="/assets/video/sign-in.mp4" type="video/mp4">
                           </video>
                     </div>
