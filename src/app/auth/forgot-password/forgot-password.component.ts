@@ -65,7 +65,7 @@ export class ForgotPasswordComponent implements OnInit {
           otp: e
         };
         this.authService.validateOTP(userData).subscribe(( data: any) => {
-          this.router.navigate(['/reset-password']);
+          this.router.navigate(['/reset-password'], { state: {otp : userData.otp}});
         }, error => {
           this.otpError = true;
           console.log(error)
