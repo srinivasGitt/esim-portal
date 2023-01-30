@@ -1,22 +1,5 @@
 <nav class="navbar navbar-expand-lg main-navbar">
   <div class="container-fluid justify-content-start">
-    <div class="navbar-brand-parent">
-      <a class="navbar-brand" href="#">
-        <img class="brand-logo" *ngIf="!isDarkTheme" src="/assets/images/auth/glowingBud-dark.png" alt="">
-        <img class="brand-logo" *ngIf="isDarkTheme" src="/assets/images/auth/gloiwingBud-light.png" alt="">
-      </a>
-    </div>
-    <div class="navbar-toggler-parent">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" disabled>
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <img class="img-fluid" src="/assets/images/navbar/blue-bars.png" alt="">
-      </button>
-    </div>
-    <div class="navbar-user-div">
-      <p class="user-name mb-0">Current Customer - {{parentCustomer}}</p>
-      <!-- <p class="user-dashboard-text mb-0">Let’s manage your dashboard</p> -->
-    </div>
     <div class="d-flex ms-auto" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto">
         <li class="nav-item">

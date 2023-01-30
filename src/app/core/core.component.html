@@ -1,12 +1,12 @@
 <div class="main">
-    <div class="navbar-main">
-        <app-navbar></app-navbar>
-    </div>
     <div class="main-base-container">
         <div class="sidebar-main">
            <app-sidebar></app-sidebar> 
         </div>
         <div class="dashboard-main">
+            <div class="navbar-main">
+                <app-navbar></app-navbar>
+            </div>
             <router-outlet></router-outlet>
         </div>
     </div>

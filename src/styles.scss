@@ -8,8 +8,8 @@
 @import './assets/scss/navbar';
 
 :root{
-    --dark-background: #000000;
-    --dark-background-v1: #1E1F23;
+    --dark-background: #151616;
+    --dark-background-v1: #151616;
     --dark-background-v2: #27292D;
     --dark-text-white-v1: #fff;
     --dark-text-white-v2: #959595;
@@ -17,6 +17,7 @@
     --dark-text-white-v4: #707070;
     --dark-text-white-v5: #333333;
     --dark-theme-blue-v1: #1DA1F1;
+    --dark-right-border: rgba(255, 255, 255, 0.1);
 }
 
 .lightMode{
@@ -29,6 +30,7 @@
     --dark-text-white-v4: #5D5D5D;
     --dark-text-white-v5: #959595;
     --dark-theme-blue-v1: #1DA1F1;
+    --dark-right-border: rgba(0, 0, 0, 0.1);
 }
 
 body {

@@ -1,5 +1,6 @@
 .main{
     background: var(--dark-background-v1);
+    padding: 39px 21px;
 }
 .main::-webkit-scrollbar {
     display: none;
@@ -18,15 +19,22 @@
         // width: 256px;
         width: 289px;
         padding-left:15px;
-        overflow: scroll;
 
+        .sidebar-brand-parent{
+            width: 289px;
+            padding: 28px 35px;
+            .brand-logo{
+                height: 42px;
+            }
+        }
         .sidebar-inner{
-            height: calc(100vh - 120px);
+            height: calc(100vh - 70px);
             border-radius: 10px;
             // padding: 14px 10px;
             .sidebar-anchor-tab{
                 text-decoration: none;
                 // margin-top: 10px;
+                margin: 0 16px;
                 display: block;
                 .sidebar-anchor-tab-flex{
                     border-radius: 10px;
@@ -50,12 +58,12 @@
                 }
                 &:hover{
                     .sidebar-anchor-tab-flex{
-                        background-color: var(--dark-theme-blue-v1);
+                        background-color: initial;
                         // transition: .4s ease-in-out;
                         .sidebar-anchor-tab-flex-text-container{
                             .sidebar-anchor-tab-flex-text{
                                 margin-bottom: 0px !important;
-                                color: var(--dark-background);
+                                color: var(--dark-text-white-v2);
                             }
                         }
                     }
@@ -63,21 +71,22 @@
                     
                 }
             }
-            .sidebar-anchor-tab.active{
-                .sidebar-anchor-tab-flex{
-                    background-color: var(--dark-theme-blue-v1);
-                    transition: .4s ease-in-out;
-                    .sidebar-anchor-tab-flex-text-container{
-                        .sidebar-anchor-tab-flex-text{
-                            margin-bottom: 0px !important;
-                            color: var(--dark-background);
-                        }
-                    }
-                }
-            }
+            // .sidebar-anchor-tab.active{
+            //     .sidebar-anchor-tab-flex{
+            //         background-color: var(--dark-theme-blue-v1);
+            //         transition: .4s ease-in-out;
+            //         .sidebar-anchor-tab-flex-text-container{
+            //             .sidebar-anchor-tab-flex-text{
+            //                 margin-bottom: 0px !important;
+            //                 color: var(--dark-background);
+            //             }
+            //         }
+            //     }
+            // }
         }
         .sidebar-inner-1{
             background: var(--dark-background);
+            border-right: 1px solid var(--dark-right-border);
         }
         
 

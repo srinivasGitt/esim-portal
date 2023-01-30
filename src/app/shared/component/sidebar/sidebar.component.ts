@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerService } from '../../service/customer.service';
-import { DialogService } from '../../service/dialog';
-import { UsersService } from '../../service/users.service';
-import { AlertService } from '../../service/alert.service';
+import { CustomerService, DialogService, UsersService, AlertService, DashboardService } from '../../service';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
@@ -12,15 +9,18 @@ import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  isDarkTheme = false;
   defaultId:any;
   activeUrl = 'dashboard';
   show:boolean=false;
   customerList: any = [];
   parentCustomer:any;
+  sidebarMenuList: Array<any> = [];
 
   
   constructor(private router:Router,
               private customerService: CustomerService,
+              private dashboardService: DashboardService,
               private usersService: UsersService,
               private alertService: AlertService,
               private dialogService: DialogService) { 
@@ -30,6 +30,11 @@ export class SidebarComponent implements OnInit {
         this.activeUrl = this.router.url;
       }
     )
+
+    dashboardService.getAppTheme().subscribe((data : any) =>{
+      this.isDarkTheme = data;
+    });
+    this.sidebarMenuList = dashboardService.getNavBarMenus();
   }
  
 
@@ -74,7 +79,7 @@ export class SidebarComponent implements OnInit {
   }
 
   customerSidebar(){
-    this.show=!this.show;
+    // this.show=!this.show;
   }
 
   closeSidebar(){
