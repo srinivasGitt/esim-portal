@@ -48,7 +48,7 @@ export class DashboardService {
         title: 'Customers',
         icon: 'assets/icons/customer-icon.svg',
         link: '/customer-management',
-        hasGroup: true
+        hasGroup: false
       },
       {
         title: 'Plans',

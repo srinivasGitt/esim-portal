@@ -61,3 +61,17 @@
     font-weight: normal;
     src: local('Futura PT Bold'), url('/assets/fonts/futura-pt-font/FuturaCyrillicBold.woff') format('woff');
 }
+
+@font-face {
+    font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SF Pro Display'), url('/assets/fonts/sf-pro-display-font/SFPRODISPLAYREGULAR.OTF') format('OTF');
+}
+
+@font-face {
+    font-family: 'SF Pro Display Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SF Pro Display Italic'), url('/assets/fonts/sf-pro-display-font/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('OTF');
+}

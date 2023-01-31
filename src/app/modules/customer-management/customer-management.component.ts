@@ -19,7 +19,10 @@ export class CustomerManagementComponent implements OnInit {
   customerId:any = null;
   currentCustomerId:any = null;
   subCustomerName : any = null;
-  customer:any
+  customer:any;
+  monthsList: Array<string> = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  selectedFilter!: {month: number, year: number}; 
+
 
   constructor(private customerService: CustomerService,
               // private usersService: UsersService,
@@ -29,6 +32,11 @@ export class CustomerManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCustomer();
+    const date = new Date();
+    this.selectedFilter = {
+      month : date.getMonth(),
+      year : date.getFullYear()
+    }
   }
   
   getSingleCustomer() {
@@ -119,6 +127,10 @@ export class CustomerManagementComponent implements OnInit {
           this.getAllCustomer();
         }
     });
+  }
+
+  addNewCustomer(){
+    
   }
     
 }
