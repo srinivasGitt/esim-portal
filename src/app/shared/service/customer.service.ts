@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CustomerService {
   serverUrl = environment.serverUrl;
+  authToken: string = '';
 
   constructor(private http: HttpClient ) { }
 
@@ -23,7 +24,9 @@ export class CustomerService {
     }
 
     childCustomers(){
-      return this.http.get(`${this.serverUrl}/customers/child`, this.getHeader());    
+      const headers = new HttpHeaders({})
+      .set('Authorization', 'Bearer ' + this.authToken);
+      return this.http.get(`${this.serverUrl}/customers`, this.getHeader());    
     }
 
     customers(){
@@ -46,7 +49,7 @@ export class CustomerService {
       console.log(data);
       return this.http.put(`${this.serverUrl}/customer/${id}`, data, this.getHeader());
     }
-
+ 
     deleteCustomer(id: any) {
       return this.http.delete(`${this.serverUrl}/customer/${id}`, this.getHeader());
     }

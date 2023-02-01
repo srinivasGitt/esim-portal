@@ -53,11 +53,96 @@
             </div>
         </div>
         
-
-        <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" (click)="addNewCustomer()">
+<!-- Button trigger modal -->
+        <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNewCustomer()">
             <span class="me-3 btn-add-icon m-auto"> + </span>
             <span class="m-auto">Add new customer</span>
         </button>
+        
+    <!-- Modal start -->
+  
+  <div class="modal fade "  fill="#707070" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">ADD NEW CUSTOMER</h1>
+          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="adminForm" (submit)="addNewCustomer()" >
+        <div class="modal-body  bg-dark text-white">
+             <!-- role, username  -->
+             <div class="form-group bg-dark ">
+                <label for="username">Full name</label>
+                <input type="text" class="bg-dark text-white form-control" id="username" name="username" formControlName="username"
+                  placeholder="Enter Username">
+              </div>
+              
+              <div class="form-group bg-dark ">
+              <label for="role">Select Provider</label>
+              <select class="bg-dark text-white form-control" id="role" name="role" formControlName="provider">
+                <option value="Telna" formControlName="Telna">Telna</option>
+                <option value="POD" formControlName="POD">POD</option>
+              </select>
+            </div>
+              
+
+        </div>
+        <div class="modal-footer bg-dark text-white">
+          <button type="button" class="btn btn-secondary btn-sm " data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="submit"  class="btn btn-primary btn-sm "(click)="addNewCustomer()">Save </button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+<!-- Modal end -->
+
+
+
+<button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNewCustomer()">
+  <span class="me-3 btn-add-icon m-auto"> + </span>
+  <span class="m-auto">Update customer</span>
+</button>
+
+<!-- Modal start -->
+
+<div class="modal fade "  fill="#707070" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header bg-dark text-white">
+<h1 class="modal-title fs-5" id="exampleModalLabel">ADD NEW CUSTOMER</h1>
+<button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<form [formGroup]="adminForm" (submit)="editCustomer(i)" ;index as i >
+<div class="modal-body  bg-dark text-white">
+   <!-- role, username  -->
+   <div class="form-group bg-dark ">
+      <label for="username">Full name</label>
+      <input type="text" class="bg-dark text-white form-control" id="username" name="username" formControlName="username"
+        placeholder="Enter Username">
+    </div>
+    
+    <div class="form-group bg-dark ">
+    <label for="role">Select Provider</label>
+    <select class="bg-dark text-white form-control" id="role" name="role" formControlName="provider">
+      <option value="Telna" formControlName="Telna">Telna</option>
+      <option value="POD" formControlName="POD">POD</option>
+    </select>
+  </div>
+    
+
+</div>
+<div class="modal-footer bg-dark text-white">
+<button type="button" class="btn btn-secondary btn-sm " data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="submit"  class="btn btn-primary btn-sm " (click)="editCustomer(row)" >Update</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- Modal end -->
+
+
     </div>
     <div class="user-dashboard-table-container">
         <div class="user-dashboard-table">
@@ -67,10 +152,7 @@
                     <div class="t-box b px-2">Creation Date</div>
                     <div class="t-box a px-2">Number Of Profiles</div>
                     <!-- <div class="t-box a px-2">Created By</div> -->
-                    
-                    <div class="t-box b px-2">
-                        Action
-                    </div>
+                    <div class="t-box b px-2">Action</div>
                 </div>
                 <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let customer of customerList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
@@ -92,4 +174,20 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Pagination  -->
+    <div class="pagination">
+        <a href="#">&#8592;</a>
+        <a href="#">1</a>
+        <a href="#" class="active">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">&#8594;</a>
+      </div>
+      
 </div> 
+

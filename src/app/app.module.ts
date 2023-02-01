@@ -16,6 +16,7 @@ import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
 import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+
 // import { NgChartsModule } from 'chart.js';
 
 
@@ -28,6 +29,7 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     ResetPasswordComponent,
     DialogComponent,
     CoreComponent,
+   
     
   ],
   imports: [
