@@ -113,7 +113,7 @@
 <h1 class="modal-title fs-5" id="exampleModalLabel">ADD NEW CUSTOMER</h1>
 <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
-<form [formGroup]="adminForm" (submit)="editCustomer(i)" ;index as i >
+<form [formGroup]="adminForm" (submit)="editCustomer(customer)" ;index as i >
 <div class="modal-body  bg-dark text-white">
    <!-- role, username  -->
    <div class="form-group bg-dark ">
@@ -134,7 +134,7 @@
 </div>
 <div class="modal-footer bg-dark text-white">
 <button type="button" class="btn btn-secondary btn-sm " data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="submit"  class="btn btn-primary btn-sm " (click)="editCustomer(row)" >Update</button>
+<button type="submit"  class="btn btn-primary btn-sm " (click)="editCustomer(customer)" >Update</button>
 </div>
 </form>
 </div>
