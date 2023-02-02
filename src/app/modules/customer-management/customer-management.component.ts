@@ -8,7 +8,6 @@ import { UsersService } from 'src/app/shared/service/users.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ImportProfileComponent } from 'src/app/shared/dialog/import-profile/import-profile.component';
 import { AssignProfilesComponent } from 'src/app/shared/dialog/assign-profiles/assign-profiles.component';
-import { FormControl, FormGroup,FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -24,27 +23,21 @@ export class CustomerManagementComponent implements OnInit {
   customer:any;
   monthsList: Array<string> = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   selectedFilter!: {month: number, year: number}; 
-  adminForm !: FormGroup;
-
+  p : number = 1;
+  itemsPerPage: number= 10;
+  totalProducts:any;
 
   constructor(private customerService: CustomerService,
               // private usersService: UsersService,
               private dialogService: DialogService,
               // private route: ActivatedRoute,
               private alertService: AlertService,
-              private fb:FormBuilder
+             
               )
-               {
+               {}
 
-                this.adminForm = this.fb.group({
-                 
-                  username: new FormControl('', Validators.required, ),
-                  provider: new FormControl('', Validators.required, ),
-               })
-              }
-
-              
-
+            
+            
 
   ngOnInit(): void {
     this.getAllCustomer();
@@ -73,11 +66,13 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
 
-  createCustomerAlert() {
+  createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
         if (data && data.name !== null ) {
-          this.alertService.success('Customer Created');
+          let vm  = this;
+          vm.customerList?.push(data);
+          //this.alertService.success('Customer Created');
           this.getAllCustomer();
         }
       });
@@ -88,6 +83,8 @@ export class CustomerManagementComponent implements OnInit {
      .subscribe(
       (data: any) => {
         this.customerList = data.data;
+       this.totalProducts = data.length;
+       // console.log(data.data)
          }, err => {
       this.alertService.error(err.error.message);
       }
@@ -148,14 +145,8 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   addNewCustomer() {
-    if (this.adminForm.valid) {
-      this.customer.createCustomer(this.adminForm.value).subscribe((data: any) => {
-        console.log(data);
-        alert("employee Added successfully")
-        this.customerList.push(data.data);
-        this.adminForm.reset();
-      });
-    }
+       
+    
     
    
   }

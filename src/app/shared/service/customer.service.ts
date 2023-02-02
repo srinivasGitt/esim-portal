@@ -42,7 +42,7 @@ export class CustomerService {
     }
 
     createCustomer(data:any){
-        return this.http.post(`${this.serverUrl}/customer`, data, this.getHeader());
+        return this.http.post(`${this.serverUrl}/customers`, data, this.getHeader());
     }
 
     updateCustomer(id: any, data: any) {

@@ -1,5 +1,49 @@
+
+    <!-- Modal start -->
+
+    <!-- <div class="modal fade " fill="#707070" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">{{title}}</h1>
+            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"(click)="close()">X</button>
+          </div>    
+          <form [formGroup]="customerForm" novalidate (ngSubmit)="submit()">
+            <div class="modal-body  bg-dark text-white">
+            
+              <div class="form-group bg-dark ">
+                <label for="name">Full name</label>
+                <input type="text" class="bg-dark text-white form-control" id="username" name="name"
+                  formControlName="name" placeholder="Enter name">
+              </div>
+
+              <div class="form-group bg-dark text-white ">
+                <label for="role">Select Provider</label>
+                <ng-select class="bg-dark text-white"
+                         [items]="Provider"
+                          bindLabel="name"
+                          placeholder="Select Provider"
+                          formControlName="smdp" 
+                          [multiple]="true"
+                          [(ngModel)]="selected"
+                          >
+                </ng-select>
+              </div>
+            </div>
+            <div class="modal-footer bg-dark text-white">
+              <button type="button" class="btn btn-secondary btn-sm "
+                data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btn-sm " >Save </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+    <!-- Modal end -->
+
 <div class="es-modal">
-    <div class="modal-header-flex">
+    <div class="modal-header-flex  ">
         <div class="modal-header-text-container">
             <p class="modal-header-text mb-0">{{title}}</p>
         </div>
@@ -10,20 +54,40 @@
     <div class="es-modal-body">
         <form class="es-modal-form" [formGroup]="customerForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3">
-                <label for="name" class="form-label es-modal-form-label">Customer Name</label>
-                <input type="text" class="form-control es-input" id="customerName"  formControlName="name">
+                <label for="name" class="form-label es-modal-form-label"> Name</label>
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
                         <span class="small" *ngIf="f.name.errors.required">
-                            Customer Name is required!
+                            Name is required!
                         </span>
                     </span>
                 </div>
-              </div>
-            
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label es-modal-form-label">Provider</label>
+                    <div class="form-group bg-dark text-white ">
+                    <label for="role">Select Provider</label>
+                    <ng-select class="bg-dark text-white"
+                             [items]="Provider"
+                              bindLabel="name"
+                              placeholder="Select Provider"
+                              formControlName="smdp" 
+                              [multiple]="true"
+                              [(ngModel)]="selected"
+                              >
+                    </ng-select>
+                  </div>                    
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.smdp.touched && f.smdp.pristine) || (f.smdp.errors && submitted)">
+                        <span class="small" *ngIf="f.smdp.errors.required">
+                            Provider Name is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
-        </form>
+          </form>
     </div>
     <div class="es-modal-footer"></div>
 </div>
-

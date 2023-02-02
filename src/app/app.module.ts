@@ -16,6 +16,7 @@ import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
 import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // import { NgChartsModule } from 'chart.js';
 
@@ -41,7 +42,8 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     SharedModule,
     ModulesModule,
     AngularOtpLibModule,
-    PasswordStrengthMeterModule.forRoot()
+    PasswordStrengthMeterModule.forRoot(),
+    NgSelectModule
     // NgChartsModule
   ],
   providers: [AuthService],

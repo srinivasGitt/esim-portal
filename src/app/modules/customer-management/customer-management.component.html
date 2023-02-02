@@ -1,16 +1,16 @@
- <div class="customer-management">
-    <form class="d-flex search-form" role="search">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <span class="search-icon-div">
-          <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
-            height="30px">
-            <path
-              d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
-            </svg>
-        </span>
-    </form>
-    <div class="dashboard-head-flex">
-        <!-- <div class="dashboard-head-text d-flex">
+<div class="customer-management">
+  <form class="d-flex search-form" role="search">
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+    <span class="search-icon-div">
+      <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
+        height="30px">
+        <path
+          d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
+      </svg>
+    </span>
+  </form>
+  <div class="dashboard-head-flex">
+    <!-- <div class="dashboard-head-text d-flex">
             <h2>Customer Management</h2>
                 <p *ngIf="customerId && customer" class="dashboard-head-text-subtext"> - {{customer.name}}</p>
         </div>
@@ -40,154 +40,72 @@
                 </span>Add New Customer
             </button>
         </div> -->
-        <div class="filter-head d-flex py-1 px-4">
-            <div class="d-flex">
-                <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
-                <span class="mx-2 my-auto"> {{ monthsList[selectedFilter.month] }} </span>
-                <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
-            </div>
-            <div class="d-flex ms-2">
-                <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
-                <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
-                <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
-            </div>
+    <div class="filter-head d-flex py-1 px-4">
+      <div class="d-flex">
+        <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
+        <span class="mx-2 my-auto"> {{ monthsList[selectedFilter.month] }} </span>
+        <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
+      </div>
+      <div class="d-flex ms-2">
+        <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
+        <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
+        <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="">
+      </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal"(click)="createCustomer()">
+      <span class="me-3 btn-add-icon m-auto"> + </span>
+      <span class="m-auto">Add new customer</span>
+    </button>
+
+
+
+   
+
+
+  </div>
+  <div class="user-dashboard-table-container">
+    <div class="user-dashboard-table">
+      <div class="t-grid-table-new">
+        <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
+          <div class="t-box b px-2">Customer Name</div>
+          <div class="t-box b px-2">Creation Date</div>
+          <div class="t-box a px-2">Number Of Profiles</div>
+          <!-- <div class="t-box a px-2">Created By</div> -->
+          <div class="t-box b px-2">Action</div>
         </div>
-        
-<!-- Button trigger modal -->
-        <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNewCustomer()">
-            <span class="me-3 btn-add-icon m-auto"> + </span>
-            <span class="m-auto">Add new customer</span>
-        </button>
-        
-    <!-- Modal start -->
-  
-  <div class="modal fade "  fill="#707070" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header bg-dark text-white">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">ADD NEW CUSTOMER</h1>
-          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form [formGroup]="adminForm" (submit)="addNewCustomer()" >
-        <div class="modal-body  bg-dark text-white">
-             <!-- role, username  -->
-             <div class="form-group bg-dark ">
-                <label for="username">Full name</label>
-                <input type="text" class="bg-dark text-white form-control" id="username" name="username" formControlName="username"
-                  placeholder="Enter Username">
+        <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
+          <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"
+            *ngFor="let customer of customerList | paginate: { itemsPerPage: 10, currentPage: p }; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+
+            <div class="t-box a px-2" [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
+            <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
+            <div class="t-box a px-2">{{customer.totalCount}}</div>
+            <!-- <div class="t-box a px-2">{{customer.createdBy}}</div> -->
+
+            <div class="t-box b px-2">
+              <div class="user-table-action">
+                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt=""
+                  (click)="editCustomer(i)">
+                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt=""
+                  (click)="deleteCustomer(i)">
+                <img class="user-table-action-icon" src="/assets/icons/import-icon.png" alt=""
+                  (click)="assignProfiles(i)">
               </div>
-              
-              <div class="form-group bg-dark ">
-              <label for="role">Select Provider</label>
-              <select class="bg-dark text-white form-control" id="role" name="role" formControlName="provider">
-                <option value="Telna" formControlName="Telna">Telna</option>
-                <option value="POD" formControlName="POD">POD</option>
-              </select>
             </div>
-              
-
+          </div>
         </div>
-        <div class="modal-footer bg-dark text-white">
-          <button type="button" class="btn btn-secondary btn-sm " data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button type="submit"  class="btn btn-primary btn-sm "(click)="addNewCustomer()">Save </button>
-        </div>
-    </form>
       </div>
     </div>
   </div>
-<!-- Modal end -->
 
 
 
-<button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addNewCustomer()">
-  <span class="me-3 btn-add-icon m-auto"> + </span>
-  <span class="m-auto">Update customer</span>
-</button>
-
-<!-- Modal start -->
-
-<div class="modal fade "  fill="#707070" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-sm">
-<div class="modal-content">
-<div class="modal-header bg-dark text-white">
-<h1 class="modal-title fs-5" id="exampleModalLabel">ADD NEW CUSTOMER</h1>
-<button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<form [formGroup]="adminForm" (submit)="editCustomer(customer)" ;index as i >
-<div class="modal-body  bg-dark text-white">
-   <!-- role, username  -->
-   <div class="form-group bg-dark ">
-      <label for="username">Full name</label>
-      <input type="text" class="bg-dark text-white form-control" id="username" name="username" formControlName="username"
-        placeholder="Enter Username">
-    </div>
-    
-    <div class="form-group bg-dark ">
-    <label for="role">Select Provider</label>
-    <select class="bg-dark text-white form-control" id="role" name="role" formControlName="provider">
-      <option value="Telna" formControlName="Telna">Telna</option>
-      <option value="POD" formControlName="POD">POD</option>
-    </select>
+  <!-- Pagination  -->
+  
+  <div class="ngx-pagination">
+    <pagination-controls (pageChange)="p=$event"></pagination-controls> 
   </div>
-    
 
 </div>
-<div class="modal-footer bg-dark text-white">
-<button type="button" class="btn btn-secondary btn-sm " data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="submit"  class="btn btn-primary btn-sm " (click)="editCustomer(customer)" >Update</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-<!-- Modal end -->
-
-
-    </div>
-    <div class="user-dashboard-table-container">
-        <div class="user-dashboard-table">
-            <div class="t-grid-table-new">
-                <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
-                    <div class="t-box b px-2">Customer Name</div>
-                    <div class="t-box b px-2">Creation Date</div>
-                    <div class="t-box a px-2">Number Of Profiles</div>
-                    <!-- <div class="t-box a px-2">Created By</div> -->
-                    <div class="t-box b px-2">Action</div>
-                </div>
-                <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let customer of customerList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
-                       
-                        <div class="t-box a px-2"  [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
-                        <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
-                        <div class="t-box a px-2">{{customer.totalCount}}</div>
-                        <!-- <div class="t-box a px-2">{{customer.createdBy}}</div> -->
-
-                        <div class="t-box b px-2">
-                            <div class="user-table-action">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" (click)="editCustomer(i)">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt="" (click)="deleteCustomer(i)">
-                                <img class="user-table-action-icon" src="/assets/icons/import-icon.png" alt="" (click)="assignProfiles(i)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- Pagination  -->
-    <div class="pagination">
-        <a href="#">&#8592;</a>
-        <a href="#">1</a>
-        <a href="#" class="active">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&#8594;</a>
-      </div>
-      
-</div> 
-
