@@ -51,5 +51,5 @@
         state: started
         networks:
           - name: anuyat-ansible
-            ipv4_address: "192.168.0.2"
+            ipv4_address: "192.168.0.42"
         restart_policy: always
