@@ -24,7 +24,7 @@ export class CustomerManagementComponent implements OnInit {
   monthsList: Array<string> = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   selectedFilter!: {month: number, year: number}; 
   p : number = 1;
-  itemsPerPage: number= 10;
+  itemsPerPage: number= 5;
   totalProducts:any;
 
   constructor(private customerService: CustomerService,
@@ -35,10 +35,6 @@ export class CustomerManagementComponent implements OnInit {
              
               )
                {}
-
-            
-            
-
   ngOnInit(): void {
     this.getAllCustomer();
     const date = new Date();
@@ -69,6 +65,7 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
+        console.log(data)
         if (data && data.name !== null ) {
           let vm  = this;
           vm.customerList?.push(data);
@@ -82,9 +79,9 @@ export class CustomerManagementComponent implements OnInit {
     this.customerService.customers()
      .subscribe(
       (data: any) => {
-        this.customerList = data.data;
+        this.customerList = data;
        this.totalProducts = data.length;
-       // console.log(data.data)
+        console.log(data)
          }, err => {
       this.alertService.error(err.error.message);
       }
@@ -97,6 +94,7 @@ export class CustomerManagementComponent implements OnInit {
     this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Edit Customer'} })
       .instance.close.subscribe((data: any) => {
         if(data){
+          console.log(data)
           let vm  = this;
           vm.customerList[index] = data;
           this.alertService.success('Custommer Updated');

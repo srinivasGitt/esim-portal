@@ -1,11 +1,13 @@
 <div class="es-modal">
     <div class="es-modal-body">
         <div class="es-confirm-header">
+            <img class="user-table-action-icon"  src="assets/images/dashboard/icon/deletew.svg" alt="">
+            <h3 class=" text-white">Delete Customer ?</h3>
             <p class="modal-header-text mb-0 text-center mt-2">{{message}}</p>
         </div>
         <div class="text-center">
-            <button type="submit" class="btn btn-danger my-4" (click)="close(false)">Cancel</button>
-            <button type="submit" class="btn btn-primary my-4 ms-3" (click)="close(true)">Confirm</button>
+            <button type="submit" class="btn btn-dark my-4" (click)="close(false)">Cancel</button>
+            <button type="submit" class="btn btn-danger my-4 ms-3" (click)="close(true)">Delete</button>
         </div>
     </div>
     <div class="es-modal-footer"></div>

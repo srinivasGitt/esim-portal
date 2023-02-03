@@ -25,6 +25,7 @@ import { ImportProfileComponent } from './dialog/import-profile/import-profile.c
 import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profiles.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     HttpClientModule,
     QRCodeModule,
     RouterModule,
-    NgSelectModule
+    NgSelectModule,
+    
   ],
   exports: [
     // SubscriptionComponent,

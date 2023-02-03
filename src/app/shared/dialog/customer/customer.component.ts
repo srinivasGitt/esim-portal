@@ -16,7 +16,8 @@ export class CustomerComponent implements OnInit {
   customerForm: any;
   title: string = 'Add Customer';
   submitted = false;
-
+  
+  
   constructor(private customerService: CustomerService,
     private viewContainer: ViewContainerRef,
     private alertService: AlertService,
@@ -25,6 +26,8 @@ export class CustomerComponent implements OnInit {
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
    
   }
+
+  
   
   Provider= [
     "Telna",
@@ -54,18 +57,22 @@ export class CustomerComponent implements OnInit {
       return;
     }
     if (this.title === 'Edit Customer') {
+      this.imgUrl="assets/images/dashboard/icon/editw.svg";
       this.update();
     } else {
+      this.imgUrl="assets/images/dashboard/icon/addd.svg";
       this.createCustomer();
     }
   }
 
 
   update() {
+    
     const formData = {
       name: this.customerForm.get('name').value,
+      smdp: this.customerForm.get('smdp').value,
     };
-    console.log(formData);
+    //console.log(formData);
     this.customerService.updateCustomer(this.data._id, formData)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
@@ -75,10 +82,11 @@ export class CustomerComponent implements OnInit {
   }
     
   createCustomer() {
+    
     this.customerService.createCustomer(this.customerForm.value)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
-    }, err => {
+      }, err => {
       this.alertService.error(err.error.message);
     })
   }

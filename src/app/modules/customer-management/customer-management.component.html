@@ -57,48 +57,51 @@
     <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal"(click)="createCustomer()">
       <span class="me-3 btn-add-icon m-auto"> + </span>
       <span class="m-auto">Add new customer</span>
-    </button>
-
-
-
-   
-
-
+    </button>   
   </div>
-  <div class="user-dashboard-table-container">
+
+
+  
+  <div class="user-dashboard-table-container bg-dark">
     <div class="user-dashboard-table">
       <div class="t-grid-table-new">
         <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
-          <div class="t-box b px-2">Customer Name</div>
-          <div class="t-box b px-2">Creation Date</div>
-          <div class="t-box a px-2">Number Of Profiles</div>
-          <!-- <div class="t-box a px-2">Created By</div> -->
-          <div class="t-box b px-2">Action</div>
+          <div class="t-box b px-2"><img class="user-table-action-icon" width="20" height="20" src="assets/images/dashboard/icon/Admin.svg" alt=""> &nbsp;Customer Name</div>
+          <div class="t-box b px-2"><img class="user-table-action-icon" width="20" height="20" src="assets/images/dashboard/icon/calendar1.svg" alt="">&nbsp;&nbsp;&nbsp;Creation Date</div>
+          <div class="t-box a px-2"><img class="user-table-action-icon" width="20" height="20" src="assets/images/dashboard/icon/nou.svg" alt=""> &nbsp; Number Of Users</div>
+          
+          <div class="t-box b px-2"><img class="user-table-action-icon" width="20" height="20" src="assets/images/dashboard/icon/setting2.svg" alt=""> &nbsp; Action</div>
         </div>
+        <hr class="hr5" />
         <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
-          <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"
-            *ngFor="let customer of customerList | paginate: { itemsPerPage: 10, currentPage: p }; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
+          <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-active"
+            *ngFor="let customer of customerList | paginate: { itemsPerPage: 7, currentPage: p }; index as i" >
 
-            <div class="t-box a px-2" [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
-            <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
-            <div class="t-box a px-2">{{customer.totalCount}}</div>
-            <!-- <div class="t-box a px-2">{{customer.createdBy}}</div> -->
-
-            <div class="t-box b px-2">
+              <div class="t-box a px-2" [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
+              <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
+              <div class="t-box a px-2">{{customer.totalCount}}</div>
+           <div class="t-box b px-2">
+            
               <div class="user-table-action">
-                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt=""
+                
+                <img class="user-table-action-icon " width="20" height="20" src="assets/images/dashboard/icon/editt.svg" alt=""
                   (click)="editCustomer(i)">
-                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt=""
+                <img class="user-table-action-icon" width="30" height="20" src="assets/images/dashboard/icon/deletee.svg" alt=""
                   (click)="deleteCustomer(i)">
-                <img class="user-table-action-icon" src="/assets/icons/import-icon.png" alt=""
-                  (click)="assignProfiles(i)">
+
               </div>
-            </div>
+             </div>
           </div>
+          <hr class="hr5" />
         </div>
+        
       </div>
+     
     </div>
+    
   </div>
+ 
+  
 
 
 
