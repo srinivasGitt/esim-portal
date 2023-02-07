@@ -1,52 +1,101 @@
-.es-modal{
-    background-color: var(--dark-background);
-    border-radius: 8px;
-    border: 1px solid var(--dark-text-white-v3);
-    .modal-header-flex{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 15px;
-        border-bottom: 1px solid var(--dark-text-white-v3);
-        .modal-header-text-container{
-            .modal-header-text{
-                color: var(--dark-text-white-v1);
-                font-size: 18px;
-            }
 
-        }
-        .es-btn-close-container{
-            .es-btn-close{
-                color: var(--dark-theme-blue-v1);
-                background-color: transparent;
-                border: none;
+.modal-content {
+    background-color: var(--dark-background) !important;
+    border-radius: 8px !important;
+    .es-modal{
+        .modal-header-flex{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            .modal-header-text-container{
+                .modal-header-text{
+                    color: var(--dark-text-white-v1);
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+
+            }
+            .es-btn-close-container{
+                .es-btn-close{
+                    width: 32px;
+                    height: 32px;
+                    position: absolute;
+                    &:hover {
+                        opacity: 1;
+                      }
+                    &:before, &:after {
+                        position: absolute;
+                        left: 10px;
+                        content: ' ';
+                        height: 17px;
+                        width: 2px;
+                        background-color: var(--dark-text-white-v1);
+                    }
+                    &:before {
+                        transform: rotate(45deg);
+                    }
+                    &:after {
+                        transform: rotate(-45deg);
+                    }
+                }
             }
         }
-    }
-    .es-modal-body{
-        padding: 15px;
-        .es-modal-form{
-            .es-modal-form-label{
-                color: var(--dark-text-white-v2);
+        .es-modal-body{
+            padding: 15px;
+            .es-modal-form{
+                .es-modal-form-label{
+                    color: var(--dark-text-white-v1);
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+                .es-input{
+                    background-color: transparent;
+                    color: var(--dark-text-white-v1);
+                    border: 1px solid rgba(99, 101, 239, 0.48);
+                }
+                .ng-select-container{
+                    padding: 10px;
+                    background: transparent;
+                    height: 40px;
+                    width: 100%;
+                    color: var(--dark-text-white-v6);
+                    border: none;
+                    border: 1px solid rgba(99, 101, 239, 0.48);
+                    input{
+                        color: transparent;
+                    }
+                    .ng-arrow {
+                        transform: rotate(-90deg);
+                        border-color: rgba(99, 101, 239, 0.48) transparent transparent;
+                    }
+                }
+                .ng-dropdown-panel{
+                    margin-top: 10px;
+                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                    border-radius: 4px;
+                    border: none;
+                    background: var(--dark-background);
+                    .ng-option{
+                        padding: 10px 10px 10px 30px;
+                        background: var(--dark-background);
+                        width: 160px;
+                        color: var(--dark-text-white-v6);
+                    }
+                }
+                option{
+                    color: black !important;
+                }
             }
-            .es-input{
-                background-color: transparent;
+            .success-error-heading{
                 color: var(--dark-text-white-v1);
-                border: 1px solid var(--dark-text-white-v3);
             }
-            option{
-                color: black !important;
+            .success-error-text{
+                color: var(--dark-text-white-v1);
             }
-        }
-        .success-error-heading{
-            color: var(--dark-text-white-v1);
-        }
-        .success-error-text{
-            color: var(--dark-text-white-v1);
         }
     }
 }
-
 .select-bg{
     background-color: var(--dark-background) !important;
     color: var(--dark-text-white-v2) !important;

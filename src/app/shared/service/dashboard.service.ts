@@ -53,7 +53,7 @@ export class DashboardService {
       {
         title: 'Plans',
         icon: 'assets/icons/plans-icon.svg',
-        link: '/inventory',
+        link: '/plans',
         hasGroup: true
       },
       {

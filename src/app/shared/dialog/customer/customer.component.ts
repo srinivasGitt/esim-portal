@@ -57,10 +57,8 @@ export class CustomerComponent implements OnInit {
       return;
     }
     if (this.title === 'Edit Customer') {
-      this.imgUrl="assets/images/dashboard/icon/editw.svg";
       this.update();
     } else {
-      this.imgUrl="assets/images/dashboard/icon/addd.svg";
       this.createCustomer();
     }
   }

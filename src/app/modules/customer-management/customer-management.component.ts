@@ -8,6 +8,7 @@ import { UsersService } from 'src/app/shared/service/users.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ImportProfileComponent } from 'src/app/shared/dialog/import-profile/import-profile.component';
 import { AssignProfilesComponent } from 'src/app/shared/dialog/assign-profiles/assign-profiles.component';
+import { PaginationInstance } from 'ngx-pagination';
 
 
 @Component({
@@ -23,9 +24,12 @@ export class CustomerManagementComponent implements OnInit {
   customer:any;
   monthsList: Array<string> = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   selectedFilter!: {month: number, year: number}; 
-  p : number = 1;
-  itemsPerPage: number= 5;
-  totalProducts:any;
+  currentYear!: number;
+  paginateConfig: PaginationInstance = {
+    itemsPerPage: 20,
+    currentPage: 1,
+    totalItems: 0
+  };
 
   constructor(private customerService: CustomerService,
               // private usersService: UsersService,
@@ -41,7 +45,9 @@ export class CustomerManagementComponent implements OnInit {
     this.selectedFilter = {
       month : date.getMonth(),
       year : date.getFullYear()
-    }
+    };
+    this.currentYear = date.getFullYear();
+
   }
   
   getSingleCustomer() {
@@ -80,7 +86,7 @@ export class CustomerManagementComponent implements OnInit {
      .subscribe(
       (data: any) => {
         this.customerList = data;
-       this.totalProducts = data.length;
+       this.paginateConfig.totalItems = data.length;
         console.log(data)
          }, err => {
       this.alertService.error(err.error.message);
@@ -105,7 +111,16 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   deleteCustomer( index: number) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this customer?'} })
+    let data = {
+      title: 'Delete Customer?',
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'btn-danger ms-auto', title: 'Delete', value: true}
+      ]
+    };
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this customer? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
