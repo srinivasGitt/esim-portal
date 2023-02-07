@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CustomerService {
   serverUrl = environment.serverUrl;
+  authToken: string = '';
 
   constructor(private http: HttpClient ) { }
 
@@ -23,31 +24,33 @@ export class CustomerService {
     }
 
     childCustomers(){
-      return this.http.get(`${this.serverUrl}/customers/child`, this.getHeader());    
+      const headers = new HttpHeaders({})
+      .set('Authorization', 'Bearer ' + this.authToken);
+      return this.http.get(`${this.serverUrl}/customers`, this.getHeader());    
     }
 
     customers(){
-        return this.http.get(`${this.serverUrl}/customer`, this.getHeader());
+        return this.http.get(`${this.serverUrl}/customers`, this.getHeader());
     }
 
     getSingleCustomer(customerId:any){
-      return this.http.get(`${this.serverUrl}/customer/${customerId}`, this.getHeader());
+      return this.http.get(`${this.serverUrl}/customers/${customerId}`, this.getHeader());
     }
 
     getSubCustomer(subCustomerName:any){
-      return this.http.get(`${this.serverUrl}/customer/${subCustomerName}`, this.getHeader());
+      return this.http.get(`${this.serverUrl}/customers/${subCustomerName}`, this.getHeader());
     }
 
     createCustomer(data:any){
-        return this.http.post(`${this.serverUrl}/customer`, data, this.getHeader());
+        return this.http.post(`${this.serverUrl}/customers`, data, this.getHeader());
     }
 
     updateCustomer(id: any, data: any) {
       console.log(data);
-      return this.http.put(`${this.serverUrl}/customer/${id}`, data, this.getHeader());
+      return this.http.put(`${this.serverUrl}/customers/${id}`, data, this.getHeader());
     }
-
+ 
     deleteCustomer(id: any) {
-      return this.http.delete(`${this.serverUrl}/customer/${id}`, this.getHeader());
+      return this.http.delete(`${this.serverUrl}/customers/${id}`, this.getHeader());
     }
 } 

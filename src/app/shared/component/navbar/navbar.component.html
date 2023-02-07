@@ -1,25 +1,8 @@
 <nav class="navbar navbar-expand-lg main-navbar">
   <div class="container-fluid justify-content-start">
-    <div class="navbar-brand-parent">
-      <a class="navbar-brand" href="#">
-        <img class="brand-logo" *ngIf="!isDarkTheme" src="/assets/images/auth/glowingBud-dark.png" alt="">
-        <img class="brand-logo" *ngIf="isDarkTheme" src="/assets/images/auth/gloiwingBud-light.png" alt="">
-      </a>
-    </div>
-    <div class="navbar-toggler-parent">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" disabled>
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <img class="img-fluid" src="/assets/images/navbar/blue-bars.png" alt="">
-      </button>
-    </div>
-    <div class="navbar-user-div">
-      <p class="user-name mb-0">Current Customer - {{parentCustomer}}</p>
-      <!-- <p class="user-dashboard-text mb-0">Let’s manage your dashboard</p> -->
-    </div>
     <div class="d-flex ms-auto" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <div class="enve-toggle-parent" tooltipPlacement="bottom">
             <div class="environment-toggle-text-container">
               <p class="helvetica-font-regular">Testing</p>
@@ -36,11 +19,11 @@
               <p class="helvetica-font-regular">Production</p>
             </div>
           </div>
-        </li>
-        <li class="nav-item dropdown cursor-not-allowed">
-          <a class="nav-link dropdown-toggle cursor-not-allowed" role="button" data-bs-toggle="dropdown"
+        </li> -->
+        <li class="nav-item dropdown cursor-not-allowed my-auto">
+          <a class="nav-link dropdown-toggle cursor-not-allowed d-flex" role="button" data-bs-toggle="dropdown"
             aria-expanded="false" disabled>
-            English
+            <span class="m-auto">EN</span>
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -51,82 +34,32 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item my-auto">
           <div class="dark-light-toggle">
             <label class="switch">
               <input type="checkbox" (click)="toggleTheme()">
               <span class="slider"></span>
 
-              <div class="dark-mode-icon">
-                <svg class="img-fluid" xmlns="http://www.w3.org/2000/svg" width="16.118" height="16.932"
-                  viewBox="0 0 16.118 16.932">
-                  <g id="Layer_10" data-name="Layer 10" transform="translate(0 0)">
-                    <path id="Path_60" data-name="Path 60"
-                      d="M18.523,13.872a.387.387,0,0,0-.491,0,7.025,7.025,0,0,1-3.843,1.1,7.2,7.2,0,0,1-5.027-12.3.4.4,0,0,0,.064-.483A.4.4,0,0,0,8.775,2a8.629,8.629,0,0,0,2.264,16.919,8.54,8.54,0,0,0,7.573-4.576.4.4,0,0,0-.089-.467ZM11.039,18.11A7.823,7.823,0,0,1,7.6,3.3a8.008,8.008,0,0,0,6.59,12.472,7.831,7.831,0,0,0,2.9-.548,7.726,7.726,0,0,1-6.05,2.884Z"
-                      transform="translate(-2.535 -1.983)" fill="#707070" />
-                  </g>
-                </svg>
+              
+              <div class="light-mode-icon d-flex" *ngIf="isDarkTheme">
+                <img class="m-auto" src="/assets/images/dashboard/icon/light-mode.svg" alt="">
               </div>
-              <div class="light-mode-icon">
-                <svg class="img-fluid" xmlns="http://www.w3.org/2000/svg" width="23.067" height="23.067"
-                  viewBox="0 0 23.067 23.067">
-                  <g id="sun" transform="translate(0 0)">
-                    <path id="Path_61" data-name="Path 61"
-                      d="M110.951,103.706a7.355,7.355,0,1,0-1.617,4.594,7.421,7.421,0,0,0,1.617-4.594Z"
-                      transform="translate(-92.068 -92.172)" fill="#1da1f1" />
-                    <path id="Path_62" data-name="Path 62"
-                      d="M154.448,146.607c0-.911-1.437-.473-1.907-.288a4.389,4.389,0,0,0-1.953,1.576,4.269,4.269,0,0,0-.566,1.129,2.735,2.735,0,0,0-.17,1.172.555.555,0,0,0,.784.408c.35-.172.285-.533.338-.854a3.27,3.27,0,0,1,1.317-2.047,2.855,2.855,0,0,1,1.182-.511,3.147,3.147,0,0,0,.631-.076A.554.554,0,0,0,154.448,146.607Z"
-                      transform="translate(-142.705 -139.127)" fill="#1e1f23" />
-                    <path id="Path_63" data-name="Path 63"
-                      d="M220.549,23.185a.549.549,0,0,0,.549-.549V20.549a.549.549,0,0,0-1.1,0v2.087A.549.549,0,0,0,220.549,23.185Z"
-                      transform="translate(-209.016 -20)" fill="#1da1f1" />
-                    <path id="Path_64" data-name="Path 64"
-                      d="M220.549,382a.549.549,0,0,0-.549.549v2.087a.549.549,0,0,0,1.1,0v-2.087A.549.549,0,0,0,220.549,382Z"
-                      transform="translate(-209.016 -362.118)" fill="#1da1f1" />
-                    <path id="Path_65" data-name="Path 65"
-                      d="M335.105,81.192a.548.548,0,0,0,.388-.161l1.479-1.479a.549.549,0,0,0-.777-.777l-1.479,1.479A.554.554,0,0,0,335.105,81.192Z"
-                      transform="translate(-317.284 -75.397)" fill="#1da1f1" />
-                    <path id="Path_66" data-name="Path 66"
-                      d="M80.248,334.683l-1.479,1.48a.549.549,0,1,0,.777.777l1.479-1.479a.549.549,0,0,0-.777-.777Z"
-                      transform="translate(-75.391 -317.25)" fill="#1da1f1" />
-                    <path id="Path_67" data-name="Path 67"
-                      d="M382.549,221.1h2.087a.549.549,0,0,0,0-1.1h-2.087a.549.549,0,1,0,0,1.1Z"
-                      transform="translate(-362.118 -209.016)" fill="#1da1f1" />
-                    <path id="Path_68" data-name="Path 68"
-                      d="M22.636,220H20.549a.549.549,0,0,0,0,1.1h2.087a.549.549,0,0,0,0-1.1Z"
-                      transform="translate(-20 -209.016)" fill="#1da1f1" />
-                    <path id="Path_69" data-name="Path 69"
-                      d="M336.937,336.161l-1.48-1.479a.549.549,0,0,0-.777.777l1.48,1.479a.549.549,0,0,0,.777-.777Z"
-                      transform="translate(-317.247 -317.249)" fill="#1da1f1" />
-                    <path id="Path_70" data-name="Path 70"
-                      d="M80.254,81.032a.549.549,0,1,0,.777-.777l-1.479-1.479a.549.549,0,0,0-.777.777Z"
-                      transform="translate(-75.397 -75.398)" fill="#1da1f1" />
-                  </g>
-                </svg>
+              <div class="dark-mode-icon" *ngIf="!isDarkTheme">
+                <img src="/assets/images/dashboard/icon/dark-mode.svg" alt="">
               </div>
             </label>
           </div>
         </li>
       </ul>
-      <form class="d-flex search-form" role="search">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search" disabled>
-        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-        <span class="search-icon-div">
-          <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
-            height="30px">
-            <path
-              d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
-            </svg>
-        </span>
-      </form>
-      <div>
+      <div class="d-flex">
+        <div class="user-name-div me-4 my-auto"> Hi, Admin </div>
         <div class="dropdown">
-          <a class="btn btn-dropdown" href="#" role="button" id="customerDropdown"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="user-profile-div">
-              <img src="/assets/images/navbar/user-jivan.png" alt="">
-            </div>
-          </a>
+            <a class="btn btn-dropdown" href="#" role="button" id="customerDropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="user-profile-div">
+                <img src="/assets/images/navbar/user-jivan.png" alt="">
+              </div>
+            </a>
 
           <ul class="dropdown-menu" aria-labelledby="customerDropdown">
             <li><a class="dropdown-item" href="#" (click)="signout()">Logout</a></li>

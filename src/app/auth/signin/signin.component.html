@@ -74,7 +74,7 @@
                                             Password is required!
                                         </span>
                                         <span class="small" *ngIf="f.password.errors.incorrect">
-                                            The password you entered for the username {{ 'Admin' }} is incorrect.
+                                            The password you entered for the username {{ f.email?.value }} is incorrect.
                                         </span>
                                     </p>
                                     <p class="show-hide-password mb-0">

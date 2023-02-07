@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { PlanDialogComponent } from 'src/app/shared/dialog/plan-dialog/plan-dialog.component';
 import { DialogService } from 'src/app/shared/service/dialog';
-import { PlansService } from 'src/app/shared/service/plans.service';
-import { AlertService } from 'src/app/shared/service/alert.service';
+import { PlansService, AlertService } from 'src/app/shared/service';
+import { PaginationInstance } from 'ngx-pagination';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -11,6 +11,13 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 })
 export class PlanComponent implements OnInit {
   plansList: any = [];
+
+  paginateConfig: PaginationInstance = {
+    itemsPerPage: 20,
+    currentPage: 1,
+    totalItems: 0
+  };
+
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
               private alertService: AlertService) { }
@@ -33,6 +40,7 @@ export class PlanComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.plansList = data;
+        this.paginateConfig.totalItems = data?.length;
       }, err => {
         this.alertService.error(err.error.message);
       }
@@ -52,7 +60,16 @@ export class PlanComponent implements OnInit {
   }
 
   deletePlan( index: number) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this plan?'} })
+    let data = {
+      title: `Delete ${this.plansList[index].name} Plan?`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'btn-danger ms-auto', title: 'Delete', value: true}
+      ]
+    };
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this plan? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
@@ -66,5 +83,9 @@ export class PlanComponent implements OnInit {
       }
      
       });
+    }
+    console(obj : any){
+      console.log(obj);
+      return 1234
     }
 }

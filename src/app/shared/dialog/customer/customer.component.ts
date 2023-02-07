@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../service/alert.service';
 import { CustomerService } from '../../service/customer.service';
 import { DialogComponent } from '../../service/dialog';
+import { FormControl, FormGroup,FormBuilder, } from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
@@ -15,14 +16,25 @@ export class CustomerComponent implements OnInit {
   customerForm: any;
   title: string = 'Add Customer';
   submitted = false;
-
+  
+  
   constructor(private customerService: CustomerService,
     private viewContainer: ViewContainerRef,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private fb:FormBuilder) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
+   
   }
+
   
+  
+  Provider= [
+    "Telna",
+    "POD"
+  ];
+  selected = [];
+
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
@@ -32,6 +44,7 @@ export class CustomerComponent implements OnInit {
   newCustomerForm() {
     this.customerForm = new UntypedFormGroup({
       name: new UntypedFormControl(this.data?.name, [Validators.required]),
+      smdp: new UntypedFormControl(this.data?.smdp, [Validators.required] ),
     });
   }
 
@@ -52,10 +65,12 @@ export class CustomerComponent implements OnInit {
 
 
   update() {
+    
     const formData = {
       name: this.customerForm.get('name').value,
+      smdp: this.customerForm.get('smdp').value,
     };
-    console.log(formData);
+    //console.log(formData);
     this.customerService.updateCustomer(this.data._id, formData)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
@@ -65,11 +80,11 @@ export class CustomerComponent implements OnInit {
   }
     
   createCustomer() {
+    
     this.customerService.createCustomer(this.customerForm.value)
     .subscribe((res: any) => {
-      console.log(res);
       this.dialogRef.close.emit(res);
-    }, err => {
+      }, err => {
       this.alertService.error(err.error.message);
     })
   }

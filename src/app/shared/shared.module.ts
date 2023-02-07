@@ -23,6 +23,8 @@ import { AlertComponent } from './dialog/alert/alert.component';
 import { ProfileLogComponent } from './dialog/profile-log/profile-log.component';
 import { ImportProfileComponent } from './dialog/import-profile/import-profile.component';
 import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profiles.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
@@ -51,7 +53,9 @@ import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profile
     ReactiveFormsModule,
     HttpClientModule,
     QRCodeModule,
-    RouterModule
+    RouterModule,
+    NgSelectModule,
+    
   ],
   exports: [
     // SubscriptionComponent,

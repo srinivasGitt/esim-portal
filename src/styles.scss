@@ -5,34 +5,69 @@
 @import './assets/scss/cursorstyling';
 @import './assets/scss/modules';
 @import './assets/scss/dialog';
+@import './assets/scss/pagination';
 @import './assets/scss/navbar';
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
 :root{
-    --dark-background: #000000;
-    --dark-background-v1: #1E1F23;
-    --dark-background-v2: #27292D;
+    --dark-background: #151616;
+    --dark-background-v1: #151616;
+    --dark-background-v2: #24272C;
+    --dark-background-v3: #181B21;
     --dark-text-white-v1: #fff;
     --dark-text-white-v2: #959595;
     --dark-text-white-v3: #8D8D8D;
-    --dark-text-white-v4: #707070;
-    --dark-text-white-v5: #333333;
+    --dark-text-white-v4: rgba(233, 233, 233, 0.51);
+    --dark-text-white-v5: rgba(255, 255, 255);;
+    --dark-text-white-v6:rgba(255, 255, 255, 0.72);
     --dark-theme-blue-v1: #1DA1F1;
+    --dark-right-border: rgba(255, 255, 255, 0.1);
+    --dark-sidebar-border-radius: 0;
+    --dark-table-background: #1D1F25;
+    --dark-primary-background: #3AEE8D;
+    --dark-primary-border: #209153;
+    --dark-info-background: #C8C8F4;
+    --dark-info-border: #8283FF;
+    --dark-danger-background: #FFC5C1;
+    --dark-danger-border: #9E7370;
+    --dark-secondary-btn-background: rgba(99, 101, 239, 0.35);
+    --dark-secondary-btn-border: 0;
+    --dark-danger-secondary-btn-background: rgba(255, 137, 137, 0.63);
 }
 
 .lightMode{
     --dark-background: #fff;
-    --dark-background-v1: #E5E8EA;
-    --dark-background-v2: #F4F4F4;
-    --dark-text-white-v1: #000;
+    --dark-background-v1: #F5F6F9;
+    --dark-background-v2: #E9EAF0;
+    --dark-background-v3: #D9D9D978;
+    --dark-text-white-v1: #25282B;
     --dark-text-white-v2: #797979;
     --dark-text-white-v3: #959595;
-    --dark-text-white-v4: #5D5D5D;
-    --dark-text-white-v5: #959595;
+    --dark-text-white-v4: rgba(79, 79, 79, 0.72);
+    --dark-text-white-v5: rgba(0, 0, 0);
+    --dark-text-white-v6:rgba(0, 0, 0, 0.72);
     --dark-theme-blue-v1: #1DA1F1;
+    --dark-right-border: rgba(0, 0, 0, 0.1);
+    --dark-sidebar-border-radius: 10px;
+    --dark-table-background: #ffffff;
+    --dark-primary-background: rgba(62, 223, 136, 0.56);
+    --dark-primary-border: #CAFBE0;
+    --dark-info-background: #C8C8F4;
+    --dark-info-border: #DFE0FF;
+    --dark-danger-background: #FEE4E2;
+    --dark-danger-border: #FEF3F2;
+    --dark-secondary-btn-background: var(--dark-background);
+    --dark-secondary-btn-border: 1px;
+    --dark-danger-secondary-btn-background: var(--dark-background);
 }
 
 body {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    .modal-md{
+        --bs-modal-width: 500px;
+    }
+    .modal-sm{
+        --bs-modal-width: 400px;
+    }
 }

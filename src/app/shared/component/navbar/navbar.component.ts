@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../service/customer.service';
 import { AlertService } from '../../service/alert.service';
 import { Router } from '@angular/router';
+import { DashboardService } from '../../service/dashboard.service';
 declare var $: any;
 
 @Component({
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   customerList: any = [];
 
   constructor(private customerService: CustomerService,
+              private dashboardService: DashboardService,
               private alertService : AlertService,
               private router: Router) { }
 
@@ -29,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
+    this.dashboardService.setAppTheme(this.isDarkTheme);
     $('#body').toggleClass('lightMode');
   }
 

@@ -10,6 +10,9 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { RouterModule } from "@angular/router";
 import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { SubscribeManagementComponent } from './subscribe-management/subscribe-m
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule ,
+    NgxPaginationModule
   ],
   exports: [
     UserComponent,

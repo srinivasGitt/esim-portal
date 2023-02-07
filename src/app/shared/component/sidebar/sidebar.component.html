@@ -1,214 +1,33 @@
 <!-- Default Sidebar -->
 <div class="sidebar-inner sidebar-inner-1" [ngClass]="{'d-none': show}"  id="sidebar-1">
-    <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}">
+    <div class="sidebar-brand-parent">
+        <a class="sidebar-brand" href="#">
+          <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '.svg' : '-dark.svg')" alt="">
+        </a>
+    </div>
+    <a [routerLink]="[menu.link]" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === menu.link}" *ngFor="let menu of sidebarMenuList">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
+                <img class="sidebar-anchor-tab-flex-img" [src]="menu.icon" alt="">
             </div> 
             <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Dashboard</p> 
+                <p class="sidebar-anchor-tab-flex-text"> {{ menu.title }}</p> 
+            </div>
+            <div class="sidebar-anchor-tab-flex-text-container ms-auto" *ngIf="menu.hasGroup">
+                <img class="sidebar-anchor-tab-flex-img" [src]="'/assets/images/dashboard/icon/arrow-right' + (isDarkTheme ? '.svg' : '-dark.svg')" [ngStyle]="{'transform': (activeUrl === menu.link ? 'rotate(90deg)' : 'none')}" alt="">
             </div>
         </div>
     </a>
-    <a [routerLink]="['/customer-management']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/customer-management'}">
-        <div class="sidebar-anchor-tab-flex" (click)="customerSidebar()">
-            <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/customer-management'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
-            </div> 
-            <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Customer Management</p> 
-            </div>
-        </div>
-    </a>
-    <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}">
-        <div class="sidebar-anchor-tab-flex">
-            <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/inventory'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
-            </div> 
-            <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Inventory</p> 
-            </div>
-        </div>
-    </a>
-    <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber'}">
-        <div class="sidebar-anchor-tab-flex">
-            <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
-            </div> 
-            <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Subscriber Management</p> 
-            </div>
-        </div>
-    </a>
-    <a [routerLink]="['/users']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/users'}">
-        <div class="sidebar-anchor-tab-flex">
-            <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/users'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
-            </div> 
-            <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">User Management</p> 
-            </div>
-        </div>
-    </a>
-    <a [routerLink]="['/plans']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/plans'}">
-        <div class="sidebar-anchor-tab-flex">
-            <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/plans' ? 'assets/icons/shopping-list-selected.svg':'assets/icons/shopping-list.svg'" alt="">
-            </div> 
-            <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Plan Management</p> 
-            </div>
-        </div>
-    </a>
-    <!-- <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
-        <div class="sidebar-anchor-tab-flex">
-            <div class="sidebar-anchor-tab-flex-img-container">
-                <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
-            </div> 
-            <div class="sidebar-anchor-tab-flex-text-container">
-                <p class="sidebar-anchor-tab-flex-text">Subscriptions</p> 
-            </div>
-        </div>
-    </a> -->
-    <div class="cursor-not-allowed">
+    <!-- <div class="cursor-not-allowed">
         <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
             <div class="sidebar-anchor-tab-flex ">
                 <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" src="assets/icons/reports.svg" alt="">
+                    <img class="sidebar-anchor-tab-flex-img" src="" alt="">
                 </div> 
                 <div class="sidebar-anchor-tab-flex-text-container">
-                    <p class="sidebar-anchor-tab-flex-text">Reports</p>
+                    <p class="sidebar-anchor-tab-flex-text">Settings</p>
                 </div>
             </div>
         </a>
-    </div>
-</div>
-
-<!-- Customer Management Sidebar -->
-<div class="sidebar-inner sidebar-inner-2 d-flex" [ngClass]="{'d-none': !show}" id="sidebar-2" >
-    <div class="sidebar-inner sidebar-left " >
-        <a [routerLink]="['/']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/'}" (click)="closeSidebar()">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img " [src]="activeUrl === '/'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
-                </div> 
-                
-            </div>
-        </a>
-        <a [routerLink]="['/customer-management']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/customer-management'}">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/customer-management'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
-                </div> 
-                
-            </div>
-        </a>
-        <a [routerLink]="['/inventory']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/inventory'}" (click)="closeSidebar()">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/inventory'? 'assets/images/dashboard/icon/dashboard-icon-black.svg':'assets/images/dashboard/icon/dashboard-icon.svg'" alt="">
-                </div> 
-               
-            </div>
-        </a>
-        <a [routerLink]="['/subscriber']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriber'}" (click)="closeSidebar()">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <!-- <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt=""> -->
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriber'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
-                </div> 
-               
-            </div>
-        </a>
-        <a [routerLink]="['/users']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/users'}" (click)="closeSidebar()">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/users'? 'assets/icons/user-selected.svg': 'assets/icons/user.svg'" alt="">
-                </div> 
-               
-            </div>
-        </a>
-        <a [routerLink]="['/plans']" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/plans'}" (click)="closeSidebar()">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/plans' ? 'assets/icons/shopping-list-selected.svg':'assets/icons/shopping-list.svg'" alt="">
-                </div> 
-                
-            </div>
-        </a>
-        <!-- <a [routerLink]="['/subscriptions']"  class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === '/subscriptions'}">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/subscription-selected.svg': 'assets/icons/subscription.svg'" alt="">
-                </div> 
-               
-            </div>
-        </a> -->
-
-        <a class="sidebar-anchor-tab cursor-none noClick" disabled (click)="closeSidebar()">
-            <div class="sidebar-anchor-tab-flex">
-                <div class="sidebar-anchor-tab-flex-img-container">
-                    <img class="sidebar-anchor-tab-flex-img" [src]="activeUrl === '/subscriptions'? 'assets/icons/reports.svg': 'assets/icons/reports.svg'" alt="">
-                </div> 
-               
-            </div>
-        </a>
-    </div>
-    <div class="sidebar-inner sidebar-right sidebar-accordion "  >
-            <div class="sidebar-right-heading mt-3" >
-                <div class="alignment-text">
-                    <span>Customer Management</span>
-                    <span>
-                        <i class="fa fa-angle-left cursor-pointer" aria-hidden="true"  (click)="customerSidebar()"></i>
-                    </span>
-                </div>
-                <div class="alignment-text">
-                    <span>{{parentCustomer}}</span>
-                    <span class="close-button">
-                        <i class="fa fa-times close-icon cursor-pointer" aria-hidden="true" (click)="setDefaultCustomer()"></i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="accordion open" id="accordionExample">
-                <div class="accordion-item"  *ngFor="let customer of customerList; index as i">
-                    <div class="accordion-header d-flex" id="headingOne">
-                        <button class="accordion-button" type="button" (click)="changeCustomer(customer)" [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" [attr.aria-controls]="'collapseOne_'+ i">
-                            {{customer.name}} 
-                        </button>
-                        <div class="cutomer-mgmt-collapse collapsed cursor-pointer" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+ i" aria-expanded="true" aria-controls="collapseOne"></div>
-                    </div>
-                  
-                    <div id="collapseOne_{{i}}" class="accordion-collapse collapse accordion-body" aria-labelledby="headingOne" data-bs-parent="#headingOne" *ngFor="let subCustomer of customer.childCustomer; index as j">
-                        <h2 class="accordion-header d-flex " id="subheadingOne" >
-                            <button class="accordion-button" type="button" (click)="changeCustomer(subCustomer)" [attr.data-bs-target]="'#subOne_'+ i + j" aria-expanded="false" aria-controls="subOne">
-                               {{subCustomer.name}}
-                            </button>
-                            <div class="cutomer-mgmt-collapse collapsed cursor-pointer" data-bs-toggle="collapse" [attr.data-bs-target]="'#subOne_'+ i + j"  aria-expanded="false" aria-controls="subOne"></div>
-
-                        </h2>
-                            
-                        <div id="subOne_{{i}}{{j}}" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#subheadingOne" *ngFor="let childCustomer of subCustomer.childCustomer; index as k">
-                            <h2 class="accordion-header d-flex  " id="childOne" >
-                                <button class="accordion-button" type="button" (click)="changeCustomer(childCustomer)" [attr.data-bs-target]="'#childSubOne_'+ i + j + k" aria-expanded="false" aria-controls="childSubOne">
-                                 {{childCustomer.name}}
-                                </button>
-                                <div class="cutomer-mgmt-collapse collapsed cursor-pointer" data-bs-toggle="collapse" [attr.data-bs-target]="'#childSubOne_'+ i + j + k" aria-expanded="false" aria-controls="childSubOne"></div>
-                            </h2>
-
-                            <div id="childSubOne_{{i}}{{j}}{{k}}" class="accordion-collapse collapse accordion-body" aria-labelledby="subheadingOne" data-bs-parent="#childOne" *ngFor="let childSubCustomer of childCustomer.childCustomer; index as l">
-                                <h2 class="accordion-header"  >
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" (click)="changeCustomer(childSubCustomer)" data-bs-target="#childSubOne" aria-expanded="false" aria-controls="childSubOne">
-                                       {{childSubCustomer.name}}
-                                    </button>
-                                </h2>
-                              
-                            </div>   
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-            
-    </div>
+    </div> -->
 </div>
