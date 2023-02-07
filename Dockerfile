@@ -1,11 +1,11 @@
 #base image
-FROM node:16 as build
+FROM node:14 as build
 
 WORKDIR /app
 
 COPY package.json /app/package.json
 RUN npm install
-RUN npm install -g @angular/cli@14.2.12
+RUN npm install -g @angular/cli@11.2.3
 
 COPY . /app
 
