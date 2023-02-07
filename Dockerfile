@@ -1,10 +1,10 @@
 #base image
-FROM node:14 as build
+FROM node:16 as build
 
 WORKDIR /app
 
 COPY package.json /app/package.json
-RUN npm install
+RUN npm install --save --legacy-peer-deps
 RUN npm install -g @angular/cli@11.2.3
 
 COPY . /app
