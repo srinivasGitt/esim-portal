@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject, first } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -7,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UsersService {
   serverUrl = environment.serverUrl;
+  private _currentUser$ = new Subject<any>();
 
   constructor(private http: HttpClient ) { }
   getHeader() {
@@ -27,6 +29,18 @@ export class UsersService {
   // signup(userData: any) {
   //   return this.http.post(`${this.serverUrl}/auth/signin`, userData);
   // }
+
+  getUserDetails(){
+    return this.http.get(`${this.serverUrl}/users/me`, this.getHeader());
+  }
+
+  getCurrentUser(){
+    return this._currentUser$.asObservable();
+  }
+
+  setCurrentUser(userDetails : any){
+    this._currentUser$.next(userDetails);
+  }
 
   changeCurrentCustomer( data:any){
     return this.http.post(`${this.serverUrl}/users/change-customer`, data, this.getHeader());

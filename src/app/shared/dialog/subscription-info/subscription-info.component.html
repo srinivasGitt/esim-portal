@@ -1,0 +1,72 @@
+<div class="es-modal subscription-info-modal">
+    <div class="modal-header-flex p-4">
+        <div class="modal-header-text-container">
+          <div class="mb-3 subscription-info-icon d-flex">
+            <img class="m-auto" src="/assets/images/dashboard/icon/primary-info.svg" alt="">
+          </div>
+          <p class="modal-header-text mb-0"> Subscription No: {{ subscriptionDetails.subscriptionNumber }}</p>
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-4">
+            <a class="es-btn-close mt-3" (click)="close()"></a>
+        </div>
+    </div>
+    <div class="es-modal-body px-4">
+        <div class="row">
+            <div class="col-4">
+                <label> Plan Id </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.planId }}
+                </div>
+            </div>
+            <div class="col-4">
+                <label> Date created </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
+                </div>
+            </div>
+            <div class="col-4">
+                <label> Expiry Date </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.endDate | date : 'dd/MM/YYYY' }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label> Price </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.amount }}
+                </div>
+            </div>
+            <div class="col-8">
+                <label> User Email </label>
+                <div class="subscription-details"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label> Data Usage </label>
+            </div>
+            <div class="col-3">
+                <label> Auto Refill </label>
+                <div class="subscription-details d-flex">
+                    <label class="switch mx-auto">
+                        <input type="checkbox" [(ngModel)]="subscriptionDetails.autoRefill">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-5">
+                <label> Total Data </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.totalData }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="es-modal-footer d-flex p-4">
+        <button class="btn btn-primary ms-auto w-100">
+            Edit subscription
+        </button>
+    </div>
+</div>

@@ -16,7 +16,6 @@ import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
 import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 // import { NgChartsModule } from 'chart.js';
 
@@ -30,8 +29,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ResetPasswordComponent,
     DialogComponent,
     CoreComponent,
-   
-    
   ],
   imports: [
     BrowserModule,
@@ -42,9 +39,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedModule,
     ModulesModule,
     AngularOtpLibModule,
-    PasswordStrengthMeterModule.forRoot(),
-    NgSelectModule
-    // NgChartsModule
+    PasswordStrengthMeterModule.forRoot()
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

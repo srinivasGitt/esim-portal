@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-
+import { UsersService } from '../shared/service';
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
@@ -8,8 +8,11 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
   
-  constructor(private router:Router) { }
+  constructor(private userService: UsersService) {
+    this.userService.getUserDetails().subscribe(
+      (result) => this.userService.setCurrentUser(result)
+    );
+  }
   ngOnInit(): void {
   }
-
 }

@@ -16,6 +16,7 @@ export class SidebarComponent implements OnInit {
   customerList: any = [];
   parentCustomer:any;
   sidebarMenuList: Array<any> = [];
+  userDetails: any = {};
 
   
   constructor(private router:Router,
@@ -34,7 +35,10 @@ export class SidebarComponent implements OnInit {
     dashboardService.getAppTheme().subscribe((data : any) =>{
       this.isDarkTheme = data;
     });
-    this.sidebarMenuList = dashboardService.getNavBarMenus();
+    usersService.getCurrentUser().subscribe(result => {
+      this.userDetails = result;
+      this.fetchNavBarMenuList(this.userDetails?.roles)
+    });
   }
  
 
@@ -42,11 +46,14 @@ export class SidebarComponent implements OnInit {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     }else{
-      this.getAllCustomer();
+      // this.getAllCustomer();
     }
     
   }
 
+  fetchNavBarMenuList(roles: Array<string>){
+    this.sidebarMenuList = this.dashboardService.getNavBarMenus(roles);
+  }
   setDefaultCustomer(){
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to default customer?`} })
     .instance.close.subscribe((data: any) => {

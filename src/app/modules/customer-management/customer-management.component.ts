@@ -26,6 +26,7 @@ export class CustomerManagementComponent implements OnInit {
   selectedFilter!: {month: number, year: number}; 
   currentYear!: number;
   paginateConfig: PaginationInstance = {
+    id: 'customerListPagination',
     itemsPerPage: 20,
     currentPage: 1,
     totalItems: 0
@@ -86,9 +87,8 @@ export class CustomerManagementComponent implements OnInit {
      .subscribe(
       (data: any) => {
         this.customerList = data;
-       this.paginateConfig.totalItems = data.length;
-        console.log(data)
-         }, err => {
+        this.paginateConfig.totalItems = parseInt(data.length);
+      }, err => {
       this.alertService.error(err.error.message);
       }
    );
