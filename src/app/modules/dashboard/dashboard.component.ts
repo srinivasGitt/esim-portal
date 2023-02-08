@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     }else{
       this.downloadTrendChart();
       this.totalProfileCount();
-      this.getChildCustomers();
+      // this.getChildCustomers();
     }
 
   }

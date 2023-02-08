@@ -52,12 +52,12 @@
         </li>
       </ul>
       <div class="d-flex">
-        <div class="user-name-div me-4 my-auto"> Hi, Admin </div>
+        <div class="user-name-div me-4 my-auto"> Hi, {{ userDetails?.firstName }} </div>
         <div class="dropdown">
             <a class="btn btn-dropdown" href="#" role="button" id="customerDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
               <div class="user-profile-div">
-                <img src="/assets/images/navbar/user-jivan.png" alt="">
+                <img [src]="userDetails?.profileImageURL || ''" alt="">
               </div>
             </a>
 

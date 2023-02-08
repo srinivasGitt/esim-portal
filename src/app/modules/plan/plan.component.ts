@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
-import { PlanDialogComponent } from 'src/app/shared/dialog/plan-dialog/plan-dialog.component';
-import { DialogService } from 'src/app/shared/service/dialog';
-import { PlansService, AlertService } from 'src/app/shared/service';
+import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
+import { DialogService, PlansService, AlertService } from 'src/app/shared/service';
 import { PaginationInstance } from 'ngx-pagination';
 @Component({
   selector: 'app-plan',
@@ -13,6 +11,7 @@ export class PlanComponent implements OnInit {
   plansList: any = [];
 
   paginateConfig: PaginationInstance = {
+    id: 'plansListPagination',
     itemsPerPage: 20,
     currentPage: 1,
     totalItems: 0
@@ -46,6 +45,7 @@ export class PlanComponent implements OnInit {
       }
     );
   }
+
   editPlans(index: number) {
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: this.plansList[index], title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
@@ -83,9 +83,15 @@ export class PlanComponent implements OnInit {
       }
      
       });
-    }
-    console(obj : any){
-      console.log(obj);
-      return 1234
-    }
+  }
+
+  showPlanInfo(plan : any){
+    this.dialogService.openModal(PlanInfoComponent, { cssClass: 'modal-md', context: {data: plan} })
+    .instance.close.subscribe((data: any) => {
+
+    },
+    (error : any) =>{
+
+    });
+  }
 }

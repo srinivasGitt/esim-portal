@@ -4,6 +4,8 @@ import { SubscriptionDialogComponent } from 'src/app/shared/dialog/subscription/
 import { DialogService } from 'src/app/shared/service/dialog';
 import { SubscriptionsService } from 'src/app/shared/service/subscriptions.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { PaginationInstance } from 'ngx-pagination';
+import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-subscription',
@@ -13,6 +15,12 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 export class SubscriptionComponent implements OnInit {
 
   subscriptionList: any = [];
+  paginateConfig: PaginationInstance = {
+    id: 'subscriptionListPagination',
+    itemsPerPage: 20,
+    currentPage: 1,
+    totalItems: 0
+  };
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
               private alertService : AlertService) { }
@@ -40,6 +48,7 @@ export class SubscriptionComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.subscriptionList = data;
+        this.paginateConfig.totalItems = data?.length;
       }, err => {
         this.alertService.error(err.error.message);
       }
@@ -64,7 +73,16 @@ export class SubscriptionComponent implements OnInit {
   }
 
   deleteSubscription( index: number) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this subscription?'} })
+    let data = {
+      title: `Delete Subscription  "${this.subscriptionList[index].subscriptionNumber}"?`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'btn-danger ms-auto', title: 'Delete', value: true}
+      ]
+    };
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this subscription? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
@@ -76,6 +94,16 @@ export class SubscriptionComponent implements OnInit {
           this.alertService.error(err.error.message);
         })
       }
-      });
+    });
+  }
+
+  showSubscriptionInfo(subscription : any){
+    this.dialogService.openModal(SubscriptionInfoComponent, { cssClass: 'modal-md', context: {data: subscription} })
+    .instance.close.subscribe((data: any) => {
+
+    },
+    (error : any) =>{
+
+    });
   }
 }

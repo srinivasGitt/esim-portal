@@ -36,50 +36,58 @@ export class DashboardService {
     return this._themeSelection$.asObservable();
   }
 
-  getNavBarMenus(){
-    return [
+  getNavBarMenus(roles : Array<string>){
+    let navMenuList = [
       {
         title: 'Dashboard',
         icon: 'assets/icons/dashboard-icon.svg',
         link: '/',
+        accessRole: ['admin','superAdmin'],
         hasGroup: false
       },
       {
         title: 'Customers',
         icon: 'assets/icons/customer-icon.svg',
         link: '/customer-management',
+        accessRole: ['superAdmin'],
         hasGroup: false
       },
       {
         title: 'Plans',
         icon: 'assets/icons/plans-icon.svg',
         link: '/plans',
+        accessRole: ['admin','superAdmin'],
         hasGroup: true
       },
       {
         title: 'Subscribers',
         icon: 'assets/icons/subscriber-icon.svg',
         link: '/subscriber',
+        accessRole: ['admin','superAdmin'],
         hasGroup: true
       },
       {
         title: 'Subscriptions',
         icon: 'assets/icons/subscription-icon.svg',
-        link: '/users',
+        link: '/subscriptions',
+        accessRole: ['admin','superAdmin'],
         hasGroup: true
       },
       {
         title: 'Reports',
         icon: 'assets/icons/reports-icon.svg',
-        link: '/plans',
+        link: '/reports',
+        accessRole: ['admin','superAdmin'],
         hasGroup: true
       },
       {
         title: 'Settings',
         icon: 'assets/icons/settings-icon.svg',
-        link: '/reports',
+        link: '/settings',
+        accessRole: ['admin','superAdmin'],
         hasGroup: false
       },
-    ]
+    ];
+    return navMenuList.filter((nav) => roles.some(role => nav.accessRole.includes(role)));
   }
 }

@@ -71,7 +71,8 @@
         <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
           <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
             *ngFor="let customer of customerList | paginate: paginateConfig; index as i" >
-              <div class="t-box a px-2" [routerLink]="['/customer-management', customer._id]">{{customer.name}}</div>
+              <!-- [routerLink]="['/customer-management', customer._id]" -->
+              <div class="t-box a px-2">{{customer.name}}</div>
               <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
               <div class="t-box a px-2">{{customer.subscriberCount || 0}}</div>
               <div class="t-box b px-2 action-section">

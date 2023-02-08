@@ -38,6 +38,9 @@ export class CustomerComponent implements OnInit {
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
+    if(this.title == 'Edit Customer' && this.data?._id){
+      this.getCustomerDetails();
+    }
     this.newCustomerForm();
   }
   
@@ -46,6 +49,12 @@ export class CustomerComponent implements OnInit {
       name: new UntypedFormControl(this.data?.name, [Validators.required]),
       smdp: new UntypedFormControl(this.data?.smdp, [Validators.required] ),
     });
+  }
+
+  getCustomerDetails(){
+    this.customerService.getSingleCustomer(this.data?._id).subscribe(
+      (result) => console.log(result)
+    )
   }
 
   get f() { return this.customerForm.controls; }
