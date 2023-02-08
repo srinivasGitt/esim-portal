@@ -18,7 +18,7 @@
             <a class="es-btn-close mt-3" (click)="close()"></a>
         </div>
     </div>
-    <div class="es-modal-body">
+    <div class="es-modal-body" *ngIf="customerForm">
         <form class="es-modal-form" [formGroup]="customerForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3">
                 <label for="name" class="form-label es-modal-form-label">Full name</label>
@@ -40,7 +40,6 @@
                             placeholder="Select Provider"
                             formControlName="smdp" 
                             [multiple]="true"
-                            [(ngModel)]="selected"
                             >
                   </ng-select>
                 </div>
