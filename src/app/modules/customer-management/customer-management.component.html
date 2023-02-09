@@ -12,9 +12,9 @@
   <div class="dashboard-head-flex">
     <div class="filter-head d-flex py-1 px-4">
       <div class="d-flex">
-        <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)=" (selectedFilter.month = selectedFilter.month == 0 ? 11 : selectedFilter.month - 1)">
+        <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="(selectedFilter.year = selectedFilter.month == 0 ? selectedFilter.year - 1 : selectedFilter.year); (selectedFilter.month = selectedFilter.month == 0 ? 11 : selectedFilter.month - 1);">
         <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
-        <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="( selectedFilter.month = selectedFilter.month == 11 ? 0 : selectedFilter.month + 1)">
+        <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="( selectedFilter.month = selectedFilter.month == 11 ? 0 : selectedFilter.month + 1)" [class.disabled]="selectedFilter.month == currentMonth && selectedFilter.year == currentYear">
       </div>
       <div class="d-flex ms-2">
         <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="(selectedFilter.year = selectedFilter.year -1)">
@@ -73,7 +73,7 @@
             *ngFor="let customer of customerList | paginate: paginateConfig; index as i" >
               <!-- [routerLink]="['/customer-management', customer._id]" -->
               <div class="t-box a px-2">{{customer.name}}</div>
-              <div class="t-box b px-2">{{customer.createdAt | date: "medium"}}</div>
+              <div class="t-box b px-2">{{customer.createdAt | date: 'dd/MM/YYYY'}}</div>
               <div class="t-box a px-2">{{customer.subscriberCount || 0}}</div>
               <div class="t-box b px-2 action-section">
                   <div class="user-table-action mx-auto">

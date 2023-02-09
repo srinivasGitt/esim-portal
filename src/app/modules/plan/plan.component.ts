@@ -46,12 +46,11 @@ export class PlanComponent implements OnInit {
     );
   }
 
-  editPlans(index: number) {
-    this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: this.plansList[index], title: 'Edit Plan'} })
+  editPlans(plan: any) {
+    this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: plan, title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
           if(data){
-            let vm  = this;
-            vm.plansList[index] = data;
+            this.plansList = this.plansList.map((p : any) => {if(p._id == plan._id) p = data; return p;});
             this.alertService.success('Plan Updated');
           }
         }, err => {
@@ -59,9 +58,9 @@ export class PlanComponent implements OnInit {
         });
   }
 
-  deletePlan( index: number) {
+  deletePlan( plan : any) {
     let data = {
-      title: `Delete ${this.plansList[index].name} Plan?`,
+      title: `Delete ${plan.name} Plan?`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
@@ -71,18 +70,17 @@ export class PlanComponent implements OnInit {
     };
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this plan? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
-      const vm = this;
       if (data) {
-        vm.plansService.deletePlan(vm.plansList[index]._id)
+        this.plansService.deletePlan(plan._id)
         .subscribe(res => {
-          vm.plansList.splice(index, 1);
+          this.plansList = this.plansList.filter((c : any) => c._id != plan._id);
           this.alertService.success('Plan Deleted');
         }, err => {
           this.alertService.error(err.error.message);
         })
       }
      
-      });
+    });
   }
 
   showPlanInfo(plan : any){

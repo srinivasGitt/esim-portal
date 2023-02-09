@@ -25,6 +25,7 @@ export class CustomerManagementComponent implements OnInit {
   monthsList: Array<string> = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   selectedFilter!: {month: number, year: number}; 
   currentYear!: number;
+  currentMonth!: number;
   paginateConfig: PaginationInstance = {
     id: 'customerListPagination',
     itemsPerPage: 20,
@@ -48,6 +49,7 @@ export class CustomerManagementComponent implements OnInit {
       year : date.getFullYear()
     };
     this.currentYear = date.getFullYear();
+    this.currentMonth = date.getMonth();
 
   }
   
@@ -101,8 +103,8 @@ export class CustomerManagementComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         if(data){
           this.customerList = this.customerList.map((c : any) => {if(c._id == customer._id) c = data; return c;});
-          this.alertService.success('Custommer Updated');
-          this.getAllCustomer();
+          this.alertService.success('Customer Updated');
+          // this.getAllCustomer();
         }
         
     });
