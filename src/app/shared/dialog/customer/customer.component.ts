@@ -26,22 +26,20 @@ export class CustomerComponent implements OnInit {
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
    
   }
-
-  
   
   Provider= [
     "Telna",
     "POD"
   ];
-  selected = [];
 
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     if(this.title == 'Edit Customer' && this.data?._id){
       this.getCustomerDetails();
+    }else {
+      this.newCustomerForm();
     }
-    this.newCustomerForm();
   }
   
   newCustomerForm() {
@@ -53,7 +51,13 @@ export class CustomerComponent implements OnInit {
 
   getCustomerDetails(){
     this.customerService.getSingleCustomer(this.data?._id).subscribe(
-      (result) => console.log(result)
+      (result : any) => {
+        if(result?.length > 0){
+          this.data.name= result[0].name;
+          this.data.smdp= result[0].providers.map((p : any) => p.smdp);
+        }
+        this.newCustomerForm();
+      }
     )
   }
 

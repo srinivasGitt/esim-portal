@@ -18,16 +18,17 @@
             display: none !important;
         }
 
-        &.pagination-previous:before {
+        &.pagination-previous a:before, &.pagination-previous.disabled:before {
             content: url("/assets/images/dashboard/icon/paginate-arrow-previous.svg") !important ;
-            margin-right: 0.5rem !important;
-            margin-top: 7px;
+            margin-left: -10px !important;
+            margin-top: 2px;
         }
 
-        &.pagination-next:after {
+        &.pagination-next a:after, &.pagination-next.disabled:after {
             content: url("/assets/images/dashboard/icon/paginate-arrow-next.svg") !important;
             margin-left: 0 !important;
-            margin-top: 7px;
+            margin-top: -20px;
+            position: absolute;
         }
 
         &.pagination-previous,
@@ -38,7 +39,8 @@
             height: 100%;
             border-radius: 35%;
             overflow: hidden;
-            display: none;
+            color: transparent;
+            // display: none;
         }
         }
         &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{

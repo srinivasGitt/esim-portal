@@ -14,25 +14,25 @@
         <div class="row">
             <div class="col-4">
                 <label> Data </label>
-                <div class="plan-details"></div>
+                <div class="plan-details">{{ planDetails.dataPerDay || 1 }} GB/Day</div>
             </div>
             <div class="col-4">
                 <label> SMS </label>
-                <div class="plan-details"></div>
+                <div class="plan-details">{{ planDetails.smsPerDay || 0 }} SMS/Day</div>
             </div>
             <div class="col-4">
                 <label> Voice </label>
-                <div class="plan-details"></div>
+                <div class="plan-details">{{ planDetails.voice }}</div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-4">
                 <label> Total Data </label>
                 <div class="plan-details"> {{ planDetails.data }}</div>
             </div>
             <div class="col-4">
                 <label> Countries </label>
-                <div class="plan-details"></div>
+                <div class="plan-details"> </div>
             </div>
             <div class="col-4">
                 <label> Validity </label>

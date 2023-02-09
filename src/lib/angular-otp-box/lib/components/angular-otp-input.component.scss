@@ -24,8 +24,10 @@
     .otp-input:last-child{
         border-radius: 10px;
     }
+    opacity: 1;
     .disabled{
         pointer-events: none;
+        opacity: 0.7;
         cursor: not-allowed;
     }
 }

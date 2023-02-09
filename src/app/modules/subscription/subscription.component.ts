@@ -55,26 +55,28 @@ export class SubscriptionComponent implements OnInit {
     );
 
   }
-  editSubscription(index: number) {
-    this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-md', context: {data: this.subscriptionList[index], title: 'Edit Subscription'} })
+  editSubscription(subscription : any) {
+    this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-md', context: {data: subscription, title: 'Edit Subscription'} })
       .instance.close.subscribe((data: any) => {
         if(data){
-          let vm  = this;
-        vm.subscriptionsService.updateSubscription(vm.subscriptionList[index]._id, data)
-        .subscribe( (res: any) => {
-          vm.subscriptionList[index] = res;
-          this.alertService.success('Subscription Updated');
-        }, err => {
-          this.alertService.error(err.error.message);
-        })
+          this.subscriptionList = this.subscriptionList.map((s : any) => {if(s._id == subscription._id) s = data; return s;});
+          this.alertService.success('Plan Updated');
+          // this.subscriptionsService.updateSubscription(subscription._id, data)
+          // .subscribe( (res: any) => {
+          //   this.subscriptionList[index] = res;
+          //   this.alertService.success('Subscription Updated');
+          // }, err => {
+          //   this.alertService.error(err.error.message);
+          // })
         }
-        
-        });
+      }, (err: any) => {
+        this.alertService.error(err.error.message);
+      });
   }
 
-  deleteSubscription( index: number) {
+  deleteSubscription( subscriber : any) {
     let data = {
-      title: `Delete Subscription  "${this.subscriptionList[index].subscriptionNumber}"?`,
+      title: `Delete Subscription  "${subscriber.subscriptionNumber}"?`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
@@ -84,11 +86,10 @@ export class SubscriptionComponent implements OnInit {
     };
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this subscription? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
-      const vm = this;
       if (data) {
-        vm.subscriptionsService.deleteSubscription(vm.subscriptionList[index]._id)
+        this.subscriptionsService.deleteSubscription(subscriber._id)
         .subscribe(res => {
-          vm.subscriptionList.splice(index, 1);
+          this.subscriptionList = this.subscriptionList.filter((s : any) => s._id != subscriber._id);
           this.alertService.success('Subscription Deleted');
         }, err => {
           this.alertService.error(err.error.message);

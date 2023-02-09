@@ -25,6 +25,7 @@ export class CustomerManagementComponent implements OnInit {
   monthsList: Array<string> = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   selectedFilter!: {month: number, year: number}; 
   currentYear!: number;
+  currentMonth!: number;
   paginateConfig: PaginationInstance = {
     id: 'customerListPagination',
     itemsPerPage: 20,
@@ -48,6 +49,7 @@ export class CustomerManagementComponent implements OnInit {
       year : date.getFullYear()
     };
     this.currentYear = date.getFullYear();
+    this.currentMonth = date.getMonth();
 
   }
   
@@ -96,21 +98,19 @@ export class CustomerManagementComponent implements OnInit {
    
   }
 
-  editCustomer(index: number) {
-    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: this.customerList[index], title: 'Edit Customer'} })
+  editCustomer(customer: any) {
+    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: customer, title: 'Edit Customer'} })
       .instance.close.subscribe((data: any) => {
         if(data){
-          console.log(data)
-          let vm  = this;
-          vm.customerList[index] = data;
-          this.alertService.success('Custommer Updated');
-          this.getAllCustomer();
+          this.customerList = this.customerList.map((c : any) => {if(c._id == customer._id) c = data; return c;});
+          this.alertService.success('Customer Updated');
+          // this.getAllCustomer();
         }
         
     });
   }
 
-  deleteCustomer( index: number) {
+  deleteCustomer( customer: any) {
     let data = {
       title: 'Delete Customer?',
       icon: 'trash',
@@ -122,11 +122,10 @@ export class CustomerManagementComponent implements OnInit {
     };
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this customer? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
-      const vm = this;
       if (data) {
-        vm.customerService.deleteCustomer(vm.customerList[index]._id)
+        this.customerService.deleteCustomer(customer._id)
         .subscribe(res => {
-          vm.customerList.splice(index, 1);
+          this.customerList = this.customerList.filter((c : any) => c._id != customer._id);
           this.alertService.success('Customer Deleted');
         }, err => {
           this.alertService.error(err.error.message);
