@@ -37,9 +37,8 @@ export class CustomerComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     if(this.title == 'Edit Customer' && this.data?._id){
       this.getCustomerDetails();
-    }else {
-      this.newCustomerForm();
     }
+    this.newCustomerForm();
   }
   
   newCustomerForm() {
@@ -53,10 +52,9 @@ export class CustomerComponent implements OnInit {
     this.customerService.getSingleCustomer(this.data?._id).subscribe(
       (result : any) => {
         if(result?.length > 0){
-          this.data.name= result[0].name;
-          this.data.smdp= result[0].providers.map((p : any) => p.smdp);
+          this.f.name.setValue(result[0].name);
+          this.f.smdp.setValue(result[0].providers.map((p : any) => p.smdp));
         }
-        this.newCustomerForm();
       }
     )
   }
