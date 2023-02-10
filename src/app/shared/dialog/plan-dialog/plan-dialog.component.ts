@@ -48,9 +48,12 @@ export class PlanDialogComponent implements OnInit {
   createPlanForm(): void {
     this.planForm = new UntypedFormGroup({
       name: new UntypedFormControl(this.data?.name, [Validators.required]),
+      dataUnit: new UntypedFormControl(this.data?.dataUnit || 'GB', [Validators.required]),
       dataSize: new UntypedFormControl(this.data?.dataSize, [Validators.required]),
+      validityUnit: new UntypedFormControl(this.data?.validityUnit || 'days', [Validators.required]),
       validity: new UntypedFormControl(this.data?.validity, [Validators.required]),
       sms: new UntypedFormControl(this.data?.sms, [Validators.required]),
+      unlimited: new UntypedFormControl(this.data?.unlimited),
       voice: new UntypedFormControl(this.data?.voice, [Validators.required]),
       regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
       cost: new UntypedFormControl(this.data?.cost, [Validators.required]),
@@ -89,5 +92,18 @@ export class PlanDialogComponent implements OnInit {
   close(): void {
     // this.data.amount = 343;
     this.dialogRef.close.emit(false);
+  }
+
+  updateValue(controlKey: string, updateBy: string){
+    if(updateBy == 'inc'){
+      let incValue = isNaN(parseInt(this.f[controlKey].value)) ? 0 : parseInt(this.f[controlKey].value);
+      this.f[controlKey].setValue(++incValue);
+    } else if(updateBy == 'dec'){
+      let decValue = isNaN(parseInt(this.f[controlKey].value)) ? 1 : parseInt(this.f[controlKey].value);
+      if(--decValue > -1){
+        this.f[controlKey].setValue(decValue);
+      }
+      
+    }
   }
 }

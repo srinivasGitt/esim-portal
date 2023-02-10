@@ -18,16 +18,27 @@
             display: none !important;
         }
 
-        &.pagination-previous a:before, &.pagination-previous.disabled:before {
+        &.pagination-previous a:before {
             content: url("/assets/images/dashboard/icon/paginate-arrow-previous.svg") !important ;
             margin-left: -10px !important;
             margin-top: 2px;
         }
+        &.pagination-previous.disabled:before{
+            content: url("/assets/images/dashboard/icon/paginate-arrow-previous.svg") !important ;
+            margin-left: 4px !important;
+            margin-top: 4px;
+        }
 
-        &.pagination-next a:after, &.pagination-next.disabled:after {
+        &.pagination-next a:after {
             content: url("/assets/images/dashboard/icon/paginate-arrow-next.svg") !important;
             margin-left: 0 !important;
             margin-top: -20px;
+            position: absolute;
+        }
+        &.pagination-next.disabled:after {
+            content: url("/assets/images/dashboard/icon/paginate-arrow-next.svg") !important;
+            margin-left: 16px !important;
+            margin-top: 8px;
             position: absolute;
         }
 

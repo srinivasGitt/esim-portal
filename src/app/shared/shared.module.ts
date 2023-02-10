@@ -25,6 +25,7 @@ import { ImportProfileComponent } from './dialog/import-profile/import-profile.c
 import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profiles.component';
 import { PlanInfoComponent, SubscriptionInfoComponent } from './dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
@@ -58,7 +59,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     QRCodeModule,
     RouterModule,
     NgSelectModule,
-    
+    NgxGaugeModule
   ],
   exports: [
     // SubscriptionComponent,
