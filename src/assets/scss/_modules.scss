@@ -182,19 +182,31 @@
         
     }
 }
-.subscriber-dashboard{
+.subscriber-management{
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
         margin-bottom: 30px;
         .dashboard-head-text{
+            font-size: 1.36vw;
+            font-family: "SF Pro Display Italic";
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
         .btn-dashboard-head{
-            color: var(--dark-theme-blue-v1);
-            background-color: var(--dark-background);
-            border: 1px solid var(--dark-theme-blue-v1);
+            color: #fff;
+            background-color: #6365EF;
+            border-radius: 25px;
+            padding: 4px 26px;
+            height: 50px;
+            .btn-add-icon{
+                background: #fff;
+                color: #6365EF;
+                height: 20px;
+                width: 20px;
+                line-height: 17px;
+                border-radius: 50%;
+            }
         }
     }
     .t-grid-table-new {
@@ -209,37 +221,75 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 1.5fr 2fr 1fr 1fr 2fr 150px;
-
-            grid-gap: 1;
+            grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
+            // grid-gap: 1;
         }
-        .t-box {
+        .table-headers{
+            font-size: 20px;
+            path{
+                &:not(.color-stroke){
+                    fill: var(--dark-text-white-v1);
+                }
+                &.color-stroke{
+                    stroke: var(--dark-text-white-v1);
+                }
+            }
+        }
+        .t-box{
             padding: 14px 0;
             padding-left: .5rem !important;
             width: 100%;
             justify-content: center;
+            text-align: center;
             color: var(--dark-text-white-v1);
-            // overflow: auto;
+            &:first-child{
+                text-align: start;
+                justify-content: flex-start;
+            }
+            .subscription-info-icon{
+                width: 45px;
+                cursor: pointer;
+            }
+            .scale-1-3{
+                transform: scale(1.3);
+            }
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+            height: 70px;
         }
         .t-body-bg{
             .t-box{
-                color: var(--dark-text-white-v2);
+                color: var(--dark-text-white-v5);
+                opacity: 1;
+                overflow: hidden;
+                width: 100%;
+                height: 70px;
+                &:not(.action-section){
+                    line-height: 50px;
+                }
+                &.activation-code-section{
+                    line-height: 1.5 !important;
+                    padding: 4px 0 !important;
+                }
             }
         }
         .bg-body-table-dark-bg{
-            background-color: var(--dark-background-v2);
-            border-radius: 8px;
+            border-top: 1px dashed #636668 ;
         }
         .user-table-action{
             display: flex;
             align-items: center;
+            width: 90px;
+            background-color: var(--dark-background-v3);
+            border-radius: 40px;
+            height: 45px;
             .user-table-action-icon{
                 width: 15px;
                 margin-right: 25px;
                 cursor: pointer;
             }
         }
-        
     }
 }
 
@@ -305,6 +355,7 @@
             }
             .plan-info-icon{
                 width: 45px;
+                cursor: pointer;
             }
         }
         .t-body-bg{
@@ -451,10 +502,15 @@
             }
             .subscription-info-icon{
                 width: 45px;
+                cursor: pointer;
             }
             .scale-1-3{
                 transform: scale(1.3);
             }
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+            height: 70px;
         }
         .t-body-bg{
             .t-box{
@@ -663,8 +719,10 @@
         .table-headers{
             font-size: 20px;
             path{
-                fill: var(--dark-text-white-v1);
-                &.stroke{
+                &:not(.color-stroke){
+                    fill: var(--dark-text-white-v1);
+                }
+                &.color-stroke{
                     stroke: var(--dark-text-white-v1);
                 }
             }
@@ -736,6 +794,10 @@
         color: var(--dark-text-white-v1);
         padding-left: 2.75rem;
         &::placeholder{
+            color: var(--dark-text-white-v1);
+        }
+        &:focus{
+            background: var(--dark-background-v2);
             color: var(--dark-text-white-v1);
         }
     }

@@ -100,14 +100,23 @@ export class SubscribeManagementComponent implements OnInit {
       });
   }
 
-  deleteSubscriber( index: number) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure want to delete this subscriber?'} })
+  deleteSubscriber( subscriber: any) {
+    let data = {
+      title: `Delete Subscriber, ${subscriber.firstName}?`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'btn-danger ms-auto', title: 'Delete', value: true}
+      ]
+    };
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this subscriber? This action cannot be undone.?', data} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
-        vm.subscriberService.deleteSubscriber(vm.subscriberList[index]._id)
+        vm.subscriberService.deleteSubscriber(subscriber._id)
         .subscribe(res => {
-          vm.subscriberList.splice(index, 1);
+          this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
           this.alertService.success('Subscriber Deleted');
         }, err => {
           this.alertService.error(err.error.message);
@@ -116,7 +125,9 @@ export class SubscribeManagementComponent implements OnInit {
       });
     }
 
+    showSubscriber(subscriber: any){
 
+    }
   // SubscriberInvite(){
   //   this.dialogService.openModal(InviteSubscriberComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
   //   .instance.close.subscribe((data: any) => {
