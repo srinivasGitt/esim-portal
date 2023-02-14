@@ -8,6 +8,8 @@ import { PlansService } from 'src/app/shared/service/plans.service';
 import { RegionsService } from 'src/app/shared/service/regions.service';
 import { subscriberService } from 'src/app/shared/service/subscriber.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { SubscriberInfoComponent } from 'src/app/shared/dialog';
+import { PaginationInstance } from 'ngx-pagination';
 
 @Component({
   selector: 'app-subscribe-management',
@@ -18,6 +20,17 @@ export class SubscribeManagementComponent implements OnInit {
   subscriberList:any;
   regionList: any = [];
   planList: any = [];
+  paginateConfig: PaginationInstance = {
+    id: 'subscriberListPagination',
+    itemsPerPage: 20,
+    currentPage: 1,
+    totalItems: 0
+  };
+  filterConfig: any = {
+    searchTerm: '',
+    searchKey: 'displayName',
+    filterBy: undefined
+  };
 
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
@@ -125,9 +138,23 @@ export class SubscribeManagementComponent implements OnInit {
       });
     }
 
-    showSubscriber(subscriber: any){
+  showSubscriber(subscriber: any){
+    this.dialogService.openModal( SubscriberInfoComponent, { cssClass: 'modal-md', context: {data: subscriber} })
+    .instance.close.subscribe((data: any) => {
+      
+    }, err => {
 
+    })
+  }
+
+  searchRecord(searchTerm ?: any){
+    if(searchTerm?.length > 2){
+      this.filterConfig.searchTerm = searchTerm;
+    } else {
+      this.filterConfig.searchTerm = "";
     }
+  }
+
   // SubscriberInvite(){
   //   this.dialogService.openModal(InviteSubscriberComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
   //   .instance.close.subscribe((data: any) => {

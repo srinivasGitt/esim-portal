@@ -27,6 +27,11 @@ export class subscriberService {
   getAllSubscriber() {
     return this.http.get(`${this.serverUrl}/subscribers`, this.getHeader());
   }
+
+  getSingleSubscriber(subscriberId: string) {
+    return this.http.get(`${this.serverUrl}/subscribers/${subscriberId}`, this.getHeader());
+  }
+
   updateSubscriber(id: any, data: any) {
     return this.http.put(`${this.serverUrl}/subscribers/${id}`, data, this.getHeader());
   }

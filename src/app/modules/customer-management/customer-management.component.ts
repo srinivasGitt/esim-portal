@@ -9,7 +9,6 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { ImportProfileComponent } from 'src/app/shared/dialog/import-profile/import-profile.component';
 import { AssignProfilesComponent } from 'src/app/shared/dialog/assign-profiles/assign-profiles.component';
 import { PaginationInstance } from 'ngx-pagination';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
@@ -37,9 +36,6 @@ export class CustomerManagementComponent implements OnInit {
     searchKey: 'name',
     filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
-  searchForm = new UntypedFormGroup({
-    search: new UntypedFormControl('')
-  });
 
   constructor(private customerService: CustomerService,
               // private usersService: UsersService,
@@ -164,9 +160,9 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
 
-  searchRecord(){
-    if(this.searchForm.valid && this.searchForm.get('search')?.value?.length > 2){
-      this.filterConfig.searchTerm = this.searchForm.get('search')?.value;
+  searchRecord(searchTerm ?: any){
+    if(searchTerm?.length > 2){
+      this.filterConfig.searchTerm = searchTerm;
     } else {
       this.filterConfig.searchTerm = "";
     }

@@ -23,7 +23,7 @@ import { AlertComponent } from './dialog/alert/alert.component';
 import { ProfileLogComponent } from './dialog/profile-log/profile-log.component';
 import { ImportProfileComponent } from './dialog/import-profile/import-profile.component';
 import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profiles.component';
-import { PlanInfoComponent, SubscriptionInfoComponent } from './dialog';
+import { PlanInfoComponent, SubscriptionInfoComponent, SubscriberInfoComponent } from './dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxGaugeModule } from 'ngx-gauge';
 
@@ -49,7 +49,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
     ImportProfileComponent,
     AssignProfilesComponent,
     PlanInfoComponent,
-    SubscriptionInfoComponent
+    SubscriptionInfoComponent,
+    SubscriberInfoComponent
   ],
   imports: [
     CommonModule,
