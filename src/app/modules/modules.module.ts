@@ -12,6 +12,7 @@ import { RouterModule } from "@angular/router";
 import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipe } from "../shared/pipe/filter.pipe";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReportsComponent,
     InventoryComponent,
     CustomerManagementComponent,
-    SubscribeManagementComponent
+    SubscribeManagementComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
