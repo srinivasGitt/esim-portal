@@ -24,7 +24,7 @@
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal"(click)="createCustomer()">
+    <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal" (click)="createCustomer()">
       <span class="me-3 btn-add-icon m-auto"> + </span>
       <span class="m-auto">Add new customer</span>
     </button>   
@@ -95,8 +95,8 @@
               </div>
           </div>
         </div>
-      </div>
     </div>
+  </div>
     <!-- Pagination  -->
     <div class="custom-pagination-section" *ngIf="customerList?.length > 20">
       <pagination-controls id="customerListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>

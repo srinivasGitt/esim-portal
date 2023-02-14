@@ -18,6 +18,8 @@ export class UserMgmtComponent implements OnInit {
   title: string = 'Add New User';
   regionList: any = [];
   planList: any = [];
+  submitted = false;
+  customerId: any;
   
   constructor(
     private viewContainer: ViewContainerRef,
@@ -32,9 +34,8 @@ export class UserMgmtComponent implements OnInit {
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
+    this.customerId = this.dialogRef.context.customerId;
     this.createuserForm();
-    this.getAllRegions();
-    this.getAlPlans();
   }
 
   getAllRegions(): void {
@@ -66,12 +67,11 @@ export class UserMgmtComponent implements OnInit {
       email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
       firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
       lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
-      regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),
-      planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
-      endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
       mobile: new UntypedFormControl(this.data?.mobile, [Validators.required]),
     });
   }
+
+  get f() { return this.userForm.controls; }
 
   submit() {
     if (this.title === 'Edit User') {
@@ -82,6 +82,14 @@ export class UserMgmtComponent implements OnInit {
   }
 
   createUser() {
+    this.submitted = true;
+    
+    if(this.userForm.invalid) {
+      return;
+    }
+
+    this.userForm.value.customerId = this.customerId;
+    
     this.usersService.createUsers(this.userForm.value)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);

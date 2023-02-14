@@ -53,6 +53,13 @@ export class DashboardService {
         hasGroup: false
       },
       {
+        title: 'User Management',
+        icon: 'assets/icons/manage_accounts.svg',
+        link: '/user-management',
+        accessRole: ['admin','superAdmin'],
+        hasGroup: false
+      },
+      {
         title: 'Plans',
         icon: 'assets/icons/plans-icon.svg',
         link: '/plans',

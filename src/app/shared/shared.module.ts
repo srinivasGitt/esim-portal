@@ -26,6 +26,7 @@ import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profile
 import { PlanInfoComponent, SubscriptionInfoComponent } from './dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { UserInfoComponent } from './dialog/user-info/user-info.component';
 
 
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
@@ -49,7 +50,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
     ImportProfileComponent,
     AssignProfilesComponent,
     PlanInfoComponent,
-    SubscriptionInfoComponent
+    SubscriptionInfoComponent,
+    UserInfoComponent
   ],
   imports: [
     CommonModule,

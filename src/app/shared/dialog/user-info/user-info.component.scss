@@ -1,0 +1,106 @@
+.user-info-modal{
+    .user-info-icon{
+        background: var(--dark-info-background);
+        border: 8px solid var(--dark-info-border);
+        border-radius: 28px;
+        width: 56px;
+        height: 56px;
+        svg{
+            transform: scale(2);
+        }
+    }
+    .es-modal-body{
+        color: var(--dark-text-white-v1);
+        label{
+            font-size: 14px;
+            margin-bottom: 1rem;
+        }
+        .cloud-icon img{
+            position: relative;
+            top: 30px;
+            left: -65px;
+            transform: scale(1.5);
+        }
+        .label-width {
+            width: 200px;
+        }
+        .user-details{
+            font-size: 16px;
+        }
+        .bottom-border {
+            border-bottom: 1px solid var(--dark-info-modal-border-bottom);
+        }
+    }
+    .btn{
+        height: 44px;
+        width: 170px;
+        border: none;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+    }
+    .btn-primary{
+        background: #6365EF;
+    }
+    .btn-secondary:hover{
+        background: var(--dark-secondary-btn-background);
+    }
+
+    .btn:first-child:active{
+        background: var(--dark-secondary-btn-background);
+    }
+
+    .btn-secondary{
+        background: var(--dark-secondary-btn-background);
+        color: var(--dark-text-white-v1);
+        border: var(--dark-secondary-btn-border) solid #D0D5DD;
+    }
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 35px;
+        height: 22px;
+        input{
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .round{
+            border-radius: 34px;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid var(--dark-text-white-v2);
+            transition: 0.4s;
+            border-radius: 10px;
+            &:before {
+                background: var(--dark-text-white-v2);
+                position: absolute;
+                content: "";
+                height: 14px;
+                width: 14px;
+                border-radius: 50%;
+                left: 2px;
+                bottom: 3px;
+                transition: 0.4s;
+            }
+        }
+    }
+    input:checked + .slider{
+        background-color: var(--dark-primary-background);
+        border: 0;
+        &:before {
+            transform: translateX(14px);
+            background-color: var(--dark-background);
+        }
+    }
+    .slider.round:before {
+        border-radius: 50%;
+    }
+}

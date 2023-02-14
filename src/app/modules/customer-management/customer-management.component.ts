@@ -161,29 +161,7 @@ export class CustomerManagementComponent implements OnInit {
     
     
    
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+  } 
 }
 
 
