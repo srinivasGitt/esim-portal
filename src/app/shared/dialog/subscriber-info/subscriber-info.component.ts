@@ -18,7 +18,7 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Activation Code', key : 'activationCode', customClass: 'line-height-1-5' },
     { title : 'Date Created', key : 'created', customClass: '', isDate : true },
     { title : 'Active Plan', key : 'planName', customClass: '' },
-    // { title : 'Plan Expiry', key : '' },
+    { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
     { title : 'MSISDN', key : 'msisdn', customClass: '' },
   ]
   constructor(
@@ -41,6 +41,8 @@ export class SubscriberInfoComponent implements OnInit {
       (result : any) => {
         if(result?._id){
           this.subscriberDetails =  result;
+          this.subscriberDetails.planName = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].name : '';
+          this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
         }
       }
     )
