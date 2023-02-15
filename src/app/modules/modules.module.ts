@@ -13,6 +13,7 @@ import { SubscribeManagementComponent } from './subscribe-management/subscribe-m
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from "../shared/pipe/filter.pipe";
+import { SharedModule } from "../shared/shared.module";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { FilterPipe } from "../shared/pipe/filter.pipe";
     CommonModule,
     RouterModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     NgSelectModule ,
     NgxPaginationModule
