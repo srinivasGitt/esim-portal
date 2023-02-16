@@ -26,6 +26,7 @@ import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profile
 import { PlanInfoComponent, SubscriptionInfoComponent, SubscriberInfoComponent } from './dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { TooltipDirective } from "./directive/tooltip.directive";
 
 
 // import { SubscriptionComponent } from "../modules/subscription/subscription.component";
@@ -50,7 +51,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
     AssignProfilesComponent,
     PlanInfoComponent,
     SubscriptionInfoComponent,
-    SubscriberInfoComponent
+    SubscriberInfoComponent,
+    TooltipDirective
   ],
   imports: [
     CommonModule,
@@ -69,6 +71,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
     NavbarComponent,
     ConfirmComponent,
     UserMgmtComponent,
+    TooltipDirective
   ],
   providers: [CurrencyPipe]
 })

@@ -124,6 +124,13 @@
     }
 }
 
+.text-overflow-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    white-space: nowrap;
+}
+
 .user-dashboard{
     .dashboard-head-flex{
         display: flex;
@@ -241,6 +248,9 @@
             width: 100%;
             justify-content: center;
             text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: inherit;
             color: var(--dark-text-white-v1);
             &:first-child{
                 text-align: start;
@@ -263,14 +273,16 @@
                 color: var(--dark-text-white-v5);
                 opacity: 1;
                 overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: inherit;
                 width: 100%;
                 height: 70px;
                 &:not(.action-section){
                     line-height: 50px;
                 }
                 &.activation-code-section{
-                    line-height: 1.5 !important;
-                    padding: 4px 0 !important;
+                    line-height: 1.25 !important;
+                    padding: 2px 0 !important;
                 }
             }
         }
@@ -363,6 +375,8 @@
                 color: var(--dark-text-white-v5);
                 opacity: 1;
                 overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: inherit;
                 width: 100%;
                 height: 70px;
                 &:not(.action-section){
@@ -517,6 +531,8 @@
                 color: var(--dark-text-white-v5);
                 opacity: 1;
                 overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: inherit;
                 width: 100%;
                 height: 70px;
                 &:not(.action-section){
@@ -744,6 +760,11 @@
             .t-box:not(.action-section){
                 color: var(--dark-text-white-v5);
                 opacity: 0.55;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: inherit;
+                width: 100%;
+                height: 70px;
             }
             &:hover, .active{
                 .t-box{ opacity: 1; }

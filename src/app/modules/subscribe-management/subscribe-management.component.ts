@@ -123,7 +123,7 @@ export class SubscribeManagementComponent implements OnInit {
         { cssClass: 'btn-danger ms-auto', title: 'Delete', value: true}
       ]
     };
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this subscriber? This action cannot be undone.?', data} })
+    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: 'Are you sure you want to delete this subscriber? This action cannot be undone.', data} })
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
