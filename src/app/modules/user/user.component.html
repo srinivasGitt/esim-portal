@@ -1,6 +1,6 @@
 <div class="user-dashboard">
     <div class="d-flex search-form">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search" #searchInput (keyup.enter)="searchRecord(searchInput.value)" (search)="searchRecord()">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" #searchInput (keydown.enter)="searchRecord(searchInput.value)" (search)="searchRecord(searchInput.value)">
         <span class="search-icon-div">
           <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
             height="30px">
@@ -68,7 +68,7 @@
                     <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
                     *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" >
                     <!-- [routerLink]="['/customer-management', customer._id]" -->
-                        <div class="t-box a px-2">{{user.displayName}}</div>
+                        <div class="t-box a px-2">{{ user.firstName }} {{ user.lastName }}</div>
                         <div class="t-box b px-2">{{user.email}}</div>
                         <div class="t-box a px-2">
                             <span *ngIf="user.roles && user.roles.length === 0">NA</span>
@@ -80,8 +80,8 @@
                         </div>
                         <div class="t-box b px-2 action-section">
                             <div class="user-table-action mx-auto">
-                                <span class="subscription-info-icon" (click)="userInfo(user)">
-                                    <img src="assets/icons/information.svg" class="mx-auto">
+                                <span class="user-table-action-icon subscription-info-icon mx-auto" (click)="userInfo(user, i)">
+                                    <img src="assets/icons/information.svg">
                                 </span>
                                 <span class="user-table-action-icon mx-auto" (click)="editUser(i)">
                                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

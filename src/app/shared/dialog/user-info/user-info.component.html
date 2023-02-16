@@ -7,7 +7,7 @@
           <p class="modal-header-text mb-0"> {{userDetails.displayName}}</p>
         </div>
         <div class="es-btn-close-container mt-0 mb-auto me-4">
-            <a class="es-btn-close mt-3" (click)="close()"></a>
+            <a class="es-btn-close mt-3 cursor-pointer" (click)="close()"></a>
         </div>
     </div>
     <div class="es-modal-body px-4">
@@ -60,7 +60,7 @@
         <button  class="btn btn-secondary w-20 mr-30" (click)="close()">
             Cancel
         </button>
-        <button class="btn btn-primary ms-auto w-20">
+        <button class="btn btn-primary ms-auto w-20" (click)="editUser()">
             Edit User
         </button>
     </div>

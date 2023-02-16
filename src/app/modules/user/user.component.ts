@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   };
   filterConfig: any = {
     searchTerm: '',
-    searchKey: 'displayName',
+    searchKey: 'email',
     filterBy: { key : 'created', type: 'date', value: undefined }
   };
   userDetails: any;
@@ -163,10 +163,12 @@ export class UserComponent implements OnInit {
       });
   }
 
-  userInfo(user: any) {
+  userInfo(user: any, index: number) {
     this.dialogService.openModal(UserInfoComponent, { cssClass: 'modal-md', context: {data: user} })
     .instance.close.subscribe((data: any) => {
-
+      if(data === 'edit') {
+        this.editUser(index);
+      }
     },
     (error : any) =>{
 
@@ -180,6 +182,7 @@ export class UserComponent implements OnInit {
       this.filterConfig.searchTerm = "";
     }
   }
+
   changeCalendarValue(changeBy: string, key: string){
     if( key == 'month'){
       if(changeBy == 'decrease'){

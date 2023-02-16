@@ -25,4 +25,8 @@ export class UserInfoComponent implements OnInit {
     this.dialogRef.close.emit();
   }
 
+  editUser(): void {
+    this.dialogRef.close.emit('edit');
+  }
+
 }
