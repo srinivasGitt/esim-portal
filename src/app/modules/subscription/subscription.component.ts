@@ -21,6 +21,12 @@ export class SubscriptionComponent implements OnInit {
     currentPage: 1,
     totalItems: 0
   };
+  filterConfig: any = {
+    searchTerm: '',
+    searchKey: 'displayName',
+    filterBy: undefined
+  };
+
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
               private alertService : AlertService) { }
@@ -106,5 +112,13 @@ export class SubscriptionComponent implements OnInit {
     (error : any) =>{
 
     });
+  }
+
+  searchRecord(searchTerm ?: any){
+    if(searchTerm?.length > 2){
+      this.filterConfig.searchTerm = searchTerm;
+    } else {
+      this.filterConfig.searchTerm = "";
+    }
   }
 }

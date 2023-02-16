@@ -29,8 +29,12 @@ export class CustomerManagementComponent implements OnInit {
   paginateConfig: PaginationInstance = {
     id: 'customerListPagination',
     itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: 0
+    currentPage: 1
+  };
+  filterConfig: any = {
+    searchTerm: '',
+    searchKey: 'name',
+    filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
 
   constructor(private customerService: CustomerService,
@@ -50,7 +54,7 @@ export class CustomerManagementComponent implements OnInit {
     };
     this.currentYear = date.getFullYear();
     this.currentMonth = date.getMonth();
-
+    this.filterConfig.filterBy.value = this.selectedFilter;
   }
   
   getSingleCustomer() {
@@ -89,7 +93,7 @@ export class CustomerManagementComponent implements OnInit {
      .subscribe(
       (data: any) => {
         this.customerList = data;
-        this.paginateConfig.totalItems = parseInt(data.length);
+        // this.paginateConfig.totalItems = parseInt(data.length);
       }, err => {
       this.alertService.error(err.error.message);
       }
@@ -156,16 +160,30 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
 
-  addNewCustomer() {
-       
-    
-    
-   
-  } 
+  searchRecord(searchTerm ?: any){
+    if(searchTerm?.length > 2){
+      this.filterConfig.searchTerm = searchTerm;
+    } else {
+      this.filterConfig.searchTerm = "";
+    }
+  }
+
+  changeCalendarValue(changeBy: string, key: string){
+    if( key == 'month'){
+      if(changeBy == 'decrease'){
+        this.selectedFilter.year = this.selectedFilter.month == 0 ? this.selectedFilter.year - 1 : this.selectedFilter.year; 
+        this.selectedFilter.month = this.selectedFilter.month == 0 ? 11 : this.selectedFilter.month - 1;
+      } else {
+        this.selectedFilter.year = this.selectedFilter.month == 11 ?  this.selectedFilter.year + 1 : this.selectedFilter.year;
+        this.selectedFilter.month = this.selectedFilter.month == 11 ? 0 : this.selectedFilter.month + 1;
+      }
+    } else if( key == 'year'){
+      if(changeBy == 'decrease'){
+        --this.selectedFilter.year;
+      } else {
+        ++this.selectedFilter.year;
+      }
+    }
+    this.filterConfig.filterBy.value = this.selectedFilter;
+  }
 }
-
-
-
-
-
-

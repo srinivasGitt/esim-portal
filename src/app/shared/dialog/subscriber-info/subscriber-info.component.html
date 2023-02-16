@@ -1,0 +1,28 @@
+<div class="es-modal subscriber-info-modal">
+    <div class="modal-header-flex p-4">
+        <div class="modal-header-text-container">
+            <div class="mb-3 subscriber-info-icon d-flex">
+                <img class="m-auto" src="/assets/images/dashboard/icon/primary-info.svg" alt="">
+            </div>
+            <p class="modal-header-text mb-0"> Subscriber Info</p>
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-4">
+            <a class="es-btn-close mt-3" (click)="close()"></a>
+        </div>
+    </div>
+    <div class="es-modal-body px-4">
+        <div class="row subscriber-details" *ngFor="let details of detailsRow">
+            <div class="col-5">
+                <label> {{ details.title }} </label>
+            </div>
+            <div class="col-7" [class]="details.customClass">
+                {{ details.isDate ? ( subscriberDetails[details.key] | date : 'dd/MM/YYYY hh:mm') : subscriberDetails[details.key] }}
+            </div>
+        </div>
+    </div>
+    <div class="es-modal-footer d-flex p-4">
+        <button class="btn btn-primary ms-auto w-100" (click)="close()">
+            Ok
+        </button>
+    </div>
+</div>

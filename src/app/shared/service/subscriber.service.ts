@@ -21,23 +21,22 @@ export class subscriberService {
     return httpOptions;
   }
 
-  // signin(userData: any) {
-  //   return this.http.post(`${this.serverUrl}/auth/signin`, userData);
-  // }
-  // signup(userData: any) {
-  //   return this.http.post(`${this.serverUrl}/auth/signin`, userData);
-  // }
   createSubscriber(data: any) {
-    return this.http.post(`${this.serverUrl}/subscriber`, data, this.getHeader());
+    return this.http.post(`${this.serverUrl}/subscribers`, data, this.getHeader());
   }
   getAllSubscriber() {
-    return this.http.get(`${this.serverUrl}/subscriber`, this.getHeader());
+    return this.http.get(`${this.serverUrl}/subscribers`, this.getHeader());
   }
+
+  getSingleSubscriber(subscriberId: string) {
+    return this.http.get(`${this.serverUrl}/subscribers/${subscriberId}`, this.getHeader());
+  }
+
   updateSubscriber(id: any, data: any) {
-    return this.http.put(`${this.serverUrl}/subscriber/${id}`, data, this.getHeader());
+    return this.http.put(`${this.serverUrl}/subscribers/${id}`, data, this.getHeader());
   }
   deleteSubscriber(id: any) {
-    return this.http.delete(`${this.serverUrl}/subscriber/${id}`, this.getHeader());
+    return this.http.delete(`${this.serverUrl}/subscribers/${id}`, this.getHeader());
   }
 
   // Invite Subscriber
