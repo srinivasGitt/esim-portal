@@ -9,6 +9,11 @@
 @import './assets/scss/navbar';
 @import './assets/scss/tooltip';
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
+*{
+    scrollbar-width: thin !important;
+}
+
 :root{
     --dark-background: #151616;
     --dark-background-v1: #151616;
@@ -20,7 +25,7 @@
     --dark-text-white-v4: rgba(233, 233, 233, 0.51);
     --dark-text-white-v5: rgba(255, 255, 255);
     --dark-text-white-v6:rgba(255, 255, 255, 0.72);
-    --dark-theme-blue-v1: #1DA1F1;
+    --dark-theme-blue-v1: #6365EF;
     --dark-right-border: rgba(255, 255, 255, 0.1);
     --dark-sidebar-border-radius: 0;
     --dark-table-background: #1D1F25;
@@ -30,10 +35,12 @@
     --dark-info-border: #8283FF;
     --dark-danger-background: #FFC5C1;
     --dark-danger-border: #9E7370;
-    --dark-secondary-btn-background: rgba(99, 101, 239, 0.35);
+    --dark-secondary-btn-background: rgba(238, 238, 238, 0.13);
     --dark-secondary-btn-border: 0;
     --dark-danger-secondary-btn-background: rgba(255, 137, 137, 0.63);
-    
+    --dark-modal-input-border: rgb(69, 69, 69, 0.48);
+    --dark-modal-sub-header: #CACCCE;
+    --dark-info-modal-border-bottom: rgba(235, 235, 235, 0.08);;
 }
 
 .lightMode{
@@ -47,7 +54,7 @@
     --dark-text-white-v4: rgba(79, 79, 79, 0.72);
     --dark-text-white-v5: rgba(0, 0, 0);
     --dark-text-white-v6:rgba(0, 0, 0, 0.72);
-    --dark-theme-blue-v1: #1DA1F1;
+    --dark-theme-blue-v1: #6365EF;
     --dark-right-border: rgba(0, 0, 0, 0.1);
     --dark-sidebar-border-radius: 10px;
     --dark-table-background: #ffffff;
@@ -60,6 +67,9 @@
     --dark-secondary-btn-background: var(--dark-background);
     --dark-secondary-btn-border: 1px;
     --dark-danger-secondary-btn-background: var(--dark-background);
+    --dark-modal-input-border: rgb(99, 101, 239, 0.48);
+    --dark-modal-sub-header: #0B0B0B;
+    --dark-info-modal-border-bottom: #EBEBEB;
 }
 
 body {
@@ -72,4 +82,27 @@ body {
     .modal-sm{
         --bs-modal-width: 400px;
     }
+}
+
+::-webkit-scrollbar {
+    // background-color:#fff;
+    width:5px;
+    height: 5px;
+}
+/* background of the scrollbar except button or resizer */
+::-webkit-scrollbar-track {
+    // background-color:#fff
+}
+::-webkit-scrollbar-track:hover {
+    // background-color:#f4f4f4
+}
+/* scrollbar itself */
+::-webkit-scrollbar-thumb {
+    background-color:darkgray;
+    border-radius:16px;
+    // border:5px solid #fff
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color:#a0a0a5;
+    // border:4px solid #f4f4f4
 }

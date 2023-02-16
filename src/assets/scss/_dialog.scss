@@ -14,6 +14,10 @@
                     font-size: 18px;
                     font-weight: 600;
                 }
+                .modal-sub-header-text{
+                    margin-top: 5px;
+                    color: var(--dark-modal-sub-header);
+                }
 
             }
             .es-btn-close-container{
@@ -52,7 +56,13 @@
                 .es-input{
                     background-color: transparent;
                     color: var(--dark-text-white-v1);
-                    border: 1px solid rgba(99, 101, 239, 0.48);
+                    border: 1px solid var(--dark-modal-input-border);
+                }
+                input:-internal-autofill-selected {
+                    appearance: menulist-button;
+                    background-image: none !important;
+                    background-color:none !important;
+                    color: fieldtext !important;
                 }
                 .ng-select-container{
                     padding: 10px;
@@ -96,6 +106,7 @@
         }
     }
 }
+
 .select-bg{
     background-color: var(--dark-background) !important;
     color: var(--dark-text-white-v2) !important;
@@ -103,4 +114,60 @@
 
 .btn-primary{
     background-color: var(--dark-theme-blue-v1) !important;
+}
+
+.add-icon{
+    background: var(--dark-primary-background);
+    border: 8px solid var(--dark-primary-border);
+    border-radius: 28px;
+    width: 56px;
+    svg{
+        transform: scale(2);
+    }
+}
+.edit-icon{
+    background: var(--dark-info-background);
+    border: 8px solid var(--dark-info-border);
+    border-radius: 28px;
+    width: 56px;
+    svg{
+        transform: scale(2);
+    }
+}
+
+.info-modal{
+    .modal-sub-header-text {
+
+    }
+    .btn{
+        height: 44px;
+        width: 170px;
+        border: none;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+    }
+
+    .btn:hover {
+        color: var(--dark-text-white-v1);
+        border: var(--dark-secondary-btn-border) solid #D0D5DD;
+    }
+
+    .btn:first-child:active {
+        color: var(--dark-text-white-v1);
+    }
+
+    .btn-secondary:hover{
+        background: var(--dark-secondary-btn-background);
+    }
+
+    .btn:first-child:active{
+        background: var(--dark-secondary-btn-background);
+    }
+
+    .btn-secondary{
+        background: var(--dark-secondary-btn-background);
+        color: var(--dark-text-white-v1);
+        border: var(--dark-secondary-btn-border) solid #D0D5DD;
+    }
 }

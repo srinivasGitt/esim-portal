@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, first } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,9 +8,10 @@ import { environment } from 'src/environments/environment';
 })
 export class UsersService {
   serverUrl = environment.serverUrl;
-  private _currentUser$ = new Subject<any>();
+  private _currentUser$ = new BehaviorSubject<any>(undefined);
 
   constructor(private http: HttpClient ) { }
+
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -51,14 +52,17 @@ export class UsersService {
   }
 
   createUsers(data: any) {
-    return this.http.post(`${this.serverUrl}/users`, data, this.getHeader());
+    return this.http.post(`${this.serverUrl}/users/invite-user`, data, this.getHeader());
   }
+
   getAllUsers() {
     return this.http.get(`${this.serverUrl}/users`, this.getHeader());
   }
+
   updateUser(id: any, data: any) {
     return this.http.put(`${this.serverUrl}/users/${id}`, data, this.getHeader());
   }
+
   deleteUser(id: any) {
     return this.http.delete(`${this.serverUrl}/users/${id}`, this.getHeader());
   }
