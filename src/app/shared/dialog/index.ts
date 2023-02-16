@@ -14,3 +14,4 @@ export * from './subscription/subscription.component';
 export * from './user-mgmt/user-mgmt.component';
 export * from './subscription-info/subscription-info.component';
 export * from './subscriber-info/subscriber-info.component';
+export * from './user-info/user-info.component';
