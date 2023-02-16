@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, first } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UsersService {
   serverUrl = environment.serverUrl;
-  private _currentUser$ = new Subject<any>();
+  private _currentUser$ = new BehaviorSubject<any>(undefined);
 
   constructor(private http: HttpClient ) { }
 

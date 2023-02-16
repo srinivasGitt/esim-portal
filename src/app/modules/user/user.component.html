@@ -1,6 +1,6 @@
 <div class="user-dashboard">
-    <form class="d-flex search-form" role="search">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+    <div class="d-flex search-form">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" #searchInput (keyup.enter)="searchRecord(searchInput.value)" (search)="searchRecord()">
         <span class="search-icon-div">
           <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
             height="30px">
@@ -8,18 +8,18 @@
               d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
           </svg>
         </span>
-    </form>
+    </div>
     <div class="dashboard-head-flex">
         <div class="filter-head d-flex py-1 px-4">
             <div class="d-flex">
-            <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="(selectedFilter.year = selectedFilter.month == 0 ? selectedFilter.year - 1 : selectedFilter.year); (selectedFilter.month = selectedFilter.month == 0 ? 11 : selectedFilter.month - 1);">
+            <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month')">
             <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
-            <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="( selectedFilter.month = selectedFilter.month == 11 ? 0 : selectedFilter.month + 1)" [class.disabled]="selectedFilter.month == currentMonth && selectedFilter.year == currentYear">
+            <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month')" [class.disabled]="selectedFilter.month == currentMonth && selectedFilter.year == currentYear">
             </div>
             <div class="d-flex ms-2">
-            <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="(selectedFilter.year = selectedFilter.year -1)">
+            <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'year')">
             <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
-            <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="(selectedFilter.year = selectedFilter.year + 1);" [class.disabled]="selectedFilter.year == currentYear">
+            <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month')" [class.disabled]="selectedFilter.year == currentYear">
             </div>
         </div>
 
@@ -39,7 +39,7 @@
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
                     <div class="t-box b px-2 d-flex">
                         <svg class="my-auto" width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.3345 16.5005V14.8337C14.3345 13.9496 13.9833 13.1017 13.3581 12.4765C12.7329 11.8513 11.885 11.5001 11.0009 11.5001H4.33362C3.44949 11.5001 2.60157 11.8513 1.97639 12.4765C1.35122 13.1017 1 13.9496 1 14.8337V16.5005M11.001 4.83345C11.001 6.67477 9.50833 8.16746 7.66701 8.16746C5.82569 8.16746 4.33301 6.67477 4.33301 4.83345C4.33301 2.99214 5.82569 1.49945 7.66701 1.49945C9.50833 1.49945 11.001 2.99214 11.001 4.83345Z" stroke="#989898" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M14.3345 16.5005V14.8337C14.3345 13.9496 13.9833 13.1017 13.3581 12.4765C12.7329 11.8513 11.885 11.5001 11.0009 11.5001H4.33362C3.44949 11.5001 2.60157 11.8513 1.97639 12.4765C1.35122 13.1017 1 13.9496 1 14.8337V16.5005M11.001 4.83345C11.001 6.67477 9.50833 8.16746 7.66701 8.16746C5.82569 8.16746 4.33301 6.67477 4.33301 4.83345C4.33301 2.99214 5.82569 1.49945 7.66701 1.49945C9.50833 1.49945 11.001 2.99214 11.001 4.83345Z" stroke="white" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span class="my-auto ms-4">User Name</span>
                     </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="t-body-overflow" *ngIf="usersList && usersList.length > 0">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
-                    *ngFor="let user of usersList | paginate: paginateConfig; index as i" >
+                    *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" >
                     <!-- [routerLink]="['/customer-management', customer._id]" -->
                         <div class="t-box a px-2">{{user.displayName}}</div>
                         <div class="t-box b px-2">{{user.email}}</div>
@@ -105,6 +105,6 @@
     </div>
     <!-- Pagination  -->
     <div class="custom-pagination-section" *ngIf="usersList?.length > 20">
-        <pagination-controls id="customerListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        <pagination-controls id="userListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
     </div>
 </div>

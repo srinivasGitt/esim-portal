@@ -180,8 +180,10 @@
         .table-headers{
             font-size: 20px;
             path{
-                fill: var(--dark-text-white-v1);
-                &.stroke{
+                &:not(.color-stroke){
+                    fill: var(--dark-text-white-v1);
+                }
+                &.color-stroke{
                     stroke: var(--dark-text-white-v1);
                 }
             }

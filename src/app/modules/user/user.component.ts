@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { UserMgmtComponent } from 'src/app/shared/dialog/user-mgmt/user-mgmt.component';
-import { DialogService } from 'src/app/shared/service/dialog';
-import { PlansService } from 'src/app/shared/service/plans.service';
-import { RegionsService } from 'src/app/shared/service/regions.service';
-import { UsersService } from 'src/app/shared/service/users.service';
-import { InviteUserComponent } from 'src/app/shared/dialog/invite-user/invite-user.component'
-import { AlertService } from 'src/app/shared/service/alert.service';
+import { DialogService,PlansService, RegionsService, UsersService, AlertService } from 'src/app/shared/service';
+import { InviteUserComponent, UserInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
-import { UserInfoComponent } from 'src/app/shared/dialog/user-info/user-info.component';
 
 @Component({
   selector: 'app-user',
@@ -24,10 +19,15 @@ export class UserComponent implements OnInit {
   currentYear!: number;
   currentMonth!: number;
   paginateConfig: PaginationInstance = {
-    id: 'customerListPagination',
+    id: 'userListPagination',
     itemsPerPage: 20,
     currentPage: 1,
     totalItems: 0
+  };
+  filterConfig: any = {
+    searchTerm: '',
+    searchKey: 'displayName',
+    filterBy: { key : 'created', type: 'date', value: undefined }
   };
   userDetails: any;
 
@@ -53,6 +53,7 @@ export class UserComponent implements OnInit {
     };
     this.currentYear = date.getFullYear();
     this.currentMonth = date.getMonth();
+    this.filterConfig.filterBy.value = this.selectedFilter;
   }
 
   getAllRegions(): void {
@@ -149,26 +150,52 @@ export class UserComponent implements OnInit {
         })
       }
       });
-    }
+  }
 
-    // Invite User
-    userInvite(){
-      this.dialogService.openModal(InviteUserComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
-      .instance.close.subscribe((data: any) => {
-        if (data) {
-          this.getAllUsers();
-        // vm.usersList.push(data);
-        }
-        });
-    }
-
-    userInfo(user: any) {
-      this.dialogService.openModal(UserInfoComponent, { cssClass: 'modal-md', context: {data: user} })
-      .instance.close.subscribe((data: any) => {
-  
-      },
-      (error : any) =>{
-  
+  // Invite User
+  userInvite(){
+    this.dialogService.openModal(InviteUserComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Invite User'} })
+    .instance.close.subscribe((data: any) => {
+      if (data) {
+        this.getAllUsers();
+      // vm.usersList.push(data);
+      }
       });
+  }
+
+  userInfo(user: any) {
+    this.dialogService.openModal(UserInfoComponent, { cssClass: 'modal-md', context: {data: user} })
+    .instance.close.subscribe((data: any) => {
+
+    },
+    (error : any) =>{
+
+    });
+  }
+
+  searchRecord(searchTerm ?: any){
+    if(searchTerm?.length > 2){
+      this.filterConfig.searchTerm = searchTerm;
+    } else {
+      this.filterConfig.searchTerm = "";
     }
+  }
+  changeCalendarValue(changeBy: string, key: string){
+    if( key == 'month'){
+      if(changeBy == 'decrease'){
+        this.selectedFilter.year = this.selectedFilter.month == 0 ? this.selectedFilter.year - 1 : this.selectedFilter.year; 
+        this.selectedFilter.month = this.selectedFilter.month == 0 ? 11 : this.selectedFilter.month - 1;
+      } else {
+        this.selectedFilter.year = this.selectedFilter.month == 11 ?  this.selectedFilter.year + 1 : this.selectedFilter.year;
+        this.selectedFilter.month = this.selectedFilter.month == 11 ? 0 : this.selectedFilter.month + 1;
+      }
+    } else if( key == 'year'){
+      if(changeBy == 'decrease'){
+        --this.selectedFilter.year;
+      } else {
+        ++this.selectedFilter.year;
+      }
+    }
+    this.filterConfig.filterBy.value = this.selectedFilter;
+  }
 }
