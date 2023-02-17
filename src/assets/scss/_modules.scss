@@ -141,8 +141,10 @@
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 10px;
+        margin-bottom: 10px;
         .dashboard-head-text{
+            font-size: 1.36vw;
+            font-family: "SF Pro Display Italic";
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
@@ -163,68 +165,109 @@
         }
         
     }
-    .t-grid-table-new {
-        @media screen and (max-width: 1500px) {
-            min-width: 470px;
-        }
-        .t-body-overflow {
-            overflow: auto;
-            height: calc(95vh - 200px);
-            padding-top: 10px;
-            overflow-x: hidden;
-        }
-        .t-grid-table-wrapper {
-            display: grid;
-            grid-template-columns: 4fr 4fr 4fr 175px;
-        }
-        .table-headers{
-            font-size: 20px;
-            path{
-                &:not(.color-stroke){
-                    fill: var(--dark-text-white-v1);
-                }
-                &.color-stroke{
-                    stroke: var(--dark-text-white-v1);
-                }
-            }
-        }
-        .t-box {
-            padding: 14px 0;
-            padding-left: .5rem !important;
-            width: 100%;
-            justify-content: center;
-            text-align: center;
+    .section-head-text{
+        padding: 5px;
+        border-bottom: 1px solid #6365EF ;
+        color: #473BAA;
+    }
+    .dashboard-border-top{
+        border-top: 1px solid #a8a9fd57;
+    }
+    .dashboard-border-left{
+        border-left: 1px solid #a8a9fd57;
+    }
+    .dashboard-heading{
+        color: var(--dark-text-white-v1);
+        height: 36px;
+        h4{
             color: var(--dark-text-white-v1);
-            &:first-child{
-                text-align: start;
-                justify-content: flex-start;
-            }
         }
-        .table-row-border-top{
-            border-top: 1px dashed #636668;
+        .border-right {
+            border-right: 1px solid var(--dark-text-white-v1);
         }
-        .t-body-bg{
-            .t-box{
-                color: var(--dark-text-white-v2);
-            }
-        }
-        .bg-body-table-dark-bg{
-            background-color: var(--dark-background-v2);
-            border-radius: 8px;
-        }
-        .user-table-action{
+        .main-legend:before{
+            content: "";
+            margin-top: 4px;
+            margin-right: 5px;
+            position: relative;
             display: flex;
-            align-items: center;
-            background-color: var(--dark-background-v3);
-            border-radius: 40px;
-            height: 45px;
-            .user-table-action-icon{
-                width: 15px;
-                margin-right: 25px;
-                cursor: pointer;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background-color: #6365EF;
+        }
+        .sub-legend{
+            &.current-status:before{
+                background-color: #6365EF;
+            }
+            &.previous-status:before{
+                background-color: #6B6B7366;
+            }
+            &:before{
+                content: '';
+                margin-top: 10px;
+                margin-right: 5px;
+                position: relative;
+                display: flex;
+                width: 6px;
+                height: 6px;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
             }
         }
-        
+        .selector-filter{
+            width: 90px;
+            margin-top: -2px;
+            .ng-select-container{
+                background: var(--dark-background-v2);
+                height: 34px;
+                color: var(--dark-text-white-v1);
+                border-color: var(--dark-modal-input-border);
+                input{
+                    color: transparent;
+                }
+            }
+            .ng-dropdown-panel{
+                margin-top: 10px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                border-radius: 4px;
+                border: none;
+                .ng-option{
+                    background: var(--dark-background);
+                    color: var(--dark-text-white-v1);
+                }
+            }
+        }
+    }
+    .dashboard-graph{
+        background: var(--dark-background-v2);
+        width: 100%;
+        border-radius: 20px;
+        padding: 15px
+    }
+    .dashboard-widget{
+        background: var(--dark-background-v2);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 160px;
+        color: var(--dark-text-white-v1);
+        .widget-header{
+            width: 100%;
+            display: flex;
+            .widget-text{
+                margin-left: 10px;
+                font-size: 20px;
+                line-height: 26px;
+                font-weight: 500;
+            }
+        }
+        .widget-body{
+            padding: 10px 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
     }
 }
 .subscriber-management{
@@ -421,7 +464,7 @@
                     line-height: 50px;
                 }
             }
-            &.expired-plan{
+            &.inactive-plan{
                 .t-box:not(.action-section){ opacity: 0.55; }
             }
         }
