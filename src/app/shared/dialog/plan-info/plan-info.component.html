@@ -34,9 +34,9 @@
                 <label> Countries </label>
                 <div class="plan-details" *ngIf="countryList && countryList.length > 0">
                     {{ countryList[0].name }} 
-                    <span *ngIf="countryList.length > 1">, {{ countryList[1].name }},</span>
-                    <div *ngIf="countryList.length > 2" class="more-contries" [tooltip]="displayContryList()" placement="top" delay="100" offset="5">
-                        +{{ countryList.length - 2 }} more
+                    <span *ngIf="countryList.length > 1">, </span>
+                    <div *ngIf="countryList.length > 1" class="more-contries" [tooltip]="displayContryList()" placement="top" delay="100" offset="5">
+                        +{{ countryList.length - 1 }} more
                     </div>
                 </div>
             </div>

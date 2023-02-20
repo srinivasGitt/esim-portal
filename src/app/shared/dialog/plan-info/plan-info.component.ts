@@ -30,7 +30,7 @@ export class PlanInfoComponent implements OnInit {
   }
 
   fetchContriesByGroup(){
-    this.regionService.getCountriesByGroup(1).subscribe(
+    this.regionService.getCountriesByGroup(this.planDetails.groupId).subscribe(
       (result : any) => {
         this.countryList = result?.length > 0 ? result : [];
       }
@@ -38,6 +38,6 @@ export class PlanInfoComponent implements OnInit {
   }
 
   displayContryList(){
-    return this.countryList.slice(2).map((country) => country.name).join(', ');
+    return this.countryList.slice(1).map((country) => country.name).join(', ');
   }
 }
