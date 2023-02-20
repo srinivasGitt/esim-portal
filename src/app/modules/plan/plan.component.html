@@ -26,9 +26,9 @@
             <label class="mt-auto mx-2"> 5G Access Included*</label>
             <div class="mt-auto mx-2 d-flex">
                 <label class="input-label mt-auto me-3">Plan status</label>
-                <ng-select class="selector-filter" placeholder="All plans">
-                    <ng-option value="active"> <span class="active">Active</span></ng-option>
-                    <ng-option value="inactive"> <span class="inactive">Inactive</span></ng-option>
+                <ng-select class="selector-filter" placeholder="All plans" [(ngModel)]="filterConfig.filterBy.value">
+                    <ng-option [value]="true"> <span class="active">Active</span></ng-option>
+                    <ng-option [value]="false"> <span class="inactive">Inactive</span></ng-option>
                 </ng-select>
             </div>
         </div>
@@ -72,10 +72,10 @@
                     </div>
                 </div>
                 <div class="t-body-overflow">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of (plansList | listFilter: filterConfig) | paginate: paginateConfig;" [class.expired-plan]="!plan.expired">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of (plansList | listFilter: filterConfig) | paginate: paginateConfig;" [class.inactive-plan]="!plan.isActive">
                         <div class="t-box a px-2 d-flex">
                             <span class="plan-info-icon">
-                                <img *ngIf="!plan.expired" src="/assets/images/dashboard/icon/danger-info.svg">
+                                <img *ngIf="!plan.isActive" src="/assets/images/dashboard/icon/danger-info.svg">
                             </span>
                             <span class="text-overflow-ellipsis">{{plan.name}}</span>
                         </div>
@@ -89,9 +89,9 @@
                         </div>
                         <div class="t-box a px-2 action-section">
                             <div class="user-table-action mx-auto">
-                                <div class="user-table-action-icon mx-auto" tooltip="Active" placement="top" delay="50">
+                                <div class="user-table-action-icon mx-auto" [tooltip]="plan.isActive ? 'Inactive' :  'Active'" placement="top" delay="50">
                                     <label class="switch">
-                                        <input type="checkbox" [(ngModel)]="plan.expired">
+                                        <input type="checkbox" [(ngModel)]="plan.isActive" (ngModelChange)="updatePlanStatus(plan)">
                                         <span class="slider"></span>
                                     </label>
                                 </div>

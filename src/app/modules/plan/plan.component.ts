@@ -19,7 +19,7 @@ export class PlanComponent implements OnInit {
   filterConfig: any = {
     searchTerm: '',
     searchKey: 'name',
-    filterBy: undefined
+    filterBy: { key : 'isActive', type: 'boolean', value: null }
   };
 
   constructor(private plansService: PlansService,
@@ -104,5 +104,13 @@ export class PlanComponent implements OnInit {
     } else {
       this.filterConfig.searchTerm = "";
     }
+  }
+
+  updatePlanStatus(plan : any){
+    this.plansService.updatePlan(plan._id, {isActive: plan.isActive}).subscribe(
+      (result : any) => {
+        this.alertService.success('Plan status updated.');
+      }
+    )
   }
 }
