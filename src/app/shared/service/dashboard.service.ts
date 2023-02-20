@@ -64,35 +64,36 @@ export class DashboardService {
         icon: 'assets/icons/plans-icon.svg',
         link: '/plans',
         accessRole: ['admin','superAdmin'],
-        hasGroup: true
+        hasGroup: false
       },
       {
         title: 'Subscribers',
         icon: 'assets/icons/subscriber-icon.svg',
         link: '/subscriber',
         accessRole: ['admin','superAdmin'],
-        hasGroup: true
+        hasGroup: false
       },
       {
         title: 'Subscriptions',
         icon: 'assets/icons/subscription-icon.svg',
         link: '/subscriptions',
         accessRole: ['admin','superAdmin'],
-        hasGroup: true
+        hasGroup: false
       },
       {
         title: 'Reports',
         icon: 'assets/icons/reports-icon.svg',
         link: '/reports',
         accessRole: ['admin','superAdmin'],
-        hasGroup: true
+        hasGroup: false
       },
       {
         title: 'Settings',
         icon: 'assets/icons/settings-icon.svg',
         link: '/settings',
         accessRole: ['admin','superAdmin'],
-        hasGroup: false
+        hasGroup: false,
+        isDisabled: true
       },
     ];
     return roles ? navMenuList.filter((nav) => roles.some(role => nav.accessRole.includes(role))) : navMenuList;
