@@ -82,12 +82,12 @@
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let subscription of (subscriptionList | listFilter: filterConfig) | paginate: paginateConfig;">
                         <div class="t-box a px-2 d-flex">
                             <span class="subscription-info-icon"></span>
-                            {{subscription.subscriptionNumber}}
+                            {{subscription._id}}
                         </div>
-                        <div class="t-box b px-1">{{subscription.startDate | date : 'dd/MM/YYYY'}}</div>
+                        <div class="t-box b px-1">{{subscription.createdAt | date : 'dd/MM/YYYY'}}</div>
                         <div class="t-box a px-1"> <span *ngIf="subscription.priceBundle">$ {{ subscription.priceBundle }}</span></div>
                         <div class="t-box b px-1 text-overflow-ellipsis">{{ subscription.planName }}</div>
-                        <div class="t-box b px-1">{{subscription.endDate | date : 'dd/MM/YYYY'}}</div>
+                        <div class="t-box b px-1">{{subscription.expiryDate | date : 'dd/MM/YYYY'}}</div>
                         <div class="t-box b px-1 d-flex subscription-info-section">
                             <span class="text-overflow-ellipsis"> {{subscription.subscriberEmail || ''}} </span>
                             <span class="subscription-info-icon" (click)="showSubscriptionInfo(subscription)" tooltip="Info" placement="top" delay="100" offset="-5">

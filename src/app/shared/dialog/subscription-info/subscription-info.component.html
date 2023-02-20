@@ -21,13 +21,13 @@
             <div class="col-4">
                 <label> Date created </label>
                 <div class="subscription-details">
-                    {{ subscriptionDetails.startDate | date : 'dd/MM/YYYY' }}
+                    {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
             <div class="col-3">
                 <label> Expiry Date </label>
                 <div class="subscription-details">
-                    {{ subscriptionDetails.endDate | date : 'dd/MM/YYYY' }}
+                    {{ subscriptionDetails.expiryDate | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <label> Auto Refill </label>
                 <div class="subscription-details d-flex">
                     <label class="switch mx-auto">
-                        <input type="checkbox" [(ngModel)]="subscriptionDetails.autoRefill">
+                        <input type="checkbox" [(ngModel)]="subscriptionDetails.isAutoRefillOn">
                         <span class="slider"></span>
                     </label>
                 </div>
