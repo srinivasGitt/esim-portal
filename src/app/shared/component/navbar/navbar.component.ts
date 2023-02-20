@@ -36,6 +36,7 @@ export class NavbarComponent implements OnInit {
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
     this.dashboardService.setAppTheme(this.isDarkTheme);
+    localStorage.setItem('screenMode', this.isDarkTheme ? 'light' : 'dark');
     $('#body').toggleClass('lightMode');
   }
 
