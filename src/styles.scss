@@ -17,7 +17,7 @@
 :root{
     --dark-background: #151616;
     --dark-background-v1: #151616;
-    --dark-background-v2: #24272C;
+    --dark-background-v2: #1C1C1E;
     --dark-background-v3: #181B21;
     --dark-text-white-v1: #fff;
     --dark-text-white-v2: #959595;
@@ -42,6 +42,11 @@
     --dark-modal-sub-header: #CACCCE;
     --dark-info-modal-border-bottom: rgba(235, 235, 235, 0.08);
     --dark-font-family: "SF Pro Display Italic", sans-serif;
+    --dark-multi-color-border: rgba(24, 24, 24, 1);
+    --dark-dropdown: #1C1C1E;
+    --dark-dropdown-shadow: #000;
+    --report-graph: #1D1F25;
+    --dropdown-shadow: unset;
 }
 
 .lightMode{
@@ -71,6 +76,11 @@
     --dark-modal-input-border: rgb(99, 101, 239, 0.48);
     --dark-modal-sub-header: #0B0B0B;
     --dark-info-modal-border-bottom: #EBEBEB;
+    --dark-multi-color-border: rgba(218, 218, 218, 1);
+    --dark-dropdown: #fff;
+    --dark-dropdown-shadow: #fff;
+    --report-graph: #FFFFFF;
+    --dropdown-shadow: 0px 4px 8px #D8DAFF;
 }
 
 body {
