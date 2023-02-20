@@ -27,6 +27,7 @@ const routes: Routes = [
       { path: 'subscriber', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'user-management', component: UserComponent },
+      { path: 'user-management/:custId', component: UserComponent },
       { path: 'plans', component: PlanComponent },
       { path: 'reports', component: ReportsComponent},
       { path: 'inventory', component: InventoryComponent}

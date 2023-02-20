@@ -4,6 +4,7 @@ import { UserMgmtComponent } from 'src/app/shared/dialog/user-mgmt/user-mgmt.com
 import { DialogService,PlansService, RegionsService, UsersService, AlertService } from 'src/app/shared/service';
 import { InviteUserComponent, UserInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -30,20 +31,26 @@ export class UserComponent implements OnInit {
     filterBy: { key : 'created', type: 'date', value: undefined }
   };
   userDetails: any;
+  customerId: any;
 
   constructor(private dialogService: DialogService,
               private usersService: UsersService,
               private regionService: RegionsService,
               private planService: PlansService,
-              private alertService: AlertService) { 
+              private alertService: AlertService,
+              private activatedRoute: ActivatedRoute) { 
                 usersService.getCurrentUser()
                   .subscribe((res: any) => {
                     this.userDetails = res;
-                    console.log(res);
                   });
               }
 
   ngOnInit(): void {
+
+    this.activatedRoute.params 
+      .subscribe((res: any) => {
+        this.customerId = res.custId;
+      });
     
     this.getAllUsers();
     const date = new Date();
@@ -91,7 +98,7 @@ export class UserComponent implements OnInit {
   }
 
   createUser() {
-    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User', customerId: this.userDetails.customerId} })
+    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User', customerId: this.userDetails.customerId || this.customerId} })
       .instance.close.subscribe((data: any) => {
         if (data) {
           this.getAllUsers();
@@ -101,7 +108,7 @@ export class UserComponent implements OnInit {
   }
 
   getAllUsers() {
-    this.usersService.getAllUsers()
+    this.usersService.getAllUsers(this.customerId || this.userDetails.customerId)
     .subscribe(
       (data: any) => {
         this.usersList = data;
@@ -114,19 +121,20 @@ export class UserComponent implements OnInit {
 
   }
 
-  editUser(index: number) {
-    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: this.usersList[index], title: 'Edit User'} })
+  editUser(user: any) {
+    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: user, title: 'Edit User'} })
       .instance.close.subscribe((data: any) => {
         let vm  = this;
         if(data){
+          let index = vm.usersList.findIndex((o: any) => o.email === user.email);
           vm.usersList[index] = data;
           this.alertService.success('User Updated');
           this.getAllUsers();
         }
-        });
+      });
   }
 
-  deleteUser( index: number) {
+  deleteUser(user: any) {
     let data = {
       title: 'Delete User?',
       icon: 'trash',
@@ -141,6 +149,7 @@ export class UserComponent implements OnInit {
     .instance.close.subscribe((data: any) => {
       const vm = this;
       if (data) {
+        let index = vm.usersList.findIndex((o: any) => o.email === user.email);
         vm.usersService.deleteUser(vm.usersList[index]._id)
         .subscribe(res => {
           vm.usersList.splice(index, 1);
@@ -163,11 +172,11 @@ export class UserComponent implements OnInit {
       });
   }
 
-  userInfo(user: any, index: number) {
+  userInfo(user: any) {
     this.dialogService.openModal(UserInfoComponent, { cssClass: 'modal-md', context: {data: user} })
     .instance.close.subscribe((data: any) => {
       if(data === 'edit') {
-        this.editUser(index);
+        this.editUser(user);
       }
     },
     (error : any) =>{

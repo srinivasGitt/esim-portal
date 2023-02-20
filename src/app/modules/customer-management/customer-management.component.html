@@ -72,7 +72,9 @@
           <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
             *ngFor="let customer of (customerList | listFilter: filterConfig) | paginate: paginateConfig;" >
               <!-- [routerLink]="['/customer-management', customer._id]" -->
-              <div class="t-box a px-2">{{customer.name}}</div>
+              <div class="t-box a px-2" routerLink="/user-management/{{customer._id}}">
+                  {{customer.name}}
+              </div>
               <div class="t-box b px-2">{{customer.createdAt | date: 'dd/MM/YYYY'}}</div>
               <div class="t-box a px-2">{{customer.subscriberCount || 0}}</div>
               <div class="t-box b px-2 action-section">

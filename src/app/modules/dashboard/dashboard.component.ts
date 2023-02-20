@@ -144,7 +144,6 @@ export class DashboardComponent implements OnInit {
     combineLatest(this.dashboardService.getDashboardCounts()).subscribe(
       ( result : any) => {
         this.dashboardDetails = Object.assign( {}, ...result);
-        console.log(this.dashboardDetails);
       }
     )
   }
