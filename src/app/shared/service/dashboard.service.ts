@@ -107,7 +107,8 @@ export class DashboardService {
         detailsType: 'currency',
         detailsKey: 'revenue',
         graphIcon: '/assets/images/dashboard/widgets-icon/graph-1.svg',
-        showFooter: true
+        showFooter: true,
+        increase: 10
       },
       {
         title: 'Total Subscribers',
@@ -115,7 +116,8 @@ export class DashboardService {
         detailsType: '',
         detailsKey: 'subscriberCount',
         graphIcon: '/assets/images/dashboard/widgets-icon/graph-2.svg',
-        showFooter: true
+        showFooter: true,
+        increase: 5
       },
       {
         title: 'Total Subscriptions',
@@ -123,7 +125,8 @@ export class DashboardService {
         detailsType: '',
         detailsKey: 'subscriptionCount',
         graphIcon: '/assets/images/dashboard/widgets-icon/graph-3.svg',
-        showFooter: true
+        showFooter: true,
+        increase: 5
       },
       {
         title: 'Active Plans',
@@ -131,7 +134,8 @@ export class DashboardService {
         detailsType: '',
         detailsKey: 'planCount',
         graphIcon: '',
-        showFooter: false
+        showFooter: false,
+        increase: 2
       }
     ]
   }

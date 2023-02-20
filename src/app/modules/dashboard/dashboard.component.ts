@@ -21,6 +21,9 @@ export class DashboardComponent implements OnInit {
   isDarkTheme = false;
   graphElement : any;
   graphFilterBy : string = 'day';
+  label: any;
+  data: any;
+  digit: any = ["32","90","54","90","19","53","46","21","83","87","52","29","43","16","12","37","36","27","45","48","50","76","52","16","20","27","93","88","37","12","59","14","58","40","37","46","78","50","58","36","81","61","68","47","46","74","31","40","12","35","47","86","49","90","98","74","98","11","11","59","10","35","53","28","18","49","59","33","20","66","52","48","63","70","84","29","22","58","49","21","70","35","13","69","89","40","74","20","13","50","21","68","26","39","54","10","34","72","81","26"];
 
   constructor(private router: Router,
     private dashboardService: DashboardService,
@@ -44,27 +47,23 @@ export class DashboardComponent implements OnInit {
   }
 
   drawChart() {
+    this.label = [];
+    this.data = [];
+    let currentDate = (new Date()).getDate();
+    for (let i = 1; i <= currentDate; i++) {
+      this.label.push(i);
+      this.data.push(this.digit[i] * 10);
+    }
+
     if(this.graphElement) this.graphElement.destroy();
     this.graphElement = new Chart("downloadChart", {
       type: 'line',
       data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-          label: 'Previous week',
-          data: [12, 19, 3, 5, 2, 3, 18],
-          fill: true,
-          backgroundColor: [
-            '#6B6B7310'
-          ],
-          borderColor: [
-            '#6B6B7366'
-          ],
-          borderWidth: 3,
-          pointRadius: 0
-        },
+        labels: this.label,
+        datasets: [
         {
           label: 'Current week',
-          data: [10, 13, 2, 9, 5, 14, 16],
+          data: this.data,
           fill: true,
           backgroundColor: [
             '#6365EF10'
