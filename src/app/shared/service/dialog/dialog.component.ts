@@ -14,7 +14,7 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() template: any;
   @Input() context: any;
   @Input() cssClass: any;
-  @Input() hasBackdrop: boolean | undefined;
+  @Input() hasBackdrop: boolean | undefined = true;
 
   @ViewChild('backdrop', { read: ViewContainerRef }) backdrop!: ViewContainerRef;
   @ViewChild('dialogContainer', { read: ViewContainerRef }) container!: ViewContainerRef;

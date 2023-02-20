@@ -12,13 +12,13 @@
     .navbar-user-div{
         padding-left: 1.5vw;
         .user-name{
-            font-family: "Helvetica-Medium";
+            font-family: var(--dark-font-family);
             color:var(--dark-text-white-v1);
             font-size: 30px;
             font-size: 1.2570vw;
         }
         .user-dashboard-text{
-            font-family: "Helvetica-Light";
+            font-family: var(--dark-font-family);
             font-size: 16px;
             color: var(--dark-text-white-v4);
         }
@@ -28,7 +28,7 @@
         margin-right: 2.5vw;
     }
     .nav-item.dropdown .dropdown-toggle{
-        font-family: "SF Pro Display Italic";
+        font-family: var(--dark-font-family);
         font-size: 1.018vw;
         color: var(--dark-text-white-v1);
         background:var(--dark-background-v2);
@@ -58,7 +58,7 @@
     }
 
     .user-name-div{
-        font-family: 'SF Pro Display Italic';
+        font-family: var(--dark-font-family);
         font-size: 1.25vw;
         color: var(--dark-text-white-v1) !important;
     }
@@ -132,7 +132,7 @@
     }
     .environment-toggle-text-container{
         .helvetica-font-regular{
-            font-family: "Helvetica-Light";
+            font-family: var(--dark-font-family);
             font-size: 1.048vw;
             color: var(--dark-text-white-v4);
             margin-bottom: 0;
