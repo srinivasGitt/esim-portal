@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
   serverUrl = environment.serverUrl;
-  private _themeSelection$ = new Subject<any>();
+  private _themeSelection$ = new BehaviorSubject<any>(undefined);
   
   constructor(private http : HttpClient) { }
 
@@ -95,6 +95,52 @@ export class DashboardService {
         hasGroup: false
       },
     ];
-    return navMenuList.filter((nav) => roles.some(role => nav.accessRole.includes(role)));
+    return roles ? navMenuList.filter((nav) => roles.some(role => nav.accessRole.includes(role))) : navMenuList;
+  }
+
+  getDashboardWidgets(){
+    return [
+      {
+        title: 'Total Revenue',
+        titleIcon: '/assets/images/dashboard/widgets-icon/users-icon.svg',
+        detailsType: 'currency',
+        detailsKey: 'revenue',
+        graphIcon: '/assets/images/dashboard/widgets-icon/graph-1.svg',
+        showFooter: true
+      },
+      {
+        title: 'Total Subscribers',
+        titleIcon: '/assets/images/dashboard/widgets-icon/users-icon.svg',
+        detailsType: '',
+        detailsKey: 'subscriberCount',
+        graphIcon: '/assets/images/dashboard/widgets-icon/graph-2.svg',
+        showFooter: true
+      },
+      {
+        title: 'Total Subscriptions',
+        titleIcon: '/assets/images/dashboard/widgets-icon/checkmark-icon.svg',
+        detailsType: '',
+        detailsKey: 'subscriptionCount',
+        graphIcon: '/assets/images/dashboard/widgets-icon/graph-3.svg',
+        showFooter: true
+      },
+      {
+        title: 'Active Plans',
+        titleIcon: '/assets/images/dashboard/widgets-icon/plan-icon.svg',
+        detailsType: '',
+        detailsKey: 'planCount',
+        graphIcon: '',
+        showFooter: false
+      }
+    ]
+  }
+
+  getDashboardCounts(){
+    return [
+      this.http.get(`${this.serverUrl}/subscriptions/totalRevenue`, this.getHeader()),
+      this.http.get(`${this.serverUrl}/subscriptions/count`, this.getHeader()),
+      this.http.get(`${this.serverUrl}/subscribers/count`, this.getHeader()),
+      this.http.get(`${this.serverUrl}/plans/count`, this.getHeader())
+    ];
   }
 }

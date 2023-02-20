@@ -18,7 +18,7 @@ export class FilterPipe implements PipeTransform {
             isSearchFound = (tempString?.toLowerCase()).includes((args?.searchTerm?.toLowerCase()));
           }
 
-          if(args?.filterBy?.key != '' && args?.filterBy?.type != '' && args?.filterBy?.value){
+          if(args?.filterBy?.key != '' && args?.filterBy?.type != '' && (args?.filterBy?.value || typeof(args?.filterBy?.value) ==  args?.filterBy?.type)){
             if(args?.filterBy?.type == 'date'){
               let tempDate : any = new Date(obj[args.filterBy.key]);
               if(tempDate != 'Invalid Date'){
@@ -26,6 +26,8 @@ export class FilterPipe implements PipeTransform {
               }
             } else if(args?.filterBy?.type == 'string'){
               isFilteredFound = obj[args.filterBy.key] == args?.filterBy.value;
+            } else if(args?.filterBy?.type == 'boolean'){
+              isFilteredFound = obj[args.filterBy.key] ? obj[args.filterBy.key] === args?.filterBy.value : typeof(obj[args.filterBy.key]) == 'undefined' != args?.filterBy.value;
             }
           }
           return isSearchFound && isFilteredFound;
