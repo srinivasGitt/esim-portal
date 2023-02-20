@@ -131,3 +131,8 @@
 .d-none {
     display:none;
 }
+.disable-link{
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
