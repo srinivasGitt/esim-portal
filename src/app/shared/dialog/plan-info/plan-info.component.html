@@ -32,7 +32,13 @@
             </div>
             <div class="col-4">
                 <label> Countries </label>
-                <div class="plan-details"> </div>
+                <div class="plan-details" *ngIf="countryList && countryList.length > 0">
+                    {{ countryList[0].name }} 
+                    <span *ngIf="countryList.length > 1">, </span>
+                    <div *ngIf="countryList.length > 1" class="more-contries" [tooltip]="displayContryList()" placement="top" delay="100" offset="5">
+                        +{{ countryList.length - 1 }} more
+                    </div>
+                </div>
             </div>
             <div class="col-4">
                 <label> Validity </label>
