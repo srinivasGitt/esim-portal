@@ -29,11 +29,11 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetForm();
-    this.route.queryParams
+    this.route.params
       .subscribe(params => {
         this.token = params['token']; 
         if (this.token) {
-          this.checkLinValidation();
+          this.checkLinkValidation();
         }
       }
     );
@@ -42,16 +42,16 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  checkLinValidation() {
+  checkLinkValidation() {
     this.authService.checkLinkValidation(this.token)
-            .subscribe((res: any) => {
-             
-            }, err => {
-              if(err.error.message === 'Invalid Token.') {
-                this.alertService.error(err.error.message);
-                this.router.navigate(['/signin']);
-              }
-            });
+      .subscribe((res: any) => {
+        
+      }, err => {
+        if(err.error.message === 'Invalid Token.') {
+          this.alertService.error(err.error.message);
+          this.router.navigate(['/signin']);
+        }
+      });
   }
   
   resetForm(){
@@ -74,7 +74,6 @@ export class ResetPasswordComponent implements OnInit {
 
 
   submit(){
-   
     this.err = false;
     this.submitted = true;
     if (this.resetPasswordForm.invalid) {
@@ -82,9 +81,9 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     const userData = {
-      otp: this.token,
+      resetPasswordToken: this.token,
       newPassword: this.resetPasswordForm.get('password').value,
-      reEnterPassword: this.resetPasswordForm.get('confirmPassword').value,
+      verifyPassword: this.resetPasswordForm.get('confirmPassword').value,
     };
 
     this.authService.resetPssword(userData)
