@@ -41,7 +41,7 @@
     --dark-modal-input-border: rgb(69, 69, 69, 0.48);
     --dark-modal-sub-header: #CACCCE;
     --dark-info-modal-border-bottom: rgba(235, 235, 235, 0.08);
-    --dark-font-family: "SF Pro Display Italic", sans-serif;
+    --dark-font-family: var(--bs-body-font-family);
     --dark-multi-color-border: rgba(24, 24, 24, 1);
     --dark-dropdown: #1C1C1E;
     --dark-dropdown-shadow: #000;
