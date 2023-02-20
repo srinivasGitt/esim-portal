@@ -3,111 +3,59 @@
         <div class="dashboard-head-text">
             <h2>Dashboard</h2>
         </div>
-        <!-- <div>
-            <button type="button" class="btn btn-dashboard-head">
-                <img src="" alt=""> Add New User
-            </button>
-        </div> -->
     </div>
-    <div class="row mb-2">
-        <div class="col-lg-12">
-            <div>
-                <div class="dashboard-card-row" *ngIf="totalProfiles">
-                    <div class="dashboard-card-parent">
-                        <div class="profile-mgmt-card">
-                            <div class="user-icon-parent">
-                                <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
-                            </div>
-                            <p class="user-profile-text">Available Profiles</p>
-                            <p class="user-profile-count">{{totalProfiles.availableProfiles}}</p>
-                            <div class="blue-border-bottom"></div>
-                        </div>
-                    </div>
-                    <div class="dashboard-card-parent">
-                        <div class="profile-mgmt-card">
-                            <div class="user-icon-parent">
-                                <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
-                            </div>
-                            <p class="user-profile-text">Installed Profiles</p>
-                            <p class="user-profile-count">{{totalProfiles.installedProfiles}}</p>
-                            <div class="blue-border-bottom"></div>
-                        </div>
-                    </div>
-                    <div class="dashboard-card-parent">
-                        <div class="profile-mgmt-card">
-                            <div class="user-icon-parent">
-                                <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
-                            </div>
-                            <p class="user-profile-text total-user-text">Allocated Profiles</p>
-                            <p class="user-profile-count">{{totalProfiles.allocatedProfiles}}</p>
-                            <div class="blue-border-bottom"></div>
-                        </div>
-                        <!-- <div class="dark-bg-card">
-                            
-                        </div> -->
-                    </div>
-                    <div class="dashboard-card-parent">
-                        <div class="profile-mgmt-card">
-                            <div class="user-icon-parent">
-                                <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
-                            </div>
-                            <p class="user-profile-text total-user-text">Active Subscriptions</p>
-                            <p class="user-profile-count">{{totalProfiles.totalCount}}</p>
-                            <div class="blue-border-bottom"></div>
-                        </div>
-                        <!-- <div class="dark-bg-card">
-                        </div> -->
-                    </div>
-                    <div class="dashboard-card-parent">
-                        <div class="profile-mgmt-card">
-                            <div class="user-icon-parent">
-                                <img class="img-fluid" src="/assets/images/dashboard/icon/user-icon.png" alt="">
-                            </div>
-                            <p class="user-profile-text total-user-text">Subscribers</p>
-                            <p class="user-profile-count">{{totalProfiles.subscriberCount}}</p>
-                            <div class="blue-border-bottom"></div>
-                        </div>
-                        <!-- <div class="dark-bg-card">
-                        </div> -->
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-8">
+            <label class="section-head-text">Overview</label>
+        </div>
+        <div class="col-4 d-flex">
+            <label class="ms-1 section-head-text">Widget</label>
+            <img class="ms-auto me-1" src="/assets/images/dashboard/icon/swap_vertical_circle.svg" alt="">
         </div>
     </div>
-
-    <div class="row mt-5">
-        <div class="col-6">
-            <div class="download-trend-graph-parent">
-                <p class="download-trend-heading">Installed</p>
-                <!-- <img class="img-fluid" src="/assets/images/dashboard/icon/download-trend-graph.svg" alt=""> -->
+    <div class="row dashboard-border-top">
+        <div class="col-8 pt-4">
+            <div class="dashboard-graph">
+                <div class="dashboard-heading mb-4 px-3 d-flex">
+                    <h4>Revenue Trend Graph - Current Month</h4>
+                    <div class="ms-auto pe-2 d-flex mt-2"><span class="main-legend"></span> Revenue</div>
+                    <!-- <div class="mx-2 d-flex mt-2"><span class="sub-legend current-status"></span> Current week</div>
+                    <div class="mx-2 d-flex mt-2"><span class="sub-legend previous-status"></span> Previous week</div> -->
+                    <!-- <div class="ms-2 me-4 mt-1"> 
+                        <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" [clearable]="false">
+                            <ng-option value="day">Day</ng-option>
+                            <ng-option value="week"> Week</ng-option>
+                            <ng-option value="month"> Month</ng-option>
+                        </ng-select>
+                    </div> -->
+                </div>
                 <canvas id="downloadChart"></canvas>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="profile-type-parent">
-                <div class="w-100">
-                    <p class="profile-type-heading">Inventory Status</p>
-                    <div class="t-grid-table-new">
-                        <div class="dashboard-profile-t t-head-bg border-bottom-light">
-                            <div class="t-box a px-2 t-head">Customer Name</div>
-                            <div class="t-box b px-2 t-head">Total Profile</div>
-                            <div class="t-box a px-2 t-head">Available</div>
-                            <div class="t-box b px-2 t-head">Installed</div>
-                        </div>
-                        <div class="dashboard-profile-t border-bottom-light" *ngFor="let customer of customerList; index as i" [ngClass]="{'bg-odd-row': i % 2 === 0}">
-                            <div class="t-box a px-2 t-box-data">{{customer.name}}</div>
-                            <div class="t-box b px-2 t-box-data">{{customer.totalCount}}</div>
-                            <div class="t-box a px-2 t-box-data">{{customer.available}}</div>
-                            <div class="t-box b px-2 t-box-data">{{customer.installed}}</div>
-                        </div>
+        <div class="col-4 dashboard-border-left pt-4" *ngIf="dashboardDetails">
+            <div class="dashboard-widget" *ngFor="let widget of dashboardWidgets">
+                <div class="widget-header">
+                    <div class="widget-icon">
+                        <img [src]="widget.titleIcon" alt="">
                     </div>
+                    <div class="widget-text">
+                       {{ widget.title }}
+                    </div>
+                </div>
+                <div class="widget-body d-flex">
+                    <div class="widget-count w-75">
+                        <span *ngIf="widget.detailsType == 'currency'"> $</span> 
+                        {{ dashboardDetails[widget.detailsKey] }}
+                    </div>
+                    <div class="widget-graph w-25" *ngIf="widget.graphIcon != ''">
+                        <img [src]="widget.graphIcon" alt="">
+                    </div>
+                </div>
+                <div class="widget-footer d-flex" *ngIf="widget.showFooter">
+                    <img src="/assets/images/dashboard/widgets-icon/arrow-circle-up.svg" alt="">
+                    <div class="ms-1"> {{widget.increase}}% increase from the previous month</div>
                 </div>
             </div>
         </div>
-        <!-- <div class="col-6">
-            <div class="download-trend-graph-parent">
-                <img class="img-fluid" src="/assets/images/dashboard/icon/download-trend-graph.svg" alt="">
-            </div>
-        </div> -->
     </div>
 </div>

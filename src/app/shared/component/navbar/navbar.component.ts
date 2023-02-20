@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerService } from '../../service/customer.service';
-import { AlertService } from '../../service/alert.service';
+import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
 import { Router } from '@angular/router';
 declare var $: any;
 
@@ -14,21 +13,30 @@ export class NavbarComponent implements OnInit {
   screenMode:any;
   parentCustomer: any;
   customerList: any = [];
+  userDetails: any;
 
   constructor(private customerService: CustomerService,
+              private dashboardService: DashboardService,
               private alertService : AlertService,
-              private router: Router) { }
+              private usersService: UsersService,
+              private router: Router) {
+    usersService.getCurrentUser().subscribe(result => {
+      this.userDetails = result;
+    });
+  }
 
   ngOnInit(): void { 
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     }else{
-      this.getAllCustomer();
+      // this.getAllCustomer();
     }
   }
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
+    this.dashboardService.setAppTheme(this.isDarkTheme);
+    localStorage.setItem('screenMode', this.isDarkTheme ? 'light' : 'dark');
     $('#body').toggleClass('lightMode');
   }
 

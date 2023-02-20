@@ -9,7 +9,12 @@ import { DialogComponent } from '../../service/dialog';
 export class ConfirmComponent implements OnInit {
   message = 'Are you sure want to delete this.'
   dialogRef: DialogComponent;
-  data: any;
+  data: {
+    title: string | undefined,
+    icon: string | undefined,
+    showCloseBtn: boolean | undefined,
+    buttonGroup: Array<{ cssClass: string, title: string, value: boolean}>
+  } = { title : undefined, icon: undefined, showCloseBtn : undefined, buttonGroup : []};
   constructor(
     private viewContainer: ViewContainerRef) {
     const _injector = this.viewContainer.injector;

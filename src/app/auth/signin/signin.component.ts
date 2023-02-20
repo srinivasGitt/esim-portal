@@ -12,6 +12,7 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 export class SigninComponent implements OnInit {
 
   signinForm: any;
+  showPassword: boolean = false;
   submitted = false;
   err = false;
   constructor(private authService: AuthService,
@@ -48,7 +49,18 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('authToken', res.token);
         window.location.href = '/';
       }, (err: any) =>{
-        this.err = true;
+        if(err?.error?.message?.includes('User not found')){
+          this.signinForm.controls['email'].setErrors({'incorrect' : true});
+        } else if(err?.error?.message?.includes('Password is incorrect')){
+          this.signinForm.controls['password'].setValue('');
+          this.signinForm.controls['password'].setErrors({'incorrect' : true});
+          this.err = true;
+        } else {
+          this.signinForm.controls['email'].setErrors({'incorrect' : true});
+          this.signinForm.controls['password'].setValue('');
+          this.signinForm.controls['password'].setErrors({'incorrect' : true});
+          this.err = true;
+        }
       })
   }
 

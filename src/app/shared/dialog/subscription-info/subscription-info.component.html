@@ -1,0 +1,82 @@
+<div class="es-modal subscription-info-modal">
+    <div class="modal-header-flex p-4">
+        <div class="modal-header-text-container">
+          <div class="mb-3 subscription-info-icon d-flex">
+            <img class="m-auto" src="/assets/images/dashboard/icon/primary-info.svg" alt="">
+          </div>
+          <p class="modal-header-text mb-0"> Subscription No: {{ subscriptionDetails.subscriptionNumber }}</p>
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-4">
+            <a class="es-btn-close mt-3" (click)="close()"></a>
+        </div>
+    </div>
+    <div class="es-modal-body px-4">
+        <div class="row">
+            <div class="col-5">
+                <label> Plan Id </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.planName }}
+                </div>
+            </div>
+            <div class="col-4">
+                <label> Date created </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
+                </div>
+            </div>
+            <div class="col-3">
+                <label> Expiry Date </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.expiryDate | date : 'dd/MM/YYYY' }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-5">
+                <label> Price </label>
+                <div class="subscription-details" *ngIf="subscriptionDetails.priceBundle">
+                    $ {{ subscriptionDetails.priceBundle }}
+                </div>
+            </div>
+            <div class="col-7">
+                <label> User Email </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.subscriberEmail }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-5">
+                <label> Data Usage </label>
+                <div class="subscription-details d-flex">
+                    <ngx-gauge type="arch" [value]="getUsedData()" [thick]="10" [size]="120" [max]="totalData" cap="round" 
+                        [label]="'/'+subscriptionDetails.data" append="GB"
+                        foregroundColor="#6365EF" backgroundColor="#6365EF5E"></ngx-gauge>
+                    <span class="cloud-icon">
+                        <img src="/assets/images/subscriptions/cloud.svg" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="col-3">
+                <label> Auto Refill </label>
+                <div class="subscription-details d-flex">
+                    <label class="switch mx-auto">
+                        <input type="checkbox" [(ngModel)]="subscriptionDetails.isAutoRefillOn">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-3 ms-auto">
+                <label> Total Data </label>
+                <div class="subscription-details">
+                    {{ subscriptionDetails.data }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="es-modal-footer d-flex p-4">
+        <button class="btn btn-primary ms-auto w-100">
+            Edit subscription
+        </button>
+    </div>
+</div>

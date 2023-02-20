@@ -1,45 +1,79 @@
-<div class="es-modal">
+<div class="es-modal info-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <p class="modal-header-text mb-0">{{title}}</p>
+          <div class="mb-3" [class]="title === 'Add New User' ? 'add-icon' : 'edit-icon'">
+            <svg width="32" height="40" viewBox="0 0 50 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="title === 'Add New User'">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M24.1875 24.875C24.1875 22.7234 25.9317 20.9792 28.0833 20.9792C30.2349 20.9792 31.9792 22.7234 31.9792 24.875C31.9792 27.0266 30.2349 28.7709 28.0833 28.7709C25.9317 28.7709 24.1875 27.0266 24.1875 24.875ZM28.0833 22.3542C26.6911 22.3542 25.5625 23.4828 25.5625 24.875C25.5625 26.2672 26.6911 27.3959 28.0833 27.3959C29.4756 27.3959 30.6042 26.2672 30.6042 24.875C30.6042 23.4828 29.4756 22.3542 28.0833 22.3542Z" fill="#07A92B"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M20.9785 33.5833C20.9785 31.6848 22.5175 30.1458 24.416 30.1458H24.7285C24.8976 30.1458 25.0656 30.1726 25.2264 30.225L26.0198 30.4842C27.3603 30.9218 28.8051 30.9218 30.1455 30.4842L30.9389 30.225C31.0997 30.1726 31.2677 30.1458 31.4369 30.1458H31.7493C33.6479 30.1458 35.1868 31.6848 35.1868 33.5833V34.6726C35.1868 35.363 34.6864 35.9517 34.005 36.063C30.0828 36.7034 26.0826 36.7034 22.1603 36.063C21.4789 35.9517 20.9785 35.363 20.9785 34.6726V33.5833ZM24.416 31.5208C23.2769 31.5208 22.3535 32.4443 22.3535 33.5833V34.6726C22.3535 34.6892 22.3655 34.7033 22.3819 34.706C26.1574 35.3224 30.008 35.3224 33.7834 34.706C33.7998 34.7033 33.8118 34.6892 33.8118 34.6726V33.5833C33.8118 32.4443 32.8884 31.5208 31.7493 31.5208H31.4369C31.4127 31.5208 31.3887 31.5247 31.3657 31.5321L30.5723 31.7912C28.9546 32.3194 27.2107 32.3194 25.593 31.7912L24.7996 31.5321C24.7767 31.5247 24.7526 31.5208 24.7285 31.5208H24.416Z" fill="#07A92B"/>
+              <path d="M35.8757 23.7292C36.2553 23.7292 36.5632 24.037 36.5632 24.4167V26.0209H38.1673C38.547 26.0209 38.8548 26.3287 38.8548 26.7084C38.8548 27.088 38.547 27.3959 38.1673 27.3959H36.5632V29C36.5632 29.3797 36.2553 29.6875 35.8757 29.6875C35.496 29.6875 35.1882 29.3797 35.1882 29V27.3959H33.584C33.2043 27.3959 32.8965 27.088 32.8965 26.7084C32.8965 26.3287 33.2043 26.0209 33.584 26.0209H35.1882V24.4167C35.1882 24.037 35.496 23.7292 35.8757 23.7292Z" fill="#07A92B"/>
+            </svg>
+            <svg width="32" height="40" viewBox="0 0 50 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="title === 'Edit User'">
+              <path d="M24.5828 35.4801H22.5828C22.1661 35.4801 21.7495 35.2301 21.5828 34.8967C21.3328 34.5634 21.3328 34.2301 21.4995 33.8134C22.4995 31.4801 24.7495 29.8967 27.3328 29.8967C29.9162 29.8967 32.0828 27.7301 32.0828 25.1467C32.0828 22.5634 29.9162 20.48 27.2495 20.48C24.6661 20.48 22.4995 22.6467 22.4995 25.23C22.4995 26.7301 23.1661 28.0634 24.2495 28.8967C22.3328 29.6467 20.6661 31.2301 19.8328 33.2301C19.4995 34.0634 19.5828 35.0634 20.0828 35.8134C20.6661 36.6467 21.4995 37.1467 22.4995 37.1467H24.4995C24.9995 37.1467 25.3328 36.8134 25.3328 36.3134C25.3328 35.8134 25.0828 35.4801 24.5828 35.4801ZM24.1661 25.23C24.1661 23.5634 25.5828 22.1467 27.2495 22.1467C28.9162 22.1467 30.3328 23.5634 30.3328 25.23C30.3328 26.8967 28.9162 28.3134 27.2495 28.3134C25.5828 28.3134 24.1661 26.8967 24.1661 25.23Z" fill="#6365EF"/>
+              <path d="M35.6673 27.9801C34.834 27.1468 33.4173 27.1468 32.584 27.9801L28.1673 32.3968C27.1673 33.3968 26.584 34.8134 26.584 36.3134C26.584 36.8134 26.9173 37.1468 27.4173 37.1468C28.9173 37.1468 30.2507 36.5634 31.334 35.5634L35.7507 31.1468C36.1673 30.7301 36.4173 30.1468 36.4173 29.5634C36.4173 28.9801 36.084 28.3968 35.6673 27.9801ZM34.5007 29.9801L30.084 34.3968C29.584 34.8968 29.0007 35.2301 28.334 35.3968C28.5007 34.7301 28.834 34.1468 29.334 33.6468L33.7507 29.2301C33.834 29.1468 34.0007 29.0634 34.1673 29.0634C34.334 29.0634 34.4173 29.1468 34.5007 29.2301C34.584 29.3134 34.6673 29.4801 34.6673 29.5634C34.6673 29.6468 34.584 29.8134 34.5007 29.9801Z" fill="#6365EF"/>
+            </svg>
+          </div>
+          <p class="modal-header-text mb-0">{{title}}</p>
+          <p class="modal-sub-header-text">Add a new user by entering their details below and saving them. </p>
         </div>
-        <div class="es-btn-close-container">
-            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        <div class="es-btn-close-container mt-0 mb-auto me-4 cursor-pointer">
+            <a class="es-btn-close mt-3" (click)="close()"></a>
         </div>
     </div>
-    <div class="es-modal-body">
+    <div class="es-modal-body" *ngIf="userForm">
         <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submit()">
-            <div class="mb-3 row">
-                <div class="col-6">
-                    <label for="firstName" class="form-label es-modal-form-label">First Name</label>
-                    <input type="text" class="form-control es-input" id="firstName" aria-describedby="firstName" formControlName="firstName">
+            <div class="mb-3">
+                <label for="name" class="form-label es-modal-form-label">First name</label>
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="firstName">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
+                        <span class="small" *ngIf="f.firstName.errors.required">
+                           First Name is required!
+                        </span>
+                    </span>
                 </div>
-                <div class="col-6">
-                    <label for="lastName" class="form-label es-modal-form-label">Last Name</label>
-                    <input type="text" class="form-control es-input" id="lastName" aria-describedby="lastName" formControlName="lastName">
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label es-modal-form-label">Last name</label>
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="lastName">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
+                        <span class="small" *ngIf="f.lastName.errors.required">
+                           Last Name is required!
+                        </span>
+                    </span>
                 </div>
             </div>
+
             <div class="mb-3">
-                <label for="email" class="form-label es-modal-form-label">Email Address</label>
-                <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
+                <label for="name" class="form-label es-modal-form-label">Email Address</label>
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="email">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.email.touched && f.email.pristine) || (f.email.errors && submitted)">
+                        <span class="small" *ngIf="f.email.errors.required">
+                            Email is required!
+                        </span>
+                    </span>
+                </div>
             </div>
+
             <div class="mb-3">
-                <label for="planId" class="form-label es-modal-form-label">Region</label>
-                <select formControlName="regionId" class="form-control es-input">  
-                    <option *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
-                </select>
+                <label for="name" class="form-label es-modal-form-label">Phone Number</label>
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.mobile.touched && f.mobile.pristine) || (f.mobile.errors && submitted)">
+                        <span class="small" *ngIf="f.mobile.errors.required">
+                            Phone Number is required!
+                        </span>
+                    </span>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="planId" class="form-label es-modal-form-label">Current Plan</label>
-                <select formControlName="planId" class="form-control es-input">  
-                    <option *ngFor="let plan of planList" [value]="plan._id">{{plan.name}}</option>  
-                </select>
+            <div class="d-flex">
+                <button class="btn btn-secondary w-20 mr-30"(click)="close()">Cancel</button>
+                <button type="submit" class="btn btn-primary ms-auto w-20">
+                    {{ title === 'Add New User' ? 'Submit' : 'Save changes' }}
+                </button>
             </div>
-            <div class="mb-3">
-                <label for="endDate" class="form-label es-modal-form-label">Plan Expiry</label>
-                <input type="date" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate">
-            </div>
-            <button type="submit" class="btn btn-primary my-4 w-100">Submit</button>
           </form>
     </div>
     <div class="es-modal-footer"></div>

@@ -4,7 +4,9 @@ FROM node:16 as build
 WORKDIR /app
 
 COPY package.json /app/package.json
-RUN npm install
+RUN npm install --save --legacy-peer-deps
+RUN npm install angular-password-strength-meter --legacy-peer-deps
+RUN npm install @zxcvbn-ts/core @zxcvbn-ts/language-en angular-password-strength-meter --save --legacy-peer-deps
 RUN npm install -g @angular/cli@11.2.3
 
 COPY . /app

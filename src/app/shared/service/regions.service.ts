@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { group } from 'console';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -33,5 +34,9 @@ export class RegionsService {
   updateSubscription(id: any, data: any) {
     // console.log(data);
     return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data, this.getHeader());
+  }
+
+  getCountriesByGroup(groupIndex : number){
+    return this.http.get(`${this.serverUrl}/countries/group/${groupIndex}`, this.getHeader());
   }
 }

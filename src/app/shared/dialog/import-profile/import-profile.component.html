@@ -1,0 +1,29 @@
+<div class="es-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <p class="modal-header-text mb-0">{{title}}</p>
+        </div>
+        <div class="es-btn-close-container">
+            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        </div>
+    </div>
+    <div class="es-modal-body">
+        <div class="es-modal-form">
+            <div class="mb-3">
+                <!-- <label for="file" class="form-label es-modal-form-label">Customer Name</label> -->
+                <input type="file" class="form-control es-input" id="file" accept=".csv" (change)="onChange($event)">
+                <!-- <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
+                        <span class="small" *ngIf="f.name.errors.required">
+                            Customer Name is required!
+                        </span>
+                    </span>
+                </div> -->
+              </div>
+            
+            <button type="submit" class="btn btn-primary my-4" (click)="onUpload()">Submit</button>
+            <button type="button" class="btn btn-danger ms-4" (click)="close()">Cancel</button>
+        </div>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>

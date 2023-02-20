@@ -1,1 +1,93 @@
-<p>reports works!</p>
+<div class="dashboard user-dashboard report"> 
+    <div class="dashboard-head-flex">
+        <div class="dashboard-head-text">
+            <h2>Reports</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <div class="multi-color-border">
+                <label class="section-head-text">Type of Report</label>
+            </div>
+
+            <div class="dashboard-head-flex">
+                <div class="filter-head d-flex py-1 px-4" style="width: 100%">
+                    <div class="dropdown d-flex w-100">
+                        <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span id="languageTootltip">{{selectedDay}}
+                            </span>
+                            <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
+                            <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt="">
+                        </a>
+    
+                        <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('week'); selectedDay = 'This Week'">This Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('month'); selectedDay = 'This Month'">This Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('year'); selectedDay = 'This Year'">This Year</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-3">
+            <div class="multi-color-border">
+                <label class="section-head-text">Start Date</label>
+            </div>
+
+            <div class="dashboard-head-flex">
+                <div class="filter-head d-flex py-1 px-4">
+                    <div class="d-flex">
+                      <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month', 'start')">
+                      <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
+                      <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month', 'start')" [class.disabled]="selectedFilter.month == currentMonth && selectedFilter.year == currentYear">
+                    </div>
+                    <div class="d-flex ms-2">
+                      <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'year', 'start')">
+                      <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
+                      <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year', 'start')" [class.disabled]="selectedFilter.year == currentYear">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="multi-color-border">
+                <label class="section-head-text">End Date</label>
+            </div>
+
+            <div class="dashboard-head-flex">
+                <div class="filter-head d-flex py-1 px-4">
+                    <div class="d-flex">
+                      <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month', 'end')">
+                      <span class="m-auto text-center w-80px"> {{ monthsList[endSelectedFilter.month] }} </span>
+                      <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month', 'end')" [class.disabled]="endSelectedFilter.month == endCurrentMonth && endSelectedFilter.year == endCurrentYear">
+                    </div>
+                    <div class="d-flex ms-2">
+                      <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'year', 'end')">
+                      <span class="mx-3 my-auto"> {{ endSelectedFilter.year }} </span>
+                      <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year', 'end')" [class.disabled]="endSelectedFilter.year == endCurrentYear">
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-3">
+        </div>
+    </div>
+    
+    <!-- <div class="row mt-3 mb-4">
+        <div class="col-12 d-flex info-head-section">
+            <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }} {{ selectedFilter.year }} - {{ monthsList[endSelectedFilter.month] }} {{ endSelectedFilter.year }}  </label>
+        </div>
+    </div> -->
+
+    <div class="row mt-3">
+        <div class="col-8">
+            <div class="dashboard-graph">
+                <div class="dashboard-heading mb-4 px-3 d-flex">
+                    <h4>Revenue in $</h4>
+                </div>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

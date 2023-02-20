@@ -1,0 +1,37 @@
+.add-customer-icon{
+    background: var(--dark-primary-background);
+    border: 8px solid var(--dark-primary-border);
+    border-radius: 28px;
+    width: 56px;
+    svg{
+        transform: scale(2);
+    }
+}
+.edit-customer-icon{
+    background: var(--dark-info-background);
+    border: 8px solid var(--dark-info-border);
+    border-radius: 28px;
+    width: 56px;
+    svg{
+        transform: scale(2);
+    }
+}
+
+.customer-info-modal{
+    .btn{
+        height: 44px;
+        width: 170px;
+        border: none;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+    }
+    .btn-secondary{
+        background: var(--dark-secondary-btn-background);
+        color: var(--dark-text-white-v1);
+        border: var(--dark-secondary-btn-border) solid #D0D5DD;
+    }
+    .btn-primary{
+        background: #6365EF;
+    }
+}

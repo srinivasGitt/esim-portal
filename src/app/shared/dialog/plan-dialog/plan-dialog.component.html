@@ -1,16 +1,28 @@
-<div class="es-modal">
+<div class="es-modal plan-add-edit-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <p class="modal-header-text mb-0">{{title}}</p>
+            <span class="plan-heder-icon">
+                <svg *ngIf="title === 'Add New Plan'" class="m-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.75 13.5C8.75 13.0858 9.08579 12.75 9.5 12.75H11.25V11C11.25 10.5858 11.5858 10.25 12 10.25C12.4142 10.25 12.75 10.5858 12.75 11V12.75H14.5C14.9142 12.75 15.25 13.0858 15.25 13.5C15.25 13.9142 14.9142 14.25 14.5 14.25H12.75V16C12.75 16.4142 12.4142 16.75 12 16.75C11.5858 16.75 11.25 16.4142 11.25 16V14.25H9.5C9.08579 14.25 8.75 13.9142 8.75 13.5Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.1612 9.74679C21.558 12.233 21.5296 14.7686 21.077 17.2453C20.8747 18.353 19.9483 19.1833 18.8252 19.2636L17.1873 19.3808C13.7334 19.6279 10.2664 19.6279 6.81252 19.3808L5.29851 19.2725C4.10249 19.1869 3.11598 18.3027 2.90046 17.1232C2.46379 14.7333 2.38904 12.2913 2.6787 9.87915L2.95118 7.61004C3.11289 6.26343 4.25529 5.25 5.61158 5.25H7.90314C9.0209 5.25 9.95217 6.04846 10.1577 7.10612H18.4721C19.7785 7.10612 20.8912 8.05533 21.0971 9.34535L21.1612 9.74679ZM19.6015 16.9757C20.0235 14.6662 20.05 12.3017 19.6799 9.98322L19.6158 9.58178C19.5261 9.0197 19.0413 8.60612 18.4721 8.60612H9.75927C9.1742 8.60612 8.69991 8.13183 8.69991 7.54677C8.69991 7.10672 8.34319 6.75 7.90314 6.75H5.61158C5.01455 6.75 4.51167 7.19611 4.44048 7.78888L4.168 10.058C3.89627 12.3208 3.9664 14.6116 4.37603 16.8536C4.46856 17.36 4.89208 17.7396 5.40556 17.7763L6.91956 17.8846C10.3021 18.1266 13.6977 18.1266 17.0803 17.8846L18.7181 17.7674C19.1587 17.7359 19.5221 17.4102 19.6015 16.9757Z" fill="black"/>
+                </svg>
+                <svg *ngIf="title === 'Edit Plan'" class="m-auto" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 11.0837V14H3.09572L12.226 5.39897L9.13032 2.48271L0 11.0837ZM14.6201 3.14373C14.942 2.84044 14.942 2.35051 14.6201 2.04722L12.6883 0.227468C12.3664 -0.0758228 11.8463 -0.0758228 11.5243 0.227468L10.0136 1.6506L13.1094 4.56687L14.6201 3.14373Z" fill="#475467"/>
+                </svg>
+            </span>
+            <p class="modal-header-text mb-0 mt-3">{{title}}</p>
+            <p class="modal-header-sub-text mb-0 mt-2">
+                {{ title === 'Add New Plan' ? 'Add a new plan according to your liking.' : 'See and edit the plan as per your liking, your updated plan will be refreshed within 5 minutes'}}
+            </p>
         </div>
-        <div class="es-btn-close-container">
-            <button type="button" class="btn btn-sm btn-light es-btn-close" (click)="close()">X</button>
+        <div class="es-btn-close-container me-4 mb-auto">
+            <a class="es-btn-close mt-3" (click)="close()"></a>
         </div>
     </div>
     <div class="es-modal-body">
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3">
-                <label for="name" class="form-label es-modal-form-label">Plan Name</label>
+                <label for="name" class="form-label es-modal-form-label">Plan Name*</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
@@ -22,33 +34,20 @@
             </div>
             <div class="mb-3 row">
                 <div class="col-6">
-                    <label for="validity" class="form-label es-modal-form-label">Expiry Interval (Days)</label>
-                    <input type="text" class="form-control es-input" id="validity" aria-describedby="validity" formControlName="validity">
-                    <div>
-                        <span class="help-block ng-invalid text-danger" *ngIf="(f.validity.touched && f.validity.pristine) || (f.validity.errors && submitted)">
-                            <span class="small" *ngIf="f.validity.errors.required">
-                                Expiry Interval is required!
-                            </span>
-                        </span>
-                    </div>    
-                </div>
-                <div class="col-6">
-                    <label for="cost" class="form-label es-modal-form-label">Cost (USD)</label>
-                    <input type="text" class="form-control es-input" id="cost" aria-describedby="cost" formControlName="cost">
-                    <div>
-                        <span class="help-block ng-invalid text-danger" *ngIf="(f.cost.touched && f.cost.pristine) || (f.cost.errors && submitted)">
-                            <span class="small" *ngIf="f.cost.errors.required">
-                                Cost is required!
-                            </span>
-                        </span>
-                    </div>    
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-6">
-                    <label for="dataSize" class="form-label es-modal-form-label">Data (MB)</label>
-                    <input type="text" class="form-control es-input" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
-                    <div>
+                    <label for="validity" class="form-label es-modal-form-label">Data*</label>
+                    <div class="d-flex">
+                        <select class="form-control es-select" formControlName="dataUnit">
+                            <option value="MB"> MB </option>
+                            <option value="GB"> GB </option>
+                            <option value="TB"> TB </option>
+                        </select>
+                        <input type="number" class="form-control es-input left-radius-0" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
+                    </div>
+                    <div class="input-number-btn">
+                        <span class="number-incremental" (click)="updateValue('dataSize', 'inc')"> + </span>
+                        <span class="number-decremental" (click)="updateValue('dataSize', 'dec')"> - </span>
+                    </div>
+                    <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.dataSize.touched && f.dataSize.pristine) || (f.dataSize.errors && submitted)">
                             <span class="small" *ngIf="f.dataSize.errors.required">
                                 Data is required!
@@ -57,35 +56,104 @@
                     </div>    
                 </div>
                 <div class="col-6">
-                    <label for="voice" class="form-label es-modal-form-label">Voice Calls (Minutes)</label>
-                    <input type="number" class="form-control es-input" id="voice" aria-describedby="voice" formControlName="voice">
-                    <div>
+                    <label for="voice" class="form-label es-modal-form-label">Call Minutes*</label>
+                    <div class="d-flex">
+                        <input type="checkbox" class="form-checbox my-auto" id="unlimited" aria-describedby="unlimited" formControlName="unlimited">
+                        <label for="unlimited" class="my-auto ms-1 me-3 form-label es-modal-form-label"> Unlimited</label>
+                        <input type="number" class="form-control es-input" id="voice" aria-describedby="voice" formControlName="voice" [disabled]="f.unlimited.value">
+                    </div>
+                    <div class="input-number-btn">
+                        <span class="number-incremental" [class.disabled]="f.unlimited.value" (click)="updateValue('voice', 'inc')"> + </span>
+                        <span class="number-decremental" [class.disabled]="f.unlimited.value" (click)="updateValue('voice', 'dec')"> - </span>
+                    </div>
+                    <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.voice.touched && f.voice.pristine) || (f.voice.errors && submitted)">
                             <span class="small" *ngIf="f.voice.errors.required">
-                                voice is required!
+                                Call minutes is required!
                             </span>
                         </span>
-                    </div>    
+                    </div>
                 </div>
             </div>
             <div class="mb-3 row">
                 <div class="col-6">
-                    <label for="sms" class="form-label es-modal-form-label">SMS</label>
+                    <label for="dataSize" class="form-label es-modal-form-label">SMS*</label>
                     <input type="number" class="form-control es-input" id="sms" aria-describedby="sms" formControlName="sms">
-                    <div>
+                    <div class="input-number-btn">
+                        <span class="number-incremental" (click)="updateValue('sms', 'inc')"> + </span>
+                        <span class="number-decremental" (click)="updateValue('sms', 'dec')"> - </span>
+                    </div>
+                    <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.sms.touched && f.sms.pristine) || (f.sms.errors && submitted)">
                             <span class="small" *ngIf="f.sms.errors.required">
-                                Sms is required!
+                                SMS is required!
                             </span>
                         </span>
-                    </div>    
+                    </div>
                 </div>
-                <div class="col-6 mb-3">
-                    <label for="planId" class="form-label es-modal-form-label">Region</label>
-                    <select formControlName="regionId" class="form-control es-input select-bg">  
-                        <option class="select-bg" *ngFor="let region of regionList" [value]="region._id">{{region.name}}</option>  
-                    </select>
+                <div class="col-6">
+                    <label for="voice" class="form-label es-modal-form-label">Validity*</label>
+                    <div class="d-flex">
+                        <select class="form-control es-select" formControlName="validityUnit">
+                            <option value="days"> Days </option>
+                            <option value="months"> Months </option>
+                            <option value="years"> Years </option>
+                        </select>
+                        <input type="number" class="form-control es-input left-radius-0" id="validity" aria-describedby="validity" formControlName="validity">
+                    </div>
+                    <div class="input-number-btn">
+                        <span class="number-incremental" (click)="updateValue('validity', 'inc')"> + </span>
+                        <span class="number-decremental" (click)="updateValue('validity', 'dec')"> - </span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.validity.touched && f.validity.pristine) || (f.validity.errors && submitted)">
+                            <span class="small" *ngIf="f.validity.errors.required">
+                                Validity is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-6">
+                    <label for="sms" class="form-label es-modal-form-label">Price*</label>
+                    <div class="d-flex">
+                        <input type="number" class="form-control es-input price-input" id="cost" aria-describedby="cost" formControlName="cost">
+                        <span class="form-label es-modal-form-label price-input-icon"> $ </span>
+                    </div>
+                    <div class="input-number-btn">
+                        <span class="number-incremental" (click)="updateValue('cost', 'inc')"> + </span>
+                        <span class="number-decremental" (click)="updateValue('cost', 'dec')"> - </span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.cost.touched && f.cost.pristine) || (f.cost.errors && submitted)">
+                            <span class="small" *ngIf="f.cost.errors.required">
+                                Price is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-12 mb-3">
+                    <label for="planId" class="form-label es-modal-form-label">Location*</label>
                     <div>
+                        <ng-select
+                            class="multi-select-counties"
+                            [items]="[]"
+                            bindLabel="name"
+                            placeholder="Search for countries / Multiple countries can be selected"
+                            formControlName="regionId" 
+                            [multiple]="true"
+                            >
+                        </ng-select>
+                        <span class="ng-search">
+                            <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+                                <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.regionId.touched && f.regionId.pristine) || (f.regionId.errors && submitted)">
                             <span class="small" *ngIf="f.regionId.errors.required">
                                 Region Id is required!

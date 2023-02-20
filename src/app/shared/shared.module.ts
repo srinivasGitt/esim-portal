@@ -21,8 +21,13 @@ import { SubscriberMgmtComponent } from './dialog/subscriber-mgmt/subscriber-mgm
 
 import { AlertComponent } from './dialog/alert/alert.component';
 import { ProfileLogComponent } from './dialog/profile-log/profile-log.component';
+import { ImportProfileComponent } from './dialog/import-profile/import-profile.component';
+import { AssignProfilesComponent } from './dialog/assign-profiles/assign-profiles.component';
+import { PlanInfoComponent, SubscriptionInfoComponent, SubscriberInfoComponent,UserInfoComponent } from './dialog';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxGaugeModule } from 'ngx-gauge';
+import { TooltipDirective } from "./directive/tooltip.directive";
 
-// import { SubscriptionComponent } from "../modules/subscription/subscription.component";
 @NgModule({
   declarations: [
     // SubscriptionComponent,
@@ -39,7 +44,14 @@ import { ProfileLogComponent } from './dialog/profile-log/profile-log.component'
     InviteSubscriberComponent,
     SubscriberMgmtComponent,
     AlertComponent,
-    ProfileLogComponent
+    ProfileLogComponent,
+    ImportProfileComponent,
+    AssignProfilesComponent,
+    PlanInfoComponent,
+    SubscriptionInfoComponent,
+    UserInfoComponent,
+    SubscriberInfoComponent,
+    TooltipDirective
   ],
   imports: [
     CommonModule,
@@ -47,7 +59,9 @@ import { ProfileLogComponent } from './dialog/profile-log/profile-log.component'
     ReactiveFormsModule,
     HttpClientModule,
     QRCodeModule,
-    RouterModule
+    RouterModule,
+    NgSelectModule,
+    NgxGaugeModule
   ],
   exports: [
     // SubscriptionComponent,
@@ -56,6 +70,7 @@ import { ProfileLogComponent } from './dialog/profile-log/profile-log.component'
     NavbarComponent,
     ConfirmComponent,
     UserMgmtComponent,
+    TooltipDirective
   ],
   providers: [CurrencyPipe]
 })

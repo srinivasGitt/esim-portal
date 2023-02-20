@@ -1,40 +1,110 @@
-<div class="user-dashboard">
+<div class="user-management">
+    <div class="d-flex search-form">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" #searchInput (keydown.enter)="searchRecord(searchInput.value)" (search)="searchRecord(searchInput.value)">
+        <span class="search-icon-div">
+          <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
+            height="30px">
+            <path
+              d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
+          </svg>
+        </span>
+    </div>
     <div class="dashboard-head-flex">
-        <div class="dashboard-head-text">
-            <h2>User Management</h2>
+        <div class="filter-head d-flex py-1 px-4">
+            <div class="d-flex">
+            <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month')">
+            <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
+            <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month')" [class.disabled]="selectedFilter.month == currentMonth && selectedFilter.year == currentYear">
+            </div>
+            <div class="d-flex ms-2">
+            <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'year')">
+            <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
+            <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year')" [class.disabled]="selectedFilter.year == currentYear">
+            </div>
         </div>
-        <div>
-            <button type="button" class="btn btn-dashboard-head me-4" (click)="userInvite()">
-                Invite User
-            </button>
-            <!-- <button type="button" class="btn btn-dashboard-head" (click)="createUser()">
-                <img src="" alt=""> Add New User
-            </button> -->
-        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-dashboard-head ms-auto me-4 d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails.customerId" (click)="createUser()">
+            <span class="me-3 btn-add-icon m-auto"> + </span>
+            <span class="m-auto">Add New User</span>
+        </button>   
     </div>
     <div class="user-dashboard-table-container">
+        <div class="d-flex info-head-section">
+            <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }}, {{ selectedFilter.year }}  </label>
+        </div>
+
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">
-                <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
-                    <div class="t-box a px-2">User Name</div>
-                    <div class="t-box b px-2">Email Address</div>
-                    <div class="t-box b px-2">
-                        Action
+                <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
+                    <div class="t-box b px-2 d-flex">
+                        <svg class="my-auto" width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="color-stroke" d="M14.3345 16.5005V14.8337C14.3345 13.9496 13.9833 13.1017 13.3581 12.4765C12.7329 11.8513 11.885 11.5001 11.0009 11.5001H4.33362C3.44949 11.5001 2.60157 11.8513 1.97639 12.4765C1.35122 13.1017 1 13.9496 1 14.8337V16.5005M11.001 4.83345C11.001 6.67477 9.50833 8.16746 7.66701 8.16746C5.82569 8.16746 4.33301 6.67477 4.33301 4.83345C4.33301 2.99214 5.82569 1.49945 7.66701 1.49945C9.50833 1.49945 11.001 2.99214 11.001 4.83345Z" stroke="white" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="my-auto ms-4">User Name</span>
+                    </div>
+                    <div class="t-box b px-2 d-flex">
+                        <svg class="my-auto" width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 16C1.45 16 0.979333 15.8043 0.588 15.413C0.196 15.021 0 14.55 0 14V2C0 1.45 0.196 0.979333 0.588 0.588C0.979333 0.196 1.45 0 2 0H18C18.55 0 19.021 0.196 19.413 0.588C19.8043 0.979333 20 1.45 20 2V14C20 14.55 19.8043 15.021 19.413 15.413C19.021 15.8043 18.55 16 18 16H2ZM10 9L2 4V14H18V4L10 9ZM10 7L18 2H2L10 7ZM2 4V2V14V4Z" fill="#1C1B1F"/>
+                        </svg>
+                        <span class="my-auto ms-4">User Email ID</span>
+                    </div>
+                    <div class="t-box a px-2 d-flex">
+                        <svg class="my-auto" width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="stroke" d="M5.54199 11.0003H16.3763M1.375 11.0003H1.385M5.54199 5.99997H16.3763M1.375 5.99997H1.385M5.54199 0.999634H16.3763M1.375 0.999634H1.385" stroke="#989898" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="my-auto ms-4">Role</span>
+                    </div>
+                    
+                    <div class="t-box b px-2 d-flex">
+                        <svg class="my-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15.75C9.93 15.75 8.25 14.07 8.25 12C8.25 9.93 9.93 8.25 12 8.25C14.07 8.25 15.75 9.93 15.75 12C15.75 14.07 14.07 15.75 12 15.75ZM12 9.75C10.76 9.75 9.75 10.76 9.75 12C9.75 13.24 10.76 14.25 12 14.25C13.24 14.25 14.25 13.24 14.25 12C14.25 10.76 13.24 9.75 12 9.75Z" fill="black"/>
+                        <path d="M15.21 22.19C15 22.19 14.79 22.16 14.58 22.11C13.96 21.94 13.44 21.55 13.11 21L12.99 20.8C12.4 19.78 11.59 19.78 11 20.8L10.89 20.99C10.56 21.55 10.04 21.95 9.42 22.11C8.79 22.28 8.14 22.19 7.59 21.86L5.87 20.87C5.56778 20.6969 5.30266 20.4658 5.08981 20.1901C4.87695 19.9144 4.72055 19.5994 4.62953 19.2632C4.53851 18.927 4.51466 18.5761 4.55936 18.2307C4.60405 17.8853 4.71641 17.552 4.89 17.25C5.18 16.74 5.26 16.28 5.09 15.99C4.92 15.7 4.49 15.53 3.9 15.53C2.44 15.53 1.25 14.34 1.25 12.88V11.12C1.25 9.66004 2.44 8.47004 3.9 8.47004C4.49 8.47004 4.92 8.30004 5.09 8.01004C5.26 7.72004 5.19 7.26004 4.89 6.75004C4.54 6.14004 4.45 5.42004 4.63 4.74004C4.81 4.05004 5.25 3.48004 5.87 3.13004L7.6 2.14004C8.73 1.47004 10.22 1.86004 10.9 3.01004L11.02 3.21004C11.61 4.23004 12.42 4.23004 13.01 3.21004L13.12 3.02004C13.8 1.86004 15.29 1.47004 16.43 2.15004L18.15 3.14004C18.4522 3.31321 18.7173 3.54426 18.9302 3.81997C19.143 4.09569 19.2995 4.41066 19.3905 4.74688C19.4815 5.08309 19.5053 5.43395 19.4606 5.77939C19.4159 6.12483 19.3036 6.45806 19.13 6.76004C18.84 7.27004 18.76 7.73004 18.93 8.02004C19.1 8.31004 19.53 8.48004 20.12 8.48004C21.58 8.48004 22.77 9.67004 22.77 11.13V12.89C22.77 14.35 21.58 15.54 20.12 15.54C19.53 15.54 19.1 15.71 18.93 16C18.76 16.29 18.83 16.75 19.13 17.26C19.48 17.87 19.58 18.59 19.39 19.27C19.3031 19.6084 19.1483 19.9255 18.9352 20.2023C18.722 20.479 18.4549 20.7096 18.15 20.88L16.42 21.87C16.04 22.08 15.63 22.19 15.21 22.19ZM12 18.49C12.89 18.49 13.72 19.05 14.29 20.04L14.4 20.23C14.52 20.44 14.72 20.59 14.96 20.65C15.2 20.71 15.44 20.68 15.64 20.56L17.37 19.56C17.634 19.4077 17.8273 19.1574 17.9078 18.8635C17.9883 18.5695 17.9496 18.2556 17.8 17.99C17.23 17.01 17.16 16 17.6 15.23C18.04 14.46 18.95 14.02 20.09 14.02C20.73 14.02 21.24 13.51 21.24 12.87V11.11C21.24 10.48 20.73 9.96004 20.09 9.96004C18.95 9.96004 18.04 9.52004 17.6 8.75004C17.16 7.98004 17.23 6.97004 17.8 5.99004C17.95 5.73004 17.99 5.42004 17.91 5.12004C17.83 4.82004 17.64 4.58004 17.38 4.42004L15.65 3.43004C15.5456 3.36884 15.4302 3.32883 15.3104 3.3123C15.1905 3.29576 15.0686 3.30303 14.9515 3.33368C14.8345 3.36434 14.7247 3.41777 14.6283 3.49093C14.532 3.56409 14.451 3.65554 14.39 3.76004L14.28 3.95004C13.71 4.94004 12.88 5.50004 11.99 5.50004C11.1 5.50004 10.27 4.94004 9.7 3.95004L9.59 3.75004C9.46573 3.54568 9.26661 3.39788 9.03501 3.33811C8.80342 3.27835 8.55764 3.31133 8.35 3.43004L6.62 4.43004C6.35598 4.58234 6.16272 4.83266 6.0822 5.12663C6.00169 5.4206 6.04043 5.73447 6.19 6.00004C6.76 6.98004 6.83 7.99004 6.39 8.76004C5.95 9.53004 5.04 9.97004 3.9 9.97004C3.26 9.97004 2.75 10.48 2.75 11.12V12.88C2.75 13.51 3.26 14.03 3.9 14.03C5.04 14.03 5.95 14.47 6.39 15.24C6.83 16.01 6.76 17.02 6.19 18C6.04 18.26 6 18.57 6.08 18.87C6.16 19.17 6.35 19.41 6.61 19.57L8.34 20.56C8.55 20.69 8.8 20.72 9.03 20.66C9.27 20.6 9.47 20.44 9.6 20.23L9.71 20.04C10.28 19.06 11.11 18.49 12 18.49Z" fill="black"/>
+                        </svg>
+                        <span class="my-auto ms-4">Actions</span>
                     </div>
                 </div>
-                <div class="t-body-overflow">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light"  *ngFor="let user of usersList; index as i" [ngClass]="{'bg-body-table-dark-bg': i % 2 === 0}">
-                        <div class="t-box a px-2">{{user.firstName}} {{user.lastName}}</div>
+                <div class="t-body-overflow" *ngIf="usersList && usersList.length > 0">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
+                    *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" >
+                    <!-- [routerLink]="['/customer-management', customer._id]" -->
+                        <div class="t-box a px-2">{{ user.firstName }} {{ user.lastName }}</div>
                         <div class="t-box b px-2">{{user.email}}</div>
-                        <div class="t-box b px-2">
-                            <div class="user-table-action">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/editing-action.svg" alt="" (click)="editUser(i)">
-                                <img class="user-table-action-icon" src="assets/images/dashboard/icon/delete-action.svg" alt="" (click)="deleteUser(i)">
+                        <div class="t-box a px-2">
+                            <span *ngIf="user.roles && user.roles.length === 0">NA</span>
+                            <span *ngIf="user.roles && user.roles.length > 0">
+                                <span *ngFor="let role of user.roles; let i = index;">
+                                    {{role ? role : ''}}<span *ngIf="user.roles.length !== i+1">, </span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="t-box b px-2 action-section">
+                            <div class="user-table-action mx-auto">
+                                <span class="user-table-action-icon subscription-info-icon mx-auto" (click)="userInfo(user)" tooltip="Info" placement="top" delay="100" offset="-5">
+                                    <img src="assets/icons/information.svg">
+                                </span>
+                                <span class="user-table-action-icon mx-auto" (click)="editUser(user)" tooltip="Edit" placement="top" delay="100" offset="-5">
+                                <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8701 3.79635C20.0722 4.09948 20.0384 4.51141 19.7691 4.77827L10.1034 14.3498C10.0043 14.448 9.88063 14.5182 9.7451 14.5533L5.71957 15.5945C5.58828 15.6285 5.45294 15.6278 5.32579 15.5957C5.1906 15.5616 5.06466 15.4922 4.96265 15.3911C4.76468 15.1951 4.68652 14.9098 4.75727 14.6416L5.80875 10.6551C5.83974 10.5377 5.89787 10.4217 5.9783 10.3307L15.6797 0.728732C15.7646 0.644641 15.8669 0.581697 15.9783 0.543347C16.0608 0.514911 16.1483 0.5 16.2373 0.5C16.4465 0.5 16.6471 0.58228 16.7949 0.728732L19.7691 3.67385C19.8075 3.71197 19.8412 3.75305 19.8701 3.79635ZM18.0962 4.22606L16.2373 2.38536L7.28068 11.2549L6.62352 13.7464L9.13945 13.0956L18.0962 4.22606Z" fill="#495058"/>
+                                    <path d="M17.9629 16.0255C18.2504 13.5914 18.3419 11.1404 18.2372 8.69556C18.2323 8.57852 18.2768 8.46459 18.3604 8.38174L19.3943 7.35785C19.5214 7.23196 19.7387 7.31188 19.7505 7.48951C19.9451 10.3943 19.8712 13.3122 19.5294 16.207C19.2806 18.3129 17.5727 19.9633 15.4571 20.1975C11.8121 20.6008 8.04421 20.6008 4.39922 20.1975C2.28359 19.9633 0.575637 18.3129 0.32691 16.207C-0.10897 12.5164 -0.10897 8.78813 0.32691 5.09764C0.575637 2.99167 2.28359 1.34127 4.39922 1.10711C7.16435 0.801077 10.0002 0.7272 12.7993 0.885482C12.9797 0.895686 13.062 1.11186 12.9342 1.23839L11.8906 2.2719C11.8079 2.35384 11.6944 2.39785 11.5774 2.39394C9.23637 2.31575 6.87943 2.40421 4.57441 2.65933C3.17583 2.81412 2.05549 3.90704 1.89345 5.27908C1.4718 8.84904 1.4718 12.4555 1.89345 16.0255C2.05549 17.3975 3.17583 18.4904 4.57441 18.6453C8.10299 19.0357 11.7533 19.0357 15.2819 18.6453C16.6805 18.4904 17.8008 17.3975 17.9629 16.0255Z" fill="#495058"/>
+                                </svg>
+                                </span> 
+                                <span class="user-table-action-icon mx-auto" (click)="deleteUser(user)" tooltip="Delete" placement="top" delay="100" offset="-5">
+                                <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.93548 0C5.50791 0 5.16129 0.348336 5.16129 0.778022V1.55604H0.774194C0.346622 1.55604 0 1.90438 0 2.33407C0 2.76375 0.346622 3.11209 0.774194 3.11209H15.2258C15.6534 3.11209 16 2.76375 16 2.33407C16 1.90438 15.6534 1.55604 15.2258 1.55604H10.8387V0.778022C10.8387 0.348336 10.4921 0 10.0645 0H5.93548Z" fill="#495058"/>
+                                    <path d="M9.09491 13.2263L10.6119 14.751C10.9143 15.0548 10.9143 15.5473 10.6119 15.8512C10.3096 16.155 9.81945 16.155 9.51711 15.8512L8 14.3267L6.48289 15.8512C6.18054 16.155 5.69039 16.155 5.38805 15.8512C5.08571 15.5473 5.08571 15.0548 5.38805 14.751L6.90508 13.2263L5.38804 11.7017C5.08571 11.3979 5.08571 10.9053 5.38804 10.6015C5.69038 10.2977 6.18054 10.2977 6.48289 10.6015L8 12.126L9.51711 10.6015C9.81945 10.2977 10.3096 10.2977 10.6119 10.6015C10.9143 10.9053 10.9143 11.3979 10.6119 11.7017L9.09491 13.2263Z" fill="#495058"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.79797 5.87892C1.84154 5.4849 2.17295 5.18681 2.56744 5.18681H13.4334C13.8278 5.18681 14.1592 5.4849 14.2028 5.87892L14.4094 7.74756C14.7839 11.1348 14.7839 14.5535 14.4094 17.9408L14.389 18.1248C14.2404 19.4693 13.2034 20.5415 11.8702 20.7291C9.30288 21.0903 6.69787 21.0903 4.13052 20.7291C2.79732 20.5415 1.76038 19.4693 1.61171 18.1248L1.59138 17.9408C1.21685 14.5535 1.21685 11.1348 1.59138 7.74756L1.79797 5.87892ZM3.26037 6.74286L3.13029 7.9194C2.7684 11.1925 2.7684 14.4959 3.13029 17.769L3.15062 17.9529C3.22114 18.5906 3.71291 19.0991 4.3452 19.1881C6.77013 19.5292 9.23062 19.5292 11.6555 19.1881C12.2879 19.0991 12.7796 18.5906 12.8501 17.9529L12.8705 17.769C13.2324 14.4959 13.2324 11.1925 12.8705 7.9194L12.7404 6.74286H3.26037Z" fill="#495058"/>
+                                </svg>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Pagination  -->
+    <div class="custom-pagination-section" *ngIf="usersList?.length > 20">
+        <pagination-controls id="userListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
     </div>
 </div>

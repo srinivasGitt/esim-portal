@@ -25,9 +25,10 @@ const routes: Routes = [
       { path: 'customer-management', component: CustomerManagementComponent },
       { path: 'customer-management/:id', component: CustomerManagementComponent },
       { path: 'subscriber', component: SubscribeManagementComponent },
-      { path: 'users', component: UserComponent },
+      { path: 'subscriptions', component: SubscriptionComponent },
+      { path: 'user-management', component: UserComponent },
+      { path: 'user-management/:custId', component: UserComponent },
       { path: 'plans', component: PlanComponent },
-      // { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'reports', component: ReportsComponent},
       { path: 'inventory', component: InventoryComponent}
     ]
@@ -41,7 +42,7 @@ const routes: Routes = [
     component: ForgotPasswordComponent
   },
   {
-    path: 'reset-password',
+    path: 'reset-password/:token',
     component: ResetPasswordComponent
   },
   {

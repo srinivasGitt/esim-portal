@@ -25,4 +25,8 @@ export class InventoryService {
   listInventory() {
     return this.http.get(`${this.serverUrl}/inventories`, this.getHeader());
   }
+
+  assignProfile(data: any){
+    return this.http.post(`${this.serverUrl}/customer/inventory`, data, this.getHeader())
+  }
 }

@@ -1,0 +1,55 @@
+<div class="es-modal plan-info-modal">
+    <div class="modal-header-flex p-4">
+        <div class="modal-header-text-container">
+          <div class="mb-3 plan-info-icon d-flex">
+            <img class="m-auto" src="/assets/images/dashboard/icon/primary-info.svg" alt="">
+          </div>
+          <p class="modal-header-text mb-0"> {{ planDetails.name }} $ {{ planDetails.priceBundle }}</p>
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-4">
+            <a class="es-btn-close mt-3" (click)="close()"></a>
+        </div>
+    </div>
+    <div class="es-modal-body px-4">
+        <div class="row">
+            <div class="col-4">
+                <label> Data </label>
+                <div class="plan-details">{{ planDetails.dataPerDay || 1 }} GB/Day</div>
+            </div>
+            <div class="col-4">
+                <label> SMS </label>
+                <div class="plan-details">{{ planDetails.smsPerDay || 0 }} SMS/Day</div>
+            </div>
+            <div class="col-4">
+                <label> Voice </label>
+                <div class="plan-details">{{ planDetails.voice }}</div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4">
+                <label> Total Data </label>
+                <div class="plan-details"> {{ planDetails.data }}</div>
+            </div>
+            <div class="col-4">
+                <label> Countries </label>
+                <div class="plan-details" *ngIf="countryList && countryList.length > 0">
+                    {{ countryList[0].name }} 
+                    <span *ngIf="countryList.length > 1">, </span>
+                    <div *ngIf="countryList.length > 1" class="more-contries" [tooltip]="displayContryList()" placement="top" delay="100" offset="5">
+                        +{{ countryList.length - 1 }} more
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <label> Validity </label>
+                <div class="plan-details"> {{ planDetails.validity }} Days</div>
+            </div>
+        </div>
+    </div>
+    <div class="es-modal-footer d-flex p-4">
+        <button class="btn btn-secondary w-20 mr-30" (click)="close()">Disable Plan</button>
+        <button class="btn btn-primary ms-auto w-20">
+            Edit Plan
+        </button>
+    </div>
+</div>

@@ -14,6 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import { TooltipDirective } from './shared/directive/tooltip.directive';
+
 // import { NgChartsModule } from 'chart.js';
 
 
@@ -26,7 +30,6 @@ import { RouterModule } from '@angular/router';
     ResetPasswordComponent,
     DialogComponent,
     CoreComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     SharedModule,
     ModulesModule,
-    // NgChartsModule
+    AngularOtpLibModule,
+    PasswordStrengthMeterModule.forRoot()
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
