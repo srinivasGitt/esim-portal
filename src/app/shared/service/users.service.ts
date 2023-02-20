@@ -55,8 +55,13 @@ export class UsersService {
     return this.http.post(`${this.serverUrl}/users/invite-user`, data, this.getHeader());
   }
 
-  getAllUsers() {
-    return this.http.get(`${this.serverUrl}/users`, this.getHeader());
+  getAllUsers(custId: any) {
+    if(custId) {
+      return this.http.get(`${this.serverUrl}/users?customerId=${custId}`, this.getHeader());
+    } else {
+      return this.http.get(`${this.serverUrl}/users`, this.getHeader());
+    }
+    
   }
 
   updateUser(id: any, data: any) {
