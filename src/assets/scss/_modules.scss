@@ -134,7 +134,7 @@
 .user-dashboard{
     .info-head-section{
         label{
-            font-family: "SF Pro Display Italic";
+            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v4);
         }
     }
@@ -144,7 +144,7 @@
         margin-bottom: 10px;
         .dashboard-head-text{
             font-size: 1.36vw;
-            font-family: "SF Pro Display Italic";
+            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
@@ -277,7 +277,7 @@
         margin-bottom: 30px;
         .dashboard-head-text{
             font-size: 1.36vw;
-            font-family: "SF Pro Display Italic";
+            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
@@ -394,7 +394,7 @@
         margin-bottom: 30px;
         .dashboard-head-text{
             font-size: 1.36vw;
-            font-family: "SF Pro Display Italic";
+            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
@@ -543,7 +543,7 @@
         margin-bottom: 30px;
         .dashboard-head-text{
             font-size: 1.36vw;
-            font-family: "SF Pro Display Italic";
+            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
@@ -645,7 +645,7 @@
     box-shadow: 7px 10px 36px rgba(65, 35, 184, 0.15);
     border-radius: 6px;
     .info-head-section{
-        font-family: "SF Pro Display Italic";
+        font-family: var(--dark-font-family);
         color: var(--dark-text-white-v1);
         line-height: 1.6;
         h3{
@@ -752,7 +752,7 @@
 .customer-management{
     .info-head-section{
         label{
-            font-family: "SF Pro Display Italic";
+            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v4);
         }
     }
@@ -935,7 +935,7 @@
         border-radius: 25px;
         padding-top: 0.05rem;
         padding-bottom: 0.05rem;
-        font-family: "SF Pro Display Italic";
+        font-family: var(--dark-font-family);
         font-size: 1.018vw;
         color: var(--dark-text-white-v1);
         padding-left: 2.75rem;
