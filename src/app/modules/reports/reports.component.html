@@ -15,22 +15,22 @@
                 <div class="filter-head d-flex py-1 px-4" style="width: 100%">
                     <div class="dropdown d-flex w-100">
                         <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id="languageTootltip">Daily
+                            <span id="languageTootltip">{{selectedDay}}
                             </span>
                             <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
                             <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt="">
                         </a>
     
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular">Daily</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular">Monthly</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular">Yearly</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('week'); selectedDay = 'This Week'">This Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('month'); selectedDay = 'This Month'">This Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('year'); selectedDay = 'This Year'">This Year</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <!-- <div class="col-3">
             <div class="multi-color-border">
                 <label class="section-head-text">Start Date</label>
             </div>
@@ -69,18 +69,18 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="col-3">
         </div>
     </div>
     
-    <div class="row mt-3 mb-4">
+    <!-- <div class="row mt-3 mb-4">
         <div class="col-12 d-flex info-head-section">
             <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }} {{ selectedFilter.year }} - {{ monthsList[endSelectedFilter.month] }} {{ endSelectedFilter.year }}  </label>
         </div>
-    </div>
+    </div> -->
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-8">
             <div class="dashboard-graph">
                 <div class="dashboard-heading mb-4 px-3 d-flex">

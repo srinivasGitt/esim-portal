@@ -55,7 +55,7 @@
                             <path d="M20.4375 18.935H11.4375C11.3049 18.935 11.1777 18.8823 11.0839 18.7886C10.9902 18.6948 10.9375 18.5676 10.9375 18.435C10.9375 18.3024 10.9902 18.1752 11.0839 18.0814C11.1777 17.9877 11.3049 17.935 11.4375 17.935H20.4375C20.5701 17.935 20.6973 17.9877 20.7911 18.0814C20.8848 18.1752 20.9375 18.3024 20.9375 18.435C20.9375 18.5676 20.8848 18.6948 20.7911 18.7886C20.6973 18.8823 20.5701 18.935 20.4375 18.935Z" fill="white"/>
                         </svg>
 
-                        <span class="my-auto ms-2">Plan Id</span>
+                        <span class="my-auto ms-2">Plan Name</span>
                     </div>
                     <div class="t-box b px-1 d-flex">
                         <svg class="my-auto scale-1-3" width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
                         <div class="t-box b px-1">{{subscription.createdAt | date : 'dd/MM/YYYY'}}</div>
                         <div class="t-box a px-1"> <span *ngIf="subscription.priceBundle">$ {{ subscription.priceBundle }}</span></div>
                         <div class="t-box b px-1 text-overflow-ellipsis">{{ subscription.planName }}</div>
-                        <div class="t-box b px-1">{{subscription.expiryDate | date : 'dd/MM/YYYY'}}</div>
+                        <div class="t-box b px-1">{{subscription.expiryDate ? (subscription.expiryDate | date : 'dd/MM/YYYY') : 'NA'}}</div>
                         <div class="t-box b px-1 d-flex subscription-info-section">
                             <span class="text-overflow-ellipsis"> {{subscription.subscriberEmail || ''}} </span>
                             <span class="subscription-info-icon" (click)="showSubscriptionInfo(subscription)" tooltip="Info" placement="top" delay="100" offset="-5">
