@@ -81,6 +81,12 @@
     --dark-dropdown-shadow: #fff;
     --report-graph: #FFFFFF;
     --dropdown-shadow: 0px 4px 8px #D8DAFF;
+
+    .icon {
+        path {
+            fill: black;
+        }
+    }
 }
 
 body {

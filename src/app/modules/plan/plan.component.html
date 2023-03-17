@@ -75,7 +75,7 @@
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of (plansList | listFilter: filterConfig) | paginate: paginateConfig;" [class.inactive-plan]="!plan.isActive">
                         <div class="t-box a px-2 d-flex">
                             <span class="plan-info-icon">
-                                <img *ngIf="!plan.isActive" src="/assets/images/dashboard/icon/danger-info.svg">
+                                <img *ngIf="!plan.isActive" src="/assets/images/dashboard/icon/danger-info.svg" tooltip="Inactive" placement="top" delay="50" offset="10">
                             </span>
                             <span class="text-overflow-ellipsis">{{plan.name}}</span>
                         </div>
@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-    <div class="custom-pagination-section" *ngIf="plansList?.length > 20">
+    <div class="custom-pagination-section" *ngIf="plansList?.length > paginateConfig.itemsPerPage">
         <pagination-controls id="plansListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
     </div>
 </div>

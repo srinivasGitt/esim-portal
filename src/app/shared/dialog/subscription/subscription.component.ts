@@ -16,7 +16,7 @@ export class SubscriptionDialogComponent  implements OnInit {
   subscriptionForm: any;
   submitted = false;
 
-  title: string = 'Add Subscription';
+  title: string = 'Add New Subscription';
   planList: any = [];
   subscribeList: any = [];
   constructor(
@@ -41,6 +41,7 @@ export class SubscriptionDialogComponent  implements OnInit {
 
   createSubscriptionForm() {
     this.subscriptionForm = new UntypedFormGroup({
+      subscriptionNumber: new UntypedFormControl(this.data?.subscriptionNumber, [Validators.required],),
       amount: new UntypedFormControl(this.data?.amount, [Validators.required],),
       startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
       endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
@@ -94,5 +95,18 @@ export class SubscriptionDialogComponent  implements OnInit {
   }
   close(): void {
     this.dialogRef.close.emit(false);
+  }
+
+  updateValue(controlKey: string, updateBy: string){
+    if(updateBy == 'inc'){
+      let incValue = isNaN(parseInt(this.f[controlKey].value)) ? 0 : parseInt(this.f[controlKey].value);
+      this.f[controlKey].setValue(++incValue);
+    } else if(updateBy == 'dec'){
+      let decValue = isNaN(parseInt(this.f[controlKey].value)) ? 1 : parseInt(this.f[controlKey].value);
+      if(--decValue > -1){
+        this.f[controlKey].setValue(decValue);
+      }
+      
+    }
   }
 }

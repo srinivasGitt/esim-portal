@@ -34,13 +34,23 @@
             <div class="mb-3">
                 <div class="form-group">
                   <label for="smdp" class="form-label es-modal-form-label">Select provider</label>
-                  <ng-select
+                  <!-- <ng-select
                             [items]="Provider"
                             bindLabel="name"
                             placeholder="Select Provider"
                             formControlName="smdp" 
                             [multiple]="true"
                             >
+                  </ng-select> -->
+                  <ng-select 
+                    appearance="outline" 
+                    [multiple]="true" 
+                    placeholder="Select Provider" 
+                    labelForId="smdp" 
+                    formControlName="smdp">
+                    <ng-option [value]="option.name" *ngFor="let option of Provider">
+                        <img src="{{option.image}}" width="20px" height="20px"/>&nbsp; {{ option.name }}
+                    </ng-option>
                   </ng-select>
                 </div>
                 <div>
