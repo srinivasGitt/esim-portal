@@ -138,7 +138,7 @@
                 <div class="col-12 mb-3">
                     <label for="planId" class="form-label es-modal-form-label">Location*</label>
                     <div>
-                        <ng-select
+                        <!-- <ng-select
                             class="multi-select-counties"
                             [items]="[]"
                             bindLabel="name"
@@ -146,6 +146,17 @@
                             formControlName="regionId" 
                             [multiple]="true"
                             >
+                        </ng-select> -->
+                        <ng-select 
+                            appearance="outline" 
+                            [multiple]="true" 
+                            placeholder="Search for countries / Multiple countries can be selected" 
+                            labelForId="regionId"
+                            formControlName="regionId">
+                            <ng-option [value]="region._id" *ngFor="let region of regionList">
+                                <!-- <img src="{{region.image}}" width="20px" height="20px"/>&nbsp;  -->
+                                {{ region.name }}
+                            </ng-option>
                         </ng-select>
                         <span class="ng-search">
                             <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">

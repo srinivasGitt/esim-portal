@@ -7,19 +7,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 15px;
-            .modal-header-text-container{
-                .modal-header-text{
-                    color: var(--dark-text-white-v1);
-                    font-size: 18px;
-                    font-weight: 600;
-                }
-                .modal-sub-header-text{
-                    margin-top: 5px;
-                    color: var(--dark-modal-sub-header);
-                }
+            // padding: 10px 15px;
+            // .modal-header-text-container{
+            //     .modal-header-text{
+            //         color: var(--dark-text-white-v1);
+            //         font-size: 18px;
+            //         font-weight: 600;
+            //     }
+            //     .modal-sub-header-text{
+            //         margin-top: 5px;
+            //         color: var(--dark-modal-sub-header);
+            //     }
 
-            }
+            // }
             .es-btn-close-container{
                 .es-btn-close{
                     width: 32px;
@@ -45,8 +45,23 @@
                 }
             }
         }
+
+         .modal-header-text{
+            color: var(--dark-text-white-v1);
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .modal-sub-header-text{
+            margin-top: 5px;
+            color: var(--dark-modal-sub-header);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
         .es-modal-body{
-            padding: 15px;
+            margin-top: 16px;
             .es-modal-form{
                 .es-modal-form-label{
                     color: var(--dark-text-white-v1);
@@ -65,7 +80,7 @@
                     color: fieldtext !important;
                 }
                 .ng-select-container{
-                    padding: 10px;
+                    padding: 10px 0px;
                     background: transparent;
                     height: 40px;
                     width: 100%;
@@ -141,39 +156,37 @@
     }
 }
 
-.info-modal{
-    .modal-sub-header-text {
+// .info-modal{
+    
+//     .btn{
+//         height: 44px;
+//         width: 170px;
+//         border: none;
+//         font-size: 16px;
+//         line-height: 24px;
+//         font-weight: 600;
+//     }
 
-    }
-    .btn{
-        height: 44px;
-        width: 170px;
-        border: none;
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 600;
-    }
+//     .btn:hover {
+//         color: var(--dark-text-white-v1);
+//         border: var(--dark-secondary-btn-border) solid #D0D5DD;
+//     }
 
-    .btn:hover {
-        color: var(--dark-text-white-v1);
-        border: var(--dark-secondary-btn-border) solid #D0D5DD;
-    }
+//     .btn:first-child:active {
+//         color: var(--dark-text-white-v1);
+//     }
 
-    .btn:first-child:active {
-        color: var(--dark-text-white-v1);
-    }
+//     .btn-secondary:hover{
+//         background: var(--dark-secondary-btn-background);
+//     }
 
-    .btn-secondary:hover{
-        background: var(--dark-secondary-btn-background);
-    }
+//     .btn:first-child:active{
+//         background: var(--dark-secondary-btn-background);
+//     }
 
-    .btn:first-child:active{
-        background: var(--dark-secondary-btn-background);
-    }
-
-    .btn-secondary{
-        background: var(--dark-secondary-btn-background);
-        color: var(--dark-text-white-v1);
-        border: var(--dark-secondary-btn-border) solid #D0D5DD;
-    }
-}
+//     .btn-secondary{
+//         background: var(--dark-secondary-btn-background);
+//         color: var(--dark-text-white-v1);
+//         border: var(--dark-secondary-btn-border) solid #D0D5DD;
+//     }
+// }

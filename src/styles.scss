@@ -47,6 +47,19 @@
     --dark-dropdown-shadow: #000;
     --report-graph: #1D1F25;
     --dropdown-shadow: unset;
+    --search-placeholder-text: rgba(255,255,255,72%);
+
+    .user-dashboard-table-container {
+        color: var(--dark-text-white-v1);
+    }
+
+    .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head, .user-dashboard-table-container {
+        box-shadow: 4.05px 3px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .dashboard-head-flex {
+        // margin-bottom: 24px !important;
+    }
 }
 
 .lightMode{
@@ -81,12 +94,27 @@
     --dark-dropdown-shadow: #fff;
     --report-graph: #FFFFFF;
     --dropdown-shadow: 0px 4px 8px #D8DAFF;
-
+    --search-placeholder-text: rgba(0,0,0,72%);
+    
     .icon {
         path {
-            fill: black;
+            fill: var(--search-placeholder-text);
         }
     }
+
+    .btn-outline-custom {
+        color: #000 !important;
+    }
+    
+    .user-dashboard-table-container {
+        color: var(--dark-text-white-v6);
+        box-shadow: 4.05px 3px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head {
+        box-shadow: none;
+    }
+
 }
 
 body {
@@ -94,7 +122,7 @@ body {
     padding: 0;
     margin: 0;
     .modal-md{
-        --bs-modal-width: 500px;
+        --bs-modal-width: 400px;
     }
     .modal-sm{
         --bs-modal-width: 400px;

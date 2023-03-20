@@ -89,7 +89,7 @@
                         <div class="t-box b px-1 text-overflow-ellipsis">{{ subscription.planName }}</div>
                         <div class="t-box b px-1">{{subscription.expiryDate ? (subscription.expiryDate | date : 'dd/MM/YYYY') : 'NA'}}</div>
                         <div class="t-box b px-1 d-flex subscription-info-section">
-                            <span class="text-overflow-ellipsis"> {{subscription.subscriberEmail || ''}} </span>
+                            <span class="text-overflow-ellipsis" tooltip="{{subscription.subscriberEmail}}" placement="top" delay="100" offset="5"> {{subscription.subscriberEmail || ''}} </span>
                             <span class="subscription-info-icon" (click)="showSubscriptionInfo(subscription)" tooltip="Info" placement="top" delay="100" offset="-5">
                                 <img src="/assets/images/dashboard/icon/information.svg">
                             </span>
