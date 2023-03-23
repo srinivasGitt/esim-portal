@@ -52,7 +52,7 @@ export class PlanDialogComponent implements OnInit {
       dataSize: new UntypedFormControl(this.data?.dataSize, [Validators.required]),
       validityUnit: new UntypedFormControl(this.data?.validityUnit || 'days', [Validators.required]),
       validity: new UntypedFormControl(this.data?.validity, [Validators.required]),
-      sms: new UntypedFormControl(this.data?.sms, [Validators.required]),
+      smsPerDay: new UntypedFormControl(this.data?.smsPerDay, [Validators.required]),
       unlimited: new UntypedFormControl(this.data?.unlimited),
       voice: new UntypedFormControl(this.data?.voice, [Validators.required]),
       regionId: new UntypedFormControl(this.data?.regionId, [Validators.required]),

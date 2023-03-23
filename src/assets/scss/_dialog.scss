@@ -2,6 +2,7 @@
 .modal-content {
     background-color: var(--dark-background) !important;
     border-radius: 8px !important;
+
     .es-modal{
         .modal-header-flex{
             display: flex;
@@ -46,12 +47,12 @@
                 }
             }
         }
-
-         .modal-header-text{
+        .modal-header-text{
             color: var(--dark-text-white-v1);
             font-size: 18px;
             font-weight: 600;
         }
+
         .modal-sub-header-text{
             margin-top: 5px;
             color: var(--dark-modal-sub-header);
@@ -60,7 +61,6 @@
             font-size: 14px;
             line-height: 20px;
         }
-
         .es-modal-body{
             margin-top: 16px;
             .es-modal-form{
@@ -80,22 +80,22 @@
                     background-color:none !important;
                     color: fieldtext !important;
                 }
-                .ng-select-container{
-                    padding: 10px 0px;
-                    background: transparent;
-                    height: 40px;
-                    width: 100%;
-                    color: var(--dark-text-white-v6);
-                    border: none;
-                    border: 1px solid rgba(99, 101, 239, 0.48);
-                    input{
-                        color: transparent;
-                    }
-                    .ng-arrow {
-                        transform: rotate(-90deg);
-                        border-color: rgba(99, 101, 239, 0.48) transparent transparent;
-                    }
-                }
+                // .ng-select-container{
+                //     padding: 10px 0px;
+                //     background: transparent;
+                //     height: 40px;
+                //     width: 100%;
+                //     color: var(--dark-text-white-v6);
+                //     border: none;
+                //     border: 1px solid rgba(99, 101, 239, 0.48);
+                //     input{
+                //         color: transparent;
+                //     }
+                //     .ng-arrow {
+                //         transform: rotate(-90deg);
+                //         border-color: rgba(99, 101, 239, 0.48) transparent transparent;
+                //     }
+                // }
                 .ng-dropdown-panel{
                     margin-top: 10px;
                     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);

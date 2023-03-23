@@ -597,6 +597,7 @@
         width: 27px;
         margin-top: 10px !important;
         height: 18px;
+        
         input{
             opacity: 0;
             width: 0;
@@ -631,7 +632,8 @@
     }
     input:checked + .slider{
         background-color: var(--dark-primary-background);
-        border: 0;
+        // border: 0;
+        border: 1px solid var(--dark-primary-background);
         &:before {
             transform: translateX(10px);
             background-color: var(--dark-background);
@@ -792,6 +794,10 @@
                 }
             }
         }
+    }
+
+    .plan-table-head {
+        width: 480px;
     }
 }
 .inventory-management{
@@ -1152,10 +1158,11 @@
             right: 52px;
             transform: scale(1);
         }
-        .subscription-details{
+        .modal-details-text{
             font-size: 16px;
             font-weight: 400;
-
+            margin-top: 12px;
+            
             &.total-data {
                 font-weight: 600;
                 font-size: 18px;
@@ -1168,6 +1175,7 @@
                 height: 22px;
                 margin-left: 16px;
                 margin-top: 5px;
+                border-radius: 10px;
                 
                 input{
                     opacity: 0;
@@ -1206,7 +1214,9 @@
 
             input:checked + .slider{
                 background-color: var(--dark-primary-background);
-                border: 0;
+                // border: 0;
+                border: 1px solid var(--dark-primary-background);
+
                 &:before {
                     transform: translateX(14px);
                     background-color: var(--dark-background);
@@ -1225,6 +1235,11 @@
             .reading-label {
                 font-size: 10px !important;
                 font-weight: 400 !important;
+            }
+
+            // more countries
+            .more-countries {
+                text-decoration: underline;
             }
         }
     }
@@ -1334,6 +1349,55 @@
             }
         }
         
+        // Plan location search
+        .ng-search {        
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            margin-top: -36px;
+            position: absolute;
+        }
+
+        .ng-select-container{
+            padding: 10px 0px;
+            background: transparent;
+            height: 40px;
+            width: 100%;
+            color: var(--dark-text-white-v6);
+            border: none;
+            // border: 1px solid rgba(99, 101, 239, 0.48);
+            border: 1px solid var(--dark-right-border) !important;
+            
+            input{
+                color: transparent;
+            }
+            .ng-arrow {
+                transform: rotate(-90deg);
+                // border-color: rgba(99, 101, 239, 0.48) transparent transparent;
+                border-color: var(--dark-right-border) transparent transparent;
+            }
+        }
+
+        .location-input {
+            .ng-select-container{
+                border-color: var(--dark-right-border);
+                padding-top: 0;
+                padding-bottom: 0;
+                padding-left: 36px !important;
+            }
+        }
+        
+        ::ng-deep{
+            .multi-select-counties{
+                .ng-select-container{
+                    border-color: var(--dark-right-border);
+                    padding-left: 36px;
+                }
+                .ng-arrow-wrapper{
+                    display: none;
+                }                
+            }
+        }
     }
     
     // Subscription form date input

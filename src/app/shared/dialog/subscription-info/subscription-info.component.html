@@ -28,19 +28,19 @@
         <div class="row">
             <div class="col-4">
                 <label class="label-text">Plan Id</label>
-                <div class="subscription-details">
+                <div class="modal-details-text">
                     <!-- {{ subscriptionDetails.planName }} -->A0B1C025
                 </div>
             </div>
             <div class="col-4">
                 <label class="label-text">Date created</label>
-                <div class="subscription-details">
+                <div class="modal-details-text">
                     {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
             <div class="col-4">
                 <label class="label-text">Expiry Date</label>
-                <div class="subscription-details">
+                <div class="modal-details-text">
                     {{ subscriptionDetails.expiryDate | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
@@ -48,13 +48,13 @@
         <div class="row mt-4">
             <div class="col-4">
                 <label class="label-text">Price</label>
-                <div class="subscription-details" *ngIf="subscriptionDetails.priceBundle">
+                <div class="modal-details-text" *ngIf="subscriptionDetails.priceBundle">
                     {{ subscriptionDetails.priceBundle | currency: 'USD' }}
                 </div>
             </div>
             <div class="col-6">
                 <label class="label-text">User Email</label>
-                <div class="subscription-details">
+                <div class="modal-details-text">
                     {{ subscriptionDetails.subscriberEmail }}
                 </div>
             </div>
@@ -62,7 +62,7 @@
         <div class="row mt-4">
             <div class="col-4">
                 <label class="label-text">Data Usage</label>
-                <div class="subscription-details d-flex">
+                <div class="modal-details-text d-flex">
                     <ngx-gauge type="arch" [value]="getUsedData()" [thick]="10" [size]="90" [max]="totalData" cap="round" 
                         [label]="'/'+subscriptionDetails.data" append="GB"
                         foregroundColor="#6365EF" backgroundColor="#6365EF5E"></ngx-gauge>
@@ -73,7 +73,7 @@
             </div>
             <div class="col-4">
                 <label class="label-text">Auto Refill</label>
-                <div class="subscription-details d-flex">
+                <div class="modal-details-text d-flex">
                     <label class="switch">
                         <input type="checkbox" [(ngModel)]="subscriptionDetails.isAutoRefillOn">
                         <span class="slider"></span>
@@ -82,7 +82,7 @@
             </div>
             <div class="col-4">
                 <label class="label-text">Total Data</label>
-                <div class="subscription-details total-data">
+                <div class="modal-details-text total-data">
                     {{ subscriptionDetails.data }}
                 </div>
             </div>

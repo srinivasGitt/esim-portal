@@ -117,6 +117,10 @@
         box-shadow: none;
     }
 
+    .form-control {
+        border-color: var(--dark-right-border) !important;
+    }
+
 }
 
 body {
@@ -124,9 +128,9 @@ body {
     padding: 0;
     margin: 0;
     .modal-md{
-        // --bs-modal-width: 400px;     // for customer add/edit modals
-        // --bs-modal-width: 591px;        // for subscription add/edit modals
-        --bs-modal-width: 419px;     // for subscription info modals
+        // --bs-modal-width: 400px;     // for customer add/edit and plan info modals
+        --bs-modal-width: 591px;        // for subscription and plan add/edit modals
+        // --bs-modal-width: 419px;     // for subscription info modals
     }
     .modal-sm{
         --bs-modal-width: 400px;
