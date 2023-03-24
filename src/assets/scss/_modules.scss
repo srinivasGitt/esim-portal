@@ -1,6 +1,7 @@
 .main{
     background: var(--dark-background-v1);
-    padding: 39px 21px;
+    // padding: 39px 21px;
+    height: 100vh;
 }
 .main::-webkit-scrollbar {
     display: none;
@@ -8,6 +9,7 @@
 .main::-webkit-scrollbar-track {
     display: none;
 }
+/*
 .main-base-container{
     display: flex;
     // height: calc(100vh - 72px);
@@ -118,9 +120,86 @@
         display: none;
     }
     
-    /* background of the scrollbar except button or resizer */
+    background of the scrollbar except button or resizer
     .dashboard-main::-webkit-scrollbar-track {
         display: none;
+    }
+}
+*/
+
+.main-base-container{
+    display: flex;
+
+    // Sidebar layout
+    .sidebar-main{
+        width: 20vw;
+        height: 100vh;
+        padding: 20px;
+        background-color: var(--dark-background-v1);
+        
+        .sidebar-inner{
+            border-radius: var(--dark-sidebar-border-radius);
+            height: calc(100vh - 40px);
+            padding: 20px 8px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);            
+            background-color: var(--sidebar-table-background);
+
+            .sidebar-brand-parent{
+                // width: 80%;
+                // margin: 0 auto 20px;
+                padding: 0 auto;
+                text-align: center;
+
+                .brand-logo{
+                    width: 80%;
+                }
+            }
+
+            .sidebar-menu-list {
+                list-style: none;
+                // padding-left: 0;
+                margin: 30px 0 0 0;
+                padding: 0;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    // height: 48px;
+                    margin: 12px auto;
+                    font-weight: 400;
+                    font-size: var(--sidebar-link-text-size);
+                    // padding: 0 12px;
+
+                    .activeLink {
+                        background: var(--active-link-background-color);
+                        border-radius: 8px;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    color: var(--dark-text-white-v1);
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    padding: 10px 10px;
+
+                    img {
+                        margin-right: 12px;
+                    }
+                }
+            }
+        }
+    
+    }
+
+    // Main area layout
+    .dashboard-main{
+        width: 80vw;
+        padding: 20px 20px 20px 0;
+        background-color: var(--dark-background-v1);
+        overflow-y: scroll;
+        height: 100vh;
     }
 }
 
@@ -133,6 +212,8 @@
 }
 
 .user-dashboard{
+    margin-top: 40px;
+
     .info-head-section{
         label{
             font-family: var(--dark-font-family);
@@ -142,9 +223,10 @@
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 24px;
-        .dashboard-head-text{
-            font-size: 1.36vw;
+        margin: 20px 0 20px 0;
+
+        .dashboard-head-text h2 {
+            font-size: var(--heading-text-size) !important;
             font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
@@ -152,7 +234,7 @@
     }
     .section-head-text{
         padding: 5px;
-        border-bottom: 1px solid #6365EF ;
+        border-bottom: 1px solid #6365EF;
         color: #473BAA;
     }
     .dashboard-border-top{
@@ -164,8 +246,10 @@
     .dashboard-heading{
         color: var(--dark-text-white-v1);
         height: 36px;
-        h4{
-            color: var(--dark-text-white-v1);
+
+        h4 {
+            color: rgba(179, 179, 179, 0.65);
+            font-size: var(--min-font-size);
         }
         .border-right {
             border-right: 1px solid var(--dark-text-white-v1);
@@ -229,8 +313,10 @@
         background: var(--report-graph);
         width: 100%;
         border-radius: 20px;
-        padding: 15px
+        padding: 15px;
+        box-shadow: var(--box-shadow-size-color);
     }
+    
     .dashboard-widget{
         background: var(--dark-background-v2);
         border-radius: 20px;
@@ -256,17 +342,20 @@
     }
 }
 .subscriber-management{
+    margin-top: 40px;
+
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 24px;
-        .dashboard-head-text{
-            font-size: 1.36vw;
+        margin: 0 0 20px 0;
+
+        .dashboard-head-text h2 {
+            font-size: var(--heading-text-size) !important;
             font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
-        .btn-dashboard-head{
+        .btn-dashboard-head, .btn-dashboard-head:active{
             color: #fff;
             background-color: #6365EF;
             border-radius: 25px;
@@ -358,7 +447,7 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            width: 90px;
+            // width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -372,6 +461,8 @@
 }
 
 .user-management{
+    margin-top: 40px;
+
     .info-head-section{
         label{
             font-family: var(--dark-font-family);
@@ -381,7 +472,8 @@
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 24px;
+        margin: 20px 0 20px 0;
+
         .filter-head{
             color: var(--dark-text-white-v1);
             height: 50px;
@@ -479,7 +571,7 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            width: 90px;
+            // width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -493,22 +585,27 @@
 }
 
 .plan-management{
+    margin-top: 40px;
+    
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 24px;
-        .dashboard-head-text{
-            font-size: 1.36vw;
+        margin: 0 0 20px 0;
+        align-items: center;
+
+        .dashboard-head-text h2{
+            font-size: var(--heading-text-size) !important;
             font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
-        .btn-dashboard-head{
+        .btn-dashboard-head, .btn-dashboard-head:active{
             color: #fff;
             background-color: #6365EF;
             border-radius: 25px;
             padding: 4px 26px;
             height: 50px;
+            border: none;
             .btn-add-icon{
                 background: #fff;
                 color: #6365EF;
@@ -579,7 +676,7 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            width: 115px;
+            // width: 115px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -644,22 +741,28 @@
     }
 }
 .subscription-management{
+    margin-top: 40px;
+
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 24px;
-        .dashboard-head-text{
-            font-size: 1.36vw;
+        margin: 0 0 20px 0;
+        align-items: center;
+
+        .dashboard-head-text h2 {
+            font-size: var(--heading-text-size) !important;
             font-family: var(--dark-font-family);
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
-        .btn-dashboard-head{
+
+        .btn-dashboard-head, .btn-dashboard-head:active{
             color: #fff;
             background-color: #6365EF;
             border-radius: 25px;
             padding: 4px 26px;
             height: 50px;
+            border: none;
             .btn-add-icon{
                 background: #fff;
                 color: #6365EF;
@@ -692,9 +795,9 @@
             }
         }
         .t-box{
-            padding: 14px 0;
-            padding-left: .5rem !important;
-            width: 100%;
+            padding: 14px 10px;
+            // padding-left: .5rem !important;
+            // width: 100%;
             justify-content: center;
             text-align: center;
             color: var(--dark-text-white-v1);
@@ -734,7 +837,7 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            width: 90px;
+            // width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -777,10 +880,11 @@
             }
         }
         .ng-dropdown-panel{
-            margin-top: 10px;
+            margin-top: 4px;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-            border-radius: 4px;
+            border-radius: 8px;
             border: none;
+
             .ng-option{
                 padding: 10px 10px 10px 30px;
                 background: var(--dark-background);
@@ -862,6 +966,8 @@
 }
 
 .customer-management{
+    margin-top: 40px;
+
     .info-head-section{
         label{
             font-family: var(--dark-font-family);
@@ -871,7 +977,8 @@
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 24px;
+        margin: 0 0 20px 0;
+
         .filter-head{
             color: var(--dark-text-white-v1);
             height: 50px;
@@ -894,12 +1001,14 @@
                 transform: rotate(-90deg);
             }
         }
-        .btn-dashboard-head{
+        .btn-dashboard-head, .btn-dashboard-head:active{
             color: #fff;
             background-color: #6365EF;
             border-radius: 25px;
             padding: 4px 26px;
             height: 50px;
+            border: none;
+
             .btn-add-icon{
                 background: #fff;
                 color: #6365EF;
@@ -970,7 +1079,7 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            width: 90px;
+            // width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -996,48 +1105,48 @@
     }
 }
 
-.dashboard-head-flex{
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0 24px;
-    .filter-head{
-        color: var(--dark-text-white-v1);
-        height: 50px;
-        border-radius: 13px;
-        background: var(--dark-background-v2);
-        img{
-            height: 18px;
-            width: auto;
-        }
-        .w-80px{
-            width: 80px;
-        }
-        .rotate-90-deg{
-            transform: rotate(90deg);
-        }
-        .rotate-180-deg{
-            transform: rotate(180deg);
-        }
-        .rotate-n-90-deg{
-            transform: rotate(-90deg);
-        }
-    }
-    .btn-dashboard-head{
-        color: #fff;
-        background-color: #6365EF;
-        border-radius: 25px;
-        padding: 4px 26px;
-        height: 50px;
-        .btn-add-icon{
-            background: #fff;
-            color: #6365EF;
-            height: 20px;
-            width: 20px;
-            line-height: 17px;
-            border-radius: 50%;
-        }
-    }
-}
+// .dashboard-head-flex{
+//     display: flex;
+//     justify-content: space-between;
+//     margin: 20px 0 24px;
+//     .filter-head{
+//         color: var(--dark-text-white-v1);
+//         height: 50px;
+//         border-radius: 13px;
+//         background: var(--dark-background-v2);
+//         img{
+//             height: 18px;
+//             width: auto;
+//         }
+//         .w-80px{
+//             width: 80px;
+//         }
+//         .rotate-90-deg{
+//             transform: rotate(90deg);
+//         }
+//         .rotate-180-deg{
+//             transform: rotate(180deg);
+//         }
+//         .rotate-n-90-deg{
+//             transform: rotate(-90deg);
+//         }
+//     }
+//     .btn-dashboard-head{
+//         color: #fff;
+//         background-color: #6365EF;
+//         border-radius: 25px;
+//         padding: 4px 26px;
+//         height: 50px;
+//         .btn-add-icon{
+//             background: #fff;
+//             color: #6365EF;
+//             height: 20px;
+//             width: 20px;
+//             line-height: 17px;
+//             border-radius: 50%;
+//         }
+//     }
+// }
 
 .lightMode{
     .filter-head{
@@ -1054,7 +1163,6 @@
     height: 50px;
     // margin-right: 1.5rem;
     position: absolute;
-    top: 40px;
     padding: auto 26px;
 
     .form-control{
@@ -1242,6 +1350,40 @@
                 text-decoration: underline;
             }
         }
+
+
+        .subscriber-label-text {
+            font-size: 14px;
+            font-weight: 500;
+            // padding-right: 0 !important;
+            padding-left: 0;
+            // margin-left: 10px;
+        }
+        
+        .subscriber-details-text {
+            font-size: 14px;
+            font-weight: 500;
+            // padding-left: 0 !important;
+        }
+
+        .activation-code-scroll {
+            width: 230px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding-left: 0;
+            margin-left: 10px;
+
+            &::-webkit-scrollbar {
+                display: none !important;
+            }
+        }
+
+        .horizontal-line {
+            color: var(--horizontal-line-color);
+            width: calc(100% - 20px);
+            margin: 12px auto;
+        }
     }
 
     // Form
@@ -1265,6 +1407,7 @@
                 background-position: right;
                 background-position-x: 90%;
                 background-size: 10px;
+                border: 1px solid var(--dark-modal-input-border);
                 option{
                     color: var(--dark-text-white-v1) !important;
                 }
@@ -1416,3 +1559,166 @@
         
     }
 }
+
+// Component Content Area Common Css
+.main-content-div-area{
+    margin-top: 40px;
+
+    /* Dashboard CSS - Start */
+    .info-head-section{
+        label{
+            font-family: var(--dark-font-family);
+            color: var(--dark-text-white-v4);
+        }
+    }
+    
+    .heading-flex{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        
+        .heading-text h2{
+            font-size: var(--heading-text-size);
+            font-family: var(--dark-font-family);
+            color: var(--dark-text-white-v1);
+        }
+    }
+
+
+    .section-head-text{
+        padding: 5px;
+        border-bottom: 1px solid #6365EF;
+        color: var(--section-head-text-color);
+
+        font-weight: 500;
+    }
+
+    .dashboard-border-top{
+        border-top: 1px solid #a8a9fd57;
+    }
+
+    .dashboard-border-left{
+        border-left: 1px solid #a8a9fd57;
+    }
+
+    .dashboard-heading{
+        color: var(--dark-text-white-v1);
+        height: 36px;
+        h4{
+            color: var(--dark-text-white-v1);
+        }
+        .border-right {
+            border-right: 1px solid var(--dark-right-border);
+            padding-right: 8px;
+            margin-right: 8px;
+        }
+        .main-legend:before{
+            content: "";
+            margin-top: 4px;
+            margin-right: 5px;
+            position: relative;
+            display: flex;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background-color: #6365EF;
+        }
+        .sub-legend{
+            &.current-status:before{
+                background-color: #6365EF;
+            }
+            &.previous-status:before{
+                background-color: #6B6B7366;
+            }
+            &:before{
+                content: '';
+                margin-top: 10px;
+                margin-right: 5px;
+                position: relative;
+                display: flex;
+                width: 6px;
+                height: 6px;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+            }
+        }
+        .selector-filter{
+            // width: 90px;
+            // margin-top: -2px;
+            .ng-select-container{
+                background: var(--dropdown-filter);
+                height: 34px;
+                color: var(--dropdown-text-white);
+                // border-color: var(--dark-modal-input-border);
+                border: none;
+                width: 160px;
+                border-radius: 8px;
+
+                input{
+                    color: transparent;
+                }
+            }
+            .ng-dropdown-panel{
+                margin-top: 4px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                border-radius: 8px;
+                border: none;
+                width: 160px;
+                background: var(--dropdown-filter);
+                
+                .ng-dropdown-panel-items {
+                    border-radius: 8px;
+                }
+                .ng-option{
+                    background: var(--dropdown-filter);
+                    color: var(--dropdown-text-white);
+                }
+            }
+        }
+    }
+    .dashboard-graph{
+        background: var(--report-graph);
+        // background: var(--sidebar-table-background);
+        width: 100%;
+        border-radius: 20px;
+        padding: 15px;
+        margin-left: 4px;
+        box-shadow: var(--box-shadow-size-color);
+    }
+    
+    .dashboard-widget{
+        background: var(--sidebar-table-background);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+        // height: 160px;
+        color: var(--dark-text-white-v1);
+        box-shadow: var(--box-shadow-size-color);
+        
+        .widget-header{
+            width: 100%;
+            display: flex;
+            
+            .widget-text{
+                margin-left: 10px;
+                font-size: 20px;
+                line-height: 26px;
+                font-weight: 500;
+            }
+        }
+        
+        .widget-body{
+            padding: 10px 0;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .widget-footer {
+            font-size: 12px;
+        }
+    }
+    /* Dashboard CSS - End */
+
+}
+

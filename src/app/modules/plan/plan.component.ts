@@ -30,7 +30,7 @@ export class PlanComponent implements OnInit {
   }
 
   createPlan() {
-    this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Plan'} })
+    this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-lg', context: {data: {}, title: 'Add New Plan'} })
       .instance.close.subscribe((data: any) => {
         if(data){
           let vm  = this;
@@ -52,7 +52,7 @@ export class PlanComponent implements OnInit {
   }
 
   editPlans(plan: any) {
-    this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-md', context: {data: plan, title: 'Edit Plan'} })
+    this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-lg', context: {data: plan, title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
           if(data){
             this.plansList = this.plansList.map((p : any) => {if(p._id == plan._id) p = data; return p;});
@@ -89,7 +89,7 @@ export class PlanComponent implements OnInit {
   }
 
   showPlanInfo(plan : any){
-    this.dialogService.openModal(PlanInfoComponent, { cssClass: 'modal-md', context: {data: plan} })
+    this.dialogService.openModal(PlanInfoComponent, { cssClass: 'modal-sm', context: {data: plan} })
     .instance.close.subscribe((data: any) => {
 
     },

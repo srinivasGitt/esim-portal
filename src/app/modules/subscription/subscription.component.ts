@@ -34,7 +34,7 @@ export class SubscriptionComponent implements OnInit {
     this.getAllSubscription();
   }
   createSubscription() {
-    this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Subscription'} })
+    this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-lg', context: {data: {}, title: 'Add New Subscription'} })
       .instance.close.subscribe((data: any) => {
         if(data){
           let vm  = this;
@@ -62,7 +62,7 @@ export class SubscriptionComponent implements OnInit {
 
   }
   editSubscription(subscription : any) {
-    this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-md', context: {data: subscription, title: 'Edit Subscription'} })
+    this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-lg', context: {data: subscription, title: 'Edit Subscription'} })
       .instance.close.subscribe((data: any) => {
         if(data){
           this.subscriptionList = this.subscriptionList.map((s : any) => {if(s._id == subscription._id) s = data; return s;});

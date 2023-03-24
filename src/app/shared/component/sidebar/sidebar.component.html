@@ -1,11 +1,11 @@
 <!-- Default Sidebar -->
-<div class="sidebar-inner sidebar-inner-1" [ngClass]="{'d-none': show}"  id="sidebar-1">
+<div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
     <div class="sidebar-brand-parent">
         <a class="sidebar-brand" routerLink="/">
-          <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '.svg' : '-dark.svg')" alt="">
+            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '.svg' : '-dark.svg')" alt="">
         </a>
     </div>
-    <a [routerLink]="[menu.link]" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === menu.link}" *ngFor="let menu of sidebarMenuList" [class.disable-link]="menu.isDisabled">
+    <!-- <a [routerLink]="[menu.link]" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === menu.link}" *ngFor="let menu of sidebarMenuList" [class.disable-link]="menu.isDisabled">
         <div class="sidebar-anchor-tab-flex">
             <div class="sidebar-anchor-tab-flex-img-container">
                 <img class="sidebar-anchor-tab-flex-img" [src]="menu.icon" alt="">
@@ -17,7 +17,22 @@
                 <img class="sidebar-anchor-tab-flex-img" [src]="'/assets/images/dashboard/icon/arrow-right' + (isDarkTheme ? '.svg' : '-dark.svg')" [ngStyle]="{'transform': (activeUrl === menu.link ? 'rotate(90deg)' : 'none')}" alt="">
             </div>
         </div>
-    </a>
+    </a> -->
+    <ul class="sidebar-menu-list">
+        <li *ngFor="let menu of sidebarMenuList">
+            <a class="nav-link" [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                <img [src]="menu.icon" [alt]="menu.title">
+                    <!-- </div>  -->
+                    <!-- <div class="sidebar-anchor-tab-flex-text-container"> -->
+                    {{ menu.title }}
+                    <!-- </div> -->
+                    <!-- <div class="sidebar-anchor-tab-flex-text-container ms-auto" *ngIf="menu.hasGroup">
+                        <img class="sidebar-anchor-tab-flex-img" [src]="'/assets/images/dashboard/icon/arrow-right' + (isDarkTheme ? '.svg' : '-dark.svg')" [ngStyle]="{'transform': (activeUrl === menu.link ? 'rotate(90deg)' : 'none')}" alt="">
+                    </div> -->
+                <!-- </div> -->
+            </a>
+        </li>
+    </ul>
     <!-- <div class="cursor-not-allowed">
         <a href="/reports" class="sidebar-anchor-tab cursor-none noClick" aria-disabled="true" disabled>
             <div class="sidebar-anchor-tab-flex ">
