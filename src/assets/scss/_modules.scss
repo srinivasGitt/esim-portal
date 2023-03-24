@@ -1242,6 +1242,40 @@
                 text-decoration: underline;
             }
         }
+
+
+        .subscriber-label-text {
+            font-size: 14px;
+            font-weight: 500;
+            // padding-right: 0 !important;
+            padding-left: 0;
+            // margin-left: 10px;
+        }
+        
+        .subscriber-details-text {
+            font-size: 14px;
+            font-weight: 500;
+            // padding-left: 0 !important;
+        }
+
+        .activation-code-scroll {
+            width: 230px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding-left: 0;
+            margin-left: 10px;
+
+            &::-webkit-scrollbar {
+                display: none !important;
+            }
+        }
+
+        .horizontal-line {
+            color: var(--horizontal-line-color);
+            width: calc(100% - 20px);
+            margin: 12px auto;
+        }
     }
 
     // Form
