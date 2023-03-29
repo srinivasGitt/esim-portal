@@ -29,4 +29,14 @@ export class UserInfoComponent implements OnInit {
     this.dialogRef.close.emit('edit');
   }
 
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+
+    navigator.clipboard.writeText(email);
+  }
 }

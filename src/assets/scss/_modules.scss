@@ -231,6 +231,31 @@
             color: var(--dark-text-white-v1);
             margin-bottom: 0;
         }
+
+        .filter-head{
+            color: var(--dark-text-white-v1);
+            height: 50px;
+            border-radius: 13px;
+            background-color: var(--sidebar-table-background);
+            box-shadow: var(--box-shadow-size-color);
+
+            img{
+                height: 18px;
+                width: auto;
+            }
+            .w-80px{
+                width: 80px;
+            }
+            .rotate-90-deg{
+                transform: rotate(90deg);
+            }
+            .rotate-180-deg{
+                transform: rotate(180deg);
+            }
+            .rotate-n-90-deg{
+                transform: rotate(-90deg);
+            }
+        }
     }
     .section-head-text{
         padding: 5px;
@@ -472,13 +497,15 @@
     .dashboard-head-flex{
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 20px 0;
+        margin: 0 0 20px 0;
 
         .filter-head{
             color: var(--dark-text-white-v1);
             height: 50px;
             border-radius: 13px;
-            background: var(--dark-background-v2);
+            background-color: var(--sidebar-table-background);
+            box-shadow: var(--box-shadow-size-color);
+            
             img{
                 height: 18px;
                 width: auto;
@@ -496,12 +523,14 @@
                 transform: rotate(-90deg);
             }
         }
-        .btn-dashboard-head{
+        .btn-dashboard-head, .btn-dashboard-head:active {
             color: #fff;
             background-color: #6365EF;
             border-radius: 25px;
             padding: 4px 26px;
             height: 50px;
+            border: none;
+
             .btn-add-icon{
                 background: #fff;
                 color: #6365EF;
@@ -983,7 +1012,9 @@
             color: var(--dark-text-white-v1);
             height: 50px;
             border-radius: 13px;
-            background: var(--dark-background-v2);
+            background-color: var(--sidebar-table-background);
+            box-shadow: var(--box-shadow-size-color);
+
             img{
                 height: 18px;
                 width: auto;
@@ -1150,7 +1181,7 @@
 
 .lightMode{
     .filter-head{
-        background: #fff !important;
+        background: var(--sidebar-table-background);
     }
 }
 .disabled{
@@ -1380,9 +1411,13 @@
         }
 
         .horizontal-line {
-            color: var(--horizontal-line-color);
+            background-color: var(--horizontal-line-color);
             width: calc(100% - 20px);
             margin: 12px auto;
+        }
+
+        .icon {
+            cursor: pointer;
         }
     }
 

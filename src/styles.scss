@@ -49,7 +49,7 @@
     --report-graph: #1D1F25;
     --dropdown-shadow: unset;
     --search-placeholder-text: rgba(255,255,255,72%);
-    --horizontal-line-color: rgba(135, 118, 118, 0.13);
+    --horizontal-line-color:rgba(235, 235, 235, 0.08);
     --sidebar-link-text-size: 1.2vw;
     --active-link-background-color: rgba(99, 101, 239, 0.17);
     --heading-text-size: 1.625rem;
@@ -107,11 +107,12 @@
     --report-graph: #FFFFFF;
     --dropdown-shadow: 0px 4px 8px #D8DAFF;
     --search-placeholder-text: rgba(0,0,0,72%);
-    --horizontal-line-color: #EBEBEB;
+    --horizontal-line-color: rgba(235, 235, 235, 0.08);
     --sidebar-link-text-size: 1.2vw;
     --active-link-background-color: rgba(99, 101, 239, 0.17);
     --heading-text-size: 1.625rem;
-    --box-shadow-size-color: 0 0 6px rgba(0, 0, 0, 0.4);
+    // --box-shadow-size-color: 0 0 6px rgba(0, 0, 0, 0.4);
+    --box-shadow-size-color: 4.05px 3px 6px rgba(0, 0, 0, 0.4);
     --dropdown-filter: #1f1f1f;
     --dropdown-text-white: #fff;
     --sidebar-table-background: #fff;
@@ -130,7 +131,7 @@
     .user-dashboard-table-container {
         color: var(--dark-text-white-v6);
         background: var(--sidebar-table-background);
-        box-shadow: 4.05px 3px 6px rgba(0, 0, 0, 0.4);
+        box-shadow: var(--box-shadow-size-color);
     }
 
     .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head {
