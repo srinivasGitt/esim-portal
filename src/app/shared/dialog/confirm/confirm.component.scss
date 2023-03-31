@@ -3,7 +3,8 @@
         border-radius: 28px;
         width: 56px;
         svg{
-            transform: scale(2);
+            transform: scale(1.2);
+            margin-left: 2px;
         }
         &.trash-icon{
             background: var(--dark-danger-background);
@@ -21,7 +22,7 @@
         }
     }
     .es-modal-footer{
-        padding: 15px;
+        // padding: 15px;
         .btn{
             height: 44px;
             width: 170px;

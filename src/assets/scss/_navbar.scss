@@ -1,5 +1,5 @@
 .navbar.main-navbar{
-    padding: 0 0 10px;
+    padding: 0;
     .navbar-toggler-parent{
         width: 3.25vw;
         height: auto;
@@ -183,7 +183,7 @@
       }
       
       input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
+        // box-shadow: 0 0 1px #2196F3;
       }
       
       input:checked + .slider:before {
@@ -217,8 +217,9 @@
         left: 7%;
         background-color: #24272C;
         img{
-            width: 80%;
+            // width: 80%;
             height: auto;
+            transform: scale(1.8);
         }
       }
 }
