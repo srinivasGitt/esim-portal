@@ -16,10 +16,10 @@
 
 :root{
     --dark-background: #151616;
-    --dark-background-v1: #151616;
-    --dark-background-v2: #1C1C1E;
+    --dark-background-v1: #151616;              // --sidebar-background-color
+    --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
     --dark-background-v3: #181B21;
-    --dark-text-white-v1: #fff;
+    --dark-text-white-v1: #fff;                 // --font-color
     --dark-text-white-v2: #959595;
     --dark-text-white-v3: #8D8D8D;
     --dark-text-white-v4: rgba(233, 233, 233, 0.51);
@@ -50,7 +50,7 @@
     --dropdown-shadow: unset;
     --search-placeholder-text: rgba(255,255,255,72%);
     --horizontal-line-color:rgba(235, 235, 235, 0.08);
-    --sidebar-link-text-size: 1.2vw;
+    --sidebar-link-text-size: 1rem;
     --active-link-background-color: rgba(99, 101, 239, 0.17);
     --heading-text-size: 1.625rem;
     --box-shadow-size-color: 0 0 6px rgba(0, 0, 0, 0.4);
@@ -59,9 +59,15 @@
     --sidebar-table-background: #1C1C1E;
     --section-head-text-color: #9F94FF;
     --min-font-size: 1rem;
-    
+
+    /* Whitelabel Variables*/
+    --sidebar-background-color: #151616;
+    --font-color: #fff;
+    --card-background-color: #1D1F25;
+    --navbar-ele-bg-color: #1C1C1E;
+
     .user-dashboard-table-container {
-        color: var(--dark-text-white-v1);
+        color: var(--font-color);
     }
 
     .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head, .user-dashboard-table-container {
@@ -75,10 +81,10 @@
 
 .lightMode{
     --dark-background: #fff;
-    --dark-background-v1: #F5F6F9;
-    --dark-background-v2: #E9EAF0;
+    --dark-background-v1: #F5F6F9;              // --sidebar-background-color
+    --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
     --dark-background-v3: #D9D9D978;
-    --dark-text-white-v1: #25282B;
+    --dark-text-white-v1: #25282B;              // --font-color
     --dark-text-white-v2: #797979;
     --dark-text-white-v3: #959595;
     --dark-text-white-v4: rgba(79, 79, 79, 0.72);
@@ -108,7 +114,7 @@
     --dropdown-shadow: 0px 4px 8px #D8DAFF;
     --search-placeholder-text: rgba(0,0,0,72%);
     --horizontal-line-color: rgba(235, 235, 235, 0.08);
-    --sidebar-link-text-size: 1.2vw;
+    --sidebar-link-text-size: 1rem;
     --active-link-background-color: rgba(99, 101, 239, 0.17);
     --heading-text-size: 1.625rem;
     // --box-shadow-size-color: 0 0 6px rgba(0, 0, 0, 0.4);
@@ -117,6 +123,12 @@
     --dropdown-text-white: #fff;
     --sidebar-table-background: #fff;
     --section-head-text-color: #473BAA;
+
+    /* Whitelabel Variables*/
+    --sidebar-background-color: #F5F6F9;
+    --font-color: #25282B;
+    --card-background-color: #fff;
+    --navbar-ele-bg-color: #E9EAF0;
 
     .icon {
         path {

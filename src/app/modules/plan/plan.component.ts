@@ -51,6 +51,8 @@ export class PlanComponent implements OnInit {
     );
   }
 
+  /*
+  // edit plan
   editPlans(plan: any) {
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-lg', context: {data: plan, title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
@@ -62,6 +64,7 @@ export class PlanComponent implements OnInit {
           this.alertService.error(err.error.message);
         });
   }
+  */
 
   deletePlan( plan : any) {
     let data = {
