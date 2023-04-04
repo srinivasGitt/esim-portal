@@ -16,16 +16,16 @@
 
 :root{
     --dark-background: #151616;
-    --dark-background-v1: #151616;              // --sidebar-background-color
-    --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
+    // --dark-background-v1: #151616;              // --sidebar-background-color
+    // --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
     --dark-background-v3: #181B21;
-    --dark-text-white-v1: #fff;                 // --font-color
+    // --dark-text-white-v1: #fff;                 // --font-color
     --dark-text-white-v2: #959595;
     --dark-text-white-v3: #8D8D8D;
     --dark-text-white-v4: rgba(233, 233, 233, 0.51);
     --dark-text-white-v5: rgba(255, 255, 255);
     --dark-text-white-v6:rgba(255, 255, 255, 0.72);
-    --dark-theme-blue-v1: #6365EF;
+    // --dark-theme-blue-v1: #6365EF;              // --add-button-bg-color
     --dark-right-border: rgb(69, 69, 69, 0.48);
     --dark-sidebar-border-radius: 10px;
     --dark-table-background: #1D1F25;
@@ -65,6 +65,7 @@
     --font-color: #fff;
     --card-background-color: #1D1F25;
     --navbar-ele-bg-color: #1C1C1E;
+    --add-button-bg-color: #6365EF;
 
     .user-dashboard-table-container {
         color: var(--font-color);
@@ -81,16 +82,16 @@
 
 .lightMode{
     --dark-background: #fff;
-    --dark-background-v1: #F5F6F9;              // --sidebar-background-color
-    --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
+    // --dark-background-v1: #F5F6F9;              // --sidebar-background-color
+    // --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
     --dark-background-v3: #D9D9D978;
-    --dark-text-white-v1: #25282B;              // --font-color
+    // --dark-text-white-v1: #25282B;              // --font-color
     --dark-text-white-v2: #797979;
     --dark-text-white-v3: #959595;
     --dark-text-white-v4: rgba(79, 79, 79, 0.72);
     --dark-text-white-v5: rgba(0, 0, 0);
     --dark-text-white-v6:rgba(0, 0, 0, 0.72);
-    --dark-theme-blue-v1: #6365EF;
+    // --dark-theme-blue-v1: #6365EF;              // --add-button-bg-color
     --dark-right-border: rgb(69, 69, 69, 0.48);
     --dark-sidebar-border-radius: 10px;
     --dark-table-background: #ffffff;
@@ -129,6 +130,7 @@
     --font-color: #25282B;
     --card-background-color: #fff;
     --navbar-ele-bg-color: #E9EAF0;
+    --add-button-bg-color: #6365EF;
 
     .icon {
         path {

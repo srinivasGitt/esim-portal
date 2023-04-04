@@ -68,8 +68,8 @@
                         <input type="number" class="form-control es-input left-radius-0" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
                     </div>
                     <div class="input-number-btn">
-                        <span class="number-incremental" (click)="updateValue('dataSize', 'inc')"> + </span>
                         <span class="number-decremental" (click)="updateValue('dataSize', 'dec')"> - </span>
+                        <span class="number-incremental" (click)="updateValue('dataSize', 'inc')"> + </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.dataSize.touched && f.dataSize.pristine) || (f.dataSize.errors && submitted)">
@@ -89,8 +89,8 @@
                         <input type="number" class="form-control es-input" id="voice" aria-describedby="voice" formControlName="voice" [class.disabled]="f.unlimited.value">
                     </div>
                     <div class="input-number-btn">
-                        <span class="number-incremental" [class.disabled]="f.unlimited.value" (click)="updateValue('voice', 'inc')"> + </span>
                         <span class="number-decremental" [class.disabled]="f.unlimited.value" (click)="updateValue('voice', 'dec')"> - </span>
+                        <span class="number-incremental" [class.disabled]="f.unlimited.value" (click)="updateValue('voice', 'inc')"> + </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.voice.touched && f.voice.pristine) || (f.voice.errors && submitted)">
@@ -106,8 +106,8 @@
                     <label for="smsPerDay" class="form-label es-modal-form-label">SMS*</label>
                     <input type="number" class="form-control es-input" id="smsPerDay" aria-describedby="smsPerDay" formControlName="smsPerDay">
                     <div class="input-number-btn">
-                        <span class="number-incremental" (click)="updateValue('sms', 'inc')"> + </span>
                         <span class="number-decremental" (click)="updateValue('sms', 'dec')"> - </span>
+                        <span class="number-incremental" (click)="updateValue('sms', 'inc')"> + </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.smsPerDay.touched && f.smsPerDay.pristine) || (f.smsPerDay.errors && submitted)">
@@ -128,8 +128,8 @@
                         <input type="number" class="form-control es-input left-radius-0" id="validity" aria-describedby="validity" formControlName="validity">
                     </div>
                     <div class="input-number-btn">
-                        <span class="number-incremental" (click)="updateValue('validity', 'inc')"> + </span>
                         <span class="number-decremental" (click)="updateValue('validity', 'dec')"> - </span>
+                        <span class="number-incremental" (click)="updateValue('validity', 'inc')"> + </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.validity.touched && f.validity.pristine) || (f.validity.errors && submitted)">
@@ -148,8 +148,8 @@
                         <span class="form-label es-modal-form-label price-input-icon"> $ </span>
                     </div>
                     <div class="input-number-btn">
-                        <span class="number-incremental" (click)="updateValue('cost', 'inc')"> + </span>
                         <span class="number-decremental" (click)="updateValue('cost', 'dec')"> - </span>
+                        <span class="number-incremental" (click)="updateValue('cost', 'inc')"> + </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.cost.touched && f.cost.pristine) || (f.cost.errors && submitted)">

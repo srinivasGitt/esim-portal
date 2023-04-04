@@ -55,7 +55,7 @@
         }
         }
         &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{
-            background: #6365EF !important;
+            background: var(--add-button-bg-color) !important;
         }
         a:hover, button:hover{
             background: transparent;    
