@@ -1,5 +1,6 @@
 .multi-color-border {
     position: relative;
+    margin-bottom: 20px;
 }
 
 .multi-color-border::after{
@@ -42,7 +43,7 @@
     transform: translate(-25px, 50px) !important;
     background-color: var(--dark-dropdown) !important;
     .lang-dropdown-item {
-        color: var(--dark-text-white-v1) ;
+        color: var(--font-color) ;
         padding: 10px 15px;
     }
     .dropdown-item {
@@ -61,7 +62,7 @@
     appearance: none;
     padding: 5px 0px !important;
     padding-left: 0px !important;
-    color: var(--dark-text-white-v1);
+    color: var(--font-color);
     text-decoration: none;
     .fa-angle-down {
         color: rgba(99, 101, 239, 1);
