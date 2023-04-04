@@ -1,5 +1,6 @@
 .navbar.main-navbar{
-    padding: 0 0 10px;
+    
+    padding: 0;
     .navbar-toggler-parent{
         width: 3.25vw;
         height: auto;
@@ -59,7 +60,7 @@
 
     .user-name-div{
         font-family: var(--dark-font-family);
-        font-size: 1.25vw;
+        font-size: 1rem;
         color: var(--dark-text-white-v1) !important;
     }
     .user-profile-div{
@@ -76,10 +77,21 @@
         background-color: var(--dark-background) !important;
         .dropdown-item{
             color: var(--dark-text-white-v2) !important;
+            cursor: pointer;
             &:hover{
                 background-color: var(--dark-background-v2) !important;
             }
         }
+    }
+
+    .btn-dropdown{
+        padding: 0;
+    }
+    .btn.show, .btn:first-child:active {
+        border-color: transparent;
+    }
+    .dropdown-menu{
+        left: -7.5vw;
     }
 }
 .enve-toggle-parent {
@@ -183,7 +195,7 @@
       }
       
       input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
+        // box-shadow: 0 0 1px #2196F3;
       }
       
       input:checked + .slider:before {
@@ -198,8 +210,8 @@
 
       .dark-mode-icon{
         position: absolute;
-        height: 38px;
-        width: 38px;
+        height: 2.375rem;
+        width: 2.375rem;
         top: 11%;
         right: 7%;
         img{
@@ -210,15 +222,16 @@
       }
       .light-mode-icon{
         position: absolute;
-        height: 38px;
-        width: 38px;
+        height: 2.375rem;
+        width: 2.375rem;
         border-radius: 50%;
         top: 11%;
         left: 7%;
         background-color: #24272C;
         img{
-            width: 80%;
+            // width: 80%;
             height: auto;
+            transform: scale(1.8);
         }
       }
 }
@@ -229,3 +242,4 @@
         display: block !important;
     }
 }
+

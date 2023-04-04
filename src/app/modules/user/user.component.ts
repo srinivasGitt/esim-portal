@@ -98,7 +98,7 @@ export class UserComponent implements OnInit {
   }
 
   createUser() {
-    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New User', customerId: this.userDetails.customerId || this.customerId} })
+    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New User', customerId: this.userDetails.customerId || this.customerId} })
       .instance.close.subscribe((data: any) => {
         if (data) {
           this.getAllUsers();
@@ -122,7 +122,7 @@ export class UserComponent implements OnInit {
   }
 
   editUser(user: any) {
-    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-md', context: {data: user, title: 'Edit User'} })
+    this.dialogService.openModal(UserMgmtComponent, { cssClass: 'modal-sm', context: {data: user, title: 'Edit User'} })
       .instance.close.subscribe((data: any) => {
         let vm  = this;
         if(data){

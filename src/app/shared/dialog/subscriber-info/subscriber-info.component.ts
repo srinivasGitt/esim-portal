@@ -15,7 +15,7 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Display name', key : 'displayName', customClass: '' },
     { title : 'Email address', key : 'email', customClass: '' },
     { title : 'ICCID', key : 'iccid', customClass: '' },
-    { title : 'Activation Code', key : 'activationCode', customClass: 'line-height-1-5' },
+    { title : 'Activation Code', key : 'activationCode', customClass: '' },
     { title : 'Date Created', key : 'created', customClass: '', isDate : true },
     { title : 'Active Plan', key : 'planName', customClass: '' },
     { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
