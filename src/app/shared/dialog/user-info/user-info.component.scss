@@ -10,7 +10,7 @@
         }
     }
     .es-modal-body{
-        color: var(--dark-text-white-v1);
+        color: var(--font-color);
         label{
             font-size: 14px;
             margin-bottom: 1rem;
@@ -52,7 +52,7 @@
 
     .btn-secondary{
         background: var(--dark-secondary-btn-background);
-        color: var(--dark-text-white-v1);
+        color: var(--font-color);
         border: var(--dark-secondary-btn-border) solid #D0D5DD;
     }
     .switch {

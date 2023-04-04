@@ -87,7 +87,7 @@
         width: 15px;
         height: 15px;
         position: relative;
-        color: var(--dark-text-white-v1) !important;
+        color: var(--font-color) !important;
 
         &::after{
             font-family: FontAwesome;
@@ -98,7 +98,7 @@
             font-size: 15px;
             pointer-events: none;
             cursor: pointer;
-            color: var(--dark-text-white-v1) !important;
+            color: var(--font-color) !important;
 
         }
     }

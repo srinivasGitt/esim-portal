@@ -23,7 +23,7 @@
     height: 100%;
     text-align: center;
     .user-icon-parent {
-        background: var(--dark-background-v1) 0% 0% no-repeat padding-box;
+        background: var(--sidebar-background-color) 0% 0% no-repeat padding-box;
         border-radius: 13px;
         width: 3.75vw;
         height: auto;
@@ -33,13 +33,13 @@
     .user-profile-text {
         font-family: "Helvetica-Light";
         font-size: 1.146vw;
-        color: var(--dark-text-white-v1);
+        color: var(--font-color);
         margin-bottom: 0.5rem;
     }
     .user-profile-count {
         font-family: "Helvetica-Medium";
         font-size: 1.563vw;
-        color: var(--dark-text-white-v1);
+        color: var(--font-color);
         margin-bottom: 0;
     }
     .blue-border-bottom {
