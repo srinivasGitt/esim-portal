@@ -520,10 +520,14 @@
         .bg-body-table-dark-bg{
             border-top: 1px dashed #636668 ;
         }
+        .action-section {
+            display: flex;
+            justify-content: center;
+        }
         .user-table-action{
             display: flex;
             align-items: center;
-            // width: 90px;
+            width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -755,10 +759,14 @@
         .bg-body-table-dark-bg{
             border-top: 1px dashed #636668 ;
         }
+        .action-section {
+            display: flex;
+            justify-content: center;
+        }
         .user-table-action{
             display: flex;
             align-items: center;
-            // width: 115px;
+            width: 115px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -918,10 +926,14 @@
         .bg-body-table-dark-bg{
             border-top: 1px dashed #636668 ;
         }
+        .action-section {
+            display: flex;
+            justify-content: center;
+        }
         .user-table-action{
             display: flex;
             align-items: center;
-            // width: 90px;
+            width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -1163,10 +1175,15 @@
         .table-row-border-top{
             border-top: 1px dashed #636668 ;
         }
+
+        .action-section {
+            display: flex;
+            justify-content: center;
+        }
         .user-table-action{
             display: flex;
             align-items: center;
-            // width: 90px;
+            width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
