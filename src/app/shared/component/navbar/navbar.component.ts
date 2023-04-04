@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -14,18 +14,31 @@ export class NavbarComponent implements OnInit {
   parentCustomer: any;
   customerList: any = [];
   userDetails: any;
+  showSearch: boolean = true;
 
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
               private usersService: UsersService,
-              private router: Router) {
+              public router: Router) {
+    
+      // show/hide search box
+      router.events.subscribe((route) => {
+      if(route instanceof NavigationEnd) {
+        if(route.url == "/" || route.url == "/reports") {
+          this.showSearch = false;
+        } else {
+          this.showSearch = true;
+        }
+      }
+    })
     usersService.getCurrentUser().subscribe(result => {
       this.userDetails = result;
     });
   }
 
   ngOnInit(): void { 
+    
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     }else{

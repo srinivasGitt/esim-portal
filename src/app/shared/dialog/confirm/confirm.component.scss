@@ -3,7 +3,8 @@
         border-radius: 28px;
         width: 56px;
         svg{
-            transform: scale(2);
+            transform: scale(1.2);
+            margin-left: 2px;
         }
         &.trash-icon{
             background: var(--dark-danger-background);
@@ -15,13 +16,13 @@
         padding: 15px;
         .modal-message-text{
             justify-content: left;
-            color: var(--dark-text-white-v1);
+            color: var(--font-color);
             font-size: 16px;
             font-weight: 600;
         }
     }
     .es-modal-footer{
-        padding: 15px;
+        // padding: 15px;
         .btn{
             height: 44px;
             width: 170px;
@@ -32,12 +33,12 @@
         }
         .btn-secondary{
             background: var(--dark-secondary-btn-background);
-            color: var(--dark-text-white-v1);
+            color: var(--font-color);
             border: var(--dark-secondary-btn-border) solid #D0D5DD;
         }
         .btn-danger-scondary{
             background: var(--dark-danger-secondary-btn-background);
-            color: var(--dark-text-white-v1);
+            color: var(--font-color);
             border: var(--dark-secondary-btn-border) solid #D0D5DD;
         }
         .btn-primary{

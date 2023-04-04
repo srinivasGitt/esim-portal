@@ -67,7 +67,8 @@ export class TooltipDirective {
 
     if (this.placement === 'top' && tooltipPos) {
       top = hostPos.top - tooltipPos.height - parseInt(this.offset);
-      left = hostPos.left + (hostPos.width - (tooltipPos.width / 2.5)) / 2;
+      // left = hostPos.left + (hostPos.width - (tooltipPos.width / 2.5)) / 2;
+      left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
     }
 
     if (this.placement === 'bottom' && tooltipPos) {

@@ -76,7 +76,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   createCustomer() {
-     this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: {}, title: 'Add New Customer'} })
+     this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
         console.log(data)
         if (data && data.name !== null ) {
@@ -103,7 +103,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   editCustomer(customer: any) {
-    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-md', context: {data: customer, title: 'Edit Customer'} })
+    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: customer, title: 'Edit Customer'} })
       .instance.close.subscribe((data: any) => {
         if(data){
           this.customerList = this.customerList.map((c : any) => {if(c._id == customer._id) c = data; return c;});

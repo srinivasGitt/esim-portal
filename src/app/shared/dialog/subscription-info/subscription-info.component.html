@@ -1,5 +1,5 @@
-<div class="es-modal subscription-info-modal">
-    <div class="modal-header-flex p-4">
+<div class="es-modal info-modal">
+    <!-- <div class="modal-header-flex p-4">
         <div class="modal-header-text-container">
           <div class="mb-3 subscription-info-icon d-flex">
             <img class="m-auto" src="/assets/images/dashboard/icon/primary-info.svg" alt="">
@@ -9,47 +9,61 @@
         <div class="es-btn-close-container mt-0 mb-auto me-4">
             <a class="es-btn-close mt-3" (click)="close()"></a>
         </div>
+    </div> -->
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <div class="mb-3 subscription-info-icon d-flex">
+                <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon">
+            </div>  
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-3">
+            <a class="es-btn-close" (click)="close()"></a>
+        </div>
     </div>
-    <div class="es-modal-body px-4">
+    
+    <div>
+        <p class="modal-header-text mb-0">Subscription No: A0B1C025</p>
+    </div>
+    <div class="es-modal-body">
         <div class="row">
-            <div class="col-5">
-                <label> Plan Id </label>
-                <div class="subscription-details">
-                    {{ subscriptionDetails.planName }}
+            <div class="col-4">
+                <label class="label-text">Plan Id</label>
+                <div class="modal-details-text">
+                    <!-- {{ subscriptionDetails.planName }} -->A0B1C025
                 </div>
             </div>
             <div class="col-4">
-                <label> Date created </label>
-                <div class="subscription-details">
+                <label class="label-text">Date created</label>
+                <div class="modal-details-text">
                     {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
-            <div class="col-3">
-                <label> Expiry Date </label>
-                <div class="subscription-details">
+            <div class="col-4">
+                <label class="label-text">Expiry Date</label>
+                <div class="modal-details-text">
                     {{ subscriptionDetails.expiryDate | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-5">
-                <label> Price </label>
-                <div class="subscription-details" *ngIf="subscriptionDetails.priceBundle">
-                    $ {{ subscriptionDetails.priceBundle }}
+            <div class="col-4">
+                <label class="label-text">Price</label>
+                <div class="modal-details-text" *ngIf="subscriptionDetails.priceBundle">
+                    {{ subscriptionDetails.priceBundle | currency: 'USD' }}
                 </div>
             </div>
-            <div class="col-7">
-                <label> User Email </label>
-                <div class="subscription-details">
+            <div class="col-6">
+                <label class="label-text">User Email</label>
+                <div class="modal-details-text">
                     {{ subscriptionDetails.subscriberEmail }}
                 </div>
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-5">
-                <label> Data Usage </label>
-                <div class="subscription-details d-flex">
-                    <ngx-gauge type="arch" [value]="getUsedData()" [thick]="10" [size]="120" [max]="totalData" cap="round" 
+            <div class="col-4">
+                <label class="label-text">Data Usage</label>
+                <div class="modal-details-text d-flex">
+                    <ngx-gauge type="arch" [value]="getUsedData()" [thick]="10" [size]="90" [max]="totalData" cap="round" 
                         [label]="'/'+subscriptionDetails.data" append="GB"
                         foregroundColor="#6365EF" backgroundColor="#6365EF5E"></ngx-gauge>
                     <span class="cloud-icon">
@@ -57,24 +71,24 @@
                     </span>
                 </div>
             </div>
-            <div class="col-3">
-                <label> Auto Refill </label>
-                <div class="subscription-details d-flex">
-                    <label class="switch mx-auto">
+            <div class="col-4">
+                <label class="label-text">Auto Refill</label>
+                <div class="modal-details-text d-flex">
+                    <label class="switch">
                         <input type="checkbox" [(ngModel)]="subscriptionDetails.isAutoRefillOn">
                         <span class="slider"></span>
                     </label>
                 </div>
             </div>
-            <div class="col-3 ms-auto">
-                <label> Total Data </label>
-                <div class="subscription-details">
+            <div class="col-4">
+                <label class="label-text">Total Data</label>
+                <div class="modal-details-text total-data">
                     {{ subscriptionDetails.data }}
                 </div>
             </div>
         </div>
     </div>
-    <div class="es-modal-footer d-flex p-4">
+    <div class="es-modal-footer d-flex pt-4">
         <button class="btn btn-primary ms-auto w-100">
             Edit subscription
         </button>

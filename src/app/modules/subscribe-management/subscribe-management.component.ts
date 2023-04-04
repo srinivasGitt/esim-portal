@@ -139,7 +139,7 @@ export class SubscribeManagementComponent implements OnInit {
     }
 
   showSubscriber(subscriber: any){
-    this.dialogService.openModal( SubscriberInfoComponent, { cssClass: 'modal-md', context: {data: subscriber} })
+    this.dialogService.openModal( SubscriberInfoComponent, { cssClass: 'modal-sm', context: {data: subscriber} })
     .instance.close.subscribe((data: any) => {
       
     }, err => {

@@ -16,20 +16,21 @@
 
 :root{
     --dark-background: #151616;
-    --dark-background-v1: #151616;
-    --dark-background-v2: #1C1C1E;
+    --dark-background-v1: #151616;              // --sidebar-background-color
+    --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
     --dark-background-v3: #181B21;
-    --dark-text-white-v1: #fff;
+    --dark-text-white-v1: #fff;                 // --font-color
     --dark-text-white-v2: #959595;
     --dark-text-white-v3: #8D8D8D;
     --dark-text-white-v4: rgba(233, 233, 233, 0.51);
     --dark-text-white-v5: rgba(255, 255, 255);
     --dark-text-white-v6:rgba(255, 255, 255, 0.72);
     --dark-theme-blue-v1: #6365EF;
-    --dark-right-border: rgba(255, 255, 255, 0.1);
-    --dark-sidebar-border-radius: 0;
+    --dark-right-border: rgb(69, 69, 69, 0.48);
+    --dark-sidebar-border-radius: 10px;
     --dark-table-background: #1D1F25;
-    --dark-primary-background: #3AEE8D;
+    // --dark-primary-background: #3AEE8D;
+    --dark-primary-background: #59D956;
     --dark-primary-border: #209153;
     --dark-info-background: #C8C8F4;
     --dark-info-border: #8283FF;
@@ -47,24 +48,54 @@
     --dark-dropdown-shadow: #000;
     --report-graph: #1D1F25;
     --dropdown-shadow: unset;
+    --search-placeholder-text: rgba(255,255,255,72%);
+    --horizontal-line-color:rgba(235, 235, 235, 0.08);
+    --sidebar-link-text-size: 1rem;
+    --active-link-background-color: rgba(99, 101, 239, 0.17);
+    --heading-text-size: 1.625rem;
+    --box-shadow-size-color: 0 0 6px rgba(0, 0, 0, 0.4);
+    --dropdown-filter: #6365EF;
+    --dropdown-text-white: #fff;
+    --sidebar-table-background: #1C1C1E;
+    --section-head-text-color: #9F94FF;
+    --min-font-size: 1rem;
+
+    /* Whitelabel Variables*/
+    --sidebar-background-color: #151616;
+    --font-color: #fff;
+    --card-background-color: #1D1F25;
+    --navbar-ele-bg-color: #1C1C1E;
+
+    .user-dashboard-table-container {
+        color: var(--font-color);
+    }
+
+    .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head, .user-dashboard-table-container {
+        box-shadow: var(--box-shadow-size-color);
+    }
+
+    .dashboard-head-flex {
+        // margin-bottom: 24px !important;
+    }
 }
 
 .lightMode{
     --dark-background: #fff;
-    --dark-background-v1: #F5F6F9;
-    --dark-background-v2: #E9EAF0;
+    --dark-background-v1: #F5F6F9;              // --sidebar-background-color
+    --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
     --dark-background-v3: #D9D9D978;
-    --dark-text-white-v1: #25282B;
+    --dark-text-white-v1: #25282B;              // --font-color
     --dark-text-white-v2: #797979;
     --dark-text-white-v3: #959595;
     --dark-text-white-v4: rgba(79, 79, 79, 0.72);
     --dark-text-white-v5: rgba(0, 0, 0);
     --dark-text-white-v6:rgba(0, 0, 0, 0.72);
     --dark-theme-blue-v1: #6365EF;
-    --dark-right-border: rgba(0, 0, 0, 0.1);
+    --dark-right-border: rgb(69, 69, 69, 0.48);
     --dark-sidebar-border-radius: 10px;
     --dark-table-background: #ffffff;
-    --dark-primary-background: rgba(62, 223, 136, 0.56);
+    // --dark-primary-background: rgba(62, 223, 136, 0.56);
+    --dark-primary-background: #59D956;
     --dark-primary-border: #CAFBE0;
     --dark-info-background: #C8C8F4;
     --dark-info-border: #DFE0FF;
@@ -81,17 +112,67 @@
     --dark-dropdown-shadow: #fff;
     --report-graph: #FFFFFF;
     --dropdown-shadow: 0px 4px 8px #D8DAFF;
+    --search-placeholder-text: rgba(0,0,0,72%);
+    --horizontal-line-color: rgba(235, 235, 235, 0.08);
+    --sidebar-link-text-size: 1rem;
+    --active-link-background-color: rgba(99, 101, 239, 0.17);
+    --heading-text-size: 1.625rem;
+    // --box-shadow-size-color: 0 0 6px rgba(0, 0, 0, 0.4);
+    --box-shadow-size-color: 4.05px 3px 6px rgba(0, 0, 0, 0.4);
+    --dropdown-filter: #1f1f1f;
+    --dropdown-text-white: #fff;
+    --sidebar-table-background: #fff;
+    --section-head-text-color: #473BAA;
+
+    /* Whitelabel Variables*/
+    --sidebar-background-color: #F5F6F9;
+    --font-color: #25282B;
+    --card-background-color: #fff;
+    --navbar-ele-bg-color: #E9EAF0;
+
+    .icon {
+        path {
+            fill: var(--search-placeholder-text);
+        }
+    }
+
+    .btn-outline-custom {
+        color: #000 !important;
+    }
+    
+    .user-dashboard-table-container {
+        color: var(--dark-text-white-v6);
+        background: var(--sidebar-table-background);
+        box-shadow: var(--box-shadow-size-color);
+    }
+
+    .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head {
+        box-shadow: none;
+    }
+
+    .form-control {
+        border-color: var(--dark-right-border) !important;
+    }
+
 }
 
 body {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    .modal-md{
-        --bs-modal-width: 500px;
+    height: 100%;
+    overflow: hidden;
+    
+    .modal-lg {
+        --bs-modal-width: 591px;        // for subscription and plan add/edit modals
     }
+
+    .modal-md{
+        --bs-modal-width: 419px;        // for subscription info modals
+    }
+    
     .modal-sm{
-        --bs-modal-width: 400px;
+        --bs-modal-width: 400px;        // for customer add/edit, plan info, subscriber info modals
     }
 }
 

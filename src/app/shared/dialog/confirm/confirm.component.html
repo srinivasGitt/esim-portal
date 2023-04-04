@@ -1,5 +1,5 @@
-<div class="es-modal">
-    <div class="modal-header-flex">
+<div class="es-modal add-edit-modal">
+    <!-- <div class="modal-header-flex">
         <div class="modal-header-text-container">
             <div class="mb-3 confirmation-icon" *ngIf="data.icon" [class]="data.icon + '-icon'">
                 <svg width="32" height="40" viewBox="0 0 50 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="data.icon == 'trash'">
@@ -11,16 +11,35 @@
         <div class="es-btn-close-container mt-0 mb-auto me-4" *ngIf="data.showCloseBtn">
             <a class="es-btn-close mt-3 cursor-pointer" (click)="close(false)"></a>
         </div>
-    </div>
+    </div> 
     <div class="es-modal-body">
         <p class="modal-message-text mb-0 mt-2">{{message}}</p>
-    </div>
-    <div class="es-modal-footer d-flex" *ngIf="data.buttonGroup.length > 0; else showDefault;">
-        <button type="submit" *ngFor="let btn of data.buttonGroup" class="btn my-4" [class]="btn.cssClass" (click)="close(btn.value)"> {{ btn.title }}</button>
+    </div> -->
+
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+          <div class="mb-3 confirmation-icon" *ngIf="data.icon" [class]="data.icon + '-icon'">
+            <svg width="32" height="40" viewBox="0 0 50 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="data.icon == 'trash'">
+                <path d="M32 22V21.2C32 20.0799 32 19.5198 31.782 19.092C31.5903 18.7157 31.2843 18.4097 30.908 18.218C30.4802 18 29.9201 18 28.8 18H27.2C26.0799 18 25.5198 18 25.092 18.218C24.7157 18.4097 24.4097 18.7157 24.218 19.092C24 19.5198 24 20.0799 24 21.2V22M26 27.5V32.5M30 27.5V32.5M19 22H37M35 22V33.2C35 34.8802 35 35.7202 34.673 36.362C34.3854 36.9265 33.9265 37.3854 33.362 37.673C32.7202 38 31.8802 38 30.2 38H25.8C24.1198 38 23.2798 38 22.638 37.673C22.0735 37.3854 21.6146 36.9265 21.327 36.362C21 35.7202 21 34.8802 21 33.2V22" stroke="#D92D20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>  
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-3">
+            <a class="es-btn-close" (click)="close(false)"></a>
+        </div>
+      </div>
+    
+      <div>
+        <p class="modal-header-text mb-0" *ngIf="data.title">{{ data.title }}</p>
+        <p class="modal-sub-header-text mb-0 mt-2">{{ message }}</p>
+      </div>
+  
+    <div class="es-modal-footer d-flex mt-4" *ngIf="data.buttonGroup.length > 0; else showDefault;">
+        <button type="submit" *ngFor="let btn of data.buttonGroup" class="btn" [class]="btn.cssClass" (click)="close(btn.value)"> {{ btn.title }}</button>
     </div>
     <ng-template #showDefault>
-        <div class="es-modal-footer d-flex">
-            <button type="submit" class="btn btn-dark my-4" (click)="close(false)">Cancel</button>
+        <div class="es-modal-footer">
+            <button type="submit" class="btn btn-dark" (click)="close(false)">Cancel</button>
         </div>
     </ng-template>
 </div>
