@@ -81,6 +81,12 @@
     .dashboard-head-flex {
         // margin-bottom: 24px !important;
     }
+    
+    .revenue-icon {
+        circle {
+            fill: var(--add-button-bg-color);
+        }
+    }
 }
 
 .lightMode{

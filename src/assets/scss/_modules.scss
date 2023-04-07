@@ -142,7 +142,7 @@
             height: calc(100vh - 40px);
             padding: 20px 8px;
             box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);            
-            background-color: var(--sidebar-table-background);
+            background-color: var(--card-background-color);
 
             .sidebar-brand-parent{
                 // width: 80%;
@@ -203,10 +203,18 @@
     // Main area layout
     .dashboard-main{
         width: calc(100vw - 260px);
-        padding: 20px 20px 20px 0;
+        padding: 0 20px 20px 0;
         background-color: var(--sidebar-background-color);
         overflow-y: scroll;
         height: 100vh;
+
+        .navbar-main {
+            background: var(--sidebar-background-color);
+            position: fixed;
+            width: calc(100vw - 285px);
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
     }
 }
 
@@ -243,7 +251,7 @@
             color: var(--font-color);
             height: 50px;
             border-radius: 13px;
-            background-color: var(--sidebar-table-background);
+            background-color: var(--card-background-color);
             box-shadow: var(--box-shadow-size-color);
 
             img{
@@ -343,7 +351,7 @@
         }
     }
     .dashboard-graph{
-        background: var(--report-graph);
+        background: var(--card-background-color);
         width: 100%;
         border-radius: 20px;
         padding: 15px;
@@ -382,7 +390,7 @@
 // .subscription-management,
 // .user-management
 .common-header {
-    margin-top: 40px;
+    margin-top: 110px;
 
     .info-head-section{
         label{
@@ -425,7 +433,7 @@
             color: var(--font-color);
             height: 50px;
             border-radius: 13px;
-            background-color: var(--sidebar-table-background);
+            background-color: var(--card-background-color);
             box-shadow: var(--box-shadow-size-color);
 
             img{
@@ -457,7 +465,7 @@
         }
         .t-body-overflow {
             overflow: auto;
-            height: calc(95vh - 200px);
+            height: calc(97vh - 360px);
             padding-top: 10px;
             overflow-x: hidden;
         }
@@ -712,7 +720,7 @@
         }
         .t-body-overflow {
             overflow: auto;
-            height: calc(95vh - 200px);
+            height: calc(90vh - 360px);
             padding-top: 10px;
             overflow-x: hidden;
         }
@@ -875,7 +883,7 @@
         }
         .t-body-overflow {
             overflow: auto;
-            height: calc(95vh - 200px);
+            height: calc(97vh - 360px);
             padding-top: 10px;
             overflow-x: hidden;
         }
@@ -1014,7 +1022,7 @@
         }
         .t-body-overflow {
             overflow: auto;
-            height: calc(95vh - 200px);
+            height: calc(97vh - 360px);
             padding-top: 10px;
             overflow-x: hidden;
         }
@@ -1063,7 +1071,7 @@
         }
         .t-body-bg{
             .t-box{
-                font-size: 0.8rem;
+                font-size: 14px;
                 font-weight: 500;
                 color: var(--dark-text-white-v5);
                 opacity: 1;
@@ -1298,7 +1306,7 @@
 
 .lightMode{
     .filter-head{
-        background: var(--sidebar-table-background);
+        background: var(--card-background-color);
     }
 }
 .disabled{
@@ -1727,7 +1735,7 @@
 
 // Component Content Area Common Css
 .main-content-div-area{
-    margin-top: 40px;
+    margin-top: 110px;
 
     /* Dashboard CSS - Start */
     .info-head-section{
@@ -1842,7 +1850,7 @@
         }
     }
     .dashboard-graph{
-        background: var(--report-graph);
+        background: var(--card-background-color);
         // background: var(--sidebar-table-background);
         width: 100%;
         border-radius: 20px;
