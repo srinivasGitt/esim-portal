@@ -27,6 +27,8 @@ export class SubscriptionComponent implements OnInit {
     filterBy: undefined
   };
 
+  inProgress: boolean = false;
+
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
               private alertService : AlertService) { }
@@ -50,11 +52,13 @@ export class SubscriptionComponent implements OnInit {
         });
   }
   getAllSubscription() {
+    this.inProgress = true;
     this.subscriptionsService.subscriptionList()
     .subscribe(
       (data: any) => {
         this.subscriptionList = data;
         this.paginateConfig.totalItems = data?.length;
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
       }

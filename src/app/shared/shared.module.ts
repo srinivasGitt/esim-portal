@@ -27,6 +27,12 @@ import { PlanInfoComponent, SubscriptionInfoComponent, SubscriberInfoComponent,U
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { TooltipDirective } from "./directive/tooltip.directive";
+import { UploadInventoryComponent } from './dialog/upload-inventory/upload-inventory.component';
+import { DownloadSampleFileComponent } from './dialog/download-sample-file/download-sample-file.component';
+import { FilesizePipe } from './pipe/filesize.pipe';
+import { EventBlockerDirective } from './directive/event-blocker.directive';
+import { LoadingSpinnerComponent } from './component/loading-spinner/loading-spinner.component';
+import { InventoryInfoComponent } from './dialog/inventory-info/inventory-info.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +57,13 @@ import { TooltipDirective } from "./directive/tooltip.directive";
     SubscriptionInfoComponent,
     UserInfoComponent,
     SubscriberInfoComponent,
-    TooltipDirective
+    TooltipDirective,
+    UploadInventoryComponent,
+    DownloadSampleFileComponent,
+    FilesizePipe,
+    EventBlockerDirective,
+    LoadingSpinnerComponent,
+    InventoryInfoComponent
   ],
   imports: [
     CommonModule,
@@ -70,7 +82,8 @@ import { TooltipDirective } from "./directive/tooltip.directive";
     NavbarComponent,
     ConfirmComponent,
     UserMgmtComponent,
-    TooltipDirective
+    TooltipDirective,
+    LoadingSpinnerComponent
   ],
   providers: [CurrencyPipe]
 })

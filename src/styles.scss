@@ -59,6 +59,9 @@
     --sidebar-table-background: #1C1C1E;
     --section-head-text-color: #9F94FF;
     --min-font-size: 1rem;
+    --upload-border: rgba(183, 184, 253, 0.13);
+    --file-icon-border: var(--upload-border);
+    --table-data-text-color: rgba(255, 255, 255, 0.53);
 
     /* Whitelabel Variables*/
     --sidebar-background-color: #151616;
@@ -124,6 +127,9 @@
     --dropdown-text-white: #fff;
     --sidebar-table-background: #fff;
     --section-head-text-color: #473BAA;
+    --upload-border: rgba(99, 101, 239, 0.3);
+    --file-icon-border: #D1D1FB;
+    --table-data-text-color: rgba(0, 0, 0, 0.53);
 
     /* Whitelabel Variables*/
     --sidebar-background-color: #F5F6F9;
@@ -133,7 +139,7 @@
     --add-button-bg-color: #6365EF;
 
     .icon {
-        path {
+        path, circle {
             fill: var(--search-placeholder-text);
         }
     }

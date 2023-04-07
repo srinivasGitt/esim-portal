@@ -5,6 +5,10 @@ import { InventoryService } from 'src/app/shared/service/inventory.service';
 import { ProfileLogComponent } from 'src/app/shared/dialog/profile-log/profile-log.component';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
+import { UploadInventoryComponent } from 'src/app/shared/dialog/upload-inventory/upload-inventory.component';
+import { DownloadSampleFileComponent } from 'src/app/shared/dialog/download-sample-file/download-sample-file.component';
+import { PaginationInstance } from 'ngx-pagination';
+import { InventoryInfoComponent } from 'src/app/shared/dialog/inventory-info/inventory-info.component';
 
 @Component({
   selector: 'app-inventory',
@@ -12,65 +16,67 @@ import { DashboardService } from 'src/app/shared/service/dashboard.service';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements OnInit {
-  inventory: any = [];
+  
+  inventories: any = [];
   data: any;
   totalProfiles: any;
+  paginateConfig: PaginationInstance = {
+    id: 'inventoryListPagination',
+    itemsPerPage: 20,
+    currentPage: 1
+  };
+  filterConfig: any = {
+    searchTerm: '',
+    searchKey: 'name',
+    filterBy: { key : 'createdAt', type: 'date', value: undefined }
+  };
+
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
-              private alertService : AlertService,
-              private dashboardService: DashboardService) { 
-              }
+              private alertService : AlertService) { }
+
   ngOnInit(): void {
-    this.getInventory();
-    this.totalProfileCount();
+    this.getInventory()
   }
 
-  // createPlan() {
-  //   this.inventoryService.createPlan({})
-  //   .subscribe( (data: any) => {
-  //     console.log(data);
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
+  
   getInventory() {
     this.inventoryService.listInventory()
     .subscribe(
       (data: any) => {
-        
-        this.inventory = data;
-
+        this.inventories = data;
+        this.paginateConfig.totalItems = data?.length;
       }, err => {
         this.alertService.error(err.error.message);
       }
     );
-
   }
 
-  openQRCODEpopup(index: number) {
-    this.dialogService.openModal(QrCodePopupComponent, { cssClass: 'modal-md', context: {data: this.inventory[index], title: 'Profile Information'} })
-      .instance.close.subscribe((data: any) => {
-       
-        // let vm  = this;
-        // vm.plansList.push(data);
-        }, err => {
-          this.alertService.error(err.error.message);
-        });
-  }
-
-  openProfileLog(profileInfo: any){
-    this.dialogService.openModal(ProfileLogComponent, {cssClass: 'modal-xl', context: {data: profileInfo, title: 'Profile Log'}})
+  uploadFile() {
+    this.dialogService.openModal(UploadInventoryComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Upload Inventory'} })
     .instance.close.subscribe((data: any) => {
-
-    }, err => {
-      this.alertService.error(err.error.message);
+      if(data == 'download'){
+        this.downloadModal()
+      }
     });
   }
 
-  totalProfileCount() {
-    this.dashboardService.getProfiles()
-      .subscribe((data: any) => {
-        this.totalProfiles = data;
-      })
+  downloadModal() {
+    this.dialogService.openModal(DownloadSampleFileComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Download Sample File'} })
+    .instance.close.subscribe((data: any) => {
+      if(data){
+        
+        
+      }
+    });
+  }
+
+  showInventory(inventory: any){
+    this.dialogService.openModal(InventoryInfoComponent, { cssClass: 'modal-sm', context: {data: inventory} })
+    .instance.close.subscribe((data: any) => {
+      
+    }, err => {
+
+    })
   }
 }

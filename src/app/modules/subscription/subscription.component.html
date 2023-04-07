@@ -20,7 +20,7 @@
             </button>
         </div>
     </div>
-    <div class="user-dashboard-table-container">
+    <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
@@ -116,6 +116,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+    
     <div class="custom-pagination-section" *ngIf="subscriptionList?.length > paginateConfig.itemsPerPage">
         <pagination-controls id="subscriptionListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
     </div>
