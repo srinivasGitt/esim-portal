@@ -21,6 +21,7 @@ export class PlanComponent implements OnInit {
     searchKey: 'name',
     filterBy: { key : 'isActive', type: 'boolean', value: null }
   };
+  inProgress: boolean = false;
 
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
@@ -40,13 +41,17 @@ export class PlanComponent implements OnInit {
       })
   }
   getAllPlans() {
+    this.inProgress = true;
+
     this.plansService.listPlans()
     .subscribe(
       (data: any) => {
         this.plansList = data;
         this.paginateConfig.totalItems = data?.length;
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
+        this.inProgress = false;
       }
     );
   }

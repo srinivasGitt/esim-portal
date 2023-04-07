@@ -132,7 +132,7 @@
 
     // Sidebar layout
     .sidebar-main{
-        width: 20vw;
+        width: 260px;
         height: 100vh;
         padding: 20px;
         background-color: var(--sidebar-background-color);
@@ -202,7 +202,7 @@
 
     // Main area layout
     .dashboard-main{
-        width: 80vw;
+        width: calc(100vw - 260px);
         padding: 20px 20px 20px 0;
         background-color: var(--sidebar-background-color);
         overflow-y: scroll;
@@ -1240,12 +1240,12 @@
         
         .btn-outline-custom {
             color: #fff;
-            border: 1px solid var(--dark-theme-blue-v1);
+            border: 1px solid var(--add-button-bg-color);
             border-radius: 25px;
             font-size: 0.8rem;
 
             &:hover {
-                background-color: var(--dark-theme-blue-v1);
+                background-color: var(--add-button-bg-color);
                 border: none;
                 color: #fff !important;
             }
@@ -2023,7 +2023,7 @@
                 width: 20px;
                 left: 4px;
                 bottom: 4px;
-                background-color: var(--dark-theme-blue-v1);
+                background-color: var(--add-button-bg-color);
                 transition: 0.4s;
             }
         }

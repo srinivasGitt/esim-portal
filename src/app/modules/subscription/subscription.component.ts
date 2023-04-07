@@ -61,6 +61,7 @@ export class SubscriptionComponent implements OnInit {
         this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
+        this.inProgress = false;
       }
     );
 

@@ -29,7 +29,7 @@
             <span class="m-auto">Add New User</span>
         </button>   
     </div>
-    <div class="user-dashboard-table-container">
+    <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="d-flex info-head-section">
             <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }}, {{ selectedFilter.year }}  </label>
         </div>
@@ -65,8 +65,10 @@
                     </div>
                 </div>
                 <div class="t-body-overflow" *ngIf="usersList && usersList.length > 0">
+                    <!-- <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
+                    *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" > -->
                     <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
-                    *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" >
+                    *ngFor="let user of usersList | paginate: paginateConfig; index as i">
                     <!-- [routerLink]="['/customer-management', customer._id]" -->
                         <div class="t-box a px-2">{{ user.firstName }} {{ user.lastName }}</div>
                         <div class="t-box b px-2">{{user.email}}</div>
@@ -103,8 +105,18 @@
             </div>
         </div>
     </div>
-    <!-- Pagination  -->
-    <div class="custom-pagination-section" *ngIf="usersList?.length > 20">
-        <pagination-controls id="userListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
-    </div>
+
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+    
+    <!-- Pagination -->
+    <ng-container *ngIf="!inProgress">
+        <div class="custom-pagination-section" *ngIf="usersList?.length > paginateConfig.itemsPerPage">
+            <pagination-controls id="userListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        </div>
+    </ng-container>
 </div>

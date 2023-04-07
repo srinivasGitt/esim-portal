@@ -123,7 +123,10 @@
     </ng-template>
     <!-- Loading Spinner - End -->
     
-    <div class="custom-pagination-section" *ngIf="subscriptionList?.length > paginateConfig.itemsPerPage">
-        <pagination-controls id="subscriptionListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
-    </div>
+    <!-- Pagination -->
+    <ng-container *ngIf="!inProgress">
+        <div class="custom-pagination-section" *ngIf="subscriptionList?.length > paginateConfig.itemsPerPage">
+            <pagination-controls id="subscriptionListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        </div>
+    </ng-container>
 </div>

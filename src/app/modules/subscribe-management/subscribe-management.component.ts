@@ -31,6 +31,7 @@ export class SubscribeManagementComponent implements OnInit {
     searchKey: 'displayName',
     filterBy: undefined
   };
+  inProgress: boolean = false;
 
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
@@ -88,6 +89,8 @@ export class SubscribeManagementComponent implements OnInit {
   }
 
   getAllSubscriber() {
+    this.inProgress = true;
+
     this.subscriberService.getAllSubscriber()
     .subscribe(
       (data: any) => {
@@ -95,8 +98,10 @@ export class SubscribeManagementComponent implements OnInit {
         this.getAllRegions();
         this.getAllPlans();
         // this.subscriptionList = data;
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
+        this.inProgress = false;
       }
     );
 

@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="user-dashboard-table-container">
+    <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
@@ -75,7 +75,17 @@
             </div>
         </div>
     </div>
-    <div class="custom-pagination-section" *ngIf="inventories?.length > paginateConfig.itemsPerPage">
-        <pagination-controls id="inventoryListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
-    </div>
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+    
+    <!-- Pagination -->
+    <ng-container *ngIf="!inProgress">
+        <div class="custom-pagination-section" *ngIf="inventories?.length > paginateConfig.itemsPerPage">
+            <pagination-controls id="inventoryListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        </div>
+    </ng-container>
 </div>

@@ -30,6 +30,7 @@ export class InventoryComponent implements OnInit {
     searchKey: 'name',
     filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
+  inProgress: boolean = false;
 
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
@@ -41,13 +42,17 @@ export class InventoryComponent implements OnInit {
 
   
   getInventory() {
+    this.inProgress = true;
+
     this.inventoryService.listInventory()
     .subscribe(
       (data: any) => {
         this.inventories = data;
         this.paginateConfig.totalItems = data?.length;
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
+        this.inProgress = false;
       }
     );
   }
