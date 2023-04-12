@@ -116,7 +116,7 @@
     <!-- Pagination -->
     <ng-container *ngIf="!inProgress">
         <div class="custom-pagination-section" *ngIf="usersList?.length > paginateConfig.itemsPerPage">
-            <pagination-controls id="userListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+            <pagination-controls id="userListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
         </div>
     </ng-container>
 </div>

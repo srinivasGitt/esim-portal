@@ -85,7 +85,7 @@
     <!-- Pagination -->
     <ng-container *ngIf="!inProgress">
         <div class="custom-pagination-section" *ngIf="inventories?.length > paginateConfig.itemsPerPage">
-            <pagination-controls id="inventoryListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+            <pagination-controls id="inventoryListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
         </div>
     </ng-container>
 </div>

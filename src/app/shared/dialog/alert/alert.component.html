@@ -1,4 +1,4 @@
-<div class="es-modal">
+<!-- <div class="es-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
             <p class="modal-header-text mb-0">{{title}}</p>
@@ -17,4 +17,51 @@
     </div>
     <div class="es-modal-footer"></div>
 </div>
+ -->
+<div class="es-modal add-edit-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <div class="mb-3 confirmation-icon">
+                <svg *ngIf="title == 'Error' || title == 'Something went wrong!'" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#FEE4E2"/>
+                    <mask id="mask0_2349_15915" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="16" width="24" height="24">
+                        <rect x="16" y="16" width="24" height="24" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_2349_15915)">
+                        <path d="M17 37L28 18L39 37H17ZM20.45 35H35.55L28 22L20.45 35ZM28 34C28.2833 34 28.5208 33.9042 28.7125 33.7125C28.9042 33.5208 29 33.2833 29 33C29 32.7167 28.9042 32.4792 28.7125 32.2875C28.5208 32.0958 28.2833 32 28 32C27.7167 32 27.4792 32.0958 27.2875 32.2875C27.0958 32.4792 27 32.7167 27 33C27 33.2833 27.0958 33.5208 27.2875 33.7125C27.4792 33.9042 27.7167 34 28 34ZM27 31H29V26H27V31Z" fill="#D92D20"/>
+                    </g>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#FEF3F2" stroke-width="8"/>
+                </svg>     
+                
+                <svg *ngIf="title == 'Success'" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#9FFFD1"/>
+                    <mask id="mask0_2349_15930" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="16" width="24" height="24">
+                        <rect x="16" y="16" width="24" height="24" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_2349_15930)">
+                        <path d="M25.5496 34.0001L19.8496 28.3001L21.2746 26.8751L25.5496 31.1501L34.7246 21.9751L36.1496 23.4001L25.5496 34.0001Z" fill="#20925B"/>
+                    </g>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#2D9563" stroke-width="8"/>
+                </svg>                    
+            </div>  
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-3">
+            <a class="es-btn-close" (click)="close()"></a>
+        </div>
+    </div>
 
+    <div>
+        <p class="modal-header-text mb-0">{{ title }}</p>
+        <p class="modal-sub-header-text mb-0 mt-2">{{ body }}</p>
+    </div>
+
+    <div class="es-modal-footer d-flex mt-5" *ngIf="buttonGroup.length > 0; else showDefault;">
+        <button type="submit" *ngFor="let btn of buttonGroup; let i=index" class="btn" [class]="btn.cssClass" [ngClass]="[title == 'Success' ? 'btn-success': 'btn-danger']" (click)="close()"> {{ title == 'Success' ? 'Continue' : btn.title }}</button>
+    </div>
+
+    <ng-template #showDefault>
+        <div class="es-modal-footer">
+            <button type="submit" class="btn btn-dark" (click)="close()">Cancel</button>
+        </div>
+    </ng-template>
+</div>
