@@ -747,7 +747,7 @@
                 justify-content: flex-start;
             }
             .plan-info-icon{
-                width: 45px;
+                width: 24px;
                 cursor: pointer;
             }
         }
@@ -1602,6 +1602,13 @@
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }            
+        
+            &:focus, &:hover{
+                background-color: var(--dark-background-v3);
+                color: var(--font-color);
+                box-shadow: none;
+            }
+        
         }
         .price-input-icon{
             position: absolute;
@@ -1638,6 +1645,8 @@
             position: relative;
             left: 78%;
             margin-top: -28px;
+            width: fit-content;
+            
             .disabled{
                 border-color:#868987 !important;
                 color: #868987 !important;
@@ -1700,6 +1709,10 @@
                 padding-top: 0;
                 padding-bottom: 0;
                 padding-left: 36px !important;
+            }
+
+            .ng-option {
+                width: 100% !important;
             }
         }
         
@@ -2258,3 +2271,11 @@
   
 /* Loading Spinner - End */
 
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input>input {
+    color: var(--font-color) !important;
+}
+
+.divHeight {
+    height: 90px;
+    margin-bottom: 4px;
+}

@@ -32,7 +32,7 @@
         &.pagination-next a:after {
             content: url("/assets/images/dashboard/icon/paginate-arrow-next.svg") !important;
             margin-left: 0 !important;
-            margin-top: -20px;
+            margin-top: 2px;
             position: absolute;
         }
         &.pagination-next.disabled:after {
