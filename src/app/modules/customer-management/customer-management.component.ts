@@ -36,6 +36,7 @@ export class CustomerManagementComponent implements OnInit {
     searchKey: 'name',
     filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
+  inProgress: boolean = false;
 
   constructor(private customerService: CustomerService,
               // private usersService: UsersService,
@@ -78,28 +79,26 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data)
         if (data && data.name !== null ) {
           let vm  = this;
           vm.customerList?.push(data);
-          //this.alertService.success('Customer Created');
+          this.alertService.success(data.message);
           this.getAllCustomer();
         }
       });
   }
 
   getAllCustomer() {
-    this.customerService.customers()
-     .subscribe(
+    this.inProgress = true;
+    this.customerService.customers().subscribe(
       (data: any) => {
         this.customerList = data;
-        // this.paginateConfig.totalItems = parseInt(data.length);
+        this.paginateConfig.totalItems = data.length;
+        this.inProgress = false;
       }, err => {
-      this.alertService.error(err.error.message);
-      }
-   );
-   
-   
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      }); 
   }
 
   editCustomer(customer: any) {
@@ -110,7 +109,6 @@ export class CustomerManagementComponent implements OnInit {
           this.alertService.success('Customer Updated');
           // this.getAllCustomer();
         }
-        
     });
   }
 

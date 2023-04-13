@@ -3,9 +3,9 @@
     margin-top: 15px;
     align-items: center;
     gap: 7px;
+    padding-left: 0;
 
     li {
-
         width: 31px;
         height: 40px;
         border-radius: 5px !important;
@@ -32,7 +32,7 @@
         &.pagination-next a:after {
             content: url("/assets/images/dashboard/icon/paginate-arrow-next.svg") !important;
             margin-left: 0 !important;
-            margin-top: -20px;
+            margin-top: 2px;
             position: absolute;
         }
         &.pagination-next.disabled:after {
@@ -55,7 +55,7 @@
         }
         }
         &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{
-            background: #6365EF !important;
+            background: var(--add-button-bg-color) !important;
         }
         a:hover, button:hover{
             background: transparent;    

@@ -100,8 +100,8 @@
                         <span class="form-label es-modal-form-label price-input-icon"> &#36; </span>
                     </div>
                     <div class="input-number-btn">
-                        <span class="number-incremental" (click)="updateValue('amount', 'inc')"> &plus; </span>
                         <span class="number-decremental" (click)="updateValue('amount', 'dec')"> &minus; </span>
+                        <span class="number-incremental" (click)="updateValue('amount', 'inc')"> &plus; </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.amount.touched && f.amount.pristine) || (f.amount.errors && submitted)">

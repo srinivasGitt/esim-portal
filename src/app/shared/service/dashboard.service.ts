@@ -81,6 +81,13 @@ export class DashboardService {
         hasGroup: false
       },
       {
+        title: 'Inventory',
+        icon: 'assets/icons/notepad.svg',
+        link: '/inventory',
+        accessRole: ['admin','superAdmin'],
+        hasGroup: false
+      },
+      {
         title: 'Reports',
         icon: 'assets/icons/reports-icon.svg',
         link: '/reports',

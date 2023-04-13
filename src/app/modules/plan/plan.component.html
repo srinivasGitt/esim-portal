@@ -20,7 +20,7 @@
             </button>
         </div>
     </div>
-    <div class="user-dashboard-table-container">
+    <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="d-flex info-head-section plan-table-head align-items-center justify-content-between">
             <h3>All Plans</h3>
             <label>5G Access Included*</label>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="t-box b px-2">{{plan.validity}} Days</div>
                         <div class="t-box a px-1"> <span *ngIf="plan.priceBundle">{{ plan.priceBundle | currency: 'USD' }}</span></div>
-                        <div class="t-box b px-2 d-flex plan-info-section">
+                        <div class="t-box b px-2 d-flex plan-info-section justify-content-between">
                             <span class="text-overflow-ellipsis">{{plan.info}}</span>
                             <span class="plan-info-icon" (click)="showPlanInfo(plan)" tooltip="Info" placement="top" delay="50" offset="-5">
                                 <img src="/assets/images/dashboard/icon/information.svg">
@@ -115,7 +115,17 @@
             </div>
         </div>
     </div>
-    <div class="custom-pagination-section" *ngIf="plansList?.length > paginateConfig.itemsPerPage">
-        <pagination-controls id="plansListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
-    </div>
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+
+    <!-- Pagination  -->
+    <ng-container *ngIf="!inProgress">
+        <div class="custom-pagination-section" *ngIf="plansList?.length > paginateConfig.itemsPerPage">
+            <pagination-controls id="plansListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        </div>
+    </ng-container>
 </div>

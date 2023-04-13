@@ -5,6 +5,7 @@ import { DialogService,PlansService, RegionsService, UsersService, AlertService 
 import { InviteUserComponent, UserInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { ActivatedRoute } from '@angular/router';
+import { fail } from 'assert';
 
 @Component({
   selector: 'app-user',
@@ -32,6 +33,7 @@ export class UserComponent implements OnInit {
   };
   userDetails: any;
   customerId: any;
+  inProgress: boolean = false;
 
   constructor(private dialogService: DialogService,
               private usersService: UsersService,
@@ -108,14 +110,18 @@ export class UserComponent implements OnInit {
   }
 
   getAllUsers() {
+    this.inProgress = true;
+
     this.usersService.getAllUsers(this.customerId || this.userDetails.customerId)
     .subscribe(
       (data: any) => {
         this.usersList = data;
         // this.getAllRegions();
         // this.getAllPlans();
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
+        this.inProgress = false;
       }
     );
 

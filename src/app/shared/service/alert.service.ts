@@ -12,14 +12,14 @@ export class AlertService {
   ) { }
 
   error(message: string){
-    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-md', context: { title: 'Error', body: message} })
+    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Error', body: message} })
           .instance.close.subscribe((data: any) => {
         
         });
   }
 
   success(message: string){
-    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-md', context: { title: 'Success', body: message} })
+    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Success', body: message} })
           .instance.close.subscribe((data: any) => {
         
         });
