@@ -29,4 +29,9 @@ export class InventoryService {
   assignProfile(data: any){
     return this.http.post(`${this.serverUrl}/customer/inventory`, data, this.getHeader())
   }
+
+  uploadFile(file: any) {
+    console.log(file)
+    return this.http.post(`${this.serverUrl}/inventory/import`, file, this.getHeader());
+  }
 }

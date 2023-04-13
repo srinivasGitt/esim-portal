@@ -21,6 +21,7 @@ export class PlanComponent implements OnInit {
     searchKey: 'name',
     filterBy: { key : 'isActive', type: 'boolean', value: null }
   };
+  inProgress: boolean = false;
 
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
@@ -35,18 +36,23 @@ export class PlanComponent implements OnInit {
         if(data){
           let vm  = this;
           vm.plansList.push(data);
-          this.alertService.success('Plan Created');
+          this.alertService.success(data.message);
+          this.getAllPlans()
         }
       })
   }
   getAllPlans() {
+    this.inProgress = true;
+
     this.plansService.listPlans()
     .subscribe(
       (data: any) => {
         this.plansList = data;
         this.paginateConfig.totalItems = data?.length;
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
+        this.inProgress = false;
       }
     );
   }
@@ -80,9 +86,9 @@ export class PlanComponent implements OnInit {
     .instance.close.subscribe((data: any) => {
       if (data) {
         this.plansService.deletePlan(plan._id)
-        .subscribe(res => {
+        .subscribe((res : any)=> {
           this.plansList = this.plansList.filter((c : any) => c._id != plan._id);
-          this.alertService.success('Plan Deleted');
+          this.alertService.success(res.messsage);
         }, err => {
           this.alertService.error(err.error.message);
         })
@@ -111,8 +117,8 @@ export class PlanComponent implements OnInit {
 
   updatePlanStatus(plan : any){
     this.plansService.updatePlan(plan._id, {isActive: plan.isActive}).subscribe(
-      (result : any) => {
-        this.alertService.success('Plan status updated.');
+      (res : any) => {
+        this.alertService.success(res.message);
       }
     )
   }

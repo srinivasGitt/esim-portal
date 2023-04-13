@@ -36,7 +36,7 @@
 
 
   
-  <div class="user-dashboard-table-container">
+  <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
   
     <div class="d-flex info-head-section">
       <label class="mt-auto mx-2">Showing data for the month of {{ monthsList[selectedFilter.month] }}, {{ selectedFilter.year }}  </label>
@@ -76,8 +76,10 @@
           </div>
         </div>
         <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
+          <!-- <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
+            *ngFor="let customer of (customerList | listFilter: filterConfig) | paginate: paginateConfig;" > -->
           <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
-            *ngFor="let customer of (customerList | listFilter: filterConfig) | paginate: paginateConfig;" >
+            *ngFor="let customer of customerList | paginate: paginateConfig;">
               <!-- [routerLink]="['/customer-management', customer._id]" -->
               <div class="t-box a px-2" routerLink="/user-management/{{customer._id}}">
                   {{customer.name}}
@@ -109,8 +111,17 @@
         </div>
     </div>
   </div>
-    <!-- Pagination  -->
+
+  <!-- Loading Spinner - Start -->
+  <ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+  <!-- Loading Spinner - End -->
+
+  <!-- Pagination  -->
+  <ng-container *ngIf="!inProgress">
     <div class="custom-pagination-section" *ngIf="customerList?.length > 20">
-      <pagination-controls id="customerListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+      <pagination-controls id="customerListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
     </div>
+  </ng-container>
 </div>
