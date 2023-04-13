@@ -39,4 +39,8 @@ export class RegionsService {
   getCountriesByGroup(groupIndex : number){
     return this.http.get(`${this.serverUrl}/countries/group/${groupIndex}`, this.getHeader());
   }
+
+  getCountries() {
+    return this.http.get(`${this.serverUrl}/countries`, this.getHeader());
+  }
 }

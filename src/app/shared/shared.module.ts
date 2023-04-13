@@ -1,5 +1,5 @@
 import { ComponentFactoryResolver, ModuleWithProviders, NgModule } from "@angular/core";
-import { CommonModule, CurrencyPipe } from "@angular/common";
+import { CommonModule, CurrencyPipe, DatePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { DialogService } from "./service/dialog";
@@ -85,7 +85,7 @@ import { InventoryInfoComponent } from './dialog/inventory-info/inventory-info.c
     TooltipDirective,
     LoadingSpinnerComponent
   ],
-  providers: [CurrencyPipe]
+  providers: [CurrencyPipe, DatePipe]
 })
 
 export class SharedModule {
