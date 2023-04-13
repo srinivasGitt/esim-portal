@@ -79,11 +79,10 @@ export class CustomerManagementComponent implements OnInit {
   createCustomer() {
      this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New Customer'} })
       .instance.close.subscribe((data: any) => {
-        console.log(data)
         if (data && data.name !== null ) {
           let vm  = this;
           vm.customerList?.push(data);
-          //this.alertService.success('Customer Created');
+          this.alertService.success(data.message);
           this.getAllCustomer();
         }
       });

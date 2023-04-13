@@ -37,6 +37,7 @@ export class PlanComponent implements OnInit {
           let vm  = this;
           vm.plansList.push(data);
           this.alertService.success(data.message);
+          this.getAllPlans()
         }
       })
   }
