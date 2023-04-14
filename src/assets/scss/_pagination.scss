@@ -37,11 +37,14 @@
         }
         &.pagination-next.disabled:after {
             content: url("/assets/images/dashboard/icon/paginate-arrow-next.svg") !important;
-            margin-left: 16px !important;
-            margin-top: 8px;
+            margin-left: 0px !important;
+            margin-top: 4px;
             position: absolute;
         }
 
+        &.pagination-next > a {
+            padding-left: 0px !important;
+        }
         &.pagination-previous,
         &.pagination-next {
         a,
