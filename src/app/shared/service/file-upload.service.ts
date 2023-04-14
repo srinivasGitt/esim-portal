@@ -10,6 +10,10 @@ export class FileUploadService {
   serverUrl = environment.serverUrl;
   constructor(private http : HttpClient) { }
 
+  /* 
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -35,11 +39,12 @@ export class FileUploadService {
     };
     return httpOptions;
   }
+  */
 
   onUpload(file: any):Observable<any> {
     const formData = new FormData();
     formData.append("file", file)
-    console.log(formData.get('file'));
-    return this.http.post(`${this.serverUrl}/inventory/import`, formData, this.getFileHeader())
+    // return this.http.post(`${this.serverUrl}/inventory/import`, formData, getFileHeader())
+    return this.http.post(`${this.serverUrl}/inventory/import`, formData, { reportProgress: true, observe: "events" as 'body' })
   }
 }

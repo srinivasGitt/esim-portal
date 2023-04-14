@@ -14,12 +14,15 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { CustomerManagementComponent } from './modules/customer-management/customer-management.component';
 import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
+import { AuthGuard } from './shared/service/auth/auth.guard';
+import { NotFoundComponent } from './shared/component/not-found/not-found.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: CoreComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
       { path: 'customer-management', component: CustomerManagementComponent },
@@ -48,6 +51,15 @@ const routes: Routes = [
   {
     path: '',
     component: ResetPasswordComponent
+  },
+  {
+    path: '',
+    redirectTo: '/signin',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
   
 ];

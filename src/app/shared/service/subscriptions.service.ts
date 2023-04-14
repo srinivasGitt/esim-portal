@@ -9,6 +9,11 @@ export class SubscriptionsService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
+
+  /* 
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -37,5 +42,24 @@ export class SubscriptionsService {
 
   deleteSubscription(id: any) {
     return this.http.delete(`${this.serverUrl}/subscriptions/${id}`, this.getHeader());
+  }
+  */
+
+  subscriptionList() {
+    return this.http.get(`${this.serverUrl}/subscriptions`);
+  }
+
+  createSubscription(data: any) {
+    data.userId = '633c417b4a43b0703742cfa3';
+    return this.http.post(`${this.serverUrl}/subscriptions`, data);
+  }
+
+  updateSubscription(id: any, data: any) {
+    console.log(data);
+    return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data);
+  }
+
+  deleteSubscription(id: any) {
+    return this.http.delete(`${this.serverUrl}/subscriptions/${id}`);
   }
 }
