@@ -43,7 +43,7 @@ export class DashboardService {
       {
         title: 'Dashboard',
         icon: 'assets/icons/dashboard-icon.svg',
-        link: '/dashboard',
+        link: '/',
         accessRole: ['admin','superAdmin'],
         hasGroup: false
       },
