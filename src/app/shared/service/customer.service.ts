@@ -10,7 +10,10 @@ export class CustomerService {
   authToken: string = '';
 
   constructor(private http: HttpClient ) { }
-
+  /*
+  ************************************
+  Commented to check with interceptor
+  ************************************
     getHeader() {
         const authToken = localStorage.getItem('authToken');
         const httpOptions = {
@@ -42,7 +45,7 @@ export class CustomerService {
     }
 
     createCustomer(data:any){
-        return this.http.post(`${this.serverUrl}/customers`, data, this.getHeader());
+        return this.http.post(`${this.serverUrl}/customers`, data);
     }
 
     updateCustomer(id: any, data: any) {
@@ -51,6 +54,38 @@ export class CustomerService {
     }
  
     deleteCustomer(id: any) {
-      return this.http.delete(`${this.serverUrl}/customers/${id}`, this.getHeader());
+      return this.http.delete(`${this.serverUrl}/customers/${id}`);
+    }
+  */
+
+    childCustomers(){
+      const headers = new HttpHeaders({})
+      .set('Authorization', 'Bearer ' + this.authToken);
+      return this.http.get(`${this.serverUrl}/customers`);    
+    }
+
+    customers(){
+        return this.http.get(`${this.serverUrl}/customers`);
+    }
+
+    getSingleCustomer(customerId:any){
+      return this.http.get(`${this.serverUrl}/customers/${customerId}`);
+    }
+
+    getSubCustomer(subCustomerName:any){
+      return this.http.get(`${this.serverUrl}/customers/${subCustomerName}`);
+    }
+
+    createCustomer(data:any){
+        return this.http.post(`${this.serverUrl}/customers`, data);
+    }
+
+    updateCustomer(id: any, data: any) {
+      console.log(data);
+      return this.http.put(`${this.serverUrl}/customers/${id}`, data);
+    }
+
+    deleteCustomer(id: any) {
+      return this.http.delete(`${this.serverUrl}/customers/${id}`);
     }
 } 

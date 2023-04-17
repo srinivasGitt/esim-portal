@@ -5,6 +5,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 Chart.register(...registerables)
 
 @Component({
@@ -28,7 +29,8 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router,
     private dashboardService: DashboardService,
     private customerService: CustomerService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private _localStorageService: LocalStorageService) {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
@@ -37,13 +39,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('authToken')) {
-      this.router.navigate(['/signin']);
-    }else{
       this.drawChart();
       this.getDashboardCounts();
-    }
-
   }
 
   drawChart() {

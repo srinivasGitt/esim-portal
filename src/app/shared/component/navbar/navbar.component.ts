@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
 import { NavigationEnd, Router } from '@angular/router';
+import { LocalStorageService } from '../../service/local-storage.service';
 declare var $: any;
 
 @Component({
@@ -20,7 +21,8 @@ export class NavbarComponent implements OnInit {
               private dashboardService: DashboardService,
               private alertService : AlertService,
               private usersService: UsersService,
-              public router: Router) {
+              public router: Router,
+              private _localStorage: LocalStorageService) {
     
       // show/hide search box
       router.events.subscribe((route) => {
@@ -39,7 +41,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void { 
     
-    if (!localStorage.getItem('authToken')) {
+    if (!this._localStorage.getToken()) {
       this.router.navigate(['/signin']);
     }else{
       // this.getAllCustomer();
@@ -49,7 +51,7 @@ export class NavbarComponent implements OnInit {
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
     this.dashboardService.setAppTheme(this.isDarkTheme);
-    localStorage.setItem('screenMode', this.isDarkTheme ? 'light' : 'dark');
+    this._localStorage.setTheme(this.isDarkTheme)
     $('#body').toggleClass('lightMode');
   }
 
@@ -66,8 +68,7 @@ export class NavbarComponent implements OnInit {
   }
 
   signout(){
-    localStorage.removeItem('authToken');
-    this.router.navigate(['/signin']);
+    this._localStorage.removeToken()
   }
- 
+
 }

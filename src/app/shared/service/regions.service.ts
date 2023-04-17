@@ -10,6 +10,11 @@ export class RegionsService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
+
+  /* 
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -42,5 +47,26 @@ export class RegionsService {
 
   getCountries() {
     return this.http.get(`${this.serverUrl}/countries`, this.getHeader());
+  }
+  */
+
+  getAllRegions() {
+    return this.http.get(`${this.serverUrl}/regions`);
+  }
+
+  createSubscription(data: any) {
+    return this.http.post(`${this.serverUrl}/subscriptions`, data);
+  }
+
+  updateSubscription(id: any, data: any) {
+    return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data);
+  }
+
+  getCountriesByGroup(groupIndex : number){
+    return this.http.get(`${this.serverUrl}/countries/group/${groupIndex}`);
+  }
+
+  getCountries() {
+    return this.http.get(`${this.serverUrl}/countries`);
   }
 }
