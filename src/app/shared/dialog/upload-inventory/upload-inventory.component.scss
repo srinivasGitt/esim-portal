@@ -47,3 +47,14 @@
     color: var(--section-head-text-color);
     font-weight: 500;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #929292;
+}
