@@ -20,7 +20,7 @@ export class PlanDialogComponent implements OnInit {
   countryList: any = [];
   submitted = false;
   title: string = 'Add New Plan';
-  currentDate = new Date();
+  currentDate = new Date().toISOString().slice(0, 10);
   inProgress: boolean = false;
 
   constructor(
@@ -39,10 +39,8 @@ export class PlanDialogComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.inProgress = true
     this.createPlanForm();
-    console.log(this.datepipe.transform(this.currentDate, 'yyyy-mm-dd'));  
     this.countryList = Country.default
     this.countryList = this.countryList.sort((a:any,b:any) => a.name.common.localeCompare(b.name.common))
-
     this.countryList.forEach((country: any) => {
       let flagNameInLower = country.cca3
       flagNameInLower = flagNameInLower.toLowerCase()
