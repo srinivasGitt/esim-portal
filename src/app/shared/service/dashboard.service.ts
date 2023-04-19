@@ -71,7 +71,7 @@ export class DashboardService {
       {
         title: 'Subscribers',
         icon: 'assets/icons/subscriber-icon.svg',
-        link: '/subscriber',
+        link: '/subscribers',
         accessRole: ['admin','superAdmin'],
         hasGroup: false
       },

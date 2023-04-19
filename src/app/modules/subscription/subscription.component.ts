@@ -6,6 +6,8 @@ import { SubscriptionsService } from 'src/app/shared/service/subscriptions.servi
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
+import { SearchService } from 'src/app/shared/service/search/search.service';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-subscription',
@@ -28,10 +30,16 @@ export class SubscriptionComponent implements OnInit {
   };
 
   inProgress: boolean = false;
-
+  data!: Observable<any>;
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
-              private alertService : AlertService) { }
+              private alertService : AlertService, 
+              private _searchService: SearchService) {
+                _searchService.getResults().subscribe((results: any) => {
+                  this.subscriptionList = results?.data
+                  console.log(this.subscriptionList)
+                })
+              }
   ngOnInit(): void {
     this.getAllSubscription();
   }
@@ -55,9 +63,9 @@ export class SubscriptionComponent implements OnInit {
     this.inProgress = true;
     this.subscriptionsService.subscriptionList()
     .subscribe(
-      (data: any) => {
-        this.subscriptionList = data;
-        this.paginateConfig.totalItems = data?.length;
+      (res: any) => {
+        this.subscriptionList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
@@ -126,4 +134,21 @@ export class SubscriptionComponent implements OnInit {
       this.filterConfig.searchTerm = "";
     }
   }
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+    this.subscriptionsService.subscriptionList(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+    .subscribe(
+      (res: any) => {
+        this.subscriptionList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
+      }, err => {
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      }
+    );
+  }
+
 }

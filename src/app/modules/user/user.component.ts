@@ -112,19 +112,18 @@ export class UserComponent implements OnInit {
   getAllUsers() {
     this.inProgress = true;
 
-    this.usersService.getAllUsers(this.customerId || this.userDetails.customerId)
-    .subscribe(
-      (data: any) => {
-        this.usersList = data;
-        // this.getAllRegions();
-        // this.getAllPlans();
-        this.inProgress = false;
-      }, err => {
-        this.alertService.error(err.error.message);
-        this.inProgress = false;
-      }
-    );
-
+      this.usersService.getAllUsers(this.customerId || this.userDetails?.customerId)
+      .subscribe(
+        (data: any) => {
+          this.usersList = data;
+          // this.getAllRegions();
+          // this.getAllPlans();
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message);
+          this.inProgress = false;
+        }
+      );
   }
 
   editUser(user: any) {
@@ -216,4 +215,5 @@ export class UserComponent implements OnInit {
     }
     this.filterConfig.filterBy.value = this.selectedFilter;
   }
+
 }

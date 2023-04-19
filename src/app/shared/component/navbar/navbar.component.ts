@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
 import { NavigationEnd, Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
+import { NgForm } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter, pluck, switchMap } from 'rxjs/operators';
+import { SearchService } from '../../service/search/search.service';
 declare var $: any;
 
 @Component({
@@ -9,29 +12,36 @@ declare var $: any;
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   isDarkTheme = false;
   screenMode:any;
   parentCustomer: any;
   customerList: any = [];
   userDetails: any;
   showSearch: boolean = true;
+  routeUrl!: string;
+
+  @ViewChild('searchForm') searchForm!: NgForm;
+  initValue: string = '';
 
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
               private usersService: UsersService,
               public router: Router,
-              private _localStorage: LocalStorageService) {
+              private _localStorage: LocalStorageService,
+              private _searchService: SearchService) {
     
       // show/hide search box
       router.events.subscribe((route) => {
-      if(route instanceof NavigationEnd) {
-        if(route.url == "/" || route.url == "/reports") {
+        if(route instanceof NavigationEnd) {
+        this.routeUrl = route.url
+        if(route.url == "/" || route.url == "/reports" || route.url == "/customer-management" || route.url == "/user-management") {
           this.showSearch = false;
         } else {
           this.showSearch = true;
         }
+        // this.searchForm.reset()
       }
     })
     usersService.getCurrentUser().subscribe(result => {
@@ -46,6 +56,23 @@ export class NavbarComponent implements OnInit {
     }else{
       // this.getAllCustomer();
     }
+  }
+
+  ngAfterViewInit() {
+    
+    // Search Input Logic
+    const formValue = this.searchForm.valueChanges
+      formValue?.pipe(
+        filter(() => !this.searchForm.invalid),
+        pluck('searchTerm'),
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
+      )
+      .subscribe(res => {
+        this._searchService.setResults(res)
+      })
+      
   }
 
   toggleTheme() {
@@ -69,6 +96,15 @@ export class NavbarComponent implements OnInit {
 
   signout(){
     this._localStorage.removeToken()
+  }
+
+  // reset(){
+  //   this.searchForm.reset()
+  //   this._searchService._searchResults$.next(null)
+  //   this._searchService._searchResults$.complete()
+  // }
+  afterValueChanged(event: any) {
+    console.log(event)
   }
 
 }
