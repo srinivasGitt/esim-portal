@@ -40,10 +40,13 @@ export class InventoryService {
   }
   */
 
-  listInventory() {
+  listInventory(itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/inventories?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
     return this.http.get(`${this.serverUrl}/inventories`);
   }
-
+  
   assignProfile(data: any){
     return this.http.post(`${this.serverUrl}/customer/inventory`, data)
   }

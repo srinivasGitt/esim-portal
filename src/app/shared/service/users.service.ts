@@ -107,13 +107,15 @@ export class UsersService {
     return this.http.post(`${this.serverUrl}/users/invite-user`, data);
   }
 
-  getAllUsers(custId: any) {
-    if(custId) {
+  getAllUsers(custId: any, itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/users?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    else if(custId) {
       return this.http.get(`${this.serverUrl}/users?customerId=${custId}`);
     } else {
       return this.http.get(`${this.serverUrl}/users`);
     }
-    
   }
 
   updateUser(id: any, data: any) {

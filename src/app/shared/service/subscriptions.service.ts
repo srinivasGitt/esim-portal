@@ -45,7 +45,10 @@ export class SubscriptionsService {
   }
   */
 
-  subscriptionList() {
+  subscriptionList(itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/subscriptions?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
     return this.http.get(`${this.serverUrl}/subscriptions`);
   }
 

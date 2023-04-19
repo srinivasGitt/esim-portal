@@ -54,7 +54,10 @@ export class subscriberService {
     return this.http.post(`${this.serverUrl}/subscribers`, data);
   }
 
-  getAllSubscriber() {
+  getAllSubscriber(itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/subscribers?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
     return this.http.get(`${this.serverUrl}/subscribers`);
   }
 

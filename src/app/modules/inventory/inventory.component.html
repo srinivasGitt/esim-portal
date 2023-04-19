@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="t-body-overflow" *ngIf="inventories && inventories.length > 0">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let inventory of (inventories | listFilter: filterConfig) | paginate: paginateConfig;">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let inventory of inventories | paginate: paginateConfig;">
                         <div class="t-box px-2">{{ inventory.iccid }}</div>
                         <div class="t-box ">{{ inventory.matchingId }}</div>
                         <div class="t-box px-2">{{ inventory.createdAt }}</div>
@@ -84,8 +84,8 @@
     
     <!-- Pagination -->
     <ng-container *ngIf="!inProgress">
-        <div class="custom-pagination-section" *ngIf="inventories?.length > paginateConfig.itemsPerPage">
-            <pagination-controls id="inventoryListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        <div class="custom-pagination-section">
+            <pagination-controls id="inventoryListPagination" previousLabel="" nextLabel="" (pageChange)="getPageNumber($event)"></pagination-controls>
         </div>
     </ng-container>
 </div>

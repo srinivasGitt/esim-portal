@@ -24,7 +24,7 @@
         </div>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-dashboard-head ms-auto d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails.customerId" (click)="createUser()">
+        <button type="button" class="btn btn-dashboard-head ms-auto d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails?.customerId" (click)="createUser()">
             <span class="me-3 btn-add-icon m-auto"> + </span>
             <span class="m-auto">Add New User</span>
         </button>   
@@ -115,7 +115,7 @@
     
     <!-- Pagination -->
     <ng-container *ngIf="!inProgress">
-        <div class="custom-pagination-section" *ngIf="usersList?.length > paginateConfig.itemsPerPage">
+        <div class="custom-pagination-section">
             <pagination-controls id="userListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
         </div>
     </ng-container>
