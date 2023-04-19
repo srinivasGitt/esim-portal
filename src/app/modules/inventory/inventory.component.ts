@@ -9,6 +9,7 @@ import { UploadInventoryComponent } from 'src/app/shared/dialog/upload-inventory
 import { DownloadSampleFileComponent } from 'src/app/shared/dialog/download-sample-file/download-sample-file.component';
 import { PaginationInstance } from 'ngx-pagination';
 import { InventoryInfoComponent } from 'src/app/shared/dialog/inventory-info/inventory-info.component';
+import { SearchService } from 'src/app/shared/service/search/search.service';
 
 @Component({
   selector: 'app-inventory',
@@ -34,7 +35,12 @@ export class InventoryComponent implements OnInit {
 
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
-              private alertService : AlertService) { }
+              private alertService : AlertService,
+              private _searchService: SearchService) {
+                _searchService.getResults().subscribe((results: any) => {
+                  this.inventories = results?.data
+                }) 
+              }
 
   ngOnInit(): void {
     this.getInventory()
@@ -46,9 +52,9 @@ export class InventoryComponent implements OnInit {
 
     this.inventoryService.listInventory()
     .subscribe(
-      (data: any) => {
-        this.inventories = data;
-        this.paginateConfig.totalItems = data?.length;
+      (res: any) => {
+        this.inventories = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
@@ -83,5 +89,21 @@ export class InventoryComponent implements OnInit {
     }, err => {
 
     })
+  }
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+    this.inventoryService.listInventory(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+    .subscribe(
+      (res: any) => {
+        this.inventories = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
+      }, err => {
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      }
+    );
   }
 }

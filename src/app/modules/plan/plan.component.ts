@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
 import { DialogService, PlansService, AlertService } from 'src/app/shared/service';
 import { PaginationInstance } from 'ngx-pagination';
+import { SearchService } from 'src/app/shared/service/search/search.service';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -25,9 +26,15 @@ export class PlanComponent implements OnInit {
 
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private _searchService: SearchService) { 
+                _searchService.getResults().subscribe((results: any) => {
+                  this.plansList = results?.data
+                })
+              }
   ngOnInit(): void {
     this.getAllPlans();
+    
   }
 
   createPlan() {
@@ -46,9 +53,9 @@ export class PlanComponent implements OnInit {
 
     this.plansService.listPlans()
     .subscribe(
-      (data: any) => {
-        this.plansList = data;
-        this.paginateConfig.totalItems = data?.length;
+      (res: any) => {
+        this.plansList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message);
@@ -121,5 +128,21 @@ export class PlanComponent implements OnInit {
         this.alertService.success(res.message);
       }
     )
+  }
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+    this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+    .subscribe(
+      (res: any) => {
+        this.plansList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
+      }, err => {
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      }
+    );
   }
 }

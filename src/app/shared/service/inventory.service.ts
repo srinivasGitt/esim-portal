@@ -10,6 +10,10 @@ export class InventoryService {
 
   constructor(private http: HttpClient ) { }
 
+  /*
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -33,5 +37,22 @@ export class InventoryService {
   uploadFile(file: any) {
     console.log(file)
     return this.http.post(`${this.serverUrl}/inventory/import`, file, this.getHeader());
+  }
+  */
+
+  listInventory(itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/inventories?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    return this.http.get(`${this.serverUrl}/inventories`);
+  }
+  
+  assignProfile(data: any){
+    return this.http.post(`${this.serverUrl}/customer/inventory`, data)
+  }
+
+  uploadFile(file: any) {
+    console.log(file)
+    return this.http.post(`${this.serverUrl}/inventory/import`, file);
   }
 }

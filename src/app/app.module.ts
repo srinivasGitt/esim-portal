@@ -9,7 +9,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { DialogComponent } from './shared/service/dialog/dialog.component';
 import { CoreComponent } from './core/core.component';
 import { AuthService } from './shared/service/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ModulesModule } from './modules/modules.module';
@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import { TooltipDirective } from './shared/directive/tooltip.directive';
+import { JwtInterceptor } from './shared/service/interceptor/jwt.interceptor';
 
 // import { NgChartsModule } from 'chart.js';
 
@@ -42,7 +43,7 @@ import { TooltipDirective } from './shared/directive/tooltip.directive';
     AngularOtpLibModule,
     PasswordStrengthMeterModule.forRoot()
   ],
-  providers: [AuthService],
+  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

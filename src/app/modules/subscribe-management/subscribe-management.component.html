@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="t-body-overflow" *ngIf="subscriberList && subscriberList.length > 0">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let subscriber of (subscriberList | listFilter: filterConfig) | paginate: paginateConfig;">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let subscriber of subscriberList | paginate: paginateConfig ">
                         <div class="t-box a px-2">{{ subscriber.displayName }}</div>
                         <div class="t-box b px-2">{{ subscriber.email }}</div>
                         <div class="t-box a px-2">{{ subscriber.iccid }}</div>
@@ -103,8 +103,8 @@
 
     <!-- Pagination -->
     <ng-container *ngIf="!inProgress">
-        <div class="custom-pagination-section" *ngIf="subscriberList?.length > 20">
-            <pagination-controls id="subscriberListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+        <div class="custom-pagination-section">
+            <pagination-controls id="subscriberListPagination" previousLabel="" nextLabel="" (pageChange)=" getPageNumber($event)"></pagination-controls>
         </div>
     </ng-container>
 </div>

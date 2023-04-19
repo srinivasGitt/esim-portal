@@ -3,6 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +18,8 @@ export class SigninComponent implements OnInit {
   err = false;
   constructor(private authService: AuthService,
               private router: Router,
-              private alertService : AlertService) { }
+              private alertService : AlertService,
+              private _localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -46,7 +48,7 @@ export class SigninComponent implements OnInit {
 
     this.authService.signin(userData)
       .subscribe((res: any) =>{
-        localStorage.setItem('authToken', res.token);
+        this._localStorageService.setToken(res.token);
         window.location.href = '/';
       }, (err: any) =>{
         if(err?.error?.message?.includes('User not found')){

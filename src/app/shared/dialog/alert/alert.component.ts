@@ -11,6 +11,7 @@ export class AlertComponent implements OnInit {
   title: string = 'Something went wrong!';
   body: string = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
   dialogRef: DialogComponent;
+  titleArr: string[] = ['Success', 'Error', 'Info', 'Warning']
 
   buttonGroup = [
     { cssClass: 'btn-secondary', title: 'Cancel', value: false},
@@ -27,13 +28,11 @@ export class AlertComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.body = this.dialogRef.context.body;
     
-    if(this.dialogRef.context.title !== 'Success' && this.dialogRef.context.title !== 'Error') {
+    if(this.titleArr.indexOf(this.dialogRef.context.title) == -1) {
       this.title = 'Something went wrong!'
-    }
-    
-    if(this.dialogRef.context.title !== 'Success' && this.dialogRef.context.title !== 'Error') {
       this.body = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
     }
+    
     console.log(this.dialogRef)
   }
 

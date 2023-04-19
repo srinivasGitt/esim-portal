@@ -42,12 +42,15 @@
                         <path d="M29 50C28.175 50 27.4688 49.7063 26.8813 49.1188C26.2938 48.5312 26 47.825 26 47V42.5H29V47H47V42.5H50V47C50 47.825 49.7063 48.5312 49.1188 49.1188C48.5312 49.7063 47.825 50 47 50H29ZM36.5 44V31.775L32.6 35.675L30.5 33.5L38 26L45.5 33.5L43.4 35.675L39.5 31.775V44H36.5Z" fill="#A5A6EE"/>
                         </svg>                        
                 </div>
-                <div class="section-head-text">
+                <div class="section-head-text mb-0">
                     Drag CSV or Excel here
                 </div>
                 <div class="mb-3">
                     <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv">
                     <!-- <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"> -->
+                    <label for="file" class="file-label">
+                        or, click to browse
+                    </label>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="uploadForm.controls['file'].errors && submitted">
                             <span class="small" *ngIf="uploadForm.controls['file'].errors['required']">
