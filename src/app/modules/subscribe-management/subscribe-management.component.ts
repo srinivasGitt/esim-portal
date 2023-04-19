@@ -10,6 +10,7 @@ import { subscriberService } from 'src/app/shared/service/subscriber.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
+import { SearchService } from 'src/app/shared/service/search/search.service';
 
 @Component({
   selector: 'app-subscribe-management',
@@ -38,7 +39,12 @@ export class SubscribeManagementComponent implements OnInit {
               private regionService: RegionsService,
               private planService: PlansService,
               private route: ActivatedRoute,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private _searchService: SearchService) {
+                _searchService.getResults().subscribe((results: any) => {
+                  this.subscriberList = results?.data
+                }) 
+              }
 
   ngOnInit(): void {
     this.getAllSubscriber();
@@ -93,10 +99,11 @@ export class SubscribeManagementComponent implements OnInit {
 
     this.subscriberService.getAllSubscriber()
     .subscribe(
-      (data: any) => {
-        this.subscriberList = data;
-        this.getAllRegions();
-        this.getAllPlans();
+      (res: any) => {
+        this.subscriberList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        // this.getAllRegions();
+        // this.getAllPlans();
         // this.subscriptionList = data;
         this.inProgress = false;
       }, err => {
@@ -171,4 +178,20 @@ export class SubscribeManagementComponent implements OnInit {
   //     // }
   //     });
   // }
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+    this.subscriberService.getAllSubscriber(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+    .subscribe(
+      (res: any) => {
+        this.subscriberList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
+      }, err => {
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      }
+    );
+  }
 }

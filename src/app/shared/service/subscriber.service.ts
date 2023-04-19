@@ -9,6 +9,11 @@ export class subscriberService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient ) { }
+
+  /* 
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -42,5 +47,34 @@ export class subscriberService {
   // Invite Subscriber
   inviteSubscriber(data:any){
     return this.http.post(`${this.serverUrl}/subscriber/invite-subscriber`, data, this.getHeader());
+  }
+  */
+
+  createSubscriber(data: any) {
+    return this.http.post(`${this.serverUrl}/subscribers`, data);
+  }
+
+  getAllSubscriber(itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/subscribers?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    return this.http.get(`${this.serverUrl}/subscribers`);
+  }
+
+  getSingleSubscriber(subscriberId: string) {
+    return this.http.get(`${this.serverUrl}/subscribers/${subscriberId}`);
+  }
+
+  updateSubscriber(id: any, data: any) {
+    return this.http.put(`${this.serverUrl}/subscribers/${id}`, data);
+  }
+  
+  deleteSubscriber(id: any) {
+    return this.http.delete(`${this.serverUrl}/subscribers/${id}`);
+  }
+
+  // Invite Subscriber
+  inviteSubscriber(data:any){
+    return this.http.post(`${this.serverUrl}/subscriber/invite-subscriber`, data);
   }
 }

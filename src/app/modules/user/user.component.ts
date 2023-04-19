@@ -104,7 +104,7 @@ export class UserComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         if (data) {
           this.getAllUsers();
-          this.alertService.success('User Created');
+          this.alertService.success(data.message);
         }
       });
   }
@@ -112,19 +112,18 @@ export class UserComponent implements OnInit {
   getAllUsers() {
     this.inProgress = true;
 
-    this.usersService.getAllUsers(this.customerId || this.userDetails.customerId)
-    .subscribe(
-      (data: any) => {
-        this.usersList = data;
-        // this.getAllRegions();
-        // this.getAllPlans();
-        this.inProgress = false;
-      }, err => {
-        this.alertService.error(err.error.message);
-        this.inProgress = false;
-      }
-    );
-
+      this.usersService.getAllUsers(this.customerId || this.userDetails?.customerId)
+      .subscribe(
+        (data: any) => {
+          this.usersList = data;
+          // this.getAllRegions();
+          // this.getAllPlans();
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message);
+          this.inProgress = false;
+        }
+      );
   }
 
   editUser(user: any) {
@@ -134,7 +133,7 @@ export class UserComponent implements OnInit {
         if(data){
           let index = vm.usersList.findIndex((o: any) => o.email === user.email);
           vm.usersList[index] = data;
-          this.alertService.success('User Updated');
+          this.alertService.success(data.message);
           this.getAllUsers();
         }
       });
@@ -157,9 +156,9 @@ export class UserComponent implements OnInit {
       if (data) {
         let index = vm.usersList.findIndex((o: any) => o.email === user.email);
         vm.usersService.deleteUser(vm.usersList[index]._id)
-        .subscribe(res => {
+        .subscribe((res: any) => {
           vm.usersList.splice(index, 1);
-          this.alertService.success('User Deleted');
+          this.alertService.success(res.message);
         }, err => {
           this.alertService.error(err.error.message);
         })
@@ -216,4 +215,5 @@ export class UserComponent implements OnInit {
     }
     this.filterConfig.filterBy.value = this.selectedFilter;
   }
+
 }

@@ -33,6 +33,7 @@ import { FilesizePipe } from './pipe/filesize.pipe';
 import { EventBlockerDirective } from './directive/event-blocker.directive';
 import { LoadingSpinnerComponent } from './component/loading-spinner/loading-spinner.component';
 import { InventoryInfoComponent } from './dialog/inventory-info/inventory-info.component';
+import { NotFoundComponent } from './component/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { InventoryInfoComponent } from './dialog/inventory-info/inventory-info.c
     FilesizePipe,
     EventBlockerDirective,
     LoadingSpinnerComponent,
-    InventoryInfoComponent
+    InventoryInfoComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,

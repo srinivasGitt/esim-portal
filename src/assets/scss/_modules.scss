@@ -428,6 +428,10 @@
                 line-height: 17px;
                 border-radius: 50%;
             }
+
+            &:hover{
+                background-color: var(--add-button-hover-bg-color);
+            }
         }
         .filter-head{
             color: var(--font-color);
@@ -889,7 +893,7 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 2fr 1.5fr 1fr 2fr 1.5fr 2.5fr 1.5fr;
+            grid-template-columns: 2fr 1.5fr 1.5fr 2fr 1.5fr 2fr 0.5fr 1.5fr;
             // grid-gap: 1;
         }
         .table-headers{
@@ -1333,6 +1337,7 @@
         font-size: var(--min-font-size);
         color: var(--font-color);
         padding-left: 3.2rem;
+        padding-right: 3.5rem;
         width: 349px !important;
         height: 50px;
 
@@ -1350,17 +1355,18 @@
 
     .search-icon-div{
         position: absolute;
-        top: 45%;
         left: 7%;
         transform: translate(-45%, -50%);
         width: 1.25rem;
         @media (max-width: 1679px){
             left: 10%;
+            top: 45%;
         }
         svg{
             fill: var(--font-color);
         }
     }
+
 }
 
 // Modal Common CSS
@@ -1382,6 +1388,10 @@
     }
     .btn-primary{
         background: var(--add-button-bg-color) !important;
+
+        &:hover{
+            background-color: var(--add-button-hover-bg-color) !important;
+        }
     }
 
     .btn-full-width {
@@ -1574,7 +1584,7 @@
                 color: var(--font-color);
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
-                width: 70px;
+                width: 5rem;
                 background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICA8cGF0aCBmaWxsPSJncmF5IiBkPSJNMTAsMjMyLjdsNDkwLDUzNC41bDQ5MC01MzQuNUgxMHoiIC8+DQo8L3N2Zz4=);
                 background-repeat: no-repeat;
                 background-position: right;
@@ -1607,6 +1617,10 @@
                 background-color: var(--dark-background-v3);
                 color: var(--font-color);
                 box-shadow: none;
+            }
+
+            &.validity-select {
+                width: 10rem !important;
             }
         
         }

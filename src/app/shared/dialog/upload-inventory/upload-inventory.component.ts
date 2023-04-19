@@ -68,7 +68,7 @@ export class UploadInventoryComponent implements OnInit {
           this.dialogRef.close.emit(event);
       }
       }, err => {
-        console.log(err);
+        
         this.alertService.error(err.error.message);
       })
   }

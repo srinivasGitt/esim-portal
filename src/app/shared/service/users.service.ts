@@ -12,6 +12,10 @@ export class UsersService {
 
   constructor(private http: HttpClient ) { }
 
+  /* 
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -76,4 +80,56 @@ export class UsersService {
   inviteUser(data:any){
     return this.http.post(`${this.serverUrl}/users/invite-user`, data, this.getHeader());
   }
+
+  */
+
+  getUserDetails(){
+    return this.http.get(`${this.serverUrl}/users/me`);
+  }
+
+  getCurrentUser(){
+    return this._currentUser$.asObservable();
+  }
+
+  setCurrentUser(userDetails : any){
+    this._currentUser$.next(userDetails);
+  }
+
+  changeCurrentCustomer( data:any){
+    return this.http.post(`${this.serverUrl}/users/change-customer`, data);
+  }
+
+  setDefaultCustomer(){
+    return this.http.get(`${this.serverUrl}/users/set-default-customer`);
+  }
+
+  createUsers(data: any) {
+    return this.http.post(`${this.serverUrl}/users/invite-user`, data);
+  }
+
+  getAllUsers(custId: any, itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/users?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    else if(custId) {
+      return this.http.get(`${this.serverUrl}/users?customerId=${custId}`);
+    } else {
+      return this.http.get(`${this.serverUrl}/users`);
+    }
+  }
+
+  updateUser(id: any, data: any) {
+    return this.http.put(`${this.serverUrl}/users/${id}`, data);
+  }
+
+  deleteUser(id: any) {
+    return this.http.delete(`${this.serverUrl}/users/${id}`);
+  }
+
+  // Invite User
+  inviteUser(data:any){
+    return this.http.post(`${this.serverUrl}/users/invite-user`, data);
+  }
+
+
 }
