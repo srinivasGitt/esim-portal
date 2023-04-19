@@ -1582,7 +1582,7 @@
                 color: var(--font-color);
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
-                width: 70px;
+                width: 5rem;
                 background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICA8cGF0aCBmaWxsPSJncmF5IiBkPSJNMTAsMjMyLjdsNDkwLDUzNC41bDQ5MC01MzQuNUgxMHoiIC8+DQo8L3N2Zz4=);
                 background-repeat: no-repeat;
                 background-position: right;
@@ -1615,6 +1615,10 @@
                 background-color: var(--dark-background-v3);
                 color: var(--font-color);
                 box-shadow: none;
+            }
+
+            &.validity-select {
+                width: 10rem !important;
             }
         
         }

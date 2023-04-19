@@ -106,7 +106,7 @@ export class CustomerManagementComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         if(data){
           this.customerList = this.customerList.map((c : any) => {if(c._id == customer._id) c = data; return c;});
-          this.alertService.success('Customer Updated');
+          this.alertService.success(data.message);
           // this.getAllCustomer();
         }
     });
@@ -126,9 +126,9 @@ export class CustomerManagementComponent implements OnInit {
     .instance.close.subscribe((data: any) => {
       if (data) {
         this.customerService.deleteCustomer(customer._id)
-        .subscribe(res => {
+        .subscribe((res: any) => {
           this.customerList = this.customerList.filter((c : any) => c._id != customer._id);
-          this.alertService.success('Customer Deleted');
+          this.alertService.success(res.message);
         }, err => {
           this.alertService.error(err.error.message);
         })

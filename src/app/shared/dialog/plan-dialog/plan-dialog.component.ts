@@ -22,6 +22,8 @@ export class PlanDialogComponent implements OnInit {
   title: string = 'Add New Plan';
   currentDate = new Date();
   inProgress: boolean = false;
+  dataDropdown: string[] = ['MB', 'GB', 'TB']
+  validityDropdown: string[] = ['days', 'months', 'year']
 
   constructor(
     private viewContainer: ViewContainerRef,

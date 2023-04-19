@@ -24,4 +24,11 @@ export class AlertService {
         
         });
   }
+
+  info(message: string){
+    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Info', body: message} })
+          .instance.close.subscribe((data: any) => {
+        
+        });
+  }
 }
