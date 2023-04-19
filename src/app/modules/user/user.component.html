@@ -30,8 +30,10 @@
         </button>   
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
-        <div class="d-flex info-head-section">
-            <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }}, {{ selectedFilter.year }}  </label>
+        <div class="d-flex info-head-section justify-content-end mb-2">
+            <label class="mt-auto mx-2" *ngIf="usersList.length > 0">
+                Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + usersList.length}} of {{ paginateConfig.totalItems }} entries
+            </label>
         </div>
 
         <div class="user-dashboard-table">

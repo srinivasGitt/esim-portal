@@ -14,13 +14,18 @@
             <h2>Subscription Management</h2>
         </div>
         <div>
-            <button type="button" class="btn btn-dashboard-head d-flex" (click)="createSubscription()">
+            <button type="button" class="btn btn-dashboard-head d-flex" (click)="createSubscription()" [class.disabled]="true">
                 <span class="me-3 btn-add-icon m-auto"> + </span>
                 <span class="m-auto">Add new subscription</span>
             </button>
         </div>
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
+        <div class="d-flex info-head-section justify-content-end mb-2">
+            <label class="mt-auto mx-2" *ngIf="subscriptionList.length > 0">
+                Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + subscriptionList.length}} of {{ paginateConfig.totalItems }} entries
+            </label>
+        </div>
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">

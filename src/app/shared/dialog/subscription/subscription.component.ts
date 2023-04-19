@@ -19,6 +19,8 @@ export class SubscriptionDialogComponent  implements OnInit {
   title: string = 'Add New Subscription';
   planList: any = [];
   subscribeList: any = [];
+  currentDate = new Date().toISOString().slice(0, 10);
+
   constructor(
     private viewContainer: ViewContainerRef,
     private dialogService: DialogService,
@@ -42,58 +44,86 @@ export class SubscriptionDialogComponent  implements OnInit {
 
   createSubscriptionForm() {
     this.subscriptionForm = new UntypedFormGroup({
-      subscriptionNumber: new UntypedFormControl(this.data?.subscriptionNumber, [Validators.required],),
-      amount: new UntypedFormControl(this.data?.amount, [Validators.required],),
-      startDate: new UntypedFormControl(this.data?.startDate, [Validators.required]),
-      endDate: new UntypedFormControl(this.data?.endDate, [Validators.required]),
-      planId: new UntypedFormControl(this.data?.planId, [Validators.required]),
-      userEmail: new UntypedFormControl('', [Validators.required]),
+      planId: new UntypedFormControl(null, [Validators.required]),
+      subscriberId: new UntypedFormControl(null, [Validators.required],),
+      startDate: new UntypedFormControl(null, [Validators.required]),
+      endDate: new UntypedFormControl(null, [Validators.required]),
+      priceBundle: new UntypedFormControl(null, [Validators.required]),
+      data: new UntypedFormControl(null, [Validators.required]),
     });
   }
 
   get f() { return this.subscriptionForm.controls; }
 
-  submit() {
-    this.submitted = true;
-    if (this.subscriptionForm.invalid) {
-      this.submitted = false;
-      return
-    } 
-    this.dialogRef.close.emit(this.subscriptionForm.value);
-  }
-  getAllPlanId(){
-    this.planService.listPlans()
-    .subscribe(
-      res => {
-        this.planList = res;
-      }, err => {
-        this.alertService.error(err.error.message);
-      }
-    )
-  }
-  assignPlan(){
-    const planId = this.subscriptionForm.get('planId').value;
-    const plan = this.planList.find((o:any)=>o._id === planId);
-    if(plan){
-      this.subscriptionForm.get('amount').setValue(plan.cost);
-      const endDate = new Date();
-      endDate.setDate(endDate.getDate() + plan.validity);
-      this.subscriptionForm.get('endDate').setValue(endDate);
-      this.subscriptionForm.get('startDate').setValue(new Date());
-    }
-  }
-
   getUserId(){
     this.subscriberService.getAllSubscriber()
     .subscribe(
       (res : any) => {
-        console.log(res);
-        this.subscribeList = res;
+        this.subscribeList = res.data;
+        console.log(res)
       }, err => {
         this.alertService.error(err.error.message);
       }
     )
   }
+  
+  getAllPlanId(){
+    this.planService.listPlans()
+    .subscribe(
+      (res: any) => {
+        this.planList = res.data;
+        console.log(res)
+      }, err => {
+        this.alertService.error(err.error.message);
+      }
+    )
+  }
+
+  onPlanSelect(event: any) { 
+    if(event) {
+      this.f.startDate.setValue(this.currentDate)
+      this.f.priceBundle.setValue(event.priceBundle)
+      this.f.data.setValue(event.data)
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + event.cycle);
+      this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
+    }
+  }
+
+  onDateChange(event: any, plan: any) {
+    if(plan) {
+      const startDate = new Date(event.target.value)
+      const endDate = new Date();
+      endDate.setDate(startDate.getDate() + plan.value.cycle);
+      this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
+    }   
+  }
+
+  submit() {
+    this.submitted = true;
+    this.subscriptionForm.value.planId = this.subscriptionForm.value.planId._id
+    this.subscriptionForm.value.subscriberId = this.subscriptionForm.value.subscriberId._id
+    
+    if (this.subscriptionForm.invalid) {
+      return
+    } 
+    this.dialogRef.close.emit(this.subscriptionForm.value);
+  }
+
+  // assignPlan(){
+  //   const planId = this.subscriptionForm.get('planId').value;
+  //   const plan = this.planList.find((o:any)=>o._id === planId);
+  //   if(plan){
+  //     this.subscriptionForm.get('amount').setValue(plan.cost);
+  //     const endDate = new Date();
+  //     endDate.setDate(endDate.getDate() + plan.validity);
+  //     this.subscriptionForm.get('endDate').setValue(endDate);
+  //     this.subscriptionForm.get('startDate').setValue(new Date());
+  //   }
+  // }
+
+  
+
   close(): void {
     this.dialogRef.close.emit(false);
   }

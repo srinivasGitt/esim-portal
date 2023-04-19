@@ -160,7 +160,8 @@
                 // padding-left: 0;
                 margin: 30px 0 0 0;
                 padding: 0;
-
+                height: calc(100vh - 170px);
+                
                 li {
                     display: flex;
                     align-items: center;
@@ -195,6 +196,16 @@
                         margin-right: 12px;
                     }
                 }
+            }
+
+            .meta-footer {
+                position: relative;
+                bottom: 0;
+                color: var(--font-color);
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                padding: 0 10px;
             }
         }
     
@@ -972,10 +983,10 @@
         font-family: var(--dark-font-family);
         color: var(--font-color);
         line-height: 1.6;
-        h3{
+        .heading{
             font-size: 26px;
         }
-        label{
+        .term{
             font-size: 14px;
         }
         .input-label{
@@ -983,7 +994,7 @@
         }
         .ng-select-container{
             padding: 10px 10px 10px 30px;
-            background: var(--dark-background-v2);
+            background: var(--navbar-ele-bg-color);
             height: 40px;
             width: 160px;
             color: var(--dark-text-white-v6);
@@ -2293,3 +2304,4 @@
     height: 90px;
     margin-bottom: 4px;
 }
+

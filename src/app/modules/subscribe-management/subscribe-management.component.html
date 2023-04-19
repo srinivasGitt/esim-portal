@@ -21,6 +21,11 @@
         </div> -->
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
+        <div class="d-flex info-head-section justify-content-end mb-2">
+            <label class="mt-auto mx-2" *ngIf="subscriberList.length > 0">
+                Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + subscriberList.length}} of {{ paginateConfig.totalItems }} entries
+            </label>
+        </div>
         <div class="user-dashboard-table">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
