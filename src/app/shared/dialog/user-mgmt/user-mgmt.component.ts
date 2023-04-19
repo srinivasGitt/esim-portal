@@ -65,7 +65,7 @@ export class UserMgmtComponent implements OnInit {
   createuserForm() {
     this.userForm = new UntypedFormGroup({
       email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
-      firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
+      firstName: new UntypedFormControl(this.data?.firstName, [Validators.required, Validators.email]),
       lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
       mobile: new UntypedFormControl(this.data?.mobile, [Validators.required]),
     });
@@ -107,8 +107,20 @@ export class UserMgmtComponent implements OnInit {
     })
   }
 
+  /* Restrict user to enter alphabets in mobile field */
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+
   close(): void {
     // this.data.amount = 343;
     this.dialogRef.close.emit();
   }
+
+
 }

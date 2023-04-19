@@ -61,9 +61,7 @@
                     <label for="dataSize" class="form-label es-modal-form-label">Data*</label>
                     <div class="d-flex">
                         <select class="form-control es-select" formControlName="dataUnit">
-                            <option value="MB"> MB </option>
-                            <option value="GB"> GB </option>
-                            <option value="TB"> TB </option>
+                            <option [value]="data" *ngFor="let data of dataDropdown">{{ data }}</option>
                         </select>
                         <input type="number" class="form-control es-input left-radius-0" id="dataSize" aria-describedby="dataSize" formControlName="dataSize">
                     </div>
@@ -120,10 +118,8 @@
                 <div class="col-5">
                     <label for="voice" class="form-label es-modal-form-label">Validity*</label>
                     <div class="d-flex">
-                        <select class="form-control es-select" formControlName="validityUnit">
-                            <option value="days"> Days </option>
-                            <option value="months"> Months </option>
-                            <option value="years"> Years </option>
+                        <select class="form-control es-select validity-select" formControlName="validityUnit">
+                            <option [value]="validity" *ngFor="let validity of validityDropdown">{{ validity | titlecase }}</option>
                         </select>
                         <input type="number" class="form-control es-input left-radius-0" id="validity" aria-describedby="validity" formControlName="validity">
                     </div>
