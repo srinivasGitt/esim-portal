@@ -21,18 +21,26 @@
         </div>
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
-        <div class="d-flex info-head-section plan-table-head align-items-center justify-content-between">
-            <h3>All Plans</h3>
-            <label>5G Access Included*</label>
-            <div class="d-flex align-items-center justify-content-between">
-                <label class="input-label">Plan status</label>&nbsp;
-                <ng-select class="selector-filter" placeholder="All plans" [(ngModel)]="filterConfig.filterBy.value">
-                    <ng-option [value]="true"> <span class="active">Active</span></ng-option>
-                    <ng-option [value]="false"> <span class="inactive">Inactive</span></ng-option>
-                </ng-select>
+        <div class="d-flex info-head-section align-items-center justify-content-between" *ngIf="plansList.length > 0">
+            <div class="d-flex align-items-center plan-head-wrapper">
+                <div class="heading">All Plans</div>&nbsp;&nbsp;
+                <div class="term">5G Access Included*</div>&nbsp;&nbsp;
+                <div class="input-label">Plan status</div>&nbsp;&nbsp;
+                <div>
+                    <ng-select class="selector-filter" placeholder="All plans" [(ngModel)]="filterConfig.filterBy.value">
+                        <ng-option [value]="true"> <span class="active">Active</span></ng-option>
+                        <ng-option [value]="false"> <span class="inactive">Inactive</span></ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="d-flex info-head-section justify-content-end">
+                <label class="mt-auto mx-2">
+                    Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + plansList.length}} of {{ paginateConfig.totalItems }} entries
+                </label>
             </div>
         </div>
-        <div class="user-dashboard-table mt-4">
+        
+        <ng-container class="user-dashboard-table mt-4" *ngIf="plansList && plansList.length > 0; else msg">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
                     <div class="t-box a px-2 d-flex">
@@ -113,8 +121,16 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </ng-container>
     </div>
+
+    <!-- Not data - Start -->
+    <ng-template #msg>
+        <div class="pb-2">
+            No recods found.
+        </div>
+    </ng-template>
+    <!-- Not data - End -->
 
     <!-- Loading Spinner - Start -->
     <ng-template #spinner class="loader-align">
@@ -123,7 +139,7 @@
     <!-- Loading Spinner - End -->
 
     <!-- Pagination  -->
-    <ng-container *ngIf="!inProgress">
+    <ng-container *ngIf="!inProgress && plansList.length > 0">
         <div class="custom-pagination-section">
             <pagination-controls id="plansListPagination" previousLabel="" nextLabel="" (pageChange)=" getPageNumber($event)"></pagination-controls>
         </div>

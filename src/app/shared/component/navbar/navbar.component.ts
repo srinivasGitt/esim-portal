@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   showSearch: boolean = true;
   routeUrl!: string;
 
-  @ViewChild('searchForm') searchForm!: NgForm;
+  @ViewChild('searchForm',{static: false}) searchForm!: NgForm;
   initValue: string = '';
 
   constructor(private customerService: CustomerService,

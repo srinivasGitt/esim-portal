@@ -114,8 +114,9 @@ export class UserComponent implements OnInit {
 
       this.usersService.getAllUsers(this.customerId || this.userDetails?.customerId)
       .subscribe(
-        (data: any) => {
-          this.usersList = data;
+        (res: any) => {
+          this.usersList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
           // this.getAllRegions();
           // this.getAllPlans();
           this.inProgress = false;

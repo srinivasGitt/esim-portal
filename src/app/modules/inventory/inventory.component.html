@@ -13,7 +13,12 @@
     </div>
 
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
-        <div class="user-dashboard-table">
+        <div class="d-flex info-head-section justify-content-end mb-2">
+            <label class="mt-auto mx-2" *ngIf="inventories.length > 0">
+                Showing {{ paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + inventories.length }} of {{ paginateConfig.totalItems }} entries
+            </label>
+        </div>
+        <div class="user-dashboard-table"  *ngIf="inventories && inventories.length > 0; else msg">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
                     <div class="t-box px-2">
@@ -56,8 +61,8 @@
                         <span class="my-auto ms-2">Actions</span>
                     </div>
                 </div>
-                <div class="t-body-overflow" *ngIf="inventories && inventories.length > 0">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let inventory of inventories | paginate: paginateConfig;">
+                <div class="t-body-overflow">
+                    <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let inventory of inventories | paginate: paginateConfig; let i=index">
                         <div class="t-box px-2">{{ inventory.iccid }}</div>
                         <div class="t-box ">{{ inventory.matchingId }}</div>
                         <div class="t-box px-2">{{ inventory.createdAt }}</div>
@@ -76,6 +81,14 @@
         </div>
     </div>
 
+    <!-- Not data - Start -->
+    <ng-template #msg>
+        <div class="pb-2">
+            No recods found.
+        </div>
+    </ng-template>
+    <!-- Not data - End -->
+
     <!-- Loading Spinner - Start -->
     <ng-template #spinner class="loader-align">
         <app-loading-spinner></app-loading-spinner>
@@ -83,7 +96,7 @@
     <!-- Loading Spinner - End -->
     
     <!-- Pagination -->
-    <ng-container *ngIf="!inProgress">
+    <ng-container *ngIf="!inProgress && inventories.length > 0">
         <div class="custom-pagination-section">
             <pagination-controls id="inventoryListPagination" previousLabel="" nextLabel="" (pageChange)="getPageNumber($event)"></pagination-controls>
         </div>
