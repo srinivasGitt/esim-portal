@@ -37,7 +37,6 @@ export class SubscriptionComponent implements OnInit {
               private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
                   this.subscriptionList = results?.data
-                  console.log(this.subscriptionList)
                 })
               }
   ngOnInit(): void {
