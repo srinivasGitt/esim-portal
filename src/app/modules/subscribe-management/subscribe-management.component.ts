@@ -113,6 +113,7 @@ export class SubscribeManagementComponent implements OnInit {
     );
 
   }
+  
   editSubscriber(index: number) {
     this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: this.subscriberList[index], title: 'Edit Subscriber'} })
       .instance.close.subscribe((data: any) => {
