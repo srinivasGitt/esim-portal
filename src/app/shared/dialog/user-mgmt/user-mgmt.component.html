@@ -87,11 +87,17 @@
 
             <div class="mb-3">
                 <label for="name" class="form-label es-modal-form-label">Phone Number</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" >
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.mobile.touched && f.mobile.pristine) || (f.mobile.errors && submitted)">
                         <span class="small" *ngIf="f.mobile.errors.required">
                             Phone Number is required!
+                        </span>
+                        <span class="small" *ngIf="f.mobile.errors?.minlength">
+                            Phone number must be of {{ f.mobile.errors?.minlength.requiredLength }} digits.
+                        </span>
+                        <span class="small" *ngIf="f.mobile.errors?.maxlength">
+                            Phone number must be of {{ f.mobile.errors?.maxlength.requiredLength }} digits.
                         </span>
                     </span>
                 </div>
