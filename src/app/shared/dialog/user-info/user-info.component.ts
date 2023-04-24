@@ -31,6 +31,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   // Copy user email
+  /*
   copyToClipboard(event: MouseEvent, email: string | undefined) {
     event.preventDefault();
 
@@ -39,4 +40,5 @@ export class UserInfoComponent implements OnInit {
     }
     navigator.clipboard.writeText(email);
   }
+  */
 }

@@ -22,7 +22,7 @@ export class TooltipDirective {
   }
 
   @HostListener('click') onClick() {
-    if (this.tooltip) { 
+    if (this.tooltip?.innerText == 'Copy') { 
       this.tooltip.innerText = 'Copied';
     }
   }
