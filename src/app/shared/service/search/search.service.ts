@@ -16,11 +16,17 @@ export class SearchService {
 
 
   getSearchResult(url: string, searchTerm: string): Observable<any> {
-    console.log(url,searchTerm)
+    
     if(url.includes('inventory')) {
       url = '/inventories'
     }
-    return this.http.get(`${this.serverUrl}${url}/search?q=${searchTerm}`);
+
+    if(searchTerm.length > 3) {
+      return this.http.get(`${this.serverUrl}${url}/search?q=${searchTerm}`);
+    }
+    else {
+      return this.http.get(`${this.serverUrl}${url}`);
+    }
   }
 
   getResults(){

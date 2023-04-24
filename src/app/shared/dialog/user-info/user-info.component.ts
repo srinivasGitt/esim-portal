@@ -10,6 +10,7 @@ export class UserInfoComponent implements OnInit {
 
   dialogRef: DialogComponent;
   userDetails: any;
+  copyText: string = 'Copy'
 
   constructor(private viewContainer: ViewContainerRef,
     ) {
@@ -36,7 +37,6 @@ export class UserInfoComponent implements OnInit {
     if(!email) {
       return;
     }
-
     navigator.clipboard.writeText(email);
   }
 }

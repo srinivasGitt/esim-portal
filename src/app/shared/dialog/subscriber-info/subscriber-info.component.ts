@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { DialogComponent } from '../../service/dialog';
-import { subscriberService } from '../../service';
+import { AlertService, subscriberService } from '../../service';
 
 @Component({
   selector: 'app-subscriber-info',
@@ -12,8 +12,8 @@ export class SubscriberInfoComponent implements OnInit {
   dialogRef: DialogComponent;
   subscriberDetails: any;
   detailsRow: Array<any> = [
-    { title : 'Display name', key : 'displayName', customClass: '' },
-    { title : 'Email address', key : 'email', customClass: '' },
+    { title : 'Display Name', key : 'displayName', customClass: '' },
+    { title : 'Email Address', key : 'email', customClass: '' },
     { title : 'ICCID', key : 'iccid', customClass: '' },
     { title : 'Activation Code', key : 'activationCode', customClass: '' },
     { title : 'Date Created', key : 'created', customClass: '', isDate : true },
@@ -23,7 +23,8 @@ export class SubscriberInfoComponent implements OnInit {
   ]
   constructor(
     private viewContainer: ViewContainerRef,
-    private subscriberService: subscriberService
+    private subscriberService: subscriberService,
+    private alertService: AlertService
   ) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
@@ -44,8 +45,9 @@ export class SubscriberInfoComponent implements OnInit {
           this.subscriberDetails.planName = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].name : '';
           this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
         }
-      }
-    )
+      }, err => {
+        this.alertService.error(err.error.message, err.status);
+      })
   }
 
   close(): void {

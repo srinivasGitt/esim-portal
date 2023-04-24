@@ -77,7 +77,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -94,7 +94,7 @@ export class UserComponent implements OnInit {
           }
         });
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -121,7 +121,7 @@ export class UserComponent implements OnInit {
           // this.getAllPlans();
           this.inProgress = false;
         }, err => {
-          this.alertService.error(err.error.message);
+          this.alertService.error(err.error.message, err.status);
           this.inProgress = false;
         }
       );
@@ -161,7 +161,7 @@ export class UserComponent implements OnInit {
           vm.usersList.splice(index, 1);
           this.alertService.success(res.message);
         }, err => {
-          this.alertService.error(err.error.message);
+          this.alertService.error(err.error.message, err.status);
         })
       }
       });
@@ -217,4 +217,14 @@ export class UserComponent implements OnInit {
     this.filterConfig.filterBy.value = this.selectedFilter;
   }
 
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    
+    navigator.clipboard.writeText(email);
+  }
 }

@@ -81,7 +81,6 @@ export class CustomerService {
     }
 
     updateCustomer(id: any, data: any) {
-      console.log(data);
       return this.http.put(`${this.serverUrl}/customers/${id}`, data);
     }
 

@@ -55,10 +55,12 @@ export class PlanComponent implements OnInit {
     .subscribe(
       (res: any) => {
         this.plansList = res.data;
-        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        if(res.count) {
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        }
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }
     );
@@ -97,7 +99,7 @@ export class PlanComponent implements OnInit {
           this.plansList = this.plansList.filter((c : any) => c._id != plan._id);
           this.alertService.success(res.messsage);
         }, err => {
-          this.alertService.error(err.error.message);
+          this.alertService.error(err.error.message, err.status);
         })
       }
      
@@ -107,7 +109,9 @@ export class PlanComponent implements OnInit {
   showPlanInfo(plan : any){
     this.dialogService.openModal(PlanInfoComponent, { cssClass: 'modal-sm', context: {data: plan} })
     .instance.close.subscribe((data: any) => {
-
+      if(data){
+        this.getAllPlans()
+      }
     },
     (error : any) =>{
 
@@ -140,7 +144,7 @@ export class PlanComponent implements OnInit {
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }
     );

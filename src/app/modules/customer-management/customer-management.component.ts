@@ -96,7 +96,7 @@ export class CustomerManagementComponent implements OnInit {
         this.paginateConfig.totalItems = data.length;
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }); 
   }
@@ -130,7 +130,7 @@ export class CustomerManagementComponent implements OnInit {
           this.customerList = this.customerList.filter((c : any) => c._id != customer._id);
           this.alertService.success(res.message);
         }, err => {
-          this.alertService.error(err.error.message);
+          this.alertService.error(err.error.message, err.status);
         })
       }
       });
