@@ -22,7 +22,7 @@
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="d-flex info-head-section justify-content-end mb-2">
-            <label class="mt-auto mx-2" *ngIf="subscriptionList.length > 0">
+            <label class="mt-auto mx-2" *ngIf="subscriptionList && subscriptionList.length > 0">
                 Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + subscriptionList.length}} of {{ paginateConfig.totalItems }} entries
             </label>
         </div>
@@ -139,7 +139,7 @@
     <!-- Loading Spinner - End -->
     
     <!-- Pagination -->
-    <ng-container *ngIf="!inProgress && subscriptionList.length > 0">
+    <ng-container *ngIf="!inProgress && subscriptionList && subscriptionList.length > 0">
         <div class="custom-pagination-section">
             <pagination-controls id="subscriptionListPagination" previousLabel="" nextLabel="" (pageChange)="getPageNumber($event)"></pagination-controls>
         </div>

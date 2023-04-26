@@ -32,7 +32,7 @@ export class InventoryComponent implements OnInit {
     filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
   inProgress: boolean = false;
-
+  
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
               private alertService : AlertService,
@@ -57,7 +57,7 @@ export class InventoryComponent implements OnInit {
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }
     );
@@ -101,7 +101,7 @@ export class InventoryComponent implements OnInit {
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }
     );

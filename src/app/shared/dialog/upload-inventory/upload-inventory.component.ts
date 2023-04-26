@@ -55,7 +55,13 @@ export class UploadInventoryComponent implements OnInit {
   }
 
   // upload file
-  submit() {    
+  submit() {  
+    this.submitted = true;
+    
+    if(this.uploadForm.invalid) {
+      return;
+    }
+
     this._fileUploadService.onUpload(this.uploadedFile).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.UploadProgress:
@@ -69,7 +75,7 @@ export class UploadInventoryComponent implements OnInit {
       }
       }, err => {
         
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       })
   }
 

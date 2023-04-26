@@ -60,9 +60,8 @@ export class SubscriptionDialogComponent  implements OnInit {
     .subscribe(
       (res : any) => {
         this.subscribeList = res.data;
-        console.log(res)
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -72,9 +71,8 @@ export class SubscriptionDialogComponent  implements OnInit {
     .subscribe(
       (res: any) => {
         this.planList = res.data;
-        console.log(res)
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }

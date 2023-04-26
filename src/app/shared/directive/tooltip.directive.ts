@@ -21,6 +21,13 @@ export class TooltipDirective {
     if (this.tooltip) { this.hide(); }
   }
 
+  @HostListener('click') onClick() {
+    if (this.tooltip?.innerText == 'Copy') { 
+      this.tooltip.innerText = 'Copied';
+    }
+  }
+
+
   show() {
     this.create();
     this.setPosition();
