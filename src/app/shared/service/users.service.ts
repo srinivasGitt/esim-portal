@@ -113,7 +113,8 @@ export class UsersService {
     }
     else if(custId) {
       return this.http.get(`${this.serverUrl}/users?customerId=${custId}`);
-    } else {
+    } 
+    else {
       return this.http.get(`${this.serverUrl}/users`);
     }
   }
