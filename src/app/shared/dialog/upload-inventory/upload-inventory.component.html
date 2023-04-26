@@ -45,23 +45,23 @@
                 <div class="section-head-text mb-0">
                     Drag CSV or Excel here
                 </div>
-                <div class="mb-3">
+                <div>
                     <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv">
                     <!-- <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"> -->
                     <label for="file" class="file-label">
                         or, click to browse
                     </label>
-                    <div>
-                        <span class="help-block ng-invalid text-danger" *ngIf="uploadForm.controls['file'].errors && submitted">
-                            <span class="small" *ngIf="uploadForm.controls['file'].errors['required']">
-                                File is required!
-                            </span>
+                </div>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="uploadForm.controls['file'].errors && submitted">
+                        <span class="small" *ngIf="uploadForm.controls['file'].errors['required']">
+                            File is required!
                         </span>
-                    </div>
+                    </span>
                 </div>
             </div>
             
-            <div class="file-upload-body" *ngIf="uploadedFile">
+            <div class="file-upload-body mt-2" *ngIf="uploadedFile">
                 <div class="file-icon">
                     <div class="file-icon-border">
                         <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -11,8 +11,16 @@ export class AlertService {
     private dialogService : DialogService
   ) { }
 
-  error(message: string){
-    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Error', body: message} })
+  error(message: string, statusCode?: number){
+    let customTitle: string;
+
+    if(statusCode && statusCode == 401) {
+      customTitle = 'Info'
+    } else {
+      customTitle = 'Error'
+    }
+
+    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: message} })
           .instance.close.subscribe((data: any) => {
         
         });
@@ -25,10 +33,4 @@ export class AlertService {
         });
   }
 
-  info(message: string){
-    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Info', body: message} })
-          .instance.close.subscribe((data: any) => {
-        
-        });
-  }
 }

@@ -130,13 +130,11 @@ export class PlanDialogComponent implements OnInit {
       dateEarliestAvailable : new Date(plan.dateEarliestAvailable).getTime(),
     }
 
-    console.log(obj)
-
     this.planService.createPlan(obj)
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 

@@ -63,7 +63,7 @@ export class SubscriberMgmtComponent implements OnInit {
           this.planDetails = plan;
         }
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -78,7 +78,7 @@ export class SubscriberMgmtComponent implements OnInit {
           this.planDetails = plan;
         }
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -113,7 +113,7 @@ export class SubscriberMgmtComponent implements OnInit {
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 
@@ -122,7 +122,7 @@ export class SubscriberMgmtComponent implements OnInit {
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 

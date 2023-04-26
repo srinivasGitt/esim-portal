@@ -50,6 +50,7 @@ export class SigninComponent implements OnInit {
       .subscribe((res: any) =>{
         this._localStorageService.setToken(res.token);
         window.location.href = '/';
+        
       }, (err: any) =>{
         if(err?.error?.message?.includes('User not found')){
           this.signinForm.controls['email'].setErrors({'incorrect' : true});

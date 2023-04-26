@@ -67,6 +67,6 @@
     </div> -->
 
     <div class="es-modal-footer pt-4">
-        <button class="btn btn-secondary btn-full-width" (click)="close()">Disable Plan</button>
+        <button [ngClass]="planDetails.isActive ? 'btn-secondary' : 'btn-primary'" class="btn btn-full-width" (click)="updatePlanStatus(planDetails)">{{ planDetails.isActive ? 'Disable Plan' : 'Enable Plan'}}</button>
     </div>
 </div>

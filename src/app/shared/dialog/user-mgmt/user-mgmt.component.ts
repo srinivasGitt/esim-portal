@@ -42,10 +42,9 @@ export class UserMgmtComponent implements OnInit {
     this.regionService.getAllRegions()
     .subscribe(
       (res:any) => {
-        console.log(res);
         this.regionList = res;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -54,10 +53,9 @@ export class UserMgmtComponent implements OnInit {
     this.planService.listPlans()
     .subscribe(
       res => {
-        console.log(res);
         this.planList = res;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -83,7 +81,7 @@ export class UserMgmtComponent implements OnInit {
 
   createUser() {
     this.submitted = true;
-    console.log(this.userForm)
+
     if(this.userForm.invalid) {
       return;
     }
@@ -94,16 +92,22 @@ export class UserMgmtComponent implements OnInit {
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 
   update() {
+    this.submitted = true;
+
+    if(this.userForm.invalid) {
+      return;
+    }
+
     this.usersService.updateUser(this.data._id, this.userForm.value)
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 
