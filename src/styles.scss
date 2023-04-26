@@ -153,7 +153,14 @@
             fill: var(--search-placeholder-text);
         }
     }
-
+    
+    .info-default {
+        path {
+            fill: var(--info-button-bg-color);
+            opacity: 0.55;
+        }
+    }
+    
     .btn-outline-custom {
         color: #000 !important;
     }
