@@ -217,4 +217,19 @@ export class UserComponent implements OnInit {
     this.filterConfig.filterBy.value = this.selectedFilter;
   }
 
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+    this.usersService.getAllUsers(undefined, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+    .subscribe(
+      (res: any) => {
+        this.usersList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
+      }, err => {
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      }
+    );
+  }
 }
