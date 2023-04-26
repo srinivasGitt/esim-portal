@@ -46,7 +46,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(map(data => data), 
     catchError((err: HttpErrorResponse) => {
-      console.log(err)
+
         if(err.status === 401) {
           
           this.router.navigate(['/signin'])

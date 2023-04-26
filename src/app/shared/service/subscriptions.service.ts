@@ -58,7 +58,6 @@ export class SubscriptionsService {
   }
 
   updateSubscription(id: any, data: any) {
-    console.log(data);
     return this.http.put(`${this.serverUrl}/subscriptions/${id}`, data);
   }
 

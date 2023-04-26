@@ -103,8 +103,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   //   this._searchService._searchResults$.next(null)
   //   this._searchService._searchResults$.complete()
   // }
-  afterValueChanged(event: any) {
-    console.log(event)
-  }
+  
 
 }

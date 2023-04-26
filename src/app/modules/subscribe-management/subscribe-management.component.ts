@@ -107,7 +107,7 @@ export class SubscribeManagementComponent implements OnInit {
         // this.subscriptionList = data;
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }
     );
@@ -145,7 +145,7 @@ export class SubscribeManagementComponent implements OnInit {
           this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
           this.alertService.success('Subscriber Deleted');
         }, err => {
-          this.alertService.error(err.error.message);
+          this.alertService.error(err.error.message, err.status);
         })
       }
       });
@@ -190,7 +190,7 @@ export class SubscribeManagementComponent implements OnInit {
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
       }
     );

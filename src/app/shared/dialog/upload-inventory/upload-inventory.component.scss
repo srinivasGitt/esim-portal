@@ -1,6 +1,6 @@
 .drag-file-area {
     box-sizing: border-box;
-    height: 100%;
+    height: 180px;
     text-align: center;
     border: 2px dashed rgba(99, 101, 239, 0.37);
     border-radius: 10px;
@@ -8,7 +8,7 @@
     margin-top: 24px;
     margin-bottom: 16px;
 
-    div {
+    div:nth-child(2) {
         margin-bottom: 16px;
     }
 }
