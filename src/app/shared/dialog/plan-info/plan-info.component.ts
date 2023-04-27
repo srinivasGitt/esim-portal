@@ -24,23 +24,24 @@ export class PlanInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.planDetails = this.dialogRef.context.data;
-    this.fetchContriesByGroup();
+    this.countryList = this.planDetails.supportedCountries
+    // this.fetchContriesByGroup();
   }
 
   close(): void {
     this.dialogRef.close.emit();
   }
 
-  fetchContriesByGroup(){
-    this.regionService.getCountriesByGroup(this.planDetails.groupId).subscribe(
-      (result : any) => {
-        this.countryList = result?.length > 0 ? result : [];
-      }
-    )
-  }
+  // fetchContriesByGroup(){
+  //   this.regionService.getCountriesByGroup(this.planDetails.groupId).subscribe(
+  //     (result : any) => {
+  //       this.countryList = result?.length > 0 ? result : [];
+  //     }
+  //   )
+  // }
 
   displayContryList(){
-    return this.countryList.slice(1).map((country) => country.name).join(', ');
+    return this.countryList.slice(1).join(', ');
   }
 
   updatePlanStatus(plan : any){

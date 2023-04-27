@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
 import { DialogService, PlansService, AlertService } from 'src/app/shared/service';
 import { PaginationInstance } from 'ngx-pagination';
@@ -8,7 +8,7 @@ import { SearchService } from 'src/app/shared/service/search/search.service';
   templateUrl: './plan.component.html',
   styleUrls: ['./plan.component.scss']
 })
-export class PlanComponent implements OnInit {
+export class PlanComponent implements OnInit, OnDestroy {
   plansList: any = [];
 
   paginateConfig: PaginationInstance = {
@@ -23,18 +23,22 @@ export class PlanComponent implements OnInit {
     filterBy: { key : 'isActive', type: 'boolean', value: null }
   };
   inProgress: boolean = false;
+  inSearch : boolean = false;
 
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
               private alertService: AlertService,
               private _searchService: SearchService) { 
                 _searchService.getResults().subscribe((results: any) => {
-                  this.plansList = results?.data
+                  if(results) {
+                    this.plansList = results?.data
+                    this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.inSearch = true;  
+                  }
                 })
               }
   ngOnInit(): void {
     this.getAllPlans();
-    
   }
 
   createPlan() {
@@ -137,16 +141,33 @@ export class PlanComponent implements OnInit {
   getPageNumber(event: any) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event; 
-    this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
-    .subscribe(
-      (res: any) => {
-        this.plansList = res.data;
-        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+
+    /* Pagination based on searched data */
+    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+    this._searchService.getSearchResult('/plans', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+      this.plansList = result.data;
+        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
         this.inProgress = false;
-      }, err => {
-        this.alertService.error(err.error.message, err.status);
-        this.inProgress = false;
-      }
-    );
+    })
+    } 
+    /* Pagination based on all data */
+    else {
+      this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (res: any) => {
+          this.plansList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.inSearch = false
+    this._searchService.searchedTerm = ''
   }
 }
