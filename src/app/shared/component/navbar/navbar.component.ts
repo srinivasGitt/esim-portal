@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         } else {
           this.showSearch = true;
         }
-        // this.searchForm.reset()
+        this.searchForm?.reset()
       }
     })
     usersService.getCurrentUser().subscribe(result => {
@@ -97,12 +97,5 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   signout(){
     this._localStorage.removeToken()
   }
-
-  // reset(){
-  //   this.searchForm.reset()
-  //   this._searchService._searchResults$.next(null)
-  //   this._searchService._searchResults$.complete()
-  // }
-  
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { QrCodePopupComponent } from 'src/app/shared/dialog/qr-code-popup/qr-code-popup.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { InventoryService } from 'src/app/shared/service/inventory.service';
@@ -16,7 +16,7 @@ import { SearchService } from 'src/app/shared/service/search/search.service';
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss']
 })
-export class InventoryComponent implements OnInit {
+export class InventoryComponent implements OnInit, OnDestroy {
   
   inventories: any = [];
   data: any;
@@ -32,13 +32,18 @@ export class InventoryComponent implements OnInit {
     filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
   inProgress: boolean = false;
-  
+  inSearch : boolean = false;
+
   constructor(private inventoryService: InventoryService,
               private dialogService: DialogService,
               private alertService : AlertService,
               private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
-                  this.inventories = results?.data
+                  if(results) {
+                    this.inventories = results?.data
+                    this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.inSearch = true;
+                  }
                 }) 
               }
 
@@ -94,16 +99,33 @@ export class InventoryComponent implements OnInit {
   getPageNumber(event: any) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event; 
-    this.inventoryService.listInventory(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
-    .subscribe(
-      (res: any) => {
-        this.inventories = res.data;
-        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
-        this.inProgress = false;
-      }, err => {
-        this.alertService.error(err.error.message, err.status);
-        this.inProgress = false;
-      }
-    );
+
+    /* Pagination based on searched data */
+    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService.getSearchResult('/inventory', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+        this.inventories = result.data;
+          this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+          this.inProgress = false;
+      })
+    } 
+    /* Pagination based on all data */
+    else {
+      this.inventoryService.listInventory(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (res: any) => {
+          this.inventories = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.inSearch = false;
+    this._searchService.searchedTerm = ''
   }
 }
