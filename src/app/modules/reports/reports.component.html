@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!inProgress; else spinner">
         <div class="col-3">
             <div class="multi-color-border">
                 <label class="section-head-text">Type of Report</label>
@@ -22,9 +22,9 @@
                         </a>
     
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('week'); selectedDay = 'This Week'">This Week</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('month'); selectedDay = 'This Month'">This Month</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('year'); selectedDay = 'This Year'">This Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('week'); selectedDay = 'Current Week'">Current Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('month'); selectedDay = 'Current Month'">Current Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('year'); selectedDay = 'Current Year'">Current Year</a>
                         </div>
                     </div>
                 </div>
@@ -74,20 +74,48 @@
         </div> -->
     </div>
     
-    <div class="row mt-3 mb-4">
+    <div class="row mt-3 mb-4" *ngIf="data.length > 0;">
         <div class="col-12 d-flex info-head-section">
-            <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }} {{ selectedFilter.year }} - {{ monthsList[endSelectedFilter.month] }} {{ endSelectedFilter.year }}  </label>
+            <label class="mt-auto mx-2"> Showing Reports for the {{ selectedDay }} </label>
         </div>
     </div>
 
-    <div class="row mt-3">
+    <ng-container class="row mt-3" *ngIf="data && data.length > 0; else msg">
         <div class="col-8">
-            <div class="dashboard-graph">
+            <!-- <div class="dashboard-graph">
                 <div class="dashboard-heading mb-4 px-3 d-flex">
                     <h4>Revenue in $</h4>
                 </div>
                 <canvas id="revenueChart"></canvas>
+            </div> -->
+            
+            <div class="dashboard-graph">
+                <div class="dashboard-heading mb-4 px-3 d-flex">
+                    <h4>Revenue in $</h4>
+                </div>
+                <div id="chart">
+                    <apx-chart class="apex-charts" dir="ltr" [title]="chartOptions.title"
+                        [responsive]="chartOptions.responsive" [legend]="chartOptions.legend"
+                        [markers]="chartOptions.markers" [series]="chartOptions.series"
+                        [chart]="chartOptions.chart" [colors]="chartOptions.colors" [xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis"
+                        [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels">
+                    </apx-chart>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+
+    <!-- Not data - Start -->
+    <ng-template #msg>
+        <div class="pb-2 no-data">
+            No recods found.
+        </div>
+    </ng-template>
+    <!-- Not data - End -->
 </div>
