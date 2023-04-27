@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { InviteSubscriberComponent } from 'src/app/shared/dialog/invite-subscriber/invite-subscriber.component';
@@ -17,7 +17,7 @@ import { SearchService } from 'src/app/shared/service/search/search.service';
   templateUrl: './subscribe-management.component.html',
   styleUrls: ['./subscribe-management.component.scss']
 })
-export class SubscribeManagementComponent implements OnInit {
+export class SubscribeManagementComponent implements OnInit, OnDestroy {
   subscriberList:any;
   regionList: any = [];
   planList: any = [];
@@ -33,6 +33,7 @@ export class SubscribeManagementComponent implements OnInit {
     filterBy: undefined
   };
   inProgress: boolean = false;
+  inSearch : boolean = false;
 
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
@@ -42,7 +43,11 @@ export class SubscribeManagementComponent implements OnInit {
               private alertService: AlertService,
               private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
-                  this.subscriberList = results?.data
+                  if(results) {
+                    this.subscriberList = results?.data
+                    this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.inSearch = true;
+                  }
                 }) 
               }
 
@@ -183,16 +188,33 @@ export class SubscribeManagementComponent implements OnInit {
   getPageNumber(event: any) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event; 
-    this.subscriberService.getAllSubscriber(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
-    .subscribe(
-      (res: any) => {
-        this.subscriberList = res.data;
-        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+
+    /* Pagination based on searched data */
+    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService.getSearchResult('/subscribers', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+        this.subscriberList = result.data;
+        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
         this.inProgress = false;
-      }, err => {
-        this.alertService.error(err.error.message, err.status);
-        this.inProgress = false;
-      }
-    );
+      })
+    } 
+    /* Pagination based on all data */
+    else {
+      this.subscriberService.getAllSubscriber(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (res: any) => {
+          this.subscriberList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.inSearch = false
+    this._searchService.searchedTerm = ''
   }
 }

@@ -176,4 +176,13 @@ export class DashboardService {
       this.http.get(`${this.serverUrl}/plans/count`)
     ];
   }
+
+  getReports(dateRangeValue?: string) {
+    if(dateRangeValue) {
+      return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=${dateRangeValue}`)
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=year`)
+    }
+  }
 }

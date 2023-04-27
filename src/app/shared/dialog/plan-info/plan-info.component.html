@@ -31,11 +31,11 @@
             </div>
             <div class="col-4">
                 <label class="label-text">SMS</label>
-                <div class="modal-details-text">{{ planDetails.smsPerDay || 0 }} SMS/Day</div>
+                <div class="modal-details-text">{{ planDetails.services?.sms.smsUsageAllowanceType == "UNLIMITED" ? planDetails.services?.sms.smsUsageAllowanceType : (planDetails.services?.sms.bundleIncludeQuantity || 0) }} SMS/Day</div>
             </div>
             <div class="col-4">
                 <label class="label-text">Voice</label>
-                <div class="modal-details-text">{{ planDetails.voice }}</div>
+                <div class="modal-details-text">{{ planDetails.services?.voice.voiceUsageAllowanceType == "UNLIMITED" ? planDetails.services?.voice.voiceUsageAllowanceType : (planDetails.services?.voice.bundleIncludeQuantity || 0) }}</div>
             </div>
         </div>
         <div class="row mt-4">
@@ -46,7 +46,7 @@
             <div class="col-4">
                 <label class="label-text">Countries</label>
                 <div class="modal-details-text" *ngIf="countryList && countryList.length > 0">
-                    <span>{{ countryList[0].name | titlecase }}</span>
+                    <span>{{ countryList[0] }}</span>
                     <span *ngIf="countryList.length > 1">, </span>
                     <div *ngIf="countryList.length > 1" class="more-countries" [tooltip]="displayContryList()" placement="top" delay="100" offset="5">
                         &plus;{{ countryList.length - 1 }} more
