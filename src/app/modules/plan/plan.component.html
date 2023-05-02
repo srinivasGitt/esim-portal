@@ -35,8 +35,10 @@
             </div>
             <div class="d-flex info-head-section justify-content-end">
                 <label class="mt-auto mx-2">
-                    Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + plansList.length}} of {{ paginateConfig.totalItems }} entries
+                    <!-- Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + plansList.length}} of {{ paginateConfig.totalItems }} entries -->
+                    {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: plansList.length }}
                 </label>
+
             </div>
         </div>
         

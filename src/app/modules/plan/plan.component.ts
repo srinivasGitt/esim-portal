@@ -33,6 +33,7 @@ export class PlanComponent implements OnInit, OnDestroy {
                   if(results) {
                     this.plansList = results?.data
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.paginateConfig.currentPage = 1;
                     this.inSearch = true;  
                   }
                 })
