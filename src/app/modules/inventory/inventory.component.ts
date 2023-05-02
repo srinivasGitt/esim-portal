@@ -42,6 +42,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
                   if(results) {
                     this.inventories = results?.data
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.paginateConfig.currentPage = 1;
                     this.inSearch = true;
                   }
                 }) 
