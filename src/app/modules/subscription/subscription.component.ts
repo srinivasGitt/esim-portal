@@ -40,6 +40,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
                   if(results) {
                     this.subscriptionList = results?.data
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.paginateConfig.currentPage = 1;
                     this.inSearch = true;
                   }
                 })
