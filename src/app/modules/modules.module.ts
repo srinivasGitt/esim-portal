@@ -15,6 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from "../shared/pipe/filter.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { ShowentriesPipe } from "../shared/pipe/showentries.pipe";
+import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ShowentriesPipe } from "../shared/pipe/showentries.pipe";
     SharedModule,
     ReactiveFormsModule,
     NgSelectModule ,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgApexchartsModule
   ],
   exports: [
     UserComponent,
