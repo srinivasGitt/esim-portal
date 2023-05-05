@@ -95,6 +95,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
       .instance.close.subscribe((data: any) => {
         if (data) {
           this.alertService.success('Subscriber Created');
+          this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }
         });
@@ -127,6 +128,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
           let vm  = this;
           vm.subscriberList[index] = data.data;
           this.alertService.success('Subscriber Updated');
+          this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }
       });
@@ -150,6 +152,8 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
           this.alertService.success('Subscriber Deleted');
+          this.paginateConfig.currentPage = 1;
+          this.getAllSubscriber();
         }, err => {
           this.alertService.error(err.error.message, err.status);
         })

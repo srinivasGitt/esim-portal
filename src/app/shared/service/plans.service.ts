@@ -46,10 +46,19 @@ export class PlansService {
   }
   */
 
-  listPlans(itemsPerPage?: number, currentPage?: number) {
+  listPlans(itemsPerPage?: number, currentPage?: number, status?: string) {
     if(itemsPerPage && currentPage) {
       return this.http.get(`${this.serverUrl}/plans?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
     }
+    
+    if(status && itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/plans?status=${status}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    
+    else if(status) {
+      return this.http.get(`${this.serverUrl}/plans?status=${status}`);
+    }
+    
     return this.http.get(`${this.serverUrl}/plans`);
   }
 

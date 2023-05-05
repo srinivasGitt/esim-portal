@@ -21,6 +21,9 @@
         </div>
     </div>
     <div>
+        <p class="modal-header-text mb-0">Plan Name: {{ planDetails.name | titlecase }}</p>
+    </div>
+    <div>
         <p class="modal-header-text mb-0">Ultimated Premium: {{ planDetails.priceBundle | currency: 'USD' }}</p>
     </div>
     <div class="es-modal-body fix-height">
@@ -46,7 +49,7 @@
             <div class="col-4">
                 <label class="label-text">Countries</label>
                 <div class="modal-details-text" *ngIf="countryList && countryList.length > 0">
-                    <span>{{ countryList[0] }}</span>
+                    <span>{{ countryList[0].name | titlecase }}</span>
                     <span *ngIf="countryList.length > 1">, </span>
                     <div *ngIf="countryList.length > 1" class="more-countries" [tooltip]="displayContryList()" placement="top" delay="100" offset="5">
                         &plus;{{ countryList.length - 1 }} more
