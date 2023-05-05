@@ -1,6 +1,6 @@
-<div class="common-header user-dashboard "> 
-    <div class="dashboard-head-flex">
-        <div class="dashboard-head-text">
+<div class="common-header user-dashboard  main-content-div-area"> 
+    <div class="heading-flex">
+        <div class="heading-text">
             <h2>Reports</h2>
         </div>
     </div>
@@ -22,88 +22,40 @@
                         </a>
     
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('week'); selectedDay = 'Current Week'">Current Week</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('month'); selectedDay = 'Current Month'">Current Month</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="drawChart('year'); selectedDay = 'Current Year'">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'">Current Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'">Current Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'">Current Year</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="col-3">
-            <div class="multi-color-border">
-                <label class="section-head-text">Start Date</label>
-            </div>
-
-            <div class="dashboard-head-flex">
-                <div class="filter-head d-flex py-1 px-4">
-                    <div class="d-flex">
-                      <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month', 'start')">
-                      <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
-                      <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month', 'start')" [class.disabled]="selectedFilter.month == currentMonth && selectedFilter.year == currentYear">
-                    </div>
-                    <div class="d-flex ms-2">
-                      <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'year', 'start')">
-                      <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
-                      <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year', 'start')" [class.disabled]="selectedFilter.year == currentYear">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="multi-color-border">
-                <label class="section-head-text">End Date</label>
-            </div>
-
-            <div class="dashboard-head-flex">
-                <div class="filter-head d-flex py-1 px-4">
-                    <div class="d-flex">
-                      <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month', 'end')">
-                      <span class="m-auto text-center w-80px"> {{ monthsList[endSelectedFilter.month] }} </span>
-                      <img class="mx-2 my-auto rotate-180-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'month', 'end')" [class.disabled]="endSelectedFilter.month == endCurrentMonth && endSelectedFilter.year == endCurrentYear">
-                    </div>
-                    <div class="d-flex ms-2">
-                      <img class="mx-2 my-auto rotate-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'year', 'end')">
-                      <span class="mx-3 my-auto"> {{ endSelectedFilter.year }} </span>
-                      <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year', 'end')" [class.disabled]="endSelectedFilter.year == endCurrentYear">
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="col-3">
-        </div> -->
     </div>
-    
-    <div class="row mt-3 mb-4" *ngIf="data.length > 0;">
+
+    <div class="row" *ngIf="data.length > 0;">
         <div class="col-12 d-flex info-head-section">
             <label class="mt-auto mx-2"> Showing Reports for the {{ selectedDay }} </label>
         </div>
     </div>
 
-    <ng-container class="row mt-3" *ngIf="data && data.length > 0; else msg">
-        <div class="col-8">
-            <!-- <div class="dashboard-graph">
-                <div class="dashboard-heading mb-4 px-3 d-flex">
-                    <h4>Revenue in $</h4>
+    <div class="row w-75">
+        <div class="col-8 pt-4">
+            <div class="dashboard-graph">
+                <div class="dashboard-heading d-flex align-items-center mb-2">
+                    <h4>Revenue Trend Graph</h4>
+                    <div class="ms-auto d-flex align-items-center">
+                        <span>
+                            <svg class="icon revenue-icon" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="5.5" cy="6" r="5.5" fill="white"/>
+                            </svg>
+                        </span>&nbsp;&nbsp;
+                        <span class="ml-2">Revenue</span>
+                    </div>
                 </div>
                 <canvas id="revenueChart"></canvas>
-            </div> -->
-            
-            <div class="dashboard-graph">
-                <div class="dashboard-heading mb-4 px-3 d-flex">
-                    <h4>Revenue in $</h4>
-                </div>
-                <div id="chart">
-                    <apx-chart class="apex-charts" dir="ltr" [title]="chartOptions.title"
-                        [responsive]="chartOptions.responsive" [legend]="chartOptions.legend"
-                        [markers]="chartOptions.markers" [series]="chartOptions.series"
-                        [chart]="chartOptions.chart" [colors]="chartOptions.colors" [xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis"
-                        [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels">
-                    </apx-chart>
-                </div>
             </div>
         </div>
-    </ng-container>
+    </div>
 
     <!-- Loading Spinner - Start -->
     <ng-template #spinner class="loader-align">
@@ -118,4 +70,5 @@
         </div>
     </ng-template>
     <!-- Not data - End -->
+
 </div>
