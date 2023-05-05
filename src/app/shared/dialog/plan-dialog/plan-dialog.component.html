@@ -169,15 +169,16 @@
                             [multiple]="true"
                             >
                         </ng-select> -->
+
                         <ng-select 
                             appearance="outline" 
                             [multiple]="true" 
                             placeholder="Search for countries / Multiple countries can be selected" 
                             labelForId="supportedCountries"
                             formControlName="supportedCountries">
-                            <ng-option [value]="country.cca3" *ngFor="let country of countryList; let i=index">
+                            <ng-option [value]="country" *ngFor="let country of countriesAlias; let i=index">
                                 <img src="{{country.flag}}" width="20px" height="20px"/>&nbsp; 
-                                {{ country.name.common }}
+                                {{ country.name }}
                             </ng-option>
                         </ng-select>
                         <span class="ng-search">

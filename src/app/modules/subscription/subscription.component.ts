@@ -58,6 +58,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
           
             vm.subscriptionList.push(res);
             this.alertService.success('Subscription Created');
+            this.paginateConfig.currentPage = 1;
+            this.getAllSubscription();
           }, err => {
             this.alertService.error(err.error.message, err.status);
           })
@@ -85,6 +87,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
         if(data){
           this.subscriptionList = this.subscriptionList.map((s : any) => {if(s._id == subscription._id) s = data; return s;});
           this.alertService.success('Plan Updated');
+          this.paginateConfig.currentPage = 1;
+          this.getAllSubscription();
           // this.subscriptionsService.updateSubscription(subscription._id, data)
           // .subscribe( (res: any) => {
           //   this.subscriptionList[index] = res;
@@ -115,6 +119,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           this.subscriptionList = this.subscriptionList.filter((s : any) => s._id != subscriber._id);
           this.alertService.success('Subscription Deleted');
+          this.paginateConfig.currentPage = 1;
+          this.getAllSubscription();
         }, err => {
           this.alertService.error(err.error.message, err.status);
         })

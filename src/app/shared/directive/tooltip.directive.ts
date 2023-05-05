@@ -8,6 +8,7 @@ export class TooltipDirective {
   @Input() placement!: string;
   @Input() delay!: string;
   @Input() offset: string = '0';
+  @Input() svgPath!: string;
   tooltip!: HTMLElement | undefined;
   
 
@@ -45,11 +46,18 @@ export class TooltipDirective {
 
   create() {
     this.tooltip = this.renderer.createElement('span');
+    
+    if(this.svgPath) {
+      var img = this.renderer.createElement('img')
+      img.setAttribute('src', this.svgPath)
+      this.renderer.appendChild(this.tooltip, img )
+      this.renderer.addClass(this.tooltip, 'ng-tooltip-light');
+    }
 
     this.renderer.appendChild(
       this.tooltip,
       this.renderer.createText(this.tooltipTitle) // textNode
-    );
+      );
 
     this.renderer.appendChild(document.body, this.tooltip);
     // this.renderer.appendChild(this.el.nativeElement, this.tooltip);
