@@ -28,15 +28,15 @@
                     </div>
                     <!-- <div class="mx-2 d-flex mt-2"><span class="sub-legend current-status"></span> Current week</div>
                     <div class="mx-2 d-flex mt-2"><span class="sub-legend previous-status"></span> Previous week</div> -->
-                    <div class="ml-2"> 
+                    <!-- <div class="ml-2"> 
                         <div class="selector-filter"></div>
-                        <!-- <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" [clearable]="false">
-                            <ng-option value="day">Day</ng-option>
-                            <ng-option value="week">Week</ng-option>
-                            <ng-option value="month">Month</ng-option>
-                            <ng-option value="month">Current Week</ng-option>
-                        </ng-select> -->
-                    </div>
+                        <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" (change)="selectTimeframe($event)" [clearable]="false">
+                            <ng-option value="day">Current Day</ng-option>
+                            <ng-option value="week">Current Week</ng-option>
+                            <ng-option value="month">Current Month</ng-option>
+                            <ng-option value="year">Current Year</ng-option>
+                        </ng-select>
+                    </div> -->
                 </div>
                 <canvas id="downloadChart"></canvas>
             </div>
