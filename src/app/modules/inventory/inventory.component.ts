@@ -75,6 +75,8 @@ export class InventoryComponent implements OnInit, OnDestroy {
       if(data == 'download'){
         this.downloadModal()
       }
+      this.paginateConfig.currentPage = 1;
+      this.getInventory()
     });
   }
 

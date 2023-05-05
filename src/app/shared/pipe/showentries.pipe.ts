@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ShowentriesPipe implements PipeTransform {
 
-  transform(currentPage: number, totalEntries: number, itemsPerPage: number, entriesPerPage: number){
+  transform(currentPage: number, totalEntries: number, itemsPerPage: number, entriesPerPage: number): string {
     
     let count: number = 0
     

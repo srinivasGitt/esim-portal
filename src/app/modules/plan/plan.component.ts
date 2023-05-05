@@ -24,6 +24,8 @@ export class PlanComponent implements OnInit, OnDestroy {
   };
   inProgress: boolean = false;
   inSearch : boolean = false;
+  tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
+  planStatus: string | null = null;
 
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
@@ -49,6 +51,7 @@ export class PlanComponent implements OnInit, OnDestroy {
           let vm  = this;
           vm.plansList.push(data);
           this.alertService.success(data.message);
+          this.paginateConfig.currentPage = 1;
           this.getAllPlans()
         }
       })
@@ -102,7 +105,9 @@ export class PlanComponent implements OnInit, OnDestroy {
         this.plansService.deletePlan(plan._id)
         .subscribe((res : any)=> {
           this.plansList = this.plansList.filter((c : any) => c._id != plan._id);
-          this.alertService.success(res.messsage);
+          this.alertService.success(res.message);
+          this.paginateConfig.currentPage = 1;
+          this.getAllPlans()
         }, err => {
           this.alertService.error(err.error.message, err.status);
         })
@@ -145,12 +150,23 @@ export class PlanComponent implements OnInit, OnDestroy {
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
-    this._searchService.getSearchResult('/plans', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
-      this.plansList = result.data;
-        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
-        this.inProgress = false;
-    })
+      this._searchService.getSearchResult('/plans', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+        this.plansList = result.data;
+          this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+          this.paginateConfig.currentPage = 1;
+          this.inProgress = false;
+      })
     } 
+    /* Pagination based on Plan status filtered data */
+    else if(this.planStatus) {
+      this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1, this.planStatus).subscribe((result: any) => {
+        this.plansList = result.data;
+          this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+          this.paginateConfig.currentPage = 1;
+          this.inProgress = false;
+      })
+    }
+
     /* Pagination based on all data */
     else {
       this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
@@ -165,6 +181,21 @@ export class PlanComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  showPlan(event: string) {
+    this.planStatus = event
+    this.filteredPlans(this.planStatus)
+    
+  }
+
+  filteredPlans(planStatus: string) {
+    this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1, planStatus).subscribe((result: any) => {
+      this.plansList = result.data;
+        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+        this.paginateConfig.currentPage = 1;
+        this.inProgress = false;
+    })
   }
 
   ngOnDestroy(): void {

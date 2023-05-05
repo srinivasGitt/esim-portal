@@ -105,6 +105,8 @@ export class UserComponent implements OnInit {
         if (data) {
           this.getAllUsers();
           this.alertService.success(data.message);
+          this.paginateConfig.currentPage = 1;
+          this.getAllUsers();
         }
       });
   }
@@ -135,6 +137,7 @@ export class UserComponent implements OnInit {
           let index = vm.usersList.findIndex((o: any) => o.email === user.email);
           vm.usersList[index] = data;
           this.alertService.success(data.message);
+          this.paginateConfig.currentPage = 1;
           this.getAllUsers();
         }
       });
@@ -160,6 +163,8 @@ export class UserComponent implements OnInit {
         .subscribe((res: any) => {
           vm.usersList.splice(index, 1);
           this.alertService.success(res.message);
+          this.paginateConfig.currentPage = 1;
+          this.getAllUsers();
         }, err => {
           this.alertService.error(err.error.message, err.status);
         })

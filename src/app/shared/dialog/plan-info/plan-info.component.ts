@@ -41,7 +41,7 @@ export class PlanInfoComponent implements OnInit {
   // }
 
   displayContryList(){
-    return this.countryList.slice(1).join(', ');
+    return this.countryList.map((country: any) => country.name).slice(1).join(', ');
   }
 
   updatePlanStatus(plan : any){
