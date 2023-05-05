@@ -24,6 +24,7 @@ export class PlanDialogComponent implements OnInit {
   inProgress: boolean = false;
   dataDropdown: string[] = ['MB', 'GB', 'TB']
   validityDropdown: string[] = ['days', 'months', 'year']
+  countriesAlias: any[] = []
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -42,11 +43,12 @@ export class PlanDialogComponent implements OnInit {
     this.inProgress = true
     this.createPlanForm();
     this.countryList = Country.default
-    this.countryList = this.countryList.sort((a:any,b:any) => a.name.common.localeCompare(b.name.common))
+    this.countryList = this.countryList.filter((x: any) => x.independent).sort((a:any,b:any) => a.name.common.localeCompare(b.name.common))
     this.countryList.forEach((country: any) => {
       let flagNameInLower = country.cca3
       flagNameInLower = flagNameInLower.toLowerCase()
-      country.flag = `assets/flags/${flagNameInLower}.svg`
+      country.flag = `assets/flags/${flagNameInLower}.svg` 
+      this.countriesAlias.push({name: country.name.common, flag: country.flag, cca3: country.cca3})
       this.inProgress = false
     })
     
@@ -110,7 +112,6 @@ export class PlanDialogComponent implements OnInit {
   createPlan() {
 
     const plan = this.planForm.value
-
     if(plan.unlimited) {
       plan.voice = 0
     }
