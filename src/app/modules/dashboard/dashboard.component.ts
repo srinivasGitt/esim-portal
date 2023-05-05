@@ -21,10 +21,14 @@ export class DashboardComponent implements OnInit {
   dashboardWidgets!: Array<any>;
   isDarkTheme = false;
   graphElement : any;
-  graphFilterBy : string = 'day';
+  graphFilterBy : string = 'year';
   label: any;
   data: any;
   digit: any = ["32","90","54","90","19","53","46","21","83","87","52","29","43","16","12","37","36","27","45","48","50","76","52","16","20","27","93","88","37","12","59","14","58","40","37","46","78","50","58","36","81","61","68","47","46","74","31","40","12","35","47","86","49","90","98","74","98","11","11","59","10","35","53","28","18","49","59","33","20","66","52","48","63","70","84","29","22","58","49","21","70","35","13","69","89","40","74","20","13","50","21","68","26","39","54","10","34","72","81","26"];
+  range: any;
+  startDate: any;
+  endDate: any;
+  inProgress: boolean = false;
 
   constructor(private router: Router,
     private dashboardService: DashboardService,
@@ -34,15 +38,17 @@ export class DashboardComponent implements OnInit {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
-        this.drawChart();
+        // this.drawChart();
+        
       });
   }
 
   ngOnInit(): void {
-      this.drawChart();
+      // this.drawChart();
+      this.getReports()
       this.getDashboardCounts();
   }
-
+/*
   drawChart() {
     this.label = [];
     this.data = [];
@@ -128,7 +134,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
+*/
   totalProfileCount() {
     this.dashboardService.getProfiles()
       .subscribe((data: any) => {
@@ -154,4 +160,126 @@ export class DashboardComponent implements OnInit {
       }
    );
   }
+
+  /* Get reports data - Start */
+  getReports(value?: any) {
+    this.inProgress = true
+    this.dashboardService.getReports(value).subscribe((res: any) => {
+      if(res.result) {
+        const labelData : any[] = []
+        const revenueData : any[] = []
+        this.data = res?.result
+        this.range = res?.range
+        this.startDate = this.range.startDate
+        this.endDate = this.range.endDate
+
+        this.data.forEach((x: any) => {
+          labelData.push(x.label)
+          revenueData.push(x.revenue)
+        })
+        // this.generateChart(labelData, revenueData, res)
+        this.drawChart(labelData, revenueData)
+        this.inProgress = false
+      }
+    }, err => {
+      this.alertService.error(err.error.message);
+      this.inProgress = false;
+    })
+  }
+  /* Get reports data - End */
+
+  /* Draw Chart based on API data - Start */
+  drawChart(label: any, revenue: any) {
+    this.label = [];
+    this.data = [];
+    for (let i = 0; i < label.length; i++) {
+      // let currentDate = (new Date(label[i]));
+      this.label.push(label[i]);
+      this.data.push(revenue[i]);
+    }
+
+    if(this.graphElement) this.graphElement.destroy();
+    this.graphElement = new Chart("downloadChart", {
+      type: 'line',
+      data: {
+        labels: this.label,
+        datasets: [
+        {
+          label: 'Current Year',
+          data: this.data,
+          fill: true,
+          backgroundColor: [
+            '#6365EF10'
+          ],
+          borderColor: [
+            '#6365EF'
+          ],
+          borderWidth: 1,
+          pointRadius: 0,
+          tension: 0.1
+        }],
+
+      },
+      options: {
+        layout:{
+          padding: 20
+        },
+        scales: {
+          x: {
+            grid: {
+              borderColor: '#00000014',
+              display:false,
+              tickWidth: 20,
+              tickLength: 30
+            },
+            ticks:{
+              color: '#6365ef',
+              font: {
+                size : 16,
+                weight: 'bold'
+              }
+            },
+          },
+          y: {
+            grid: {
+              borderColor: '#00000014',
+              display:false,
+              tickWidth: 20,
+              tickLength: 20
+            },
+            beginAtZero: true,
+            ticks:{
+              color: '#6365ef',
+              font: {
+                size : 16,
+                weight: 'bold',
+              }
+            },
+            title: {
+              display: true,
+              // text: 'Revenue in $',
+              color: '#6365ef'
+            }
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4  // smooth lines
+          },
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  }
+  /* Draw Chart based on API data - End */
+
+  /* Draw chart based on Filter - Start */
+  selectTimeframe(value: any) {
+    this.getReports(value)
+  }
+  /* Draw chart based on Filter - End */
 }
