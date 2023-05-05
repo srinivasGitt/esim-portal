@@ -11,7 +11,7 @@ export class AlertComponent implements OnInit {
   title: string = 'Something went wrong!';
   body: string = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
   dialogRef: DialogComponent;
-  titleArr: string[] = ['Success', 'Error', 'Info', 'Warning']
+  titleArr: string[] = ['Successful', 'Error', 'Info', 'Warning']
 
   buttonGroup = [
     { cssClass: 'btn-secondary', title: 'Cancel', value: false},
@@ -34,7 +34,7 @@ export class AlertComponent implements OnInit {
     //                   : (this.title == 'Info' ? this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Login') : this.buttonGroup)
 
     switch (this.title) {
-      case 'Success':
+      case 'Successful':
         this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Continue')
         break;
       case 'Error':
