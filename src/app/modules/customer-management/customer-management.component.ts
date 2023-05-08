@@ -107,7 +107,7 @@ export class CustomerManagementComponent implements OnInit {
         if(data){
           this.customerList = this.customerList.map((c : any) => {if(c._id == customer._id) c = data; return c;});
           this.alertService.success(data.message);
-          // this.getAllCustomer();
+          this.getAllCustomer();
         }
     });
   }
