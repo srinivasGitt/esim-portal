@@ -70,10 +70,15 @@ export class InventoryComponent implements OnInit, OnDestroy {
   }
 
   uploadFile() {
+    this.inProgress = true
     this.dialogService.openModal(UploadInventoryComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Upload Inventory'} })
     .instance.close.subscribe((data: any) => {
       if(data == 'download'){
         this.downloadModal()
+      }
+      if(data.body) {
+        this.inProgress = false
+        this.alertService.success(data.body.message)
       }
       this.paginateConfig.currentPage = 1;
       this.getInventory()
