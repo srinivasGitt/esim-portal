@@ -257,7 +257,7 @@ export class DashboardComponent implements OnInit {
             },
             title: {
               display: true,
-              // text: 'Revenue in $',
+              text: 'Revenue in $',
               color: '#6365ef'
             }
           }
