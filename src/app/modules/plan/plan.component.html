@@ -86,7 +86,7 @@
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg" *ngFor="let plan of plansList | paginate: paginateConfig;" [ngClass]="{'inactive-plan': !plan.isActive}">
                         <div class="t-box a px-2 d-flex">
                             <span class="plan-info-icon">
-                                <img *ngIf="!plan.isActive" src="/assets/images/dashboard/icon/danger-info.svg" [tooltip]="tooltipText" placement="right" delay="50" svgPath="/assets/icons/information-inactive.svg">
+                                <img *ngIf="!plan.isActive" src="/assets/images/dashboard/icon/danger-info.svg" [tooltip]="tooltipText" placement="right" delay="50" svgPath="/assets/images/dashboard/icon/danger-info.svg">
                             </span>
                             <span class="text-overflow-ellipsis">{{plan.name}}</span>
                         </div>
