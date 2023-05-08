@@ -21,13 +21,13 @@
         </div>
     </div>
     <div>
-        <p class="modal-header-text mb-0">Plan Name: {{ planDetails.name | titlecase }}</p>
+        <p class="modal-header-text mb-2">Plan Name - {{ planDetails.name }}</p>
     </div>
     <div>
-        <p class="modal-header-text mb-0">Ultimated Premium: {{ planDetails.priceBundle | currency: 'USD' }}</p>
+        <p class="modal-header-text mb-0">Unlimited Premium - {{ planDetails.priceBundle | currency: 'USD' }}</p>
     </div>
-    <div class="es-modal-body fix-height">
-        <div class="row">
+    <div class="es-modal-body">
+        <!-- <div class="row">
             <div class="col-4">
                 <label class="label-text">Data</label>
                 <div class="modal-details-text">{{ planDetails.dataPerDay || 1 }} GB/Day</div>
@@ -40,7 +40,7 @@
                 <label class="label-text">Voice</label>
                 <div class="modal-details-text">{{ planDetails.services?.voice.voiceUsageAllowanceType == "UNLIMITED" ? planDetails.services?.voice.voiceUsageAllowanceType : (planDetails.services?.voice.bundleIncludeQuantity || 0) }}</div>
             </div>
-        </div>
+        </div> -->
         <div class="row mt-4">
             <div class="col-4">
                 <label class="label-text">Total Data</label>
@@ -69,7 +69,7 @@
         </button>
     </div> -->
 
-    <div class="es-modal-footer pt-4">
+    <div class="es-modal-footer mt-4">
         <button [ngClass]="planDetails.isActive ? 'btn-secondary' : 'btn-primary'" class="btn btn-full-width" (click)="updatePlanStatus(planDetails)">{{ planDetails.isActive ? 'Disable Plan' : 'Enable Plan'}}</button>
     </div>
 </div>

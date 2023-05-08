@@ -9,7 +9,7 @@
             <label class="section-head-text">Overview</label>
         </div>
         <div class="col-4 d-flex">
-            <label class="ms-1 section-head-text">Widget</label>
+            <label class="ms-1 section-head-text">Widgets</label>
             <img class="ms-auto me-1" src="/assets/images/dashboard/icon/swap_vertical_circle.svg" alt="icon">
         </div>
     </div>
@@ -18,27 +18,28 @@
             <div class="dashboard-graph">
                 <div class="dashboard-heading d-flex align-items-center mb-2">
                     <h4>Revenue Trend Graph</h4>
-                    <div class="ms-auto d-flex align-items-center">
+                    <div class="ms-auto d-flex align-items-center mr-2">
                         <span>
                             <svg class="icon revenue-icon" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="5.5" cy="6" r="5.5" fill="white"/>
                             </svg>
                         </span>&nbsp;&nbsp;
-                        <span class="ml-2">Revenue</span>
+                        <span class="ml-2">Revenue</span>&nbsp;&nbsp;
                     </div>
                     <!-- <div class="mx-2 d-flex mt-2"><span class="sub-legend current-status"></span> Current week</div>
                     <div class="mx-2 d-flex mt-2"><span class="sub-legend previous-status"></span> Previous week</div> -->
-                    <!-- <div class="ml-2"> 
+                    <div class="ml-2"> 
                         <div class="selector-filter"></div>
                         <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" (change)="selectTimeframe($event)" [clearable]="false">
-                            <ng-option value="day">Current Day</ng-option>
+                            <!-- <ng-option value="day">Current Day</ng-option> -->
                             <ng-option value="week">Current Week</ng-option>
                             <ng-option value="month">Current Month</ng-option>
                             <ng-option value="year">Current Year</ng-option>
                         </ng-select>
-                    </div> -->
+                    </div>
                 </div>
                 <canvas id="downloadChart"></canvas>
+                
             </div>
         </div>
         <div class="col-4 dashboard-border-left pt-4" *ngIf="dashboardDetails">
