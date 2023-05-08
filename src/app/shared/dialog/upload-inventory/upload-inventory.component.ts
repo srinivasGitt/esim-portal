@@ -70,7 +70,6 @@ export class UploadInventoryComponent implements OnInit {
           }
           break;
         case HttpEventType.Response:
-          this.alertService.success('File uploaded')
           this.dialogRef.close.emit(event);
       }
       }, err => {

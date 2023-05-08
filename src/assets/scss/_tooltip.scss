@@ -74,3 +74,27 @@ $border-color_4: transparent black transparent transparent;
 .ng-tooltip-show {
 	opacity: 1;
 }
+
+/* Inactive Plan Tooltip CSS - Start */
+.ng-tooltip{
+	&-light {
+		background: #EBEBEB !important;
+		color: #383737 !important;
+		border-radius: 14px;
+		text-align: left;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		gap: 2px;
+		width: 18vw;
+	}
+	&-right {
+		&:after {
+			top: 0 !important;
+			right: 0 !important;
+			margin-top: 0 !important;
+			border-width: 0 !important;
+		}
+	}
+}
+/* Inactive Plan Tooltip CSS - End */
