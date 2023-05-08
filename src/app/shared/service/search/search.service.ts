@@ -22,7 +22,7 @@ export class SearchService {
       url = '/inventories'
     }
 
-    if(searchTerm.length > 3) {
+    if(searchTerm && searchTerm.length > 3) {
       if(itemsPerPage && currentPage) {
         return this.http.get(`${this.serverUrl}${url}/search?q=${searchTerm}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
       }

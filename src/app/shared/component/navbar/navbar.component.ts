@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
 import { NavigationEnd, Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
               private usersService: UsersService,
               public router: Router,
               private _localStorage: LocalStorageService,
-              private _searchService: SearchService, private fb: FormBuilder) {
+              private _searchService: SearchService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {
     
       // show/hide search box
       router.events.subscribe((route) => {
@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         } else {
           this.showSearch = true;
         }
-        this.searchForm?.reset()
+        this.searchform.reset()
       }
     })
     usersService.getCurrentUser().subscribe(result => {
@@ -89,6 +89,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
         ).subscribe(res => {
+          this.cdr.detectChanges()
           this._searchService.setResults(res)
         })
     }
