@@ -36,13 +36,16 @@
 
 
   
-  <div class="user-dashboard-table-container">
+  <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
   
-    <div class="d-flex info-head-section">
-      <label class="mt-auto mx-2">Showing data for the month of {{ monthsList[selectedFilter.month] }}, {{ selectedFilter.year }}  </label>
+    <div class="d-flex info-head-section justify-content-end mb-2">
+      <label class="mt-auto mx-2" *ngIf="customerList && customerList.length > 0">
+          <!-- Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + customerList.length}} of {{ paginateConfig.totalItems }} entries -->
+          {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: customerList.length }}
+      </label>
     </div>
 
-    <div class="user-dashboard-table">
+    <ng-container class="user-dashboard-table" *ngIf="customerList && customerList.length > 0; else msg">
       <div class="t-grid-table-new">
         <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
           <div class="t-box b px-2 d-flex">
@@ -75,9 +78,11 @@
             <span class="my-auto ms-4">Actions</span>
           </div>
         </div>
-        <div class="t-body-overflow" *ngIf="customerList && customerList.length > 0">
+        <div class="t-body-overflow">
+          <!-- <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
+            *ngFor="let customer of (customerList | listFilter: filterConfig) | paginate: paginateConfig;" > -->
           <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
-            *ngFor="let customer of (customerList | listFilter: filterConfig) | paginate: paginateConfig;" >
+            *ngFor="let customer of customerList | paginate: paginateConfig;">
               <!-- [routerLink]="['/customer-management', customer._id]" -->
               <div class="t-box a px-2" routerLink="/user-management/{{customer._id}}">
                   {{customer.name}}
@@ -105,12 +110,29 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
-    </div>
+      </div>
+    </ng-container>
   </div>
-    <!-- Pagination  -->
-    <div class="custom-pagination-section" *ngIf="customerList?.length > 20">
-      <pagination-controls id="customerListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+
+  <!-- Not data - Start -->
+  <ng-template #msg>
+    <div class="pb-2">
+        No recods found.
     </div>
+  </ng-template>
+  <!-- Not data - End -->
+
+  <!-- Loading Spinner - Start -->
+  <ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+  <!-- Loading Spinner - End -->
+
+  <!-- Pagination  -->
+  <ng-container *ngIf="!inProgress && customerList.length > 0">
+    <div class="custom-pagination-section">
+      <pagination-controls id="customerListPagination" previousLabel="" nextLabel="" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
+    </div>
+  </ng-container>
 </div>

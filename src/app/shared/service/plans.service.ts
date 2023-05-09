@@ -10,6 +10,10 @@ export class PlansService {
 
   constructor(private http: HttpClient ) { }
 
+  /* 
+  ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -39,5 +43,37 @@ export class PlansService {
 
   deletePlan(id: any) {
     return this.http.delete(`${this.serverUrl}/plans/${id}`, this.getHeader());
+  }
+  */
+
+  listPlans(itemsPerPage?: number, currentPage?: number, status?: string) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/plans?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    
+    if(status && itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/plans?status=${status}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+    
+    else if(status) {
+      return this.http.get(`${this.serverUrl}/plans?status=${status}`);
+    }
+    
+    return this.http.get(`${this.serverUrl}/plans`);
+  }
+
+  fetchPlansByRegion(regionId: string) {
+    return this.http.get(`${this.serverUrl}/customer-plans?regionId=${regionId}`);
+  }
+  createPlan(data: any) {
+    return this.http.post(`${this.serverUrl}/plans`, data);
+  }
+
+  updatePlan(id: any, data: any) {
+    return this.http.put(`${this.serverUrl}/plans/${id}`, data);
+  }
+
+  deletePlan(id: any) {
+    return this.http.delete(`${this.serverUrl}/plans/${id}`);
   }
 }

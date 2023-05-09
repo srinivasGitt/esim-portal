@@ -24,17 +24,20 @@
         </div>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-dashboard-head ms-auto d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails.customerId" (click)="createUser()">
+        <button type="button" class="btn btn-dashboard-head ms-auto d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails?.customerId" (click)="createUser()">
             <span class="me-3 btn-add-icon m-auto"> + </span>
             <span class="m-auto">Add New User</span>
         </button>   
     </div>
-    <div class="user-dashboard-table-container">
-        <div class="d-flex info-head-section">
-            <label class="mt-auto mx-2"> Showing data for the month of {{ monthsList[selectedFilter.month] }}, {{ selectedFilter.year }}  </label>
+    <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
+        <div class="d-flex info-head-section justify-content-end mb-2">
+            <label class="mt-auto mx-2" *ngIf="usersList && usersList.length > 0">
+                <!-- Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + usersList.length}} of {{ paginateConfig.totalItems }} entries -->
+                {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: usersList.length }}
+            </label>
         </div>
 
-        <div class="user-dashboard-table">
+        <ng-container class="user-dashboard-table" *ngIf="usersList && usersList.length > 0; else msg">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
                     <div class="t-box b px-2 d-flex">
@@ -64,12 +67,29 @@
                         <span class="my-auto ms-4">Actions</span>
                     </div>
                 </div>
-                <div class="t-body-overflow" *ngIf="usersList && usersList.length > 0">
+                <div class="t-body-overflow">
+                    <!-- <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
+                    *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" > -->
                     <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
-                    *ngFor="let user of (usersList | listFilter: filterConfig) | paginate: paginateConfig; index as i" >
+                    *ngFor="let user of usersList | paginate: paginateConfig; index as i">
                     <!-- [routerLink]="['/customer-management', customer._id]" -->
                         <div class="t-box a px-2">{{ user.firstName }} {{ user.lastName }}</div>
-                        <div class="t-box b px-2">{{user.email}}</div>
+                        <div class="t-box b px-2 copy-div">
+                            <span class="copy justify-content-around">
+                                    {{user.email}}
+                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,user.email)" tooltip="Copy" placement="top" delay="100" offset="10">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                            <rect width="20" height="20" fill="#D9D9D9"/>
+                                        </mask>
+                                        <g mask="url(#mask0_2161_5534)">
+                                            <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="white"/>
+                                        </g>
+                                    </svg>                           
+                                </span>
+                            </span>
+                            
+                        </div>
                         <div class="t-box a px-2">
                             <span *ngIf="user.roles && user.roles.length === 0">NA</span>
                             <span *ngIf="user.roles && user.roles.length > 0">
@@ -80,16 +100,16 @@
                         </div>
                         <div class="t-box b px-2 action-section">
                             <div class="user-table-action">
-                                <span class="user-table-action-icon subscription-info-icon mx-auto" (click)="userInfo(user)" tooltip="Info" placement="top" delay="100" offset="-5">
+                                <span class="user-table-action-icon subscription-info-icon mx-auto" (click)="userInfo(user)" tooltip="Info" placement="top" delay="100" offset="4">
                                     <img src="assets/icons/information.svg">
                                 </span>
-                                <span class="user-table-action-icon mx-auto" (click)="editUser(user)" tooltip="Edit" placement="top" delay="100" offset="-5">
+                                <span class="user-table-action-icon mx-auto" (click)="editUser(user)" tooltip="Edit" placement="top" delay="100" offset="4">
                                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8701 3.79635C20.0722 4.09948 20.0384 4.51141 19.7691 4.77827L10.1034 14.3498C10.0043 14.448 9.88063 14.5182 9.7451 14.5533L5.71957 15.5945C5.58828 15.6285 5.45294 15.6278 5.32579 15.5957C5.1906 15.5616 5.06466 15.4922 4.96265 15.3911C4.76468 15.1951 4.68652 14.9098 4.75727 14.6416L5.80875 10.6551C5.83974 10.5377 5.89787 10.4217 5.9783 10.3307L15.6797 0.728732C15.7646 0.644641 15.8669 0.581697 15.9783 0.543347C16.0608 0.514911 16.1483 0.5 16.2373 0.5C16.4465 0.5 16.6471 0.58228 16.7949 0.728732L19.7691 3.67385C19.8075 3.71197 19.8412 3.75305 19.8701 3.79635ZM18.0962 4.22606L16.2373 2.38536L7.28068 11.2549L6.62352 13.7464L9.13945 13.0956L18.0962 4.22606Z" fill="#495058"/>
                                     <path d="M17.9629 16.0255C18.2504 13.5914 18.3419 11.1404 18.2372 8.69556C18.2323 8.57852 18.2768 8.46459 18.3604 8.38174L19.3943 7.35785C19.5214 7.23196 19.7387 7.31188 19.7505 7.48951C19.9451 10.3943 19.8712 13.3122 19.5294 16.207C19.2806 18.3129 17.5727 19.9633 15.4571 20.1975C11.8121 20.6008 8.04421 20.6008 4.39922 20.1975C2.28359 19.9633 0.575637 18.3129 0.32691 16.207C-0.10897 12.5164 -0.10897 8.78813 0.32691 5.09764C0.575637 2.99167 2.28359 1.34127 4.39922 1.10711C7.16435 0.801077 10.0002 0.7272 12.7993 0.885482C12.9797 0.895686 13.062 1.11186 12.9342 1.23839L11.8906 2.2719C11.8079 2.35384 11.6944 2.39785 11.5774 2.39394C9.23637 2.31575 6.87943 2.40421 4.57441 2.65933C3.17583 2.81412 2.05549 3.90704 1.89345 5.27908C1.4718 8.84904 1.4718 12.4555 1.89345 16.0255C2.05549 17.3975 3.17583 18.4904 4.57441 18.6453C8.10299 19.0357 11.7533 19.0357 15.2819 18.6453C16.6805 18.4904 17.8008 17.3975 17.9629 16.0255Z" fill="#495058"/>
                                 </svg>
                                 </span> 
-                                <span class="user-table-action-icon mx-auto" (click)="deleteUser(user)" tooltip="Delete" placement="top" delay="100" offset="-5">
+                                <span class="user-table-action-icon mx-auto" (click)="deleteUser(user)" tooltip="Delete" placement="top" delay="100" offset="4">
                                 <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5.93548 0C5.50791 0 5.16129 0.348336 5.16129 0.778022V1.55604H0.774194C0.346622 1.55604 0 1.90438 0 2.33407C0 2.76375 0.346622 3.11209 0.774194 3.11209H15.2258C15.6534 3.11209 16 2.76375 16 2.33407C16 1.90438 15.6534 1.55604 15.2258 1.55604H10.8387V0.778022C10.8387 0.348336 10.4921 0 10.0645 0H5.93548Z" fill="#495058"/>
                                     <path d="M9.09491 13.2263L10.6119 14.751C10.9143 15.0548 10.9143 15.5473 10.6119 15.8512C10.3096 16.155 9.81945 16.155 9.51711 15.8512L8 14.3267L6.48289 15.8512C6.18054 16.155 5.69039 16.155 5.38805 15.8512C5.08571 15.5473 5.08571 15.0548 5.38805 14.751L6.90508 13.2263L5.38804 11.7017C5.08571 11.3979 5.08571 10.9053 5.38804 10.6015C5.69038 10.2977 6.18054 10.2977 6.48289 10.6015L8 12.126L9.51711 10.6015C9.81945 10.2977 10.3096 10.2977 10.6119 10.6015C10.9143 10.9053 10.9143 11.3979 10.6119 11.7017L9.09491 13.2263Z" fill="#495058"/>
@@ -101,10 +121,27 @@
                     </div>
                 </div>
             </div>
+        </ng-container>
+    </div>
+
+    <!-- Not data - Start -->
+    <ng-template #msg>
+        <div class="pb-2">
+            No recods found.
         </div>
-    </div>
-    <!-- Pagination  -->
-    <div class="custom-pagination-section" *ngIf="usersList?.length > 20">
-        <pagination-controls id="userListPagination" (pageChange)=" paginateConfig.currentPage = $event"></pagination-controls>
-    </div>
+    </ng-template>
+    <!-- Not data - End -->
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+    
+    <!-- Pagination -->
+    <ng-container *ngIf="!inProgress && usersList && usersList.length > 0">
+        <div class="custom-pagination-section">
+            <pagination-controls id="userListPagination" previousLabel="" nextLabel="" (pageChange)="getPageNumber($event)"></pagination-controls>
+        </div>
+    </ng-container>
 </div>

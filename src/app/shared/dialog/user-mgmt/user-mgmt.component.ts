@@ -42,10 +42,9 @@ export class UserMgmtComponent implements OnInit {
     this.regionService.getAllRegions()
     .subscribe(
       (res:any) => {
-        console.log(res);
         this.regionList = res;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -54,10 +53,9 @@ export class UserMgmtComponent implements OnInit {
     this.planService.listPlans()
     .subscribe(
       res => {
-        console.log(res);
         this.planList = res;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
       }
     )
   }
@@ -67,7 +65,7 @@ export class UserMgmtComponent implements OnInit {
       email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
       firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
       lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
-      mobile: new UntypedFormControl(this.data?.mobile, [Validators.required]),
+      mobile: new UntypedFormControl(this.data?.mobile, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
     });
   }
 
@@ -83,7 +81,7 @@ export class UserMgmtComponent implements OnInit {
 
   createUser() {
     this.submitted = true;
-    
+
     if(this.userForm.invalid) {
       return;
     }
@@ -94,21 +92,39 @@ export class UserMgmtComponent implements OnInit {
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 
   update() {
+    this.submitted = true;
+
+    if(this.userForm.invalid) {
+      return;
+    }
+
     this.usersService.updateUser(this.data._id, this.userForm.value)
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
+  }
+
+  /* Restrict user to enter alphabets in mobile field */
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 
   close(): void {
     // this.data.amount = 343;
     this.dialogRef.close.emit();
   }
+
+
 }

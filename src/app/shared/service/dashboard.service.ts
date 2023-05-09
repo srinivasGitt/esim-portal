@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,12 @@ export class DashboardService {
   serverUrl = environment.serverUrl;
   private _themeSelection$ = new BehaviorSubject<any>(undefined);
   
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private _localStorage: LocalStorageService) { }
 
+  /*
+   ************************************
+  Commented to check with interceptor
+  ************************************
   getHeader() {
     const authToken = localStorage.getItem('authToken');
     const httpOptions = {
@@ -23,10 +28,7 @@ export class DashboardService {
     };
     return httpOptions;
   }
-
-  getProfiles(){
-    return this.http.get(`${this.serverUrl}/dashboard`, this.getHeader());
-  }
+*/
 
   setAppTheme(theme : any){
     this._themeSelection$.next(theme);
@@ -69,7 +71,7 @@ export class DashboardService {
       {
         title: 'Subscribers',
         icon: 'assets/icons/subscriber-icon.svg',
-        link: '/subscriber',
+        link: '/subscribers',
         accessRole: ['admin','superAdmin'],
         hasGroup: false
       },
@@ -77,6 +79,13 @@ export class DashboardService {
         title: 'Subscriptions',
         icon: 'assets/icons/subscription-icon.svg',
         link: '/subscriptions',
+        accessRole: ['admin','superAdmin'],
+        hasGroup: false
+      },
+      {
+        title: 'Inventory',
+        icon: 'assets/icons/notepad.svg',
+        link: '/inventory',
         accessRole: ['admin','superAdmin'],
         hasGroup: false
       },
@@ -140,6 +149,11 @@ export class DashboardService {
     ]
   }
 
+  /*
+  getProfiles(){
+    return this.http.get(`${this.serverUrl}/dashboard`, this.getHeader());
+  }
+
   getDashboardCounts(){
     return [
       this.http.get(`${this.serverUrl}/subscriptions/totalRevenue`, this.getHeader()),
@@ -147,5 +161,28 @@ export class DashboardService {
       this.http.get(`${this.serverUrl}/subscribers/count`, this.getHeader()),
       this.http.get(`${this.serverUrl}/plans/count`, this.getHeader())
     ];
+  }
+  */
+
+  getProfiles(){
+    return this.http.get(`${this.serverUrl}/dashboard`);
+  }
+
+  getDashboardCounts(){
+    return [
+      this.http.get(`${this.serverUrl}/subscriptions/totalRevenue`),
+      this.http.get(`${this.serverUrl}/subscriptions/count`),
+      this.http.get(`${this.serverUrl}/subscribers/count`),
+      this.http.get(`${this.serverUrl}/plans/count`)
+    ];
+  }
+
+  getReports(dateRangeValue?: string) {
+    if(dateRangeValue) {
+      return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=${dateRangeValue}`)
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=year`)
+    }
   }
 }

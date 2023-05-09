@@ -24,7 +24,6 @@ export class CustomerComponent implements OnInit {
     private fb:FormBuilder) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
-   
   }
   
   Provider= [
@@ -51,9 +50,20 @@ export class CustomerComponent implements OnInit {
   getCustomerDetails(){
     this.customerService.getSingleCustomer(this.data?._id).subscribe(
       (result : any) => {
+        switch (result[0].smdp) {
+          case 'telna':
+          case 'Telna':
+              result[0].smdp = 'Telna'
+              break;
+          case 'pod':
+          case 'POD':
+              result[0].smdp = 'POD'
+              break;
+        }
         if(result?.length > 0){
           this.f.name.setValue(result[0].name);
-          this.f.smdp.setValue(result[0].providers.map((p : any) => p.smdp));
+          // this.f.smdp.setValue(result[0].providers.map((p : any) => p.smdp));
+          this.f.smdp.setValue(result[0].smdp);
         }
       }
     )
@@ -81,12 +91,12 @@ export class CustomerComponent implements OnInit {
       name: this.customerForm.get('name').value,
       smdp: this.customerForm.get('smdp').value,
     };
-    //console.log(formData);
+
     this.customerService.updateCustomer(this.data._id, formData)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
     }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
     
@@ -96,7 +106,7 @@ export class CustomerComponent implements OnInit {
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
       }, err => {
-      this.alertService.error(err.error.message);
+      this.alertService.error(err.error.message, err.status);
     })
   }
 

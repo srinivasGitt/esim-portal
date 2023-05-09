@@ -1,0 +1,104 @@
+<div class="es-modal add-edit-modal">
+    
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <div class="mb-3" class="add-customer-icon">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
+                    <mask id="mask0_2207_15812" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="16" width="24" height="24">
+                        <rect x="16" y="16" width="24" height="24" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_2207_15812)">
+                        <path d="M22 36C21.45 36 20.9792 35.8042 20.5875 35.4125C20.1958 35.0208 20 34.55 20 34V31H22V34H34V31H36V34C36 34.55 35.8042 35.0208 35.4125 35.4125C35.0208 35.8042 34.55 36 34 36H22ZM27 32V23.85L24.4 26.45L23 25L28 20L33 25L31.6 26.45L29 23.85V32H27Z" fill="white"/>
+                    </g>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
+                </svg>                    
+            </div>  
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-3">
+            <a class="es-btn-close" (click)="close()"></a>
+        </div>
+    </div>
+
+    <div>
+        <p class="modal-header-text mb-0">{{title}}</p>
+        <p class="modal-sub-header-text mb-0 mt-2">{{ description }}</p>
+    </div>
+    <div class="es-modal-body">
+
+        <form class="es-modal-form" [formGroup]="uploadForm" novalidate (ngSubmit)="submit()">
+            <div appEventBlocker
+                (dragend)="isDragOver = false"
+                (dragover)="isDragOver = true"
+                (dragenter)="isDragOver = true"
+                (dragleave)="isDragOver = false"
+                (mouseleave)="isDragOver = false"
+                (drop)="storeFile($event)"
+                [ngClass]="{'drag-hover': isDragOver}"
+                class="drag-file-area">
+                <div>
+                    <svg width="67" height="76" viewBox="0 0 67 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M67 21.3643V66.4668C67 68.9851 65.9916 71.4002 64.1966 73.1809C62.4016 74.9616 59.9671 75.962 57.4286 75.962H52.6429V71.2144H57.4286C58.6978 71.2144 59.9151 70.7142 60.8126 69.8238C61.7101 68.9335 62.2143 67.7259 62.2143 66.4668V21.3643H52.6429C50.739 21.3643 48.9131 20.614 47.5668 19.2785C46.2206 17.943 45.4643 16.1316 45.4643 14.2429V4.74763H19.1429C17.8736 4.74763 16.6563 5.24782 15.7588 6.13817C14.8614 7.02853 14.3571 8.2361 14.3571 9.49525V52.2239H9.57143V9.49525C9.57143 6.97695 10.5798 4.5618 12.3748 2.7811C14.1698 1.00039 16.6044 0 19.1429 0L45.4643 0L67 21.3643Z" fill="#A5A6EE"/>
+                        <path d="M29 50C28.175 50 27.4688 49.7063 26.8813 49.1188C26.2938 48.5312 26 47.825 26 47V42.5H29V47H47V42.5H50V47C50 47.825 49.7063 48.5312 49.1188 49.1188C48.5312 49.7063 47.825 50 47 50H29ZM36.5 44V31.775L32.6 35.675L30.5 33.5L38 26L45.5 33.5L43.4 35.675L39.5 31.775V44H36.5Z" fill="#A5A6EE"/>
+                        </svg>                        
+                </div>
+                <div class="section-head-text mb-0">
+                    Drag CSV or Excel here
+                </div>
+                <div>
+                    <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv">
+                    <!-- <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"> -->
+                    <label for="file" class="file-label">
+                        or, click to browse
+                    </label>
+                </div>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="uploadForm.controls['file'].errors && submitted">
+                        <span class="small" *ngIf="uploadForm.controls['file'].errors['required']">
+                            File is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="file-upload-body mt-2" *ngIf="uploadedFile">
+                <div class="file-icon">
+                    <div class="file-icon-border">
+                        <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_2207_15981" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="18">
+                            <rect width="18" height="18" fill="white"/>
+                            </mask>
+                            <g mask="url(#mask0_2207_15981)">
+                            <path d="M3.75 14.25H14.25V7.36875L10.6313 3.75H3.75V14.25ZM3.75 15.75C3.3375 15.75 2.98438 15.6031 2.69063 15.3094C2.39688 15.0156 2.25 14.6625 2.25 14.25V3.75C2.25 3.3375 2.39688 2.98438 2.69063 2.69063C2.98438 2.39688 3.3375 2.25 3.75 2.25H11.25L15.75 6.75V14.25C15.75 14.6625 15.6031 15.0156 15.3094 15.3094C15.0156 15.6031 14.6625 15.75 14.25 15.75H3.75ZM5.25 12.75H12.75V11.25H5.25V12.75ZM5.25 9.75H12.75V8.25H5.25V9.75ZM5.25 6.75H10.5V5.25H5.25V6.75Z" fill="white"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="file-progress">
+                    <div class="filename">{{ uploadedFile.name }} ({{ uploadedFile.size | filesize }})</div>
+                    <div class="progress" *ngIf="progress > 0">
+                        <span class="progress-bar" role="progressbar" [ngStyle]="{width: progress + '%'}" aria-valuemin="0" aria-valuemax="100"></span>
+                    </div>
+                </div>
+                <div class="percent filename" *ngIf="progress > 0">
+                    <span>{{ progress }}%</span>
+                </div>
+            </div>
+
+            <div class="empty" *ngIf="!uploadedFile"></div>
+            <div class="pt-4">
+                <button type="button" class="btn btn-primary ms-auto w-100" (click)="dowloadSample()">
+                    Download Sample File
+                </button>
+            </div>
+            <div class="d-flex pt-4">
+                <button type="button" class="btn btn-secondary w-20 mr-30" (click)="close()">Cancel</button>
+                <button type="submit" class="btn btn-primary ms-auto w-20">
+                    Upload
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>

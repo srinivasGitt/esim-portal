@@ -14,6 +14,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from "../shared/pipe/filter.pipe";
 import { SharedModule } from "../shared/shared.module";
+import { ShowentriesPipe } from "../shared/pipe/showentries.pipe";
+import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { SharedModule } from "../shared/shared.module";
     InventoryComponent,
     CustomerManagementComponent,
     SubscribeManagementComponent,
-    FilterPipe
+    FilterPipe,
+    ShowentriesPipe
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,8 @@ import { SharedModule } from "../shared/shared.module";
     SharedModule,
     ReactiveFormsModule,
     NgSelectModule ,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgApexchartsModule
   ],
   exports: [
     UserComponent,

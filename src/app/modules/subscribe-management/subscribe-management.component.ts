@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { InviteSubscriberComponent } from 'src/app/shared/dialog/invite-subscriber/invite-subscriber.component';
@@ -10,13 +10,14 @@ import { subscriberService } from 'src/app/shared/service/subscriber.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
+import { SearchService } from 'src/app/shared/service/search/search.service';
 
 @Component({
   selector: 'app-subscribe-management',
   templateUrl: './subscribe-management.component.html',
   styleUrls: ['./subscribe-management.component.scss']
 })
-export class SubscribeManagementComponent implements OnInit {
+export class SubscribeManagementComponent implements OnInit, OnDestroy {
   subscriberList:any;
   regionList: any = [];
   planList: any = [];
@@ -31,13 +32,25 @@ export class SubscribeManagementComponent implements OnInit {
     searchKey: 'displayName',
     filterBy: undefined
   };
+  inProgress: boolean = false;
+  inSearch : boolean = false;
 
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
               private regionService: RegionsService,
               private planService: PlansService,
               private route: ActivatedRoute,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private _searchService: SearchService) {
+                _searchService.getResults().subscribe((results: any) => {
+                  if(results) {
+                    this.subscriberList = results?.data
+                    this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.paginateConfig.currentPage = 1;
+                    this.inSearch = true;
+                  }
+                }) 
+              }
 
   ngOnInit(): void {
     this.getAllSubscriber();
@@ -82,25 +95,32 @@ export class SubscribeManagementComponent implements OnInit {
       .instance.close.subscribe((data: any) => {
         if (data) {
           this.alertService.success('Subscriber Created');
+          this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }
         });
   }
 
   getAllSubscriber() {
+    this.inProgress = true;
+
     this.subscriberService.getAllSubscriber()
     .subscribe(
-      (data: any) => {
-        this.subscriberList = data;
-        this.getAllRegions();
-        this.getAllPlans();
+      (res: any) => {
+        this.subscriberList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        // this.getAllRegions();
+        // this.getAllPlans();
         // this.subscriptionList = data;
+        this.inProgress = false;
       }, err => {
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
       }
     );
 
   }
+  
   editSubscriber(index: number) {
     this.dialogService.openModal(SubscriberMgmtComponent, { cssClass: 'modal-md', context: {data: this.subscriberList[index], title: 'Edit Subscriber'} })
       .instance.close.subscribe((data: any) => {
@@ -108,6 +128,7 @@ export class SubscribeManagementComponent implements OnInit {
           let vm  = this;
           vm.subscriberList[index] = data.data;
           this.alertService.success('Subscriber Updated');
+          this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }
       });
@@ -131,8 +152,10 @@ export class SubscribeManagementComponent implements OnInit {
         .subscribe(res => {
           this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
           this.alertService.success('Subscriber Deleted');
+          this.paginateConfig.currentPage = 1;
+          this.getAllSubscriber();
         }, err => {
-          this.alertService.error(err.error.message);
+          this.alertService.error(err.error.message, err.status);
         })
       }
       });
@@ -166,4 +189,37 @@ export class SubscribeManagementComponent implements OnInit {
   //     // }
   //     });
   // }
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+
+    /* Pagination based on searched data */
+    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService.getSearchResult('/subscribers', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+        this.subscriberList = result.data;
+        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+        this.inProgress = false;
+      })
+    } 
+    /* Pagination based on all data */
+    else {
+      this.subscriberService.getAllSubscriber(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (res: any) => {
+          this.subscriberList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.inSearch = false
+    this._searchService.searchedTerm = ''
+  }
 }

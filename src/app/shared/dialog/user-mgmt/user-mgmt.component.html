@@ -47,7 +47,7 @@
     <div class="es-modal-body" *ngIf="userForm">
         <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3">
-                <label for="name" class="form-label es-modal-form-label">First name</label>
+                <label for="name" class="form-label es-modal-form-label">First Name</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="firstName">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
@@ -59,7 +59,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="name" class="form-label es-modal-form-label">Last name</label>
+                <label for="name" class="form-label es-modal-form-label">Last Name</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="lastName">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
@@ -78,17 +78,26 @@
                         <span class="small" *ngIf="f.email.errors.required">
                             Email is required!
                         </span>
+                        <span class="small" *ngIf="f.email.errors.email">
+                            Please enter valid email!
+                        </span>
                     </span>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="name" class="form-label es-modal-form-label">Phone Number</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" >
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.mobile.touched && f.mobile.pristine) || (f.mobile.errors && submitted)">
                         <span class="small" *ngIf="f.mobile.errors.required">
                             Phone Number is required!
+                        </span>
+                        <span class="small" *ngIf="f.mobile.errors?.minlength">
+                            Phone number must be of {{ f.mobile.errors?.minlength.requiredLength }} digits.
+                        </span>
+                        <span class="small" *ngIf="f.mobile.errors?.maxlength">
+                            Phone number must be of {{ f.mobile.errors?.maxlength.requiredLength }} digits.
                         </span>
                     </span>
                 </div>

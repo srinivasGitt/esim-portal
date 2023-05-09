@@ -46,7 +46,7 @@
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text"> {{ details.title }} </label>
             </div>
-            <div class="col-8" [ngClass]="details.title == 'Activation Code' ? 'activation-code-scroll': ''">
+            <div class="col-8 ml-2" [ngClass]="details.title == 'Activation Code' ? 'activation-code-scroll': ''">
                 <label class="subscriber-details-text">
                     {{ details.isDate ? ( subscriberDetails[details.key] | date : 'dd/MM/YYYY hh:mm') : subscriberDetails[details.key] }}
                 </label>

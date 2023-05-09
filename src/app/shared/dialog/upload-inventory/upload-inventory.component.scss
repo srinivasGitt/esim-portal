@@ -1,0 +1,60 @@
+.drag-file-area {
+    box-sizing: border-box;
+    height: 180px;
+    text-align: center;
+    border: 2px dashed rgba(99, 101, 239, 0.37);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+
+    div:nth-child(2) {
+        margin-bottom: 16px;
+    }
+}
+
+.filename {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #929292;
+}
+
+.percent {
+    width: 30px;
+}
+
+.file-progress {
+    width: 100%;
+
+    .progress {
+        width: 95%;
+        height: 5px;
+    }
+}
+
+.empty {
+    height: 44px;
+    margin-bottom: 10px;
+}
+
+.drag-hover {
+    background: var(--add-button-bg-color);
+    border-color: var(--add-button-bg-color);
+}
+
+.section-head-text{
+    color: var(--section-head-text-color);
+    font-weight: 500;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #929292;
+}
