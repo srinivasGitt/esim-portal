@@ -16,8 +16,8 @@ export class AlertComponent implements OnInit {
   buttonGroup = [
     { cssClass: 'btn-secondary', title: 'Cancel', value: false},
     { cssClass: 'ms-auto', title: 'Try Again', value: false},
-    { cssClass: 'ms-auto', title: 'Continue', value: false},
-    { cssClass: 'ms-auto', title: 'Login', value: false}
+    { cssClass: 'ms-auto', title: 'Close', value: false},
+    { cssClass: 'ms-auto', title: 'Redirect', value: false}
   ]
 
   constructor(private viewContainer: ViewContainerRef) {
@@ -35,13 +35,15 @@ export class AlertComponent implements OnInit {
 
     switch (this.title) {
       case 'Success':
-        this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Continue')
+        // this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Continue')
+        this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Close')
         break;
       case 'Error':
         this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Try Again')
         break;
       case 'Info':
-        this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Login')
+        // this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Login')
+        this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Redirect')
         break;
       default:
         this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Try Again')

@@ -30,7 +30,7 @@
 <div class="es-modal info-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <div class="mb-3 subscription-info-icon d-flex">
+            <div class="mb-3 d-flex">
                 <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon">
             </div>  
         </div>
@@ -42,7 +42,7 @@
         <p class="modal-header-text mb-0">Subscriber Info</p>
     </div>
     <div class="es-modal-body">
-        <div class="row border-bottom-danger" *ngFor="let details of detailsRow">
+        <div class="row rowHeight d-flex align-items-center" *ngFor="let details of detailsRow; let i=index, last as isLast" [ngClass]="{'custom-border-bottom': !isLast}">
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text"> {{ details.title }} </label>
             </div>
@@ -51,7 +51,7 @@
                     {{ details.isDate ? ( subscriberDetails[details.key] | date : 'dd/MM/YYYY hh:mm') : subscriberDetails[details.key] }}
                 </label>
             </div>
-            <hr class="horizontal-line">
+            <!-- <hr class="horizontal-line"> -->
         </div>
     </div>
     <div class="es-modal-footer d-flex pt-4">

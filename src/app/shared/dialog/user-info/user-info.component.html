@@ -69,8 +69,13 @@
 <div class="es-modal info-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <div class="mb-3 subscription-info-icon d-flex">
-                <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon">
+            <div class="mb-3 d-flex">
+                <!-- <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon"> -->
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
+                    <path d="M27.5 17C21.704 17 17 21.704 17 27.5C17 33.296 21.704 38 27.5 38C33.296 38 38 33.296 38 27.5C38 21.704 33.296 17 27.5 17ZM27.5 32.75C26.9225 32.75 26.45 32.2775 26.45 31.7V27.5C26.45 26.9225 26.9225 26.45 27.5 26.45C28.0775 26.45 28.55 26.9225 28.55 27.5V31.7C28.55 32.2775 28.0775 32.75 27.5 32.75ZM28.55 24.35H26.45V22.25H28.55V24.35Z" fill="white"/>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
+                </svg> 
             </div>  
         </div>
         <div class="es-btn-close-container mt-0 mb-auto me-3">
@@ -78,56 +83,56 @@
         </div>
     </div>
     <div>
-        <p class="modal-header-text mb-0">{{userDetails.displayName}}</p>
+        <p class="modal-header-text mb-0">{{userDetails.displayName | titlecase }}</p>
     </div>
     <div class="es-modal-body">
-        <div class="row border-bottom-danger">
+        <div class="row d-flex align-items-center rowHeight custom-border-bottom">
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text">First Name</label>
             </div>
             <div class="col-8">
                 <label class="subscriber-details-text">
-                    {{ userDetails.firstName }}
+                    {{ userDetails.firstName | titlecase }}
                 </label>
             </div>
-            <hr class="horizontal-line">
+            <!-- <hr class="horizontal-line"> -->
         </div>
         
-        <div class="row border-bottom-danger">
+        <div class="row d-flex align-items-center rowHeight custom-border-bottom">
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text">Last Name</label>
             </div>
             <div class="col-8">
                 <label class="subscriber-details-text">
-                    {{ userDetails.lastName }}
+                    {{ userDetails.lastName | titlecase }}
                 </label>
             </div>
-            <hr class="horizontal-line">
+            <!-- <hr class="horizontal-line"> -->
         </div>
         
-        <div class="row border-bottom-danger">
+        <div class="row d-flex align-items-center rowHeight custom-border-bottom">
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text">Email Address</label>
             </div>
             <div class="col-8 d-flex align-items-center">
-                <label class="subscriber-details-text">
+                <label class="subscriber-details-text email-lable">
                     {{ userDetails.email }} 
+                    <span class="icon copy" *ngIf="userDetails.email"  (click)="copyToClipboard($event,userDetails.email)" [tooltip]="copyText" placement="top" delay="100" offset="5">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                <rect width="20" height="20" fill="#D9D9D9"/>
+                            </mask>
+                            <g mask="url(#mask0_2161_5534)">
+                                <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="white"/>
+                            </g>
+                        </svg>       
+                    </span>
                 </label>
-                <!-- <div class="user-table-action-icon icon p-1" *ngIf="userDetails.email"  (click)="copyToClipboard($event,userDetails.email)" [tooltip]="copyText" placement="top" delay="100" offset="-5">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                            <rect width="20" height="20" fill="#D9D9D9"/>
-                        </mask>
-                        <g mask="url(#mask0_2161_5534)">
-                            <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="white"/>
-                        </g>
-                    </svg>                           
-                </div> -->
             </div>
-            <hr class="horizontal-line">
+            <!-- <hr class="horizontal-line"> -->
         </div>
         
-        <div class="row border-bottom-danger">
+        <div class="row d-flex align-items-center rowHeight custom-border-bottom">
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text">Phone Number</label>
             </div>
@@ -136,22 +141,21 @@
                     {{ userDetails.mobile }}
                 </label>
             </div>
-            <hr class="horizontal-line">
+            <!-- <hr class="horizontal-line"> -->
         </div>
         
-        <div class="row border-bottom-danger">
+        <div class="row d-flex align-items-center rowHeight">
             <div class="col-4 pl-0">
                 <label class="subscriber-label-text">Role</label>
             </div>
             <div class="col-8">
                 <label class="subscriber-details-text">
-                    {{ userDetails.roles }}
+                    {{ userDetails.roles[0] | titlecase }}
                 </label>
             </div>
-            <hr class="horizontal-line">
         </div>
     </div>
-    <div class="es-modal-footer d-flex pt-4">
+    <div class="es-modal-footer d-flex pt-4 mt-4">
         <!-- <button class="btn btn-primary ms-auto w-100" (click)="close()">
             OK
         </button> -->
