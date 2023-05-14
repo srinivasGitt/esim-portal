@@ -3,6 +3,8 @@ import { Chart, registerables } from 'chart.js'
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
 import * as moment from 'moment';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 Chart.register(...registerables)
 @Component({
@@ -35,16 +37,21 @@ export class ReportsComponent implements OnInit {
         
       });
   }
+  customForm: any;
+
+  isCustomRange: boolean = false;
+  currentDate = new Date().toISOString().slice(0, 10);
 
   ngOnInit(): void {
       // this.drawChart();
+      this.initForm()
       this.getReports('year')
   }
 
   /* Get reports data - Start */
-  getReports(value?: any) {
+  getReports(value?: any, fromDate?: any, toDate?: any) {
     this.inProgress = true
-    this.dashboardService.getReports(value).subscribe((res: any) => {
+    this.dashboardService.getReports(value, fromDate, toDate).subscribe((res: any) => {
       if(res.result) {
         const labelData : any[] = []
         const revenueData : any[] = []
@@ -80,6 +87,9 @@ export class ReportsComponent implements OnInit {
         break;
       case 'year':
         formatValue = 'MMM'
+        break;
+      case 'custom':
+        formatValue = 'DD MMM'
         break;
       default:
         formatValue = 'MMM'
@@ -174,6 +184,28 @@ export class ReportsComponent implements OnInit {
   /* Draw chart based on Filter - Start */
   selectTimeframe(value: any) {
     this.getReports(value)
+    this.customForm?.reset();
   }
   /* Draw chart based on Filter - End */
+
+  initForm(): void {
+    this.customForm = new UntypedFormGroup({
+      fromDate: new UntypedFormControl(moment(), [Validators.required]),
+      toDate: new UntypedFormControl(moment(), [Validators.required])
+    });
+  }
+
+  get f() { return this.customForm.controls; }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if(!this.customForm.valid) {
+      return
+    }
+    this.startDate = dateRangeStart.value
+    this.endDate = dateRangeEnd.value
+    setTimeout( ()=>{
+      this.getReports('custom', this.startDate, this.endDate)
+      }, 1000)
+  }
+
 }

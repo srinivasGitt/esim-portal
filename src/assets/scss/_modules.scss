@@ -170,6 +170,7 @@
                     margin: 8px auto;
                     font-weight: 400;
                     font-size: var(--sidebar-link-text-size);
+                    font-family: var(--font-family-inter);
                     // padding: 0 12px;
 
                     .activeLink {
@@ -244,7 +245,7 @@
 
     .info-head-section{
         label{
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             color: var(--dark-text-white-v4);
         }
     }
@@ -255,7 +256,7 @@
 
         .dashboard-head-text h2 {
             font-size: var(--heading-text-size) !important;
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             color: var(--font-color);
             margin-bottom: 0;
         }
@@ -407,7 +408,7 @@
 
     .info-head-section{
         label{
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             color: var(--dark-text-white-v4);
         }
     }
@@ -421,9 +422,10 @@
 
         .dashboard-head-text h2 {
             font-size: var(--heading-text-size) !important;
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             color: var(--font-color);
             margin-bottom: 0;
+            font-weight: 600;
         }
         .btn-dashboard-head, .btn-dashboard-head:active{
             color: #fff;
@@ -476,6 +478,8 @@
 
 // Subscriber Table
 .subscriber-management {
+    font-family: var(--font-family-sf-pro-display);
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -488,12 +492,12 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 1.5fr 2.5fr 2fr 2fr 1.5fr 150px;
+            grid-template-columns: 1.5fr 3fr 2fr 2fr 1.5fr 130px;
             grid-gap: 1rem;
             font-size: 1rem;
         }
         .table-headers{
-            font-size: 1.051vw;
+            font-size: 1rem;
             font-weight: 500;
 
             path{
@@ -526,7 +530,7 @@
             }
         }
         .t-body-bg{
-            font-size: 1vw;
+            font-size: 1rem;
 
             .t-box{
                 color: var(--dark-text-white-v5);
@@ -542,8 +546,12 @@
                 &.activation-code-section{
                     line-height: 1.25 !important;
                     padding: 2px 0 !important;
-                    // font-size: 0.875rem;
+                    font-size: 0.75rem;
                     // font-size: 1vw;
+                }
+                
+                &.iccid-text {
+                    font-size: 0.875rem;
                 }
             }
             &:hover, .active{
@@ -578,7 +586,7 @@
 
     // .info-head-section{
     //     label{
-    //         font-family: var(--dark-font-family);
+    //         font-family: var(--font-family-sf-pro-display);
     //         color: var(--dark-text-white-v4);
     //     }
     // }
@@ -629,6 +637,8 @@
     //         }
     //     }
     // }
+    font-family: var(--font-family-sf-pro-display);
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -646,7 +656,7 @@
             grid-gap: 1;
         }
         .table-headers{
-            font-size: 1.051vw;
+            font-size: 1rem;
             font-weight: 500;
 
             svg {
@@ -675,7 +685,7 @@
         }
         .t-body-bg{
             line-height: 50px;
-            font-size: 1vw;
+            font-size: 1rem;
 
             .t-box:not(.action-section){
                 color: var(--dark-text-white-v5);
@@ -706,28 +716,6 @@
                 cursor: pointer;
             }
         }
-
-        .copy-div{
-
-            .copy {
-                padding: 4px 8px;
-                svg {
-                    display: none;
-                }
-            }
-            
-            
-            &:hover {
-                .copy{
-                    border: 1px solid var(--add-button-hover-bg-color);
-                    border-radius: 4px;
-                    svg{
-                        display: inline;
-                    }
-                }
-            }
-        }
-        
     }
 }
 
@@ -743,7 +731,7 @@
 
     //     .dashboard-head-text h2{
     //         font-size: var(--heading-text-size) !important;
-    //         font-family: var(--dark-font-family);
+    //         font-family: var(--font-family-sf-pro-display);
     //         color: var(--dark-text-white-v1);
     //         margin-bottom: 0;
     //     }
@@ -764,6 +752,8 @@
     //         }
     //     }
     // }
+    font-family: var(--font-family-sf-pro-display);
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -781,7 +771,7 @@
             // grid-gap: 1;
         }
         .table-headers{
-            font-size: 1.051vw;
+            font-size: 1rem;
             font-weight: 500;
 
             svg {
@@ -827,7 +817,7 @@
             .plan-info-section > span {
                 color: var(--info-label-text-color);
                 font-weight: 400;
-                font-size: 0.972vw !important;
+                font-size: 0.75rem !important;
                 cursor: default;
             }
             
@@ -933,7 +923,7 @@
 
     //     .dashboard-head-text h2 {
     //         font-size: var(--heading-text-size) !important;
-    //         font-family: var(--dark-font-family);
+    //         font-family: var(--font-family-sf-pro-display);
     //         color: var(--dark-text-white-v1);
     //         margin-bottom: 0;
     //     }
@@ -955,6 +945,8 @@
     //         }
     //     }
     // }
+    font-family: var(--font-family-sf-pro-display);
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -971,7 +963,7 @@
             grid-template-columns: 2fr 1.5fr 1fr 1.5fr 1.5fr 1fr 0.5fr 150px;
         }
         .table-headers{
-            font-size: 1.051vw;
+            font-size: 1rem;
             font-weight: 500;
 
             path{
@@ -995,7 +987,7 @@
             word-break: break-word;
         }
         .t-body-bg{
-            font-size: 1vw;
+            font-size: 1rem;
 
             .t-box{
                 color: var(--dark-text-white-v5);
@@ -1044,7 +1036,7 @@
     border-radius: 6px;
     margin: 0 10px 10px 0;
     .info-head-section{
-        font-family: var(--dark-font-family);
+        font-family: var(--font-family-sf-pro-display);
         color: var(--font-color);
         line-height: 1.6;
         .heading{
@@ -1097,6 +1089,8 @@
 
 // Inventory Management Table
 .inventory-management {
+    font-family: var(--font-family-sf-pro-display);
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -1111,9 +1105,10 @@
         .t-grid-table-wrapper {
             display: grid;
             grid-template-columns: 2fr 2fr 2fr 2fr 1fr 125px;
+            column-gap: 8px;
         }
         .table-headers{
-            font-size: 1.051vw;
+            font-size: 1rem;
             font-weight: 500;
 
             path{
@@ -1154,7 +1149,7 @@
             // height: 70px;
         }
         .t-body-bg{
-            font-size: 1vw;
+            font-size: 1rem;
             font-weight: 400;
 
             .t-box{
@@ -1164,7 +1159,6 @@
                 text-overflow: ellipsis;
                 word-break: inherit;
                 width: 100%;
-                font-family: "SF Pro Display";
                 font-style: normal;
                 line-height: 19px;
 
@@ -1209,7 +1203,7 @@
 
 //     .info-head-section{
 //         label{
-//             font-family: var(--dark-font-family);
+//             font-family: var(--font-family-sf-pro-display);
 //             color: var(--dark-text-white-v4);
 //         }
 //     }
@@ -1260,6 +1254,9 @@
 //             }
 //         }
 //     }
+
+    font-family: var(--font-family-sf-pro-display);
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -1276,7 +1273,7 @@
             grid-gap: 1;
         }
         .table-headers{
-            font-size: 1.051vw;
+            font-size: 1rem;
             font-weight: 500;
 
             path{
@@ -1292,20 +1289,22 @@
             padding: 14px 0;
             padding-left: .5rem !important;
             width: 100%;
-            justify-content: center;
-            text-align: center;
+            // justify-content: center;
+            // text-align: center;
             color: var(--font-color);
-            &:first-child{
-                text-align: start;
-                justify-content: flex-start;
-            }
+            // &:first-child{
+            //     text-align: start;
+            //     justify-content: flex-start;
+            // }
         }
         .t-body-bg{
             line-height: 50px;
-            font-size: 1vw;
+            font-size: 1rem;
+            font-weight: 400;
+
             .t-box:not(.action-section){
                 color: var(--dark-text-white-v5);
-                // opacity: 0.55;
+                opacity: 0.55;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 word-break: inherit;
@@ -1322,7 +1321,7 @@
 
         .action-section {
             display: flex;
-            justify-content: center;
+            // justify-content: center;
         }
         .user-table-action{
             display: flex;
@@ -1425,7 +1424,7 @@
         border-radius: 25px;
         // padding-top: 0.05rem;
         // padding-bottom: 0.05rem;
-        font-family: var(--dark-font-family);
+        font-family: var(--font-family-inter);
         font-size: 0.875rem;
         color: var(--font-color);
         padding-left: 3.2rem;
@@ -1664,7 +1663,9 @@
                 background: var(--email-hover-background-color);
                 border-radius: 100px;
                 width: auto !important;
-            
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: break-word;
                 svg{
                     display: inline;
                 }
@@ -1905,11 +1906,11 @@
 // Component Content Area Common Css
 .main-content-div-area{
     margin-top: 110px;
+    font-family: var(--font-family-sf-pro-display);
 
     /* Dashboard CSS - Start */
     .info-head-section{
         label{
-            font-family: var(--dark-font-family);
             color: var(--dark-text-white-v4);
         }
     }
@@ -1921,8 +1922,8 @@
         
         .heading-text h2{
             font-size: var(--heading-text-size);
-            font-family: var(--dark-font-family);
             color: var(--font-color);
+            font-weight: 600;
         }
     }
 
@@ -1947,6 +1948,8 @@
         height: 36px;
         h4{
             color: var(--font-color);
+            font-weight: 500;
+            font-size: 1.5rem;
         }
         .border-right {
             border-right: 1px solid var(--dark-right-border);
@@ -2094,13 +2097,13 @@
     .navbar-user-div{
         padding-left: 1.5vw;
         .user-name{
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             color:var(--font-color);
             font-size: 30px;
             font-size: 1.2570vw;
         }
         .user-dashboard-text{
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             font-size: 16px;
             color: var(--dark-text-white-v4);
         }
@@ -2110,7 +2113,7 @@
         margin-right: 2.5vw;
     }
     .nav-item.dropdown .dropdown-toggle{
-        font-family: var(--dark-font-family);
+        font-family: var(--font-family-sf-pro-display);
         font-size: 1.018vw;
         color: var(--font-color);
         background:var(--navbar-ele-bg-color);
@@ -2143,7 +2146,7 @@
     }
 
     .user-name-div{
-        font-family: var(--dark-font-family);
+        font-family: var(--font-family-sf-pro-display);
         font-size: 1rem;
         color: var(--font-color) !important;
         // font-family: 'SF Pro Display';
@@ -2234,7 +2237,7 @@
     }
     .environment-toggle-text-container{
         .helvetica-font-regular{
-            font-family: var(--dark-font-family);
+            font-family: var(--font-family-sf-pro-display);
             font-size: 1.048vw;
             color: var(--dark-text-white-v4);
             margin-bottom: 0;
@@ -2346,6 +2349,7 @@
 .language-dropdown {
     width: 80px !important;
     height: 40px !important;
+    font-family: var(--font-family-sf-pro-display);
 }
 
 .navbar-expand-lg .navbar-toggler {
@@ -2505,4 +2509,22 @@
 
 .custom-border-bottom {
     border-bottom: 1px solid var(--horizontal-line-color);
+}
+
+.copy-div{
+    .copy {
+        padding: 4px 8px;
+        svg {
+            display: none;
+        }
+    }
+    &:hover {
+        .copy{
+            border: 1px solid var(--add-button-hover-bg-color);
+            border-radius: 4px;
+            svg{
+                display: inline;
+            }
+        }
+    }
 }

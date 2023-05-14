@@ -46,7 +46,7 @@
 
 .section-head-text{
     color: #6365EF;
-    font-family: 'SF Pro Display';
+    font-family: var(--font-family-sf-pro-display);
     font-style: normal;
     font-weight: 500;
     font-size: 1rem;
@@ -58,7 +58,7 @@ input[type="file"] {
 }
 
 .file-label {
-    font-family: 'SF Pro Display';
+    font-family: var(--font-family-sf-pro-display);
     font-style: normal;
     font-weight: 500;
     font-size: 0.75rem;
@@ -72,4 +72,10 @@ button {
     font-weight: 600;
     font-size: 1rem;
     line-height: 24px;
+}
+
+.not-allowed {
+    opacity: 0.8;
+    // pointer-events: none;
+    cursor: not-allowed;
 }

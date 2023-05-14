@@ -34,6 +34,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   };
   inProgress: boolean = false;
   inSearch : boolean = false;
+  copyText: string = 'Copy'
 
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
@@ -149,9 +150,9 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
       const vm = this;
       if (data) {
         vm.subscriberService.deleteSubscriber(subscriber._id)
-        .subscribe(res => {
+        .subscribe((res: any) => {
           this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
-          this.alertService.success('Subscriber Deleted');
+          this.alertService.success(res.message);
           this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }, err => {
@@ -216,6 +217,17 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    
+    navigator.clipboard.writeText(email);
   }
 
   ngOnDestroy(): void {

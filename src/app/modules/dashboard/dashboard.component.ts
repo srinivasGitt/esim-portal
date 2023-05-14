@@ -238,10 +238,11 @@ export class DashboardComponent implements OnInit {
       },
       options: {
         layout:{
-          padding: 20
+          padding: 8
         },
         scales: {
           x: {
+            beginAtZero: true,
             grid: {
               borderColor: '#00000014',
               display:false,

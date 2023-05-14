@@ -9,6 +9,8 @@
 @import './assets/scss/navbar';
 @import './assets/scss/tooltip';
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "~@angular/material/prebuilt-themes/purple-green.css";
 
 *{
     scrollbar-width: thin !important;
@@ -73,6 +75,10 @@
     --add-button-hover-bg-color: #585ABA;
     --info-button-bg-color: #428EFF;
     --info-label-text-color: #475467;
+
+    --font-family-sf-pro-display: 'SF Pro Display';
+    --font-family-inter: 'Inter';
+
     .icon {
         path, circle {
             fill: var(--search-placeholder-text);
@@ -84,6 +90,11 @@
             fill: var(--info-button-bg-color);
             opacity: 0.55;
         }
+    }
+    ::ng-deep .mat-icon-button > svg {
+        // path {
+            fill: red !important;
+        // }
     }
     
     .btn-outline-custom {
@@ -203,6 +214,7 @@
             background: url(/assets/icons/down-caret-white.svg) no-repeat;
         }
     }
+    
 }
 
 body {
