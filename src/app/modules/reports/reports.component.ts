@@ -190,8 +190,8 @@ export class ReportsComponent implements OnInit {
 
   initForm(): void {
     this.customForm = new UntypedFormGroup({
-      fromDate: new UntypedFormControl(moment(), [Validators.required]),
-      toDate: new UntypedFormControl(moment(), [Validators.required])
+      fromDate: new UntypedFormControl('', [Validators.required]),
+      toDate: new UntypedFormControl('', [Validators.required])
     });
   }
 

@@ -480,6 +480,12 @@
 .subscriber-management {
     font-family: var(--font-family-sf-pro-display);
 
+    .section-head-text{
+        padding: 5px;
+        color: var(--font-color);
+        font-weight: 500;
+    }
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
@@ -908,6 +914,10 @@
     }
     .slider.round:before {
         border-radius: 50%;
+    }
+
+    .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+        color: var(--font-color);
     }
 }
 

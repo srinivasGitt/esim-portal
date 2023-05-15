@@ -1,7 +1,7 @@
 <div class="common-header user-management">
 
     <div class="dashboard-head-flex">
-        <div class="filter-head d-flex py-1 px-4">
+        <!-- <div class="filter-head d-flex py-1 px-4">
             <div class="d-flex">
             <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month')">
             <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
@@ -12,7 +12,7 @@
             <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
             <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year')" [class.disabled]="selectedFilter.year == currentYear">
             </div>
-        </div>
+        </div> -->
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-dashboard-head ms-auto d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails?.customerId" (click)="createUser()">

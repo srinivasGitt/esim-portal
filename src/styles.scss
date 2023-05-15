@@ -74,9 +74,10 @@
     --add-button-hover-bg-color: #585ABA;
     --info-button-bg-color: #428EFF;
     --info-label-text-color: #475467;
-
+    
     --font-family-sf-pro-display: 'SF Pro Display';
     --font-family-inter: 'Inter';
+    --pagination-font-color: #fff;
 
     .icon {
         path, circle {
@@ -182,6 +183,7 @@
     --add-button-hover-bg-color: #585ABA;
     --info-button-bg-color: #428EFF;
     --info-label-text-color: #AAAEB6;
+    --pagination-font-color: #25282B;
 
     .user-dashboard-table-container {
         color: var(--font-color);

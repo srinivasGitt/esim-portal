@@ -8,6 +8,7 @@ import { PaginationInstance } from 'ngx-pagination';
 import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
 import { SearchService } from 'src/app/shared/service/search/search.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-subscription',
@@ -31,7 +32,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   inProgress: boolean = false;
   inSearch : boolean = false;
-
+  
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
               private alertService : AlertService, 
@@ -173,6 +174,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  
 
   ngOnDestroy(): void {
     this.inSearch = false
