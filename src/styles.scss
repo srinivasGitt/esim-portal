@@ -10,7 +10,6 @@
 @import './assets/scss/tooltip';
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-// @import "~@angular/material/prebuilt-themes/purple-green.css";
 
 *{
     scrollbar-width: thin !important;
@@ -97,9 +96,9 @@
         // }
     }
     
-    .btn-outline-custom {
-        color: #000 !important;
-    }
+    // .btn-outline-custom {
+    //     color: #000 !important;
+    // }
     
     .user-dashboard-table-container {
         color: var(--dark-text-white-v6);
@@ -214,7 +213,25 @@
             background: url(/assets/icons/down-caret-white.svg) no-repeat;
         }
     }
+
+    .mat-datepicker-content .mat-calendar {
+        width: 296px;
+        height: 354px;
+        background: var(--card-background-color);
+        color: var(--font-color);
+    }
+
+    .mat-calendar-table-header, 
+    .mat-calendar-body-label, 
+    .mat-calendar-body-cell-content.mat-focus-indicator, 
+    .mat-calendar-previous-button::after, 
+    .mat-calendar-next-button::after, .mat-date-range-input-separator, .mat-datepicker-toggle-default-icon {
+        color: var(--font-color);
+    }
     
+    .mat-calendar-arrow polygon {
+        fill: var(--font-color);
+    }
 }
 
 body {

@@ -133,3 +133,11 @@ button {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
     border: none !important;
 }
+
+.mat-datepicker-toggle .mat-icon-button {
+    background-color: yellow;
+}
+
+.mat-calendar {
+    background-color: lightgreen;
+}

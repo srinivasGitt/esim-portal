@@ -1338,7 +1338,7 @@
         }
         
         .btn-outline-custom {
-            color: #fff;
+            color: var(--font-color);
             border: 1px solid var(--add-button-bg-color);
             border-radius: 25px;
             font-size: 0.8rem;
@@ -1463,7 +1463,8 @@
 // Modal Common CSS
 .add-edit-modal, .info-modal{
     padding: 24px 20px;    
-    
+    font-family: var(--font-family-sf-pro-display);
+
     .btn{
         height: 44px;
         width: 170px;
@@ -2526,5 +2527,25 @@
                 display: inline;
             }
         }
+    }
+}
+
+.add-customer-icon{
+    background: var(--dark-primary-background);
+    border: 8px solid var(--dark-primary-border);
+    border-radius: 28px;
+    width: 56px;
+    svg{
+        transform: scale(3);
+    }
+}
+
+.edit-customer-icon{
+    background: var(--dark-info-background);
+    border: 8px solid var(--dark-info-border);
+    border-radius: 28px;
+    width: 56px;
+    svg{
+        transform: scale(1.5);
     }
 }
