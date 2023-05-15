@@ -2,7 +2,7 @@
 <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
     <div class="sidebar-brand-parent">
         <a class="sidebar-brand" routerLink="/">
-            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '.svg' : '-dark.svg')" alt="">
+            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
         </a>
     </div>
     <!-- <a [routerLink]="[menu.link]" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === menu.link}" *ngFor="let menu of sidebarMenuList" [class.disable-link]="menu.isDisabled">

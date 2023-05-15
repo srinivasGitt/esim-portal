@@ -4,3 +4,74 @@
 .cursor-not-allowed{
     cursor: not-allowed !important;
 }
+
+::ng-deep mat-form-field {
+    display: block !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+}
+
+::ng-deep .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    // width: 100% !important;
+    height: 50px !important;
+    color: var(--font-color);
+    border: none;
+    margin-top: 6px;
+    font-family: var(--font-family-sf-pro-display);
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: none !important;
+}
+
+.mat-datepicker-toggle .mat-icon-button {
+    background-color: yellow;
+}
+
+.mat-calendar {
+    background-color: lightgreen;
+}
+
+.lang-dropdown {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 5px 0px !important;
+    padding-left: 0px !important;
+    color: var(--font-color);
+    text-decoration: none;
+    .fa-angle-down {
+        color: rgba(99, 101, 239, 1);
+    }
+}
+
+
+.lang-dropdown-option {
+    box-shadow: var(--box-shadow-size-color);;
+    width: 370px;
+    border: none;
+    cursor: pointer;
+    border-radius: 13px;
+    transform: translate(-25px, 50px) !important;
+    background-color: var(--dark-dropdown) !important;
+    .lang-dropdown-item {
+        color: var(--font-color) ;
+        padding: 10px 15px;
+    }
+    .dropdown-item {
+        &:hover {
+            background-color: var(--dark-dropdown) !important;
+        }
+    }
+    .lang-dropdown-item-active {
+        color: #fff;
+    }
+}

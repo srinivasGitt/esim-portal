@@ -45,7 +45,7 @@
     </div>
     <div class="es-modal-body">
         <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()">
-            <div class="mb-3 row">
+            <div class="mb-3 row d-flex justify-content-between">
                 <div class="col-6">
                     <div>
                         <label for="plan" class="form-label es-modal-form-label">Plan*</label>
@@ -67,7 +67,7 @@
                         </span>
                     </div>   
                 </div>
-                <div class="col-6">
+                <div class="col-6 gap-2">
                     <div>
                         <label for="subscriber" class="form-label es-modal-form-label">Subscriber*</label>
                         <ng-select
@@ -89,7 +89,7 @@
             </div>
 
             <div class="mb-3 row">
-                <div class="col-6">
+                <div class="col-6 gap-2">
                     <label for="startDate" class="form-label es-modal-form-label">Start Date</label>
                     <div class="d-flex input-icon">
                         <input type="date" class="form-control es-input" id="startDate" aria-describedby="startDate" formControlName="startDate" [min]="currentDate" (change)="onDateChange($event, f.planId)">
@@ -107,7 +107,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 gap-2">
                     <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
                     <div class="d-flex input-icon">
                         <input type="date" class="form-control es-input" id="endDate" aria-describedby="endDate" formControlName="endDate" [class.disabled]="true">
@@ -133,7 +133,7 @@
             </div>
 
             <div class="mb-3 row">
-                <div class="col-6">
+                <div class="col-6 gap-2">
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex">
                         <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [class.disabled]="true">
@@ -152,7 +152,7 @@
                     </div>
                 </div>
 
-                <div class="col-6">
+                <div class="col-6 gap-2">
                     <label for="data" class="form-label es-modal-form-label">Data</label>
                     <input type="text" class="form-control es-input" id="data" aria-describedby="data" formControlName="data" [class.disabled]="true">
                     <div>

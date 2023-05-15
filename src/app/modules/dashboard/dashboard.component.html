@@ -9,8 +9,8 @@
             <label class="section-head-text">Overview</label>
         </div>
         <div class="col-4 d-flex">
-            <label class="ms-1 section-head-text">Widgets</label>
-            <img class="ms-auto me-1" src="/assets/images/dashboard/icon/swap_vertical_circle.svg" alt="icon">
+            <label class="ms-3 section-head-text">Widgets</label>
+            <img class="ms-auto me-3" src="/assets/images/dashboard/icon/swap_vertical_circle.svg" alt="icon">
         </div>
     </div>
     <div class="row dashboard-border-top">
@@ -39,10 +39,9 @@
                     </div>
                 </div>
                 <canvas id="downloadChart"></canvas>
-                
             </div>
         </div>
-        <div class="col-4 dashboard-border-left pt-4" *ngIf="dashboardDetails">
+        <div class="col-4 dashboard-border-left widget-card pt-4" *ngIf="dashboardDetails">
             <div class="dashboard-widget" *ngFor="let widget of dashboardWidgets">
                 <div class="widget-header">
                     <div class="widget-icon">

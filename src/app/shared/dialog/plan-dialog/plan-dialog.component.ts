@@ -169,4 +169,13 @@ export class PlanDialogComponent implements OnInit {
     }
   }
 
+  /* Restrict user to enter alphabets in mobile field */
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
 }

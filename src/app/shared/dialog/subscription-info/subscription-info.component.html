@@ -12,8 +12,13 @@
     </div> -->
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <div class="mb-3 subscription-info-icon d-flex">
-                <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon">
+            <div class="mb-3 d-flex">
+                <!-- <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon"> -->
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
+                    <path d="M27.5 17C21.704 17 17 21.704 17 27.5C17 33.296 21.704 38 27.5 38C33.296 38 38 33.296 38 27.5C38 21.704 33.296 17 27.5 17ZM27.5 32.75C26.9225 32.75 26.45 32.2775 26.45 31.7V27.5C26.45 26.9225 26.9225 26.45 27.5 26.45C28.0775 26.45 28.55 26.9225 28.55 27.5V31.7C28.55 32.2775 28.0775 32.75 27.5 32.75ZM28.55 24.35H26.45V22.25H28.55V24.35Z" fill="white"/>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
+                </svg>                                        
             </div>  
         </div>
         <div class="es-btn-close-container mt-0 mb-auto me-3">
@@ -22,14 +27,14 @@
     </div>
     
     <div>
-        <p class="modal-header-text mb-0">Subscription No: A0B1C025</p>
+        <p class="modal-header-text mb-0">Subscription No: {{ subscriptionDetails.planName }}</p>
     </div>
     <div class="es-modal-body">
-        <div class="row">
+        <div class="row sub">
             <div class="col-4">
                 <label class="label-text">Plan Id</label>
                 <div class="modal-details-text">
-                    <!-- {{ subscriptionDetails.planName }} -->A0B1C025
+                    {{ subscriptionDetails.planName }}
                 </div>
             </div>
             <div class="col-4">
@@ -45,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row sub mt-4">
             <div class="col-4">
                 <label class="label-text">Price</label>
                 <div class="modal-details-text" *ngIf="subscriptionDetails.priceBundle">
@@ -59,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row sub mt-4">
             <div class="col-4">
                 <label class="label-text">Data Usage</label>
                 <div class="modal-details-text d-flex">
@@ -88,9 +93,10 @@
             </div>
         </div>
     </div>
-    <div class="es-modal-footer d-flex pt-4">
-        <button class="btn btn-primary ms-auto w-100">
-            Edit subscription
+    <div class="es-modal-footer d-flex mt-4">
+        <button class="btn btn-primary ms-auto w-100" (click)="close()">
+            <!-- Edit subscription -->
+            Ok
         </button>
     </div>
 </div>

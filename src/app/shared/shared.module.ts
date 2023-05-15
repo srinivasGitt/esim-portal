@@ -85,7 +85,8 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
     ConfirmComponent,
     UserMgmtComponent,
     TooltipDirective,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [CurrencyPipe, DatePipe]
 })

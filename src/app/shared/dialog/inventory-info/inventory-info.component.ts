@@ -10,6 +10,7 @@ export class InventoryInfoComponent implements OnInit {
   
   dialogRef: DialogComponent;
   inventoryDetails: any;
+  copyText: string = 'Copy'
 
   constructor(private viewContainer: ViewContainerRef
   ) {
