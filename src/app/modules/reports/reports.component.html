@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="!inProgress; else spinner">
+    <div class="row">
         <div class="col-3">
             <div class="multi-color-border">
                 <label class="section-head-text">Type of Report</label>
@@ -22,17 +22,43 @@
                         </a>
     
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'">Current Week</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'">Current Month</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange= false">Current Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange= false">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectedDay = 'Custom Range'; isCustomRange= true;">Custom Range</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <ng-container *ngIf="isCustomRange">
+            <div class="col-9">
+                    <div class="col-4">
+                        <div class="multi-color-border">
+                            <label class="section-head-text">From Date - To Date</label>
+                        </div>
+            
+                        <div class="dashboard-head-flex">
+                            <div class="filter-head" style="width: 100%">
+                                <mat-form-field appearance="outline">
+                                    <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker">
+                                        <input matStartDate placeholder="MM-DD-YYYY" formControlName="fromDate" #dateRangeStart>
+                                        <input matEndDate placeholder="MM-DD-YYYY" formControlName="toDate" #dateRangeEnd 
+                                        (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>  
+            </div>
+        </ng-container>
     </div>
 
-    <div class="row" *ngIf="data.length > 0;">
+    <div class="row">
         <div class="col-12 d-flex info-head-section">
             <label class="mt-auto mx-2"> Showing Reports for the {{ selectedDay }} </label>
         </div>
@@ -42,15 +68,7 @@
         <div class="col-8 pt-4">
             <div class="dashboard-graph">
                 <div class="dashboard-heading d-flex align-items-center mb-2">
-                    <h4>Revenue Trend Graph</h4>
-                    <div class="ms-auto d-flex align-items-center">
-                        <span>
-                            <svg class="icon revenue-icon" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="5.5" cy="6" r="5.5" fill="white"/>
-                            </svg>
-                        </span>&nbsp;&nbsp;
-                        <span class="ml-2">Revenue</span>
-                    </div>
+                    <h6>Revenue in $</h6>
                 </div>
                 <canvas id="revenueChart"></canvas>
             </div>
@@ -66,7 +84,7 @@
     <!-- Not data - Start -->
     <ng-template #msg>
         <div class="pb-2 no-data">
-            No recods found.
+            No records found.
         </div>
     </ng-template>
     <!-- Not data - End -->

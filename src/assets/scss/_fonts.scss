@@ -66,7 +66,8 @@
     font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: normal;
-    src: local('SF Pro Display'), url('/assets/fonts/sf-pro-display-font/SFPRODISPLAYREGULAR.OTF') format('OTF');
+    // src: local('SF Pro Display'), url('/assets/fonts/sf-pro-display-font/SFPRODISPLAYREGULAR.OTF') format('otf');
+    src: local('SF Pro Display'), url('/assets/fonts/sf-pro-display-font/SFPRODISPLAYREGULAR.OTF');
 }
 
 @font-face {
@@ -74,4 +75,17 @@
     font-style: normal;
     font-weight: normal;
     src: local('SF Pro Display Italic'), url('/assets/fonts/sf-pro-display-font/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('OTF');
+}
+
+@font-face{
+    font-family: "Inter";
+    src: url("/assets/fonts/inter-font/Inter-Regular.ttf");
+}
+@font-face{
+    font-family: "Inter Bold";
+    src: url("/assets/fonts/inter-font/Inter-Bold.ttf");
+}
+@font-face{
+    font-family: "Inter Light";
+    src: url("/assets/fonts/inter-font/Inter-Light.ttf");
 }

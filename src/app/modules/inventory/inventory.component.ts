@@ -76,7 +76,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
       if(data == 'download'){
         this.downloadModal()
       }
-      if(data.body) {
+      if(data?.body) {
         this.inProgress = false
         this.alertService.success(data.body.message)
       }

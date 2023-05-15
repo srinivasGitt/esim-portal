@@ -34,6 +34,7 @@ export class UserComponent implements OnInit {
   userDetails: any;
   customerId: any;
   inProgress: boolean = false;
+  copyText: string = 'Copy'
 
   constructor(private dialogService: DialogService,
               private usersService: UsersService,

@@ -55,10 +55,12 @@
             overflow: hidden;
             color: transparent;
             // display: none;
+            color: var(--font-color)
         }
         }
         &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{
             background: var(--add-button-bg-color) !important;
+            color: var(--pagination-font-color);
         }
         a:hover, button:hover{
             background: transparent;    

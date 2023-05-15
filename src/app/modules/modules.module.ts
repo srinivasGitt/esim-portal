@@ -16,6 +16,9 @@ import { FilterPipe } from "../shared/pipe/filter.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { ShowentriesPipe } from "../shared/pipe/showentries.pipe";
 import { NgApexchartsModule } from "ng-apexcharts";
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { NgApexchartsModule } from "ng-apexcharts";
     ReactiveFormsModule,
     NgSelectModule ,
     NgxPaginationModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule
   ],
   exports: [
     UserComponent,
