@@ -21,6 +21,9 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
     { title : 'MSISDN', key : 'msisdn', customClass: '' },
   ]
+
+  copyText: string = 'Copy'
+
   constructor(
     private viewContainer: ViewContainerRef,
     private subscriberService: subscriberService,
@@ -52,5 +55,15 @@ export class SubscriberInfoComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close.emit();
+  }
+
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    navigator.clipboard.writeText(email);
   }
 }

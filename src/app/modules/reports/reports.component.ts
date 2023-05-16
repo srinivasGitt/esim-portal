@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js'
-import { Observable, combineLatest } from 'rxjs';
 import { AlertService } from 'src/app/shared/service/alert.service';
-import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import * as moment from 'moment';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs';
+
 Chart.register(...registerables)
 @Component({
   selector: 'app-reports',
@@ -37,16 +37,21 @@ export class ReportsComponent implements OnInit {
         
       });
   }
+  customForm: any;
+
+  isCustomRange: boolean = false;
+  currentDate = new Date().toISOString().slice(0, 10);
 
   ngOnInit(): void {
       // this.drawChart();
-      this.getReports()
+      this.initForm()
+      this.getReports('year')
   }
 
   /* Get reports data - Start */
-  getReports(value?: any) {
+  getReports(value?: any, fromDate?: any, toDate?: any) {
     this.inProgress = true
-    this.dashboardService.getReports(value).subscribe((res: any) => {
+    this.dashboardService.getReports(value, fromDate, toDate).subscribe((res: any) => {
       if(res.result) {
         const labelData : any[] = []
         const revenueData : any[] = []
@@ -60,7 +65,7 @@ export class ReportsComponent implements OnInit {
           revenueData.push(x.revenue)
         })
         // this.generateChart(labelData, revenueData, res)
-        this.drawChart(labelData, revenueData)
+        this.drawChart(labelData, revenueData, value)
         this.inProgress = false
       }
     }, err => {
@@ -71,12 +76,28 @@ export class ReportsComponent implements OnInit {
   /* Get reports data - End */
 
   /* Draw Chart based on API data - Start */
-  drawChart(label: any, revenue: any) {
+  drawChart(label: any, revenue: any, timeFrameValue: string) {
     this.label = [];
     this.data = [];
+    let formatValue: string;
+
+    switch(timeFrameValue) {
+      case 'week':
+        formatValue = 'ddd'
+        break;
+      case 'year':
+        formatValue = 'MMM'
+        break;
+      case 'custom':
+        formatValue = 'DD MMM'
+        break;
+      default:
+        formatValue = 'MMM'
+    }
+  
     for (let i = 0; i < label.length; i++) {
-      // let currentDate = (new Date(label[i]));
-      this.label.push(label[i]);
+      let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+      this.label.push(formattedLabelValue);
       this.data.push(revenue[i]);
     }
 
@@ -87,7 +108,7 @@ export class ReportsComponent implements OnInit {
         labels: this.label,
         datasets: [
         {
-          label: 'Current Year',
+          label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
           data: this.data,
           fill: true,
           backgroundColor: [
@@ -97,8 +118,9 @@ export class ReportsComponent implements OnInit {
             '#6365EF'
           ],
           borderWidth: 1,
-          pointRadius: 0,
-          tension: 0.1
+          pointRadius: 3,
+          pointStyle: 'circle',
+          tension: 0.3
         }],
 
       },
@@ -162,6 +184,28 @@ export class ReportsComponent implements OnInit {
   /* Draw chart based on Filter - Start */
   selectTimeframe(value: any) {
     this.getReports(value)
+    this.customForm?.reset();
   }
   /* Draw chart based on Filter - End */
+
+  initForm(): void {
+    this.customForm = new UntypedFormGroup({
+      fromDate: new UntypedFormControl('', [Validators.required]),
+      toDate: new UntypedFormControl('', [Validators.required])
+    });
+  }
+
+  get f() { return this.customForm.controls; }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if(!this.customForm.valid) {
+      return
+    }
+    this.startDate = dateRangeStart.value
+    this.endDate = dateRangeEnd.value
+    setTimeout( ()=>{
+      this.getReports('custom', this.startDate, this.endDate)
+      }, 1000)
+  }
+
 }

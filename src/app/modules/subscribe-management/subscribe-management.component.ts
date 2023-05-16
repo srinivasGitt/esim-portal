@@ -11,6 +11,7 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { SearchService } from 'src/app/shared/service/search/search.service';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-subscribe-management',
@@ -34,7 +35,13 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   };
   inProgress: boolean = false;
   inSearch : boolean = false;
-
+  copyText: string = 'Copy'
+  customForm: any;
+  selectedDay: string = 'Current Year'
+  isCustomRange: boolean = false;
+  startDate!: string;
+  endDate!: string;
+  
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
               private regionService: RegionsService,
@@ -53,6 +60,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
               }
 
   ngOnInit(): void {
+    this.initForm();
     this.getAllSubscriber();
   }
 
@@ -149,9 +157,9 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
       const vm = this;
       if (data) {
         vm.subscriberService.deleteSubscriber(subscriber._id)
-        .subscribe(res => {
+        .subscribe((res: any) => {
           this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
-          this.alertService.success('Subscriber Deleted');
+          this.alertService.success(res.message);
           this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }, err => {
@@ -217,6 +225,62 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    
+    navigator.clipboard.writeText(email);
+  }
+
+  /* Draw chart based on Filter - Start */
+  selectTimeframe(value: any) {
+    this.getSubscribers(value)
+    this.customForm?.reset();
+  }
+  /* Draw chart based on Filter - End */
+
+  initForm(): void {
+    this.customForm = new UntypedFormGroup({
+      fromDate: new UntypedFormControl('', [Validators.required]),
+      toDate: new UntypedFormControl('', [Validators.required])
+    });
+  }
+
+  get f() { return this.customForm.controls; }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if(!this.customForm.valid) {
+      return
+    }
+
+    this.startDate = dateRangeStart.value
+    this.endDate = dateRangeEnd.value
+    
+    setTimeout( ()=>{
+      this.getSubscribers('custom', this.startDate, this.endDate)
+      }, 1000)
+  }
+
+  /* Get filtered data - Start */
+  getSubscribers(value?: any, fromDate?: any, toDate?: any) {
+    this.inProgress = true
+    this.subscriberService.getFilteredSubscribersList(value, fromDate, toDate).subscribe((res: any) => {
+      if(res) {
+        this.subscriberList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false
+      }
+    }, err => {
+      this.alertService.error(err.error.message);
+      this.inProgress = false;
+    })
+  }
+  /* Get filtered data - End */
 
   ngOnDestroy(): void {
     this.inSearch = false

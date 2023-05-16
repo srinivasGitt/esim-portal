@@ -35,7 +35,7 @@
 }
 
 .lang-dropdown-option {
-    box-shadow: var(--dropdown-shadow);
+    box-shadow: var(--box-shadow-size-color);;
     width: 370px;
     border: none;
     cursor: pointer;
@@ -95,4 +95,49 @@ button {
   
 .no-data {
     color: var(--font-color);
+}
+
+// ::ng-deep mat-form-field{
+//     //custom css
+//     display: none !important;
+// } 
+
+// ::ng-deep .cdk-overlay-pane {
+//     top: 274px !important;
+//     left: 260px !important;
+// }
+
+::ng-deep mat-form-field {
+    display: block !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+}
+
+::ng-deep .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    // width: 100% !important;
+    height: 50px !important;
+    color: var(--font-color);
+    border: none;
+    margin-top: 6px;
+    font-family: var(--font-family-sf-pro-display);
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: none !important;
+}
+
+.mat-datepicker-toggle .mat-icon-button {
+    background-color: yellow;
+}
+
+.mat-calendar {
+    background-color: lightgreen;
 }

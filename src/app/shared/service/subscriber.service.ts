@@ -77,4 +77,18 @@ export class subscriberService {
   inviteSubscriber(data:any){
     return this.http.post(`${this.serverUrl}/subscriber/invite-subscriber`, data);
   }
+
+  getFilteredSubscribersList(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscribers?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscribers?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscribers?dateRange=year`)
+    }
+  }
 }
