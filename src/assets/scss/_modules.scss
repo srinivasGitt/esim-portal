@@ -2541,12 +2541,12 @@
 }
 
 .add-customer-icon{
-    background: var(--dark-primary-background);
-    border: 8px solid var(--dark-primary-border);
+    // background: var(--dark-primary-background);
+    // border: 8px solid var(--dark-primary-border);
     border-radius: 28px;
     width: 56px;
     svg{
-        transform: scale(3);
+        transform: scale(1);
     }
 }
 
