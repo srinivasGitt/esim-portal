@@ -228,6 +228,7 @@
             width: calc(100vw - 285px);
             padding-top: 20px;
             padding-bottom: 20px;
+            z-index: 1;
         }
     }
 }
@@ -478,6 +479,7 @@
 
 // Subscriber Table
 .subscriber-management {
+    margin-top: 100px;
     font-family: var(--font-family-sf-pro-display);
 
     .section-head-text{
@@ -712,7 +714,7 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            // width: 90px;
+            width: 90px;
             background-color: var(--dark-background-v3);
             border-radius: 40px;
             height: 45px;
@@ -2541,12 +2543,12 @@
 }
 
 .add-customer-icon{
-    // background: var(--dark-primary-background);
-    // border: 8px solid var(--dark-primary-border);
+    background: var(--dark-primary-background);
+    border: 8px solid var(--dark-primary-border);
     border-radius: 28px;
     width: 56px;
     svg{
-        transform: scale(1);
+        transform: scale(1.5);
     }
 }
 

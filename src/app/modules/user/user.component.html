@@ -1,7 +1,7 @@
 <div class="common-header user-management">
 
-    <div class="dashboard-head-flex">
-        <!-- <div class="filter-head d-flex py-1 px-4">
+    <!-- <div class="dashboard-head-flex">
+        <div class="filter-head d-flex py-1 px-4">
             <div class="d-flex">
             <img class="mx-2 my-auto" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('decrease', 'month')">
             <span class="m-auto text-center w-80px"> {{ monthsList[selectedFilter.month] }} </span>
@@ -12,13 +12,22 @@
             <span class="mx-3 my-auto"> {{ selectedFilter.year }} </span>
             <img class="mx-2 my-auto rotate-n-90-deg" src="assets/images/dashboard/icon/chevron-blue.svg" alt="" (click)="changeCalendarValue('increase', 'year')" [class.disabled]="selectedFilter.year == currentYear">
             </div>
-        </div> -->
-
-        <!-- Button trigger modal -->
+        </div>
         <button type="button" class="btn btn-dashboard-head ms-auto d-flex" data-bs-toggle="modal" *ngIf="customerId || userDetails?.customerId" (click)="createUser()">
             <span class="me-3 btn-add-icon m-auto"> + </span>
             <span class="m-auto">Add New User</span>
         </button>   
+    </div> -->
+    <div class="dashboard-head-flex">
+        <div class="dashboard-head-text">
+            <h2>User Management</h2>
+        </div>
+        <div>
+            <button type="button" class="btn btn-dashboard-head d-flex" (click)="createUser()" *ngIf="customerId || userDetails?.customerId">
+                <span class="me-3 btn-add-icon m-auto"> + </span>
+                <span class="m-auto">Add New User</span>
+            </button>
+        </div>
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="d-flex info-head-section justify-content-end mb-2">

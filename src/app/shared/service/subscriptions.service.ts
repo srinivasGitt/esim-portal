@@ -52,6 +52,7 @@ export class SubscriptionsService {
     return this.http.get(`${this.serverUrl}/subscriptions`);
   }
 
+
   createSubscription(data: any) {
     data.userId = '633c417b4a43b0703742cfa3';
     return this.http.post(`${this.serverUrl}/subscriptions`, data);
@@ -63,5 +64,9 @@ export class SubscriptionsService {
 
   deleteSubscription(id: any) {
     return this.http.delete(`${this.serverUrl}/subscriptions/${id}`);
+  }
+
+  getSubscriptionDataUsage(subscriptionId: string) {
+    return this.http.get(`${this.serverUrl}/activation/data-usage/${subscriptionId}`);
   }
 }
