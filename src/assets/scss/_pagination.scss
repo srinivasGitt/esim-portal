@@ -53,9 +53,9 @@
             height: 100%;
             border-radius: 35%;
             overflow: hidden;
-            color: transparent;
+            // color: transparent;
             // display: none;
-            color: var(--font-color)
+            // color: var(--font-color);
         }
         }
         &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{
@@ -66,8 +66,8 @@
             background: transparent;    
         }
         &:not(.current):not(.pagination-previous):not(.pagination-next){
-            background-color: var(--dark-background);
-            color: var(--font-color);
+            background-color: var(--card-background-color);
+            color: var(--table-text-color);
             border: 1px solid rgba(99, 101, 239, 0.17) !important;
         }
     }

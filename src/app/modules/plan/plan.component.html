@@ -39,7 +39,7 @@
                 </label>
             </div>
         </div> -->
-        <div class="row info-head-section">
+        <div class="row info-head-section" *ngIf="plansList && plansList.length > 0;">
             <div class="col-md-3 d-flex justify-content-between align-items-center gx-5">
                 <div class="heading">All Plans</div>
                 <div class="term">5G Access Included*</div>
@@ -111,7 +111,7 @@
                         <div class="t-box b px-2 d-flex align-items-center">{{plan.validity}} Days</div>
                         <div class="t-box a px-1 d-flex align-items-center"> <span *ngIf="plan.priceBundle">{{ plan.priceBundle | currency: 'USD' }}</span></div>
                         <div class="t-box b px-2 d-flex plan-info-section justify-content-between align-items-center">
-                            <span class="text-overflow-ellipsis">{{plan.info}}</span>
+                            <span class="text-overflow-ellipsis">{{plan?.data}} / {{plan?.validity + ' Days'}}</span>
                         </div>
                         <div class="t-box b px-1 d-flex align-items-center">
                             <span class="plan-info-icon" (click)="showPlanInfo(plan)" tooltip="Info" placement="top" delay="50" offset="5" [class.disabled]="!plan.isActive">
@@ -155,7 +155,7 @@
 
     <!-- Not data - Start -->
     <ng-template #msg>
-        <div class="pb-2">
+        <div class="pb-2 no-data">
             No records found.
         </div>
     </ng-template>

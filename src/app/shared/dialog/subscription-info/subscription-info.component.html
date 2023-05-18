@@ -68,7 +68,7 @@
             <div class="col-4">
                 <label class="label-text">Data Usage</label>
                 <div class="modal-details-text d-flex">
-                    <ngx-gauge type="arch" [value]="getUsedData()" [thick]="10" [size]="90" [max]="totalData" cap="round" 
+                    <ngx-gauge type="arch" [value]="usedData" [thick]="10" [size]="90" [max]="totalData" cap="round" 
                         [label]="'/'+subscriptionDetails.data" append="GB"
                         foregroundColor="#6365EF" backgroundColor="#6365EF5E"></ngx-gauge>
                     <span class="cloud-icon">

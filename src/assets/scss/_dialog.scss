@@ -1,6 +1,6 @@
 
 .modal-content {
-    background-color: var(--dark-background) !important;
+    background-color: var(--card-background-color) !important;
     border-radius: 8px !important;
 
     .es-modal{
@@ -37,7 +37,7 @@
                         content: ' ';
                         height: 17px;
                         width: 2px;
-                        background-color: var(--font-color);
+                        background-color: var(--modal-cross-icon-color);
                     }
                     &:before {
                         transform: rotate(45deg);
@@ -49,17 +49,17 @@
             }
         }
         .modal-header-text{
-            color: var(--font-color);
-            font-size: 1.125rem;
+            color: var(--modal-header-text-color);
+            font-size: var(--modal-header-text-size);
             font-weight: 600;
         }
 
         .modal-sub-header-text{
             margin-top: 5px;
-            color: var(--dark-modal-sub-header);
+            color: var(--modal-sub-header-text-color);
             font-style: normal;
             font-weight: 400;
-            font-size: 0.875rem;
+            font-size: var(--sidebar-text-size);
             line-height: 20px;
         }
         .es-modal-body{
@@ -67,17 +67,18 @@
 
             .es-modal-form{
                 .es-modal-form-label{
-                    color: var(--font-color);
+                    color: var(--modal-form-label-text-color);
                     font-size: 16px;
                     font-weight: 600;
                 }
                 .es-input{
                     background-color: transparent;
-                    color: var(--font-color);
+                    color: var(--modal-form-label-text-color);
                     border-radius: 8px;
-
+                    border: 1px solid var(--input-border-color);
+                    
                     &:focus {
-                        border: 1px solid var(--dark-modal-input-border) !important;
+                        border: 1px solid var(--input-border-color-hover) !important;
                     }
                 }
                 input:-internal-autofill-selected {
@@ -107,23 +108,23 @@
                     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
                     border-radius: 4px;
                     border: none;
-                    background: var(--dark-background);
+                    background: var(--card-background-color);
                     .ng-option{
                         padding: 10px 10px 10px 30px;
-                        background: var(--dark-background);
-                        width: 160px;
-                        color: var(--dark-text-white-v6);
+                        background: var(--card-background-color);
+                        // width: 160px;
+                        color: var(--table-heading-text-color);
                     }
                 }
                 option{
-                    color: var(--font-color) !important;
+                    color: var(--table-heading-text-color) !important;
                 }
             }
             .success-error-heading{
-                color: var(--font-color);
+                color: var(--table-heading-text-color);
             }
             .success-error-text{
-                color: var(--font-color);
+                color: var(--table-heading-text-color);
             }
 
             /* upload inventory section - start */
@@ -162,7 +163,8 @@
                 height: 44px;
                 padding: 8px;
                 margin-bottom: 10px;
-            
+                color: var(--table-heading-text-color);
+
                 .file-icon-name {
                     display: flex;
                     align-items: center;

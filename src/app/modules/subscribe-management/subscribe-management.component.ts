@@ -12,11 +12,27 @@ import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { SearchService } from 'src/app/shared/service/search/search.service';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-subscribe-management',
   templateUrl: './subscribe-management.component.html',
-  styleUrls: ['./subscribe-management.component.scss']
+  styleUrls: ['./subscribe-management.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ]
 })
 export class SubscribeManagementComponent implements OnInit, OnDestroy {
   subscriberList:any;
@@ -245,9 +261,9 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   /* Draw chart based on Filter - End */
 
   initForm(): void {
-    this.customForm = new UntypedFormGroup({
-      fromDate: new UntypedFormControl('', [Validators.required]),
-      toDate: new UntypedFormControl('', [Validators.required])
+    this.customForm = new FormGroup({
+      fromDate: new FormControl<Date | null>(null),
+      toDate: new FormControl<Date | null>(null),
     });
   }
 

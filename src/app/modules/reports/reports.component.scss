@@ -41,14 +41,14 @@
     cursor: pointer;
     border-radius: 13px;
     transform: translate(-25px, 50px) !important;
-    background-color: var(--dark-dropdown) !important;
+    background-color: var(--card-background-color) !important;
     .lang-dropdown-item {
-        color: var(--font-color) ;
+        color: var(--table-heading-text-color);
         padding: 10px 15px;
     }
     .dropdown-item {
         &:hover {
-            background-color: var(--dark-dropdown) !important;
+            background-color: var(--hover-bg-color) !important;
         }
     }
     .lang-dropdown-item-active {
@@ -62,7 +62,7 @@
     appearance: none;
     padding: 5px 0px !important;
     padding-left: 0px !important;
-    color: var(--font-color);
+    color: var(--table-heading-text-color);
     text-decoration: none;
     .fa-angle-down {
         color: rgba(99, 101, 239, 1);
@@ -93,9 +93,7 @@ button {
     outline: 0;
   }
   
-.no-data {
-    color: var(--font-color);
-}
+
 
 // ::ng-deep mat-form-field{
 //     //custom css

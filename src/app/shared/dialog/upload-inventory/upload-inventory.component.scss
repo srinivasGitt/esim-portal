@@ -63,7 +63,7 @@ input[type="file"] {
     font-weight: 500;
     font-size: 0.75rem;
     line-height: 20px;
-    color: #475467;
+    color: var(--modal-sub-header-text-color);
 }
 
 button {
