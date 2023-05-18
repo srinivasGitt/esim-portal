@@ -16,10 +16,11 @@
 }
 
 :root{
+ /*  
     --dark-background: #fff;
     // --dark-background-v1: #F5F6F9;              // --main-background-color
     // --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
-    --dark-background-v3: #D9D9D978;
+    --dark-background-v3: #D9D9D9;
     // --dark-text-white-v1: #25282B;              // --font-color
     --dark-text-white-v2: #797979;
     --dark-text-white-v3: #959595;
@@ -64,12 +65,12 @@
     --table-data-text-color: rgba(0, 0, 0, 0.53);
     --email-hover-background-color: #F4F3F3;
     --inactive-text-color: rgba(71, 84, 103, 0.5); 
-
+*/
     /* Whitelabel Variables*/
-    --main-background-color: #F5F6F9;
+ /*   --main-background-color: #F5F6F9;
     --font-color: #25282B;
     --sidebar-font-color: #1C1C1C;
-    --card-background-color: #fff;
+    --card-background-color: #FFFFFF;
     --navbar-ele-bg-color: #E9EAF0;
     --add-button-bg-color: #6365EF;
     --add-button-hover-bg-color: #585ABA;
@@ -121,10 +122,99 @@
             background: url(/assets/icons/down-caret-black.svg) no-repeat;
         }
     }
+*/
 
+    /* COLORS */
+    --main-background-color: #F6F7FF;
+    --card-background-color: #FFFFFF;
+    --box-shadow-size-color: 0px 4px 8px #D8DAFF;
+    --sidebar-link-color: #1C1C1C;
+    --navbar-ele-bg-color: #E9EAF0;
+    --navbar-ele-hover-bg-color: #D9D9D9;
+    --hover-bg-color: #D9D9D9; 
+    --search-placeholder-text-icon-color: rgba(0, 0, 0, 0.72);
+    --navbar-username-text-color: rgba(0, 0, 0, 0.83);
+    --main-heading-text-color: #000000;
+    --dark-right-border: rgb(69, 69, 69, 0.48);
+    --add-button-bg-color: #6365EF;
+    --graph-heading-text-color: #04103B;
+    --dropdown-filter: #1F1F1F;
+    --dropdown-text: #FFFFFF;
+    --add-button-hover-bg-color: #585ABA;
+    --pagination-font-color: #FFFFFF;
+    --modal-cross-icon-color: #667085;
+    --active-link-background-color: rgba(99, 101, 239, 0.17);
+    --cancel-button-background-color: #FFFFFF;
+    --info-button-bg-color: #428EFF;
+    --upload-border: rgba(99, 101, 239, 0.3);
+    --file-icon-border: #D1D1FB;
+
+    /* SWITCH */
+    --dark-primary-background: #59D956;
+    --dark-text-white-v2: #797979;
+
+    /* SIZES */
+    --sidebar-text-size: 0.875rem;
+    --heading-text-size: 1.625rem;
+    --modal-header-text-size: 1.125rem;
+
+    /* TABLE TEXT COLORS */
+    --table-heading-text-color: #000000;
+    --table-text-hover-active-color: #000000;
+    --table-text-color: rgba(0, 0, 0, 0.55);
+    --show-entries-text-color: rgba(0, 0, 0, 0.5);
+    --action-background-color: rgba(217, 217, 217, 0.47);
+
+    /* MODAL TEXT COLORS */
+    --modal-header-text-color: #000000;
+    --modal-form-label-text-color: #000000;
+    --modal-sub-header-text-color: #475467;
+    --input-border-color: #D0D5DD;
+    --input-border-color-hover: rgba(99, 101, 239, 0.48);
+    --cancel-button-border-color: #D0D5DD;
+    --horizontal-line-color: #EBEBEB;
+    --email-hover-background-color: #F4F3F3;
+    --cancel-button-background-color: #FFFFFF;
+    --info-label-text-color: #475467;
+    --info-details-text-color: #000000;
+
+    /* SVG Color Change */
+    .revenue-icon {
+        circle {
+            fill: var(--add-button-bg-color);
+        }
+    }
+
+    .icon {
+        path, circle {
+            fill: var(--search-placeholder-text-icon-color);
+        }
+    }
+    .info-default {
+        path {
+            fill: var(--info-button-bg-color);
+            opacity: 0.55;
+        }
+    }    
+
+    .user-dashboard-table-container {
+        background: var(--card-background-color);
+        box-shadow: var(--box-shadow-size-color);
+    }
+
+    .search-form .form-control, .nav-item.dropdown .dropdown-toggle, .switch, .btn-dashboard-head {
+        box-shadow: none;
+    }
+
+    input[type="date"] {
+        &::-webkit-calendar-picker-indicator {
+            background: url(/assets/icons/down-caret-black.svg) no-repeat;
+        }
+    }
 }
 
 .darkMode{
+ /*   
     --dark-background: #151616;
     // --dark-background-v1: #151616;              // --main-background-color
     // --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
@@ -174,9 +264,9 @@
     --table-data-text-color: rgba(255, 255, 255, 0.53);
     --email-hover-background-color: #393737;
     --inactive-text-color: #475467;
-
+*/
     /* Whitelabel Variables*/
-    --main-background-color: #0D0E0E;
+/*    --main-background-color: #0D0E0E;
     --font-color: #fff;
     --card-background-color: #151616;
     --navbar-ele-bg-color: #24272c;
@@ -185,6 +275,99 @@
     --info-button-bg-color: #428EFF;
     --info-label-text-color: #AAAEB6;
     --pagination-font-color: #25282B;
+*/
+
+    /* COLORS */
+    --main-background-color: #0D0E0E;
+    --card-background-color: #151616;
+    --box-shadow-size-color: 0px 2px 2px rgba(36, 39, 44, 0.49);
+    --sidebar-link-color: #FFFFFF;
+    --navbar-ele-bg-color: #24272C;
+    --navbar-ele-hover-bg-color: #24272c;
+    --hover-bg-color: #0D0E0E; 
+    --search-placeholder-text-icon-color: rgba(255, 255, 255, 0.72);
+    --navbar-username-text-color: rgba(255, 255, 255, 0.83);
+    --main-heading-text-color: #FFFFFF;
+    --dark-right-border: rgb(69, 69, 69, 0.48);
+    --add-button-bg-color: #6365EF;
+    --graph-heading-text-color: #FFFFFF;
+    --dropdown-filter: #6365EF;
+    --dropdown-text: #FFFFFF;
+    --add-button-hover-bg-color: #585ABA;
+    --pagination-font-color: #FFFFFF;
+    --modal-cross-icon-color: #667085;
+    --active-link-background-color: rgba(99, 101, 239, 0.17);
+    --cancel-button-background-color: #FFFFFF;
+    --upload-border: rgba(183, 184, 253, 0.13);
+    --file-icon-border: var(--upload-border);
+
+    /* SIZES */
+    --sidebar-text-size: 0.875rem;
+    --heading-text-size: 1.625rem;
+    --modal-header-text-size: 1.125rem;
+
+    /* TABLE TEXT COLORS */
+    --table-heading-text-color: #FFFFFF;
+    --table-text-hover-active-color: #FFFFFF;
+    --table-text-color: rgba(255, 255, 255, 0.55);
+    --show-entries-text-color: rgba(255, 255, 255, 0.5);
+    --action-background-color: #181B21;
+
+    /* MODAL TEXT COLORS */
+    --modal-header-text-color: #FFFFFF;
+    --modal-form-label-text-color: #FFFFFF;
+    --modal-sub-header-text-color: #8B8B8B;
+    --input-border-color: rgb(105, 105, 105, 0.5);
+    --input-border-color-hover: rgba(99, 101, 239, 0.48);
+    --cancel-button-border-color: #1E1E1E;
+    --horizontal-line-color: rgba(235, 235, 235, 0.08);
+    --email-hover-background-color: #393737;
+    --cancel-button-background-color: #1E1E1E;
+    --info-label-text-color: #EAEAEA;
+    --info-details-text-color: #FFFFFF;
+
+    /* SWITCH */
+    --dark-primary-background: #59D956;
+    --dark-text-white-v2: #959595;
+
+    /* SVG Color Change */
+    .search-icon-div {
+        path {
+            fill: var(--search-placeholder-text-icon-color) !important;
+        }
+    }
+
+    .revenue-icon {
+        circle {
+            fill: var(--add-button-bg-color);
+        }
+    }
+
+    .user-management {
+        .copy-div:hover {
+            path {
+                fill: #FFFFFF;
+            }
+        }
+    }
+
+    .add-user-icon {
+        .rect1 {
+            fill: #33A85B;
+        }
+        .rect2 {
+            stroke: #1F6644;
+        }
+    }
+    
+    .confirmation-icon {
+        .rect1 {
+            fill: #FFD6D3;
+        }
+        .rect2 {
+            stroke: #FF6D63;
+        }
+    }
 
     .user-dashboard-table-container {
         color: var(--font-color);
@@ -197,12 +380,8 @@
     .dashboard-head-flex {
         // margin-bottom: 24px !important;
     }
+
     
-    .revenue-icon {
-        circle {
-            fill: var(--add-button-bg-color);
-        }
-    }
 
     .ng-tooltip{
         &-light {
@@ -221,7 +400,7 @@
         width: 296px;
         height: 354px;
         background: var(--card-background-color);
-        color: var(--font-color);
+        color: var(--table-heading-text-color);
     }
 
     .mat-calendar-table-header, 
@@ -229,11 +408,11 @@
     .mat-calendar-body-cell-content.mat-focus-indicator, 
     .mat-calendar-previous-button::after, 
     .mat-calendar-next-button::after, .mat-date-range-input-separator, .mat-datepicker-toggle-default-icon {
-        color: var(--font-color);
+        color: var(--table-heading-text-color);
     }
     
     .mat-calendar-arrow polygon {
-        fill: var(--font-color);
+        fill: var(--table-heading-text-color);
     }
 }
 
