@@ -110,6 +110,7 @@ export class PlanDialogComponent implements OnInit {
 
   /* create a new plan */
   createPlan() {
+    this.inProgress = true;
 
     const plan = this.planForm.value
     if(plan.unlimited) {
@@ -134,8 +135,10 @@ export class PlanDialogComponent implements OnInit {
     this.planService.createPlan(obj)
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
+      this.inProgress = true;
     }, err => {
       this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
     })
   }
 

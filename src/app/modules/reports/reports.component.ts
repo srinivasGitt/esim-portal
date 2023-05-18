@@ -5,12 +5,28 @@ import { DashboardService } from 'src/app/shared/service/dashboard.service';
 import * as moment from 'moment';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {FormGroup, FormControl} from '@angular/forms';
 
 Chart.register(...registerables)
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.scss']
+  styleUrls: ['./reports.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
 })
 export class ReportsComponent implements OnInit {
   totalProfiles: any;
@@ -139,8 +155,9 @@ export class ReportsComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold'
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
           },
@@ -155,8 +172,9 @@ export class ReportsComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold',
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
             title: {
@@ -189,9 +207,9 @@ export class ReportsComponent implements OnInit {
   /* Draw chart based on Filter - End */
 
   initForm(): void {
-    this.customForm = new UntypedFormGroup({
-      fromDate: new UntypedFormControl('', [Validators.required]),
-      toDate: new UntypedFormControl('', [Validators.required])
+    this.customForm = new FormGroup({
+      fromDate: new FormControl<Date | null>(null),
+      toDate: new FormControl<Date | null>(null),
     });
   }
 

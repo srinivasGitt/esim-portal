@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         } else {
           this.showSearch = true;
         }
-        this.searchform.reset()
+        this.searchform?.reset()
       }
     })
     usersService.getCurrentUser().subscribe(result => {
