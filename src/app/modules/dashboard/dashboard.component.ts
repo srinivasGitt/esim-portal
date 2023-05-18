@@ -252,8 +252,9 @@ export class DashboardComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold'
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
           },
@@ -268,13 +269,14 @@ export class DashboardComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold',
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
             title: {
               display: true,
-              text: 'Revenue in $',
+              // text: 'Revenue in $',
               color: '#6365ef'
             }
           }
