@@ -57,7 +57,8 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   isCustomRange: boolean = false;
   startDate!: string;
   endDate!: string;
-  
+  currentDate = new Date().toISOString().slice(0, 10);
+
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
               private regionService: RegionsService,
