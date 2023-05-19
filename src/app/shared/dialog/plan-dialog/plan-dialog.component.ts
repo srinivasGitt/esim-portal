@@ -6,6 +6,7 @@ import { RegionsService } from '../../service/regions.service';
 import { AlertService } from '../../service/alert.service';
 import * as Country from 'world-countries';
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class PlanDialogComponent implements OnInit {
   dataDropdown: string[] = ['MB', 'GB', 'TB']
   validityDropdown: string[] = ['days', 'months', 'year']
   countriesAlias: any[] = []
+  imsiTypeList: any[] = [];
+  selectedCountries: any[] = [];
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -51,6 +54,12 @@ export class PlanDialogComponent implements OnInit {
       this.countriesAlias.push({name: country.name.common, flag: country.flag, cca3: country.cca3})
       this.inProgress = false
     })
+    
+    this.planService.getIMSITypeList().subscribe((res: any) => { 
+      if(res.code == 200){
+        this.imsiTypeList = res.data
+      }
+    });
     
   }
   
@@ -82,6 +91,7 @@ export class PlanDialogComponent implements OnInit {
       voice: new UntypedFormControl(0, [Validators.required]),
       supportedCountries: new UntypedFormControl('', [Validators.required]),
       priceBundle: new UntypedFormControl(0, [Validators.required]),
+      imsiType: new UntypedFormControl(null, [Validators.required]),
       dateEarliestActivation: new UntypedFormControl('', [Validators.required]),
       dateLatestAvailable: new UntypedFormControl('', [Validators.required]),
       dateEarliestAvailable: new UntypedFormControl('', [Validators.required])
@@ -108,10 +118,15 @@ export class PlanDialogComponent implements OnInit {
     this.createPlan();
   }
 
+
+  /* Select Supported Countries */
+  onCountryChange($event: any) {
+    this.selectedCountries = $event
+  }
+
   /* create a new plan */
   createPlan() {
     this.inProgress = true;
-
     const plan = this.planForm.value
     if(plan.unlimited) {
       plan.voice = 0
@@ -126,10 +141,11 @@ export class PlanDialogComponent implements OnInit {
       cycle : plan.validity,
       cycleUnits : plan.validityUnit,
       priceBundle : plan.priceBundle,
-      supportedCountries : plan.supportedCountries,
+      supportedCountries : this.selectedCountries,
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
       dateLatestAvailable : new Date(plan.dateLatestAvailable).getTime(),
       dateEarliestAvailable : new Date(plan.dateEarliestAvailable).getTime(),
+      imsiType: plan.imsiType
     }
 
     this.planService.createPlan(obj)
