@@ -156,32 +156,56 @@
                         </span>
                     </div>
                 </div>
+                <div class="input-width imsi-input">
+                    <label for="imsiType" class="form-label es-modal-form-label">IMSI Type*</label>
+                    <div class="d-flex relative">
+                        <ng-select
+                            [items]="imsiTypeList"
+                            [multiple]="false"
+                            bindLabel="_id"
+                            bindValue="_id"
+                            placeholder="Select IMSI Type"
+                            formControlName="imsiType"
+                            class="full-width">
+                        </ng-select>
+                    </div>
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.imsiType.touched && f.imsiType.pristine) || (f.imsiType.errors && submitted)">
+                            <span class="small" *ngIf="f.imsiType.errors.required">
+                                IMSI Type is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="divHeight d-flex justify-content-between">
                 <div class="col-12 location-input">
                     <label for="supportedCountries" class="form-label es-modal-form-label">Location*</label>
                     <div class="relative">
-                        <!-- <ng-select
-                            class="multi-select-counties"
-                            [items]="[]"
-                            bindLabel="name"
-                            placeholder="Search for countries / Multiple countries can be selected"
-                            formControlName="supportedCountries" 
-                            [multiple]="true"
-                            >
-                        </ng-select> -->
-
                         <ng-select 
-                            appearance="outline" 
-                            [multiple]="true" 
-                            placeholder="Search for countries / Multiple countries can be selected" 
-                            labelForId="supportedCountries"
-                            formControlName="supportedCountries">
-                            <ng-option [value]="country" *ngFor="let country of countriesAlias; let i=index">
-                                <img src="{{country.flag}}" width="20px" height="20px"/>&nbsp; 
-                                {{ country.name }}
-                            </ng-option>
+                            [items]="countriesAlias"
+                            formControlName="supportedCountries"
+                            bindLabel="name"
+                            bindValue="id"
+                            [multiple]="true"
+                            placeholder="Search for countries / Multiple countries can be selected"
+                            (change)="onCountryChange($event)">
+
+                            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="20px" height="20px"> {{$any(item).name}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 2">
+                                    <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                </div>
+                            </ng-template>
+
+                            <ng-template ng-option-tmp let-item="item">
+                                <img [src]="item.flag" width="20px" height="20px"> {{item.name}}
+                            </ng-template>
                         </ng-select>
+
                         <span class="ng-search">
                             <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
                                 <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />

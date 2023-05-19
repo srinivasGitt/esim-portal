@@ -1958,6 +1958,26 @@
             border: 1px solid var(--input-border-color-hover) !important;
         }
 
+        .full-width {
+            width: 100%;
+        }
+
+        .imsi-input {
+            .ng-select-container{
+                border-color: var(--dark-right-border);
+                padding-top: 0;
+                padding-bottom: 0;
+                padding-left: 0 !important;
+    
+                .ng-value-container .ng-placeholder {
+                    top: 8px !important;
+                    padding-bottom: 0 !important;
+                    padding-left: 3px !important;
+                    color: var(--modal-sub-header-text-color) !important;
+                }
+            }
+        }
+        
         .location-input {
             .ng-select-container{
                 border-color: var(--dark-right-border);
@@ -1968,15 +1988,13 @@
                 .ng-value-container .ng-placeholder {
                     top: 8px !important;
                     padding-bottom: 0 !important;
-                    padding-left: 0 !important;
+                    padding-left: 3px !important;
                     color: var(--modal-sub-header-text-color) !important;
                }
             }
 
             .ng-option {
                 width: 100% !important;
-
-               
             }
         }
         
