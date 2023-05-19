@@ -434,7 +434,8 @@
             padding: 4px 26px;
             height: 50px;
             border: none;
-
+            font-size: 0.75rem;
+            
             .btn-add-icon{
                 background: #fff;
                 color: var(--add-button-bg-color);
@@ -515,6 +516,7 @@
                     stroke: var(--table-heading-text-color);
                 }
             }
+
         }
         .t-box{
             padding: 14px 0;
@@ -582,6 +584,14 @@
                 // width: 15px;
                 margin-right: 25px;
                 cursor: pointer;
+            }
+            path{
+                &:not(.color-stroke){
+                    fill: var(--table-heading-text-color);
+                }
+                &.color-stroke{
+                    stroke: var(--table-heading-text-color);
+                }
             }
         }
     }
@@ -720,10 +730,20 @@
             background-color: var(--action-background-color);
             border-radius: 40px;
             height: 45px;
+            
             .user-table-action-icon{
                 width: 15px;
                 margin-right: 25px;
                 cursor: pointer;
+            }
+
+            path{
+                &:not(.color-stroke){
+                    fill: var(--table-heading-text-color);
+                }
+                &.color-stroke{
+                    stroke: var(--table-heading-text-color);
+                }
             }
         }
     }
@@ -854,10 +874,20 @@
             background-color: var(--action-background-color);
             border-radius: 40px;
             height: 45px;
+            
             .user-table-action-icon{
                 width: 15px;
                 margin-right: 25px;
                 cursor: pointer;
+            }
+
+            path{
+                &:not(.color-stroke){
+                    fill: var(--table-heading-text-color);
+                }
+                &.color-stroke{
+                    stroke: var(--table-heading-text-color);
+                }
             }
         }
 
@@ -886,11 +916,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border: 1px solid var(--dark-text-white-v2);
+            border: 1px solid var(--table-heading-text-color);
             transition: 0.4s;
             border-radius: 10px;
             &:before {
-                background: var(--dark-text-white-v2);
+                background: var(--table-heading-text-color);
                 position: absolute;
                 content: "";
                 height: 12px;
@@ -978,6 +1008,9 @@
             path{
                 fill: var(--table-heading-text-color);
             }
+            circle {
+                fill: var(--table-heading-text-color);
+            }
         }
         .t-box{
             padding: 14px 10px;
@@ -1032,10 +1065,20 @@
             background-color: var(--action-background-color);
             border-radius: 40px;
             height: 45px;
+            
             .user-table-action-icon{
                 width: 15px;
                 margin-right: 25px;
                 cursor: pointer;
+            }
+            
+            path{
+                &:not(.color-stroke){
+                    fill: var(--table-heading-text-color);
+                }
+                &.color-stroke{
+                    stroke: var(--table-heading-text-color);
+                }
             }
         }
     }
@@ -1119,7 +1162,7 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 2fr 2fr 2fr 2fr 1fr 125px;
+            grid-template-columns: 1.7fr 2fr 2fr 2fr 1fr 125px;
             column-gap: 8px;
         }
         .table-headers{
@@ -1208,9 +1251,10 @@
             display: flex;
             align-items: center;
             width: 90px;
-            background-color: var(--dark-background-v3);
+            background-color: var(--action-background-color);
             border-radius: 40px;
             height: 45px;
+            
             .user-table-action-icon{
                 // width: 15px;
                 margin-right: 25px;
@@ -1357,10 +1401,20 @@
             background-color: var(--action-background-color);
             border-radius: 40px;
             height: 45px;
+            
             .user-table-action-icon{
                 width: 15px;
                 margin-right: 25px;
                 cursor: pointer;
+            }
+
+            path{
+                &:not(.color-stroke){
+                    fill: var(--table-heading-text-color);
+                }
+                &.color-stroke{
+                    stroke: var(--table-heading-text-color);
+                }
             }
         }
         
@@ -1671,7 +1725,7 @@
         }
         
         .subscriber-details-text {
-            font-size: 0.875rem;
+            font-size: 1rem;
             font-weight: 500;
             width: 100%;
             // padding-left: 0 !important;
@@ -1796,6 +1850,13 @@
             border-bottom-left-radius: 0 !important;
         }
 
+        .unlimited {
+            font-size: 14px !important;
+            font-weight: 400  !important;
+            display: inline-flex;
+            gap: 10px;
+        }
+
         .price-input-icon{
             position: absolute;
             border-right: 1px solid var(--input-border-color);
@@ -1804,6 +1865,7 @@
             text-align: center;
             line-height: 36px;
             color: var(--modal-sub-header-text-color) !important;
+            font-weight: normal !important;
         }
         
         .date-input-icon{
@@ -1867,7 +1929,7 @@
             width: 20px;
             height: 20px;
             margin-left: 10px;
-            margin-top: -36px;
+            margin-top: -32px;
             position: absolute;
         }
 
@@ -1889,6 +1951,11 @@
                 // border-color: rgba(99, 101, 239, 0.48) transparent transparent;
                 border-color: var(--input-border-color) transparent transparent;
             }
+
+        }
+
+        .ng-has-value {
+            border: 1px solid var(--input-border-color-hover) !important;
         }
 
         .location-input {
@@ -1897,6 +1964,13 @@
                 padding-top: 0;
                 padding-bottom: 0;
                 padding-left: 36px !important;
+
+                .ng-value-container .ng-placeholder {
+                    top: 8px !important;
+                    padding-bottom: 0 !important;
+                    padding-left: 0 !important;
+                    color: var(--modal-sub-header-text-color) !important;
+               }
             }
 
             .ng-option {
@@ -2532,9 +2606,9 @@
 }
 
 .number-input-right-padding {
-    padding-right: 4.2rem !important;
+    padding-right: 4.5rem !important;
     font-size: 1rem !important;
-    font-weight: 600 !important;
+    // font-weight: 600 !important;
 }
 
 .btn-width {
@@ -2603,3 +2677,63 @@
 .revenue-text {
     color: var(--show-entries-text-color);
 }
+
+/* CUSTOM CHECKBOX : Add New Plan - Start */
+.unlimited {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.unlimited input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    border: 1px solid #6365EF;
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+}
+
+.unlimited input:checked ~ .checkmark {
+    background-color: #6365EF;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.unlimited input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.unlimited .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/* CUSTOM CHECKBOX : Add New Plan - End */

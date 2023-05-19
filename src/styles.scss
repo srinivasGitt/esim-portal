@@ -5,11 +5,11 @@
 @import './assets/scss/cursorstyling';
 @import './assets/scss/modules';
 @import './assets/scss/dialog';
-@import './assets/scss/pagination';
 @import './assets/scss/navbar';
 @import './assets/scss/tooltip';
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import './assets/scss/pagination';
 
 *{
     scrollbar-width: thin !important;
@@ -126,7 +126,7 @@
     /* FONTS */
     --font-family-sf-pro-display: 'SF Pro Display';
     --font-family-inter: 'Inter';
-    
+
     /* COLORS */
     --main-background-color: #F6F7FF;
     --card-background-color: #FFFFFF;
@@ -180,7 +180,8 @@
     --cancel-button-background-color: #FFFFFF;
     --info-label-text-color: #475467;
     --info-details-text-color: #000000;
-
+    --delete-button-bg-color: #D92D20;
+    
     /* SVG Color Change */
     .revenue-icon {
         circle {
