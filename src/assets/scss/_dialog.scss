@@ -77,9 +77,10 @@
                     border-radius: 8px;
                     border: 1px solid var(--input-border-color);
                     
-                    &:focus {
-                        border: 1px solid var(--input-border-color-hover) !important;
-                    }
+                }
+
+                .border-purple {
+                    border: 1px solid var(--input-border-color-hover) !important;
                 }
                 input:-internal-autofill-selected {
                     appearance: menulist-button;
@@ -168,7 +169,9 @@
                 .file-icon-name {
                     display: flex;
                     align-items: center;
-            
+                    color: var(--modal-sub-header-text-color);
+                    font-size: 0.75rem;
+
                     .file-icon-border {
                         display: flex;
                         align-items: center;
@@ -178,6 +181,15 @@
                         border-radius: 4px;
                         border: 1px solid var(--file-icon-border);
                         margin-right: 8px;
+                    }
+                }
+
+                path{
+                    &:not(.color-stroke){
+                        fill: var(--table-heading-text-color);
+                    }
+                    &.color-stroke{
+                        stroke: var(--table-heading-text-color);
                     }
                 }
             }

@@ -54,7 +54,7 @@
         <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submit()">
             <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">First Name</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="firstName">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="firstName" [ngClass]="[f.firstName.valid ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
                         <span class="small" *ngIf="f.firstName.errors.required">
@@ -66,7 +66,7 @@
 
             <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">Last Name</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="lastName">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="lastName" [ngClass]="[f.lastName.valid ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
                         <span class="small" *ngIf="f.lastName.errors.required">
@@ -78,7 +78,7 @@
 
             <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">Email Address</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="email">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="email" [ngClass]="[f.email.valid || f.email.disabled ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.email.touched && f.email.pristine) || (f.email.errors && submitted)">
                         <span class="small" *ngIf="f.email.errors.required">
@@ -93,7 +93,7 @@
 
             <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">Phone Number</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" >
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" [ngClass]="[f.mobile.valid ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.mobile.touched && f.mobile.pristine) || (f.mobile.errors && submitted)">
                         <span class="small" *ngIf="f.mobile.errors.required">

@@ -279,7 +279,10 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
     
     setTimeout( ()=>{
       this.getSubscribers('custom', this.startDate, this.endDate)
-      }, 1000)
+    }, 1000)
+    
+      this.paginateConfig.currentPage = 1;
+
   }
 
   /* Get filtered data - Start */
