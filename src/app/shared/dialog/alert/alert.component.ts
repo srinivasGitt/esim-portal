@@ -17,7 +17,7 @@ export class AlertComponent implements OnInit {
     { cssClass: 'btn-secondary', title: 'Cancel', value: false},
     { cssClass: 'ms-auto', title: 'Try Again', value: false},
     { cssClass: 'ms-auto', title: 'Close', value: false},
-    { cssClass: 'ms-auto', title: 'Redirect', value: false}
+    // { cssClass: 'ms-auto', title: 'Redirect', value: false}
   ]
 
   constructor(private viewContainer: ViewContainerRef) {
@@ -43,16 +43,18 @@ export class AlertComponent implements OnInit {
         break;
       case 'Info':
         // this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Login')
-        this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Redirect')
+        this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Close')
         break;
       default:
+        this.title = 'Something went wrong!'
+        this.body = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
         this.buttonGroup = this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Try Again')
     }
 
-    if(this.titleArr.indexOf(this.dialogRef.context.title) == -1) {
-      this.title = 'Something went wrong!'
-      this.body = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
-    }
+    // if(this.titleArr.indexOf(this.dialogRef.context.title) == -1) {
+    //   this.title = 'Something went wrong!'
+    //   this.body = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
+    // }
     
     console.log(this.dialogRef)
   }

@@ -57,7 +57,7 @@
                         <div class="dashboard-head-flex">
                             <div class="filter-head" style="width: 100%">
                                 <mat-form-field appearance="outline">
-                                    <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker">
+                                    <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker" [max]="currentDate">
                                         <input matStartDate formControlName="fromDate" placeholder="DD/MM/YYYY" #dateRangeStart>
                                         <input matEndDate formControlName="toDate" placeholder="DD/MM/YYYY" #dateRangeEnd (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
                                     </mat-date-range-input>
