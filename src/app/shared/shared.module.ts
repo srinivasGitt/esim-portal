@@ -34,6 +34,10 @@ import { EventBlockerDirective } from './directive/event-blocker.directive';
 import { LoadingSpinnerComponent } from './component/loading-spinner/loading-spinner.component';
 import { InventoryInfoComponent } from './dialog/inventory-info/inventory-info.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -75,7 +79,11 @@ import { NotFoundComponent } from './component/not-found/not-found.component';
     QRCodeModule,
     RouterModule,
     NgSelectModule,
-    NgxGaugeModule
+    NgxGaugeModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule
   ],
   exports: [
     // SubscriptionComponent,

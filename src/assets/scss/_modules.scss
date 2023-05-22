@@ -1626,6 +1626,13 @@
             right: 52px;
             transform: scale(1);
         }
+
+        .modal-label-text {
+            color: var(--modal-sub-header-text-color);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .modal-details-text{
             font-size: 1rem;
             font-weight: 400;
@@ -1642,8 +1649,8 @@
                 display: inline-block;
                 width: 35px;
                 height: 22px;
-                margin-left: 16px;
-                margin-top: 5px;
+                // margin-left: 16px;
+                // margin-top: 5px;
                 border-radius: 10px;
                 
                 input{
@@ -1741,7 +1748,7 @@
             }
             
             &:hover {
-                padding: 4px 16px;
+                padding: 4px 6px;
                 background: var(--email-hover-background-color);
                 border-radius: 100px;
                 width: auto !important;

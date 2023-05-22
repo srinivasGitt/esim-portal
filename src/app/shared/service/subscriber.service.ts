@@ -56,9 +56,9 @@ export class subscriberService {
 
   getAllSubscriber(itemsPerPage?: number, currentPage?: number) {
     if(itemsPerPage && currentPage) {
-      return this.http.get(`${this.serverUrl}/subscribers?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+      return this.http.get(`${this.serverUrl}/subscribers?dateRange=year&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
     }
-    return this.http.get(`${this.serverUrl}/subscribers`);
+    return this.http.get(`${this.serverUrl}/subscribers?dateRange=year`);
   }
 
   getSingleSubscriber(subscriberId: string) {
@@ -78,13 +78,13 @@ export class subscriberService {
     return this.http.post(`${this.serverUrl}/subscriber/invite-subscriber`, data);
   }
 
-  getFilteredSubscribersList(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+  getFilteredSubscribersList(dateRangeValue?: string, fromDate?: any, toDate?: any, itemsPerPage?: number, currentPage?: number ) {
     if(dateRangeValue) {
       if(fromDate && toDate) {
-        return this.http.get(`${this.serverUrl}/subscribers?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+        return this.http.get(`${this.serverUrl}/subscribers?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`)
       }
       else {
-        return this.http.get(`${this.serverUrl}/subscribers?dateRange=${dateRangeValue}`)
+        return this.http.get(`${this.serverUrl}/subscribers?dateRange=${dateRangeValue}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`)
       }
     }
     else {
