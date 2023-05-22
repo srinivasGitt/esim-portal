@@ -32,19 +32,19 @@
     <div class="es-modal-body">
         <div class="row sub">
             <div class="col-4">
-                <label class="label-text">Plan Id</label>
+                <label class="modal-label-text">Plan Id</label>
                 <div class="modal-details-text">
                     {{ subscriptionDetails.planName }}
                 </div>
             </div>
             <div class="col-4">
-                <label class="label-text">Date created</label>
+                <label class="modal-label-text">Date created</label>
                 <div class="modal-details-text">
                     {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
             <div class="col-4">
-                <label class="label-text">Expiry Date</label>
+                <label class="modal-label-text">Expiry Date</label>
                 <div class="modal-details-text">
                     {{ subscriptionDetails.expiryDate | date : 'dd/MM/YYYY' }}
                 </div>
@@ -52,13 +52,13 @@
         </div>
         <div class="row sub mt-4">
             <div class="col-4">
-                <label class="label-text">Price</label>
+                <label class="modal-label-text">Price</label>
                 <div class="modal-details-text" *ngIf="subscriptionDetails.priceBundle">
                     {{ subscriptionDetails.priceBundle | currency: 'USD' }}
                 </div>
             </div>
             <div class="col-8">
-                <label class="label-text">User Email</label>
+                <label class="modal-label-text">User Email</label>
                 <div class="modal-details-text">
                     {{ subscriptionDetails.subscriberEmail }}
                 </div>
@@ -66,7 +66,7 @@
         </div>
         <div class="row sub mt-4">
             <div class="col-4">
-                <label class="label-text">Data Usage</label>
+                <label class="modal-label-text">Data Usage</label>
                 <div class="modal-details-text d-flex">
                     <ngx-gauge type="arch" [value]="usedData" [thick]="10" [size]="90" [max]="totalData" cap="round" 
                         [label]="'/'+subscriptionDetails.data" append="GB"
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <label class="label-text">Auto Refill</label>
+                <label class="modal-label-text">Auto Refill</label>
                 <div class="modal-details-text d-flex">
                     <label class="switch">
                         <input type="checkbox" [(ngModel)]="subscriptionDetails.isAutoRefillOn">
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <label class="label-text">Total Data</label>
+                <label class="modal-label-text">Total Data</label>
                 <div class="modal-details-text total-data">
                     {{ subscriptionDetails.data }}
                 </div>

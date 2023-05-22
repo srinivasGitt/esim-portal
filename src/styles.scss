@@ -304,6 +304,7 @@
     --cancel-button-background-color: #FFFFFF;
     --upload-border: rgba(183, 184, 253, 0.13);
     --file-icon-border: var(--upload-border);
+    --info-button-bg-color: #FFFFFF;
 
     /* SIZES */
     --sidebar-text-size: 0.875rem;
@@ -340,6 +341,13 @@
             fill: var(--search-placeholder-text-icon-color) !important;
         }
     }
+
+    .info-default {
+        path {
+            fill: var(--info-button-bg-color);
+            opacity: 1;
+        }
+    }   
 
     .revenue-icon {
         circle {
