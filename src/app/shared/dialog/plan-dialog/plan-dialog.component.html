@@ -47,7 +47,7 @@
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
             <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">Plan Name*</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name" [ngClass]="[f.name.valid ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
                         <span class="small" *ngIf="f.name.errors.required">
@@ -60,10 +60,10 @@
                 <div class="input-width">
                     <label for="dataSize" class="form-label es-modal-form-label">Data*</label>
                     <div class="d-flex">
-                        <select class="form-control es-select" formControlName="dataUnit">
+                        <select class="form-control es-select" formControlName="dataUnit" [ngClass]="[f.dataSize.value != 0 && f.dataSize.valid ? 'border-purple':'']">
                             <option [value]="data" *ngFor="let data of dataDropdown">{{ data }}</option>
                         </select>
-                        <input type="text" class="form-control es-input data-input number-input-right-padding" id="dataSize" aria-describedby="dataSize" formControlName="dataSize" (keypress)="numberOnly($event)">
+                        <input type="text" class="form-control es-input data-input number-input-right-padding" id="dataSize" aria-describedby="dataSize" formControlName="dataSize" (keypress)="numberOnly($event)" [ngClass]="[f.dataSize.value != 0 && f.dataSize.valid ? 'border-purple':'']">
                     </div>
                     <div class="input-number-btn">
                         <span class="number-decremental" (click)="updateValue('dataSize', 'dec')"> - </span>
@@ -80,11 +80,12 @@
                 <div class="input-width">
                     <label for="voice" class="form-label es-modal-form-label">Call Minutes*</label>
                     <div class="d-flex">
-                        <input type="checkbox" class="form-checbox my-auto" id="unlimited" aria-describedby="unlimited" formControlName="unlimited" #unlimitedCheck checked="false">
-                        <label for="unlimited" class="my-auto ms-1 me-3 form-label es-modal-form-label">
+                        <label for="unlimited" class="my-auto ms-1 me-3 form-label es-modal-form-label unlimited">
                             Unlimited
+                            <input type="checkbox" class="form-checbox my-auto" id="unlimited" aria-describedby="unlimited" formControlName="unlimited" #unlimitedCheck checked="false">
+                            <span class="checkmark"></span>
                         </label>
-                        <input type="text" class="form-control es-input number-input-right-padding" id="voice" aria-describedby="voice" formControlName="voice" [class.disabled]="f.unlimited.value" [value]="f.unlimited.value ? 0 : f.voice.value"  (keypress)="numberOnly($event)">
+                        <input type="text" class="form-control es-input number-input-right-padding" id="voice" aria-describedby="voice" formControlName="voice" [class.disabled]="f.unlimited.value" [value]="f.unlimited.value ? 0 : f.voice.value"  (keypress)="numberOnly($event)" [ngClass]="[f.voice.value != 0 && f.voice.valid ? 'border-purple':'']">
                     </div>
                     <div class="input-number-btn">
                         <span class="number-decremental" [class.disabled]="f.unlimited.value" (click)="updateValue('voice', 'dec')"> - </span>
@@ -102,7 +103,7 @@
             <div class="divHeight d-flex justify-content-between">
                 <div class="input-width">
                     <label for="smsPerDay" class="form-label es-modal-form-label">SMS*</label>
-                    <input type="text" class="form-control es-input number-input-right-padding" id="smsPerDay" aria-describedby="smsPerDay" formControlName="smsPerDay"  (keypress)="numberOnly($event)">
+                    <input type="text" class="form-control es-input number-input-right-padding" id="smsPerDay" aria-describedby="smsPerDay" formControlName="smsPerDay" (keypress)="numberOnly($event)" [ngClass]="[f.smsPerDay.value != 0 && f.smsPerDay.valid ? 'border-purple':'']">
                     <div class="input-number-btn">
                         <span class="number-decremental" (click)="updateValue('smsPerDay', 'dec')"> - </span>
                         <span class="number-incremental" (click)="updateValue('smsPerDay', 'inc')"> + </span>
@@ -118,10 +119,10 @@
                 <div class="input-width">
                     <label for="voice" class="form-label es-modal-form-label">Validity*</label>
                     <div class="d-flex">
-                        <select class="form-control es-select validity-select" formControlName="validityUnit">
+                        <select class="form-control es-select validity-select" formControlName="validityUnit" [ngClass]="[f.validity.value != 0 && f.validity.valid ? 'border-purple':'']">
                             <option [value]="validity" *ngFor="let validity of validityDropdown">{{ validity | titlecase }}</option>
                         </select>
-                        <input type="text" class="form-control es-input data-input number-input-right-padding" id="validity" aria-describedby="validity" formControlName="validity"  (keypress)="numberOnly($event)">
+                        <input type="text" class="form-control es-input data-input number-input-right-padding" id="validity" aria-describedby="validity" formControlName="validity"  (keypress)="numberOnly($event)" [ngClass]="[f.validity.value != 0 && f.validity.valid ? 'border-purple':'']">
                     </div>
                     <div class="input-number-btn">
                         <span class="number-decremental" (click)="updateValue('validity', 'dec')"> - </span>
@@ -140,7 +141,7 @@
                 <div class="input-width">
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex relative">
-                        <input type="text" class="form-control es-input price-input number-input-right-padding" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" (keypress)="numberOnly($event)">
+                        <input type="text" class="form-control es-input price-input number-input-right-padding" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" (keypress)="numberOnly($event)" [ngClass]="[f.priceBundle.value != 0 && f.priceBundle.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label price-input-icon"> $ </span>
                     </div>
                     <div class="input-number-btn">
@@ -155,32 +156,56 @@
                         </span>
                     </div>
                 </div>
+                <div class="input-width imsi-input">
+                    <label for="imsiType" class="form-label es-modal-form-label">IMSI Type*</label>
+                    <div class="d-flex relative">
+                        <ng-select
+                            [items]="imsiTypeList"
+                            [multiple]="false"
+                            bindLabel="_id"
+                            bindValue="_id"
+                            placeholder="Select IMSI Type"
+                            formControlName="imsiType"
+                            class="full-width">
+                        </ng-select>
+                    </div>
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.imsiType.touched && f.imsiType.pristine) || (f.imsiType.errors && submitted)">
+                            <span class="small" *ngIf="f.imsiType.errors.required">
+                                IMSI Type is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="divHeight d-flex justify-content-between">
                 <div class="col-12 location-input">
                     <label for="supportedCountries" class="form-label es-modal-form-label">Location*</label>
                     <div class="relative">
-                        <!-- <ng-select
-                            class="multi-select-counties"
-                            [items]="[]"
-                            bindLabel="name"
-                            placeholder="Search for countries / Multiple countries can be selected"
-                            formControlName="supportedCountries" 
-                            [multiple]="true"
-                            >
-                        </ng-select> -->
-
                         <ng-select 
-                            appearance="outline" 
-                            [multiple]="true" 
-                            placeholder="Search for countries / Multiple countries can be selected" 
-                            labelForId="supportedCountries"
-                            formControlName="supportedCountries">
-                            <ng-option [value]="country" *ngFor="let country of countriesAlias; let i=index">
-                                <img src="{{country.flag}}" width="20px" height="20px"/>&nbsp; 
-                                {{ country.name }}
-                            </ng-option>
+                            [items]="countriesAlias"
+                            formControlName="supportedCountries"
+                            bindLabel="name"
+                            bindValue="id"
+                            [multiple]="true"
+                            placeholder="Search for countries / Multiple countries can be selected"
+                            (change)="onCountryChange($event)">
+
+                            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="20px" height="20px"> {{$any(item).name}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 2">
+                                    <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                </div>
+                            </ng-template>
+
+                            <ng-template ng-option-tmp let-item="item">
+                                <img [src]="item.flag" width="20px" height="20px"> {{item.name}}
+                            </ng-template>
                         </ng-select>
+
                         <span class="ng-search">
                             <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
                                 <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
@@ -201,7 +226,7 @@
                 <div class="input-width">
                     <label for="dateEarliestActivation" class="form-label es-modal-form-label">Earliest Activation*</label>
                     <div class="d-flex input-icon">
-                        <input type="date" class="form-control es-input" id="dateEarliestActivation" aria-describedby="dateEarliestActivation" formControlName="dateEarliestActivation" [min]="currentDate">
+                        <input type="date" class="form-control es-input" id="dateEarliestActivation" aria-describedby="dateEarliestActivation" formControlName="dateEarliestActivation" [min]="currentDate" [ngClass]="[f.dateEarliestActivation.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label date-input-icon">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2349_16799)">
@@ -227,7 +252,7 @@
                 <div class="input-width">
                     <label for="dateEarliestAvailable" class="form-label es-modal-form-label">Earliest Available*</label>
                     <div class="d-flex input-icon">
-                        <input type="date" class="form-control es-input" id="dateEarliestAvailable" aria-describedby="dateEarliestAvailable" formControlName="dateEarliestAvailable" [min]="f.dateEarliestActivation.value">
+                        <input type="date" class="form-control es-input" id="dateEarliestAvailable" aria-describedby="dateEarliestAvailable" formControlName="dateEarliestAvailable" [min]="f.dateEarliestActivation.value" [ngClass]="[f.dateEarliestAvailable.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label date-input-icon">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2349_16799)">
@@ -255,7 +280,7 @@
                 <div class="input-width">
                     <label for="dateLatestAvailable" class="form-label es-modal-form-label">Latest Available*</label>
                     <div class="d-flex input-icon">
-                        <input type="date" class="form-control es-input" id="dateLatestAvailable" aria-describedby="dateLatestAvailable" formControlName="dateLatestAvailable" [min]="f.dateEarliestAvailable.value" placeholder="Latest Available Date ">
+                        <input type="date" class="form-control es-input" id="dateLatestAvailable" aria-describedby="dateLatestAvailable" formControlName="dateLatestAvailable" [min]="f.dateEarliestAvailable.value" placeholder="Latest Available Date" [ngClass]="[f.dateLatestAvailable.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label date-input-icon">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2349_16799)">

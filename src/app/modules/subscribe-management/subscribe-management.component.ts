@@ -54,10 +54,12 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   copyText: string = 'Copy'
   customForm: any;
   selectedDay: string = 'Current Year'
+  selectedDayTerm: string = '';
   isCustomRange: boolean = false;
   startDate!: string;
   endDate!: string;
-  
+  currentDate = new Date().toISOString().slice(0, 10);
+
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
               private regionService: RegionsService,
@@ -71,6 +73,10 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
                     this.paginateConfig.currentPage = 1;
                     this.inSearch = true;
+                    this.isCustomRange = false;
+                    this.selectedDayTerm = 'year';
+                    this.selectedDay = 'Current Year';
+                    this.customForm?.reset();
                   }
                 }) 
               }
@@ -220,12 +226,19 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this.isCustomRange = false;
+      this.selectedDayTerm = 'year'
+      this.selectedDay = 'Current Year'
       this._searchService.getSearchResult('/subscribers', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
         this.subscriberList = result.data;
         this.paginateConfig.totalItems = result?.count[0]?.totalCount;
         this.inProgress = false;
       })
     } 
+    /* Pagination based on Filter */
+    else if(this.selectedDayTerm) {
+      this.getSubscribers(this.selectedDayTerm, this.startDate, this.endDate)
+    }
     /* Pagination based on all data */
     else {
       this.subscriberService.getAllSubscriber(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
@@ -255,7 +268,10 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
   /* Draw chart based on Filter - Start */
   selectTimeframe(value: any) {
-    this.getSubscribers(value)
+    this.selectedDayTerm = value;
+    this.inSearch = false;
+    this.getSubscribers(this.selectedDayTerm);
+    this.paginateConfig.currentPage = 1;
     this.customForm?.reset();
   }
   /* Draw chart based on Filter - End */
@@ -276,16 +292,21 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
     this.startDate = dateRangeStart.value
     this.endDate = dateRangeEnd.value
-    
+    this.selectedDayTerm = 'custom'
+    this.inProgress = true;
+    this.inSearch = false;
     setTimeout( ()=>{
-      this.getSubscribers('custom', this.startDate, this.endDate)
-      }, 1000)
+      this.getSubscribers(this.selectedDayTerm, this.startDate, this.endDate)
+    }, 1000)
+    
+    this.paginateConfig.currentPage = 1;
+
   }
 
   /* Get filtered data - Start */
   getSubscribers(value?: any, fromDate?: any, toDate?: any) {
-    this.inProgress = true
-    this.subscriberService.getFilteredSubscribersList(value, fromDate, toDate).subscribe((res: any) => {
+    this.inProgress = true;
+    this.subscriberService.getFilteredSubscribersList(value, fromDate, toDate,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((res: any) => {
       if(res) {
         this.subscriberList = res.data;
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
