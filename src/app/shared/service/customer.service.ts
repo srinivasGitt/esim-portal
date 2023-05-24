@@ -65,7 +65,7 @@ export class CustomerService {
     }
 
     customers(){
-        return this.http.get(`${this.serverUrl}/customers`);
+        return this.http.get(`${this.serverUrl}/customers?dateRange=all`);
     }
 
     getSingleCustomer(customerId:any){
