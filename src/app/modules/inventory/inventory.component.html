@@ -20,7 +20,7 @@
     
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="d-flex info-head-section justify-content-end mb-2">
-            <label class="mt-auto mx-2" *ngIf="inventories && inventories.length > 0">
+            <label class="mt-auto mx-2 show-entries" *ngIf="inventories && inventories.length > 0">
                 <!-- Showing {{ paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + inventories.length }} of {{ paginateConfig.totalItems }} entries -->
                 {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: inventories.length }}
             </label>

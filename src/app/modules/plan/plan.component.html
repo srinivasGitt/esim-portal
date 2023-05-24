@@ -50,7 +50,7 @@
                 <div class="term">5G Access Included*</div>
             </div>
             <div class="col-md-3 d-flex justify-content-evenly align-items-center">
-                <div class="input-label">Plan status</div>
+                <div class="term">Plan status</div>
                 <div>
                     <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)">
                         <ng-option value="active"> <span class="active">Active</span></ng-option>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="col-md-6 d-flex justify-content-end align-items-center">
-                <label>
+                <label class="show-entries">
                     {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: plansList.length }}
                 </label>
             </div>
@@ -67,7 +67,7 @@
         
         <ng-container class="user-dashboard-table mt-4" *ngIf="plansList && plansList.length > 0; else msg">
             <div class="t-grid-table-new">
-                <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
+                <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers mt-3">
                     <div class="t-box a px-2 d-flex">
                         <svg class="my-auto" width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 3.53509H11V5.53509H20V3.53509ZM20 11.5351H11V13.5351H20V11.5351ZM3.54 7.53509L0 3.99509L1.41 2.58509L3.53 4.70509L7.77 0.465088L9.18 1.87509L3.54 7.53509ZM3.54 15.5351L0 11.9951L1.41 10.5851L3.53 12.7051L7.77 8.46509L9.18 9.87509L3.54 15.5351Z" fill="#3D3D3D"/>

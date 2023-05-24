@@ -441,7 +441,7 @@
             padding: 4px 26px;
             height: 50px;
             border: none;
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             
             .btn-add-icon{
                 background: #fff;
@@ -2785,3 +2785,13 @@
     transform: rotate(45deg);
 }
 /* CUSTOM CHECKBOX : Add New Plan - End */
+
+.show-entries {
+    font-size: 15px;
+}
+
+.show-report-helper {
+    font-size: 17px;
+    color: var(--show-entries-text-color) !important;
+    font-weight: 500;
+}

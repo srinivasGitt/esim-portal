@@ -64,6 +64,7 @@ export class UserComponent implements OnInit {
     this.currentYear = date.getFullYear();
     this.currentMonth = date.getMonth();
     this.filterConfig.filterBy.value = this.selectedFilter;
+    
   }
 
   getAllRegions(): void {

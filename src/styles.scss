@@ -151,6 +151,10 @@
     --upload-border: rgba(99, 101, 239, 0.3);
     --file-icon-border: #D1D1FB;
     --dark-multi-color-border: rgba(218, 218, 218, 1);
+    --calendar-start-select-bg-color: rgba(99, 101, 239, 0.6);
+    --calendar-select-color: #6365EF;
+    --calendar-range-date-bg-color: rgba(99, 101, 239, 0.1);
+    --dropdown-hover-bg-color: var(--active-link-background-color);
 
     /* SWITCH */
     --dark-primary-background: #59D956;
@@ -309,6 +313,7 @@
     --file-icon-border: var(--upload-border);
     --info-button-bg-color: #FFFFFF;
     --dark-multi-color-border: rgba(24, 24, 24, 1);
+    --dropdown-hover-bg-color: var(--main-background-color);
 
     /* SIZES */
     --sidebar-text-size: 0.875rem;
@@ -386,6 +391,12 @@
         }
         .rect2 {
             stroke: #FF6D63;
+        }
+    }
+
+    .down-arrow {
+        path {
+            fill: #FFFFFF;
         }
     }
 
