@@ -101,10 +101,12 @@ export class CustomerManagementComponent implements OnInit {
   getAllCustomer() {
     this.inProgress = true;
     this.customerService.customers().subscribe(
-      (data: any) => {
-        this.customerList = data;
-        this.paginateConfig.totalItems = data.length;
-        this.inProgress = false;
+      (res: any) => {
+        if(res[0]) {
+          this.customerList = res[0].data;
+          this.paginateConfig.totalItems = res[0]?.count[0]?.totalCount;
+          this.inProgress = false;
+        }
       }, err => {
         this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
@@ -218,9 +220,14 @@ export class CustomerManagementComponent implements OnInit {
         // this.customerList = res.data;
         // this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         
-        this.customerList = res;
-        this.paginateConfig.totalItems = res.length;
-        this.inProgress = false;
+        // this.customerList = res;
+        // this.paginateConfig.totalItems = res.length;
+        // this.inProgress = false;
+        if(res[0]) {
+          this.customerList = res[0].data;
+          this.paginateConfig.totalItems = res[0]?.count[0]?.totalCount;
+          this.inProgress = false;
+        }
       }
     }, err => {
       this.alertService.error(err.error.message);
