@@ -42,17 +42,27 @@
     border-radius: 13px;
     transform: translate(-25px, 50px) !important;
     background-color: var(--card-background-color) !important;
+    padding-left: 16px;
+    padding-right: 16px;
+
     .lang-dropdown-item {
         color: var(--table-heading-text-color);
         padding: 10px 15px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 4px;
     }
     .dropdown-item {
         &:hover {
-            background-color: var(--hover-bg-color) !important;
+            background-color: var(--dropdown-hover-bg-color) !important;
         }
     }
     .lang-dropdown-item-active {
         color: #fff;
+    }
+
+    .hover-bg {
+        background-color: var(--dropdown-hover-bg-color) !important;
     }
 }
 
@@ -107,6 +117,11 @@ button {
 
 ::ng-deep mat-form-field {
     display: block !important;
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-calendar, ::ng-deep .mat-button-wrapper {
+    font-family: var(--font-family-sf-pro-display) !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
@@ -119,7 +134,7 @@ button {
     color: var(--font-color);
     border: none;
     margin-top: 6px;
-    font-family: var(--font-family-sf-pro-display);
+    font-family: var(--font-family-sf-pro-display) !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -132,10 +147,20 @@ button {
     border: none !important;
 }
 
-.mat-datepicker-toggle .mat-icon-button {
-    background-color: yellow;
+::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected, ::ng-deep .mat-calendar-body-selected {
+    border-radius: 8px 0 0 8px !important;
+    background-color: var(--calendar-select-color) !important;
 }
 
-.mat-calendar {
-    background-color: lightgreen;
+::ng-deep .mat-calendar-body-range-end .mat-calendar-body-selected {
+    border-radius: 0 8px 8px 0 !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range::before {
+    background-color: var(--calendar-range-date-bg-color) !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
+    color: var(--calendar-select-color) !important;
 }

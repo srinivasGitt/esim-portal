@@ -13,7 +13,8 @@ export class SubscriptionInfoComponent implements OnInit {
   subscriptionDetails: any;
   totalData!: number;
   usedData!: number;
-  
+  copyText: string = 'Copy'
+
   constructor(
     private viewContainer: ViewContainerRef, private subscriptionService: SubscriptionsService
   ) {
@@ -42,5 +43,15 @@ export class SubscriptionInfoComponent implements OnInit {
         this.usedData = res.used_data_size_in_GB
       }
     })
+  }
+
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    navigator.clipboard.writeText(email);
   }
 }

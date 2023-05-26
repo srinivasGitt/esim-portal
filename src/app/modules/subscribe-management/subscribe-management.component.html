@@ -33,14 +33,19 @@
                             <span id="languageTootltip">{{selectedDay}}
                             </span>
                             <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
-                            <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt="">
+                            <!-- <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt=""> -->
+                            <span class="ms-auto">
+                                <svg class="down-arrow" width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z" fill="#1C1C1C"/>
+                                </svg>
+                            </span>
                         </a>
     
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current Week</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange= false">Current Month</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange= false">Current Year</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectedDay = 'Custom Range'; isCustomRange= true;">Custom Range</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Week'}" (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Month'}" (click)="selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange= false">Current Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Year'}" (click)="selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange= false">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Custom Range'}" (click)="selectedDay = 'Custom Range'; isCustomRange= true;">Custom Range</a>
                         </div>
                     </div>
                 </div>
@@ -73,7 +78,7 @@
 
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         <div class="d-flex info-head-section justify-content-end mb-2">
-            <label class="mt-auto mx-2" *ngIf="subscriberList && subscriberList.length > 0">
+            <label class="mt-auto mx-2 show-entries" *ngIf="subscriberList && subscriberList.length > 0">
                 <!-- Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + subscriberList.length}} of {{ paginateConfig.totalItems }} entries -->
                 {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: subscriberList.length }}
             </label>
@@ -134,7 +139,7 @@
                         <div class="t-box b px-2 copy-div">
                             <span class="copy justify-content-around text-overflow-ellipsis">
                                     {{subscriber.email}}
-                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,subscriber.email)" [tooltip]="copyText" placement="top" delay="100" offset="10">
+                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,subscriber.email)" [tooltip]="copyText" placement="top" delay="100" offset="12">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                                             <rect width="20" height="20" fill="#D9D9D9"/>

@@ -58,6 +58,7 @@ export class PlanDialogComponent implements OnInit {
     this.planService.getIMSITypeList().subscribe((res: any) => { 
       if(res.code == 200){
         this.imsiTypeList = res.data
+        this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
       }
     });
     
@@ -186,6 +187,10 @@ export class PlanDialogComponent implements OnInit {
       }
       
     }
+  }
+
+  displayContryList(countries: any){
+    return countries.map((country: any) => country.name).slice(2).join(', ');
   }
 
   /* Restrict user to enter alphabets in mobile field */
