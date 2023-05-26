@@ -102,9 +102,9 @@ export class CustomerManagementComponent implements OnInit {
     this.inProgress = true;
     this.customerService.customers().subscribe(
       (res: any) => {
-        if(res[0]) {
-          this.customerList = res[0].data;
-          this.paginateConfig.totalItems = res[0]?.count[0]?.totalCount;
+        if(res) {
+          this.customerList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
           this.inProgress = false;
         }
       }, err => {
@@ -186,7 +186,32 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   get f() { return this.customForm.controls; }
-   
+  
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+
+    /* Pagination based on Filter */
+    if(this.selectedDayTerm) {
+      this.getAllCustomers(this.selectedDayTerm, this.startDate, this.endDate)
+    }
+    /* Pagination based on all data */
+    else {
+      this.customerService.customers(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (res: any) => {
+          this.customerList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
+  }
+
   /* Get Customers based on Filter - Start */
   selectTimeframe(value: any) {
     this.selectedDayTerm = value;
@@ -217,17 +242,9 @@ export class CustomerManagementComponent implements OnInit {
     this.inProgress = true;
     this.customerService.getFilteredCustomersList(value, fromDate, toDate,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((res: any) => {
       if(res) {
-        // this.customerList = res.data;
-        // this.paginateConfig.totalItems = res?.count[0]?.totalCount;
-        
-        // this.customerList = res;
-        // this.paginateConfig.totalItems = res.length;
-        // this.inProgress = false;
-        if(res[0]) {
-          this.customerList = res[0].data;
-          this.paginateConfig.totalItems = res[0]?.count[0]?.totalCount;
-          this.inProgress = false;
-        }
+        this.customerList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
       }
     }, err => {
       this.alertService.error(err.error.message);

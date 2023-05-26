@@ -64,8 +64,11 @@ export class CustomerService {
       return this.http.get(`${this.serverUrl}/customers`);    
     }
 
-    customers(){
-        return this.http.get(`${this.serverUrl}/customers?dateRange=all`);
+    customers(itemsPerPage?: number, currentPage?: number) {
+      if(itemsPerPage && currentPage) {
+        return this.http.get(`${this.serverUrl}/customers?dateRange=year&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+      }
+      return this.http.get(`${this.serverUrl}/customers?dateRange=year`);
     }
 
     getSingleCustomer(customerId:any){
