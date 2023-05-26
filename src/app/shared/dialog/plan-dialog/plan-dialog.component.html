@@ -162,7 +162,7 @@
                         <ng-select
                             [items]="imsiTypeList"
                             [multiple]="false"
-                            bindLabel="_id"
+                            bindLabel="label"
                             bindValue="_id"
                             placeholder="Select IMSI Type"
                             formControlName="imsiType"
@@ -178,6 +178,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="divHeight d-flex justify-content-between">
                 <div class="col-12 location-input">
                     <label for="supportedCountries" class="form-label es-modal-form-label">Location*</label>
@@ -197,7 +198,7 @@
                                     <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                                 </div>
                                 <div class="ng-value" *ngIf="items.length > 2">
-                                    <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                    <span class="ng-value-label" [tooltip]="displayContryList(items)" placement="top" delay="100" offset="15">{{items.length - 2}} more...</span>
                                 </div>
                             </ng-template>
 

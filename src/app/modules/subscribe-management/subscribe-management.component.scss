@@ -62,16 +62,45 @@
     border-radius: 13px;
     transform: translate(-25px, 50px) !important;
     background-color: var(--card-background-color) !important;
+    padding-left: 16px;
+    padding-right: 16px;
+
     .lang-dropdown-item {
         color: var(--table-heading-text-color);
         padding: 10px 15px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 4px;
     }
     .dropdown-item {
         &:hover {
-            background-color: var(--hover-bg-color) !important;
+            background-color: var(--dropdown-hover-bg-color) !important;
         }
     }
     .lang-dropdown-item-active {
-        color: var(--table-heading-text-color);
+        color: #fff;
     }
+
+    .hover-bg {
+        background-color: var(--dropdown-hover-bg-color) !important;
+    }
+}
+
+
+::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected, ::ng-deep .mat-calendar-body-selected {
+    border-radius: 8px 0 0 8px !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-range-end .mat-calendar-body-selected {
+    border-radius: 0 8px 8px 0 !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range::before {
+    background-color: var(--calendar-range-date-bg-color) !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
+    color: var(--calendar-select-color) !important;
 }

@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { CustomerComponent } from 'src/app/shared/dialog/customer/customer.component';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
-import { UsersService } from 'src/app/shared/service/users.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ImportProfileComponent } from 'src/app/shared/dialog/import-profile/import-profile.component';
 import { AssignProfilesComponent } from 'src/app/shared/dialog/assign-profiles/assign-profiles.component';
 import { PaginationInstance } from 'ngx-pagination';
-
+import { FormControl, FormGroup } from '@angular/forms';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
-  styleUrls: ['./customer-management.component.scss']
+  styleUrls: ['./customer-management.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ]
 })
 export class CustomerManagementComponent implements OnInit {
   customerList: any = [];
@@ -37,25 +50,22 @@ export class CustomerManagementComponent implements OnInit {
     filterBy: { key : 'createdAt', type: 'date', value: undefined }
   };
   inProgress: boolean = false;
+  customForm: any;
+  selectedDay: string = 'Current Year'
+  selectedDayTerm: string = '';
+  isCustomRange: boolean = false;
+  startDate!: string;
+  endDate!: string;
+  currentDate = new Date().toISOString().slice(0, 10);
 
   constructor(private customerService: CustomerService,
-              // private usersService: UsersService,
               private dialogService: DialogService,
-              // private route: ActivatedRoute,
               private alertService: AlertService,
-             
-              )
-               {}
+              ){}
+
   ngOnInit(): void {
+    this.initForm();
     this.getAllCustomer();
-    const date = new Date();
-    this.selectedFilter = {
-      month : date.getMonth(),
-      year : date.getFullYear()
-    };
-    this.currentYear = date.getFullYear();
-    this.currentMonth = date.getMonth();
-    this.filterConfig.filterBy.value = this.selectedFilter;
   }
   
   getSingleCustomer() {
@@ -91,10 +101,12 @@ export class CustomerManagementComponent implements OnInit {
   getAllCustomer() {
     this.inProgress = true;
     this.customerService.customers().subscribe(
-      (data: any) => {
-        this.customerList = data;
-        this.paginateConfig.totalItems = data.length;
-        this.inProgress = false;
+      (res: any) => {
+        if(res) {
+          this.customerList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }
       }, err => {
         this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
@@ -166,22 +178,79 @@ export class CustomerManagementComponent implements OnInit {
     }
   }
 
-  changeCalendarValue(changeBy: string, key: string){
-    if( key == 'month'){
-      if(changeBy == 'decrease'){
-        this.selectedFilter.year = this.selectedFilter.month == 0 ? this.selectedFilter.year - 1 : this.selectedFilter.year; 
-        this.selectedFilter.month = this.selectedFilter.month == 0 ? 11 : this.selectedFilter.month - 1;
-      } else {
-        this.selectedFilter.year = this.selectedFilter.month == 11 ?  this.selectedFilter.year + 1 : this.selectedFilter.year;
-        this.selectedFilter.month = this.selectedFilter.month == 11 ? 0 : this.selectedFilter.month + 1;
-      }
-    } else if( key == 'year'){
-      if(changeBy == 'decrease'){
-        --this.selectedFilter.year;
-      } else {
-        ++this.selectedFilter.year;
-      }
-    }
-    this.filterConfig.filterBy.value = this.selectedFilter;
+  initForm(): void {
+    this.customForm = new FormGroup({
+      fromDate: new FormControl<Date | null>(null),
+      toDate: new FormControl<Date | null>(null),
+    });
   }
+
+  get f() { return this.customForm.controls; }
+  
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+
+    /* Pagination based on Filter */
+    if(this.selectedDayTerm) {
+      this.getAllCustomers(this.selectedDayTerm, this.startDate, this.endDate)
+    }
+    /* Pagination based on all data */
+    else {
+      this.customerService.customers(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (res: any) => {
+          this.customerList = res.data;
+          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
+  }
+
+  /* Get Customers based on Filter - Start */
+  selectTimeframe(value: any) {
+    this.selectedDayTerm = value;
+    this.getAllCustomers(this.selectedDayTerm);
+    this.paginateConfig.currentPage = 1;
+    this.customForm?.reset();
+  }
+  /* Get Customers based on Filter - End */
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if(!this.customForm.valid) {
+      return
+    }
+
+    this.startDate = dateRangeStart.value
+    this.endDate = dateRangeEnd.value
+    this.selectedDayTerm = 'custom'
+    this.inProgress = true;
+    setTimeout( ()=>{
+      this.getAllCustomers(this.selectedDayTerm, this.startDate, this.endDate)
+    }, 1000)
+    
+    this.paginateConfig.currentPage = 1;
+  }
+
+  /* Get filtered data - Start */
+  getAllCustomers(value?: any, fromDate?: any, toDate?: any) {
+    this.inProgress = true;
+    this.customerService.getFilteredCustomersList(value, fromDate, toDate,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((res: any) => {
+      if(res) {
+        this.customerList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false;
+      }
+    }, err => {
+      this.alertService.error(err.error.message);
+      this.inProgress = false;
+    })
+  }
+  /* Get filtered data - End */
+
 }

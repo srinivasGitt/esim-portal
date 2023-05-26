@@ -27,8 +27,8 @@ export class CustomerComponent implements OnInit {
   }
   
   Provider= [
-    {id: "1", name: "Telna", image: "/assets/icons/down-caret-black.svg"},
-    {id: "2", name: "POD", image: "/assets/icons/customer-icon.svg"}
+    {id: "1", name: "Telna", image: "/assets/icons/telna.svg"},
+    {id: "2", name: "POD", image: "/assets/icons/pod.svg"}
   ];
 
   ngOnInit(): void {

@@ -21,10 +21,14 @@
     <ul class="sidebar-menu-list">
         <li *ngFor="let menu of sidebarMenuList">
             <a class="nav-link" [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
-                <img [src]="menu.icon" [alt]="menu.title">
+                <span class="link-icon">
+                    <img [src]="menu.icon" [alt]="menu.title">
+                </span>
                     <!-- </div>  -->
                     <!-- <div class="sidebar-anchor-tab-flex-text-container"> -->
+                <span class="">
                     {{ menu.title }}
+                </span>
                     <!-- </div> -->
                     <!-- <div class="sidebar-anchor-tab-flex-text-container ms-auto" *ngIf="menu.hasGroup">
                         <img class="sidebar-anchor-tab-flex-img" [src]="'/assets/images/dashboard/icon/arrow-right' + (isDarkTheme ? '.svg' : '-dark.svg')" [ngStyle]="{'transform': (activeUrl === menu.link ? 'rotate(90deg)' : 'none')}" alt="">

@@ -11,7 +11,6 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { SearchService } from 'src/app/shared/service/search/search.service';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
@@ -266,7 +265,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
     navigator.clipboard.writeText(email);
   }
 
-  /* Draw chart based on Filter - Start */
+  /* Get Subscribers based on Filter - Start */
   selectTimeframe(value: any) {
     this.selectedDayTerm = value;
     this.inSearch = false;
@@ -274,7 +273,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
     this.paginateConfig.currentPage = 1;
     this.customForm?.reset();
   }
-  /* Draw chart based on Filter - End */
+  /* Get Subscriber based on Filter - End */
 
   initForm(): void {
     this.customForm = new FormGroup({

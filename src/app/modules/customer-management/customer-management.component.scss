@@ -1,5 +1,106 @@
+.cursor-none{
+    cursor: none !important;
+}
+.cursor-not-allowed{
+    cursor: not-allowed !important;
+}
 
-// #button{
-//   border-radius:35%;
-//   height: 40px;
-// }
+::ng-deep mat-form-field {
+    display: block !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+}
+
+::ng-deep .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    // width: 100% !important;
+    height: 50px !important;
+    color: var(--font-color);
+    border: none;
+    margin-top: 6px;
+    font-family: var(--font-family-sf-pro-display);
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: none !important;
+}
+
+.mat-datepicker-toggle .mat-icon-button {
+    background-color: yellow;
+}
+
+.mat-calendar {
+    background-color: lightgreen;
+}
+
+.lang-dropdown {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 5px 0px !important;
+    padding-left: 0px !important;
+    color: var(--table-heading-text-color);
+    text-decoration: none;
+    .fa-angle-down {
+        color: rgba(99, 101, 239, 1);
+    }
+}
+
+
+.lang-dropdown-option {
+    box-shadow: var(--box-shadow-size-color);;
+    width: 370px;
+    border: none;
+    cursor: pointer;
+    border-radius: 13px;
+    transform: translate(-25px, 50px) !important;
+    background-color: var(--card-background-color) !important;
+    padding-left: 16px;
+    padding-right: 16px;
+    
+    .lang-dropdown-item {
+        color: var(--table-heading-text-color);
+        padding: 10px 15px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+    }
+    .dropdown-item {
+        &:hover {
+            background-color: var(--hover-bg-color) !important;
+        }
+    }
+    .lang-dropdown-item-active {
+        color: var(--table-heading-text-color);
+    }
+
+    .hover-bg {
+        background-color: var(--dropdown-hover-bg-color) !important;
+    }
+}
+
+
+::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected, ::ng-deep .mat-calendar-body-selected {
+    border-radius: 8px 0 0 8px !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-range-end .mat-calendar-body-selected {
+    border-radius: 0 8px 8px 0 !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range::before {
+    background-color: var(--calendar-range-date-bg-color) !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
+    color: var(--calendar-select-color) !important;
+}

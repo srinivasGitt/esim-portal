@@ -147,10 +147,14 @@
     --pagination-font-color: #FFFFFF;
     --modal-cross-icon-color: #667085;
     --active-link-background-color: rgba(99, 101, 239, 0.17);
-    --cancel-button-background-color: #FFFFFF;
     --info-button-bg-color: #428EFF;
     --upload-border: rgba(99, 101, 239, 0.3);
     --file-icon-border: #D1D1FB;
+    --dark-multi-color-border: rgba(218, 218, 218, 1);
+    --calendar-start-select-bg-color: rgba(99, 101, 239, 0.6);
+    --calendar-select-color: #6365EF;
+    --calendar-range-date-bg-color: rgba(99, 101, 239, 0.1);
+    --dropdown-hover-bg-color: var(--active-link-background-color);
 
     /* SWITCH */
     --dark-primary-background: #59D956;
@@ -167,6 +171,8 @@
     --table-text-color: rgba(0, 0, 0, 0.55);
     --show-entries-text-color: rgba(0, 0, 0, 0.5);
     --action-background-color: rgba(217, 217, 217, 0.47);
+    --widget-helper-text-color: #04103B;
+    --plan-info-text-color: #475467;
 
     /* MODAL TEXT COLORS */
     --modal-header-text-color: #000000;
@@ -178,10 +184,12 @@
     --horizontal-line-color: #EBEBEB;
     --email-hover-background-color: #F4F3F3;
     --cancel-button-background-color: #FFFFFF;
+    --pagination-button-background-color: #FFFFFF;
     --info-label-text-color: #475467;
     --info-details-text-color: #000000;
     --delete-button-bg-color: #D92D20;
-    
+    --subscription-modal-helper-text-color: #475467;
+
     /* SVG Color Change */
     .revenue-icon {
         circle {
@@ -301,10 +309,11 @@
     --pagination-font-color: #FFFFFF;
     --modal-cross-icon-color: #667085;
     --active-link-background-color: rgba(99, 101, 239, 0.17);
-    --cancel-button-background-color: #FFFFFF;
     --upload-border: rgba(183, 184, 253, 0.13);
     --file-icon-border: var(--upload-border);
     --info-button-bg-color: #FFFFFF;
+    --dark-multi-color-border: rgba(24, 24, 24, 1);
+    --dropdown-hover-bg-color: var(--main-background-color);
 
     /* SIZES */
     --sidebar-text-size: 0.875rem;
@@ -317,6 +326,8 @@
     --table-text-color: rgba(255, 255, 255, 0.55);
     --show-entries-text-color: rgba(255, 255, 255, 0.5);
     --action-background-color: #181B21;
+    --widget-helper-text-color: #C1C1C1;
+    --plan-info-text-color: #AAAEB6;
 
     /* MODAL TEXT COLORS */
     --modal-header-text-color: #FFFFFF;
@@ -328,8 +339,10 @@
     --horizontal-line-color: rgba(235, 235, 235, 0.08);
     --email-hover-background-color: #393737;
     --cancel-button-background-color: #1E1E1E;
+    --pagination-button-background-color: rgba(0,0,0,0.1);
     --info-label-text-color: #EAEAEA;
     --info-details-text-color: #FFFFFF;
+    --subscription-modal-helper-text-color: #FFFFFF;
 
     /* SWITCH */
     --dark-primary-background: #59D956;
@@ -378,6 +391,12 @@
         }
         .rect2 {
             stroke: #FF6D63;
+        }
+    }
+
+    .down-arrow {
+        path {
+            fill: #FFFFFF;
         }
     }
 

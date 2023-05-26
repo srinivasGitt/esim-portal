@@ -59,11 +59,11 @@
             }
         }
        
-        // &:not(.current):not(.pagination-previous):not(.pagination-next){
-        //     background-color: var(--card-background-color) !important;
-        //     color: var(--table-text-color) !important;
-        //     border: 1px solid rgba(99, 101, 239, 0.17) !important;
-        // }
+        &:not(.current):not(.pagination-previous):not(.pagination-next){
+            background-color: var(--pagination-button-background-color) !important;
+            // color: var(--table-text-color) !important;
+            border: 1px solid rgba(99, 101, 239, 0.17) !important;
+        }
 
         a:hover, button:hover{
             background: transparent;    
