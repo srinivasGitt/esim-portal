@@ -158,7 +158,7 @@
                 </div>
                 <div class="input-width imsi-input">
                     <label for="imsiType" class="form-label es-modal-form-label">IMSI Type*</label>
-                    <div class="d-flex relative">
+                    <div class="d-flex relative container-ng-select">
                         <ng-select
                             [items]="imsiTypeList"
                             [multiple]="false"
@@ -168,6 +168,9 @@
                             formControlName="imsiType"
                             class="full-width">
                         </ng-select>
+                        <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                     </div>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.imsiType.touched && f.imsiType.pristine) || (f.imsiType.errors && submitted)">
@@ -187,7 +190,7 @@
                             [items]="countriesAlias"
                             formControlName="supportedCountries"
                             bindLabel="name"
-                            bindValue="id"
+                            bindValue="name"
                             [multiple]="true"
                             placeholder="Search for countries / Multiple countries can be selected"
                             (change)="onCountryChange($event)">

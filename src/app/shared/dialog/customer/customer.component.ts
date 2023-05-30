@@ -16,7 +16,7 @@ export class CustomerComponent implements OnInit {
   customerForm: any;
   title: string = 'Add Customer';
   submitted = false;
-  
+  inProgress: boolean = false;
   
   constructor(private customerService: CustomerService,
     private viewContainer: ViewContainerRef,
@@ -86,7 +86,7 @@ export class CustomerComponent implements OnInit {
 
 
   update() {
-    
+    this.inProgress = true;
     const formData = {
       name: this.customerForm.get('name').value,
       smdp: this.customerForm.get('smdp').value,
@@ -95,18 +95,22 @@ export class CustomerComponent implements OnInit {
     this.customerService.updateCustomer(this.data._id, formData)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
+      this.inProgress = false;
     }, err => {
       this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
     })
   }
     
   createCustomer() {
-    
+    this.inProgress = true;
     this.customerService.createCustomer(this.customerForm.value)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
-      }, err => {
+      this.inProgress = false;
+    }, err => {
       this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
     })
   }
 

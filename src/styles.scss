@@ -155,7 +155,11 @@
     --calendar-select-color: #6365EF;
     --calendar-range-date-bg-color: rgba(99, 101, 239, 0.1);
     --dropdown-hover-bg-color: var(--active-link-background-color);
-
+    --widget-svg-color: #04103B;
+    --plan-status-hover-bg-color: #FFFFFF;
+    --active-status-text-color: #43BE83;
+    --inactive-status-text-color: #EC5837;
+    
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #797979;
@@ -314,6 +318,8 @@
     --info-button-bg-color: #FFFFFF;
     --dark-multi-color-border: rgba(24, 24, 24, 1);
     --dropdown-hover-bg-color: var(--main-background-color);
+    --widget-svg-color: #9A9BF6;
+    --plan-status-hover-bg-color: #FFFFFF;
 
     /* SIZES */
     --sidebar-text-size: 0.875rem;
@@ -400,6 +406,12 @@
         }
     }
 
+    .container-ng-select {
+        .default path {
+            stroke: #FFFFFF;
+        }
+    }
+
     .user-dashboard-table-container {
         color: var(--font-color);
     }
@@ -412,7 +424,9 @@
         // margin-bottom: 24px !important;
     }
 
-    
+    .es-select{
+        background-image: url(assets/icons/select-arrow-dark.svg) !important;
+    }
 
     .ng-tooltip{
         &-light {

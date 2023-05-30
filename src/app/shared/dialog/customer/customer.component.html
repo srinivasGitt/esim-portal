@@ -1,4 +1,4 @@
-<div class="es-modal add-edit-modal">
+<div class="es-modal add-edit-modal" *ngIf="!inProgress; else spinner">
     <!-- <div class="modal-header-flex">
         <div class="modal-header-text-container">
           <div class="mb-3" [class]="title === 'Add New Customer' ? 'add-customer-icon' : 'edit-customer-icon'">
@@ -102,3 +102,9 @@
   </div>
   <div class="es-modal-footer"></div>
 </div>
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->

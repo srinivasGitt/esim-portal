@@ -11,6 +11,7 @@ export class PlanInfoComponent implements OnInit {
   dialogRef: DialogComponent;
   planDetails: any;
   countryList!: Array<any>;
+  inProgress: boolean = false;
   
   constructor(
     private viewContainer: ViewContainerRef,
