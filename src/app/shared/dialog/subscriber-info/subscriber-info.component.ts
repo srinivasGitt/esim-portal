@@ -23,6 +23,7 @@ export class SubscriberInfoComponent implements OnInit {
   ]
 
   copyText: string = 'Copy'
+  inProgress: boolean = false;
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -41,6 +42,7 @@ export class SubscriberInfoComponent implements OnInit {
   }
 
   getSubscriberDetails(){
+    this.inProgress = true
     this.subscriberService.getSingleSubscriber(this.subscriberDetails?._id).subscribe(
       (result : any) => {
         if(result?._id){
@@ -48,8 +50,10 @@ export class SubscriberInfoComponent implements OnInit {
           this.subscriberDetails.planName = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].name : '';
           this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
         }
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
       })
   }
 

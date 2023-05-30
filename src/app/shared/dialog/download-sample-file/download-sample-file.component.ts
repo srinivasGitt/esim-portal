@@ -11,11 +11,11 @@ export class DownloadSampleFileComponent implements OnInit {
   dialogRef!: DialogComponent;
   data: any;
   title: string = 'Download Sample File';
-  description: string = 'Download CSV or Excel Sample file to see how your file should look like.';
+  description: string = 'Download CSV Sample file to see how your file should look like';
   submitted: boolean = false;
   files: any[] = [
                     {name: "sample.csv", path: "assets/sample-files/sample.csv"},
-                    {name: "sample.xlsx", path: "assets/sample-files/sample.xlsx"}
+                    // {name: "sample.xlsx", path: "assets/sample-files/sample.xlsx"}
                   ];
 
   constructor(private viewContainer: ViewContainerRef) { 
