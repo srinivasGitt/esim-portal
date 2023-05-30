@@ -16,7 +16,7 @@ export class UploadInventoryComponent implements OnInit {
   dialogRef!: DialogComponent;
   data: any;
   title: string = 'Upload Inventory';
-  description: string = 'Upload a CSV or an Excel file data for your inventory.';
+  description: string = 'Upload a CSV file data for your inventory.';
   uploadForm!: FormGroup;
   submitted: boolean = false;
   uploadedFile: File | null = null;

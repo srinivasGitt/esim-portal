@@ -31,7 +31,6 @@ export class PlanDialogComponent implements OnInit {
 
   constructor(
     private viewContainer: ViewContainerRef,
-    private regionService: RegionsService,
     private planService: PlansService,
     private alertService: AlertService,
     public datepipe: DatePipe) {
@@ -135,18 +134,18 @@ export class PlanDialogComponent implements OnInit {
 
     const obj = {
       name : plan.name,
-      data : `${plan.dataSize} ${plan.dataUnit}`,
+      data : `${parseInt(plan.dataSize)} ${plan.dataUnit}`,
       unlimited: plan.unlimited,
-      smsBundleIncludeQuantity : plan.smsPerDay,
-      voiceBundleIncludeQuantity: plan.voice,
-      cycle : plan.validity,
+      smsBundleIncludeQuantity : parseInt(plan.smsPerDay),
+      voiceBundleIncludeQuantity: parseInt(plan.voice),
+      cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
-      priceBundle : plan.priceBundle,
+      priceBundle : parseInt(plan.priceBundle),
       supportedCountries : this.selectedCountries,
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
       dateLatestAvailable : new Date(plan.dateLatestAvailable).getTime(),
       dateEarliestAvailable : new Date(plan.dateEarliestAvailable).getTime(),
-      imsiType: plan.imsiType
+      preferredImsiId: plan.imsiType
     }
 
     this.planService.createPlan(obj)

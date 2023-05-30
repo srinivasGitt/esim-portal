@@ -27,7 +27,7 @@
     </div>
 </div> -->
 
-<div class="es-modal info-modal">
+<div class="es-modal info-modal" *ngIf="!inProgress; else spinner">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
             <div class="mb-3 d-flex">
@@ -48,7 +48,7 @@
             </div>
             <div class="col-8 ml-2" [ngClass]="details.title == 'Activation Code' ? 'activation-code-scroll': ''">
                 <label class="subscriber-details-text" [ngClass]="details.title == 'Email Address' ? 'email-lable' : ''">
-                    {{ details.isDate ? ( subscriberDetails[details.key] | date : 'dd/MM/YYYY hh:mm') : subscriberDetails[details.key] }}
+                    {{ details.isDate ? ( subscriberDetails[details.key] | date : 'dd/MM/YYYY Thh:mm:ss') : subscriberDetails[details.key] }}
                     <span class="icon copy" *ngIf="details.key == 'email'" (click)="copyToClipboard($event,subscriberDetails['email'])" [tooltip]="copyText" placement="top" delay="100" offset="5">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -70,3 +70,9 @@
         </button>
     </div>
 </div>
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->
