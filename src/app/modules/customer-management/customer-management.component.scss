@@ -74,7 +74,7 @@
     }
     .dropdown-item {
         &:hover {
-            background-color: var(--hover-bg-color) !important;
+            background-color: var(--dropdown-hover-bg-color) !important;
         }
     }
     .lang-dropdown-item-active {

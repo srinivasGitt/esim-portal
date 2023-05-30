@@ -51,11 +51,33 @@
             </div>
             <div class="col-md-3 d-flex justify-content-evenly align-items-center">
                 <div class="term">Plan status</div>
-                <div>
-                    <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)">
-                        <ng-option value="active"> <span class="active">Active</span></ng-option>
-                        <ng-option value="inactive"> <span class="inactive">Inactive</span></ng-option>
-                    </ng-select>
+                <div class="container-ng-select">
+                    <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)" [ngClass]="[planStatus == 'active' ? 'active' : (planStatus == 'inactive' ? 'inactive': '')]">
+                        <ng-option value="active"> 
+                            <div class="d-flex justify-content-between w100">
+                                <div class="active">Active</div>
+                                <div>                                
+                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L5 5L1 1" stroke="#43BE83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </ng-option>
+                        <ng-option value="inactive"> 
+                            <div class="d-flex justify-content-between">
+                                <div class="inactive">Inactive</div>
+                                <div>                                
+                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L5 5L1 1" stroke="#EC5837" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </ng-option>
+
+                    </ng-select>        
+                    <svg *ngIf="!planStatus" class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
             </div>
             <div class="col-md-6 d-flex justify-content-end align-items-center">
