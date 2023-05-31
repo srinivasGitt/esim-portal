@@ -37,7 +37,9 @@ export class SidebarComponent implements OnInit {
     });
     usersService.getCurrentUser().subscribe(result => {
       this.userDetails = result;
-      this.fetchNavBarMenuList(this.userDetails?.roles)
+      if(this.userDetails?.roles) {
+        this.fetchNavBarMenuList(this.userDetails.roles)
+      }
     });
   }
  
@@ -48,7 +50,6 @@ export class SidebarComponent implements OnInit {
     }else{
       // this.getAllCustomer();
     }
-    
   }
 
   fetchNavBarMenuList(roles: Array<string>){
