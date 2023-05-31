@@ -63,8 +63,8 @@
                             <div class="filter-head" style="width: 100%">
                                 <mat-form-field appearance="outline">
                                     <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker" [max]="currentDate">
-                                        <input matStartDate formControlName="fromDate" placeholder="DD/MM/YYYY" #dateRangeStart>
-                                        <input matEndDate formControlName="toDate" placeholder="DD/MM/YYYY" #dateRangeEnd (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                                        <input matStartDate formControlName="fromDate" placeholder="DD/MM/YYYY" #dateRangeStart (click)="picker.open()">
+                                        <input matEndDate formControlName="toDate" placeholder="DD/MM/YYYY" #dateRangeEnd (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)" (click)="picker.open()">
                                     </mat-date-range-input>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-date-range-picker #picker></mat-date-range-picker>

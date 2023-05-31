@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { CustomerComponent } from 'src/app/shared/dialog/customer/customer.component';
 import { CustomerService } from 'src/app/shared/service/customer.service';
@@ -61,6 +61,8 @@ export class CustomerManagementComponent implements OnInit {
   constructor(private customerService: CustomerService,
               private dialogService: DialogService,
               private alertService: AlertService,
+              private renderer: Renderer2, 
+              private elementRef: ElementRef
               ){}
 
   ngOnInit(): void {
@@ -224,6 +226,11 @@ export class CustomerManagementComponent implements OnInit {
   dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     if(!this.customForm.valid) {
       return
+    }
+
+    const spanElement = this.elementRef.nativeElement.querySelector('.mat-date-range-input-separator');
+    if (spanElement) {
+      this.renderer.setProperty(spanElement, 'innerHTML', 'to');
     }
 
     this.startDate = dateRangeStart.value

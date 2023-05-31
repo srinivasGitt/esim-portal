@@ -74,15 +74,20 @@
                           [multiple]="true"
                           >
                 </ng-select> -->
-                <ng-select 
-                  appearance="outline" 
-                  placeholder="Select a Service Provider" 
-                  labelForId="smdp" 
-                  formControlName="smdp">
-                  <ng-option [value]="option.name" *ngFor="let option of Provider">
-                      <img src="{{option.image}}" width="20px" height="20px"/>&nbsp; {{ option.name }}
-                  </ng-option>
-                </ng-select>
+                <div class="container-ng-select">
+                  <ng-select 
+                    appearance="outline" 
+                    placeholder="Select a Service Provider" 
+                    labelForId="smdp" 
+                    formControlName="smdp">
+                    <ng-option [value]="option.name" *ngFor="let option of Provider">
+                        <img src="{{option.image}}" width="20px" height="20px"/>&nbsp; {{ option.name }}
+                    </ng-option>
+                  </ng-select>
+                  <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
               </div>
               <div>
                   <span class="help-block ng-invalid text-danger" *ngIf="(f.smdp.touched && f.smdp.pristine) || (f.smdp.errors && submitted)">
