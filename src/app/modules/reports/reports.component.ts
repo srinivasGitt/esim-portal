@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Chart, registerables } from 'chart.js'
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
@@ -45,7 +45,9 @@ export class ReportsComponent implements OnInit {
   inProgress: boolean = false;
   selectedDay: string = 'Current Year'
   constructor(private dashboardService: DashboardService,
-    private alertService: AlertService) {
+              private alertService: AlertService,
+              private renderer: Renderer2, 
+              private elementRef: ElementRef) {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
@@ -219,6 +221,12 @@ export class ReportsComponent implements OnInit {
     if(!this.customForm.valid) {
       return
     }
+
+    const spanElement = this.elementRef.nativeElement.querySelector('.mat-date-range-input-separator');
+    if (spanElement) {
+      this.renderer.setProperty(spanElement, 'innerHTML', 'to');
+    }
+
     this.startDate = dateRangeStart.value
     this.endDate = dateRangeEnd.value
     setTimeout( ()=>{

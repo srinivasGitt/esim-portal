@@ -602,6 +602,7 @@
             }
         }
     }
+
 }
 
 // User Management Table
@@ -2895,4 +2896,21 @@
 
 .w100 {
     width: 100% !important;
+}
+
+.mat-date-range-input-separator {
+    font-family: var(--font-family-sf-pro-display);
+    color: var(--table-heading-text-color);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 16px !important;
+}
+
+.mat-date-range-input-inner {
+    font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--calendar-value-text-color) !important;
 }
