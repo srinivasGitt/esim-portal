@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
-import { InviteSubscriberComponent } from 'src/app/shared/dialog/invite-subscriber/invite-subscriber.component';
 import { SubscriberMgmtComponent } from 'src/app/shared/dialog/subscriber-mgmt/subscriber-mgmt.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
@@ -65,7 +64,9 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
               private planService: PlansService,
               private route: ActivatedRoute,
               private alertService: AlertService,
-              private _searchService: SearchService) {
+              private _searchService: SearchService,
+              private renderer: Renderer2, 
+              private elementRef: ElementRef) {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
                     this.subscriberList = results?.data
@@ -83,6 +84,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
     this.getAllSubscriber();
+    
   }
 
   getAllRegions(): void {
@@ -287,6 +289,11 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     if(!this.customForm.valid) {
       return
+    }
+
+    const spanElement = this.elementRef.nativeElement.querySelector('.mat-date-range-input-separator');
+    if (spanElement) {
+      this.renderer.setProperty(spanElement, 'innerHTML', 'to');
     }
 
     this.startDate = dateRangeStart.value

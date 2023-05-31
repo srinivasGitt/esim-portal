@@ -10,7 +10,7 @@ export class PhoneNumberMaskPipe implements PipeTransform {
       return ''
     }
     
-    const maskedPhone = `${value.slice(0,3)}-${value.slice(3,7)}-${value.slice(7,10)}`
+    const maskedPhone = `${value.slice(0,3)}-${value.slice(3,6)}-${value.slice(6,10)}`
     return maskedPhone;
   }
 
