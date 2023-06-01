@@ -2876,7 +2876,7 @@
 
     .default {
         position: absolute;
-        top: 19px;
+        top: 17px;
         right: 28px;
     }
 }
@@ -2913,4 +2913,17 @@
     font-weight: 600;
     font-size: 1rem;
     color: var(--calendar-value-text-color) !important;
+}
+
+.lang-dropdown {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 5px 0px !important;
+    padding-left: 0px !important;
+    color: var(--table-heading-text-color);
+    text-decoration: none;
+    .fa-angle-down {
+        color: rgba(99, 101, 239, 1);
+    }
 }
