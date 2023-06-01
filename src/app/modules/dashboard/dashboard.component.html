@@ -29,13 +29,34 @@
                     <!-- <div class="mx-2 d-flex mt-2"><span class="sub-legend current-status"></span> Current week</div>
                     <div class="mx-2 d-flex mt-2"><span class="sub-legend previous-status"></span> Previous week</div> -->
                     <div class="ml-2"> 
-                        <div class="selector-filter"></div>
-                        <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" (change)="selectTimeframe($event)" [clearable]="false">
-                            <!-- <ng-option value="day">Current Day</ng-option> -->
-                            <ng-option value="week">Current Week</ng-option>
-                            <ng-option value="month">Current Month</ng-option>
-                            <ng-option value="year">Current Year</ng-option>
-                        </ng-select>
+                        <!-- <div class="container-ng-select">
+                            <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" (change)="selectTimeframe($event)" [clearable]="false">
+                                <ng-option value="week">Current Week</ng-option>
+                                <ng-option value="month">Current Month</ng-option>
+                                <ng-option value="year">Current Year</ng-option>
+                            </ng-select>
+                            <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div> -->
+                        <div class="filter-head d-flex py-1 px-4">
+                            <div class="dropdown d-flex">
+                                <div class="lang-dropdown sg-font-small-regular d-flex" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div id="filterText">{{selectedDay}}</div>
+                                    <div class="icon">
+                                        <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/icons/down-caret-white.svg" alt="">
+                                        <!-- <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 1L5 5L1 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg> -->
+                                    </div>
+                                </div>
+                                <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'">Current Week</a>
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'">Current Month</a>
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'">Current Year</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="dashboard-heading d-flex align-items-center mb-2">
