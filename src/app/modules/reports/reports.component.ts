@@ -1,16 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Chart, registerables } from 'chart.js'
-import { Observable, combineLatest } from 'rxjs';
 import { AlertService } from 'src/app/shared/service/alert.service';
-import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import * as moment from 'moment';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {FormGroup, FormControl} from '@angular/forms';
+
 Chart.register(...registerables)
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.scss']
+  styleUrls: ['./reports.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
 })
 export class ReportsComponent implements OnInit {
   totalProfiles: any;
@@ -29,7 +45,9 @@ export class ReportsComponent implements OnInit {
   inProgress: boolean = false;
   selectedDay: string = 'Current Year'
   constructor(private dashboardService: DashboardService,
-    private alertService: AlertService) {
+              private alertService: AlertService,
+              private renderer: Renderer2, 
+              private elementRef: ElementRef) {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
@@ -37,16 +55,21 @@ export class ReportsComponent implements OnInit {
         
       });
   }
+  customForm: any;
+
+  isCustomRange: boolean = false;
+  currentDate = new Date().toISOString().slice(0, 10);
 
   ngOnInit(): void {
       // this.drawChart();
-      this.getReports()
+      this.initForm()
+      this.getReports('year')
   }
 
   /* Get reports data - Start */
-  getReports(value?: any) {
+  getReports(value?: any, fromDate?: any, toDate?: any) {
     this.inProgress = true
-    this.dashboardService.getReports(value).subscribe((res: any) => {
+    this.dashboardService.getReports(value, fromDate, toDate).subscribe((res: any) => {
       if(res.result) {
         const labelData : any[] = []
         const revenueData : any[] = []
@@ -60,7 +83,7 @@ export class ReportsComponent implements OnInit {
           revenueData.push(x.revenue)
         })
         // this.generateChart(labelData, revenueData, res)
-        this.drawChart(labelData, revenueData)
+        this.drawChart(labelData, revenueData, value)
         this.inProgress = false
       }
     }, err => {
@@ -71,12 +94,28 @@ export class ReportsComponent implements OnInit {
   /* Get reports data - End */
 
   /* Draw Chart based on API data - Start */
-  drawChart(label: any, revenue: any) {
+  drawChart(label: any, revenue: any, timeFrameValue: string) {
     this.label = [];
     this.data = [];
+    let formatValue: string;
+
+    switch(timeFrameValue) {
+      case 'week':
+        formatValue = 'ddd'
+        break;
+      case 'year':
+        formatValue = 'MMM'
+        break;
+      case 'custom':
+        formatValue = 'DD MMM'
+        break;
+      default:
+        formatValue = 'MMM'
+    }
+  
     for (let i = 0; i < label.length; i++) {
-      // let currentDate = (new Date(label[i]));
-      this.label.push(label[i]);
+      let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+      this.label.push(formattedLabelValue);
       this.data.push(revenue[i]);
     }
 
@@ -87,7 +126,7 @@ export class ReportsComponent implements OnInit {
         labels: this.label,
         datasets: [
         {
-          label: 'Current Year',
+          label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
           data: this.data,
           fill: true,
           backgroundColor: [
@@ -97,8 +136,9 @@ export class ReportsComponent implements OnInit {
             '#6365EF'
           ],
           borderWidth: 1,
-          pointRadius: 0,
-          tension: 0.1
+          pointRadius: 3,
+          pointStyle: 'circle',
+          tension: 0.3
         }],
 
       },
@@ -117,8 +157,9 @@ export class ReportsComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold'
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
           },
@@ -133,8 +174,9 @@ export class ReportsComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold',
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
             title: {
@@ -162,6 +204,34 @@ export class ReportsComponent implements OnInit {
   /* Draw chart based on Filter - Start */
   selectTimeframe(value: any) {
     this.getReports(value)
+    this.customForm?.reset();
   }
   /* Draw chart based on Filter - End */
+
+  initForm(): void {
+    this.customForm = new FormGroup({
+      fromDate: new FormControl<Date | null>(null),
+      toDate: new FormControl<Date | null>(null),
+    });
+  }
+
+  get f() { return this.customForm.controls; }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if(!this.customForm.valid) {
+      return
+    }
+
+    const spanElement = this.elementRef.nativeElement.querySelector('.mat-date-range-input-separator');
+    if (spanElement) {
+      this.renderer.setProperty(spanElement, 'innerHTML', 'to');
+    }
+
+    this.startDate = dateRangeStart.value
+    this.endDate = dateRangeEnd.value
+    setTimeout( ()=>{
+      this.getReports('custom', this.startDate, this.endDate)
+      }, 1000)
+  }
+
 }

@@ -6,6 +6,8 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import * as moment from 'moment';
+
 Chart.register(...registerables)
 
 @Component({
@@ -45,7 +47,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
       // this.drawChart();
-      this.getReports()
+      this.getReports('year')
       this.getDashboardCounts();
   }
 /*
@@ -178,7 +180,7 @@ export class DashboardComponent implements OnInit {
           revenueData.push(x.revenue)
         })
         // this.generateChart(labelData, revenueData, res)
-        this.drawChart(labelData, revenueData)
+        this.drawChart(labelData, revenueData, value)
         this.inProgress = false
       }
     }, err => {
@@ -189,12 +191,25 @@ export class DashboardComponent implements OnInit {
   /* Get reports data - End */
 
   /* Draw Chart based on API data - Start */
-  drawChart(label: any, revenue: any) {
+  drawChart(label: any, revenue: any, timeFrameValue: string) {
     this.label = [];
     this.data = [];
+    let formatValue: string;
+
+    switch(timeFrameValue) {
+      case 'week':
+        formatValue = 'ddd'
+        break;
+      case 'year':
+        formatValue = 'MMM'
+        break;
+      default:
+        formatValue = 'MMM'
+    }
+  
     for (let i = 0; i < label.length; i++) {
-      // let currentDate = (new Date(label[i]));
-      this.label.push(label[i]);
+      let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+      this.label.push(formattedLabelValue);
       this.data.push(revenue[i]);
     }
 
@@ -205,7 +220,7 @@ export class DashboardComponent implements OnInit {
         labels: this.label,
         datasets: [
         {
-          label: 'Current Year',
+          label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
           data: this.data,
           fill: true,
           backgroundColor: [
@@ -215,17 +230,19 @@ export class DashboardComponent implements OnInit {
             '#6365EF'
           ],
           borderWidth: 1,
-          pointRadius: 0,
-          tension: 0.1
+          pointRadius: 3,
+          pointStyle: 'circle',
+          tension: 0.3
         }],
 
       },
       options: {
         layout:{
-          padding: 20
+          padding: 8
         },
         scales: {
           x: {
+            beginAtZero: true,
             grid: {
               borderColor: '#00000014',
               display:false,
@@ -235,8 +252,9 @@ export class DashboardComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold'
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
           },
@@ -251,13 +269,14 @@ export class DashboardComponent implements OnInit {
             ticks:{
               color: '#6365ef',
               font: {
-                size : 16,
-                weight: 'bold',
+                weight: '400',
+                size: 17.3639,
+                family: 'SF Pro Display'
               }
             },
             title: {
               display: true,
-              text: 'Revenue in $',
+              // text: 'Revenue in $',
               color: '#6365ef'
             }
           }

@@ -7,7 +7,6 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
 import { SearchService } from 'src/app/shared/service/search/search.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-subscription',
@@ -31,6 +30,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   inProgress: boolean = false;
   inSearch : boolean = false;
+  copyText: string = 'Copy'
 
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
@@ -104,7 +104,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   deleteSubscription( subscriber : any) {
     let data = {
-      title: `Delete Subscription  "${subscriber.subscriptionNumber}"?`,
+      title: `Delete Subscription  "${subscriber?._id}"?`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
@@ -174,6 +174,17 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    
+    navigator.clipboard.writeText(email);
+  }
+    
   ngOnDestroy(): void {
     this.inSearch = false
     this._searchService.searchedTerm = ''

@@ -12,7 +12,7 @@
     </div> -->
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <div class="mb-3 subscription-info-icon d-flex">
+            <div class="mb-3 d-flex">
                 <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon">
             </div>  
         </div>
@@ -20,13 +20,13 @@
             <a class="es-btn-close" (click)="close()"></a>
         </div>
     </div>
-    <div>
+    <!-- <div>
         <p class="modal-header-text mb-2">Plan Name - {{ planDetails.name }}</p>
-    </div>
+    </div> -->
     <div>
-        <p class="modal-header-text mb-0">Unlimited Premium - {{ planDetails.priceBundle | currency: 'USD' }}</p>
+        <p class="modal-header-text mb-0">{{ planDetails.name }} - {{ planDetails.priceBundle | currency: 'USD' }}</p>
     </div>
-    <div class="es-modal-body">
+    <div class="es-modal-body mb-5">
         <!-- <div class="row">
             <div class="col-4">
                 <label class="label-text">Data</label>
@@ -43,11 +43,11 @@
         </div> -->
         <div class="row mt-4">
             <div class="col-4">
-                <label class="label-text">Total Data</label>
+                <label class="modal-label-text">Total Data</label>
                 <div class="modal-details-text">{{ planDetails.data }}</div>
             </div>
             <div class="col-4">
-                <label class="label-text">Countries</label>
+                <label class="modal-label-text">Countries</label>
                 <div class="modal-details-text" *ngIf="countryList && countryList.length > 0">
                     <span>{{ countryList[0].name | titlecase }}</span>
                     <span *ngIf="countryList.length > 1">, </span>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <label class="label-text">Validity</label>
+                <label class="modal-label-text">Validity</label>
                 <div class="modal-details-text">{{ planDetails.validity }} Days</div>
             </div>
         </div>

@@ -47,31 +47,52 @@
         }
         &.pagination-previous,
         &.pagination-next {
-        a,
-        span {
-            width: 100%;
-            height: 100%;
-            border-radius: 35%;
-            overflow: hidden;
-            color: transparent;
-            // display: none;
+            a,
+            span {
+                width: 100%;
+                height: 100%;
+                border-radius: 35%;
+                overflow: hidden;
+                color: transparent;
+                // display: none;
+                color: var(--table-text-color) !important;
+            }
         }
-        }
-        &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{
-            background: var(--add-button-bg-color) !important;
-        }
-        a:hover, button:hover{
-            background: transparent;    
-        }
+       
         &:not(.current):not(.pagination-previous):not(.pagination-next){
-            background-color: var(--dark-background);
-            color: var(--font-color);
+            background-color: var(--pagination-button-background-color) !important;
+            // color: var(--table-text-color) !important;
             border: 1px solid rgba(99, 101, 239, 0.17) !important;
         }
+
+        a:hover, button:hover{
+            background: transparent;    
+            color: var(--pagination-font-color) !important;
+        }
+        // &.current, &:not(.current):not(.pagination-previous):not(.pagination-next):hover{
+        //     background: var(--add-button-bg-color) !important;
+        //     color: var(--pagination-font-color) !important;
+        // }
+       
     }
 }
 
 .ngx-pagination .pagination-previous.disabled:before, .ngx-pagination .pagination-next.disabled:after {
     opacity: 0.4;
 }
-  
+
+
+.ngx-pagination a, .ngx-pagination button {
+    color: var(--table-text-color) !important;
+    text-decoration: none !important;
+}
+
+.ngx-pagination li:not(.current):not(.pagination-previous):not(.pagination-next){
+    border: 1px solid rgba(99, 101, 239, 0.17) !important;
+    color: var(--pagination-font-color) !important;
+}
+
+.ngx-pagination li.current, .ngx-pagination li:not(.current):not(.pagination-previous):not(.pagination-next):hover{
+    background: var(--add-button-bg-color) !important;
+    color: var(--pagination-font-color) !important;
+}

@@ -24,7 +24,7 @@ export class LocalStorageService {
   }
 
   setTheme(isDarkTheme: boolean) {
-    localStorage.setItem('screenMode', isDarkTheme ? 'light' : 'dark');
+    localStorage.setItem('screenMode', isDarkTheme ? 'dark' : 'light');
   }
 
 }

@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
-import { InviteSubscriberComponent } from 'src/app/shared/dialog/invite-subscriber/invite-subscriber.component';
 import { SubscriberMgmtComponent } from 'src/app/shared/dialog/subscriber-mgmt/subscriber-mgmt.component';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
@@ -11,11 +10,27 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { SearchService } from 'src/app/shared/service/search/search.service';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-subscribe-management',
   templateUrl: './subscribe-management.component.html',
-  styleUrls: ['./subscribe-management.component.scss']
+  styleUrls: ['./subscribe-management.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ]
 })
 export class SubscribeManagementComponent implements OnInit, OnDestroy {
   subscriberList:any;
@@ -34,6 +49,14 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   };
   inProgress: boolean = false;
   inSearch : boolean = false;
+  copyText: string = 'Copy'
+  customForm: any;
+  selectedDay: string = 'Current Year'
+  selectedDayTerm: string = '';
+  isCustomRange: boolean = false;
+  startDate!: string;
+  endDate!: string;
+  currentDate = new Date().toISOString().slice(0, 10);
 
   constructor( private dialogService: DialogService,
               private subscriberService: subscriberService,
@@ -41,19 +64,27 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
               private planService: PlansService,
               private route: ActivatedRoute,
               private alertService: AlertService,
-              private _searchService: SearchService) {
+              private _searchService: SearchService,
+              private renderer: Renderer2, 
+              private elementRef: ElementRef) {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
                     this.subscriberList = results?.data
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
                     this.paginateConfig.currentPage = 1;
                     this.inSearch = true;
+                    this.isCustomRange = false;
+                    this.selectedDayTerm = 'year';
+                    this.selectedDay = 'Current Year';
+                    this.customForm?.reset();
                   }
                 }) 
               }
 
   ngOnInit(): void {
+    this.initForm();
     this.getAllSubscriber();
+    
   }
 
   getAllRegions(): void {
@@ -149,9 +180,9 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
       const vm = this;
       if (data) {
         vm.subscriberService.deleteSubscriber(subscriber._id)
-        .subscribe(res => {
+        .subscribe((res: any) => {
           this.subscriberList = this.subscriberList.filter((s : any) => s._id != subscriber._id);
-          this.alertService.success('Subscriber Deleted');
+          this.alertService.success(res.message);
           this.paginateConfig.currentPage = 1;
           this.getAllSubscriber();
         }, err => {
@@ -196,12 +227,19 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this.isCustomRange = false;
+      this.selectedDayTerm = 'year'
+      this.selectedDay = 'Current Year'
       this._searchService.getSearchResult('/subscribers', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
         this.subscriberList = result.data;
         this.paginateConfig.totalItems = result?.count[0]?.totalCount;
         this.inProgress = false;
       })
     } 
+    /* Pagination based on Filter */
+    else if(this.selectedDayTerm) {
+      this.getSubscribers(this.selectedDayTerm, this.startDate, this.endDate)
+    }
     /* Pagination based on all data */
     else {
       this.subscriberService.getAllSubscriber(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
@@ -217,6 +255,75 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    
+    navigator.clipboard.writeText(email);
+  }
+
+  /* Get Subscribers based on Filter - Start */
+  selectTimeframe(value: any) {
+    this.selectedDayTerm = value;
+    this.inSearch = false;
+    this.getSubscribers(this.selectedDayTerm);
+    this.paginateConfig.currentPage = 1;
+    this.customForm?.reset();
+  }
+  /* Get Subscriber based on Filter - End */
+
+  initForm(): void {
+    this.customForm = new FormGroup({
+      fromDate: new FormControl<Date | null>(null),
+      toDate: new FormControl<Date | null>(null),
+    });
+  }
+
+  get f() { return this.customForm.controls; }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if(!this.customForm.valid) {
+      return
+    }
+
+    const spanElement = this.elementRef.nativeElement.querySelector('.mat-date-range-input-separator');
+    if (spanElement) {
+      this.renderer.setProperty(spanElement, 'innerHTML', 'to');
+    }
+
+    this.startDate = dateRangeStart.value
+    this.endDate = dateRangeEnd.value
+    this.selectedDayTerm = 'custom'
+    this.inProgress = true;
+    this.inSearch = false;
+    setTimeout( ()=>{
+      this.getSubscribers(this.selectedDayTerm, this.startDate, this.endDate)
+    }, 1000)
+    
+    this.paginateConfig.currentPage = 1;
+
+  }
+
+  /* Get filtered data - Start */
+  getSubscribers(value?: any, fromDate?: any, toDate?: any) {
+    this.inProgress = true;
+    this.subscriberService.getFilteredSubscribersList(value, fromDate, toDate,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((res: any) => {
+      if(res) {
+        this.subscriberList = res.data;
+        this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+        this.inProgress = false
+      }
+    }, err => {
+      this.alertService.error(err.error.message);
+      this.inProgress = false;
+    })
+  }
+  /* Get filtered data - End */
 
   ngOnDestroy(): void {
     this.inSearch = false

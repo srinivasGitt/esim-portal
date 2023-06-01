@@ -64,8 +64,11 @@ export class CustomerService {
       return this.http.get(`${this.serverUrl}/customers`);    
     }
 
-    customers(){
-        return this.http.get(`${this.serverUrl}/customers`);
+    customers(itemsPerPage?: number, currentPage?: number) {
+      if(itemsPerPage && currentPage) {
+        return this.http.get(`${this.serverUrl}/customers?dateRange=year&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+      }
+      return this.http.get(`${this.serverUrl}/customers?dateRange=year`);
     }
 
     getSingleCustomer(customerId:any){
@@ -86,5 +89,19 @@ export class CustomerService {
 
     deleteCustomer(id: any) {
       return this.http.delete(`${this.serverUrl}/customers/${id}`);
+    }
+
+    getFilteredCustomersList(dateRangeValue?: string, fromDate?: any, toDate?: any, itemsPerPage?: number, currentPage?: number ) {
+      if(dateRangeValue) {
+        if(fromDate && toDate) {
+          return this.http.get(`${this.serverUrl}/customers?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`)
+        }
+        else {
+          return this.http.get(`${this.serverUrl}/customers?dateRange=${dateRangeValue}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`)
+        }
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/customers?dateRange=all`)
+      }
     }
 } 

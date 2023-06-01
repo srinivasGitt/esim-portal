@@ -6,6 +6,7 @@ import { RegionsService } from '../../service/regions.service';
 import { AlertService } from '../../service/alert.service';
 import * as Country from 'world-countries';
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -25,10 +26,11 @@ export class PlanDialogComponent implements OnInit {
   dataDropdown: string[] = ['MB', 'GB', 'TB']
   validityDropdown: string[] = ['days', 'months', 'year']
   countriesAlias: any[] = []
+  imsiTypeList: any[] = [];
+  selectedCountries: any[] = [];
 
   constructor(
     private viewContainer: ViewContainerRef,
-    private regionService: RegionsService,
     private planService: PlansService,
     private alertService: AlertService,
     public datepipe: DatePipe) {
@@ -51,6 +53,13 @@ export class PlanDialogComponent implements OnInit {
       this.countriesAlias.push({name: country.name.common, flag: country.flag, cca3: country.cca3})
       this.inProgress = false
     })
+    
+    this.planService.getIMSITypeList().subscribe((res: any) => { 
+      if(res.code == 200){
+        this.imsiTypeList = res.data
+        this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
+      }
+    });
     
   }
   
@@ -82,6 +91,7 @@ export class PlanDialogComponent implements OnInit {
       voice: new UntypedFormControl(0, [Validators.required]),
       supportedCountries: new UntypedFormControl('', [Validators.required]),
       priceBundle: new UntypedFormControl(0, [Validators.required]),
+      imsiType: new UntypedFormControl(null, [Validators.required]),
       dateEarliestActivation: new UntypedFormControl('', [Validators.required]),
       dateLatestAvailable: new UntypedFormControl('', [Validators.required]),
       dateEarliestAvailable: new UntypedFormControl('', [Validators.required])
@@ -108,9 +118,15 @@ export class PlanDialogComponent implements OnInit {
     this.createPlan();
   }
 
+
+  /* Select Supported Countries */
+  onCountryChange($event: any) {
+    this.selectedCountries = $event
+  }
+
   /* create a new plan */
   createPlan() {
-
+    this.inProgress = true;
     const plan = this.planForm.value
     if(plan.unlimited) {
       plan.voice = 0
@@ -118,24 +134,27 @@ export class PlanDialogComponent implements OnInit {
 
     const obj = {
       name : plan.name,
-      data : `${plan.dataSize} ${plan.dataUnit}`,
+      data : `${parseInt(plan.dataSize)} ${plan.dataUnit}`,
       unlimited: plan.unlimited,
-      smsBundleIncludeQuantity : plan.smsPerDay,
-      voiceBundleIncludeQuantity: plan.voice,
-      cycle : plan.validity,
+      smsBundleIncludeQuantity : parseInt(plan.smsPerDay),
+      voiceBundleIncludeQuantity: parseInt(plan.voice),
+      cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
-      priceBundle : plan.priceBundle,
-      supportedCountries : plan.supportedCountries,
+      priceBundle : parseInt(plan.priceBundle),
+      supportedCountries : this.selectedCountries,
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
       dateLatestAvailable : new Date(plan.dateLatestAvailable).getTime(),
       dateEarliestAvailable : new Date(plan.dateEarliestAvailable).getTime(),
+      preferredImsiId: plan.imsiType
     }
 
     this.planService.createPlan(obj)
     .subscribe( (res: any) => {
       this.dialogRef.close.emit(res);
+      this.inProgress = true;
     }, err => {
       this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
     })
   }
 
@@ -167,6 +186,19 @@ export class PlanDialogComponent implements OnInit {
       }
       
     }
+  }
+
+  displayContryList(countries: any){
+    return countries.map((country: any) => country.name).slice(2).join(', ');
+  }
+
+  /* Restrict user to enter alphabets in mobile field */
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 
 }

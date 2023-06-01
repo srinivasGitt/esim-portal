@@ -76,4 +76,8 @@ export class PlansService {
   deletePlan(id: any) {
     return this.http.delete(`${this.serverUrl}/plans/${id}`);
   }
+
+  getIMSITypeList() {
+    return this.http.get(`${this.serverUrl}/inventory/getUniqueIMSI`);
+  }
 }

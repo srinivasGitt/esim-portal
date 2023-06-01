@@ -16,7 +16,7 @@ export class UploadInventoryComponent implements OnInit {
   dialogRef!: DialogComponent;
   data: any;
   title: string = 'Upload Inventory';
-  description: string = 'Upload a CSV or an Excel file data for your inventory.';
+  description: string = 'Upload a CSV file data for your inventory.';
   uploadForm!: FormGroup;
   submitted: boolean = false;
   uploadedFile: File | null = null;
@@ -39,7 +39,7 @@ export class UploadInventoryComponent implements OnInit {
 
   private _initForm() {
     this.uploadForm = new FormGroup({
-      file: new FormControl('', [Validators.required])
+      file: new FormControl('')
     });
   }
 
@@ -71,6 +71,7 @@ export class UploadInventoryComponent implements OnInit {
           break;
         case HttpEventType.Response:
           this.dialogRef.close.emit(event);
+          this.uploadForm?.reset()
       }
       }, err => {
         

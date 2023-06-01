@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="!inProgress; else spinner">
+    <div class="row">
         <div class="col-3">
             <div class="multi-color-border">
                 <label class="section-head-text">Type of Report</label>
@@ -18,23 +18,52 @@
                             <span id="languageTootltip">{{selectedDay}}
                             </span>
                             <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
-                            <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt="">
+                            <!-- <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt=""> -->
+                            <span class="ms-auto">
+                                <svg class="down-arrow" width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z" fill="#1C1C1C"/>
+                                </svg>
+                            </span>
                         </a>
     
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'">Current Week</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'">Current Month</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Week'}" (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Month'}" (click)="selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange= false">Current Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Year'}" (click)="selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange= false">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Custom Range'}" (click)="selectedDay = 'Custom Range'; isCustomRange= true;">Custom Range</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <ng-container *ngIf="isCustomRange">
+            <div class="col-9">
+                    <div class="col-4">
+                        <div class="multi-color-border">
+                            <label class="section-head-text">From Date - To Date</label>
+                        </div>
+            
+                        <div class="dashboard-head-flex">
+                            <div class="filter-head" style="width: 100%">
+                                <mat-form-field appearance="outline">
+                                    <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [max]="currentDate">
+                                        <input matStartDate formControlName="fromDate" placeholder="DD/MM/YYYY" #dateRangeStart>
+                                        <input matEndDate formControlName="toDate" placeholder="DD/MM/YYYY" #dateRangeEnd (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>  
+            </div>
+        </ng-container>
     </div>
 
-    <div class="row" *ngIf="data.length > 0;">
+    <div class="row">
         <div class="col-12 d-flex info-head-section">
-            <label class="mt-auto mx-2"> Showing Reports for the {{ selectedDay }} </label>
+            <label class="mt-auto mx-2 show-report-helper"> Showing Reports for the {{ selectedDay }} </label>
         </div>
     </div>
 
@@ -42,15 +71,7 @@
         <div class="col-8 pt-4">
             <div class="dashboard-graph">
                 <div class="dashboard-heading d-flex align-items-center mb-2">
-                    <h4>Revenue Trend Graph</h4>
-                    <div class="ms-auto d-flex align-items-center">
-                        <span>
-                            <svg class="icon revenue-icon" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="5.5" cy="6" r="5.5" fill="white"/>
-                            </svg>
-                        </span>&nbsp;&nbsp;
-                        <span class="ml-2">Revenue</span>
-                    </div>
+                    <h6 class="revenue-text">Revenue in $</h6>
                 </div>
                 <canvas id="revenueChart"></canvas>
             </div>
@@ -66,7 +87,7 @@
     <!-- Not data - Start -->
     <ng-template #msg>
         <div class="pb-2 no-data">
-            No recods found.
+            No records found.
         </div>
     </ng-template>
     <!-- Not data - End -->

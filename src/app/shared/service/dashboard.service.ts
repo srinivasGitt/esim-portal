@@ -177,9 +177,14 @@ export class DashboardService {
     ];
   }
 
-  getReports(dateRangeValue?: string) {
+  getReports(dateRangeValue?: string, fromDate?: any, toDate?: any) {
     if(dateRangeValue) {
-      return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=${dateRangeValue}`)
+      if(fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=${dateRangeValue}`)
+      }
     }
     else {
       return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=year`)

@@ -2,7 +2,7 @@
     
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
-            <div class="mb-3" class="add-customer-icon">
+            <div class="mb-3">
                 <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
                     <mask id="mask0_2207_15812" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="16" width="24" height="24">
@@ -43,7 +43,7 @@
                         </svg>                        
                 </div>
                 <div class="section-head-text mb-0">
-                    Drag CSV or Excel here
+                    Drag CSV here
                 </div>
                 <div>
                     <input type="file" class="form-control es-input" id="file" aria-describedby="file" formControlName="file" (change)="onFileUpload($event)" accept=".csv">
@@ -52,13 +52,13 @@
                         or, click to browse
                     </label>
                 </div>
-                <div>
+                <!-- <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="uploadForm.controls['file'].errors && submitted">
                         <span class="small" *ngIf="uploadForm.controls['file'].errors['required']">
                             File is required!
                         </span>
                     </span>
-                </div>
+                </div> -->
             </div>
             
             <div class="file-upload-body mt-2" *ngIf="uploadedFile">
@@ -94,7 +94,7 @@
             </div>
             <div class="d-flex pt-4">
                 <button type="button" class="btn btn-secondary w-20 mr-30" (click)="close()">Cancel</button>
-                <button type="submit" class="btn btn-primary ms-auto w-20">
+                <button type="submit" class="btn btn-primary ms-auto w-20" [disabled]="!uploadedFile">
                     Upload
                 </button>
             </div>

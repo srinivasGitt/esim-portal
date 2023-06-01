@@ -2,7 +2,7 @@
 <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
     <div class="sidebar-brand-parent">
         <a class="sidebar-brand" routerLink="/">
-            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '.svg' : '-dark.svg')" alt="">
+            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
         </a>
     </div>
     <!-- <a [routerLink]="[menu.link]" class="sidebar-anchor-tab" [ngClass]="{'active': activeUrl === menu.link}" *ngFor="let menu of sidebarMenuList" [class.disable-link]="menu.isDisabled">
@@ -21,10 +21,14 @@
     <ul class="sidebar-menu-list">
         <li *ngFor="let menu of sidebarMenuList">
             <a class="nav-link" [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
-                <img [src]="menu.icon" [alt]="menu.title">
+                <span class="link-icon">
+                    <img [src]="menu.icon" [alt]="menu.title">
+                </span>
                     <!-- </div>  -->
                     <!-- <div class="sidebar-anchor-tab-flex-text-container"> -->
+                <span class="">
                     {{ menu.title }}
+                </span>
                     <!-- </div> -->
                     <!-- <div class="sidebar-anchor-tab-flex-text-container ms-auto" *ngIf="menu.hasGroup">
                         <img class="sidebar-anchor-tab-flex-img" [src]="'/assets/images/dashboard/icon/arrow-right' + (isDarkTheme ? '.svg' : '-dark.svg')" [ngStyle]="{'transform': (activeUrl === menu.link ? 'rotate(90deg)' : 'none')}" alt="">
@@ -35,7 +39,7 @@
     </ul>
 
     <div class="d-flex align-items-center meta-footer">
-        <span>Powered by &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
+        <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
         </span>
     </div>
 </div>

@@ -21,6 +21,10 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
     { title : 'MSISDN', key : 'msisdn', customClass: '' },
   ]
+
+  copyText: string = 'Copy'
+  inProgress: boolean = false;
+
   constructor(
     private viewContainer: ViewContainerRef,
     private subscriberService: subscriberService,
@@ -38,6 +42,7 @@ export class SubscriberInfoComponent implements OnInit {
   }
 
   getSubscriberDetails(){
+    this.inProgress = true
     this.subscriberService.getSingleSubscriber(this.subscriberDetails?._id).subscribe(
       (result : any) => {
         if(result?._id){
@@ -45,12 +50,24 @@ export class SubscriberInfoComponent implements OnInit {
           this.subscriberDetails.planName = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].name : '';
           this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
         }
+        this.inProgress = false;
       }, err => {
         this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
       })
   }
 
   close(): void {
     this.dialogRef.close.emit();
+  }
+
+  // Copy user email
+  copyToClipboard(event: MouseEvent, email: string | undefined) {
+    event.preventDefault();
+
+    if(!email) {
+      return;
+    }
+    navigator.clipboard.writeText(email);
   }
 }

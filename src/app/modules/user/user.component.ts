@@ -34,6 +34,7 @@ export class UserComponent implements OnInit {
   userDetails: any;
   customerId: any;
   inProgress: boolean = false;
+  copyText: string = 'Copy'
 
   constructor(private dialogService: DialogService,
               private usersService: UsersService,
@@ -63,6 +64,7 @@ export class UserComponent implements OnInit {
     this.currentYear = date.getFullYear();
     this.currentMonth = date.getMonth();
     this.filterConfig.filterBy.value = this.selectedFilter;
+    
   }
 
   getAllRegions(): void {

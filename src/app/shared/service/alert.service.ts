@@ -26,8 +26,8 @@ export class AlertService {
         });
   }
 
-  success(message: string){
-    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Success', body: message} })
+  success(message: string, type?: string){
+    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: 'Successful!', body: message, type: type} })
           .instance.close.subscribe((data: any) => {
         
         });

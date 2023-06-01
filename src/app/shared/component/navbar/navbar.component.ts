@@ -42,11 +42,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         } else {
           this.showSearch = true;
         }
-        this.searchform.reset()
+        this.searchform?.reset()
       }
     })
     usersService.getCurrentUser().subscribe(result => {
       this.userDetails = result;
+      console.log(this.userDetails)
     });
   }
 
@@ -98,7 +99,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.isDarkTheme = !this.isDarkTheme;
     this.dashboardService.setAppTheme(this.isDarkTheme);
     this._localStorage.setTheme(this.isDarkTheme)
-    $('#body').toggleClass('lightMode');
+    $('#body').toggleClass('darkMode');
   }
 
   getAllCustomer() {

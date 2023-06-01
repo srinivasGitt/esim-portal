@@ -1,12 +1,13 @@
 .drag-file-area {
     box-sizing: border-box;
-    height: 180px;
+    height: 174px;
     text-align: center;
     border: 2px dashed rgba(99, 101, 239, 0.37);
     border-radius: 10px;
     padding: 20px;
     margin-top: 24px;
     margin-bottom: 16px;
+    display: grid;
 
     div:nth-child(2) {
         margin-bottom: 16px;
@@ -17,7 +18,7 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 20px;
-    color: #929292;
+    color: var(--modal-sub-header-text-color);
 }
 
 .percent {
@@ -44,8 +45,12 @@
 }
 
 .section-head-text{
-    color: var(--section-head-text-color);
+    color: #6365EF;
+    font-family: var(--font-family-sf-pro-display);
+    font-style: normal;
     font-weight: 500;
+    font-size: 1rem;
+    line-height: 20px;
 }
 
 input[type="file"] {
@@ -53,8 +58,24 @@ input[type="file"] {
 }
 
 .file-label {
+    font-family: var(--font-family-sf-pro-display);
     font-style: normal;
     font-weight: 500;
     font-size: 0.75rem;
-    color: #929292;
+    line-height: 20px;
+    color: var(--modal-sub-header-text-color);
+}
+
+button {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 24px;
+}
+
+.not-allowed {
+    opacity: 0.8;
+    // pointer-events: none;
+    cursor: not-allowed;
 }
