@@ -31,7 +31,9 @@ export class DashboardComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-
+  selectedDay: string = 'Current Year'
+  selectedDayTerm: string = '';
+  
   constructor(private router: Router,
     private dashboardService: DashboardService,
     private customerService: CustomerService,
