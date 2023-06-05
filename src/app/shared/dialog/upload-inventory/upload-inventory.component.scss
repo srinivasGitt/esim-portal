@@ -42,6 +42,10 @@
 .drag-hover {
     background: var(--add-button-bg-color);
     border-color: var(--add-button-bg-color);
+
+    .section-head-text{ 
+        color: #FFFFFF !important;
+    }
 }
 
 .section-head-text{
