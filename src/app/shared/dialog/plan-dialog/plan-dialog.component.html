@@ -78,6 +78,26 @@
                     </div>    
                 </div>
                 <div class="input-width">
+                    <label for="voice" class="form-label es-modal-form-label">Validity*</label>
+                    <div class="d-flex">
+                        <select class="form-control es-select validity-select" formControlName="validityUnit" [ngClass]="[f.validity.value != 0 && f.validity.valid ? 'border-purple':'']">
+                            <option [value]="validity" *ngFor="let validity of validityDropdown">{{ validity | titlecase }}</option>
+                        </select>
+                        <input type="text" class="form-control es-input data-input number-input-right-padding" id="validity" aria-describedby="validity" formControlName="validity"  (keypress)="numberOnly($event)" [ngClass]="[f.validity.value != 0 && f.validity.valid ? 'border-purple':'']">
+                    </div>
+                    <div class="input-number-btn">
+                        <span class="number-decremental" (click)="updateValue('validity', 'dec')"> - </span>
+                        <span class="number-incremental" (click)="updateValue('validity', 'inc')"> + </span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.validity.touched && f.validity.pristine) || (f.validity.errors && submitted)">
+                            <span class="small" *ngIf="f.validity.errors.required">
+                                Validity is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <!-- <div class="input-width">
                     <label for="voice" class="form-label es-modal-form-label">Call Minutes*</label>
                     <div class="d-flex">
                         <label for="unlimited" class="my-auto ms-1 me-3 form-label es-modal-form-label unlimited">
@@ -98,9 +118,9 @@
                             </span>
                         </span>
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="divHeight d-flex justify-content-between">
+            <!-- <div class="divHeight d-flex justify-content-between">
                 <div class="input-width">
                     <label for="smsPerDay" class="form-label es-modal-form-label">SMS*</label>
                     <input type="text" class="form-control es-input number-input-right-padding" id="smsPerDay" aria-describedby="smsPerDay" formControlName="smsPerDay" (keypress)="numberOnly($event)" [ngClass]="[f.smsPerDay.value != 0 && f.smsPerDay.valid ? 'border-purple':'']">
@@ -136,7 +156,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="divHeight d-flex justify-content-between">
                 <div class="input-width">
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
