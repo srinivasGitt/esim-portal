@@ -135,9 +135,9 @@ export class PlanDialogComponent implements OnInit {
     const obj = {
       name : plan.name,
       data : `${parseInt(plan.dataSize)} ${plan.dataUnit}`,
-      // unlimited: plan.unlimited,
-      // smsBundleIncludeQuantity : parseInt(plan.smsPerDay),
-      // voiceBundleIncludeQuantity: parseInt(plan.voice),
+      unlimited: plan.unlimited,
+      smsBundleIncludeQuantity : 0,
+      voiceBundleIncludeQuantity: 0,
       cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
       priceBundle : parseInt(plan.priceBundle),
