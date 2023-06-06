@@ -160,6 +160,7 @@
     --active-status-text-color: #43BE83;
     --inactive-status-text-color: #EC5837;
     --calendar-value-text-color: #6365EF;
+    --calendar-other-date-text-color:#8B8B8B;
 
     /* SWITCH */
     --dark-primary-background: #59D956;
@@ -227,6 +228,10 @@
         &::-webkit-calendar-picker-indicator {
             background: url(/assets/icons/down-caret-black.svg) no-repeat;
         }
+    }
+
+    .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+        color: var(--calendar-other-date-text-color);
     }
 }
 
@@ -322,6 +327,7 @@
     --widget-svg-color: #9A9BF6;
     --plan-status-hover-bg-color: #FFFFFF;
     --calendar-value-text-color: #AEAFFF;
+    --calendar-other-date-text-color:#2C2C2C;
 
     /* SIZES */
     --sidebar-text-size: 0.875rem;
@@ -460,6 +466,10 @@
     
     .mat-calendar-arrow polygon {
         fill: var(--table-heading-text-color);
+    }
+
+    .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+        color: var(--calendar-other-date-text-color);
     }
 }
 
