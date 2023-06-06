@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { DialogComponent } from '../../service/dialog';
+import { DialogComponent, DialogService } from '../../service/dialog';
+import { UploadInventoryComponent } from '../upload-inventory/upload-inventory.component';
 
 @Component({
   selector: 'app-alert',
@@ -21,7 +22,7 @@ export class AlertComponent implements OnInit {
     { cssClass: 'ms-auto', title: 'Upload Another', value: false}
   ]
 
-  constructor(private viewContainer: ViewContainerRef) {
+  constructor(private viewContainer: ViewContainerRef, private dialogService: DialogService) {
 
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
@@ -68,9 +69,16 @@ export class AlertComponent implements OnInit {
     }
   }
 
-  close(): void {
+  close(openUploadInvenotry?: any): void {
     // this.data.amount = 343;
     this.dialogRef.close.emit();
+
+    if(openUploadInvenotry) {
+      this.dialogService.openModal(UploadInventoryComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Upload Inventory'} })
+      .instance.close.subscribe((data: any) => {
+        
+      });
+    }
   }
 
 }

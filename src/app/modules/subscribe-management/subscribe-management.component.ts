@@ -18,6 +18,19 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FormGroup, FormControl} from '@angular/forms';
 
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
+
 @Component({
   selector: 'app-subscribe-management',
   templateUrl: './subscribe-management.component.html',
@@ -29,7 +42,8 @@ import {FormGroup, FormControl} from '@angular/forms';
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    // {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
 export class SubscribeManagementComponent implements OnInit, OnDestroy {

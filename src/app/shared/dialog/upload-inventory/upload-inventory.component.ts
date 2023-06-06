@@ -62,21 +62,21 @@ export class UploadInventoryComponent implements OnInit {
       return;
     }
 
-    this._fileUploadService.onUpload(this.uploadedFile).subscribe((event: HttpEvent<any>) => {
-      switch (event.type) {
-        case HttpEventType.UploadProgress:
-          if(event.loaded && event.total) {
-            this.progress = Math.round(event.loaded / event.total * 100);
-          }
-          break;
-        case HttpEventType.Response:
-          this.dialogRef.close.emit(event);
+    // this._fileUploadService.onUpload(this.uploadedFile).subscribe((event: HttpEvent<any>) => {
+    //   switch (event.type) {
+    //     case HttpEventType.UploadProgress:
+    //       if(event.loaded && event.total) {
+    //         this.progress = Math.round(event.loaded / event.total * 100);
+    //       }
+    //       break;
+    //     case HttpEventType.Response:
+          this.dialogRef.close.emit({event, text: 'uploadAnother'});
           this.uploadForm?.reset()
-      }
-      }, err => {
+      // }
+      // }, err => {
         
-        this.alertService.error(err.error.message, err.status);
-      })
+      //   this.alertService.error(err.error.message, err.status);
+      // })
   }
 
   dowloadSample() {
