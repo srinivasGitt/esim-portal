@@ -75,8 +75,8 @@ export class InventoryComponent implements OnInit, OnDestroy {
       if(data == 'download'){
         this.downloadModal()
       }
-      if(data?.body) {
-        this.alertService.success(data.body.message, 'Inventory')
+      if(data?.text) {
+        this.alertService.success(data?.event?.body.message, 'Inventory')
       }
       this.paginateConfig.currentPage = 1;
       this.getInventory()
