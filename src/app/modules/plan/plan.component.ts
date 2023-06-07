@@ -153,7 +153,6 @@ export class PlanComponent implements OnInit, OnDestroy {
       this._searchService.getSearchResult('/plans', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
         this.plansList = result.data;
           this.paginateConfig.totalItems = result?.count[0]?.totalCount;
-          this.paginateConfig.currentPage = 1;
           this.inProgress = false;
       })
     } 
@@ -162,7 +161,6 @@ export class PlanComponent implements OnInit, OnDestroy {
       this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1, this.planStatus).subscribe((result: any) => {
         this.plansList = result.data;
           this.paginateConfig.totalItems = result?.count[0]?.totalCount;
-          this.paginateConfig.currentPage = 1;
           this.inProgress = false;
       })
     }

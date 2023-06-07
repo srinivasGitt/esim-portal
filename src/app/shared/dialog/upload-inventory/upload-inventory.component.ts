@@ -70,7 +70,7 @@ export class UploadInventoryComponent implements OnInit {
           }
           break;
         case HttpEventType.Response:
-          this.dialogRef.close.emit(event);
+          this.dialogRef.close.emit({event, text: 'uploadAnother'});
           this.uploadForm?.reset()
       }
       }, err => {
