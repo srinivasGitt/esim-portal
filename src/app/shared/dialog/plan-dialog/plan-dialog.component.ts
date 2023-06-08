@@ -57,6 +57,7 @@ export class PlanDialogComponent implements OnInit {
     this.planService.getIMSITypeList().subscribe((res: any) => { 
       if(res.code == 200){
         this.imsiTypeList = res.data
+        this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
         this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
       }
     });
