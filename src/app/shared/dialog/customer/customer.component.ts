@@ -28,7 +28,8 @@ export class CustomerComponent implements OnInit {
   
   Provider= [
     {id: "1", name: "Telna", image: "/assets/icons/telna.svg"},
-    {id: "2", name: "POD", image: "/assets/icons/pod.svg"}
+    {id: "2", name: "POD", image: "/assets/icons/pod.svg"},
+    {id: "3", name: "pccw", image: "/assets/icons/pccw.png"},
   ];
 
   ngOnInit(): void {
@@ -58,6 +59,10 @@ export class CustomerComponent implements OnInit {
           case 'pod':
           case 'POD':
               result[0].smdp = 'POD'
+              break;
+          case 'pccw':
+          case 'PCCW':
+              result[0].smdp = 'pccw'
               break;
         }
         if(result?.length > 0){
