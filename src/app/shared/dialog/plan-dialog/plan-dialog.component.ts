@@ -57,6 +57,7 @@ export class PlanDialogComponent implements OnInit {
     this.planService.getIMSITypeList().subscribe((res: any) => { 
       if(res.code == 200){
         this.imsiTypeList = res.data
+        this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
         this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
       }
     });
@@ -135,9 +136,9 @@ export class PlanDialogComponent implements OnInit {
     const obj = {
       name : plan.name,
       data : `${parseInt(plan.dataSize)} ${plan.dataUnit}`,
-      // unlimited: plan.unlimited,
-      // smsBundleIncludeQuantity : parseInt(plan.smsPerDay),
-      // voiceBundleIncludeQuantity: parseInt(plan.voice),
+      unlimited: plan.unlimited,
+      smsBundleIncludeQuantity : 0,
+      voiceBundleIncludeQuantity: 0,
       cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
       priceBundle : parseInt(plan.priceBundle),
