@@ -2,17 +2,42 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
-import { RegionsService } from '../../service/regions.service';
 import { AlertService } from '../../service/alert.service';
 import * as Country from 'world-countries';
 import { DatePipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-plan-dialog',
   templateUrl: './plan-dialog.component.html',
-  styleUrls: ['./plan-dialog.component.scss']
+  styleUrls: ['./plan-dialog.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    // {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class PlanDialogComponent implements OnInit {
   dialogRef: DialogComponent;
@@ -38,7 +63,7 @@ export class PlanDialogComponent implements OnInit {
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
   
-  
+
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
