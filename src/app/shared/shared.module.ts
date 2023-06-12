@@ -35,6 +35,10 @@ import { LoadingSpinnerComponent } from './component/loading-spinner/loading-spi
 import { InventoryInfoComponent } from './dialog/inventory-info/inventory-info.component';
 import { NotFoundComponent } from './component/not-found/not-found.component';
 import { PhoneNumberMaskPipe } from './pipe/phone-number-mask.pipe';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -77,7 +81,11 @@ import { PhoneNumberMaskPipe } from './pipe/phone-number-mask.pipe';
     QRCodeModule,
     RouterModule,
     NgSelectModule,
-    NgxGaugeModule
+    NgxGaugeModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule
   ],
   exports: [
     // SubscriptionComponent,
