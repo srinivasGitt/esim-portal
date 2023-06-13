@@ -16,6 +16,8 @@ export class SigninComponent implements OnInit {
   showPassword: boolean = false;
   submitted = false;
   err = false;
+  errMsg: string = '';
+
   constructor(private authService: AuthService,
               private router: Router,
               private alertService : AlertService,
@@ -52,18 +54,20 @@ export class SigninComponent implements OnInit {
         window.location.href = '/';
         
       }, (err: any) =>{
-        if(err?.error?.message?.includes('User not found')){
-          this.signinForm.controls['email'].setErrors({'incorrect' : true});
-        } else if(err?.error?.message?.includes('Password is incorrect')){
-          this.signinForm.controls['password'].setValue('');
-          this.signinForm.controls['password'].setErrors({'incorrect' : true});
-          this.err = true;
-        } else {
-          this.signinForm.controls['email'].setErrors({'incorrect' : true});
-          this.signinForm.controls['password'].setValue('');
-          this.signinForm.controls['password'].setErrors({'incorrect' : true});
-          this.err = true;
-        }
+        this.errMsg = err?.error?.message
+        this.err = true;
+        // if(err?.error?.message?.includes('User not found')){
+        //   this.signinForm.controls['email'].setErrors({'incorrect' : true});
+        // } else if(err?.error?.message?.includes('Password is incorrect')){
+        //   this.signinForm.controls['password'].setValue('');
+        //   this.signinForm.controls['password'].setErrors({'incorrect' : true});
+        //   this.err = true;
+        // } else {
+        //   this.signinForm.controls['email'].setErrors({'incorrect' : true});
+        //   this.signinForm.controls['password'].setValue('');
+        //   this.signinForm.controls['password'].setErrors({'incorrect' : true});
+        //   this.err = true;
+        // }
       })
   }
 
