@@ -499,6 +499,10 @@
             .rotate-n-90-deg{
                 transform: rotate(-90deg);
             }
+
+            mat-form-field {
+                border: none !important;
+            }
         }
     }
     
@@ -666,10 +670,10 @@
             }
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -819,10 +823,10 @@
 
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -968,10 +972,10 @@
 
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -1159,10 +1163,10 @@
             
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -1520,10 +1524,10 @@
 
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -1747,7 +1751,7 @@
             font-size: 1rem;
             font-weight: 400;
             margin-top: 12px;
-            color: var(--subscription-modal-helper-text-color);
+            color: var(--subscription-data-text-color);
 
             &.total-data {
                 font-weight: 600;
@@ -1983,8 +1987,13 @@
             width: 38px;
             text-align: center;
             line-height: 36px;
-            color: var(--modal-sub-header-text-color) !important;
-            font-weight: normal !important;
+            // color: var(--modal-sub-header-text-color) !important;
+            // font-weight: normal !important;
+            svg {
+                path {
+                    fill: var(--modal-sub-header-text-color) !important;
+                }
+            }
         }
         
         .date-input-icon{
@@ -2665,7 +2674,7 @@
     display: inline-block;
     position: absolute;
     top: 50%;
-    left: 55%;
+    left: 50%;
     width: 80px;
     height: 80px;
         
