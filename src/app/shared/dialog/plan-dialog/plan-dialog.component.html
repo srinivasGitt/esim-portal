@@ -188,6 +188,7 @@
                             [multiple]="false"
                             bindLabel="label"
                             bindValue="_id"
+                            [closeOnSelect]="false"
                             placeholder="Select IMSI Type"
                             formControlName="imsiType"
                             class="full-width">
@@ -216,6 +217,7 @@
                             bindLabel="name"
                             bindValue="name"
                             [multiple]="true"
+                            [closeOnSelect]="false"
                             placeholder="Search for countries / Multiple countries can be selected"
                             (change)="onCountryChange($event)">
 
