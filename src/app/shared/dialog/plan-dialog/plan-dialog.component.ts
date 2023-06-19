@@ -53,6 +53,7 @@ export class PlanDialogComponent implements OnInit {
   countriesAlias: any[] = []
   imsiTypeList: any[] = [];
   selectedCountries: any[] = [];
+  selectedIMSIType!: number;
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -171,7 +172,7 @@ export class PlanDialogComponent implements OnInit {
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
       dateLatestAvailable : new Date(plan.dateLatestAvailable).getTime(),
       dateEarliestAvailable : new Date(plan.dateEarliestAvailable).getTime(),
-      preferredImsiId: plan.imsiType
+      preferredImsiId: this.selectedIMSIType
     }
 
     this.planService.createPlan(obj)
@@ -216,6 +217,10 @@ export class PlanDialogComponent implements OnInit {
 
   displayContryList(countries: any){
     return countries.map((country: any) => country.name).slice(2).join(', ');
+  }
+
+  selectIMSI(value: any) {
+    this.selectedIMSIType = value._id
   }
 
   /* Restrict user to enter alphabets in mobile field */

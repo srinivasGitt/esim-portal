@@ -183,7 +183,7 @@
                 <div class="input-width imsi-input">
                     <label for="imsiType" class="form-label es-modal-form-label">IMSI Type*</label>
                     <div class="d-flex relative container-ng-select">
-                        <ng-select
+                        <!-- <ng-select
                             [items]="imsiTypeList"
                             [multiple]="false"
                             bindLabel="label"
@@ -192,6 +192,23 @@
                             placeholder="Select IMSI Type"
                             formControlName="imsiType"
                             class="full-width">
+                        </ng-select> -->
+                        <ng-select
+                            [items]="imsiTypeList"
+                            [multiple]="false"
+                            [closeOnSelect]="false"
+                            bindLabel="label"
+                            bindValue="_id"
+                            placeholder="Select IMSI Type"
+                            formControlName="imsiType"
+                            class="full-width"
+                            (change)="selectIMSI($event)">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.label }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.label}}
+                            </ng-template>
                         </ng-select>
                         <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
