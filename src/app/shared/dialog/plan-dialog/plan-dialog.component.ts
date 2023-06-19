@@ -28,6 +28,8 @@ export class PlanDialogComponent implements OnInit {
   countriesAlias: any[] = []
   imsiTypeList: any[] = [];
   selectedCountries: any[] = [];
+  selectedIMSIType!: number;
+  currencyType: string = 'USD';
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -40,6 +42,7 @@ export class PlanDialogComponent implements OnInit {
   
   
   ngOnInit(): void {
+    this.currencyType = localStorage.getItem('currency')!;
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     this.inProgress = true

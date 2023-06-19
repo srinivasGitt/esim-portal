@@ -26,7 +26,8 @@ export class PlanComponent implements OnInit, OnDestroy {
   inSearch : boolean = false;
   tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
   planStatus: string | null = null;
-
+  currencyType: string = 'USD';
+  
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
               private alertService: AlertService,
@@ -57,6 +58,8 @@ export class PlanComponent implements OnInit, OnDestroy {
       })
   }
   getAllPlans() {
+    this.currencyType = localStorage.getItem('currency')!;
+
     this.inProgress = true;
 
     this.plansService.listPlans()
