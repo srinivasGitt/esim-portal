@@ -12,7 +12,8 @@ export class PlanInfoComponent implements OnInit {
   planDetails: any;
   countryList!: Array<any>;
   inProgress: boolean = false;
-  
+  currencyType: string = 'USD';
+
   constructor(
     private viewContainer: ViewContainerRef,
     private regionService: RegionsService,
@@ -26,6 +27,8 @@ export class PlanInfoComponent implements OnInit {
   ngOnInit(): void {
     this.planDetails = this.dialogRef.context.data;
     this.countryList = this.planDetails.supportedCountries
+    this.currencyType = localStorage.getItem('currency')!;
+
     // this.fetchContriesByGroup();
   }
 

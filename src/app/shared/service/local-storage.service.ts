@@ -27,4 +27,12 @@ export class LocalStorageService {
     localStorage.setItem('screenMode', isDarkTheme ? 'dark' : 'light');
   }
 
+  setCurrency(value: string) {
+    localStorage.setItem('currency', value);
+  }
+
+  getCurrency() {
+    return localStorage.getItem('currency');
+  }
+
 }

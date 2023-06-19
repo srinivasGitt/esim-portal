@@ -112,7 +112,7 @@
                             </span>
                         </div>
                         <div class="t-box b px-1 d-flex text-overflow-ellipsis">{{ subscription.planName }}</div>
-                        <div class="t-box a px-1 d-flex"> <span *ngIf="subscription.priceBundle">{{ subscription.priceBundle | currency: 'USD' }}</span></div>
+                        <div class="t-box a px-1 d-flex"> <span *ngIf="subscription.priceBundle">{{ subscription.priceBundle | currency: currencyType }}</span></div>
                         <div class="t-box b px-1 d-flex">{{subscription.createdAt | date : 'dd/MM/YYYY'}}</div>
                         <div class="t-box b px-1 d-flex">{{subscription.expiryDate ? (subscription.expiryDate | date : 'dd/MM/YYYY') : 'NA'}}</div>
                         <div class="t-box b px-1 d-flex subscription-info-section">

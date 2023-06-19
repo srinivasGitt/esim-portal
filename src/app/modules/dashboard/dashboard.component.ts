@@ -33,7 +33,8 @@ export class DashboardComponent implements OnInit {
   inProgress: boolean = false;
   selectedDay: string = 'Current Year'
   selectedDayTerm: string = '';
-  
+  currencyType: string = 'USD';
+
   constructor(private router: Router,
     private dashboardService: DashboardService,
     private customerService: CustomerService,
@@ -147,6 +148,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getDashboardCounts(){
+    this.currencyType = localStorage.getItem('currency')!;
+
     combineLatest(this.dashboardService.getDashboardCounts()).subscribe(
       ( result : any) => {
         this.dashboardDetails = Object.assign( {}, ...result);

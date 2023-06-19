@@ -1984,7 +1984,13 @@
             text-align: center;
             line-height: 36px;
             color: var(--modal-sub-header-text-color) !important;
-            font-weight: normal !important;
+            // font-weight: normal !important;
+            
+            svg {
+                path {
+                    fill: var(--modal-sub-header-text-color) !important;
+                }
+            }
         }
         
         .date-input-icon{
