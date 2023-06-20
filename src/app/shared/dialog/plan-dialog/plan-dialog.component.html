@@ -240,7 +240,7 @@
 
                             <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                                 <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="20px" height="20px"> {{$any(item).name}}</span>
+                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="28px" height="20px"> {{$any(item).name}}</span>
                                     <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                                 </div>
                                 <div class="ng-value" *ngIf="items.length > 2">
@@ -248,8 +248,14 @@
                                 </div>
                             </ng-template>
 
-                            <ng-template ng-option-tmp let-item="item">
-                                <img [src]="item.flag" width="20px" height="20px"> {{item.name}}
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                    <div>
+                                        <img [src]="item.flag" width="32px" height="20px"> {{item.name}}
+                                    </div>
+                                    <div class="form-label es-modal-form-label unlimited">
+                                        <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 
+                                        <span class="checkmark"></span>
+                                    </div>
                             </ng-template>
                         </ng-select>
 

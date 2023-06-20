@@ -220,7 +220,9 @@ export class PlanDialogComponent implements OnInit {
   }
 
   selectIMSI(value: any) {
-    this.selectedIMSIType = value._id
+    if(value) {
+      this.selectedIMSIType = value._id
+    }
   }
 
   /* Restrict user to enter alphabets in mobile field */
