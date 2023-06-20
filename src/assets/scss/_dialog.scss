@@ -104,6 +104,7 @@
                 //         border-color: rgba(99, 101, 239, 0.48) transparent transparent;
                 //     }
                 // }
+                
                 .ng-dropdown-panel{
                     margin-top: 10px;
                     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
@@ -111,14 +112,37 @@
                     border: none;
                     background: var(--card-background-color);
                     .ng-option{
-                        padding: 10px 10px 10px 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 10px 10px 10px 10px;
                         background: var(--card-background-color);
-                        // width: 160px;
                         color: var(--table-heading-text-color);
                     }
                 }
                 option{
                     color: var(--table-heading-text-color) !important;
+                }
+
+                .imsi-input .ng-dropdown-panel{
+                    margin-top: 10px;
+                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                    border-radius: 4px;
+                    border: none;
+                    background: var(--card-background-color);
+                    .ng-option{
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: row-reverse;
+                        padding: 10px 10px 10px 10px;
+                        background: var(--card-background-color);
+                        // width: 160px;
+                        color: var(--table-heading-text-color);
+                    }
+
+                    .ng-option-disabled  {
+                        flex-direction: row;
+                    }
                 }
             }
             .success-error-heading{

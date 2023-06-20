@@ -2104,6 +2104,31 @@
                     color: var(--modal-sub-header-text-color) !important;
                 }
             }
+
+            .ng-dropdown-panel .scroll-host {
+                padding: 8px;
+            }
+
+            .ng-option {
+                padding: 8px;
+                border-radius: 8px;
+                margin-bottom: 4px;
+                
+                &:hover {
+                    background-color: var(--dropdown-hover-bg-color) !important;
+                }
+            }
+
+            .ng-option-selected {
+                background: var(--active-link-background-color) !important;
+                padding: 8px;
+                border-radius: 8px;
+                margin-bottom: 8px;
+            }
+
+            input[type='radio'] {
+                accent-color: #667085;
+            }
         }
         
         .location-input {
@@ -2142,25 +2167,25 @@
         }
 
         .imsi-input {
-            .ng-dropdown-panel .scroll-host {
-                padding: 8px;
-            }
+            // .ng-dropdown-panel .scroll-host {
+            //     padding: 8px;
+            // }
 
-            .ng-option {
-                padding: 8px;
-                border-radius: 8px;
-                margin-bottom: 4px;
+            // .ng-option {
+            //     padding: 8px;
+            //     border-radius: 8px;
+            //     margin-bottom: 4px;
                 
-                &:hover {
-                    background-color: var(--dropdown-hover-bg-color) !important;
-                }
-            }
-            .ng-option-selected {
-                background: var(--active-link-background-color) !important;
-                padding: 8px;
-                border-radius: 8px;
-                margin-bottom: 8px;
-            }
+            //     &:hover {
+            //         background-color: var(--dropdown-hover-bg-color) !important;
+            //     }
+            // }
+            // .ng-option-selected {
+            //     background: var(--active-link-background-color) !important;
+            //     padding: 8px;
+            //     border-radius: 8px;
+            //     margin-bottom: 8px;
+            // }
         }
         
         ::ng-deep{
@@ -2927,7 +2952,7 @@
 
 .unlimited .checkmark:after {
     left: 5px;
-    top: 2px;
+    top: 1px;
     width: 5px;
     height: 10px;
     border: solid white;
