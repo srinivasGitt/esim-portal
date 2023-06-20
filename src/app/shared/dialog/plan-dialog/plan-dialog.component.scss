@@ -206,12 +206,12 @@
     color: var(--modal-sub-header-text-color) !important;
 }  
 
-// .input-width {
-//     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
-//             padding: 0 !important;
-//         }
+.input-width {
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+            padding: 0 !important;
+        }
         
-//     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-//             flex-direction: row-reverse !important;
-//         }
-// }
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+            flex-direction: row-reverse !important;
+        }
+}
