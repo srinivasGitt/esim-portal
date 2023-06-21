@@ -42,6 +42,9 @@
         <p class="modal-sub-header-text mb-0 mt-2">
             {{ title === 'Add New Plan' ? 'Add a new plan according to your liking.' : 'See and edit the plan as per your liking, your updated plan will be refreshed within 5 minutes.' }}
         </p>
+        <p *ngIf="err" class="help-block ng-invalid text-danger">
+            <small>{{ err }}</small>
+        </p>
     </div>
     <div class="es-modal-body plan-dialog-bodyscroll">
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
@@ -224,9 +227,42 @@
                 </div>
             </div>
             
+            <div class="divHeight d-flex justify-content-between imsi-input">
+                <div class="col-12">
+                    <label for="region" class="form-label es-modal-form-label">Region</label>
+                    <div class="relative">
+                        <ng-select
+                            [items]="regionList"
+                            [multiple]="false"
+                            [closeOnSelect]="false"
+                            bindLabel="label"
+                            bindValue="label"
+                            placeholder="Select the region where you want the plan to be active"
+                            formControlName="region"
+                            (change)="selectRegion($event)"
+                            [class.disabled]="f.supportedCountries.value.length > 0">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.label }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.label}}
+                            </ng-template>
+                        </ng-select>
+
+                    </div>
+                    <!-- <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.region.touched && f.region.pristine) || (f.region.errors && submitted)">
+                            <span class="small" *ngIf="f.region.errors.required">
+                                Region is required!
+                            </span>
+                        </span>
+                    </div>     -->
+                </div>
+            </div>
+
             <div class="divHeight d-flex justify-content-between">
                 <div class="col-12 location-input">
-                    <label for="supportedCountries" class="form-label es-modal-form-label">Location*</label>
+                    <label for="supportedCountries" class="form-label es-modal-form-label">Location</label>
                     <div class="relative">
                         <ng-select 
                             [items]="countriesAlias"
@@ -236,7 +272,8 @@
                             [multiple]="true"
                             [closeOnSelect]="false"
                             placeholder="Search for countries / Multiple countries can be selected"
-                            (change)="onCountryChange($event)">
+                            (change)="onCountryChange($event)"
+                            [class.disabled]="f.region.value != null">
 
                             <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                                 <div class="ng-value" *ngFor="let item of items | slice:0:2">
@@ -265,13 +302,13 @@
                             </svg>
                         </span>
                     </div>
-                    <div>
+                    <!-- <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.supportedCountries.touched && f.supportedCountries.pristine) || (f.supportedCountries.errors && submitted)">
                             <span class="small" *ngIf="f.supportedCountries.errors.required">
                                 Location is required!
                             </span>
                         </span>
-                    </div>    
+                    </div>     -->
                 </div>
             </div>
 
