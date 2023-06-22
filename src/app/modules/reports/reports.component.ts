@@ -43,7 +43,9 @@ export class ReportsComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year'
+  selectedDay: string = 'Current Year';
+  currencyType: string = 'USD';
+
   constructor(private dashboardService: DashboardService,
               private alertService: AlertService,
               private renderer: Renderer2, 
@@ -62,6 +64,7 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit(): void {
       // this.drawChart();
+      this.currencyType = localStorage.getItem('currency')!;
       this.initForm()
       this.getReports('year')
   }

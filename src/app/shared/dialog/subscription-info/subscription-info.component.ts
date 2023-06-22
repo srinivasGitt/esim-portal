@@ -14,6 +14,7 @@ export class SubscriptionInfoComponent implements OnInit {
   totalData!: number;
   usedData!: number;
   copyText: string = 'Copy'
+  currencyType: string = 'USD';
 
   constructor(
     private viewContainer: ViewContainerRef, private subscriptionService: SubscriptionsService
@@ -23,9 +24,9 @@ export class SubscriptionInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currencyType = localStorage.getItem('currency')!;
     this.subscriptionDetails = this.dialogRef.context.data;
     this.totalData = this.subscriptionDetails.data ? parseFloat(this.subscriptionDetails.data.match(/(\d+)/)[0]) : 1;
-    console.log(this.subscriptionDetails)
     this.getSubscriptionDataUsage(this.subscriptionDetails._id)
   }
 

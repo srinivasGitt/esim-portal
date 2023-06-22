@@ -54,7 +54,7 @@
             <div class="col-4">
                 <label class="modal-label-text">Price</label>
                 <div class="modal-details-text" *ngIf="subscriptionDetails.priceBundle">
-                    {{ subscriptionDetails.priceBundle | currency: 'USD' }}
+                    {{ subscriptionDetails.priceBundle | currency: currencyType }}
                 </div>
             </div>
             <div class="col-8">

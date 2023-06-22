@@ -31,6 +31,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   inProgress: boolean = false;
   inSearch : boolean = false;
   copyText: string = 'Copy'
+  currencyType: string = 'USD';
 
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
@@ -67,6 +68,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
         });
   }
   getAllSubscription() {
+    this.currencyType = localStorage.getItem('currency')!;
+
     this.inProgress = true;
     this.subscriptionsService.subscriptionList()
     .subscribe(

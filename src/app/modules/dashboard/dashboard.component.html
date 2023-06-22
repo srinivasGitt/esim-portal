@@ -60,7 +60,10 @@
                     </div>
                 </div>
                 <div class="dashboard-heading d-flex align-items-center mb-2">
-                    <h6 class="revenue-text">Revenue in $</h6>
+                    <h6 class="revenue-text">
+                        Revenue in <span *ngIf="currencyType == 'GBP'; else dollar">&#163;</span>
+                        <ng-template #dollar>$</ng-template>
+                    </h6>
                 </div>
                 <canvas id="downloadChart"></canvas>
             </div>
@@ -92,7 +95,7 @@
                     <div class="widget-count">
                         <!-- <span *ngIf="widget.detailsType == 'currency'"> $</span> 
                         {{ dashboardDetails[widget.detailsKey] }} -->
-                        {{ widget.detailsType == 'currency' ? (dashboardDetails[widget.detailsKey] | currency: 'USD') : dashboardDetails[widget.detailsKey] }}
+                        {{ widget.detailsType == 'currency' ? (dashboardDetails[widget.detailsKey] | currency: currencyType) : dashboardDetails[widget.detailsKey] }}
                     </div>
                     <div class="widget-graph" *ngIf="widget.graphIcon != ''">
                         <img [src]="widget.graphIcon" alt="">

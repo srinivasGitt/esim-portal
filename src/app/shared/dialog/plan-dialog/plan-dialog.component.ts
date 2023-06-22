@@ -11,6 +11,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { combineLatest } from 'rxjs';
 
 const MY_FORMATS = {
   parse: {
@@ -54,6 +55,13 @@ export class PlanDialogComponent implements OnInit {
   imsiTypeList: any[] = [];
   selectedCountries: any[] = [];
   selectedIMSIType!: number;
+  selectedRegion!: string;
+  isCountry: boolean = false;
+  regionList: any[] = []
+  err!: string;
+  isErr: boolean = false;
+  
+  currencyType: string = 'USD';
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -66,30 +74,60 @@ export class PlanDialogComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.currencyType = localStorage.getItem('currency')!;
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     this.inProgress = true
     this.createPlanForm();
-    this.countryList = Country.default
-    this.countryList = this.countryList.filter((x: any) => x.independent).sort((a:any,b:any) => a.name.common.localeCompare(b.name.common))
-    this.countryList.forEach((country: any) => {
-      let flagNameInLower = country.cca3
-      flagNameInLower = flagNameInLower.toLowerCase()
-      country.flag = `assets/flags/${flagNameInLower}.svg` 
-      this.countriesAlias.push({name: country.name.common, flag: country.flag, cca3: country.cca3})
-      this.inProgress = false
-    })
+    // this.countryList = Country.default
+    // this.countryList = this.countryList.filter((x: any) => x.independent).sort((a:any,b:any) => a.name.common.localeCompare(b.name.common))
+    // this.countryList.forEach((country: any) => {
+    //   let flagNameInLower = country.cca3
+    //   flagNameInLower = flagNameInLower.toLowerCase()
+    //   country.flag = `assets/flags/${flagNameInLower}.svg` 
+    //   this.countriesAlias.push({name: country.name.common, flag: country.flag, cca3: country.cca3})
+    //   this.inProgress = false
+    // })
     
-    this.planService.getIMSITypeList().subscribe((res: any) => { 
-      if(res.code == 200){
-        this.imsiTypeList = res.data
-        this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
-        this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
-      }
-    });
-    
+    // this.planService.getIMSITypeList().subscribe((res: any) => { 
+    //   if(res.code == 200){
+    //     this.imsiTypeList = res.data
+    //     this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
+    //     this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
+    //   }
+    // });
+    this.getIMSIAndCountryList();
   }
   
+
+  getIMSIAndCountryList() {
+    combineLatest(this.planService.getIMSIAndCountryList()).subscribe((result : any) => {
+      if(result) {
+        
+        const imsi = result[0]
+        const countries = result[1]
+        const regions = result[2]
+        
+        this.imsiTypeList = imsi.data
+        this.regionList = regions.data
+        this.countryList = countries.data
+
+        this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
+        this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
+
+        this.countryList = this.countryList.sort((a: any, b: any) => a.name.localeCompare(b.name));
+        this.countryList.forEach((country: any) => {
+          let flagNameInLower = country.iso3code
+          flagNameInLower = flagNameInLower.toLowerCase()
+          country.flag = `assets/flags/${flagNameInLower}.svg` 
+          this.countriesAlias.push({name: country.name, flag: country.flag, iso3code: country.iso3code, dial_code: country.dial_code})
+          this.inProgress = false
+        })
+
+      }
+
+    })
+  }
 
   createPlanForm(): void {
     // this.planForm = new UntypedFormGroup({
@@ -116,7 +154,8 @@ export class PlanDialogComponent implements OnInit {
       // smsPerDay: new UntypedFormControl(0, [Validators.required]),
       // unlimited: new UntypedFormControl(false),
       // voice: new UntypedFormControl(0, [Validators.required]),
-      supportedCountries: new UntypedFormControl('', [Validators.required]),
+      region: new UntypedFormControl(null),
+      supportedCountries: new UntypedFormControl(''),
       priceBundle: new UntypedFormControl(0, [Validators.required]),
       imsiType: new UntypedFormControl(null, [Validators.required]),
       dateEarliestActivation: new UntypedFormControl('', [Validators.required]),
@@ -142,6 +181,11 @@ export class PlanDialogComponent implements OnInit {
     // } else {
     //   this.createPlan();
     // }
+    if(this.planForm.value.region == null && this.planForm.value.supportedCountries.length == 0) {
+      this.isErr = true;
+      this.err = 'Either Region or Country is required'
+      return
+    }
     this.createPlan();
   }
 
@@ -149,6 +193,8 @@ export class PlanDialogComponent implements OnInit {
   /* Select Supported Countries */
   onCountryChange($event: any) {
     this.selectedCountries = $event
+    this.selectedCountries.length > 0 ? this.isCountry = true : this.isCountry = false;
+    this.isErr = false;
   }
 
   /* create a new plan */
@@ -168,11 +214,13 @@ export class PlanDialogComponent implements OnInit {
       cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
       priceBundle : parseInt(plan.priceBundle),
+      groupId: plan.region,
       supportedCountries : this.selectedCountries,
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
       dateLatestAvailable : new Date(plan.dateLatestAvailable).getTime(),
       dateEarliestAvailable : new Date(plan.dateEarliestAvailable).getTime(),
-      preferredImsiId: this.selectedIMSIType
+      preferredImsiId: this.selectedIMSIType,
+      isCountry: plan.region == null ? true : false
     }
 
     this.planService.createPlan(obj)
@@ -223,6 +271,15 @@ export class PlanDialogComponent implements OnInit {
     if(value) {
       this.selectedIMSIType = value._id
     }
+  }
+  
+  selectRegion(value: any) {
+    if(value) {
+      this.selectedRegion = value.label
+    }
+
+    this.selectedRegion != null ? this.isCountry = true : this.isCountry = false;
+    this.isErr = false;
   }
 
   /* Restrict user to enter alphabets in mobile field */
