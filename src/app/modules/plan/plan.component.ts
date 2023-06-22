@@ -58,7 +58,7 @@ export class PlanComponent implements OnInit, OnDestroy {
       })
   }
   getAllPlans() {
-    this.currencyType = localStorage.getItem('currency')!;
+    // this.currencyType = localStorage.getItem('currency')!;
 
     this.inProgress = true;
 
