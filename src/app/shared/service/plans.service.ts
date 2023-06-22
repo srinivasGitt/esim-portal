@@ -84,7 +84,8 @@ export class PlansService {
   getIMSIAndCountryList() {
     return [
       this.http.get(`${this.serverUrl}/inventory/getUniqueIMSI`),
-      this.http.get(`${this.serverUrl}/countries`)
+      this.http.get(`${this.serverUrl}/countries`),
+      this.http.get(`${this.serverUrl}/group`)
     ];
   }
 }

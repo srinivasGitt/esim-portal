@@ -199,7 +199,7 @@
                         <ng-select
                             [items]="imsiTypeList"
                             [multiple]="false"
-                            [closeOnSelect]="false"
+                            [closeOnSelect]="true"
                             bindLabel="label"
                             bindValue="_id"
                             placeholder="Select IMSI Type"
@@ -234,18 +234,18 @@
                         <ng-select
                             [items]="regionList"
                             [multiple]="false"
-                            [closeOnSelect]="false"
-                            bindLabel="label"
-                            bindValue="label"
+                            [closeOnSelect]="true"
+                            bindLabel="name"
+                            bindValue="_id"
                             placeholder="Select the region where you want the plan to be active"
                             formControlName="region"
                             (change)="selectRegion($event)"
                             [class.disabled]="f.supportedCountries.value.length > 0">
                             <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input id="item-{{index}}" type="radio"/> {{item.label }}
+                                <input id="item-{{index}}" type="radio"/> {{item.name }}
                             </ng-template>
                             <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.label}}
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
                             </ng-template>
                         </ng-select>
 
