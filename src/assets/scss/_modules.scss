@@ -499,6 +499,10 @@
             .rotate-n-90-deg{
                 transform: rotate(-90deg);
             }
+
+            mat-form-field {
+                border: none !important;
+            }
         }
     }
     
@@ -666,10 +670,10 @@
             }
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -819,10 +823,10 @@
 
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -900,10 +904,7 @@
             // justify-content: center;
             // text-align: center;
             align-items: center !important;
-            &:first-child{
-                // text-align: start;
-                // justify-content: flex-start;
-            }
+
             .plan-info-icon{
                 width: 24px;
                 cursor: pointer;
@@ -948,10 +949,7 @@
         .bg-body-table-dark-bg{
             border-top: 1px dashed #636668;
         }
-        .action-section {
-            // display: flex;
-            // justify-content: center;
-        }
+
         .user-table-action{
             display: flex;
             align-items: center;
@@ -968,10 +966,10 @@
 
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -1159,10 +1157,10 @@
             
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -1520,10 +1518,10 @@
 
             path{
                 &:not(.color-stroke){
-                    fill: var(--table-heading-text-color);
+                    fill: var(--svg-color);
                 }
                 &.color-stroke{
-                    stroke: var(--table-heading-text-color);
+                    stroke: var(--svg-color);
                 }
             }
         }
@@ -1747,7 +1745,7 @@
             font-size: 1rem;
             font-weight: 400;
             margin-top: 12px;
-            color: var(--subscription-modal-helper-text-color);
+            color: var(--subscription-data-text-color);
 
             &.total-data {
                 font-weight: 600;
@@ -2101,6 +2099,31 @@
                     color: var(--modal-sub-header-text-color) !important;
                 }
             }
+
+            .ng-dropdown-panel .scroll-host {
+                padding: 8px;
+            }
+
+            .ng-option {
+                padding: 8px;
+                border-radius: 8px;
+                margin-bottom: 4px;
+                
+                &:hover {
+                    background-color: var(--dropdown-hover-bg-color) !important;
+                }
+            }
+
+            .ng-option-selected {
+                background: var(--active-link-background-color) !important;
+                padding: 8px;
+                border-radius: 8px;
+                margin-bottom: 8px;
+            }
+
+            input[type='radio'] {
+                accent-color: #667085;
+            }
         }
         
         .location-input {
@@ -2138,28 +2161,6 @@
             } 
         }
 
-        .imsi-input {
-            .ng-dropdown-panel .scroll-host {
-                padding: 8px;
-            }
-
-            .ng-option {
-                padding: 8px;
-                border-radius: 8px;
-                margin-bottom: 4px;
-                
-                &:hover {
-                    background-color: var(--dropdown-hover-bg-color) !important;
-                }
-            }
-            .ng-option-selected {
-                background: var(--active-link-background-color) !important;
-                padding: 8px;
-                border-radius: 8px;
-                margin-bottom: 8px;
-            }
-        }
-        
         ::ng-deep{
             .multi-select-counties{
                 .ng-select-container{
@@ -2663,15 +2664,11 @@
 /* Navbar - End */
 
 /* Loading Spinner - Start */
-.loader-align {
-    // text-align: center;
-}
-
 .lds-roller {
     display: inline-block;
     position: absolute;
     top: 50%;
-    left: 55%;
+    left: 50%;
     width: 80px;
     height: 80px;
         
@@ -2924,7 +2921,7 @@
 
 .unlimited .checkmark:after {
     left: 5px;
-    top: 2px;
+    top: 1px;
     width: 5px;
     height: 10px;
     border: solid white;
@@ -2983,6 +2980,8 @@
     font-weight: 600;
     // font-size: 8px !important;
     // margin: 0 16px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
 }
 
 .mat-date-range-input-inner {

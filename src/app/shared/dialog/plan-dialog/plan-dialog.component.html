@@ -42,12 +42,15 @@
         <p class="modal-sub-header-text mb-0 mt-2">
             {{ title === 'Add New Plan' ? 'Add a new plan according to your liking.' : 'See and edit the plan as per your liking, your updated plan will be refreshed within 5 minutes.' }}
         </p>
+        <p *ngIf="isErr" class="help-block ng-invalid text-danger">
+            <small>{{ err }}</small>
+        </p>
     </div>
     <div class="es-modal-body plan-dialog-bodyscroll">
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
             <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">Plan Name*</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name" [ngClass]="[f.name.valid ? 'border-purple':'']">
+                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name" [ngClass]="[f.name.valid ? 'border-purple':'']" placeholder="Name your Plan">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.name.touched && f.name.pristine) || (f.name.errors && submitted)">
                         <span class="small" *ngIf="f.name.errors.required">
@@ -186,14 +189,32 @@
                 <div class="input-width imsi-input">
                     <label for="imsiType" class="form-label es-modal-form-label">IMSI Type*</label>
                     <div class="d-flex relative container-ng-select">
-                        <ng-select
+                        <!-- <ng-select
                             [items]="imsiTypeList"
                             [multiple]="false"
                             bindLabel="label"
                             bindValue="_id"
+                            [closeOnSelect]="false"
                             placeholder="Select IMSI Type"
                             formControlName="imsiType"
                             class="full-width">
+                        </ng-select> -->
+                        <ng-select
+                            [items]="imsiTypeList"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="label"
+                            bindValue="_id"
+                            placeholder="Select IMSI Type"
+                            formControlName="imsiType"
+                            class="full-width"
+                            (change)="selectIMSI($event)">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.label }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.label}}
+                            </ng-template>
                         </ng-select>
                         <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -209,9 +230,42 @@
                 </div>
             </div>
             
+            <div class="divHeight d-flex justify-content-between imsi-input">
+                <div class="col-12">
+                    <label for="region" class="form-label es-modal-form-label">Region</label>
+                    <div class="relative">
+                        <ng-select
+                            [items]="regionList"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="name"
+                            bindValue="_id"
+                            placeholder="Select the region where you want the plan to be active"
+                            formControlName="region"
+                            (change)="selectRegion($event)"
+                            [class.disabled]="f.supportedCountries.value.length > 0">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.name }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+
+                    </div>
+                    <!-- <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.region.touched && f.region.pristine) || (f.region.errors && submitted)">
+                            <span class="small" *ngIf="f.region.errors.required">
+                                Region is required!
+                            </span>
+                        </span>
+                    </div>     -->
+                </div>
+            </div>
+
             <div class="divHeight d-flex justify-content-between">
                 <div class="col-12 location-input">
-                    <label for="supportedCountries" class="form-label es-modal-form-label">Location*</label>
+                    <label for="supportedCountries" class="form-label es-modal-form-label">Location</label>
                     <div class="relative">
                         <ng-select 
                             [items]="countriesAlias"
@@ -219,12 +273,14 @@
                             bindLabel="name"
                             bindValue="name"
                             [multiple]="true"
+                            [closeOnSelect]="false"
                             placeholder="Search for countries / Multiple countries can be selected"
-                            (change)="onCountryChange($event)">
+                            (change)="onCountryChange($event)"
+                            [class.disabled]="f.region.value != null">
 
                             <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                                 <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="20px" height="20px"> {{$any(item).name}}</span>
+                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="28px" height="20px"> {{$any(item).name}}</span>
                                     <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                                 </div>
                                 <div class="ng-value" *ngIf="items.length > 2">
@@ -232,8 +288,14 @@
                                 </div>
                             </ng-template>
 
-                            <ng-template ng-option-tmp let-item="item">
-                                <img [src]="item.flag" width="20px" height="20px"> {{item.name}}
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                    <div>
+                                        <img [src]="item.flag" width="32px" height="20px"> {{item.name}}
+                                    </div>
+                                    <div class="form-label es-modal-form-label unlimited">
+                                        <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 
+                                        <span class="checkmark"></span>
+                                    </div>
                             </ng-template>
                         </ng-select>
 
@@ -243,13 +305,13 @@
                             </svg>
                         </span>
                     </div>
-                    <div>
+                    <!-- <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.supportedCountries.touched && f.supportedCountries.pristine) || (f.supportedCountries.errors && submitted)">
                             <span class="small" *ngIf="f.supportedCountries.errors.required">
                                 Location is required!
                             </span>
                         </span>
-                    </div>    
+                    </div>     -->
                 </div>
             </div>
 
@@ -257,7 +319,7 @@
                 <div class="input-width">
                     <label for="dateEarliestActivation" class="form-label es-modal-form-label">Earliest Activation*</label>
                     <div class="d-flex input-icon">
-                        <input type="date" class="form-control es-input" id="dateEarliestActivation" aria-describedby="dateEarliestActivation" formControlName="dateEarliestActivation" [min]="currentDate" [ngClass]="[f.dateEarliestActivation.valid ? 'border-purple':'']">
+                        <!-- <input type="date" class="form-control es-input" id="dateEarliestActivation" aria-describedby="dateEarliestActivation" formControlName="dateEarliestActivation" [min]="currentDate" [ngClass]="[f.dateEarliestActivation.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label date-input-icon">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2349_16799)">
@@ -269,7 +331,12 @@
                                 </clipPath>
                                 </defs>
                             </svg>
-                        </span>
+                        </span> -->
+                        <mat-form-field appearance="outline" [ngClass]="[f.dateEarliestActivation.valid ? 'border-purple':'']">
+                            <input matInput [matDatepicker]="dateEarliestActivation" formControlName="dateEarliestActivation" placeholder="DD-MM-YYYY" (click)="dateEarliestActivation.open()" [min]="currentDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="dateEarliestActivation"></mat-datepicker-toggle>
+                            <mat-datepicker #dateEarliestActivation></mat-datepicker>
+                        </mat-form-field>
                     </div>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.dateEarliestActivation.touched && f.dateEarliestActivation.pristine) || (f.dateEarliestActivation.errors && submitted)">
@@ -283,7 +350,7 @@
                 <div class="input-width">
                     <label for="dateEarliestAvailable" class="form-label es-modal-form-label">Earliest Available*</label>
                     <div class="d-flex input-icon">
-                        <input type="date" class="form-control es-input" id="dateEarliestAvailable" aria-describedby="dateEarliestAvailable" formControlName="dateEarliestAvailable" [min]="f.dateEarliestActivation.value" [ngClass]="[f.dateEarliestAvailable.valid ? 'border-purple':'']">
+                    <!--    <input type="date" class="form-control es-input" id="dateEarliestAvailable" aria-describedby="dateEarliestAvailable" formControlName="dateEarliestAvailable" [min]="f.dateEarliestActivation.value" [ngClass]="[f.dateEarliestAvailable.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label date-input-icon">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2349_16799)">
@@ -295,12 +362,20 @@
                                 </clipPath>
                                 </defs>
                             </svg>
-                        </span>
+                        </span> -->
+                        <mat-form-field appearance="outline" [ngClass]="[f.dateEarliestAvailable.valid ? 'border-purple':'']">
+                            <input matInput [matDatepicker]="dateEarliestAvailable" formControlName="dateEarliestAvailable" placeholder="DD-MM-YYYY" (click)="dateEarliestAvailable.open()" [min]="f.dateEarliestActivation.value" #matDatePickerEle>
+                            <mat-datepicker-toggle matIconSuffix [for]="dateEarliestAvailable"></mat-datepicker-toggle>
+                            <mat-datepicker #dateEarliestAvailable></mat-datepicker>
+                        </mat-form-field>
                     </div>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.dateEarliestAvailable.touched && f.dateEarliestAvailable.pristine) || (f.dateEarliestAvailable.errors && submitted)">
                             <span class="small" *ngIf="f.dateEarliestAvailable.errors.required">
                                 Earliest Available is required!
+                            </span>
+                            <span class="small" *ngIf="f.dateEarliestAvailable.errors.matDatepickerMin">
+                                Earliest Available must be greater than Earliest Activation Date.
                             </span>
                         </span>
                     </div>
@@ -311,7 +386,7 @@
                 <div class="input-width">
                     <label for="dateLatestAvailable" class="form-label es-modal-form-label">Latest Available*</label>
                     <div class="d-flex input-icon">
-                        <input type="date" class="form-control es-input" id="dateLatestAvailable" aria-describedby="dateLatestAvailable" formControlName="dateLatestAvailable" [min]="f.dateEarliestAvailable.value" placeholder="Latest Available Date" [ngClass]="[f.dateLatestAvailable.valid ? 'border-purple':'']">
+                        <!-- <input type="date" class="form-control es-input" id="dateLatestAvailable" aria-describedby="dateLatestAvailable" formControlName="dateLatestAvailable" [min]="f.dateEarliestAvailable.value" placeholder="Latest Available Date" [ngClass]="[f.dateLatestAvailable.valid ? 'border-purple':'']">
                         <span class="form-label es-modal-form-label date-input-icon">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_2349_16799)">
@@ -323,19 +398,27 @@
                                 </clipPath>
                                 </defs>
                             </svg>
-                        </span>
+                        </span> -->
+                        <mat-form-field appearance="outline" [ngClass]="[f.dateLatestAvailable.valid ? 'border-purple':'']">
+                            <input matInput [matDatepicker]="dateLatestAvailable" formControlName="dateLatestAvailable" placeholder="DD-MM-YYYY" (click)="dateLatestAvailable.open()" [min]="f.dateEarliestAvailable.value">
+                            <mat-datepicker-toggle matIconSuffix [for]="dateLatestAvailable"></mat-datepicker-toggle>
+                            <mat-datepicker #dateLatestAvailable></mat-datepicker>
+                        </mat-form-field>
                     </div>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.dateLatestAvailable.touched && f.dateLatestAvailable.pristine) || (f.dateLatestAvailable.errors && submitted)">
                             <span class="small" *ngIf="f.dateLatestAvailable.errors.required">
                                 Latest Available is required!
                             </span>
+                            <span class="small" *ngIf="f.dateLatestAvailable.errors.matDatepickerMin">
+                                Latest Available must be greater than Earliest Available Date.
+                            </span>
                         </span>
                     </div>
                 </div>
             </div>
             <!-- <button type="submit" class="btn btn-primary w-100">Submit</button> -->
-            <div class="row gx-2 d-flex justify-content-between">
+            <div class="row mt-2 gx-2 d-flex justify-content-between">
                 <!-- <div class="col-md-6 gx-5"> -->
                     <button class="btn btn-secondary btn-width" (click)="close()">Cancel</button>
                 <!-- </div> -->

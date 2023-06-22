@@ -80,13 +80,16 @@
                         </svg>       
                     </span>
                 </label>
-                <label class="subscriber-details-text d-flex justify-content-between" *ngIf="details.title == 'Contact Preferences'">
-                    <small>
+                <label class="subscriber-details-text mt-2" *ngIf="details.title == 'Contact Preferences'">
+                    <div class="small-text">
                         {{ 'SMS/WhatsApp: '+ (subscriberDetails.isSms ? 'Yes' : 'No') }}
-                    </small> 
-                    <small>
+                    </div> 
+                    <div class="small-text">
                         {{ 'Email: '+ (subscriberDetails.isEmail ? 'Yes' : 'No') }}
-                    </small>
+                    </div>
+                    <div class="small-text">
+                        {{ 'Relevant Communication: '+ (subscriberDetails.relevantInfo ? 'Yes' : 'No') }}
+                    </div>
                 </label>
             </div>
         </div>

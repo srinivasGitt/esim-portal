@@ -49,7 +49,6 @@
                                 <label for="exampleInputEmail1" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@company.com" formControlName="email">
                                 <div>
-                                   
                                     <span class="help-block ng-invalid text-danger" *ngIf="(!f.email.valid && !f.email.pristine) || (f.email.errors && submitted)">
                                         <span class="small" *ngIf="f.email.errors.required">
                                             Email is required!
@@ -59,9 +58,9 @@
                                         <span class="small" *ngIf="f.email.errors.email">
                                             Enter valid email!
                                         </span>
-                                        <span class="small" *ngIf="f.email.errors.incorrect">
+                                        <!-- <span class="small" *ngIf="f.email.errors.incorrect">
                                             User not found!
-                                        </span>
+                                        </span> -->
                                     </span>
                                 </div>
                             </div>
@@ -73,14 +72,17 @@
                                         <span class="small" *ngIf="f.password.errors.required">
                                             Password is required!
                                         </span>
-                                        <span class="small" *ngIf="f.password.errors.incorrect">
+                                        <!-- <span class="small" *ngIf="f.password.errors.incorrect">
                                             The password you entered for the username {{ f.email?.value }} is incorrect.
-                                        </span>
+                                        </span> -->
                                     </p>
                                     <p class="show-hide-password mb-0">
                                         <img [src]="'/assets/images/auth/' + ( showPassword ? 'eye.svg' : 'eye-slash.svg')" (click)="showPassword = !showPassword;">
                                     </p>
                                 </div>
+                            </div>
+                            <div class="form-inner-div text-danger small" *ngIf="errMsg">
+                                {{ errMsg }}
                             </div>
                             <div class="form-inner-div reset-pass-text">
                                 <a href="" routerLink="/forgot-password" class="" aria-disabled="true">Forgot Password ?</a>
