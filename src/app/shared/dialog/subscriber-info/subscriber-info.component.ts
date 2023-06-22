@@ -20,6 +20,7 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Active Plan', key : 'planName', customClass: '' },
     { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
     { title : 'MSISDN', key : 'msisdn', customClass: '' },
+    { title : 'Contact Preferences', key : 'contactPreferences', customClass: '' }
   ]
 
   copyText: string = 'Copy'
@@ -49,6 +50,9 @@ export class SubscriberInfoComponent implements OnInit {
           this.subscriberDetails =  result;
           this.subscriberDetails.planName = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].name : '';
           this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
+          this.subscriberDetails.isSms = this.subscriberDetails?.contactPreferences?.sms;
+          this.subscriberDetails.isEmail = this.subscriberDetails?.contactPreferences?.email;
+          console.log(this.subscriberDetails)
         }
         this.inProgress = false;
       }, err => {
