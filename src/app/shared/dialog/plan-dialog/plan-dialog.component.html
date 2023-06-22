@@ -42,7 +42,7 @@
         <p class="modal-sub-header-text mb-0 mt-2">
             {{ title === 'Add New Plan' ? 'Add a new plan according to your liking.' : 'See and edit the plan as per your liking, your updated plan will be refreshed within 5 minutes.' }}
         </p>
-        <p *ngIf="err" class="help-block ng-invalid text-danger">
+        <p *ngIf="isErr" class="help-block ng-invalid text-danger">
             <small>{{ err }}</small>
         </p>
     </div>

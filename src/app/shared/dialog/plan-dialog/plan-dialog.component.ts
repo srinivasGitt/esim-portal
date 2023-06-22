@@ -59,6 +59,7 @@ export class PlanDialogComponent implements OnInit {
   isCountry: boolean = false;
   regionList: any[] = []
   err!: string;
+  isErr: boolean = false;
   
   currencyType: string = 'USD';
 
@@ -181,6 +182,7 @@ export class PlanDialogComponent implements OnInit {
     //   this.createPlan();
     // }
     if(this.planForm.value.region == null && this.planForm.value.supportedCountries.length == 0) {
+      this.isErr = true;
       this.err = 'Either Region or Country is required'
       return
     }
@@ -192,6 +194,7 @@ export class PlanDialogComponent implements OnInit {
   onCountryChange($event: any) {
     this.selectedCountries = $event
     this.selectedCountries.length > 0 ? this.isCountry = true : this.isCountry = false;
+    this.isErr = false;
   }
 
   /* create a new plan */
@@ -276,9 +279,8 @@ export class PlanDialogComponent implements OnInit {
     }
 
     this.selectedRegion != null ? this.isCountry = true : this.isCountry = false;
-
+    this.isErr = false;
   }
-  disable = true;
 
   /* Restrict user to enter alphabets in mobile field */
   numberOnly(event: any): boolean {
