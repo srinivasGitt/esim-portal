@@ -105,7 +105,7 @@ export class PlanDialogComponent implements OnInit {
         const regions = result[2]
         
         this.imsiTypeList = imsi.data
-        this.regionList = regions
+        this.regionList = regions.data
         this.countryList = countries.data
 
         this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
