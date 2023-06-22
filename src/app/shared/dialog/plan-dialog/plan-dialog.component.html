@@ -165,10 +165,13 @@
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex relative">
                         <input type="text" class="form-control es-input price-input number-input-right-padding" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" (keypress)="numberOnly($event)" [ngClass]="[f.priceBundle.value != 0 && f.priceBundle.valid ? 'border-purple':'']">
-                        <span class="form-label es-modal-form-label price-input-icon">                                                        
+                        <span *ngIf="currencyType != 'GBP'" class="form-label es-modal-form-label price-input-icon">                                                        
                             <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4.10651 17.25V15.2792C3.29679 15.0958 2.59798 14.7444 2.01009 14.225C1.42159 13.7056 0.989844 12.9722 0.714844 12.025L2.41068 11.3375C2.63984 12.0708 2.97993 12.6285 3.43093 13.0104C3.88132 13.3924 4.47318 13.5833 5.20651 13.5833C5.8329 13.5833 6.36396 13.4422 6.79968 13.1598C7.23479 12.8769 7.45234 12.4375 7.45234 11.8417C7.45234 11.3069 7.28429 10.8828 6.94818 10.5693C6.61207 10.2564 5.8329 9.90139 4.61068 9.50417C3.29679 9.09167 2.3954 8.59911 1.90651 8.0265C1.41762 7.45328 1.17318 6.75417 1.17318 5.92917C1.17318 4.93611 1.49401 4.16458 2.13568 3.61458C2.77734 3.06458 3.43429 2.75139 4.10651 2.675V0.75H5.93984V2.675C6.70373 2.79722 7.33409 3.07589 7.83093 3.511C8.32715 3.94672 8.68984 4.47778 8.91901 5.10417L7.22318 5.8375C7.03984 5.34861 6.78012 4.98194 6.44401 4.7375C6.1079 4.49306 5.64957 4.37083 5.06901 4.37083C4.39679 4.37083 3.88498 4.51994 3.53359 4.81817C3.1822 5.11578 3.00651 5.48611 3.00651 5.92917C3.00651 6.43333 3.23568 6.83056 3.69401 7.12083C4.15234 7.41111 4.94679 7.71667 6.07734 8.0375C7.13151 8.34306 7.92993 8.82797 8.47259 9.49225C9.01465 10.1571 9.28568 10.925 9.28568 11.7958C9.28568 12.8806 8.96484 13.7056 8.32318 14.2708C7.68151 14.8361 6.88707 15.1875 5.93984 15.325V17.25H4.10651Z" fill="#475467"/>
                             </svg>
+                        </span>
+                        <span *ngIf="currencyType == 'GBP'" class="form-label es-modal-form-label price-input-icon">                                                        
+                            &#163;
                         </span>
                     </div>
                     <div class="input-number-btn">

@@ -60,6 +60,8 @@ export class PlanDialogComponent implements OnInit {
   regionList: any[] = []
   err!: string;
   
+  currencyType: string = 'USD';
+
   constructor(
     private viewContainer: ViewContainerRef,
     private planService: PlansService,
@@ -71,6 +73,7 @@ export class PlanDialogComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.currencyType = localStorage.getItem('currency')!;
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     this.inProgress = true
