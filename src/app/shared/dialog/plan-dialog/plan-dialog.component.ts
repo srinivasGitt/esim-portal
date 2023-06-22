@@ -57,7 +57,7 @@ export class PlanDialogComponent implements OnInit {
   selectedIMSIType!: number;
   selectedRegion!: string;
   isCountry: boolean = false;
-  regionList: any[] = [{label: 'EU'},{label: 'NA'}, {label: 'SA'}, {label: 'APAC'}]
+  regionList: any[] = []
   err!: string;
   
   constructor(
@@ -99,14 +99,18 @@ export class PlanDialogComponent implements OnInit {
   getIMSIAndCountryList() {
     combineLatest(this.planService.getIMSIAndCountryList()).subscribe((result : any) => {
       if(result) {
+        
         const imsi = result[0]
         const countries = result[1]
+        const regions = result[2]
         
         this.imsiTypeList = imsi.data
+        this.regionList = regions
+        this.countryList = countries.data
+
         this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
         this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
-        
-        this.countryList = countries.data
+
         this.countryList = this.countryList.sort((a: any, b: any) => a.name.localeCompare(b.name));
         this.countryList.forEach((country: any) => {
           let flagNameInLower = country.iso3code
@@ -115,7 +119,7 @@ export class PlanDialogComponent implements OnInit {
           this.countriesAlias.push({name: country.name, flag: country.flag, iso3code: country.iso3code, dial_code: country.dial_code})
           this.inProgress = false
         })
-        console.log(this.countriesAlias)
+
       }
 
     })
@@ -204,7 +208,7 @@ export class PlanDialogComponent implements OnInit {
       cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
       priceBundle : parseInt(plan.priceBundle),
-      region: plan.region,
+      groupId: plan.region,
       supportedCountries : this.selectedCountries,
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
       dateLatestAvailable : new Date(plan.dateLatestAvailable).getTime(),
