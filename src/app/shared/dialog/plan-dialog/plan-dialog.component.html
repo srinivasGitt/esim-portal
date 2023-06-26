@@ -49,6 +49,17 @@
     <div class="es-modal-body plan-dialog-bodyscroll">
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
             <div class="divHeight">
+                <label for="productCategory" class="form-label es-modal-form-label">Plan Label*</label>
+                <input type="text" class="form-control es-input" id="productCategory" aria-describedby="productCategory" formControlName="productCategory" [ngClass]="[f.productCategory.valid ? 'border-purple':'']" placeholder="Enter your Plan Label">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.productCategory.touched && f.productCategory.pristine) || (f.productCategory.errors && submitted)">
+                        <span class="small" *ngIf="f.productCategory.errors.required">
+                            Plan Label is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="divHeight">
                 <label for="name" class="form-label es-modal-form-label">Plan Name*</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name" [ngClass]="[f.name.valid ? 'border-purple':'']" placeholder="Name your Plan">
                 <div>
@@ -189,16 +200,6 @@
                 <div class="input-width imsi-input">
                     <label for="imsiType" class="form-label es-modal-form-label">IMSI Type*</label>
                     <div class="d-flex relative container-ng-select">
-                        <!-- <ng-select
-                            [items]="imsiTypeList"
-                            [multiple]="false"
-                            bindLabel="label"
-                            bindValue="_id"
-                            [closeOnSelect]="false"
-                            placeholder="Select IMSI Type"
-                            formControlName="imsiType"
-                            class="full-width">
-                        </ng-select> -->
                         <ng-select
                             [items]="imsiTypeList"
                             [multiple]="false"
@@ -230,7 +231,7 @@
                 </div>
             </div>
             
-            <div class="divHeight d-flex justify-content-between imsi-input">
+            <!-- <div class="divHeight d-flex justify-content-between imsi-input">
                 <div class="col-12">
                     <label for="region" class="form-label es-modal-form-label">Region</label>
                     <div class="relative">
@@ -251,15 +252,67 @@
                                 <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
                             </ng-template>
                         </ng-select>
-
                     </div>
-                    <!-- <div>
-                        <span class="help-block ng-invalid text-danger" *ngIf="(f.region.touched && f.region.pristine) || (f.region.errors && submitted)">
-                            <span class="small" *ngIf="f.region.errors.required">
-                                Region is required!
+                </div>
+            </div> -->
+
+            <div class="divHeight d-flex justify-content-between">
+                <div class="input-width imsi-input">
+                    <label for="region" class="form-label es-modal-form-label">Activation Type</label>
+                    <div class="d-flex relative container-ng-select">
+                        <ng-select
+                            [items]="activationType"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="name"
+                            bindValue="name"
+                            formControlName="activationType"
+                            class="full-width"
+                            (change)="selectRegion($event)">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.name }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                        <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.activationType.touched && f.activationType.pristine) || (f.activationType.errors && submitted)">
+                            <span class="small" *ngIf="f.activationType.errors.required">
+                                Activation Type is required!
                             </span>
                         </span>
-                    </div>     -->
+                    </div>
+                </div>
+                <div class="input-width imsi-input">
+                    <label for="region" class="form-label es-modal-form-label">Region</label>
+                    <div class="d-flex relative container-ng-select">
+                        <ng-select
+                            [items]="regionList"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="name"
+                            bindValue="_id"
+                            placeholder="Select the region for your plan"
+                            formControlName="region"
+                            class="full-width"
+                            (change)="selectRegion($event)"
+                            [class.disabled]="f.supportedCountries.value.length > 0">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.name }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                        <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
 
@@ -280,7 +333,7 @@
 
                             <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                                 <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                                    <span class="ng-value-label"><img [src]="$any(item).flag" width="28px" height="20px"> {{$any(item).name}}</span>
+                                    <span class="ng-value-label"><img [src]="$any(item).flag" class="flag-style"> {{$any(item).name}}</span>
                                     <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                                 </div>
                                 <div class="ng-value" *ngIf="items.length > 2">
@@ -290,7 +343,7 @@
 
                             <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                                     <div>
-                                        <img [src]="item.flag" width="32px" height="20px"> {{item.name}}
+                                        <img [src]="item.flag" class="flag-style"> {{item.name}} {{ item.iso3code}} ({{item.dial_code}})
                                     </div>
                                     <div class="form-label es-modal-form-label unlimited">
                                         <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 

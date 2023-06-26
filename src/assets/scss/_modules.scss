@@ -2149,7 +2149,10 @@
                 padding: 8px;
                 border-radius: 8px;
                 margin-bottom: 4px;
-
+                color: rgba(31, 29, 29, 0.76);
+                font-size: 12px;
+                font-family: SF Pro Display;
+                
                 &:hover {
                     background-color: var(--dropdown-hover-bg-color) !important;
                 }
