@@ -85,9 +85,10 @@ export class ReportsComponent implements OnInit {
           labelData.push(x.label)
           revenueData.push(x.revenue)
         })
-        // this.generateChart(labelData, revenueData, res)
-        this.drawChart(labelData, revenueData, value)
         this.inProgress = false
+        setTimeout(() => {
+          this.drawChart(labelData, revenueData, value)
+        }, 10)
       }
     }, err => {
       this.alertService.error(err.error.message);
@@ -141,7 +142,7 @@ export class ReportsComponent implements OnInit {
           borderWidth: 1,
           pointRadius: 3,
           pointStyle: 'circle',
-          tension: 0.3
+          tension: 0
         }],
 
       },
@@ -191,7 +192,7 @@ export class ReportsComponent implements OnInit {
         },
         elements: {
           line: {
-            tension: 0.4  // smooth lines
+            tension: 0  // smooth lines
           },
         },
         plugins: {
