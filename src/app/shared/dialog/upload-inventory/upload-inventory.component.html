@@ -94,8 +94,9 @@
             </div>
             <div class="d-flex pt-4">
                 <button type="button" class="btn btn-secondary w-20 mr-30" (click)="close()">Cancel</button>
-                <button type="submit" class="btn btn-primary ms-auto w-20" [disabled]="!uploadedFile">
+                <button type="submit" class="btn btn-primary ms-auto w-20" [disabled]="!uploadedFile || progress > 0">
                     Upload
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="progress > 0"></span>
                 </button>
             </div>
         </form>
