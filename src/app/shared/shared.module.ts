@@ -39,6 +39,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { ContactSupportInfoComponent } from './dialog/contact-support-info/contact-support-info.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { MatInputModule } from '@angular/material/input';
     LoadingSpinnerComponent,
     InventoryInfoComponent,
     NotFoundComponent,
-    PhoneNumberMaskPipe
+    PhoneNumberMaskPipe,
+    ContactSupportInfoComponent
   ],
   imports: [
     CommonModule,

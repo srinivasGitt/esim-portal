@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js'
 import { Observable, combineLatest } from 'rxjs';
@@ -23,10 +23,8 @@ export class DashboardComponent implements OnInit {
   dashboardWidgets!: Array<any>;
   isDarkTheme = false;
   graphElement : any;
-  graphFilterBy : string = 'year';
   label: any;
   data: any;
-  digit: any = ["32","90","54","90","19","53","46","21","83","87","52","29","43","16","12","37","36","27","45","48","50","76","52","16","20","27","93","88","37","12","59","14","58","40","37","46","78","50","58","36","81","61","68","47","46","74","31","40","12","35","47","86","49","90","98","74","98","11","11","59","10","35","53","28","18","49","59","33","20","66","52","48","63","70","84","29","22","58","49","21","70","35","13","69","89","40","74","20","13","50","21","68","26","39","54","10","34","72","81","26"];
   range: any;
   startDate: any;
   endDate: any;
@@ -157,16 +155,16 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  getChildCustomers() {
-    this.customerService.childCustomers()
-     .subscribe(
-      (data: any) => {
-        this.customerList = data;
-     }, err => {
-      this.alertService.error(err.error.message);
-      }
-   );
-  }
+  // getChildCustomers() {
+  //   this.customerService.childCustomers()
+  //    .subscribe(
+  //     (data: any) => {
+  //       this.customerList = data;
+  //    }, err => {
+  //     this.alertService.error(err.error.message);
+  //     }
+  //  );
+  // }
 
   /* Get reports data - Start */
   getReports(value?: any) {
@@ -185,8 +183,10 @@ export class DashboardComponent implements OnInit {
           revenueData.push(x.revenue)
         })
         // this.generateChart(labelData, revenueData, res)
-        this.drawChart(labelData, revenueData, value)
         this.inProgress = false
+        setTimeout(() => {
+          this.drawChart(labelData, revenueData, value)
+        }, 10)
       }
     }, err => {
       this.alertService.error(err.error.message);
@@ -237,7 +237,7 @@ export class DashboardComponent implements OnInit {
           borderWidth: 1,
           pointRadius: 3,
           pointStyle: 'circle',
-          tension: 0.3
+          tension: 0
         }],
 
       },
@@ -288,7 +288,7 @@ export class DashboardComponent implements OnInit {
         },
         elements: {
           line: {
-            tension: 0.4  // smooth lines
+            tension: 0 // smooth lines
           },
         },
         plugins: {
