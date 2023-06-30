@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-
+  urlList = ['/', '/reports', '/customer-management', '/user-management', '/contactus', '/support']
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       router.events.subscribe((route) => {
         if(route instanceof NavigationEnd) {
         this.routeUrl = route.url
-        if(route.url == "/" || route.url == "/reports" || route.url == "/customer-management" || route.url == "/user-management") {
+        if(this.urlList.includes(route.url)) {
           this.showSearch = false;
         } else {
           this.showSearch = true;
@@ -47,7 +47,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     })
     usersService.getCurrentUser().subscribe(result => {
       this.userDetails = result;
-      console.log(this.userDetails)
     });
   }
 
@@ -65,7 +64,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.searchform = this.fb.group({
         searchTerm: ['']
     })
-}
+  }
 
   ngAfterViewInit() {
     

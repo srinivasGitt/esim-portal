@@ -16,6 +16,10 @@ import { CustomerManagementComponent } from './modules/customer-management/custo
 import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
 import { AuthGuard } from './shared/service/auth/auth.guard';
 import { NotFoundComponent } from './shared/component/not-found/not-found.component';
+import { SettingsComponent } from './modules/settings/settings.component';
+import { ContactusComponent } from './modules/help-center/contactus/contactus.component';
+import { SupportComponent } from './modules/help-center/support/support.component';
+import { HelpCenterComponent } from './modules/help-center/help-center.component';
 
 
 const routes: Routes = [
@@ -33,7 +37,15 @@ const routes: Routes = [
       { path: 'user-management/:custId', component: UserComponent },
       { path: 'plans', component: PlanComponent },
       { path: 'reports', component: ReportsComponent},
-      { path: 'inventory', component: InventoryComponent}
+      { path: 'inventory', component: InventoryComponent},
+      { path: 'settings', component: SettingsComponent},
+      { path: '', component: HelpCenterComponent,
+        children: [
+          { path: 'contactus', component: ContactusComponent },
+          { path: 'support', component: SupportComponent }
+        ]
+      },
+      
     ]
   },
   {
