@@ -1,0 +1,98 @@
+<div class="common-header main-content-div-area"> 
+    <div class="heading-flex">
+        <div class="heading-text">
+            <h2>Settings</h2>
+        </div>
+    </div>
+
+    <div class="row settings add-edit-modal"  *ngIf="!inProgress; else spinner">
+
+        <div class="settings-card">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Inventory Usage Reminder</h1> 
+                    <p>Set a limit for Inventory Usage.</p>
+                </div>
+                <div class="col-6">
+                    <ng-container *ngFor="let value of reminderValues">
+                        <div class="radio-div">
+                            <label [for]="value">
+                                <input type="radio" [id]="value" [value]="value" [(ngModel)]="reminderCurrentValue">
+                                {{ value == 0 ? 'No Limit' : value+'% Usage' }}
+                            </label>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+            </div>
+        </div>
+        <div class="settings-card">
+            <div class="row">
+                <div class="col">
+                    <h1>Email Forwarding</h1> 
+                    <p>Where would you like to receive your emails?</p>
+                </div>
+                <div class="col-8 d-flex flex-column gap-4">
+                    <div class="email-div">
+                        <label for="support">Support Email</label>
+                        <div class="row copy">
+                            <div class="col-8">
+                                <input type="email" name="support" id="support" [(ngModel)]="supportEmail">
+                            </div>
+                            <div class="col-4 d-flex justify-content-between gap-2">
+                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,supportEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                            <rect width="20" height="20" fill="#D9D9D9"/>
+                                        </mask>
+                                        <g mask="url(#mask0_2161_5534)">
+                                            <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
+                                        </g>
+                                    </svg>                           
+                                </span>
+                                <button type="button" class="btn-primary" (click)="sendTestMail(supportEmail)">Test email</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="email-div">
+                        <label for="support">Contact Us Email</label>
+                        <div class="row copy">
+                            <div class="col-8">
+                                <input type="email" name="support" id="support" [(ngModel)]="contactEmail">
+                            </div>
+                            <div  class="col-4 d-flex justify-content-between gap-2">
+                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,contactEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                            <rect width="20" height="20" fill="#D9D9D9"/>
+                                        </mask>
+                                        <g mask="url(#mask0_2161_5534)">
+                                            <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
+                                        </g>
+                                    </svg>                           
+                                </span>
+                                <button type="button" class="btn-primary" (click)="sendTestMail(contactEmail)">Test email</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-block" (click)="save()">Save</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
+    
+</div>

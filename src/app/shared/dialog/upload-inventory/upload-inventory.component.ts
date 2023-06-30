@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { DialogComponent, DialogService } from '../../service/dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DialogComponent } from '../../service/dialog';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AlertService } from '../../service/alert.service';
 import { FileUploadService } from '../../service/file-upload.service';
-import { DownloadSampleFileComponent } from '../download-sample-file/download-sample-file.component';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -25,8 +24,7 @@ export class UploadInventoryComponent implements OnInit {
 
   constructor(private viewContainer: ViewContainerRef, 
               private _fileUploadService: FileUploadService,
-              private alertService: AlertService,
-              private dialogService: DialogService) { 
+              private alertService: AlertService) { 
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent)
   }
@@ -72,10 +70,13 @@ export class UploadInventoryComponent implements OnInit {
         case HttpEventType.Response:
           this.dialogRef.close.emit({event, text: 'uploadAnother'});
           this.uploadForm?.reset()
-      }
+        }
       }, err => {
-        
+        this.submitted = false;
         this.alertService.error(err.error.message, err.status);
+        this.uploadForm?.reset()
+        this.uploadedFile = null;
+        this.progress = 0
       })
   }
 
