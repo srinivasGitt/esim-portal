@@ -1,4 +1,53 @@
 <!-- Default Sidebar -->
+<!-- <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
+    <div class="sidebar-brand-parent">
+        <a class="sidebar-brand" routerLink="/">
+            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
+        </a>
+    </div>
+
+    <ul class="sidebar-menu-list">
+        <li *ngFor="let menu of sidebarMenuList" class="flex-column" #itemEl>
+            <a class="nav-link" *ngIf="!menu.hasGroup" [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                <span class="link-icon">
+                    <img [src]="menu.icon" [alt]="menu.title">
+                </span>
+                <span class="">
+                    {{ menu.title }}
+                </span>
+                
+            </a>
+            <a class="nav-link" *ngIf="menu.hasGroup"  [routerLinkActive]="['activeLink']"  (click)="showSubmenu(itemEl)">
+                <span class="link-icon">
+                    <img [src]="menu.icon" [alt]="menu.title">
+                </span>
+                <span class="">
+                    {{ menu.title }}
+                </span>
+                <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                    <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
+                </div>
+            </a>
+            
+            <ul class="sub-menu">
+                <li *ngFor="let child of menu.childs" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="[child.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{ exact: true }">
+                        <span class="">
+                            {{ child.title }}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="d-flex align-items-center meta-footer">
+        <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
+        </span>
+    </div>
+</div> -->
+
+
 <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
     <div class="sidebar-brand-parent">
         <a class="sidebar-brand" routerLink="/">
@@ -7,32 +56,39 @@
     </div>
 
     <ul class="sidebar-menu-list">
-        <li *ngFor="let menu of sidebarMenuList" class="flex-column">
-            <a class="nav-link" [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
-                <span class="link-icon">
-                    <img [src]="menu.icon" [alt]="menu.title">
-                </span>
-                <span class="">
-                    {{ menu.title }}
-                </span>
-                    <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon" *ngIf="menu.hasGroup">
-                        <img class="sidebar-anchor-tab-flex-img" [src]="'/assets/images/dashboard/icon/arrow-right' + (isDarkTheme ? '.svg' : '-dark.svg')" [ngStyle]="{'transform': (activeUrl === menu.link ? 'rotate(90deg)' : 'none')}" alt="">
+        <li *ngFor="let menu of sidebarMenuList" class="flex-column" #itemEl>
+            <div *ngIf="!menu.hasGroup" class="pt-0 pb-0">
+                <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                    <span class="link-icon">
+                        <img [src]="menu.icon" [alt]="menu.title">
+                    </span>
+                    <span class="">
+                        {{ menu.title }}
+                    </span>
+                </a>
+            </div>
+            <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer">
+                <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                    <span class="link-icon">
+                        <img [src]="menu.icon" [alt]="menu.title">
+                    </span>
+                    <span class="">
+                        {{ menu.title }}
+                    </span>
+                    <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                        <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
                     </div>
-            </a>
-            <ng-container *ngIf="menu.hasGroup && menu.childs.length > 0">
-                <div class="border-start mt-2 child-div collapse show" id="collapseOne" class="" aria-labelledby="headingOne" data-parent="#accordion">
-                    <ul>
-                        <li *ngFor="let child of menu.childs">
-                            <a class="nav-link" [routerLink]="[child.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{ exact: true }">
-                                
-                                <span class="">
-                                    {{ child.title }}
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </ng-container>
+                </a>
+            </div>
+            <ul class="sub-menu">
+                <li *ngFor="let child of menu.childs" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link" [routerLink]="[child.link]">
+                        <span class="">
+                            {{ child.title }}
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 

@@ -116,6 +116,11 @@ export class SidebarComponent implements OnInit {
       }
       });
     }
+
+
+    showSubmenu(itemEl: HTMLElement) {
+      itemEl.classList.toggle("showMenu");
+    }
   
 }
 
