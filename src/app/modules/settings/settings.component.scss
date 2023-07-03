@@ -15,7 +15,7 @@
             font-weight: 500;
             font-size: 24px;
             line-height: 130%;
-            color: #473BAA;
+            color: var(--settings-card-heading-text-color);
         }
 
         p {
@@ -24,7 +24,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 130%;
-            color: #000000;
+            color: var(--settings-helping-text-color);
         }
 
         .radio-div {
@@ -33,7 +33,7 @@
             font-weight: 500;
             font-size: 14px;
             line-height: 20px;
-            color: #475467;
+            color: var(--radio-label-text-color);
             margin-bottom: 20px;
             margin-top: 4px;
 
@@ -58,14 +58,14 @@
             font-weight: 500;
             font-size: 14px;
             line-height: 20px;
-            color: #475467;
+            color: var(--radio-label-text-color);
             margin-bottom: 12px;
         }
 
         input {
             border: none;
             width: 100%;
-            background-color: transparent;
+            background-color: transparent !important;
             color: var(--modal-form-label-text-color);
             
             &:focus-visible {

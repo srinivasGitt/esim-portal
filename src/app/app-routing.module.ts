@@ -39,7 +39,7 @@ const routes: Routes = [
       { path: 'reports', component: ReportsComponent},
       { path: 'inventory', component: InventoryComponent},
       { path: 'settings', component: SettingsComponent},
-      { path: '', component: HelpCenterComponent,
+      { path: 'help-center', component: HelpCenterComponent,
         children: [
           { path: 'contactus', component: ContactusComponent },
           { path: 'support', component: SupportComponent }

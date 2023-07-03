@@ -174,14 +174,25 @@
                     // padding: 0 12px;
 
                     .activeLink {
-                        background: var(--active-link-background-color);
-                        border-radius: 8px;
-                    }
+                            background: var(--active-link-background-color);
+                            border-radius: 8px;
+                        }
+                        
+                    div a:hover{
+                            background: var(--active-link-background-color);
+                            border-radius: 8px;
+                        }
                     
-                    :hover{
-                        background: var(--active-link-background-color);
-                        border-radius: 8px;
-                    }
+
+                    // .activeLink {
+                    //     background: var(--active-link-background-color);
+                    //     border-radius: 8px;
+                    // }
+                    
+                    // :hover{
+                    //     background: var(--active-link-background-color);
+                    //     border-radius: 8px;
+                    // }
                 }
 
                 a, div {
@@ -3044,6 +3055,7 @@
                 width: 24px;
                 cursor: pointer;
             }
+            
         }
         .t-body-bg{
             .t-box{

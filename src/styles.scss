@@ -163,6 +163,9 @@
     --calendar-other-date-text-color:#8B8B8B;
     --selected-value-background-color: rgba(105, 112, 241, 0.1);
     --input-text-color: #000000;
+    --settings-card-heading-text-color: #473BAA;
+    --settings-helping-text-color: #000000;
+    --radio-label-text-color: #000000;
 
     /* SWITCH */
     --dark-primary-background: #59D956;
@@ -334,6 +337,9 @@
     --calendar-other-date-text-color:#2C2C2C;
     --selected-value-background-color: rgba(105, 112, 241, 0.1);
     --input-text-color: #FFFFFF;
+    --settings-card-heading-text-color: var(--table-heading-text-color);
+    --settings-helping-text-color: var(--table-text-color);
+    --radio-label-text-color: #8B8B8B;
 
     /* SIZES */
     --sidebar-text-size: 0.875rem;
