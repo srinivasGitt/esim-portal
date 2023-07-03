@@ -10,11 +10,12 @@ import { SettingsService } from 'src/app/shared/service/settings.service';
 export class SettingsComponent implements OnInit {
 
   reminderValues: number[] = [0,60,70,80,90];
-  supportEmail!: string;
-  contactEmail!: string;
+  supportEmail: string | undefined = undefined;
+  contactEmail: string | undefined = undefined;
   copyText: string = 'Copy'
-  reminderCurrentValue!: number;
+  reminderCurrentValue: number | undefined = undefined;
   inProgress: boolean = false;
+  isSubmitted: boolean = false;
 
   constructor(private settingsService: SettingsService, private alertService: AlertService) { }
 
@@ -23,6 +24,7 @@ export class SettingsComponent implements OnInit {
   }
 
   save() {
+    this.isSubmitted = true
     this.inProgress = true
     let settingsObj = { supportUsEmail: this.supportEmail, contactUsEmail: this.contactEmail, usageReminder: this.reminderCurrentValue}
     this.settingsService.saveSettings(settingsObj).subscribe((res: any) => {
@@ -30,10 +32,12 @@ export class SettingsComponent implements OnInit {
         this.alertService.success(res.message);
         this.getSettings();
         this.inProgress = false;
+        this.isSubmitted = false;
       }
     }, err => {
       this.alertService.error(err.error.message, err.status);
       this.inProgress = false;
+      this.isSubmitted = false;
     })
   }
 
