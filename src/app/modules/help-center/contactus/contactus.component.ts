@@ -73,7 +73,6 @@ export class ContactusComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onSelect(value: string, data: any) {    
     const status = value 
     this.supportService.updateContactSupportRequestStatus(data._id, status).subscribe((res: any) => {
