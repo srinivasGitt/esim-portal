@@ -84,8 +84,8 @@
             </div>
             <div class="col-8">
                 <label class="subscriber-details-text word-break">
-                    <div class="filter-head d-flex">
-                        <div class="dropdown d-flex w-100">
+                    <div class="filter-div d-flex">
+                        <div class="d-flex w-100 div">
                             <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span id="languageTootltip">{{ requestDetails.status }}</span>
                                 <span class="ms-auto">
@@ -95,7 +95,7 @@
                                 </span>
                             </a>
         
-                            <div class="dropdown-menu lang-dropdown-option border-secondary custom-padding" aria-labelledby="dropdownMenuLink-lang">
+                            <div class="dropdown-menu lang-dropdown-option border-secondary custom-padding " aria-labelledby="dropdownMenuLink-lang">
                                 <a class="dropdown-item lang-dropdown-item sg-font-regular status-item" (click)="onSelect('Resolved', requestDetails)">Resolved</a>
                                 <a class="dropdown-item lang-dropdown-item sg-font-regular status-item" (click)="onSelect('In Progress', requestDetails)">In Progress</a>
                                 <a class="dropdown-item lang-dropdown-item sg-font-regular status-item" (click)="onSelect('Pending', requestDetails)">Pending</a>

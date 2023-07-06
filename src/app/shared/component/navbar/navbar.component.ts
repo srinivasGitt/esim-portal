@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-  urlList = ['/', '/reports', '/customer-management', '/user-management', '/settings', '/contactus', '/support']
+  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center']
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
@@ -84,14 +84,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       })
     }
     */
-    this.searchform.controls['searchTerm'].valueChanges.pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
-        ).subscribe(res => {
-          this.cdr.detectChanges()
-          this._searchService.setResults(res)
-        })
+    if(!this.urlList.includes(this.routeUrl)) {
+      this.searchform.controls['searchTerm'].valueChanges.pipe(
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
+          ).subscribe(res => {
+            this.cdr.detectChanges()
+            this._searchService.setResults(res)
+          })
+      }
     }
 
   toggleTheme() {

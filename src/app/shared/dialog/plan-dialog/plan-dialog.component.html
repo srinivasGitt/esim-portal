@@ -50,7 +50,7 @@
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
             <div class="divHeight">
                 <label for="productCategory" class="form-label es-modal-form-label">Plan Label</label>
-                <input type="text" class="form-control es-input" id="productCategory" aria-describedby="productCategory" formControlName="productCategory" [ngClass]="[f.productCategory.valid ? 'border-purple':'']" placeholder="Enter your Plan Label">
+                <input type="text" class="form-control es-input" id="productCategory" aria-describedby="productCategory" formControlName="productCategory" [ngClass]="[f.productCategory.value.length > 0 ? 'border-purple':'']" placeholder="Enter your Plan Label">
                 <!-- <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.productCategory.touched && f.productCategory.pristine) || (f.productCategory.errors && submitted)">
                         <span class="small" *ngIf="f.productCategory.errors.required">

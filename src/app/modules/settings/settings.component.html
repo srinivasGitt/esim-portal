@@ -18,14 +18,14 @@
                         <div class="radio-div">
                             <label [for]="value">
                                 <input type="radio" [id]="value" [value]="value" [(ngModel)]="reminderCurrentValue">
-                                {{ value == 0 ? 'No Limit' : value+'% Usage' }}
+                                {{ value == 0 ? 'No Reminder' : value+'% Usage' }}
                             </label>
                         </div>
                     </ng-container>
                 </div>
             </div>
             <div class="d-flex justify-content-between" *ngIf="reminderCurrentValue != undefined">
-                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="button" class="btn btn-secondary" (click)="cancel('usage')">Cancel</button>
                 <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
             </div>
             <div class="d-flex justify-content-end" *ngIf="reminderCurrentValue == undefined">
@@ -41,11 +41,17 @@
                 <div class="col-8 d-flex flex-column gap-4">
                     <div class="email-div">
                         <label for="support">Support Email</label>
-                        <div class="row copy">
+                        <div class="row copy" [ngClass]="[supportEmail && supportEmail.length > 0 ? 'border-purple':'']" >
                             <div class="col-8">
-                                <input type="email" name="support" id="support" [(ngModel)]="supportEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #support="ngModel">
+                                <input type="email" name="support" id="support" [(ngModel)]="supportEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #support="ngModel" [disabled]="!isSupportEdit">
                             </div>
-                            <div class="col-4 d-flex justify-content-between gap-2" *ngIf="supportEmail && supportEmail.length > 0">
+                            <div class="col-4 d-flex justify-content-end gap-2" *ngIf="supportEmail && supportEmail.length > 0">
+                                <span class="icon cursor-pointer" (click)="editField('support')" tooltip="Edit" placement="top" delay="100" offset="10">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8831 2.96672C18.065 3.23953 18.0346 3.61027 17.7922 3.85044L9.0931 12.4648C9.00386 12.5532 8.89257 12.6164 8.77059 12.648L5.14762 13.5851C5.02945 13.6156 4.90765 13.615 4.79321 13.5861C4.67154 13.5555 4.55819 13.493 4.46638 13.402C4.28822 13.2256 4.21787 12.9688 4.28154 12.7274L5.22788 9.13963C5.25576 9.03393 5.30809 8.92953 5.38047 8.84762L14.1118 0.205859C14.1881 0.130177 14.2802 0.0735272 14.3804 0.0390127C14.4547 0.0134197 14.5335 0 14.6136 0C14.8018 0 14.9824 0.074052 15.1155 0.205859L17.7922 2.85646C17.8268 2.89077 17.8571 2.92774 17.8831 2.96672ZM16.2865 3.35345L14.6136 1.69682L6.55262 9.67942L5.96117 11.9218L8.2255 11.3361L16.2865 3.35345Z" fill="black"/>
+                                        <path d="M16.1666 13.9729C16.4253 11.7823 16.5077 9.57638 16.4135 7.376C16.4091 7.27067 16.4491 7.16813 16.5243 7.09357L17.4549 6.17206C17.5693 6.05876 17.7648 6.13069 17.7755 6.29056C17.9506 8.90483 17.8841 11.531 17.5765 14.1363C17.3526 16.0316 15.8154 17.517 13.9114 17.7277C10.6309 18.0908 7.23979 18.0908 3.9593 17.7277C2.05523 17.517 0.518074 16.0316 0.294219 14.1363C-0.098073 10.8148 -0.098073 7.45931 0.294219 4.13787C0.518074 2.2425 2.05523 0.757143 3.9593 0.546401C6.44792 0.27097 9.00015 0.20448 11.5194 0.346933C11.6818 0.356117 11.7558 0.550675 11.6408 0.664554L10.7016 1.59471C10.6271 1.66845 10.525 1.70807 10.4196 1.70454C8.31274 1.63417 6.19149 1.71379 4.11697 1.9434C2.85825 2.08271 1.84994 3.06633 1.7041 4.30117C1.32462 7.51413 1.32462 10.76 1.7041 13.9729C1.84994 15.2078 2.85825 16.1914 4.11697 16.3307C7.29269 16.6822 10.578 16.6822 13.7537 16.3307C15.0125 16.1914 16.0207 15.2078 16.1666 13.9729Z" fill="black"/>
+                                    </svg>    
+                                </span>
                                 <span class="icon cursor-pointer" (click)="copyToClipboard($event,supportEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -65,11 +71,17 @@
                     </div>
                     <div class="email-div">
                         <label for="support">Contact Us Email</label>
-                        <div class="row copy">
+                        <div class="row copy" [ngClass]="[contactEmail && contactEmail.length > 0 ? 'border-purple':'']" >
                             <div class="col-8">
-                                <input type="email" name="support" id="support" [(ngModel)]="contactEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #contact="ngModel">
+                                <input type="email" name="support" id="support" [(ngModel)]="contactEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #contact="ngModel" [disabled]="!isContactEdit">
                             </div>
-                            <div  class="col-4 d-flex justify-content-between gap-2" *ngIf="contactEmail && contactEmail.length > 0">
+                            <div  class="col-4 d-flex justify-content-end gap-2" *ngIf="contactEmail && contactEmail.length > 0">
+                                <span class="icon cursor-pointer" tooltip="Edit" placement="top" delay="100" offset="10" (click)="editField('contact')">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8831 2.96672C18.065 3.23953 18.0346 3.61027 17.7922 3.85044L9.0931 12.4648C9.00386 12.5532 8.89257 12.6164 8.77059 12.648L5.14762 13.5851C5.02945 13.6156 4.90765 13.615 4.79321 13.5861C4.67154 13.5555 4.55819 13.493 4.46638 13.402C4.28822 13.2256 4.21787 12.9688 4.28154 12.7274L5.22788 9.13963C5.25576 9.03393 5.30809 8.92953 5.38047 8.84762L14.1118 0.205859C14.1881 0.130177 14.2802 0.0735272 14.3804 0.0390127C14.4547 0.0134197 14.5335 0 14.6136 0C14.8018 0 14.9824 0.074052 15.1155 0.205859L17.7922 2.85646C17.8268 2.89077 17.8571 2.92774 17.8831 2.96672ZM16.2865 3.35345L14.6136 1.69682L6.55262 9.67942L5.96117 11.9218L8.2255 11.3361L16.2865 3.35345Z" fill="black"/>
+                                        <path d="M16.1666 13.9729C16.4253 11.7823 16.5077 9.57638 16.4135 7.376C16.4091 7.27067 16.4491 7.16813 16.5243 7.09357L17.4549 6.17206C17.5693 6.05876 17.7648 6.13069 17.7755 6.29056C17.9506 8.90483 17.8841 11.531 17.5765 14.1363C17.3526 16.0316 15.8154 17.517 13.9114 17.7277C10.6309 18.0908 7.23979 18.0908 3.9593 17.7277C2.05523 17.517 0.518074 16.0316 0.294219 14.1363C-0.098073 10.8148 -0.098073 7.45931 0.294219 4.13787C0.518074 2.2425 2.05523 0.757143 3.9593 0.546401C6.44792 0.27097 9.00015 0.20448 11.5194 0.346933C11.6818 0.356117 11.7558 0.550675 11.6408 0.664554L10.7016 1.59471C10.6271 1.66845 10.525 1.70807 10.4196 1.70454C8.31274 1.63417 6.19149 1.71379 4.11697 1.9434C2.85825 2.08271 1.84994 3.06633 1.7041 4.30117C1.32462 7.51413 1.32462 10.76 1.7041 13.9729C1.84994 15.2078 2.85825 16.1914 4.11697 16.3307C7.29269 16.6822 10.578 16.6822 13.7537 16.3307C15.0125 16.1914 16.0207 15.2078 16.1666 13.9729Z" fill="black"/>
+                                    </svg>    
+                                </span>
                                 <span class="icon cursor-pointer" (click)="copyToClipboard($event,contactEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -89,7 +101,7 @@
                     </div>
                     <div class="d-flex justify-content-between" *ngIf="(supportEmail != undefined || contactEmail != undefined); else saveOnly">
                         <div class="col">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
+                            <button type="button" class="btn btn-secondary" (click)="cancel('email')" *ngIf="isSupportEdit || isContactEdit">Cancel</button>
                         </div>
                         <div class="col-7">
                             <button type="submit" class="btn btn-primary w-100" (click)="save()" [disabled]="support.errors || contact.errors">Save</button>
@@ -112,5 +124,5 @@
         <app-loading-spinner></app-loading-spinner>
     </ng-template>
     <!-- Loading Spinner - End -->
-    
+
 </div>
