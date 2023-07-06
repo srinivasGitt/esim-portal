@@ -38,7 +38,7 @@ const routes: Routes = [
       { path: 'plans', component: PlanComponent },
       { path: 'reports', component: ReportsComponent},
       { path: 'inventory', component: InventoryComponent},
-      { path: 'settings', component: SettingsComponent},
+      { path: 'setting', component: SettingsComponent},
       { path: 'help-center', component: HelpCenterComponent,
         children: [
           { path: 'contactus', component: ContactusComponent },
