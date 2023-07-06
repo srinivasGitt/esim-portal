@@ -17,9 +17,13 @@ export class SearchService {
 
   getSearchResult(url: string, searchTerm: string, itemsPerPage?: number, currentPage?: number): Observable<any> {
     this.searchedTerm = searchTerm
-    
+
     if(url.includes('inventory')) {
       url = '/inventories'
+    }
+
+    if(url.includes('setting')) {
+      url = '/customers/setting'
     }
 
     if(searchTerm && searchTerm.length > 3) {
