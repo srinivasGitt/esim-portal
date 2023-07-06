@@ -6,12 +6,12 @@
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         
-        <ng-container class="user-dashboard-table mt-4" >
+        <ng-container class="user-dashboard-table" *ngIf="contactRequestList && contactRequestList.length > 0; else msg">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers mt-3">
                     <div class="t-box a px-2 d-flex">
                         <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.3345 16.5011V14.8343C14.3345 13.9502 13.9833 13.1022 13.3581 12.4771C12.7329 11.8519 11.885 11.5007 11.0009 11.5007H4.33362C3.44949 11.5007 2.60157 11.8519 1.97639 12.4771C1.35122 13.1022 1 13.9502 1 14.8343V16.5011M11.001 4.834C11.001 6.67532 9.50833 8.16801 7.66701 8.16801C5.82569 8.16801 4.33301 6.67532 4.33301 4.834C4.33301 2.99268 5.82569 1.5 7.66701 1.5C9.50833 1.5 11.001 2.99268 11.001 4.834Z" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path  class="color-stroke" d="M14.3345 16.5011V14.8343C14.3345 13.9502 13.9833 13.1022 13.3581 12.4771C12.7329 11.8519 11.885 11.5007 11.0009 11.5007H4.33362C3.44949 11.5007 2.60157 11.8519 1.97639 12.4771C1.35122 13.1022 1 13.9502 1 14.8343V16.5011M11.001 4.834C11.001 6.67532 9.50833 8.16801 7.66701 8.16801C5.82569 8.16801 4.33301 6.67532 4.33301 4.834C4.33301 2.99268 5.82569 1.5 7.66701 1.5C9.50833 1.5 11.001 2.99268 11.001 4.834Z" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                             
                         <span class="my-auto ms-2">Name</span>
@@ -24,8 +24,8 @@
                     </div>
                     <div class="t-box a px-2 d-flex">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21.375 8V19C21.375 19.2652 21.2696 19.5196 21.0821 19.7071C20.8946 19.8946 20.6402 20 20.375 20H17.375" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M3.375 5V15C3.375 15.2652 3.48036 15.5196 3.66789 15.7071C3.85543 15.8946 4.10978 16 4.375 16H8.375L13.375 19V16H16.375C16.6402 16 16.8946 15.8946 17.0821 15.7071C17.2696 15.5196 17.375 15.2652 17.375 15V5C17.375 4.73478 17.2696 4.48043 17.0821 4.29289C16.8946 4.10536 16.6402 4 16.375 4H4.375C4.10978 4 3.85543 4.10536 3.66789 4.29289C3.48036 4.48043 3.375 4.73478 3.375 5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M21.375 8V19C21.375 19.2652 21.2696 19.5196 21.0821 19.7071C20.8946 19.8946 20.6402 20 20.375 20H17.375" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path  class="color-stroke" d="M3.375 5V15C3.375 15.2652 3.48036 15.5196 3.66789 15.7071C3.85543 15.8946 4.10978 16 4.375 16H8.375L13.375 19V16H16.375C16.6402 16 16.8946 15.8946 17.0821 15.7071C17.2696 15.5196 17.375 15.2652 17.375 15V5C17.375 4.73478 17.2696 4.48043 17.0821 4.29289C16.8946 4.10536 16.6402 4 16.375 4H4.375C4.10978 4 3.85543 4.10536 3.66789 4.29289C3.48036 4.48043 3.375 4.73478 3.375 5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M12.8242 10H12.9242" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M7.82422 10H7.92422" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -67,8 +67,8 @@
                         </div>
                         <div class="t-box a px-1 d-flex align-items-center">{{contactRequest.message}}</div>
                         <label class="subscriber-details-text word-break custom-label-size">
-                            <div class="filter-head d-flex">
-                                <div class="dropdown d-flex w-100">
+                            <div class="filter-div d-flex">
+                                <div class="d-flex w-100">
                                     <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span id="languageTootltip">{{ contactRequest.status }}</span>
                                         <span class="ms-auto">

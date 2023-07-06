@@ -6,12 +6,12 @@
     </div>
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
         
-        <ng-container class="user-dashboard-table mt-4" >
+        <ng-container class="user-dashboard-table" *ngIf="supportRequestList && supportRequestList.length > 0; else msg">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers mt-3">
                     <div class="t-box a px-2 d-flex">
                         <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.3345 16.5011V14.8343C14.3345 13.9502 13.9833 13.1022 13.3581 12.4771C12.7329 11.8519 11.885 11.5007 11.0009 11.5007H4.33362C3.44949 11.5007 2.60157 11.8519 1.97639 12.4771C1.35122 13.1022 1 13.9502 1 14.8343V16.5011M11.001 4.834C11.001 6.67532 9.50833 8.16801 7.66701 8.16801C5.82569 8.16801 4.33301 6.67532 4.33301 4.834C4.33301 2.99268 5.82569 1.5 7.66701 1.5C9.50833 1.5 11.001 2.99268 11.001 4.834Z" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M14.3345 16.5011V14.8343C14.3345 13.9502 13.9833 13.1022 13.3581 12.4771C12.7329 11.8519 11.885 11.5007 11.0009 11.5007H4.33362C3.44949 11.5007 2.60157 11.8519 1.97639 12.4771C1.35122 13.1022 1 13.9502 1 14.8343V16.5011M11.001 4.834C11.001 6.67532 9.50833 8.16801 7.66701 8.16801C5.82569 8.16801 4.33301 6.67532 4.33301 4.834C4.33301 2.99268 5.82569 1.5 7.66701 1.5C9.50833 1.5 11.001 2.99268 11.001 4.834Z" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span class="my-auto ms-2">Name</span>
                     </div>
@@ -23,17 +23,17 @@
                     </div>
                     <div class="t-box a px-2 d-flex">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M14.9997 21.0008C13.4497 20.6312 11.9794 19.9841 10.6597 19.0908L12.4797 16.4808C12.7789 16.0724 13.2219 15.7926 13.7193 15.698C14.2167 15.6033 14.7314 15.7008 15.1597 15.9708C15.4897 16.1808 15.8297 16.3708 16.1597 16.5608C16.4081 16.6823 16.6287 16.8539 16.8074 17.0649C16.9861 17.2759 17.1191 17.5217 17.1981 17.7867C17.277 18.0517 17.3001 18.3302 17.266 18.6045C17.2319 18.8789 17.1412 19.1433 16.9997 19.3808L16.3797 20.3308C16.269 20.59 16.0684 20.8005 15.8149 20.9236C15.5613 21.0467 15.2719 21.0741 14.9997 21.0008ZM3.66973 7.67085L4.66973 7.05085C4.90163 6.90035 5.16221 6.79956 5.43502 6.75485C5.70783 6.71014 5.98695 6.72247 6.25476 6.79106C6.52257 6.85966 6.77325 6.98303 6.99097 7.15339C7.20869 7.32375 7.38873 7.5374 7.51973 7.78085C7.70973 8.14085 7.89973 8.48085 8.10973 8.78085C8.37973 9.20915 8.47725 9.72392 8.38259 10.2213C8.28794 10.7187 8.00817 11.1617 7.59973 11.4608L4.93973 13.3108C4.03921 12.0025 3.38203 10.5425 2.99973 9.00085C2.93958 8.73585 2.97354 8.45817 3.0958 8.21549C3.21806 7.9728 3.42098 7.78023 3.66973 7.67085Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M4.93945 13.3105C5.6743 14.4632 6.54006 15.5269 7.51945 16.4805C8.47307 17.4599 9.53681 18.3257 10.6895 19.0605" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M11 3.06C11.3318 3.01979 11.6658 2.99975 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21.0003 12.3342 20.9802 12.6682 20.94 13" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M14.9997 21.0008C13.4497 20.6312 11.9794 19.9841 10.6597 19.0908L12.4797 16.4808C12.7789 16.0724 13.2219 15.7926 13.7193 15.698C14.2167 15.6033 14.7314 15.7008 15.1597 15.9708C15.4897 16.1808 15.8297 16.3708 16.1597 16.5608C16.4081 16.6823 16.6287 16.8539 16.8074 17.0649C16.9861 17.2759 17.1191 17.5217 17.1981 17.7867C17.277 18.0517 17.3001 18.3302 17.266 18.6045C17.2319 18.8789 17.1412 19.1433 16.9997 19.3808L16.3797 20.3308C16.269 20.59 16.0684 20.8005 15.8149 20.9236C15.5613 21.0467 15.2719 21.0741 14.9997 21.0008ZM3.66973 7.67085L4.66973 7.05085C4.90163 6.90035 5.16221 6.79956 5.43502 6.75485C5.70783 6.71014 5.98695 6.72247 6.25476 6.79106C6.52257 6.85966 6.77325 6.98303 6.99097 7.15339C7.20869 7.32375 7.38873 7.5374 7.51973 7.78085C7.70973 8.14085 7.89973 8.48085 8.10973 8.78085C8.37973 9.20915 8.47725 9.72392 8.38259 10.2213C8.28794 10.7187 8.00817 11.1617 7.59973 11.4608L4.93973 13.3108C4.03921 12.0025 3.38203 10.5425 2.99973 9.00085C2.93958 8.73585 2.97354 8.45817 3.0958 8.21549C3.21806 7.9728 3.42098 7.78023 3.66973 7.67085Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M4.93945 13.3105C5.6743 14.4632 6.54006 15.5269 7.51945 16.4805C8.47307 17.4599 9.53681 18.3257 10.6895 19.0605" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M11 3.06C11.3318 3.01979 11.6658 2.99975 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12C21.0003 12.3342 20.9802 12.6682 20.94 13" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span class="my-auto ms-2">Phone Number</span>
                     </div>
                     <div class="t-box b px-2 d-flex">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.9492 17H12.0492" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V4C6 3.73478 6.10536 3.48043 6.29289 3.29289C6.48043 3.10536 6.73478 3 7 3H17C17.2652 3 17.5196 3.10536 17.7071 3.29289C17.8946 3.48043 18 3.73478 18 4V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21ZM14 3H10L10.5 5H13.5L14 3Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M11.9492 17H12.0492" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="color-stroke" d="M17 21H7C6.73478 21 6.48043 20.8946 6.29289 20.7071C6.10536 20.5196 6 20.2652 6 20V4C6 3.73478 6.10536 3.48043 6.29289 3.29289C6.48043 3.10536 6.73478 3 7 3H17C17.2652 3 17.5196 3.10536 17.7071 3.29289C17.8946 3.48043 18 3.73478 18 4V20C18 20.2652 17.8946 20.5196 17.7071 20.7071C17.5196 20.8946 17.2652 21 17 21ZM14 3H10L10.5 5H13.5L14 3Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span class="my-auto ms-2">Device Infomation</span>
                     </div>
@@ -57,11 +57,11 @@
                             <span class="text-overflow-ellipsis">{{supportRequest.name}}</span>
                         </div>
                         <div class="t-box b px-2 d-flex align-items-center">{{supportRequest.email}}</div>
-                        <div class="t-box a px-1 d-flex align-items-center">{{supportRequest.number}}</div>
-                        <div class="t-box a px-1 d-flex align-items-center">{{supportRequest.deviceInfo}}</div>                            
+                        <div class="t-box a px-1 d-flex align-items-center">{{supportRequest.number ?? 'N/A'}}</div>
+                        <div class="t-box a px-1 d-flex align-items-center">{{supportRequest.deviceInfo ?? 'N/A'}}</div>                            
                         <label class="subscriber-details-text word-break custom-label-size">
-                            <div class="filter-head d-flex">
-                                <div class="dropdown d-flex w-100">
+                            <div class="filter-div d-flex">
+                                <div class="d-flex w-100">
                                     <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span id="languageTootltip">{{ supportRequest.status }}</span>
                                         <span class="ms-auto">
@@ -71,7 +71,7 @@
                                         </span>
                                     </a>
                 
-                                    <div class="dropdown-menu lang-dropdown-option border-secondary custom-padding" aria-labelledby="dropdownMenuLink-lang">
+                                    <div class="dropdown-menu lang-dropdown-option border-secondary custom-padding " aria-labelledby="dropdownMenuLink-lang">
                                         <a class="dropdown-item lang-dropdown-item sg-font-regular status-item" (click)="onSelect('Resolved', supportRequest)">Resolved</a>
                                         <a class="dropdown-item lang-dropdown-item sg-font-regular status-item" (click)="onSelect('In Progress', supportRequest)">In Progress</a>
                                         <a class="dropdown-item lang-dropdown-item sg-font-regular status-item" (click)="onSelect('Pending', supportRequest)">Pending</a>

@@ -99,7 +99,7 @@ export class DashboardService {
       {
         title: 'Settings',
         icon: 'assets/icons/settings-icon.svg',
-        link: '/settings',
+        link: '/setting',
         accessRole: ['admin','superAdmin'],
         hasGroup: false,
       },

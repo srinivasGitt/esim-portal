@@ -16,6 +16,12 @@ export class SettingsComponent implements OnInit {
   reminderCurrentValue: number | undefined = undefined;
   inProgress: boolean = false;
   isSubmitted: boolean = false;
+  isEdit: boolean = false;
+  currenctSupportEmail: string | undefined = undefined;
+  currenctContactEmail: string | undefined = undefined;
+  isContactEdit: boolean = false;
+  isSupportEdit: boolean = false;
+  currentUsageValue: number | undefined;
 
   constructor(private settingsService: SettingsService, private alertService: AlertService) { }
 
@@ -48,7 +54,10 @@ export class SettingsComponent implements OnInit {
         let result = res.data
         this.contactEmail = result.contactUsEmail
         this.supportEmail = result.supportUsEmail
+        this.currenctSupportEmail = this.supportEmail
+        this.currenctContactEmail = this.contactEmail
         this.reminderCurrentValue = result.usageReminder
+        this.currentUsageValue = this.reminderCurrentValue
         this.inProgress = false;
       }
     }, err => {
@@ -67,6 +76,24 @@ export class SettingsComponent implements OnInit {
     }, err => {
       this.alertService.error(err.error.message, err.status);
     })
+  }
+
+  editField(str: string) {
+    if(str === 'support') this.isSupportEdit = true;
+    if(str === 'contact') this.isContactEdit = true;
+  }
+  
+  cancel(str: string) {
+    switch (str) {
+      case 'email':
+        this.supportEmail = this.currenctSupportEmail
+        this.contactEmail = this.currenctContactEmail
+        this.isSupportEdit = this.isContactEdit = false;
+        break;
+      case 'usage':
+        this.reminderCurrentValue = this.currentUsageValue
+        break;
+    }
   }
 
   // Copy user email
