@@ -43,7 +43,7 @@
                         <label for="support">Support Email</label>
                         <div class="row copy" [ngClass]="[supportEmail && supportEmail.length > 0 ? 'border-purple':'']" >
                             <div class="col-8">
-                                <input type="email" name="support" id="support" [(ngModel)]="supportEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #support="ngModel" [disabled]="!isSupportEdit">
+                                <input type="email" name="support" id="support" [(ngModel)]="supportEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #support="ngModel">
                             </div>
                             <div class="col-4 d-flex justify-content-end gap-2" *ngIf="supportEmail && supportEmail.length > 0">
                                 <span class="icon cursor-pointer" (click)="editField('support')" tooltip="Edit" placement="top" delay="100" offset="10">
@@ -73,7 +73,7 @@
                         <label for="support">Contact Us Email</label>
                         <div class="row copy" [ngClass]="[contactEmail && contactEmail.length > 0 ? 'border-purple':'']" >
                             <div class="col-8">
-                                <input type="email" name="support" id="support" [(ngModel)]="contactEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #contact="ngModel" [disabled]="!isContactEdit">
+                                <input type="email" name="support" id="support" [(ngModel)]="contactEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #contact="ngModel">
                             </div>
                             <div  class="col-4 d-flex justify-content-end gap-2" *ngIf="contactEmail && contactEmail.length > 0">
                                 <span class="icon cursor-pointer" tooltip="Edit" placement="top" delay="100" offset="10" (click)="editField('contact')">
