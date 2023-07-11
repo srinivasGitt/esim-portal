@@ -1,0 +1,115 @@
+
+.settings {
+    border-top: 1px solid #a8a9fd57;
+    justify-content: space-between;
+    padding-top: 16px;
+
+    &-card {
+        background-color: var(--card-background-color);
+        box-shadow: var(--box-shadow-size-color);
+        padding: 16px;
+
+        h1 {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 130%;
+            color: var(--settings-card-heading-text-color);
+        }
+
+        p {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 130%;
+            color: var(--settings-helping-text-color);
+        }
+
+        .radio-div {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--radio-label-text-color);
+            margin-bottom: 20px;
+            margin-top: 4px;
+
+            input {
+                margin-right: 28px;
+            }
+            
+            input[type='radio'] {
+                accent-color: #667085;
+            }
+        }
+    }
+
+    &-card:nth-child(1) {
+        width: 35%;
+    }
+    &-card:nth-child(2) {
+        width: 62%;
+    }
+
+    .email-div{
+        
+        label {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--modal-form-label-text-color);
+            margin-bottom: 12px;
+        }
+
+        input {
+            border: none;
+            width: 100%;
+            background-color: transparent !important;
+            color: var(--modal-form-label-text-color);
+            
+            &:focus-visible {
+                outline: none !important;
+            }
+        }
+
+        .copy {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px;
+            border: 1px solid #696969;
+            border-radius: 8px;
+            margin-left: 0;
+            margin-right: 0;
+
+            svg{
+                display: inline;
+            }
+        }
+
+        
+        button {
+            border: none;
+            background: #6365EF;
+            border-radius: 8px;
+            width: 105px;
+            height: 28px;
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #FFFFFF;
+        }
+    }    
+    
+ 
+    .border-purple {
+        border: 1px solid var(--input-border-color-hover) !important;
+    }
+
+}

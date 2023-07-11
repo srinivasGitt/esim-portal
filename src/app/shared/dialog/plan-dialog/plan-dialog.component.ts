@@ -60,8 +60,8 @@ export class PlanDialogComponent implements OnInit {
   regionList: any[] = []
   err!: string;
   isErr: boolean = false;
-  
   currencyType: string = 'USD';
+  activationType: any[] = [{name: 'LU'}, {name: 'API'}, {name: 'PDP'}]
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -146,6 +146,7 @@ export class PlanDialogComponent implements OnInit {
     //   dateEarliestAvailable: new UntypedFormControl(this.data?.dateEarliestAvailable, [Validators.required])
     // });
     this.planForm = new UntypedFormGroup({
+      productCategory: new UntypedFormControl(''),
       name: new UntypedFormControl('', [Validators.required]),
       dataUnit: new UntypedFormControl('GB', [Validators.required]),
       dataSize: new UntypedFormControl(0, [Validators.required]),
@@ -154,6 +155,7 @@ export class PlanDialogComponent implements OnInit {
       // smsPerDay: new UntypedFormControl(0, [Validators.required]),
       // unlimited: new UntypedFormControl(false),
       // voice: new UntypedFormControl(0, [Validators.required]),
+      activationType: new UntypedFormControl('LU', [Validators.required]),
       region: new UntypedFormControl(null),
       supportedCountries: new UntypedFormControl(''),
       priceBundle: new UntypedFormControl(0, [Validators.required]),
@@ -206,6 +208,7 @@ export class PlanDialogComponent implements OnInit {
     }
 
     const obj = {
+      productCategory: plan.productCategory,
       name : plan.name,
       data : `${parseInt(plan.dataSize)} ${plan.dataUnit}`,
       unlimited: plan.unlimited,
@@ -214,6 +217,7 @@ export class PlanDialogComponent implements OnInit {
       cycle : parseInt(plan.validity),
       cycleUnits : plan.validityUnit,
       priceBundle : parseInt(plan.priceBundle),
+      activationType: plan.activationType,
       groupId: plan.region,
       supportedCountries : this.selectedCountries,
       dateEarliestActivation : new Date(plan.dateEarliestActivation).getTime(),
@@ -291,4 +295,13 @@ export class PlanDialogComponent implements OnInit {
     return true;
   }
 
+
+  /* Restrict user to enter only numbers and decimal point */
+  numberWithDecimalOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
 }

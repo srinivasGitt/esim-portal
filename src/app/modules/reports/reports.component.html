@@ -69,7 +69,7 @@
 
     <div class="row w-75">
         <div class="col-8 pt-4">
-            <div class="dashboard-graph">
+            <div class="dashboard-graph" *ngIf="!inProgress; else spinner">
                 <div class="dashboard-heading d-flex align-items-center mb-2">
                     <h6 class="revenue-text">
                         Revenue in <span *ngIf="currencyType == 'GBP'; else dollar">&#163;</span>
@@ -78,21 +78,11 @@
                 </div>
                 <canvas id="revenueChart"></canvas>
             </div>
+            <!-- Loading Spinner - Start -->
+            <ng-template #spinner class="loader-align">
+                <app-loading-spinner></app-loading-spinner>
+            </ng-template>
+            <!-- Loading Spinner - End -->
         </div>
     </div>
-
-    <!-- Loading Spinner - Start -->
-    <ng-template #spinner class="loader-align">
-        <app-loading-spinner></app-loading-spinner>
-    </ng-template>
-    <!-- Loading Spinner - End -->
-
-    <!-- Not data - Start -->
-    <ng-template #msg>
-        <div class="pb-2 no-data">
-            No records found.
-        </div>
-    </ng-template>
-    <!-- Not data - End -->
-
 </div>

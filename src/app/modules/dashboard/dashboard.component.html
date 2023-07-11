@@ -15,7 +15,7 @@
     </div>
     <div class="row dashboard-border-top">
         <div class="col-8 pt-4">
-            <div class="dashboard-graph">
+            <div class="dashboard-graph" *ngIf="!inProgress; else spinner">
                 <div class="dashboard-heading d-flex align-items-center mb-2">
                     <h4>Revenue Trend Graph</h4>
                     <div class="ms-auto d-flex align-items-center mr-2">
@@ -66,7 +66,14 @@
                     </h6>
                 </div>
                 <canvas id="downloadChart"></canvas>
+                
             </div>
+            
+            <!-- Loading Spinner - Start -->
+            <ng-template #spinner class="loader-align">
+                <app-loading-spinner></app-loading-spinner>
+            </ng-template>
+            <!-- Loading Spinner - End -->
         </div>
         <div class="col-4 dashboard-border-left widget-card pt-4" *ngIf="dashboardDetails">
             <div class="dashboard-widget" *ngFor="let widget of dashboardWidgets">
