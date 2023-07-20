@@ -5,9 +5,9 @@
         </div>
     </div>
 
-    <div class="row settings add-edit-modal"  *ngIf="!inProgress; else spinner">
+    <div class="row settings add-edit-modal border-top"  *ngIf="!inProgress; else spinner">
 
-        <div class="settings-card">
+        <div class="settings-card first">
             <div class="row">
                 <div class="col-6">
                     <h1 class="modal-header-text">Inventory Usage Reminder</h1> 
@@ -24,15 +24,15 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="d-flex justify-content-between" *ngIf="reminderCurrentValue != undefined">
-                <button type="button" class="btn btn-secondary" (click)="cancel('usage')">Cancel</button>
-                <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+            <div class="d-flex justify-content-between btn-grp">
+                <button type="button" class="btn btn-secondary" (click)="cancel('usage')" [disabled]="reminderCurrentValue == currentUsageValue">Cancel</button>
+                <button type="submit" class="btn" [ngClass]="[reminderCurrentValue != currentUsageValue ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="reminderCurrentValue == currentUsageValue">Save</button>
             </div>
-            <div class="d-flex justify-content-end" *ngIf="reminderCurrentValue == undefined">
+            <!-- <div class="d-flex justify-content-end btn-grp" *ngIf="reminderCurrentValue == undefined">
                 <button type="submit" class="btn" [ngClass]="{'btn-secondary': !reminderCurrentValue}" (click)="save()">Save</button>
-            </div>
+            </div> -->
         </div>
-        <div class="settings-card">
+        <div class="settings-card second">
             <div class="row">
                 <div class="col">
                     <h1>Email Forwarding</h1> 
@@ -99,25 +99,159 @@
                             <span class="small" *ngIf="contact.errors['pattern']">Please enter valid email.</span>
                         </span>
                     </div>
-                    <div class="d-flex justify-content-between" *ngIf="(supportEmail != undefined || contactEmail != undefined); else saveOnly">
+                    <div class="d-flex justify-content-between btn-grp">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" (click)="cancel('email')" [disabled]="!(isSupportEdit || isContactEdit)">Cancel</button>
+                        </div>
+                        <div class="col-7">
+                            <button type="submit" class="btn w-100" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="!(isSupportEdit || isContactEdit)">Save</button>
+                        </div>
+                    </div>
+                    <!-- <div class="d-flex justify-content-between" *ngIf="(supportEmail != undefined || contactEmail != undefined); else saveOnly">
                         <div class="col">
                             <button type="button" class="btn btn-secondary" (click)="cancel('email')" *ngIf="isSupportEdit || isContactEdit">Cancel</button>
                         </div>
                         <div class="col-7">
-                            <button type="submit" class="btn btn-primary w-100" (click)="save()" [disabled]="support.errors || contact.errors">Save</button>
+                            <button type="submit" class="btn w-100" (click)="save()" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" [disabled]="support.errors || contact.errors">Save</button>
                         </div>
                     </div>
                     <ng-template #saveOnly>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn" [ngClass]="{'btn-secondary': !(supportEmail || contactEmail)}" (click)="save()">Save</button>
                         </div>
-                    </ng-template>
+                    </ng-template> -->
                 </div>
                 
             </div>
             
         </div>
     </div>
+
+
+    <!-- External Email Setup - Start -->
+    <div class="row settings add-edit-modal" [ngClass]="{custom: !isCustom}" *ngIf="!inProgress; else spinner">
+
+        <div class="settings-card">
+            <div class="d-flex justify-content-between heading">
+                <div>
+                    <h1>External Email Setup</h1>
+                </div>
+                <div>
+                    <div class="user-table-action-icon mx-auto">
+                        <label class="switch">
+                            <input type="checkbox" [(ngModel)]="isCustom" (ngModelChange)="edit()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <form class="es-modal-form" [formGroup]="emailSetupForm" novalidate autocomplete="off" (ngSubmit)="saveEmailSetup()" >
+                <div class="row mt-4">
+                    <div class="col">
+                        <h3>Configuration</h3>
+                        <div class="row mb-3">
+                            <label for="outgoingServer" class="col-sm-3 col-form-label form-label">Outgoing Server</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control es-input" id="outgoingServer" formControlName="outgoingServer">
+                                <div>
+                                    <span class="help-block ng-invalid text-danger" *ngIf="(f.outgoingServer.touched && f.outgoingServer.pristine) || (f.outgoingServer.errors && isSubmitted)">
+                                        <span class="small" *ngIf="f.outgoingServer.errors.required">
+                                            Outgoing Server is required!
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h3>Authentication</h3>
+                        <div class="row mb-3">
+                            <label for="username" class="col-sm-3 col-form-label form-label">Username</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control es-input" id="username" formControlName="username">
+                                <div>
+                                    <span class="help-block ng-invalid text-danger" *ngIf="(f.username.touched && f.username.pristine) || (f.username.errors && isSubmitted)">
+                                        <span class="small" *ngIf="f.username.errors.required">
+                                            Username is required!
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row mb-3">
+                            <label for="port" class="col-sm-3 col-form-label form-label es-modal-form-label">Port No</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control es-input" id="port" formControlName="port">
+                                <div>
+                                    <span class="help-block ng-invalid text-danger" *ngIf="(f.port.touched && f.port.pristine) || (f.port.errors && isSubmitted)">
+                                        <span class="small" *ngIf="f.port.errors.required">
+                                            Port is required!
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row mb-3">
+                            <label for="password" class="col-sm-3 col-form-label form-label">Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control es-input" id="password" formControlName="password">
+                                <div>
+                                    <span class="help-block ng-invalid text-danger" *ngIf="(f.password.touched && f.password.pristine) || (f.password.errors && isSubmitted)">
+                                        <span class="small" *ngIf="f.password.errors.required">
+                                            Password is required!
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row mb-3">
+                            <label for="secure" class="col-sm-3 col-form-label form-label">Secure</label>
+                            <div class="col-sm-9 d-flex align-items-center">
+                                <label for="secure" class="ms-1 me-3 form-label es-modal-form-label unlimited">
+                                    <input type="checkbox" class="form-checbox my-auto" id="secure" aria-describedby="secure" formControlName="secure" #isSecure>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row mb-3">
+                            <label for="alias" class="col-sm-3 col-form-label form-label">Alias (Optional)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control es-input" id="alias" formControlName="alias">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary" (click)="cancel('smtp')" [class.disabled]="!isCustom">Cancel</button>
+                    </div>
+                    <div class="col d-flex justify-content-between">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" (click)="sendTestSMTPEMail()" [class.disabled]="!isCustom">Test</button>
+                        </div>
+                        <div class="col-8">
+                            <button type="submit" class="btn btn-primary w-100" [class.disabled]="!isCustom">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+            
+    </div>
+    <!-- External Email Setup - End -->
+
 
     <!-- Loading Spinner - Start -->
     <ng-template #spinner class="loader-align">

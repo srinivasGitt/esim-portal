@@ -24,4 +24,17 @@ export class SettingsService {
     queryParams = queryParams.append("email",email);
     return this.http.get(`${this.serverUrl}/customers/setting/testemail`, {params: queryParams});
   }
+
+  saveSMTP(data: any) {
+    return this.http.put(`${this.serverUrl}/customer/smtp/setup`, data);
+  }
+  
+  getSMTP() {
+    return this.http.get(`${this.serverUrl}/customer/smtp/setup`);
+  }
+  
+  testSMTP(data: any) {
+    return this.http.post(`${this.serverUrl}/customer/smtp/setup`, data);
+  }
+
 }
