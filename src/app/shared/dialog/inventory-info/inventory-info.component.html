@@ -79,8 +79,8 @@
             </div>
             <div class="col-8 d-flex align-items-center">
                 <label class="subscriber-details-text email-lable">
-                    {{ inventoryDetails.assignTo }} 
-                    <span class="icon copy" *ngIf="inventoryDetails.assignTo"  (click)="copyToClipboard($event,inventoryDetails.assignTo)" [tooltip]="copyText" placement="top" delay="100" offset="5">
+                    {{ inventoryDetails.subscriberEmail }} 
+                    <span class="icon copy" *ngIf="inventoryDetails.subscriberEmail"  (click)="copyToClipboard($event,inventoryDetails.subscriberEmail)" [tooltip]="copyText" placement="top" delay="100" offset="5">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                                 <rect width="20" height="20" fill="#D9D9D9"/>
