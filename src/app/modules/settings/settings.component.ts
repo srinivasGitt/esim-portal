@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/shared/service';
 import { SettingsService } from 'src/app/shared/service/settings.service';
 
@@ -22,12 +23,33 @@ export class SettingsComponent implements OnInit {
   isContactEdit: boolean = false;
   isSupportEdit: boolean = false;
   currentUsageValue: number | undefined;
-
-  constructor(private settingsService: SettingsService, private alertService: AlertService) { }
+  isCustom: boolean = false;
+  emailSetupForm: any;
+  externalEmailObj: any;
+  
+  constructor(private settingsService: SettingsService, private alertService: AlertService) { 
+    this.initForm()
+  }
 
   ngOnInit(): void {
     this.getSettings();
+    this.getSMTPSettings();
   }
+
+  initForm(data?: any) {
+    this.emailSetupForm = new UntypedFormGroup({
+      outgoingServer: new UntypedFormControl('', [Validators.required]),
+      port: new UntypedFormControl('', [Validators.required]),
+      username: new UntypedFormControl('', [Validators.required]),
+      password: new UntypedFormControl('', [Validators.required]),
+      secure: new UntypedFormControl('', [Validators.required]),
+      alias: new UntypedFormControl('')
+    });
+
+    this.emailSetupForm.disable()
+  }
+
+  get f() { return this.emailSetupForm.controls; }
 
   save() {
     this.isSubmitted = true
@@ -64,14 +86,31 @@ export class SettingsComponent implements OnInit {
       this.alertService.error(err.error.message, err.status);
       this.inProgress = false;
     })
+  }
 
+
+  getSMTPSettings() {
+    this.inProgress = true;
+    this.settingsService.getSMTP().subscribe((res: any) => { 
+      if(res) {
+        this.externalEmailObj = res.data
+        this.emailSetupForm.patchValue(this.externalEmailObj)
+      }
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
+    })
   }
 
   sendTestMail(value: string) {
+    this.isSubmitted = true
+    this.inProgress = true
 
     this.settingsService.testMail(value).subscribe((res: any) => {
       if(res) {
         this.alertService.success(res.message);
+        this.inProgress = false;
+        this.isSubmitted = false;
       }
     }, err => {
       this.alertService.error(err.error.message, err.status);
@@ -93,7 +132,62 @@ export class SettingsComponent implements OnInit {
       case 'usage':
         this.reminderCurrentValue = this.currentUsageValue
         break;
+      case 'smtp':
+        this.isCustom = false
+        this.emailSetupForm.patchValue(this.externalEmailObj)
+        this.emailSetupForm.disable()
+        break;
     }
+  }
+
+  edit() {
+    if(this.isCustom) {
+      this.emailSetupForm.enable() 
+    } else {
+      this.emailSetupForm.disable()
+      this.emailSetupForm.patchValue(this.externalEmailObj)
+    }
+  }
+
+  saveEmailSetup() {
+    this.isSubmitted = true
+    this.inProgress = true
+
+    if (this.emailSetupForm.invalid) {
+      return;
+    }
+
+    const smtp = this.emailSetupForm.value
+    smtp.port = parseInt(this.emailSetupForm.value.port)
+    this.settingsService.saveSMTP(this.emailSetupForm.value).subscribe((res: any) => {
+      if(res) {
+        this.alertService.success(res.message);
+        this.inProgress = false;
+        this.isSubmitted = false;      
+      }
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
+      this.isSubmitted = false;
+    })
+  }
+
+  sendTestSMTPEMail() {
+    this.isSubmitted = true
+    this.inProgress = true
+    
+    if (this.emailSetupForm.invalid) {
+      return;
+    }
+    this.settingsService.testSMTP(this.emailSetupForm.value).subscribe((res: any) => {
+      if(res) {
+        this.alertService.success(res.message);
+        this.inProgress = false;
+        this.isSubmitted = false;
+      }
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+    })
   }
 
   // Copy user email

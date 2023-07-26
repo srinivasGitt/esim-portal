@@ -61,7 +61,7 @@ export class PlanDialogComponent implements OnInit {
   err!: string;
   isErr: boolean = false;
   currencyType: string = 'USD';
-  activationType: any[] = [{name: 'LU'}, {name: 'API'}, {name: 'PDP'}]
+  activationType: any[] = [{name: 'API'}, {name: 'PDP'}]
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -155,7 +155,7 @@ export class PlanDialogComponent implements OnInit {
       // smsPerDay: new UntypedFormControl(0, [Validators.required]),
       // unlimited: new UntypedFormControl(false),
       // voice: new UntypedFormControl(0, [Validators.required]),
-      activationType: new UntypedFormControl('LU', [Validators.required]),
+      activationType: new UntypedFormControl('PDP', [Validators.required]),
       region: new UntypedFormControl(null),
       supportedCountries: new UntypedFormControl(''),
       priceBundle: new UntypedFormControl(0, [Validators.required]),

@@ -81,14 +81,14 @@
                     </span>
                 </label>
                 <label class="subscriber-details-text mt-2" *ngIf="details.title == 'Contact Preferences'">
-                    <div class="small-text">
-                        {{ 'SMS/WhatsApp: '+ (subscriberDetails.isSms ? 'Yes' : 'No') }}
+                    <div class="small-text" *ngIf="subscriberDetails.isSms">
+                        SMS/WhatsApp
                     </div> 
-                    <div class="small-text">
-                        {{ 'Email: '+ (subscriberDetails.isEmail ? 'Yes' : 'No') }}
+                    <div class="small-text" *ngIf="subscriberDetails.isEmail">
+                        Email
                     </div>
-                    <div class="small-text">
-                        {{ 'Relevant Communication: '+ (subscriberDetails.relevantInfo ? 'Yes' : 'No') }}
+                    <div class="small-text" *ngIf="subscriberDetails.relevantInfo">
+                        Relevant Communication
                     </div>
                 </label>
             </div>

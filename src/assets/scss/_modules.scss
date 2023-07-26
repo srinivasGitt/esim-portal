@@ -1271,7 +1271,7 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 1.7fr 2fr 1fr 2fr 2fr 1fr 125px;
+            grid-template-columns: 1.7fr 2fr 1fr 3fr 2fr 2fr 0.9fr 120px;
             column-gap: 8px;
         }
         .table-headers{
@@ -1321,7 +1321,7 @@
             // height: 70px;
         }
         .t-body-bg{
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 400;
 
             .t-box{
@@ -3014,14 +3014,14 @@
 .help-contact-management {
     .t-grid-table-wrapper {
         display: grid;
-        grid-template-columns: 3fr 3fr 3fr 3fr 150px;
+        grid-template-columns: 3fr 3fr 3fr 3fr 3fr 150px;
     }
 }
 
 .help-support-management {
     .t-grid-table-wrapper {
         display: grid;
-        grid-template-columns: 3fr 3fr 3fr 3fr 3fr 150px;
+        grid-template-columns: 3fr 3fr 3fr 3fr 3fr 3fr 150px;
     }
 }
 

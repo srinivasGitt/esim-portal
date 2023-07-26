@@ -11,7 +11,11 @@ export class SupportService {
 
   constructor(private http: HttpClient) { }
 
-  getAllContactSupportRequests(type: string) {
+  getAllContactSupportRequests(type: string, itemsPerPage?: number, currentPage?: number) {
+    if(itemsPerPage && currentPage) {
+      return this.http.get(`${this.serverUrl}/support-request?type=${type}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+
     return this.http.get(`${this.serverUrl}/support-request?type=${type}`);
   }
   
