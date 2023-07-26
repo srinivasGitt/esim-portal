@@ -99,10 +99,30 @@ export class DashboardService {
       {
         title: 'Settings',
         icon: 'assets/icons/settings-icon.svg',
-        link: '/settings',
+        link: '/setting',
         accessRole: ['admin','superAdmin'],
         hasGroup: false,
-        isDisabled: true
+      },
+      {
+        title: 'Help Center',
+        icon: 'assets/icons/headphone.svg',
+        link: null,
+        accessRole: ['admin','superAdmin'],
+        hasGroup: true,
+        childs: [
+          {
+            title: 'Contact Us',
+            link: '/help-center/contactus',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          },
+          {
+            title: 'Support',
+            link: '/help-center/support',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          }
+        ]
       },
     ];
     return roles ? navMenuList.filter((nav) => roles.some(role => nav.accessRole.includes(role))) : navMenuList;

@@ -19,6 +19,10 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { SettingsComponent } from './settings/settings.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { SupportComponent } from './help-center/support/support.component';
+import { ContactusComponent } from './help-center/contactus/contactus.component';
 
 
 @NgModule({
@@ -32,7 +36,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     CustomerManagementComponent,
     SubscribeManagementComponent,
     FilterPipe,
-    ShowentriesPipe
+    ShowentriesPipe,
+    SettingsComponent,
+    HelpCenterComponent,
+    SupportComponent,
+    ContactusComponent
   ],
   imports: [
     CommonModule,

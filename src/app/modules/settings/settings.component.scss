@@ -1,0 +1,205 @@
+
+.border-top {
+    border-top: 1px solid var(--bottom-border-color) !important;
+}
+
+.settings {
+    justify-content: space-between;
+    padding-top: 16px;
+
+    &-card {
+        background-color: var(--card-background-color);
+        box-shadow: var(--box-shadow-size-color);
+        padding: 16px;
+
+        h1 {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 130%;
+            color: var(--settings-card-heading-text-color);
+        }
+
+        h3 {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 130%;
+            color: var(--settings-card-heading-text-color);
+        }
+
+        p {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 130%;
+            color: var(--settings-helping-text-color);
+        }
+
+        .radio-div {
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--radio-label-text-color);
+            margin-top: 4px;
+            
+            input {
+                margin-right: 28px;
+            }
+            
+            input[type='radio'] {
+                accent-color: #667085;
+            }
+        }
+        
+        .btn-grp {
+            margin-bottom: 20px;
+        }
+    }
+
+    .first {
+        width: 35%;
+    }
+    .second {
+        width: 62%;
+    }
+
+    .email-div{
+
+        input {
+            border: none;
+            width: 100%;
+            background-color: transparent !important;
+            color: var(--modal-form-label-text-color);
+            
+            &:focus-visible {
+                outline: none !important;
+            }
+        }
+
+        .copy {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px;
+            border: 1px solid #696969;
+            border-radius: 8px;
+            margin-left: 0;
+            margin-right: 0;
+
+            svg{
+                display: inline;
+            }
+        }
+
+        button {
+            border: none;
+            background: #6365EF;
+            border-radius: 8px;
+            width: 105px;
+            height: 28px;
+            font-family: 'SF Pro Display';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #FFFFFF;
+        }
+    }    
+
+    .border-purple {
+        border: 1px solid var(--input-border-color-hover) !important;
+    }
+
+}
+
+.heading {
+    border-bottom: 1px solid var(--bottom-border-color);
+
+    h1 {
+        color: var(--table-heading-text-color);
+    }
+
+    .switch {
+        margin-bottom: 0px;
+        position: relative;
+        display: inline-block;
+        width: 32px;
+        margin-top: 10px !important;
+        height: 18px;
+        
+        input{
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .round{
+            border-radius: 34px;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid var(--settings-slider-bg-color);
+            background: var(--settings-slider-bg-color);
+            transition: 0.4s;
+            border-radius: 10px;
+            &:before {
+                background: var(--settings-slider-circle-bg-color);
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 12px;
+                border-radius: 50%;
+                left: 2px;
+                bottom: 2px;
+                transition: 0.4s;
+            }
+        }
+    }
+    input:checked + .slider{
+        background-color: #6365EF;
+        // border: 0;
+        border: 1px solid #6365EF;
+        &:before {
+            transform: translateX(13px);
+            background-color: var(--settings-slider-circle-bg-color);
+        }
+    }
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+}
+
+label {
+    font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--modal-form-label-text-color);
+    margin-bottom: 12px;
+}
+
+input {
+    background-color: transparent !important;
+    color: var(--modal-form-label-text-color);
+    border: 1px solid var(--input-border-color);
+    
+    &:focus-visible {
+        background-color: transparent !important;
+        outline: none !important;
+    }
+}
+
+.custom {
+    opacity: 0.5;
+}

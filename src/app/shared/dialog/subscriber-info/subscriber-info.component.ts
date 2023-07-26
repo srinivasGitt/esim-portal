@@ -19,7 +19,7 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Date Created', key : 'created', customClass: '', isDate : true },
     { title : 'Active Plan', key : 'planName', customClass: '' },
     { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
-    { title : 'MSISDN', key : 'msisdn', customClass: '' },
+    // { title : 'MSISDN', key : 'msisdn', customClass: '' },
     { title : 'Contact Preferences', key : 'contactPreferences', customClass: '' }
   ]
 
