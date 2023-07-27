@@ -33,7 +33,7 @@ export class ContactusComponent implements OnInit, OnDestroy {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
                     this.contactRequestList = results?.data
-                    this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+                    this.paginateConfig.totalItems = results?.count;
                     this.paginateConfig.currentPage = 1;
                     this.inSearch = true;  
                   }
@@ -51,7 +51,8 @@ export class ContactusComponent implements OnInit, OnDestroy {
       (res: any) => {
         this.contactRequestList = res.data;
         if(res.count) {
-          this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          this.paginateConfig.totalItems = res?.count;
+          this.paginateConfig.currentPage = 1;
         }
         this.inProgress = false;
       }, (err: any) => {
@@ -86,6 +87,34 @@ export class ContactusComponent implements OnInit, OnDestroy {
       this.alertService.error(err.error.message, err.status);
       this.inProgress = false;
     })
+  }
+
+  getPageNumber(event: any) {
+    this.inProgress = true;
+    this.paginateConfig.currentPage = event; 
+
+    /* Pagination based on searched data */
+    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService.getSearchResult('contactus', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+        this.contactRequestList = result.data;
+        this.paginateConfig.totalItems = result?.count;
+        this.inProgress = false;
+      })
+    } 
+    /* Pagination based on all data */
+    else {
+      this.supportService.getAllContactSupportRequests('contactus',this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      .subscribe(
+        (result: any) => {
+          this.contactRequestList = result.data;
+          this.paginateConfig.totalItems = result?.count;
+          this.inProgress = false;
+        }, err => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
+    }
   }
 
   // Copy user email

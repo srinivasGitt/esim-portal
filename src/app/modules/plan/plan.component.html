@@ -142,7 +142,7 @@
                             <span class="text-overflow-ellipsis">{{plan.name}}</span>
                         </div>
                         <div class="t-box b px-2 d-flex align-items-center">{{plan.validity}} Days</div>
-                        <div class="t-box a px-1 d-flex align-items-center"> <span *ngIf="plan.priceBundle">{{ plan.priceBundle | currency: (plan.currency || currencyType) }}</span></div>
+                        <div class="t-box a px-1 d-flex align-items-center">{{ plan.priceBundle | currency: (plan.currency || currencyType) }}</div>
                         <div class="t-box a px-1 d-flex align-items-center">
                             {{plan.preferredImsiId ?? 'N/A'}}
                         </div>
