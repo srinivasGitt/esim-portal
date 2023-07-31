@@ -61,6 +61,40 @@
                 <div class="modal-details-text">{{ planDetails.validity }} Days</div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-4">
+                <label class="modal-label-text">Plan Label</label>
+                <div class="modal-details-text">{{ planDetails.productCategory }}</div>
+            </div>
+            <div class="col-4">
+                <label class="modal-label-text">IMSI Type</label>
+                <div class="modal-details-text">{{ planDetails.preferredImsiId }}</div>
+            </div>
+            <div class="col-4">
+                <label class="modal-label-text">Activation Type</label>
+                <div class="modal-details-text">{{ planDetails.activationType }}</div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4">
+                <label class="modal-label-text">Region</label>
+                <div class="modal-details-text">{{ planDetails.region ?? 'N/A'}}</div>
+            </div>
+            <div class="col-4">
+                <label class="modal-label-text">Earliest Activation</label>
+                <div class="modal-details-text">{{ planDetails.dateEarliestActivation | date: 'dd-MM-YYYY' }}</div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4">
+                <label class="modal-label-text">Earliest Available</label>
+                <div class="modal-details-text">{{ planDetails.dateEarliestAvailable | date: 'dd-MM-YYYY' }}</div>
+            </div>
+            <div class="col-4">
+                <label class="modal-label-text">Latest Available</label>
+                <div class="modal-details-text">{{ planDetails.dateLatestAvailable | date: 'dd-MM-YYYY' }}</div>
+            </div>
+        </div>
     </div>
     <!-- <div class="es-modal-footer d-flex pt-4">
         <button class="btn btn-secondary" (click)="close()">Disable Plan</button>
