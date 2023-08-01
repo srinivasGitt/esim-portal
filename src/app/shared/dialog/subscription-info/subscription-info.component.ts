@@ -15,6 +15,7 @@ export class SubscriptionInfoComponent implements OnInit {
   usedData!: number;
   copyText: string = 'Copy'
   currencyType: string = 'USD';
+  dataUnit!: string;
 
   constructor(
     private viewContainer: ViewContainerRef, private subscriptionService: SubscriptionsService
@@ -42,6 +43,7 @@ export class SubscriptionInfoComponent implements OnInit {
     this.subscriptionService.getSubscriptionDataUsage(id).subscribe((res: any) => {
       if(res) {
         this.usedData = res.used_data_size_in_GB
+        this.dataUnit = res.dataUnit
       }
     })
   }
