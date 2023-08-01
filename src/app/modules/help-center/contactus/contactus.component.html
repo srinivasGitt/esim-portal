@@ -62,7 +62,7 @@
                         <div class="t-box a px-2 d-flex align-items-center">
                             <span class="text-overflow-ellipsis">{{contactRequest.name}}</span>
                         </div>
-                        <div class="t-box b px-2 d-flex align-items-center">
+                        <div class="t-box b">
                             <span class="copy justify-content-around">
                                 {{contactRequest.email}} 
                                 <span class="icon cursor-pointer" (click)="copyToClipboard($event,contactRequest.email)" [tooltip]="copyText" placement="top" delay="100" offset="10">

@@ -51,7 +51,7 @@
             </div>
             <div class="col-8">
                 <label class="subscriber-details-text">
-                    {{ requestDetails.number }}
+                    {{ requestDetails.number ?? 'N/A'}}
                 </label>
             </div>
         </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="col-8">
                 <label class="subscriber-details-text">
-                    {{ requestDetails.deviceInfo }}
+                    {{ requestDetails.deviceInfo ?? 'N/A'}}
                 </label>
             </div>
         </div>
