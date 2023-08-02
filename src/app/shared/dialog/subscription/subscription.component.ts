@@ -1,14 +1,29 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { DialogComponent, DialogService } from '../../service/dialog';
-import { PlansService } from '../../service/plans.service';
+import { DialogComponent } from '../../service/dialog';
 import { AlertService } from '../../service/alert.service';
-import { UsersService } from '../../service/users.service';
 import { subscriberService } from '../../service/subscriber.service';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as moment from 'moment';
+import { SubscriptionsService } from '../../service';
 @Component({
   selector: 'app-dialog-subscription',
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss']
+  styleUrls: ['./subscription.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
 })
 export class SubscriptionDialogComponent  implements OnInit {
   dialogRef: DialogComponent;
@@ -17,37 +32,50 @@ export class SubscriptionDialogComponent  implements OnInit {
   submitted = false;
 
   title: string = 'Add New Subscription';
-  planList: any = [];
+  planList: any = []
+
+  regionId: string | null = null;
   subscribeList: any = [];
+  countryList: any = []
   currentDate = new Date().toISOString().slice(0, 10);
+  showHideRegion: boolean = true;
+  selectedPlan: any;
+  inProgress: boolean = false;
 
   constructor(
     private viewContainer: ViewContainerRef,
-    private dialogService: DialogService,
-    private planService: PlansService,
     private alertService: AlertService,
-    private userService: UsersService,
-    private subscriberService: subscriberService) {
+    private subscriberService: subscriberService,
+    private subscriptionService: SubscriptionsService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
-  
   
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     this.createSubscriptionForm();
-    this.getAllPlanId();
+    this.getPlans();
     this.getUserId();
     
   }
 
   createSubscriptionForm() {
+    // this.subscriptionForm = new UntypedFormGroup({
+    //   planId: new UntypedFormControl(null, [Validators.required]),
+    //   subscriberId: new UntypedFormControl(null, [Validators.required],),
+    //   startDate: new UntypedFormControl(null, [Validators.required]),
+    //   endDate: new UntypedFormControl(null, [Validators.required]),
+    //   priceBundle: new UntypedFormControl(null, [Validators.required]),
+    //   data: new UntypedFormControl(null, [Validators.required]),
+    // });
     this.subscriptionForm = new UntypedFormGroup({
       planId: new UntypedFormControl(null, [Validators.required]),
-      subscriberId: new UntypedFormControl(null, [Validators.required],),
+      regionId: new UntypedFormControl(null),
+      country: new UntypedFormControl(null),
+      email: new UntypedFormControl(null, [Validators.required]),
       startDate: new UntypedFormControl(null, [Validators.required]),
-      endDate: new UntypedFormControl(null, [Validators.required]),
+      endDate: new UntypedFormControl('', [Validators.required]),
       priceBundle: new UntypedFormControl(null, [Validators.required]),
       data: new UntypedFormControl(null, [Validators.required]),
     });
@@ -66,8 +94,8 @@ export class SubscriptionDialogComponent  implements OnInit {
     )
   }
   
-  getAllPlanId(){
-    this.planService.listPlans()
+  getPlans(){
+    this.subscriptionService.getPlans()
     .subscribe(
       (res: any) => {
         this.planList = res.data;
@@ -79,6 +107,7 @@ export class SubscriptionDialogComponent  implements OnInit {
 
   onPlanSelect(event: any) { 
     if(event) {
+      console.log(event)
       this.f.startDate.setValue(this.currentDate)
       this.f.priceBundle.setValue(event.priceBundle)
       this.f.data.setValue(event.data)
@@ -88,24 +117,47 @@ export class SubscriptionDialogComponent  implements OnInit {
     }
   }
 
-  onDateChange(event: any, plan: any) {
-    if(plan) {
-      const startDate = new Date(event.target.value)
-      const endDate = new Date();
-      endDate.setDate(startDate.getDate() + plan.value.cycle);
+  onDateChange(event: any) {
+    console.log(this.selectedPlan)
+    if(this.selectedPlan) {
+      // const startDate = new Date(event.target.value)
+      // const endDate = new Date();
+      // endDate.setDate(startDate.getDate() + this.selectedPlan.cycle);
+      // this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
+      let startDate = new Date(event.target.value);
+      let endDate = new Date();
+      endDate = moment(startDate).add(this.selectedPlan.cycle, "days").toDate();
       this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
     }   
   }
 
   submit() {
     this.submitted = true;
-    this.subscriptionForm.value.planId = this.subscriptionForm.value.planId._id
-    this.subscriptionForm.value.subscriberId = this.subscriptionForm.value.subscriberId._id
-    
+
     if (this.subscriptionForm.invalid) {
       return
     } 
-    this.dialogRef.close.emit(this.subscriptionForm.value);
+    // this.dialogRef.close.emit(this.subscriptionForm.value);
+
+    const subscription = this.subscriptionForm.value
+    
+    const obj = {
+      email: subscription.email,
+      country: subscription.country ?? subscription.regionId,
+      activationDate: subscription.startDate,
+      expiryDate: subscription.endDate,
+      planId: subscription.planId
+    }
+    
+    this.inProgress = true;
+    this.subscriptionService.createSubscription(obj)
+    .subscribe((res: any) => {
+      this.dialogRef.close.emit(res);
+      this.inProgress = false;
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
+    })
   }
 
   // assignPlan(){
@@ -119,8 +171,6 @@ export class SubscriptionDialogComponent  implements OnInit {
   //     this.subscriptionForm.get('startDate').setValue(new Date());
   //   }
   // }
-
-  
 
   close(): void {
     this.dialogRef.close.emit(false);
@@ -137,5 +187,32 @@ export class SubscriptionDialogComponent  implements OnInit {
       }
       
     }
+  }
+
+  onPlanSelection(event: any) {
+    console.log(event)
+    this.selectedPlan = event
+    if(event == undefined) {
+      this.showHideRegion = true
+      this.f.regionId.setValue(null)
+    } 
+
+    if(event && event.groupId) {
+      this.showHideRegion = true
+      this.f.regionId.setValue(event.groupId)
+      this.countryList = null
+      console.log(this.f.value)
+    } 
+    
+    if(event && event.supportedCountries) {
+      this.countryList = event.supportedCountries
+      this.showHideRegion = false
+    }
+    this.f.startDate.setValue(this.currentDate)
+    this.f.priceBundle.setValue(event.priceBundle)
+    this.f.data.setValue(event.data)
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + event.cycle);
+    this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
   }
 }
