@@ -49,24 +49,19 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getAllSubscription();
   }
+  
   createSubscription() {
     this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-lg', context: {data: {}, title: 'Add New Subscription'} })
       .instance.close.subscribe((data: any) => {
         if(data){
-          let vm  = this;
-          vm.subscriptionsService.createSubscription(data)
-          .subscribe( (res: any) => {
-          
-            vm.subscriptionList.push(res);
+          console.log(data)
             this.alertService.success('Subscription Created');
             this.paginateConfig.currentPage = 1;
             this.getAllSubscription();
-          }, err => {
-            this.alertService.error(err.error.message, err.status);
-          })
-        }
-        });
+          } 
+        })
   }
+
   getAllSubscription() {
     this.currencyType = localStorage.getItem('currency')!;
 

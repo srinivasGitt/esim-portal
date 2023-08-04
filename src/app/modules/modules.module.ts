@@ -15,7 +15,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from "../shared/pipe/filter.pipe";
 import { SharedModule } from "../shared/shared.module";
 import { ShowentriesPipe } from "../shared/pipe/showentries.pipe";
-import { NgApexchartsModule } from "ng-apexcharts";
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -50,7 +49,6 @@ import { ContactusComponent } from './help-center/contactus/contactus.component'
     ReactiveFormsModule,
     NgSelectModule ,
     NgxPaginationModule,
-    NgApexchartsModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatDatepickerModule
