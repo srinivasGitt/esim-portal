@@ -77,7 +77,14 @@
                                 </span>
                             </span>
                         </div>
-                        <div class="t-box a px-1 d-flex align-items-center">{{contactRequest.message}}</div>
+                        <div class="t-box a px-1">
+                            <span class="text-overflow-ellipsis" *ngIf="contactRequest.message.length > 20" [tooltip]="contactRequest.message" placement="top" delay="100" offset="0">
+                                {{contactRequest.message}}
+                            </span>
+                            <span *ngIf="contactRequest.message.length <= 20">
+                                {{contactRequest.message}}
+                            </span>
+                        </div>
                         <div class="t-box a px-1">{{contactRequest.created | date : 'dd/MM/YYYY' }}</div>
                         <label class="subscriber-details-text word-break custom-label-size">
                             <div class="filter-div d-flex">
