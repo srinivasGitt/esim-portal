@@ -13,6 +13,7 @@ export class ContactSupportInfoComponent implements OnInit {
   dialogRef: DialogComponent;
   requestDetails: any;
   detailsRow: Array<any> = [
+    { title : 'Ticket Number', key : 'ticket', customClass: '' },
     { title : 'Name', key : 'name', customClass: '' },
     { title : 'Email Address', key : 'email', customClass: '' },
     { title : 'Message', key : 'message', customClass: '' },

@@ -95,7 +95,7 @@ export class ContactusComponent implements OnInit, OnDestroy {
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
-      this._searchService.getSearchResult('contactus', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+      this._searchService.getSearchResult('contact', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
         this.contactRequestList = result.data;
         this.paginateConfig.totalItems = result?.count;
         this.inProgress = false;
@@ -103,7 +103,7 @@ export class ContactusComponent implements OnInit, OnDestroy {
     } 
     /* Pagination based on all data */
     else {
-      this.supportService.getAllContactSupportRequests('contactus',this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+      this.supportService.getAllContactSupportRequests('contact',this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
       .subscribe(
         (result: any) => {
           this.contactRequestList = result.data;
