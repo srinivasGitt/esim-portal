@@ -16,6 +16,7 @@ export class SubscriptionInfoComponent implements OnInit {
   copyText: string = 'Copy'
   currencyType: string = 'USD';
   dataUnit!: string;
+  inProgress: boolean = false;
 
   constructor(
     private viewContainer: ViewContainerRef, private subscriptionService: SubscriptionsService
@@ -40,11 +41,23 @@ export class SubscriptionInfoComponent implements OnInit {
   }
   
   getSubscriptionDataUsage(id: string){
+    this.inProgress = true
     this.subscriptionService.getSubscriptionDataUsage(id).subscribe((res: any) => {
       if(res) {
-        this.usedData = res.used_data_size_in_GB
-        this.dataUnit = res.dataUnit
+        
+        if(res.used_data_size_in_MB > 1000) {
+          this.dataUnit = 'GB'     
+          this.usedData = res.used_data_size_in_GB     
+        }
+        else {
+          this.dataUnit = 'MB'     
+          this.usedData = res.used_data_size_in_MB     
+        }
+    
+        this.inProgress = false
       }
+    }, error => {
+      this.inProgress = false
     })
   }
 
