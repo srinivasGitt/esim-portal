@@ -54,7 +54,6 @@ export class SubscriptionInfoComponent implements OnInit {
           this.usedData = res.used_data_size_in_MB     
         }
     
-          this.usedData = 800     
         this.inProgress = false
       }
     }, error => {

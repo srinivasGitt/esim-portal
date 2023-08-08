@@ -111,8 +111,9 @@ export class SubscriptionDialogComponent  implements OnInit {
       this.f.startDate.setValue(this.currentDate)
       this.f.priceBundle.setValue(event.priceBundle)
       this.f.data.setValue(event.data)
-      const endDate = new Date();
-      endDate.setDate(endDate.getDate() + event.cycle);
+      var endDate = new Date();
+      // endDate.setDate(endDate.getDate() + event.cycle);
+      endDate = moment(endDate).add(event.validity-1, "days").toDate();
       this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
     }
   }
@@ -120,13 +121,9 @@ export class SubscriptionDialogComponent  implements OnInit {
   onDateChange(event: any) {
     console.log(this.selectedPlan)
     if(this.selectedPlan) {
-      // const startDate = new Date(event.target.value)
-      // const endDate = new Date();
-      // endDate.setDate(startDate.getDate() + this.selectedPlan.cycle);
-      // this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
       let startDate = new Date(event.target.value);
-      let endDate = new Date();
-      endDate = moment(startDate).add(this.selectedPlan.cycle, "days").toDate();
+      var endDate = new Date();
+      endDate = moment(startDate).add(this.selectedPlan.validity, "days").toDate();
       this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
     }   
   }
@@ -211,8 +208,13 @@ export class SubscriptionDialogComponent  implements OnInit {
     this.f.startDate.setValue(this.currentDate)
     this.f.priceBundle.setValue(event.priceBundle)
     this.f.data.setValue(event.data)
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + event.cycle);
+    var endDate = new Date();
+    // endDate.setDate(endDate.getDate() + event.cycle);
+    endDate = moment(endDate).add(event.validity-1, "days").toDate();
     this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
+  }
+
+  clearForm() {
+    this.subscriptionForm.reset();
   }
 }
