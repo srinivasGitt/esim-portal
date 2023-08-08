@@ -1,4 +1,4 @@
-<div class="es-modal info-modal">
+<div class="es-modal info-modal" *ngIf="!inProgress; else spinner">
     <!-- <div class="modal-header-flex p-4">
         <div class="modal-header-text-container">
           <div class="mb-3 subscription-info-icon d-flex">
@@ -112,3 +112,9 @@
         </button>
     </div>
 </div>
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->

@@ -275,6 +275,8 @@
     word-break: keep-all;
     white-space: nowrap;
     cursor: pointer;
+    display: inline-block;
+    width: inherit;
 }
 
 // .user-dashboard{
