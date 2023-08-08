@@ -183,7 +183,8 @@
                             placeholder="Choose a Plan"
                             formControlName="planId"
                             class="full-width"
-                            (change)="onPlanSelection($event)">
+                            (change)="onPlanSelection($event)"
+                            (clear)="clearForm()">
                             <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                                 <input id="item-{{index}}" type="radio"/> {{item.name }}
                             </ng-template>
