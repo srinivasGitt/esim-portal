@@ -40,13 +40,13 @@
             <div class="col-4">
                 <label class="modal-label-text">Date Created</label>
                 <div class="modal-details-text">
-                    {{ subscriptionDetails.createdAt | date : 'dd/MM/YYYY' }}
+                    {{ subscriptionDetails.createdAt ?? 'N/A' | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
             <div class="col-4">
                 <label class="modal-label-text">Expiry Date</label>
                 <div class="modal-details-text">
-                    {{ subscriptionDetails.expiryDate | date : 'dd/MM/YYYY' }}
+                    {{ subscriptionDetails.expiryDate ?? 'N/A' | date : 'dd/MM/YYYY' }}
                 </div>
             </div>
         </div>
