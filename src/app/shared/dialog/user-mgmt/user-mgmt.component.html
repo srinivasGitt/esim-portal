@@ -60,6 +60,9 @@
                         <span class="small" *ngIf="f.firstName.errors.required">
                             First Name is required!
                         </span>
+                        <span class="small" *ngIf="f.firstName.errors.spacesOnly">
+                            Value contains spaces only!
+                        </span>
                     </span>
                 </div>
             </div>
@@ -71,6 +74,9 @@
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
                         <span class="small" *ngIf="f.lastName.errors.required">
                             Last Name is required!
+                        </span>
+                        <span class="small" *ngIf="f.lastName.errors.spacesOnly">
+                            Value contains spaces only!
                         </span>
                     </span>
                 </div>

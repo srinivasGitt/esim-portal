@@ -1645,9 +1645,10 @@
 
     .search-icon-div{
         position: absolute;
-        // left: 7%;
+        left: 26px;
         transform: translate(-45%, -50%);
         width: 1.25rem;
+        top: 45%;
         @media (max-width: 1679px){
             left: 10%;
             top: 46%;
@@ -1860,10 +1861,13 @@
             // padding-left: 0 !important;
             color: var(--info-details-text-color);
         }
+    
 
         .email-lable {
             .copy {
                 padding: 4px 8px;
+                text-overflow: ellipsis;
+                word-break: break-word;
                 svg {
                     display: none;
                 }
@@ -3215,4 +3219,8 @@
     .ng-select .ng-select-container .ng-value-container .ng-placeholder {
         color: var(--modal-header-text-color);
     }
+}
+
+.w-85 {
+    width: 85%;
 }
