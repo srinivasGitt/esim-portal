@@ -60,7 +60,7 @@ export class PlanDialogComponent implements OnInit {
   regionList: any[] = []
   err!: string;
   isErr: boolean = false;
-  currencyType: string = 'USD';
+  currencyType!: string;
   activationType: any[] = [{name: 'API'}, {name: 'PDP'}]
 
   constructor(
@@ -74,7 +74,7 @@ export class PlanDialogComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.currencyType = localStorage.getItem('currency')!;
+    this.currencyType = localStorage.getItem('currency')! ?? 'USD';
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     this.inProgress = true
@@ -121,8 +121,8 @@ export class PlanDialogComponent implements OnInit {
           flagNameInLower = flagNameInLower.toLowerCase()
           country.flag = `assets/flags/${flagNameInLower}.svg` 
           this.countriesAlias.push({name: country.name, flag: country.flag, iso3code: country.iso3code, dial_code: country.dial_code})
-          this.inProgress = false
         })
+        this.inProgress = false
 
       }
 
