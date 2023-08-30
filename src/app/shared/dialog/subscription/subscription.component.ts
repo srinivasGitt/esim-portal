@@ -37,10 +37,11 @@ export class SubscriptionDialogComponent  implements OnInit {
   regionId: string | null = null;
   subscribeList: any = [];
   countryList: any = []
-  currentDate = new Date().toISOString().slice(0, 10);
+  currentDate = moment().utc();
   showHideRegion: boolean = true;
   selectedPlan: any;
   inProgress: boolean = false;
+  err: boolean = false;
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -49,6 +50,7 @@ export class SubscriptionDialogComponent  implements OnInit {
     private subscriptionService: SubscriptionsService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
+
   }
   
   ngOnInit(): void {
@@ -57,7 +59,6 @@ export class SubscriptionDialogComponent  implements OnInit {
     this.createSubscriptionForm();
     this.getPlans();
     this.getUserId();
-    
   }
 
   createSubscriptionForm() {
@@ -119,12 +120,17 @@ export class SubscriptionDialogComponent  implements OnInit {
   }
 
   onDateChange(event: any) {
+    console.log(event)
     console.log(this.selectedPlan)
     if(this.selectedPlan) {
-      let startDate = new Date(event.target.value);
-      var endDate = new Date();
-      endDate = moment(startDate).add(this.selectedPlan.validity, "days").toDate();
-      this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
+      let startDate = event.target.value;
+    //   var endDate = moment(startDate).add(this.selectedPlan.validity, "days").toDate();
+    // //   this.f.startDate.setValue(startDate.toISOString().slice(0, 10))
+    //   this.f.endDate.setValue(endDate)
+
+      this.f.startDate.setValue(startDate)
+      var endDate = moment(startDate).add(this.selectedPlan.validity, "days").toDate();
+      this.f.endDate.setValue(endDate)
     }   
   }
 
@@ -133,7 +139,7 @@ export class SubscriptionDialogComponent  implements OnInit {
 
     if (this.subscriptionForm.invalid) {
       return
-    } 
+    }
     // this.dialogRef.close.emit(this.subscriptionForm.value);
 
     const subscription = this.subscriptionForm.value
@@ -141,19 +147,27 @@ export class SubscriptionDialogComponent  implements OnInit {
     const obj = {
       email: subscription.email,
       country: subscription.country ?? subscription.regionId,
-      activationDate: subscription.startDate,
-      expiryDate: subscription.endDate,
+      activationDate: String(subscription.startDate),
+      expiryDate: String(subscription.endDate),
       planId: subscription.planId
+    } 
+
+    if(!subscription.regionId && obj && obj.country == null) {
+      this.err = true
+      return
     }
-    
+    console.log("obj \n", obj)
+
     this.inProgress = true;
     this.subscriptionService.createSubscription(obj)
     .subscribe((res: any) => {
       this.dialogRef.close.emit(res);
       this.inProgress = false;
+      this.err = false
     }, err => {
       this.alertService.error(err.error.message, err.status);
       this.inProgress = false;
+      this.err = false
     })
   }
 
@@ -192,26 +206,25 @@ export class SubscriptionDialogComponent  implements OnInit {
     if(event == undefined) {
       this.showHideRegion = true
       this.f.regionId.setValue(null)
+      this.err = false
     } 
 
     if(event && event.groupId) {
       this.showHideRegion = true
-      this.f.regionId.setValue(event.groupId)
+      this.f.regionId.setValue(event.region)
       this.countryList = null
-      console.log(this.f.value)
+      this.err = false
     } 
     
-    if(event && event.supportedCountries) {
+    if(event && !event.groupId && event.supportedCountries) {
       this.countryList = event.supportedCountries
       this.showHideRegion = false
     }
-    this.f.startDate.setValue(this.currentDate)
+    this.f.startDate.setValue(this.currentDate.toDate())
     this.f.priceBundle.setValue(event.priceBundle)
     this.f.data.setValue(event.data)
-    var endDate = new Date();
-    // endDate.setDate(endDate.getDate() + event.cycle);
-    endDate = moment(endDate).add(event.validity-1, "days").toDate();
-    this.f.endDate.setValue(endDate.toISOString().slice(0, 10))
+    var endDate = moment(this.currentDate).add(event.validity, "days").toDate();
+    this.f.endDate.setValue(endDate)
   }
 
   clearForm() {
