@@ -11,6 +11,7 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as moment from 'moment';
 import { SubscriptionsService } from '../../service';
+import { getCurrencySymbol } from '@angular/common';
 @Component({
   selector: 'app-dialog-subscription',
   templateUrl: './subscription.component.html',
@@ -42,6 +43,7 @@ export class SubscriptionDialogComponent  implements OnInit {
   selectedPlan: any;
   inProgress: boolean = false;
   err: boolean = false;
+  currencyType: string = 'USD';
 
   constructor(
     private viewContainer: ViewContainerRef,
@@ -56,6 +58,7 @@ export class SubscriptionDialogComponent  implements OnInit {
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
+    this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
     this.createSubscriptionForm();
     this.getPlans();
     this.getUserId();

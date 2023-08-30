@@ -288,7 +288,7 @@
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex">
                         <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [class.disabled]="true">
-                        <span class="form-label es-modal-form-label price-input-icon"> &#36; </span>
+                        <span class="form-label es-modal-form-label price-input-icon"> {{ currencyType }} </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.priceBundle.touched && f.priceBundle.pristine) || (f.priceBundle.errors && submitted)">
