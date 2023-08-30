@@ -116,7 +116,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   signout(){
-    this._localStorage.removeToken()
+    this._localStorage.clearStorage()
   }
 
 }

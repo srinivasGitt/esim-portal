@@ -4,7 +4,7 @@ import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
 import { AlertService } from '../../service/alert.service';
 import * as Country from 'world-countries';
-import { DatePipe } from '@angular/common';
+import { DatePipe, getCurrencySymbol } from '@angular/common';
 import {
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
@@ -60,7 +60,7 @@ export class PlanDialogComponent implements OnInit {
   regionList: any[] = []
   err!: string;
   isErr: boolean = false;
-  currencyType!: string;
+  currencyType: string = 'USD';
   activationType: any[] = [{name: 'API'}, {name: 'PDP'}]
 
   constructor(
@@ -74,7 +74,7 @@ export class PlanDialogComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.currencyType = localStorage.getItem('currency')! ?? 'USD';
+    this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
     this.inProgress = true
