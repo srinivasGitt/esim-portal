@@ -232,6 +232,11 @@
                             <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.country.value == null && submitted)">
+                        <span class="small" *ngIf="f.country.value == null">
+                            Country is required!
+                        </span>
+                    </span>
                 </div>
             </div>
 
