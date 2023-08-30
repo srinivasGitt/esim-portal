@@ -232,6 +232,11 @@
                             <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.country.value == null && submitted)">
+                        <span class="small" *ngIf="f.country.value == null">
+                            Country is required!
+                        </span>
+                    </span>
                 </div>
             </div>
 
@@ -283,7 +288,7 @@
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex">
                         <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [class.disabled]="true">
-                        <span class="form-label es-modal-form-label price-input-icon"> &#36; </span>
+                        <span class="form-label es-modal-form-label price-input-icon"> {{ currencyType }} </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.priceBundle.touched && f.priceBundle.pristine) || (f.priceBundle.errors && submitted)">

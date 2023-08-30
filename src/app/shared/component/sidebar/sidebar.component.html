@@ -82,7 +82,12 @@
             </div>
             <ul class="sub-menu">
                 <li *ngFor="let child of menu.childs" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
-                    <a class="nav-link" [routerLink]="[child.link]">
+                    <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
+                        <span class="">
+                            {{ child.title }}
+                        </span>
+                    </a>
+                    <a class="nav-link" [href]="[child.link]" target="_blank" *ngIf="child.external">
                         <span class="">
                             {{ child.title }}
                         </span>
