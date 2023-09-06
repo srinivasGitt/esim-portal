@@ -77,7 +77,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       planId: new UntypedFormControl(null, [Validators.required]),
       regionId: new UntypedFormControl(null),
       country: new UntypedFormControl(null),
-      email: new UntypedFormControl(null, [Validators.required]),
+      email: new UntypedFormControl(null, [Validators.required, Validators.email]),
       startDate: new UntypedFormControl(null, [Validators.required]),
       endDate: new UntypedFormControl('', [Validators.required]),
       priceBundle: new UntypedFormControl(null, [Validators.required]),

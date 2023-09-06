@@ -248,6 +248,9 @@
                         <span class="small" *ngIf="f.email.errors.required">
                             Email ID is required!
                         </span>
+                        <span class="small" *ngIf="f.email.errors.email">
+                            Please enter valid Email ID.
+                        </span>
                     </span>
                 </div>
             </div>
