@@ -277,8 +277,8 @@
                 <div class="input-width">
                     <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
                     <div class="d-flex input-icon">
-                        <mat-form-field appearance="outline" [ngClass]="[f.endDate.valid ? 'border-purple':'']">
-                            <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" [disabled]="true">
+                        <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" readonly id="endDate">
                             <mat-datepicker-toggle matIconSuffix [for]="endDate" [disabled]="true"></mat-datepicker-toggle>
                             <mat-datepicker #endDate [disabled]="true"></mat-datepicker>
                         </mat-form-field>
