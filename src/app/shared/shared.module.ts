@@ -41,6 +41,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { ContactSupportInfoComponent } from './dialog/contact-support-info/contact-support-info.component';
 import { StatusColorDirective } from './directive/status-color.directive';
+import { SubscriptionRefundComponent } from './dialog/subscription-refund/subscription-refund.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { StatusColorDirective } from './directive/status-color.directive';
     NotFoundComponent,
     PhoneNumberMaskPipe,
     ContactSupportInfoComponent,
-    StatusColorDirective
+    StatusColorDirective,
+    SubscriptionRefundComponent
   ],
   imports: [
     CommonModule,

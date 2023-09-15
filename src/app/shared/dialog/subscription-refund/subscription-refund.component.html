@@ -1,0 +1,42 @@
+<div class="es-modal add-edit-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+          <div class="mb-3 confirmation-icon" *ngIf="data.icon" [class]="data.icon + '-icon'">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Featured icon">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#9FFFD1" />
+                    <g id="check">
+                        <mask id="mask0_6326_27677" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="16"
+                            width="24" height="24">
+                            <rect id="Bounding box" x="16" y="16" width="24" height="24" fill="#D9D9D9" />
+                        </mask>
+                        <g mask="url(#mask0_6326_27677)">
+                            <path id="check_2"
+                                d="M25.5516 34.0001L19.8516 28.3001L21.2766 26.8751L25.5516 31.1501L34.7266 21.9751L36.1516 23.4001L25.5516 34.0001Z"
+                                fill="#20925B" />
+                        </g>
+                    </g>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#2D9563" stroke-width="8" />
+                </g>
+            </svg>
+          </div>  
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-3">
+            <a class="es-btn-close" (click)="close(false)"></a>
+        </div>
+      </div>
+    
+      <div>
+        <p class="modal-header-text mb-0" *ngIf="data.title">{{ data.title }}</p>
+        <p class="modal-sub-header-text mb-0 mt-2">{{ message }}</p>
+      </div>
+  
+    <div class="es-modal-footer d-flex mt-4" *ngIf="data.buttonGroup.length > 0; else showDefault;">
+        <button type="submit" *ngFor="let btn of data.buttonGroup" class="btn" [class]="btn.cssClass" (click)="close(true)"> {{ btn.title }}</button>
+    </div>
+    <ng-template #showDefault>
+        <div class="es-modal-footer">
+            <button type="submit" class="btn btn-dark" (click)="close(false)">Cancel</button>
+        </div>
+    </ng-template>
+</div>

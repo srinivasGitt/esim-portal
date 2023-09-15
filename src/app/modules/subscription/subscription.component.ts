@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
 import { SearchService } from 'src/app/shared/service/search/search.service';
+import { SubscriptionRefundComponent } from 'src/app/shared/dialog/subscription-refund/subscription-refund.component';
 
 @Component({
   selector: 'app-subscription',
@@ -58,6 +59,31 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
             this.alertService.success('Subscription Created');
             this.paginateConfig.currentPage = 1;
             this.getAllSubscription();
+          } 
+        })
+  }
+
+  getRefund(subscription: any) {
+
+    let data = {
+      title: `Confirmation`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'sucess-btn ms-auto', title: 'Continue', value: true}
+      ]
+    };
+
+    this.dialogService.openModal(SubscriptionRefundComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+      .instance.close.subscribe((data: any) => {
+        if(data){
+          this.subscriptionsService.getRefund(subscription._id)
+            .subscribe((res: any) => {
+              this.getAllSubscription();
+            });
+            // this.alertService.success('Subscription Created');
+            // this.paginateConfig.currentPage = 1;
           } 
         })
   }
