@@ -3,7 +3,6 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
 import { AlertService } from '../../service/alert.service';
-import * as Country from 'world-countries';
 import { DatePipe, getCurrencySymbol } from '@angular/common';
 import {
   MAT_MOMENT_DATE_FORMATS,
