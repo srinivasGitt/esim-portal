@@ -890,7 +890,7 @@
             height: calc(97vh - 380px);
             padding-top: 10px;
             overflow-x: hidden;
-            font-size: 1.051vw;
+            font-size: 1rem;
         }
         .t-grid-table-wrapper {
             display: grid;
@@ -1095,7 +1095,7 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 2fr 1.5fr 1fr 1.2fr 1.2fr 1fr 0.5fr 150px;
+            grid-template-columns: 2fr 1.5fr 1fr 1.2fr 1.2fr 1fr 0.5fr 180px;
         }
         .table-headers{
             font-size: 1rem;
@@ -3223,4 +3223,8 @@
 
 .w-85 {
     width: 85%;
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--bottom-border-color) !important;
 }

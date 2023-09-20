@@ -123,6 +123,12 @@
                             </span>
                         </div>
                         <div class="t-box a action-section">
+
+                            <div class="user-table-action-icon mx-auto dashboard-head-flex refund-btn">
+                                <button type="button" class="btn btn-dashboard-head d-flex" [ngClass]="{'disable-refund-btn':  !subscription.transactionId || subscription.status === 'refunded' || subscription.status === 'expired'}" (click)="getRefund(subscription)">
+                                    <span class="m-auto">Refund</span>
+                                </button>
+                            </div>
                             <div class="user-table-action">
                                 <!-- <div class="user-table-action-icon mx-auto ms-3" (click)="editSubscription(subscription)" tooltip="Edit" placement="top" delay="100" offset="5">
                                     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

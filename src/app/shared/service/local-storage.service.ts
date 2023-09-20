@@ -35,4 +35,9 @@ export class LocalStorageService {
     return localStorage.getItem('currency');
   }
 
+  clearStorage() {
+    localStorage.clear();
+    this._router.navigate(['/signin']);
+  }
+
 }

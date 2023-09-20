@@ -209,7 +209,7 @@
                     <input type="text" class="form-control es-input" id="regionId" aria-describedby="regionId" formControlName="regionId" [class.disabled]="true">
                 </div>
                 <div class="input-width imsi-input" *ngIf="!showHideRegion">
-                    <label for="country" class="form-label es-modal-form-label">Country</label>
+                    <label for="country" class="form-label es-modal-form-label">Country*</label>
                     <div class="d-flex relative container-ng-select">
                         <ng-select
                             [items]="countryList"
@@ -232,6 +232,11 @@
                             <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.country.value == null && submitted)">
+                        <span class="small" *ngIf="f.country.value == null">
+                            Country is required!
+                        </span>
+                    </span>
                 </div>
             </div>
 
@@ -242,6 +247,9 @@
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.email.touched && f.email.pristine) || (f.email.errors && submitted)">
                         <span class="small" *ngIf="f.email.errors.required">
                             Email ID is required!
+                        </span>
+                        <span class="small" *ngIf="f.email.errors.email">
+                            Please enter valid Email ID.
                         </span>
                     </span>
                 </div>
@@ -269,8 +277,8 @@
                 <div class="input-width">
                     <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
                     <div class="d-flex input-icon">
-                        <mat-form-field appearance="outline" [ngClass]="[f.endDate.valid ? 'border-purple':'']">
-                            <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" [disabled]="true">
+                        <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" readonly id="endDate">
                             <mat-datepicker-toggle matIconSuffix [for]="endDate" [disabled]="true"></mat-datepicker-toggle>
                             <mat-datepicker #endDate [disabled]="true"></mat-datepicker>
                         </mat-form-field>
@@ -282,8 +290,8 @@
                 <div class="input-width">
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex">
-                        <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [class.disabled]="true">
-                        <span class="form-label es-modal-form-label price-input-icon"> &#36; </span>
+                        <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [disabled]="true">
+                        <span class="form-label es-modal-form-label price-input-icon"> {{ currencyType }} </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.priceBundle.touched && f.priceBundle.pristine) || (f.priceBundle.errors && submitted)">

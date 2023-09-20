@@ -29,15 +29,16 @@
     "angularx-qrcode": "^14.0.0",
     "bootstrap": "^5.2.2",
     "chart.js": "^3.9.1",
+    "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "moment": "^2.29.4",
     "ngx-csv-parser": "^1.2.0",
     "ngx-gauge": "^6.0.0",
     "ngx-pagination": "^6.0.3",
+    "papaparse": "^5.4.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "world-countries": "^4.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

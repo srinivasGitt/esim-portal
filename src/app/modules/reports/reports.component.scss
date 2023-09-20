@@ -164,3 +164,25 @@ button {
 ::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
     color: var(--calendar-select-color) !important;
 }
+
+
+.dashboard-graph {
+    width: 100% !important;
+    height: 440px;
+    padding-bottom: 38px;
+}
+
+.report-utility {
+    height: 440px;
+
+    .report-utility-text {
+        font-size: 16px;
+        color: var(--main-heading-text-color);
+        margin-top: 12px;
+    }
+
+    .email-report-btn {
+        width: 190px;
+    }
+}
+

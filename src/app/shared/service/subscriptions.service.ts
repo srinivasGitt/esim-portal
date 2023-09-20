@@ -71,4 +71,8 @@ export class SubscriptionsService {
   getPlans() {
     return this.http.get(`${this.serverUrl}/subscription/plans`);
   }
+
+  getRefund(subscriptionId: string) {
+    return this.http.get(`${this.serverUrl}/subscription/refund/${subscriptionId}`);
+  }
 }
