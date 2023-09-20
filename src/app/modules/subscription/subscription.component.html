@@ -125,7 +125,7 @@
                         <div class="t-box a action-section">
 
                             <div class="user-table-action-icon mx-auto dashboard-head-flex refund-btn">
-                                <button type="button" class="btn btn-dashboard-head d-flex" [ngClass]="{'disable-refund-btn': subscription.status === 'refunded' || subscription.status === 'expired'}" (click)="getRefund(subscription)">
+                                <button type="button" class="btn btn-dashboard-head d-flex" [ngClass]="{'disable-refund-btn':  !subscription.transactionId || subscription.status === 'refunded' || subscription.status === 'expired'}" (click)="getRefund(subscription)">
                                     <span class="m-auto">Refund</span>
                                 </button>
                             </div>
