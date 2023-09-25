@@ -145,22 +145,20 @@ export class SubscriptionDialogComponent  implements OnInit {
     }
     // this.dialogRef.close.emit(this.subscriptionForm.value);
 
-    const subscription = this.subscriptionForm.value
+    // const subscription = this.subscriptionForm.value
     
     const obj = {
-      email: subscription.email,
-      country: subscription.country ?? subscription.regionId,
-      activationDate: String(subscription.startDate),
-      expiryDate: String(subscription.endDate),
-      planId: subscription.planId
+      email: this.f.email.value,
+      country: this.f.country.value ?? this.f.regionId.value,
+      activationDate: String(this.f.startDate.value),
+      expiryDate: String(this.f.endDate.value),
+      planId: this.f.planId.value
     } 
 
-    if(!subscription.regionId && obj && obj.country == null) {
+    if(!this.f.regionId.value && obj && obj.country == null) {
       this.err = true
       return
     }
-    console.log("obj \n", obj)
-
     this.inProgress = true;
     this.subscriptionService.createSubscription(obj)
     .subscribe((res: any) => {
