@@ -62,7 +62,7 @@
     </div>
 
     <div>
-        <p class="modal-header-text mb-0">{{ title == 'Info' ? 'Session Expired!': title}}</p>
+        <p class="modal-header-text mb-0">{{ title == 'Info' ? ((statusCode == 401) ? 'Session Expired!' : 'Alert'): title}}</p>
         <p class="modal-sub-header-text mb-0 mt-2">{{ body }}</p>
     </div>
 
