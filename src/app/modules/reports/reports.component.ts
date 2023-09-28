@@ -15,6 +15,8 @@ import {FormGroup, FormControl} from '@angular/forms';
 import { DialogService, UsersService } from 'src/app/shared/service';
 import { ReportSuccessInfoComponent } from 'src/app/shared/dialog/report-success-info/report-success-info.component';
 import { ReportService } from 'src/app/shared/service/report.service';
+import { AlertComponent } from 'src/app/shared/dialog';
+import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
 // import { papa } from 'papaparse';
 var papa = require('papaparse');
 var FileSaver = require('file-saver');
@@ -274,20 +276,28 @@ export class ReportsComponent implements OnInit {
     this.reportService.getDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
 
-        this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
-          .instance.close.subscribe((data: any) => {
-            if(data){
-              } 
-            })
+        
 
+          if(res && res.length <= 0) {
+            let customTitle: string = 'Info';
+        
+            this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
+              .instance.close.subscribe((data: any) => {
+            });
+          } else {
 
-        papa.unparse(res);
-        const fileName = `transactionReport.csv`;
-        const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
-        FileSaver(blob, fileName);
-      })
+            this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+              .instance.close.subscribe((data: any) => {
+                if(data){
+                  } 
+                });
 
-    // 
+            papa.unparse(res);
+            const fileName = `transactionReport.csv`;
+            const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
+            FileSaver(blob, fileName);
+          }
+      });
   }
 
   sendTransactionAndRevenueReportMail() {
@@ -307,12 +317,19 @@ export class ReportsComponent implements OnInit {
 
     this.reportService.sendTransactionAndRevenueReportMail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
-        this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+          this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
           .instance.close.subscribe((data: any) => {
             if(data){
               } 
             });
-
+      }, err => {
+        if(err.error.message == 'No data found in given date range!') {
+          let customTitle: string = 'Info';
+        
+          this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
+            .instance.close.subscribe((data: any) => {
+          });
+        }
       })
   }
 
