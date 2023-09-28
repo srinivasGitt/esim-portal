@@ -21,6 +21,7 @@ export class AlertComponent implements OnInit {
     { cssClass: 'ms-auto', title: 'Continue', value: false},
     { cssClass: 'ms-auto', title: 'Upload Another', value: false}
   ]
+  statusCode!: number;
 
   constructor(private viewContainer: ViewContainerRef, private dialogService: DialogService) {
 
@@ -32,6 +33,7 @@ export class AlertComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.body = this.dialogRef.context.body;
     this.type = this.dialogRef.context.type
+    this.statusCode = this.dialogRef.context.statusCode
     /*
     // this.buttonGroup = this.title == 'Succes' ? this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Continue') 
     //                   : (this.title == 'Info' ? this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Login') : this.buttonGroup)
