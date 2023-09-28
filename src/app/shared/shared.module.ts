@@ -42,6 +42,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ContactSupportInfoComponent } from './dialog/contact-support-info/contact-support-info.component';
 import { StatusColorDirective } from './directive/status-color.directive';
 import { SubscriptionRefundComponent } from './dialog/subscription-refund/subscription-refund.component';
+import { ReportAlertComponent } from './dialog/report-alert/report-alert.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { SubscriptionRefundComponent } from './dialog/subscription-refund/subscr
     PhoneNumberMaskPipe,
     ContactSupportInfoComponent,
     StatusColorDirective,
-    SubscriptionRefundComponent
+    SubscriptionRefundComponent,
+    ReportAlertComponent
   ],
   imports: [
     CommonModule,
