@@ -14,13 +14,13 @@ export class AlertService {
   error(message: string, statusCode?: number){
     let customTitle: string;
 
-    if(statusCode && statusCode == 401) {
+    if(statusCode && (statusCode == 401 || statusCode == 405)) {
       customTitle = 'Info'
     } else {
       customTitle = 'Error'
     }
 
-    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: message} })
+    this.dialogService.openModal(AlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: message, statusCode: statusCode} })
           .instance.close.subscribe((data: any) => {
         
         });
