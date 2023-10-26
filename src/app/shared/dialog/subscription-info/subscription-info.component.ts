@@ -17,6 +17,7 @@ export class SubscriptionInfoComponent implements OnInit {
   currencyType: string = 'USD';
   dataUnit!: string;
   inProgress: boolean = false;
+  usedDataForGuage!: number;
 
   constructor(
     private viewContainer: ViewContainerRef, private subscriptionService: SubscriptionsService
@@ -28,7 +29,7 @@ export class SubscriptionInfoComponent implements OnInit {
   ngOnInit(): void {
     this.currencyType = localStorage.getItem('currency')!;
     this.subscriptionDetails = this.dialogRef.context.data;
-    this.totalData = this.subscriptionDetails.data ? parseFloat(this.subscriptionDetails.data.match(/(\d+)/)[0]) : 1;
+    // this.totalData = this.subscriptionDetails.data ? parseFloat(this.subscriptionDetails.data.match(/(\d+)/)[0]) : 1;
     this.getSubscriptionDataUsage(this.subscriptionDetails._id)
   }
 
@@ -45,15 +46,19 @@ export class SubscriptionInfoComponent implements OnInit {
     this.subscriptionService.getSubscriptionDataUsage(id).subscribe((res: any) => {
       if(res) {
         
-        if(res.used_data_size_in_MB > 1000) {
-          this.dataUnit = 'GB'     
+        if(res.used_data_size_in_MB > 1024) {
           this.usedData = res.used_data_size_in_GB     
+          this.totalData = res.total_data_size_in_GB
+          this.usedData =  this.usedData / 1024
         }
         else {
-          this.dataUnit = 'MB'     
           this.usedData = res.used_data_size_in_MB     
+          this.totalData = res.total_data_size_in_MB
         }
-    
+        this.usedDataForGuage = this.usedData
+
+        this.usedDataForGuage > 1024 ? this.dataUnit = 'GB' : this.dataUnit = 'MB';  
+
         this.inProgress = false
       }
     }, error => {
