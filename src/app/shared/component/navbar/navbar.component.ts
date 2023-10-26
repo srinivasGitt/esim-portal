@@ -51,12 +51,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void { 
-    
     if (!this._localStorage.getToken()) {
       this.router.navigate(['/signin']);
     }else{
       // this.getAllCustomer();
     }
+    const theme = this._localStorage.getTheme()
+    theme == 'dark' ? this.isDarkTheme = true : this.isDarkTheme = false;
+    this.dashboardService.setAppTheme(this.isDarkTheme);
+    this._localStorage.setTheme(this.isDarkTheme)
+    if(this.isDarkTheme) $('#body').toggleClass('darkMode');
     this.formInit()
   }
 
@@ -116,7 +120,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   signout(){
-    this._localStorage.removeToken()
+    this._localStorage.clearStorage()
   }
 
 }

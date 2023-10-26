@@ -3,11 +3,11 @@ import { DialogComponent, DialogService } from '../../service/dialog';
 import { UploadInventoryComponent } from '../upload-inventory/upload-inventory.component';
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  selector: 'app-report-alert',
+  templateUrl: './report-alert.component.html',
+  styleUrls: ['./report-alert.component.scss']
 })
-export class AlertComponent implements OnInit {
+export class ReportAlertComponent implements OnInit {
 
   title: string = 'Something went wrong!';
   body: string = 'Oops, it seems like we have run into an error. Please rectify the problems and try again'
@@ -21,7 +21,6 @@ export class AlertComponent implements OnInit {
     { cssClass: 'ms-auto', title: 'Continue', value: false},
     { cssClass: 'ms-auto', title: 'Upload Another', value: false}
   ]
-  statusCode!: number;
 
   constructor(private viewContainer: ViewContainerRef, private dialogService: DialogService) {
 
@@ -33,7 +32,6 @@ export class AlertComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.body = this.dialogRef.context.body;
     this.type = this.dialogRef.context.type
-    this.statusCode = this.dialogRef.context.statusCode
     /*
     // this.buttonGroup = this.title == 'Succes' ? this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Continue') 
     //                   : (this.title == 'Info' ? this.buttonGroup.filter(x => x.title == 'Cancel' || x.title == 'Login') : this.buttonGroup)

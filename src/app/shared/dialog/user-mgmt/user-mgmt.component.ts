@@ -5,6 +5,7 @@ import { PlansService } from '../../service/plans.service';
 import { RegionsService } from '../../service/regions.service';
 import { UsersService } from '../../service/users.service';
 import { AlertService } from '../../service/alert.service';
+import { trimSpaceValidator } from '../../validators/trimSpaceValidator';
 
 @Component({
   selector: 'app-user-mgmt',
@@ -63,8 +64,8 @@ export class UserMgmtComponent implements OnInit {
   createuserForm() {
     this.userForm = new UntypedFormGroup({
       email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
-      firstName: new UntypedFormControl(this.data?.firstName, [Validators.required]),
-      lastName: new UntypedFormControl(this.data?.lastName, [Validators.required]),
+      firstName: new UntypedFormControl(this.data?.firstName, [Validators.required, trimSpaceValidator]),
+      lastName: new UntypedFormControl(this.data?.lastName, [Validators.required, trimSpaceValidator]),
       mobile: new UntypedFormControl(this.data?.mobile, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
     });
   }

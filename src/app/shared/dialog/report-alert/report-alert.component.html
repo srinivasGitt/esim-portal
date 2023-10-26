@@ -18,7 +18,7 @@
     <div class="es-modal-footer"></div>
 </div>
  -->
-<div class="es-modal add-edit-modal">
+ <div class="es-modal add-edit-modal">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
             <div class="mb-3 confirmation-icon">
@@ -62,8 +62,8 @@
     </div>
 
     <div>
-        <p class="modal-header-text mb-0">{{ title == 'Info' ? ((statusCode == 401) ? 'Session Expired!' : 'Alert'): title}}</p>
-        <p class="modal-sub-header-text mb-0 mt-2">{{ body }}</p>
+        <p class="modal-header-text mb-0">{{ title == 'Info' ? 'No data found in given date range!': title}}</p>
+        <!-- <p class="modal-sub-header-text mb-0 mt-2">{{ body }}</p> -->
     </div>
 
     <div class="es-modal-footer d-flex justify-content-between mt-5" *ngIf="(title == 'Error' || title == 'Something went wrong!' || type == 'Inventory') && buttonGroup.length > 0; else showDefault;">

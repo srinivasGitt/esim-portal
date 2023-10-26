@@ -12,6 +12,14 @@ import {
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FormGroup, FormControl} from '@angular/forms';
+import { DialogService, UsersService } from 'src/app/shared/service';
+import { ReportSuccessInfoComponent } from 'src/app/shared/dialog/report-success-info/report-success-info.component';
+import { ReportService } from 'src/app/shared/service/report.service';
+import { AlertComponent } from 'src/app/shared/dialog';
+import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
+// import { papa } from 'papaparse';
+var papa = require('papaparse');
+var FileSaver = require('file-saver');
 
 Chart.register(...registerables)
 @Component({
@@ -45,16 +53,24 @@ export class ReportsComponent implements OnInit {
   inProgress: boolean = false;
   selectedDay: string = 'Current Year';
   currencyType: string = 'USD';
+  userDetails: any;
 
   constructor(private dashboardService: DashboardService,
               private alertService: AlertService,
               private renderer: Renderer2, 
-              private elementRef: ElementRef) {
+              private elementRef: ElementRef,
+              private dialogService: DialogService,
+              private reportService: ReportService,
+              private usersService: UsersService,) {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
         // this.drawChart();
         
+      });
+
+      usersService.getCurrentUser().subscribe(result => {
+        this.userDetails = result;
       });
   }
   customForm: any;
@@ -147,6 +163,8 @@ export class ReportsComponent implements OnInit {
 
       },
       options: {
+        maintainAspectRatio: false,
+        responsive: true,
         layout:{
           padding: 20
         },
@@ -221,7 +239,7 @@ export class ReportsComponent implements OnInit {
 
   get f() { return this.customForm.controls; }
 
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+  dateRangeChange (dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     if(!this.customForm.valid) {
       return
     }
@@ -236,6 +254,83 @@ export class ReportsComponent implements OnInit {
     setTimeout( ()=>{
       this.getReports('custom', this.startDate, this.endDate)
       }, 1000)
+  }
+
+  downloadReport() {
+    let data = {
+      title: `Success`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
+      ],
+      message: 'Report is successfully downloaded'
+    };
+
+    
+    // return;
+
+    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+
+    this.reportService.getDownloadReport(timeFrame, this.startDate, this.endDate)
+      .subscribe((res: any) => {
+
+        
+
+          if(res && res.length <= 0) {
+            let customTitle: string = 'Info';
+        
+            this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
+              .instance.close.subscribe((data: any) => {
+            });
+          } else {
+
+            this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+              .instance.close.subscribe((data: any) => {
+                if(data){
+                  } 
+                });
+
+            papa.unparse(res);
+            const fileName = `transactionReport.csv`;
+            const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
+            FileSaver(blob, fileName);
+          }
+      });
+  }
+
+  sendTransactionAndRevenueReportMail() {
+    let data = {
+      title: `Success`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
+      ],
+      message: `Report is successfully sent on your email`,
+      email: this.userDetails.email
+    };
+
+    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+
+    this.reportService.sendTransactionAndRevenueReportMail(timeFrame, this.startDate, this.endDate)
+      .subscribe((res: any) => {
+          this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+          .instance.close.subscribe((data: any) => {
+            if(data){
+              } 
+            });
+      }, err => {
+        if(err.error.message == 'No data found in given date range!') {
+          let customTitle: string = 'Info';
+        
+          this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
+            .instance.close.subscribe((data: any) => {
+          });
+        }
+      })
   }
 
 }

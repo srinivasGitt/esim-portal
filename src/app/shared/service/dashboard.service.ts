@@ -121,6 +121,13 @@ export class DashboardService {
             link: '/help-center/support',
             accessRole: ['admin','superAdmin'],
             hasGroup: false
+          },
+          {
+            title: 'Raise Ticket',
+            link: 'https://support.glowingbud.com/',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false,
+            external: true
           }
         ]
       },

@@ -27,12 +27,21 @@ export class LocalStorageService {
     localStorage.setItem('screenMode', isDarkTheme ? 'dark' : 'light');
   }
 
+  getTheme() {
+    return localStorage.getItem('screenMode');
+  }
+
   setCurrency(value: string) {
     localStorage.setItem('currency', value);
   }
 
   getCurrency() {
     return localStorage.getItem('currency');
+  }
+
+  clearStorage() {
+    localStorage.clear();
+    this._router.navigate(['/signin']);
   }
 
 }

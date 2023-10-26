@@ -1,4 +1,4 @@
-<div class="es-modal add-edit-modal">
+<div class="es-modal add-edit-modal" *ngIf="!inProgress; else spinner">
     <!-- <div class="modal-header-flex">
         <div class="modal-header-text-container">
             <span class="subscription-heder-icon">
@@ -44,6 +44,7 @@
         </p>
     </div>
     <div class="es-modal-body">
+        <!-- 
         <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3 row d-flex justify-content-between">
                 <div class="col-6">
@@ -116,11 +117,6 @@
                                 <path d="M15.38 1.91H13.44V0.5C13.44 0.367392 13.3873 0.240215 13.2936 0.146446C13.1998 0.0526783 13.0726 0 12.94 0C12.8074 0 12.6802 0.0526783 12.5864 0.146446C12.4927 0.240215 12.44 0.367392 12.44 0.5V1.91H5.44V0.5C5.44 0.367392 5.38732 0.240215 5.29355 0.146446C5.19979 0.0526783 5.07261 0 4.94 0C4.80739 0 4.68021 0.0526783 4.58645 0.146446C4.49268 0.240215 4.44 0.367392 4.44 0.5V1.91H2.5C1.83696 1.91 1.20107 2.17339 0.732233 2.64223C0.263392 3.11107 0 3.74696 0 4.41V15.41C0 16.073 0.263392 16.7089 0.732233 17.1778C1.20107 17.6466 1.83696 17.91 2.5 17.91H15.38C16.043 17.91 16.6789 17.6466 17.1478 17.1778C17.6166 16.7089 17.88 16.073 17.88 15.41V4.41C17.88 3.74696 17.6166 3.11107 17.1478 2.64223C16.6789 2.17339 16.043 1.91 15.38 1.91ZM16.88 15.41C16.88 15.8078 16.722 16.1894 16.4407 16.4707C16.1594 16.752 15.7778 16.91 15.38 16.91H2.5C2.10218 16.91 1.72064 16.752 1.43934 16.4707C1.15804 16.1894 1 15.8078 1 15.41V6.99H16.88V15.41ZM16.88 5.99H1V4.41C1 4.01218 1.15804 3.63064 1.43934 3.34934C1.72064 3.06804 2.10218 2.91 2.5 2.91H4.44V3.5C4.44 3.63261 4.49268 3.75979 4.58645 3.85355C4.68021 3.94732 4.80739 4 4.94 4C5.07261 4 5.19979 3.94732 5.29355 3.85355C5.38732 3.75979 5.44 3.63261 5.44 3.5V2.91H12.44V3.5C12.44 3.63261 12.4927 3.75979 12.5864 3.85355C12.6802 3.94732 12.8074 4 12.94 4C13.0726 4 13.1998 3.94732 13.2936 3.85355C13.3873 3.75979 13.44 3.63261 13.44 3.5V2.91H15.38C15.7778 2.91 16.1594 3.06804 16.4407 3.34934C16.722 3.63064 16.88 4.01218 16.88 4.41V5.99Z" fill="white"/>
                             </svg>
                         </span>
-                        <!-- <span class="down-caret-btn">
-                            <svg class="icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.2803 0.219668C9.5732 0.512558 9.5732 0.987437 9.2803 1.2803L5.2803 5.2803C4.9874 5.5732 4.5126 5.5732 4.2197 5.2803L0.219668 1.2803C-0.0732225 0.987437 -0.0732225 0.512558 0.219668 0.219668C0.512558 -0.0732225 0.987437 -0.0732225 1.28033 0.219668L4.75 3.6893L8.2197 0.219668C8.5126 -0.0732225 8.9874 -0.0732225 9.2803 0.219668Z" fill="white"/>
-                            </svg>                                
-                        </span> -->
                     </div>
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.endDate.touched && f.endDate.pristine) || (f.endDate.errors && submitted)">
@@ -170,6 +166,165 @@
                 <button type="submit" class="btn btn-primary ms-auto w-20">Save Changes</button>
             </div>
         </form>
+        -->
+
+        <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()" autocomplete="off">
+            
+            <div class="divHeight d-flex justify-content-between">
+                <div class="input-width imsi-input">
+                    <label for="region" class="form-label es-modal-form-label">Plan*</label>
+                    <div class="d-flex relative container-ng-select">
+                        <ng-select
+                            [items]="planList"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="name"
+                            bindValue="_id"
+                            placeholder="Choose a Plan"
+                            formControlName="planId"
+                            class="full-width"
+                            (change)="onPlanSelection($event)"
+                            (clear)="clearForm()">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.name }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                        <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.planId.touched && f.planId.pristine) || (f.planId.errors && submitted)">
+                            <span class="small" *ngIf="f.planId.errors.required">
+                                Plan is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="input-width imsi-input" *ngIf="showHideRegion">
+                    <label for="regionId" class="form-label es-modal-form-label">Region</label>
+                    <input type="text" class="form-control es-input" id="regionId" aria-describedby="regionId" formControlName="regionId" [class.disabled]="true">
+                </div>
+                <div class="input-width imsi-input" *ngIf="!showHideRegion">
+                    <label for="country" class="form-label es-modal-form-label">Country*</label>
+                    <div class="d-flex relative container-ng-select">
+                        <ng-select
+                            [items]="countryList"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="name"
+                            bindValue="name"
+                            placeholder="Select Country"
+                            formControlName="country"
+                            class="full-width"
+                            (change)="true">
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="radio"/> {{item.name }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                        <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.country.value == null && submitted)">
+                        <span class="small" *ngIf="f.country.value == null">
+                            Country is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="divHeight">
+                <label for="email" class="form-label es-modal-form-label">Email ID*</label>
+                <input type="text" class="form-control es-input" id="email" aria-describedby="email" formControlName="email" [ngClass]="[f.email.valid ? 'border-purple':'']" placeholder="one@example.com">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.email.touched && f.email.pristine) || (f.email.errors && submitted)">
+                        <span class="small" *ngIf="f.email.errors.required">
+                            Email ID is required!
+                        </span>
+                        <span class="small" *ngIf="f.email.errors.email">
+                            Please enter valid Email ID.
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="divHeight d-flex justify-content-between">
+                <div class="input-width">
+                    <label for="startDate" class="form-label es-modal-form-label">Start Date*</label>
+                    <div class="d-flex input-icon">
+                        <mat-form-field appearance="outline" [ngClass]="[f.startDate.valid ? 'border-purple':'']">
+                            <input matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="DD-MM-YYYY" (click)="startDate.open()" [min]="currentDate" (dateChange)="onDateChange($event)">
+                            <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.startDate.touched && f.startDate.pristine) || (f.startDate.errors && submitted)">
+                            <span class="small" *ngIf="f.startDate.errors.required">
+                                Start Date is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="input-width">
+                    <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
+                    <div class="d-flex input-icon">
+                        <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" readonly id="endDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="endDate" [disabled]="true"></mat-datepicker-toggle>
+                            <mat-datepicker #endDate [disabled]="true"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divHeight d-flex justify-content-between">
+                <div class="input-width">
+                    <label for="priceBundle" class="form-label es-modal-form-label">Price</label>
+                    <div class="d-flex">
+                        <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [disabled]="true">
+                        <span class="form-label es-modal-form-label price-input-icon"> {{ currencyType }} </span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.priceBundle.touched && f.priceBundle.pristine) || (f.priceBundle.errors && submitted)">
+                            <span class="small" *ngIf="f.priceBundle.errors.required">
+                                Price is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-6 gap-2">
+                    <label for="data" class="form-label es-modal-form-label">Data</label>
+                    <input type="text" class="form-control es-input" id="data" aria-describedby="data" formControlName="data" [class.disabled]="true">
+                    <div>
+                        <span class="help-block ng-invalid text-danger" *ngIf="(f.data.touched && f.data.pristine) || (f.data.errors && submitted)">
+                            <span class="small" *ngIf="f.data.errors && f.data.errors.required">
+                                Data is required!
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2 gx-2 d-flex justify-content-between">
+                    <button class="btn btn-secondary btn-width" (click)="close()">Cancel</button>
+                    <button type="submit" class="btn btn-primary ms-auto btn-width">Add Subscription</button>
+            </div>
+        </form>
     </div>
     <div class="es-modal-footer"></div>
 </div>
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->

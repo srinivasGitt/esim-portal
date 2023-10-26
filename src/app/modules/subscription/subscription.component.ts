@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 import { PaginationInstance } from 'ngx-pagination';
 import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
 import { SearchService } from 'src/app/shared/service/search/search.service';
+import { SubscriptionRefundComponent } from 'src/app/shared/dialog/subscription-refund/subscription-refund.component';
 
 @Component({
   selector: 'app-subscription',
@@ -49,24 +50,44 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getAllSubscription();
   }
+  
   createSubscription() {
     this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-lg', context: {data: {}, title: 'Add New Subscription'} })
       .instance.close.subscribe((data: any) => {
         if(data){
-          let vm  = this;
-          vm.subscriptionsService.createSubscription(data)
-          .subscribe( (res: any) => {
-          
-            vm.subscriptionList.push(res);
+          console.log(data)
             this.alertService.success('Subscription Created');
             this.paginateConfig.currentPage = 1;
             this.getAllSubscription();
-          }, err => {
-            this.alertService.error(err.error.message, err.status);
-          })
-        }
-        });
+          } 
+        })
   }
+
+  getRefund(subscription: any) {
+
+    let data = {
+      title: `Confirmation`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'sucess-btn ms-auto', title: 'Continue', value: true}
+      ]
+    };
+
+    this.dialogService.openModal(SubscriptionRefundComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+      .instance.close.subscribe((data: any) => {
+        if(data){
+          this.subscriptionsService.getRefund(subscription._id)
+            .subscribe((res: any) => {
+              this.getAllSubscription();
+            });
+            // this.alertService.success('Subscription Created');
+            // this.paginateConfig.currentPage = 1;
+          } 
+        })
+  }
+
   getAllSubscription() {
     this.currencyType = localStorage.getItem('currency')!;
 

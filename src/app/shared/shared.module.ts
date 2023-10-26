@@ -40,6 +40,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { ContactSupportInfoComponent } from './dialog/contact-support-info/contact-support-info.component';
+import { StatusColorDirective } from './directive/status-color.directive';
+import { SubscriptionRefundComponent } from './dialog/subscription-refund/subscription-refund.component';
+import { ReportAlertComponent } from './dialog/report-alert/report-alert.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,10 @@ import { ContactSupportInfoComponent } from './dialog/contact-support-info/conta
     InventoryInfoComponent,
     NotFoundComponent,
     PhoneNumberMaskPipe,
-    ContactSupportInfoComponent
+    ContactSupportInfoComponent,
+    StatusColorDirective,
+    SubscriptionRefundComponent,
+    ReportAlertComponent
   ],
   imports: [
     CommonModule,
@@ -98,7 +104,8 @@ import { ContactSupportInfoComponent } from './dialog/contact-support-info/conta
     UserMgmtComponent,
     TooltipDirective,
     LoadingSpinnerComponent,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    StatusColorDirective
   ],
   providers: [CurrencyPipe, DatePipe]
 })
