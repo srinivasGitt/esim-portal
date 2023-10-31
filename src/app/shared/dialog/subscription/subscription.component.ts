@@ -202,7 +202,6 @@ export class SubscriptionDialogComponent  implements OnInit {
   }
 
   onPlanSelection(event: any) {
-    console.log(event)
     this.selectedPlan = event
     if(event == undefined) {
       this.showHideRegion = true
@@ -221,6 +220,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       this.countryList = event.supportedCountries
       this.showHideRegion = false
     }
+    this.f.country.setValue(null)
     this.f.startDate.setValue(this.currentDate.toDate())
     this.f.priceBundle.setValue(event.priceBundle)
     this.f.data.setValue(event.data)
