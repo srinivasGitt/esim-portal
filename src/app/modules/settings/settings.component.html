@@ -5,128 +5,233 @@
         </div>
     </div>
 
-    <div class="row settings add-edit-modal border-top"  *ngIf="!inProgress; else spinner">
-
-        <div class="settings-card first">
-            <div class="row">
-                <div class="col-6">
-                    <h1 class="modal-header-text">Inventory Usage Reminder</h1> 
-                    <p>Set a limit for Inventory Usage.</p>
-                </div>
-                <div class="col-6">
-                    <ng-container *ngFor="let value of reminderValues">
-                        <div class="radio-div">
-                            <label [for]="value">
-                                <input type="radio" [id]="value" [value]="value" [(ngModel)]="reminderCurrentValue">
-                                {{ value == 0 ? 'No Reminder' : value+'% Usage' }}
-                            </label>
+    <div class="row row-cols-3 settings add-edit-modal" *ngIf="!inProgress; else spinner">
+        <!-- Inventory Usage -->
+        <div class="col">
+            <div class="card settings-card border-0 rounded-0">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <div>
+                            <h1 class="modal-header-text">Inventory Usage Reminder</h1> 
+                            <p>Set a limit for Inventory Usage.</p>
                         </div>
-                    </ng-container>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between btn-grp">
-                <button type="button" class="btn btn-secondary" (click)="cancel('usage')" [disabled]="reminderCurrentValue == currentUsageValue">Cancel</button>
-                <button type="submit" class="btn" [ngClass]="[reminderCurrentValue != currentUsageValue ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="reminderCurrentValue == currentUsageValue">Save</button>
-            </div>
-            <!-- <div class="d-flex justify-content-end btn-grp" *ngIf="reminderCurrentValue == undefined">
-                <button type="submit" class="btn" [ngClass]="{'btn-secondary': !reminderCurrentValue}" (click)="save()">Save</button>
-            </div> -->
-        </div>
-        <div class="settings-card second">
-            <div class="row">
-                <div class="col">
-                    <h1>Email Forwarding</h1> 
-                    <p>Where would you like to receive your emails?</p>
-                </div>
-                <div class="col-8 d-flex flex-column gap-4">
-                    <div class="email-div">
-                        <label for="support">Support Email</label>
-                        <div class="row copy" [ngClass]="[supportEmail && supportEmail.length > 0 ? 'border-purple':'']" >
-                            <div class="col-8">
-                                <input type="email" name="support" id="support" [(ngModel)]="supportEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #support="ngModel">
-                            </div>
-                            <div class="col-4 d-flex justify-content-end gap-2" *ngIf="supportEmail && supportEmail.length > 0">
-                                <span class="icon cursor-pointer" (click)="editField('support')" tooltip="Edit" placement="top" delay="100" offset="10">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8831 2.96672C18.065 3.23953 18.0346 3.61027 17.7922 3.85044L9.0931 12.4648C9.00386 12.5532 8.89257 12.6164 8.77059 12.648L5.14762 13.5851C5.02945 13.6156 4.90765 13.615 4.79321 13.5861C4.67154 13.5555 4.55819 13.493 4.46638 13.402C4.28822 13.2256 4.21787 12.9688 4.28154 12.7274L5.22788 9.13963C5.25576 9.03393 5.30809 8.92953 5.38047 8.84762L14.1118 0.205859C14.1881 0.130177 14.2802 0.0735272 14.3804 0.0390127C14.4547 0.0134197 14.5335 0 14.6136 0C14.8018 0 14.9824 0.074052 15.1155 0.205859L17.7922 2.85646C17.8268 2.89077 17.8571 2.92774 17.8831 2.96672ZM16.2865 3.35345L14.6136 1.69682L6.55262 9.67942L5.96117 11.9218L8.2255 11.3361L16.2865 3.35345Z" fill="black"/>
-                                        <path d="M16.1666 13.9729C16.4253 11.7823 16.5077 9.57638 16.4135 7.376C16.4091 7.27067 16.4491 7.16813 16.5243 7.09357L17.4549 6.17206C17.5693 6.05876 17.7648 6.13069 17.7755 6.29056C17.9506 8.90483 17.8841 11.531 17.5765 14.1363C17.3526 16.0316 15.8154 17.517 13.9114 17.7277C10.6309 18.0908 7.23979 18.0908 3.9593 17.7277C2.05523 17.517 0.518074 16.0316 0.294219 14.1363C-0.098073 10.8148 -0.098073 7.45931 0.294219 4.13787C0.518074 2.2425 2.05523 0.757143 3.9593 0.546401C6.44792 0.27097 9.00015 0.20448 11.5194 0.346933C11.6818 0.356117 11.7558 0.550675 11.6408 0.664554L10.7016 1.59471C10.6271 1.66845 10.525 1.70807 10.4196 1.70454C8.31274 1.63417 6.19149 1.71379 4.11697 1.9434C2.85825 2.08271 1.84994 3.06633 1.7041 4.30117C1.32462 7.51413 1.32462 10.76 1.7041 13.9729C1.84994 15.2078 2.85825 16.1914 4.11697 16.3307C7.29269 16.6822 10.578 16.6822 13.7537 16.3307C15.0125 16.1914 16.0207 15.2078 16.1666 13.9729Z" fill="black"/>
-                                    </svg>    
-                                </span>
-                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,supportEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                                            <rect width="20" height="20" fill="#D9D9D9"/>
-                                        </mask>
-                                        <g mask="url(#mask0_2161_5534)">
-                                            <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
-                                        </g>
-                                    </svg>                           
-                                </span>
-                                <button type="button" class="btn-primary" (click)="sendTestMail(supportEmail)">Test email</button>
-                            </div>
+                        <div>
+                            <ng-container>
+                                <div class="row row-cols-3 radio-div g-2">
+                                    <div class="col" *ngFor="let value of reminderValues">
+                                        <label [for]="value" class="border-gray">
+                                            <input type="radio" [id]="value" [value]="value" [(ngModel)]="reminderCurrentValue">
+                                            {{ value == 0 ? 'No Reminder' : value+'% Usage' }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </ng-container>
                         </div>
-                        <span class="text-danger" *ngIf="support.errors">
-                            <span class="small" *ngIf="support.errors['pattern']">Please enter valid email.</span>
-                        </span>
-                    </div>
-                    <div class="email-div">
-                        <label for="support">Contact Us Email</label>
-                        <div class="row copy" [ngClass]="[contactEmail && contactEmail.length > 0 ? 'border-purple':'']" >
-                            <div class="col-8">
-                                <input type="email" name="support" id="support" [(ngModel)]="contactEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #contact="ngModel">
-                            </div>
-                            <div  class="col-4 d-flex justify-content-end gap-2" *ngIf="contactEmail && contactEmail.length > 0">
-                                <span class="icon cursor-pointer" tooltip="Edit" placement="top" delay="100" offset="10" (click)="editField('contact')">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8831 2.96672C18.065 3.23953 18.0346 3.61027 17.7922 3.85044L9.0931 12.4648C9.00386 12.5532 8.89257 12.6164 8.77059 12.648L5.14762 13.5851C5.02945 13.6156 4.90765 13.615 4.79321 13.5861C4.67154 13.5555 4.55819 13.493 4.46638 13.402C4.28822 13.2256 4.21787 12.9688 4.28154 12.7274L5.22788 9.13963C5.25576 9.03393 5.30809 8.92953 5.38047 8.84762L14.1118 0.205859C14.1881 0.130177 14.2802 0.0735272 14.3804 0.0390127C14.4547 0.0134197 14.5335 0 14.6136 0C14.8018 0 14.9824 0.074052 15.1155 0.205859L17.7922 2.85646C17.8268 2.89077 17.8571 2.92774 17.8831 2.96672ZM16.2865 3.35345L14.6136 1.69682L6.55262 9.67942L5.96117 11.9218L8.2255 11.3361L16.2865 3.35345Z" fill="black"/>
-                                        <path d="M16.1666 13.9729C16.4253 11.7823 16.5077 9.57638 16.4135 7.376C16.4091 7.27067 16.4491 7.16813 16.5243 7.09357L17.4549 6.17206C17.5693 6.05876 17.7648 6.13069 17.7755 6.29056C17.9506 8.90483 17.8841 11.531 17.5765 14.1363C17.3526 16.0316 15.8154 17.517 13.9114 17.7277C10.6309 18.0908 7.23979 18.0908 3.9593 17.7277C2.05523 17.517 0.518074 16.0316 0.294219 14.1363C-0.098073 10.8148 -0.098073 7.45931 0.294219 4.13787C0.518074 2.2425 2.05523 0.757143 3.9593 0.546401C6.44792 0.27097 9.00015 0.20448 11.5194 0.346933C11.6818 0.356117 11.7558 0.550675 11.6408 0.664554L10.7016 1.59471C10.6271 1.66845 10.525 1.70807 10.4196 1.70454C8.31274 1.63417 6.19149 1.71379 4.11697 1.9434C2.85825 2.08271 1.84994 3.06633 1.7041 4.30117C1.32462 7.51413 1.32462 10.76 1.7041 13.9729C1.84994 15.2078 2.85825 16.1914 4.11697 16.3307C7.29269 16.6822 10.578 16.6822 13.7537 16.3307C15.0125 16.1914 16.0207 15.2078 16.1666 13.9729Z" fill="black"/>
-                                    </svg>    
-                                </span>
-                                <span class="icon cursor-pointer" (click)="copyToClipboard($event,contactEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                                            <rect width="20" height="20" fill="#D9D9D9"/>
-                                        </mask>
-                                        <g mask="url(#mask0_2161_5534)">
-                                            <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
-                                        </g>
-                                    </svg>                           
-                                </span>
-                                <button type="button" class="btn-primary" (click)="sendTestMail(contactEmail)">Test email</button>
-                            </div>
-                        </div>
-                        <span class="text-danger" *ngIf="contact.errors">
-                            <span class="small" *ngIf="contact.errors['pattern']">Please enter valid email.</span>
-                        </span>
                     </div>
                     <div class="d-flex justify-content-between btn-grp">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary" (click)="cancel('email')" [disabled]="!(isSupportEdit || isContactEdit)">Cancel</button>
-                        </div>
-                        <div class="col-7">
-                            <button type="submit" class="btn w-100" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="!(isSupportEdit || isContactEdit)">Save</button>
-                        </div>
+                        <button type="button" class="btn btn-secondary" (click)="cancel('usage')" [disabled]="reminderCurrentValue == currentUsageValue">Cancel</button>
+                        <button type="submit" class="btn" [ngClass]="[reminderCurrentValue != currentUsageValue ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="reminderCurrentValue == currentUsageValue">Save</button>
                     </div>
-                    <!-- <div class="d-flex justify-content-between" *ngIf="(supportEmail != undefined || contactEmail != undefined); else saveOnly">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary" (click)="cancel('email')" *ngIf="isSupportEdit || isContactEdit">Cancel</button>
-                        </div>
-                        <div class="col-7">
-                            <button type="submit" class="btn w-100" (click)="save()" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" [disabled]="support.errors || contact.errors">Save</button>
-                        </div>
-                    </div>
-                    <ng-template #saveOnly>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn" [ngClass]="{'btn-secondary': !(supportEmail || contactEmail)}" (click)="save()">Save</button>
-                        </div>
-                    </ng-template> -->
                 </div>
-                
+            </div>
+        </div>
+
+        <!-- Email Forwarding -->
+        <div class="col">
+            <div class="card settings-card border-0 rounded-0">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <div>
+                            <h1 class="modal-header-text">Email Forwarding</h1> 
+                            <p>Where would you like to receive your emails?</p>
+                        </div>
+                        <div>
+                            <div class="email-div mb-2">
+                                <label for="support">Support Email</label>
+                                <div class="row copy" [ngClass]="[supportEmail && supportEmail.length > 0 ? 'border-purple':'']" >
+                                    <div class="col-8">
+                                        <input type="email" name="support" id="support" [(ngModel)]="supportEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #support="ngModel">
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end gap-2 px-0" *ngIf="supportEmail && supportEmail.length > 0">
+                                        <span class="icon cursor-pointer" (click)="editField('support')" tooltip="Edit" placement="top" delay="100" offset="10">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8831 2.96672C18.065 3.23953 18.0346 3.61027 17.7922 3.85044L9.0931 12.4648C9.00386 12.5532 8.89257 12.6164 8.77059 12.648L5.14762 13.5851C5.02945 13.6156 4.90765 13.615 4.79321 13.5861C4.67154 13.5555 4.55819 13.493 4.46638 13.402C4.28822 13.2256 4.21787 12.9688 4.28154 12.7274L5.22788 9.13963C5.25576 9.03393 5.30809 8.92953 5.38047 8.84762L14.1118 0.205859C14.1881 0.130177 14.2802 0.0735272 14.3804 0.0390127C14.4547 0.0134197 14.5335 0 14.6136 0C14.8018 0 14.9824 0.074052 15.1155 0.205859L17.7922 2.85646C17.8268 2.89077 17.8571 2.92774 17.8831 2.96672ZM16.2865 3.35345L14.6136 1.69682L6.55262 9.67942L5.96117 11.9218L8.2255 11.3361L16.2865 3.35345Z" fill="black"/>
+                                                <path d="M16.1666 13.9729C16.4253 11.7823 16.5077 9.57638 16.4135 7.376C16.4091 7.27067 16.4491 7.16813 16.5243 7.09357L17.4549 6.17206C17.5693 6.05876 17.7648 6.13069 17.7755 6.29056C17.9506 8.90483 17.8841 11.531 17.5765 14.1363C17.3526 16.0316 15.8154 17.517 13.9114 17.7277C10.6309 18.0908 7.23979 18.0908 3.9593 17.7277C2.05523 17.517 0.518074 16.0316 0.294219 14.1363C-0.098073 10.8148 -0.098073 7.45931 0.294219 4.13787C0.518074 2.2425 2.05523 0.757143 3.9593 0.546401C6.44792 0.27097 9.00015 0.20448 11.5194 0.346933C11.6818 0.356117 11.7558 0.550675 11.6408 0.664554L10.7016 1.59471C10.6271 1.66845 10.525 1.70807 10.4196 1.70454C8.31274 1.63417 6.19149 1.71379 4.11697 1.9434C2.85825 2.08271 1.84994 3.06633 1.7041 4.30117C1.32462 7.51413 1.32462 10.76 1.7041 13.9729C1.84994 15.2078 2.85825 16.1914 4.11697 16.3307C7.29269 16.6822 10.578 16.6822 13.7537 16.3307C15.0125 16.1914 16.0207 15.2078 16.1666 13.9729Z" fill="black"/>
+                                            </svg>    
+                                        </span>
+                                        <span class="icon cursor-pointer" (click)="copyToClipboard($event,supportEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                                    <rect width="20" height="20" fill="#D9D9D9"/>
+                                                </mask>
+                                                <g mask="url(#mask0_2161_5534)">
+                                                    <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
+                                                </g>
+                                            </svg>                           
+                                        </span>
+                                        <button type="button" class="btn-primary" (click)="sendTestMail(supportEmail)">Test email</button>
+                                    </div>
+                                </div>
+                                <span class="text-danger" *ngIf="support.errors">
+                                    <span class="small" *ngIf="support.errors['pattern']">Please enter valid email.</span>
+                                </span>
+                            </div>
+                            <div class="email-div">
+                                <label for="contact">Contact Us Email</label>
+                                <div class="row copy" [ngClass]="[contactEmail && contactEmail.length > 0 ? 'border-purple':'']" >
+                                    <div class="col-8">
+                                        <input type="email" name="contact" id="contact" [(ngModel)]="contactEmail" placeholder="Enter your email id" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #contact="ngModel">
+                                    </div>
+                                    <div  class="col-4 d-flex justify-content-end gap-2 px-0" *ngIf="contactEmail && contactEmail.length > 0">
+                                        <span class="icon cursor-pointer" tooltip="Edit" placement="top" delay="100" offset="10" (click)="editField('contact')">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8831 2.96672C18.065 3.23953 18.0346 3.61027 17.7922 3.85044L9.0931 12.4648C9.00386 12.5532 8.89257 12.6164 8.77059 12.648L5.14762 13.5851C5.02945 13.6156 4.90765 13.615 4.79321 13.5861C4.67154 13.5555 4.55819 13.493 4.46638 13.402C4.28822 13.2256 4.21787 12.9688 4.28154 12.7274L5.22788 9.13963C5.25576 9.03393 5.30809 8.92953 5.38047 8.84762L14.1118 0.205859C14.1881 0.130177 14.2802 0.0735272 14.3804 0.0390127C14.4547 0.0134197 14.5335 0 14.6136 0C14.8018 0 14.9824 0.074052 15.1155 0.205859L17.7922 2.85646C17.8268 2.89077 17.8571 2.92774 17.8831 2.96672ZM16.2865 3.35345L14.6136 1.69682L6.55262 9.67942L5.96117 11.9218L8.2255 11.3361L16.2865 3.35345Z" fill="black"/>
+                                                <path d="M16.1666 13.9729C16.4253 11.7823 16.5077 9.57638 16.4135 7.376C16.4091 7.27067 16.4491 7.16813 16.5243 7.09357L17.4549 6.17206C17.5693 6.05876 17.7648 6.13069 17.7755 6.29056C17.9506 8.90483 17.8841 11.531 17.5765 14.1363C17.3526 16.0316 15.8154 17.517 13.9114 17.7277C10.6309 18.0908 7.23979 18.0908 3.9593 17.7277C2.05523 17.517 0.518074 16.0316 0.294219 14.1363C-0.098073 10.8148 -0.098073 7.45931 0.294219 4.13787C0.518074 2.2425 2.05523 0.757143 3.9593 0.546401C6.44792 0.27097 9.00015 0.20448 11.5194 0.346933C11.6818 0.356117 11.7558 0.550675 11.6408 0.664554L10.7016 1.59471C10.6271 1.66845 10.525 1.70807 10.4196 1.70454C8.31274 1.63417 6.19149 1.71379 4.11697 1.9434C2.85825 2.08271 1.84994 3.06633 1.7041 4.30117C1.32462 7.51413 1.32462 10.76 1.7041 13.9729C1.84994 15.2078 2.85825 16.1914 4.11697 16.3307C7.29269 16.6822 10.578 16.6822 13.7537 16.3307C15.0125 16.1914 16.0207 15.2078 16.1666 13.9729Z" fill="black"/>
+                                            </svg>    
+                                        </span>
+                                        <span class="icon cursor-pointer" (click)="copyToClipboard($event,contactEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                                    <rect width="20" height="20" fill="#D9D9D9"/>
+                                                </mask>
+                                                <g mask="url(#mask0_2161_5534)">
+                                                    <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
+                                                </g>
+                                            </svg>                           
+                                        </span>
+                                        <button type="button" class="btn-primary" (click)="sendTestMail(contactEmail)">Test email</button>
+                                    </div>
+                                </div>
+                                <span class="text-danger" *ngIf="contact.errors">
+                                    <span class="small" *ngIf="contact.errors['pattern']">Please enter valid email.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between btn-grp">
+                        <button type="button" class="btn btn-secondary btn-width" (click)="cancel('email')" [disabled]="!(isSupportEdit || isContactEdit)">Cancel</button>
+                        <button type="submit" class="btn ms-auto btn-width" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="!(isSupportEdit || isContactEdit)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Currency Setup -->
+        <div class="col">
+            <div class="card settings-card border-0 rounded-0">
+                <div class="modal-content">
+                    <div class="es-modal" *ngIf="!inProgress; else spinner">
+                        <div class="es-modal-body mt-0">
+                            <div class="card-body  d-flex flex-column justify-content-between">
+                                <div>
+                                    <div>
+                                        <h1 class="modal-header-text">Currency</h1> 
+                                        <p>Set your currencies and make one as default</p>
+                                    </div>
+                                    <form class="es-modal-form" [formGroup]="currencySetupForm" novalidate>
+                                        <div class="divHeight d-flex justify-content-between">
+                                            <div class="col-12 location-input">
+                                                <label for="currencies">Currencies</label>
+                                                <div class="relative">
+                                                    <ng-select 
+                                                        [items]="currencyList"
+                                                        formControlName="currencyList"
+                                                        bindLabel="currency_name"
+                                                        [multiple]="true"
+                                                        [closeOnSelect]="false"
+                                                        placeholder="Search Currencies / Multiple can be selected"
+                                                        (change)="onCurrenciesChange($event)">
+                            
+                                                        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                                            <div class="ng-value d-flex" *ngFor="let item of items | slice:0:2">
+                                                                <span class="ng-value-label ellipsis">
+                                                                    <span class="w40">{{$any(item).currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{$any(item).currency_name}}</span>
+                                                                </span>
+                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                            </div>
+                                                            <div class="ng-value" *ngIf="items.length > 2">
+                                                                <span class="ng-value-label" [tooltip]="displaySelectedCurrencies(items)" placement="top" delay="100" offset="15">{{items.length - 2}} more...</span>
+                                                            </div>
+                                                        </ng-template>
+                            
+                                                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                                                <div class="d-flex justify-content-between border-1">
+                                                                    <div class="w40">{{item.currency | currencySymbol }}</div> 
+                                                                    <div>{{item.currency_name}}</div>
+                                                                </div>
+                                                                <div class="form-label es-modal-form-label unlimited">
+                                                                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 
+                                                                    <span class="checkmark"></span>
+                                                                </div>
+                                                        </ng-template>
+                                                    </ng-select>
+                            
+                                                    <span class="ng-search">
+                                                        <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+                                                            <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="divHeight">
+                                            <div class="imsi-input">
+                                                <label for="defaultCurrency">Select default currency</label>
+                                                <div class="relative container-ng-select">
+                                                    <ng-select
+                                                        [items]="defaultCurrencyList"
+                                                        [multiple]="false"
+                                                        [closeOnSelect]="true"
+                                                        bindLabel="currency_name"
+                                                        formControlName="defaultCurrency"
+                                                        placeholder="Search Currencies"
+                                                        class="full-width">
+                                                        <ng-template ng-label-tmp let-item="item" let-item$="item$" let-index="index">
+                                                            <span class="w40">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
+                                                        </ng-template>
+                                                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                                            <div>
+                                                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> 
+                                                            </div>
+                                                            <div>
+                                                                <span class="w60">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
+                                                            </div>
+                                                            <!-- {{item.currency | currencySymbol }} {{item.currency_name}} -->
+
+                                                        </ng-template>
+                                                    </ng-select>
+                                                    <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="d-flex justify-content-between btn-grp" *ngIf="isCurrencyEdit; else edit">
+                                    <button type="button" class="btn btn-secondary btn-width" (click)="cancel('currency')" >Cancel</button>
+                                    <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="saveCurrencySetup()" [disabled]="!currencySetupForm.valid">Save</button>
+                                </div>
+                                <ng-template #edit>
+                                    <div class="d-flex justify-content-between btn-grp">
+                                        <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="editField('currency')">Edit</button>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading Spinner - Start -->
+                    <ng-template #spinner class="loader-align">
+                        <app-loading-spinner></app-loading-spinner>
+                    </ng-template>
+                    <!-- Loading Spinner - End -->
+                </div>
             </div>
             
         </div>
     </div>
-
 
     <!-- External Email Setup - Start -->
     <div class="row settings add-edit-modal" [ngClass]="{custom: !isCustom}" *ngIf="!inProgress; else spinner">
@@ -251,7 +356,6 @@
             
     </div>
     <!-- External Email Setup - End -->
-
 
     <!-- Loading Spinner - Start -->
     <ng-template #spinner class="loader-align">
