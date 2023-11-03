@@ -28,18 +28,18 @@ export class SettingsComponent implements OnInit {
   isCustom: boolean = false;
   emailSetupForm: any;
   externalEmailObj: any;
-  // currencyList: Array<any> = [{name: 'United States Dollar', flag: 'USD'}, {name: 'Indian Rupees', flag: 'INR'}, { name: 'Canada Dollar', flag: 'CAD'}, { name: 'Austrailian Dollar', flag: 'AUD'}, {name: 'United Arab Emirates Dirham', flag: 'AED'}]
   currencyList!: Array<any>;
   currencySetupForm!: FormGroup;
   defaultCurrencyList: any;
   currencySetupFormObj: any;
-
+  isCurrencyEdit: boolean = false;
+  
   constructor(private settingsService: SettingsService, private alertService: AlertService) { 
     this.initForm()
   }
 
   ngOnInit(): void {
-
+    this.inProgress = true;
     forkJoin(this.settingsService.getAllSettings()).subscribe((response: any) => { 
       if(response) {
         // Inventory Response
@@ -51,10 +51,10 @@ export class SettingsComponent implements OnInit {
         // Currency Response
         this.getCurrencySettings(response[2]?.data, response[3]?.data)
       }
+      this.inProgress = false;
     }, err => {
       this.alertService.error(err.error.message, err.status);
       this.inProgress = false;
-      this.isSubmitted = false;
     })
   }
 
@@ -73,7 +73,8 @@ export class SettingsComponent implements OnInit {
       defaultCurrency: new FormControl(null, [Validators.required])
     });
 
-    this.emailSetupForm.disable()
+    this.currencySetupForm.disable();
+    this.emailSetupForm.disable();
   }
 
   get f() { return this.emailSetupForm.controls; }
@@ -86,8 +87,7 @@ export class SettingsComponent implements OnInit {
       if(res) {
         this.alertService.success(res.message);
         this.getSettings();
-        this.inProgress = false;
-        this.isSubmitted = false;
+        this.inProgress = this.isSubmitted = this.isSupportEdit = this.isContactEdit = false;
       }
     }, err => {
       this.alertService.error(err.error.message, err.status);
@@ -184,6 +184,10 @@ export class SettingsComponent implements OnInit {
   editField(str: string) {
     if(str === 'support') this.isSupportEdit = true;
     if(str === 'contact') this.isContactEdit = true;
+    if(str === 'currency') {
+      this.isCurrencyEdit = true;
+      this.currencySetupForm.enable();
+    }
   }
   
   cancel(str: string) {
@@ -202,6 +206,8 @@ export class SettingsComponent implements OnInit {
         this.emailSetupForm.disable()
         break;
       case 'currency':
+        this.isCurrencyEdit = false;
+        this.currencySetupForm.disable();
         this.currencySetupForm.patchValue(this.currencySetupFormObj)
         break;
     }
@@ -261,11 +267,7 @@ export class SettingsComponent implements OnInit {
 
   // Currencies Selection
   onCurrenciesChange(event: any) {
-    console.log(event)
-    this.defaultCurrencyList = event
-    // this.currencySetupForm.patchValue( {
-    //   defaultCurrency: event
-    // })
+    this.defaultCurrencyList = event;
   }
 
   // Currency Selection
@@ -282,15 +284,18 @@ export class SettingsComponent implements OnInit {
     if (this.currencySetupForm.invalid) {
       return;
     }
+
     this.settingsService.saveCurrencySetup(this.currencySetupForm.value).subscribe((res: any) => {
       if(res) {
         this.alertService.success(res.message);
         this.inProgress = false;
         this.isSubmitted = false;
+        this.isCurrencyEdit = false;
       }
     }, err => {
       this.inProgress = false;
       this.isSubmitted = false;
+      this.isCurrencyEdit = false;
       this.alertService.error(err.error.message, err.status);
     })
   }
@@ -298,6 +303,7 @@ export class SettingsComponent implements OnInit {
   displaySelectedCurrencies(currencies: any){
     return currencies.map((currency: any) => currency.currency_name).slice(2).join(', ');
   }
+
   // Copy user email
   copyToClipboard(event: MouseEvent, email: string | undefined) {
     event.preventDefault();
@@ -305,7 +311,7 @@ export class SettingsComponent implements OnInit {
     if(!email) {
       return;
     }
-    
+
     navigator.clipboard.writeText(email);
   }
 }

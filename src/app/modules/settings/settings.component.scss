@@ -486,3 +486,39 @@ input {
 .card {
     height: 40.62vh;
 }
+
+.location-input {
+
+    .ng-value {
+        border-radius: 8px;
+        background-color: #EDF1F9 !important;
+
+        .ellipsis {
+            width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    
+    .ng-value-icon.right {
+        border: none !important;
+    
+        &:hover {
+            background-color: transparent !important;
+        }
+    }
+
+    
+}
+
+
+.w40 {
+    width: 40px;
+    font-weight: 600;
+}
+
+.w60 {
+    display: inline-block;
+    width: 40px;
+    font-weight: 600;
+}
