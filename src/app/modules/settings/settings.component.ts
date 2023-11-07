@@ -1,5 +1,7 @@
+import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 import { AlertService } from 'src/app/shared/service';
 import { SettingsService } from 'src/app/shared/service/settings.service';
 
@@ -26,14 +28,34 @@ export class SettingsComponent implements OnInit {
   isCustom: boolean = false;
   emailSetupForm: any;
   externalEmailObj: any;
+  currencyList!: Array<any>;
+  currencySetupForm!: FormGroup;
+  defaultCurrencyList: any;
+  currencySetupFormObj: any;
+  isCurrencyEdit: boolean = false;
   
   constructor(private settingsService: SettingsService, private alertService: AlertService) { 
     this.initForm()
   }
 
   ngOnInit(): void {
-    this.getSettings();
-    this.getSMTPSettings();
+    this.inProgress = true;
+    forkJoin(this.settingsService.getAllSettings()).subscribe((response: any) => { 
+      if(response) {
+        // Inventory Response
+        this.getSettings(response[0]?.data)
+
+        // Email Forwarding Response
+        this.getSMTPSettings(response[1]?.data)
+        
+        // Currency Response
+        this.getCurrencySettings(response[2]?.data, response[3]?.data)
+      }
+      this.inProgress = false;
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+      this.inProgress = false;
+    })
   }
 
   initForm(data?: any) {
@@ -46,7 +68,13 @@ export class SettingsComponent implements OnInit {
       alias: new UntypedFormControl('')
     });
 
-    this.emailSetupForm.disable()
+    this.currencySetupForm = new FormGroup({
+      currencyList: new FormControl('', [Validators.required]),
+      defaultCurrency: new FormControl(null, [Validators.required])
+    });
+
+    this.currencySetupForm.disable();
+    this.emailSetupForm.disable();
   }
 
   get f() { return this.emailSetupForm.controls; }
@@ -59,8 +87,7 @@ export class SettingsComponent implements OnInit {
       if(res) {
         this.alertService.success(res.message);
         this.getSettings();
-        this.inProgress = false;
-        this.isSubmitted = false;
+        this.inProgress = this.isSubmitted = this.isSupportEdit = this.isContactEdit = false;
       }
     }, err => {
       this.alertService.error(err.error.message, err.status);
@@ -69,37 +96,74 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  getSettings() {
-    this.inProgress = true;
-    this.settingsService.getSettings().subscribe((res: any) => { 
-      if(res) {
-        let result = res.data
-        this.contactEmail = result.contactUsEmail
-        this.supportEmail = result.supportUsEmail
-        this.currenctSupportEmail = this.supportEmail
-        this.currenctContactEmail = this.contactEmail
-        this.reminderCurrentValue = result.usageReminder
-        this.currentUsageValue = this.reminderCurrentValue
+  getSettings(response? : any) {
+    if(response) {
+      this.contactEmail = response.contactUsEmail
+      this.supportEmail = response.supportUsEmail
+      this.reminderCurrentValue = response.usageReminder
+      this.currenctSupportEmail = this.supportEmail
+      this.currenctContactEmail = this.contactEmail
+      this.currentUsageValue = this.reminderCurrentValue
+    }
+    else {
+      this.inProgress = true;
+      this.settingsService.getSettings().subscribe((res: any) => { 
+        if(res) {
+          let result = res.data
+          this.contactEmail = result.contactUsEmail
+          this.supportEmail = result.supportUsEmail
+          this.currenctSupportEmail = this.supportEmail
+          this.currenctContactEmail = this.contactEmail
+          this.reminderCurrentValue = result.usageReminder
+          this.currentUsageValue = this.reminderCurrentValue
+          this.inProgress = false;
+        }
+      }, err => {
+        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
-      }
-    }, err => {
-      this.alertService.error(err.error.message, err.status);
-      this.inProgress = false;
-    })
+      })
+    }
   }
 
 
-  getSMTPSettings() {
-    this.inProgress = true;
-    this.settingsService.getSMTP().subscribe((res: any) => { 
-      if(res) {
-        this.externalEmailObj = res.data
-        this.emailSetupForm.patchValue(this.externalEmailObj)
-      }
-    }, err => {
-      this.alertService.error(err.error.message, err.status);
-      this.inProgress = false;
-    })
+  getSMTPSettings(response? : any) {
+    if(response) { 
+      this.emailSetupForm.patchValue(response)
+    }
+    else {
+      this.inProgress = true;
+      this.settingsService.getSMTP().subscribe((res: any) => { 
+        if(res) {
+          this.externalEmailObj = res.data
+          this.emailSetupForm.patchValue(this.externalEmailObj)
+          this.inProgress = false;
+        }
+      }, err => {
+        this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
+      })
+    }
+  }
+  
+  getCurrencySettings(response1? : any, response2?: any) {
+    if(response1 && response2) {
+      this.currencySetupForm.patchValue(response1);
+      this.currencySetupFormObj = response1
+      this.defaultCurrencyList = response1?.currencyList
+      this.currencyList = response2;
+    }
+    else {
+      this.inProgress = true;
+      this.settingsService.getCurrencySettings().subscribe((res: any) => { 
+        if(res) {
+          this.currencySetupForm.patchValue(res.data)
+          this.inProgress = false;
+        }
+      }, err => {
+        this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
+      })
+    }
   }
 
   sendTestMail(value: string) {
@@ -120,6 +184,10 @@ export class SettingsComponent implements OnInit {
   editField(str: string) {
     if(str === 'support') this.isSupportEdit = true;
     if(str === 'contact') this.isContactEdit = true;
+    if(str === 'currency') {
+      this.isCurrencyEdit = true;
+      this.currencySetupForm.enable();
+    }
   }
   
   cancel(str: string) {
@@ -137,7 +205,13 @@ export class SettingsComponent implements OnInit {
         this.emailSetupForm.patchValue(this.externalEmailObj)
         this.emailSetupForm.disable()
         break;
+      case 'currency':
+        this.isCurrencyEdit = false;
+        this.currencySetupForm.disable();
+        this.currencySetupForm.patchValue(this.currencySetupFormObj)
+        break;
     }
+
   }
 
   edit() {
@@ -164,6 +238,7 @@ export class SettingsComponent implements OnInit {
         this.alertService.success(res.message);
         this.inProgress = false;
         this.isSubmitted = false;      
+        this.getCurrencySettings();
       }
     }, err => {
       this.alertService.error(err.error.message, err.status);
@@ -190,6 +265,45 @@ export class SettingsComponent implements OnInit {
     })
   }
 
+  // Currencies Selection
+  onCurrenciesChange(event: any) {
+    this.defaultCurrencyList = event;
+  }
+
+  // Currency Selection
+  onCurrencyChange(event: any) {
+
+  }
+
+  // Save Currency Settings
+  saveCurrencySetup() {
+    console.log(this.currencySetupForm.value)
+    this.isSubmitted = true
+    this.inProgress = true
+    
+    if (this.currencySetupForm.invalid) {
+      return;
+    }
+
+    this.settingsService.saveCurrencySetup(this.currencySetupForm.value).subscribe((res: any) => {
+      if(res) {
+        this.alertService.success(res.message);
+        this.inProgress = false;
+        this.isSubmitted = false;
+        this.isCurrencyEdit = false;
+      }
+    }, err => {
+      this.inProgress = false;
+      this.isSubmitted = false;
+      this.isCurrencyEdit = false;
+      this.alertService.error(err.error.message, err.status);
+    })
+  }
+
+  displaySelectedCurrencies(currencies: any){
+    return currencies.map((currency: any) => currency.currency_name).slice(2).join(', ');
+  }
+
   // Copy user email
   copyToClipboard(event: MouseEvent, email: string | undefined) {
     event.preventDefault();
@@ -197,7 +311,7 @@ export class SettingsComponent implements OnInit {
     if(!email) {
       return;
     }
-    
+
     navigator.clipboard.writeText(email);
   }
 }
