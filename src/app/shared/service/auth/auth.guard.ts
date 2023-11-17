@@ -19,9 +19,11 @@ export class AuthGuard implements CanActivate {
     if(token) {
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
       const check = tokenDecode.user.roles;
-      console.log(tokenDecode.user)
       if(tokenDecode.user.currency) {
         this._localStorageService.setCurrency(tokenDecode.user.currency)
+      }
+      else {
+        this._localStorageService.setCurrency('USD');
       }
 
       if((check.includes('superAdmin') || check.includes('admin')) && !this._tokenExpiration(tokenDecode.exp)) 

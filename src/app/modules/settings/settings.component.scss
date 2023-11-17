@@ -36,7 +36,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 130%;
-            color: var(--settings-helping-text-color);
+            color: rgba(0, 0, 0, 0.50);
         }
 
         .radio-div {
@@ -58,7 +58,7 @@
         }
         
         .btn-grp {
-            margin-top: 20px;
+            margin-top: 14px;
         }
     }
 
@@ -522,3 +522,4 @@ input {
     width: 40px;
     font-weight: 600;
 }
+

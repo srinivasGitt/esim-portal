@@ -5,11 +5,11 @@
         </div>
     </div>
 
-    <div class="row row-cols-3 settings add-edit-modal" *ngIf="!inProgress; else spinner">
+    <div class="row row-cols-3 settings add-edit-modal py-0" *ngIf="!inProgress; else spinner">
         <!-- Inventory Usage -->
-        <div class="col">
+        <div class="col ps-0">
             <div class="card settings-card border-0 rounded-0">
-                <div class="card-body d-flex flex-column justify-content-between">
+                <div class="card-body d-flex flex-column justify-content-between p-0">
                     <div>
                         <div>
                             <h1 class="modal-header-text">Inventory Usage Reminder</h1> 
@@ -29,8 +29,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between btn-grp">
-                        <button type="button" class="btn btn-secondary" (click)="cancel('usage')" [disabled]="reminderCurrentValue == currentUsageValue">Cancel</button>
-                        <button type="submit" class="btn" [ngClass]="[reminderCurrentValue != currentUsageValue ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="reminderCurrentValue == currentUsageValue">Save</button>
+                        <button type="button" class="btn btn-secondary btn-width" (click)="cancel('usage')" [disabled]="reminderCurrentValue == currentUsageValue">Cancel</button>
+                        <button type="submit" class="btn ms-auto btn-width" [ngClass]="[reminderCurrentValue != currentUsageValue ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="reminderCurrentValue == currentUsageValue">Save</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <!-- Email Forwarding -->
         <div class="col">
             <div class="card settings-card border-0 rounded-0">
-                <div class="card-body d-flex flex-column justify-content-between">
+                <div class="card-body d-flex flex-column justify-content-between p-0">
                     <div>
                         <div>
                             <h1 class="modal-header-text">Email Forwarding</h1> 
@@ -107,26 +107,26 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-between btn-grp">
-                        <button type="button" class="btn btn-secondary btn-width" (click)="cancel('email')" [disabled]="!(isSupportEdit || isContactEdit)">Cancel</button>
-                        <button type="submit" class="btn ms-auto btn-width" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="!(isSupportEdit || isContactEdit)">Save</button>
-                    </div>
+                    </div>                    
+                </div>
+                <div class="d-flex justify-content-between btn-grp">
+                    <button type="button" class="btn btn-secondary btn-width" (click)="cancel('email')" [disabled]="!(isSupportEdit || isContactEdit)">Cancel</button>
+                    <button type="submit" class="btn ms-auto btn-width" [ngClass]="[(isSupportEdit || isContactEdit) ? 'btn-primary' : 'btn-secondary']" (click)="save()" [disabled]="!(isSupportEdit || isContactEdit)">Save</button>
                 </div>
             </div>
         </div>
         
         <!-- Currency Setup -->
-        <div class="col">
+        <div class="col pe-0">
             <div class="card settings-card border-0 rounded-0">
                 <div class="modal-content">
                     <div class="es-modal" *ngIf="!inProgress; else spinner">
                         <div class="es-modal-body mt-0">
-                            <div class="card-body  d-flex flex-column justify-content-between">
+                            <div class="card-body  d-flex flex-column justify-content-between p-0">
                                 <div>
                                     <div>
                                         <h1 class="modal-header-text">Currency</h1> 
-                                        <p>Set your currencies and make one as default</p>
+                                        <p>Set your customer mobile or web app currencies here and <br/>set one as default.</p>
                                     </div>
                                     <form class="es-modal-form" [formGroup]="currencySetupForm" novalidate>
                                         <div class="divHeight d-flex justify-content-between">
@@ -147,7 +147,7 @@
                                                                 <span class="ng-value-label ellipsis">
                                                                     <span class="w40">{{$any(item).currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{$any(item).currency_name}}</span>
                                                                 </span>
-                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                                <!-- <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span> -->
                                                             </div>
                                                             <div class="ng-value" *ngIf="items.length > 2">
                                                                 <span class="ng-value-label" [tooltip]="displaySelectedCurrencies(items)" placement="top" delay="100" offset="15">{{items.length - 2}} more...</span>
@@ -176,7 +176,7 @@
                                         </div>
     
                                         <div class="divHeight">
-                                            <div class="imsi-input">
+                                            <div class="imsi-input default-currency-ng-select">
                                                 <label for="defaultCurrency">Select default currency</label>
                                                 <div class="relative container-ng-select">
                                                     <ng-select
@@ -215,7 +215,7 @@
                                 </div>
                                 <ng-template #edit>
                                     <div class="d-flex justify-content-between btn-grp">
-                                        <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="editField('currency')">Edit</button>
+                                        <button type="submit" class="btn btn-primary ms-auto w100" (click)="editField('currency')">Edit</button>
                                     </div>
                                 </ng-template>
                             </div>
@@ -234,7 +234,7 @@
     </div>
 
     <!-- External Email Setup - Start -->
-    <div class="row settings add-edit-modal" [ngClass]="{custom: !isCustom}" *ngIf="!inProgress; else spinner">
+    <div class="row settings add-edit-modal pb-0" [ngClass]="{custom: !isCustom}" *ngIf="!inProgress; else spinner">
 
         <div class="settings-card">
             <div class="d-flex justify-content-between heading">
