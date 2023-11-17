@@ -1723,7 +1723,7 @@
 
             div {
                 padding-left: 0 !important;
-                padding-right: 0 !important;
+                // padding-right: 0 !important;
             }
         }
 
@@ -1873,18 +1873,18 @@
                 }
             }
             
-            &:hover {
-                padding: 4px 6px;
-                background: var(--email-hover-background-color);
-                border-radius: 100px;
-                width: auto !important;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                word-break: break-word;
-                svg{
-                    display: inline;
-                }
-            }
+            // &:hover {
+            //     padding: 4px 6px;
+            //     background: var(--email-hover-background-color);
+            //     border-radius: 100px;
+            //     width: auto !important;
+            //     overflow: hidden;
+            //     text-overflow: ellipsis;
+            //     word-break: break-word;
+            //     svg{
+            //         display: inline;
+            //     }
+            // }
         }
         .activation-code-scroll {
             width: 230px;
@@ -2000,7 +2000,6 @@
             text-align: center;
             line-height: 36px;
             color: var(--modal-sub-header-text-color) !important;
-            // font-weight: normal !important;
             
             svg {
                 path {
@@ -3227,4 +3226,14 @@
 
 .border-bottom {
     border-bottom: 1px solid var(--bottom-border-color) !important;
+}
+
+.default-currency-ng-select {
+
+    .ng-value {
+        padding: 0 8px;
+        border-radius: 4px;
+        background-color: #EDF1F9 !important;
+        width: auto !important;
+    }
 }
