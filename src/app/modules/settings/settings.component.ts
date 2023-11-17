@@ -147,7 +147,10 @@ export class SettingsComponent implements OnInit {
   
   getCurrencySettings(response1? : any, response2?: any) {
     if(response1 && response2) {
-      this.currencySetupForm.patchValue(response1);
+      this.currencySetupForm.patchValue({
+        currencyList: response1.currencyList,
+        defaultCurrency: Object.keys(response1.defaultCurrency).length == 0 ? null : response1.defaultCurrency
+      });
       this.currencySetupFormObj = response1
       this.defaultCurrencyList = response1?.currencyList
       this.currencyList = response2;
@@ -156,7 +159,10 @@ export class SettingsComponent implements OnInit {
       this.inProgress = true;
       this.settingsService.getCurrencySettings().subscribe((res: any) => { 
         if(res) {
-          this.currencySetupForm.patchValue(res.data)
+          this.currencySetupForm.patchValue({
+            currencyList: res.data?.currencyList,
+            defaultCurrency: Object.keys(res.data?.defaultCurrency).length == 0 ? null : res.data?.defaultCurrency,
+          })
           this.inProgress = false;
         }
       }, err => {
