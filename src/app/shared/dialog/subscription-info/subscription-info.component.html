@@ -69,7 +69,7 @@
             <div class="col-4">
                 <label class="modal-label-text">Buying Price</label>
                 <div class="modal-details-text mt-0">
-                    {{ (subscriptionDetails.priceBundle || 0) | currency: subscriptionDetails.currency }}
+                    {{ (subscriptionDetails.priceBundle || 0) | currency: subscriptionDetails?.buyingPrice?.currency || subscriptionDetails.currency }}
                 </div>
             </div>
             <div class="col-6">
