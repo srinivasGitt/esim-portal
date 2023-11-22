@@ -166,15 +166,15 @@ export class SettingsComponent implements OnInit {
           this.inProgress = false;
         }
       }, err => {
-        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
+        this.alertService.error(err.error.message, err.status);
       })
     }
   }
 
   sendTestMail(value: string) {
-    this.isSubmitted = true
-    this.inProgress = true
+    this.isSubmitted = true;
+    this.inProgress = true;
 
     this.settingsService.testMail(value).subscribe((res: any) => {
       if(res) {
@@ -183,6 +183,7 @@ export class SettingsComponent implements OnInit {
         this.isSubmitted = false;
       }
     }, err => {
+      this.inProgress = false;
       this.alertService.error(err.error.message, err.status);
     })
   }
@@ -297,17 +298,31 @@ export class SettingsComponent implements OnInit {
         this.inProgress = false;
         this.isSubmitted = false;
         this.isCurrencyEdit = false;
+        this.currencySetupForm.disable();
       }
     }, err => {
       this.inProgress = false;
       this.isSubmitted = false;
-      this.isCurrencyEdit = false;
       this.alertService.error(err.error.message, err.status);
     })
   }
 
   displaySelectedCurrencies(currencies: any){
     return currencies.map((currency: any) => currency.currency_name).slice(2).join(', ');
+  }
+
+  onCurrencyRemoveFromList(event: any) {
+    console.log(event, this.currencySetupForm.value)
+    const defaultCurrency = this.currencySetupForm.get('defaultCurrency');
+    if(event && defaultCurrency && defaultCurrency != null && event.label == defaultCurrency?.value?.currency_name) {
+      this.currencySetupForm.controls['defaultCurrency'].setValue(null);
+    }
+  }
+
+  onCurrenciesListClear(event: any) {
+    if(!event) {
+      this.currencySetupForm.controls['defaultCurrency'].setValue(null);
+    }
   }
 
   // Copy user email
