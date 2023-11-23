@@ -22,6 +22,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { SupportComponent } from './help-center/support/support.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
+import { CouponManagementComponent } from "./coupon-management/coupon-management.component";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ContactusComponent } from './help-center/contactus/contactus.component'
     SettingsComponent,
     HelpCenterComponent,
     SupportComponent,
-    ContactusComponent
+    ContactusComponent,
+    CouponManagementComponent
   ],
   imports: [
     CommonModule,

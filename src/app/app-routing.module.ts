@@ -45,7 +45,7 @@ const routes: Routes = [
           { path: 'support', component: SupportComponent }
         ]
       },
-      
+      { path: 'coupon-management', loadChildren: () => import('./modules/coupon-management/coupon-management.module').then(m => m.CouponManagementModule) }
     ]
   },
   {
