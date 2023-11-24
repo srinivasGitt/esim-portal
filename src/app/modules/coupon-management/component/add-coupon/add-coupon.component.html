@@ -1,0 +1,239 @@
+<div class="es-modal add-edit-modal coupon-form">
+
+  <div class="modal-header-flex">
+      <div class="modal-header-text-container">
+          <div class="mb-3 subscription-header-icon">
+            <svg class="add-plan" class="m-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.75 13.5C8.75 13.0858 9.08579 12.75 9.5 12.75H11.25V11C11.25 10.5858 11.5858 10.25 12 10.25C12.4142 10.25 12.75 10.5858 12.75 11V12.75H14.5C14.9142 12.75 15.25 13.0858 15.25 13.5C15.25 13.9142 14.9142 14.25 14.5 14.25H12.75V16C12.75 16.4142 12.4142 16.75 12 16.75C11.5858 16.75 11.25 16.4142 11.25 16V14.25H9.5C9.08579 14.25 8.75 13.9142 8.75 13.5Z" fill="black"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M21.1612 9.74679C21.558 12.233 21.5296 14.7686 21.077 17.2453C20.8747 18.353 19.9483 19.1833 18.8252 19.2636L17.1873 19.3808C13.7334 19.6279 10.2664 19.6279 6.81252 19.3808L5.29851 19.2725C4.10249 19.1869 3.11598 18.3027 2.90046 17.1232C2.46379 14.7333 2.38904 12.2913 2.6787 9.87915L2.95118 7.61004C3.11289 6.26343 4.25529 5.25 5.61158 5.25H7.90314C9.0209 5.25 9.95217 6.04846 10.1577 7.10612H18.4721C19.7785 7.10612 20.8912 8.05533 21.0971 9.34535L21.1612 9.74679ZM19.6015 16.9757C20.0235 14.6662 20.05 12.3017 19.6799 9.98322L19.6158 9.58178C19.5261 9.0197 19.0413 8.60612 18.4721 8.60612H9.75927C9.1742 8.60612 8.69991 8.13183 8.69991 7.54677C8.69991 7.10672 8.34319 6.75 7.90314 6.75H5.61158C5.01455 6.75 4.51167 7.19611 4.44048 7.78888L4.168 10.058C3.89627 12.3208 3.9664 14.6116 4.37603 16.8536C4.46856 17.36 4.89208 17.7396 5.40556 17.7763L6.91956 17.8846C10.3021 18.1266 13.6977 18.1266 17.0803 17.8846L18.7181 17.7674C19.1587 17.7359 19.5221 17.4102 19.6015 16.9757Z" fill="black"/>
+            </svg>
+          </div>  
+      </div>
+      <div class="es-btn-close-container mt-0 mb-auto me-3">
+          <a class="es-btn-close" (click)="close()"></a>
+      </div>
+  </div>
+  
+  <div>
+      <p class="modal-header-text mb-0">Add New Coupon</p>
+      <p class="modal-sub-header-text mb-0 mt-2">Add a new coupon according to your liking.</p>
+  </div>
+  <div class="es-modal-body">
+      <form class="es-modal-form" [formGroup]="couponForm" novalidate (ngSubmit)="submit()" autocomplete="off">
+        <!-- STEP ONE - Start -->
+        <div formGroupName="stepOne">
+          <div>
+              <label for="code" class="form-label es-modal-form-label">Coupon Code</label>
+              <input type="text" class="form-control es-input" id="code" aria-describedby="code" formControlName="code" placeholder="Set Coupon Code">
+          </div>
+          <div>
+              <div>
+                <label for="discount-type" class="form-label es-modal-form-label">Discount Type</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label" for="fixed">Fix Price</label>
+                <input class="form-check-input" type="radio" name="discountType" id="fixed" formControlName="discountType" value="fixed">
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label" for="percentage">Percentage</label>
+                <input class="form-check-input" type="radio" name="discountType" id="percentage" formControlName="discountType" value="percentage">
+              </div>
+          </div>
+          <div class="d-flex justify-content-between discount-value">
+            <div class="w-100">
+              <div class="d-flex relative">
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="discount-value" aria-describedby="discount-value" formControlName="discountValue">
+                  <span class="form-label es-modal-form-label price-input-icon">$</span>
+              </div>
+              <div class="input-number-btn">
+                  <span class="number-decremental"> - </span>
+                  <span class="number-incremental"> + </span>
+              </div>
+              <div class="mt-2">
+                  <span class="help-block ng-invalid text-danger">
+                      <span class="small">
+                          Price is required!
+                      </span>
+                  </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- STEP ONE - End -->
+
+        <!-- STEP TWO - Start -->
+        <div formGroupName="stepTwo">
+          <div class="divHeight d-flex justify-content-between">
+            <div class="input-width">
+                <label for="startDate" class="form-label es-modal-form-label">Start Date</label>
+                <div class="d-flex input-icon">
+                    <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="DD-MM-YYYY" (click)="startDate.open()" [min]="currentDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <div class="input-width">
+                <label for="endDate" class="form-label es-modal-form-label">End Date</label>
+                <div class="d-flex input-icon">
+                    <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" (click)="endDate.open()" #matDatePickerEle>
+                        <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker #endDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+          </div>
+          
+          <div class="d-flex justify-content-between discount-value">
+            <div class="w-100">
+              <label for="total" class="form-label es-modal-form-label">Number of Coupon</label>
+              <div class="d-flex relative">
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="total" aria-describedby="total" formControlName="total">
+                  <span class="form-label es-modal-form-label price-input-icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
+                        <rect width="22" height="22" fill="#D9D9D9"/>
+                      </mask>
+                      <g mask="url(#mask0_464_18397)">
+                        <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z" fill="#475467"/>
+                      </g>
+                    </svg>
+                  </span>
+              </div>
+              <div class="input-number-btn">
+                  <span class="number-decremental"> - </span>
+                  <span class="number-incremental"> + </span>
+              </div>
+              <div class="mt-2">
+                  <span class="help-block ng-invalid text-danger">
+                      <span class="small">
+                          Price is required!
+                      </span>
+                  </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="divHeight d-flex justify-content-between">
+            <div class="input-width">
+                <label for="minPurchaseValue" class="form-label es-modal-form-label">Minimum Purchase Value</label>
+                <div class="d-flex relative">
+                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="minPurchaseValue" aria-describedby="minPurchaseValue" formControlName="minPurchaseValue">
+                    <span class="form-label es-modal-form-label price-input-icon">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
+                          <rect width="22" height="22" fill="#D9D9D9"/>
+                        </mask>
+                        <g mask="url(#mask0_464_18397)">
+                          <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z" fill="#475467"/>
+                        </g>
+                      </svg>
+                    </span>
+                </div>
+                <div class="input-number-btn">
+                    <span class="number-decremental"> - </span>
+                    <span class="number-incremental"> + </span>
+                </div>
+                <div class="mt-2">
+                    <span class="help-block ng-invalid text-danger">
+                        <span class="small">
+                            Price is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="input-width">
+                <label for="maxPurchaseValue" class="form-label es-modal-form-label">Maximum Purchase Value</label>
+                <div class="d-flex relative">
+                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="maxPurchaseValue" aria-describedby="maxPurchaseValue" formControlName="maxPurchaseValue">
+                    <span class="form-label es-modal-form-label price-input-icon">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
+                          <rect width="22" height="22" fill="#D9D9D9"/>
+                        </mask>
+                        <g mask="url(#mask0_464_18397)">
+                          <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z" fill="#475467"/>
+                        </g>
+                      </svg>
+                    </span>
+                </div>
+                <div class="input-number-btn">
+                    <span class="number-decremental"> - </span>
+                    <span class="number-incremental"> + </span>
+                </div>
+                <div class="mt-2">
+                    <span class="help-block ng-invalid text-danger">
+                        <span class="small">
+                            Price is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div>
+              <div>
+                <label for="discount-type" class="form-label es-modal-form-label">Use Type</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label" for="single">One Time</label>
+                <input class="form-check-input" type="radio" name="useType" id="single" formControlName="useType" value="single">
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label" for="multi">Multi Use</label>
+                <input class="form-check-input" type="radio" name="useType" id="multi" formControlName="useType" value="multi">
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between discount-value">
+            <div class="w-100">
+              <label for="totalUse" class="form-label es-modal-form-label">Number of Use</label>
+              <div class="d-flex relative">
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="totalUse" aria-describedby="totalUse" formControlName="totalUse">
+                  <span class="form-label es-modal-form-label price-input-icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
+                        <rect width="22" height="22" fill="#D9D9D9"/>
+                      </mask>
+                      <g mask="url(#mask0_464_18397)">
+                        <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z" fill="#475467"/>
+                      </g>
+                    </svg>
+                  </span>
+              </div>
+              <div class="input-number-btn">
+                  <span class="number-decremental"> - </span>
+                  <span class="number-incremental"> + </span>
+              </div>
+              <div class="mt-2">
+                  <span class="help-block ng-invalid text-danger">
+                      <span class="small">
+                          Price is required!
+                      </span>
+                  </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- STEP TWO - End -->
+
+        <div class="row mt-2 gx-2 d-flex justify-content-between">
+          <button class="btn btn-secondary btn-width" (click)="close()">Cancel</button>
+          <button type="submit" class="btn btn-primary ms-auto btn-width">Submit</button>
+        </div>
+      </form>
+  </div>
+  <div class="es-modal-footer"></div>
+</div>
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->

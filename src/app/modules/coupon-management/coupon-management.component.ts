@@ -3,6 +3,7 @@ import { PaginationInstance } from 'ngx-pagination';
 import { Coupon } from 'src/app/shared/models/coupon.model';
 import { DialogService } from 'src/app/shared/service';
 import { CouponInfoComponent } from './component/coupon-info/coupon-info.component';
+import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
 
 @Component({
   selector: 'app-coupon-management',
@@ -34,6 +35,10 @@ export class CouponManagementComponent implements OnInit {
   
   showInfo(coupon: Coupon): void {
     this.dialogService.openModal(CouponInfoComponent, { cssClass: 'modal-sm', context: {data: coupon} });
+  }
+  
+  openAddNewCoupon(): void {
+    this.dialogService.openModal(AddCouponComponent, { cssClass: 'modal-lg' });
   }
 
   // Copy user email
