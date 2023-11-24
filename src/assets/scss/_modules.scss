@@ -2202,6 +2202,12 @@
                 background-color: #F7F7F7 !important;
                 width: auto !important;
                 font-size: 0.781vw;
+
+                .ellipsis {
+                    max-width: 6.25vw !important;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
 
             .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.right {
