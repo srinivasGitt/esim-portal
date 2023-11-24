@@ -130,7 +130,7 @@
                                     </div>
                                     <form class="es-modal-form" [formGroup]="currencySetupForm" novalidate>
                                         <div class="divHeight d-flex justify-content-between">
-                                            <div class="col-12 location-input">
+                                            <div class="col-12 currency-list-input">
                                                 <label for="currencies">Currencies</label>
                                                 <div class="relative">
                                                     <ng-select 
@@ -142,7 +142,8 @@
                                                         placeholder="Search Currencies / Multiple can be selected"
                                                         (change)="onCurrenciesChange($event)"
                                                         (remove)="onCurrencyRemoveFromList($event)"
-                                                        (clear)="onCurrenciesListClear($event)">
+                                                        (clear)="onCurrenciesListClear($event)"
+                                                        class="custom-search">
                             
                                                         <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                                                             <div class="ng-value d-flex" *ngFor="let item of items | slice:0:2">
@@ -168,17 +169,17 @@
                                                         </ng-template>
                                                     </ng-select>
                             
-                                                    <span class="ng-search">
+                                                    <!-- <span class="ng-search">
                                                         <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
                                                             <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
                                                         </svg>
-                                                    </span>
+                                                    </span> -->
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="divHeight">
-                                            <div class="imsi-input default-currency-ng-select">
+                                            <div class="col-12 imsi-input default-currency-ng-select">
                                                 <label for="defaultCurrency">Select default currency</label>
                                                 <div class="relative container-ng-select">
                                                     <ng-select
@@ -188,7 +189,7 @@
                                                         bindLabel="currency_name"
                                                         formControlName="defaultCurrency"
                                                         placeholder="Search Currency"
-                                                        class="full-width">
+                                                        class="full-width custom-search">
                                                         <ng-template ng-label-tmp let-item="item" let-item$="item$" let-index="index">
                                                             <span class="w40">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
                                                         </ng-template>
@@ -203,11 +204,11 @@
 
                                                         </ng-template>
                                                     </ng-select>
-                                                    <span class="ng-search">
+                                                    <!-- <span class="ng-search">
                                                         <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
                                                             <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
                                                         </svg>
-                                                    </span>
+                                                    </span> -->
                                                     <!-- <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg> -->
