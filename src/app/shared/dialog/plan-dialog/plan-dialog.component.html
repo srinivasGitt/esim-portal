@@ -48,7 +48,7 @@
     </div>
     <div class="es-modal-body plan-dialog-bodyscroll">
         <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
-            <div class="divHeight">
+            <div class="div-height">
                 <label for="productCategory" class="form-label es-modal-form-label">Plan Label</label>
                 <input type="text" class="form-control es-input" id="productCategory" aria-describedby="productCategory" formControlName="productCategory" [ngClass]="[f.productCategory.value.length > 0 ? 'border-purple':'']" placeholder="Enter your Plan Label">
                 <!-- <div>
@@ -59,7 +59,7 @@
                     </span>
                 </div> -->
             </div>
-            <div class="divHeight">
+            <div class="div-height">
                 <label for="name" class="form-label es-modal-form-label">Plan Name*</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="name" [ngClass]="[f.name.valid ? 'border-purple':'']" placeholder="Name your Plan">
                 <div>
@@ -70,7 +70,7 @@
                     </span>
                 </div>
             </div>
-            <div class="divHeight d-flex justify-content-between">
+            <div class="div-height d-flex justify-content-between">
                 <div class="input-width">
                     <label for="dataSize" class="form-label es-modal-form-label">Data*</label>
                     <div class="d-flex">
@@ -171,7 +171,7 @@
                     </div>
                 </div>
             </div> -->
-            <div class="divHeight d-flex justify-content-between">
+            <div class="div-height d-flex justify-content-between">
                 <div class="input-width">
                     <label for="priceBundle" class="form-label es-modal-form-label">Price*</label>
                     <div class="d-flex relative">
@@ -257,7 +257,7 @@
                 </div>
             </div> -->
 
-            <div class="divHeight d-flex justify-content-between">
+            <div class="div-height d-flex justify-content-between">
                 <div class="input-width imsi-input">
                     <label for="region" class="form-label es-modal-form-label">Activation Type</label>
                     <div class="d-flex relative container-ng-select">
@@ -317,7 +317,7 @@
                 </div>
             </div>
 
-            <div class="divHeight d-flex justify-content-between">
+            <div class="div-height d-flex justify-content-between">
                 <div class="col-12 location-input">
                     <label for="supportedCountries" class="form-label es-modal-form-label">Location</label>
                     <div class="relative">
@@ -369,7 +369,7 @@
                 </div>
             </div>
 
-            <div class="divHeight d-flex justify-content-between">
+            <div class="div-height d-flex justify-content-between">
                 <div class="input-width">
                     <label for="dateEarliestActivation" class="form-label es-modal-form-label">Earliest Activation*</label>
                     <div class="d-flex input-icon">
@@ -436,7 +436,7 @@
                 </div>
             </div>
 
-            <div class="divHeight d-flex justify-content-between">
+            <div class="div-height d-flex justify-content-between">
                 <div class="input-width">
                     <label for="dateLatestAvailable" class="form-label es-modal-form-label">Latest Available*</label>
                     <div class="d-flex input-icon">

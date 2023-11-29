@@ -2820,7 +2820,7 @@
     color: var(--font-color) !important;
 }
 
-.divHeight {
+.div-height {
     height: 90px;
     margin-bottom: 4px;
 }
@@ -3102,7 +3102,7 @@
             left: 24px !important;
             padding: 16px;
             overflow: hidden;
-            box-shadow: var(--box-shadow-size-color);;
+            box-shadow: var(--box-shadow-size-color);
             width: 200px !important;
             border: none;
             cursor: pointer;
@@ -3297,7 +3297,7 @@
             align-items: center;
 
             .subscription-info-icon{
-                width: 45px;
+                width: 2.345vw;
                 cursor: pointer;
             }
             .scale-1-3{
@@ -3317,7 +3317,7 @@
                 text-overflow: ellipsis;
                 word-break: inherit;
                 width: 100%;
-                height: 70px;
+                height: 3.645vw;
                 font-weight: 400;
 
                 &:not(.action-section){
@@ -3349,7 +3349,7 @@
             width: 100%;
             background-color: var(--action-background-color);
             border-radius: 40px;
-            height: 45px;
+            height: 2.345vw;
             
             .user-table-action-icon{
                 margin-right: 25px;

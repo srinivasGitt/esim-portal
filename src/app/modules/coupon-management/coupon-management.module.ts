@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -22,10 +23,11 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     SharedModule,
     NgxPaginationModule,
-    MatNativeDateModule,
     MatFormFieldModule,
+    MatNativeDateModule,
     MatDatepickerModule,
     MatInputModule,
+    NgSelectModule,
     CouponManagementRoutingModule
   ]
 })
