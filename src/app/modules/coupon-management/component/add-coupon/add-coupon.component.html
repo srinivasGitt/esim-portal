@@ -1,4 +1,4 @@
-<div class="es-modal add-edit-modal coupon-form">
+<div class="es-modal add-edit-modal coupon-form" *ngIf="!inProgress; else spinner">
 
   <div class="modal-header-flex">
       <div class="modal-header-text-container">
@@ -317,53 +317,60 @@
             </div>
           </div>
           
-          <div class="relative">
-            <ng-select 
-                [items]="list"
-                [multiple]="false"
-                [closeOnSelect]="true"
-                formControlName="applicableValue"
-                bindLabel="name"
-                bindValue="name"
-                placeholder="Search for countries / Multiple countries can be selected">
+          <div class="dropdown-list-input">
+            <div class="relative div-height">
+              <ng-select 
+                  [items]="list"
+                  [multiple]="true"
+                  [closeOnSelect]="false"
+                  formControlName="applicableValue"
+                  bindLabel="name"
+                  bindValue="name"
+                  [placeholder]="placeholderText"
+                  class="full-width custom-search"
+                  #ngSelectComponent>
 
-                <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                    <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                        <span class="ng-value-label"><img [src]="$any(item).flag" class="flag-style"> {{$any(item).name}}</span>
-                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                    </div>
-                    <div class="ng-value" *ngIf="items.length > 2">
-                        <span class="ng-value-label" placement="top" delay="100" offset="15">{{items.length - 2}} more...</span>
-                    </div>
-                </ng-template>
+                  <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                      <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                        <ng-container *ngIf="isRegion || isCountry; else selectedValue">
+                          <span class="ng-value-label"><img [src]="$any(item).flag" class="flag-style"> {{$any(item).name}}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                        </ng-container>
+                        <ng-template #selectedValue>
+                          <span class="ng-value-label">{{$any(item).name}}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                        </ng-template>
+                      </div>
+                      <div class="ng-value" *ngIf="items.length > 2">
+                          <span class="ng-value-label" [tooltip]="displayList(items)" placement="top" delay="100" offset="15">{{items.length - 2}} more...</span>
+                      </div>
+                  </ng-template>
 
-                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                        <div>
-                            <img [src]="item.flag" class="flag-style"> {{item.name}} {{ item.iso3code}} ({{item.dial_code}})
-                        </div>
-                        <div class="form-label es-modal-form-label unlimited">
-                            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 
-                            <span class="checkmark"></span>
-                        </div>
-                </ng-template>
-            </ng-select>
-
-            <span class="ng-search">
-                <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
-                    <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
-                </svg>
-            </span>
-        </div>
+                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                      <div *ngIf="isRegion || isCountry; else plan">
+                          <img [src]="item.flag" class="flag-style"> 
+                          {{item.name}} <span *ngIf="isCountry">{{ item.iso3code}} ({{item.dial_code}})</span>
+                      </div>
+                      <ng-template #plan>
+                        {{item.name}}
+                      </ng-template>
+                      <div class="form-label es-modal-form-label unlimited">
+                          <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 
+                          <span class="checkmark"></span>
+                      </div>
+                  </ng-template>
+              </ng-select>
+            </div>
+          </div>
         </div>
         <!-- STEP THREE - End -->
 
-        <div class="row mt-2 gx-2 d-flex justify-content-between">
+        <div class="row mt-3 gx-2 d-flex justify-content-between">
           <button class="btn btn-secondary btn-width" (click)="currentStep == 1 ? close() : previousStep()">{{ currentStep == 1 ? 'Cancel' : 'Back' }}</button>
           <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="currentStep == 3 ? submit() : nextStep()" >{{ currentStep == 3 ? 'Submit' : 'Next' }}</button>
         </div>
       </form>
   </div>
-  <!-- <div class="es-modal-footer"></div> -->
 </div>
 
 <!-- Loading Spinner - Start -->

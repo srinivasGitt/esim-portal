@@ -17,4 +17,9 @@ export class StepperService {
   updateStep(step: number): void {
     this.currentStepNumber$.next(step);
   }
+
+  // Function to reset the current step
+  resetStep(): void {
+    this.currentStepNumber$.next(0);
+  }
 }

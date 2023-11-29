@@ -3449,3 +3449,9 @@
         border-bottom: 1px solid var(--horizontal-line-color) !important;
     }
 }
+
+.custom-search ::ng-deep .ng-placeholder::before{
+    font-family: FontAwesome !important;
+    content: "\f002" !important;
+    margin-right: 8px !important;
+}

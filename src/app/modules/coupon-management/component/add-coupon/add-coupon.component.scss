@@ -153,6 +153,83 @@
   .min-max-value {
     left: 79% !important;
   }
+
+  .number-input-right-padding {
+    padding-right: 6.5rem !important;
+  }
+
+  .flag-style {
+    width: 32px;
+    height: 22px;
+    border-radius: 4px !important;
+    margin-right: 16px;
+  }
+  
+  .dropdown-list-input {
+    .ng-select-container{
+        border-color: var(--dark-right-border);
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 44px;
+  
+        .ng-value-container .ng-placeholder {
+            top: 8px !important;
+            padding-bottom: 0 !important;
+            padding-left: 3px !important;
+            color: #475467 !important;
+        }
+       
+        .ng-clear-wrapper {
+            display: none !important;
+        }
+    }
+  
+    .ng-value {
+        color: #475467 !important;
+        border: none !important;
+        padding: 7px 8px !important;
+        border-radius: 8px !important;
+        background-color: #F7F7F7 !important;
+        width: auto !important;
+        // font-size: 0.781vw;
+  
+        .ellipsis {
+            max-width: 6.25vw !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .ng-select .right {
+        border-left: none !important;
+  
+        &:hover {
+            background-color: transparent !important;
+        }
+    }
+  
+    .ng-dropdown-panel .scroll-host {
+        padding: 20px;
+    }
+  
+    .ng-option {
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+        color: rgba(31, 29, 29, 0.76);
+        font-size: 12px;
+        font-family: SF Pro Display;
+        
+        &:hover {
+            background-color: var(--dropdown-hover-bg-color) !important;
+        }
+    }
+  
+    .ng-option-selected {
+        background-color: #EDF1F9 !important;
+        padding: 8px;
+    } 
+  }
 }
 
   ::ng-deep .cdk-overlay-container { z-index: 1200 !important; }
@@ -236,3 +313,9 @@
   ::ng-deep .mat-button-wrapper {
     line-height: 0 !important;
   }
+
+.custom-search ::ng-deep .ng-placeholder::before{
+  font-family: FontAwesome !important;
+  content: "\f002" !important;
+  margin-right: 8px !important;
+}
