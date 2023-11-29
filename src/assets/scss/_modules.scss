@@ -1844,21 +1844,18 @@
 
 
         .subscriber-label-text {
-            font-size: 14px;
+            font-size: 0.729vw;
             font-weight: 500;
-            // padding-right: 0 !important;
             padding-left: 0;
-            // margin-left: 10px;
             color: var(--info-label-text-color);
             font-style: normal;
             line-height: 20px;
         }
         
         .subscriber-details-text {
-            font-size: 1rem;
+            font-size: 0.833vw;
             font-weight: 500;
             width: 100%;
-            // padding-left: 0 !important;
             color: var(--info-details-text-color);
         }
     
@@ -2145,8 +2142,27 @@
         
         
         .default-currency-ng-select {
+
+            .ng-dropdown-panel{
+                margin-top: 6px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                border-radius: 4px;
+                border: none;
+                background: var(--card-background-color);
+                .ng-option{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px 10px 10px 10px;
+                    background: var(--card-background-color);
+                    color: var(--table-heading-text-color);
+                }
+            }
+            option{
+                color: var(--table-heading-text-color) !important;
+            }
+
             .ng-select-container{
-                // padding-left: 32px !important;
                 height: 44px;
 
                 .ng-value-container {
@@ -2160,20 +2176,57 @@
             }
            
             .ng-value {
-                color: #475467 !important;
+                color: var(--table-heading-text-color) !important;
                 padding: 7px 10px;
                 border-radius: 8px;
-                background-color: #F7F7F7 !important;
+                background-color: var(--ng-select-value-bg-color) !important;
                 width: auto !important;
                 font-size: 0.781vw;
             }
 
-            // .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
-            //     padding-left: 36px !important;
-            // }
+            .ng-option {
+                font-size: 14px;
+                font-family: 'SF Pro Display';
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row-reverse;
+                align-items: center;
+                &:hover {
+                    background-color: var(--dropdown-hover-bg-color) !important;
+                }
+            }
+
+            .ng-option-disabled {
+                flex-direction: row !important;
+            }
+
+           .ng-placeholder {
+                color: var(--settings-sub-text-color) !important;
+            }
         }
 
         .currency-list-input {
+            .ng-dropdown-panel{
+                margin-top: 6px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                border-radius: 4px;
+                border: none;
+                background: var(--card-background-color);
+                
+                .ng-option{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px 10px 10px 10px;
+                    background: var(--card-background-color);
+                    color: var(--table-heading-text-color);
+                }
+            }
+            
+            option{
+                color: var(--table-heading-text-color) !important;
+            }
+
             .ng-select-container{
                 border-color: var(--dark-right-border);
                 padding-top: 0;
@@ -2195,11 +2248,11 @@
             }
 
             .ng-value {
-                color: #475467 !important;
+                color: var(--table-heading-text-color) !important;
                 border: none !important;
                 padding: 7px 8px !important;
                 border-radius: 8px !important;
-                background-color: #F7F7F7 !important;
+                background-color: var(--ng-select-value-bg-color) !important;
                 width: auto !important;
                 font-size: 0.781vw;
 
@@ -2227,9 +2280,11 @@
                 border-radius: 8px;
                 margin-bottom: 4px;
                 color: rgba(31, 29, 29, 0.76);
-                font-size: 12px;
-                font-family: SF Pro Display;
-                
+                font-size: 14px;
+                font-family: 'SF Pro Display';
+                display: flex;
+                justify-content: space-between;
+
                 &:hover {
                     background-color: var(--dropdown-hover-bg-color) !important;
                 }
@@ -2237,10 +2292,14 @@
 
             .ng-option-selected {
                 // background: var(--active-link-background-color) !important;
-                background-color: #EDF1F9 !important;
+                background-color: var(--ng-option-selected-bg-color) !important;
 
                 padding: 8px;
             } 
+
+            .ng-placeholder {
+                color: var(--settings-sub-text-color) !important;
+            }
         }
 
         .location-input {
@@ -2254,7 +2313,7 @@
                     top: 8px !important;
                     padding-bottom: 0 !important;
                     padding-left: 3px !important;
-                    color: var(--modal-sub-header-text-color) !important;
+                    // color: var(--modal-sub-header-text-color) !important;
                 }
 
                 
@@ -2908,13 +2967,17 @@
     color: var(--font-color) !important;
 }
 
-.divHeight {
+.div-height {
     height: 90px;
     margin-bottom: 4px;
 }
 
 .rowHeight {
     height: 50px;
+}
+
+.rowHeight40 {
+    height: 40px;
 }
 
 .info-row-height {
@@ -3186,7 +3249,7 @@
             left: 24px !important;
             padding: 16px;
             overflow: hidden;
-            box-shadow: var(--box-shadow-size-color);;
+            box-shadow: var(--box-shadow-size-color);
             width: 200px !important;
             border: none;
             cursor: pointer;
@@ -3381,7 +3444,7 @@
             align-items: center;
 
             .subscription-info-icon{
-                width: 45px;
+                width: 2.345vw;
                 cursor: pointer;
             }
             .scale-1-3{
@@ -3401,7 +3464,7 @@
                 text-overflow: ellipsis;
                 word-break: inherit;
                 width: 100%;
-                height: 70px;
+                height: 3.645vw;
                 font-weight: 400;
 
                 &:not(.action-section){
@@ -3433,7 +3496,7 @@
             width: 100%;
             background-color: var(--action-background-color);
             border-radius: 40px;
-            height: 45px;
+            height: 2.345vw;
             
             .user-table-action-icon{
                 margin-right: 25px;
