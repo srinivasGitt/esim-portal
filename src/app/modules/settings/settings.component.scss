@@ -38,7 +38,7 @@
             font-weight: 400;
             font-size: 0.833vw;
             line-height: 130%;
-            color: rgba(0, 0, 0, 0.50);
+            color: var(--settings-sub-text-color);
         }
 
         .radio-div {
@@ -385,7 +385,7 @@ input {
     }
 
     .ng-has-value {
-        border: 1px solid var(--input-border-color-hover) !important;
+        border: 1px solid rgba(105, 105, 105, 0.50) !important;
     }
 
     .full-width {
@@ -394,7 +394,7 @@ input {
 
     .imsi-input {
         .ng-select-container{
-            border-color: var(--dark-right-border);
+            // border-color: var(--dark-right-border);
             padding-top: 0;
             padding-bottom: 0;
             padding-left: 0 !important;
@@ -444,7 +444,7 @@ input {
                 top: 8px !important;
                 padding-bottom: 0 !important;
                 padding-left: 3px !important;
-                color: var(--modal-sub-header-text-color) !important;
+                color: var(--table-heading-text-color) !important;
             }
         }
 
@@ -468,7 +468,7 @@ input {
         .ng-option-selected {
             background: var(--active-link-background-color) !important;
             padding: 8px;
-        } 
+        }
     }
 
     ::ng-deep{
