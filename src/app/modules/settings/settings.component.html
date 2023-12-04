@@ -157,7 +157,7 @@
                                             <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                                                     <div class="d-flex justify-content-between border-1">
                                                         <div class="w40">{{item.currency | currencySymbol }}</div> 
-                                                        <div>{{item.currency_name}}</div>
+                                                        <div class="ng-select-list-item">{{item.currency_name}}</div>
                                                     </div>
                                                     <div class="form-label es-modal-form-label unlimited">
                                                         <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> 
@@ -189,7 +189,8 @@
                                                     <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> 
                                                 </div>
                                                 <div>
-                                                    <span class="w60">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
+                                                    <span class="w60">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;
+                                                    <span class="ng-select-list-item">{{item.currency_name}}</span>
                                                 </div>
                                             </ng-template>
                                         </ng-select>
