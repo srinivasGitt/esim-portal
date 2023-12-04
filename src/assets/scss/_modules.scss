@@ -1042,7 +1042,7 @@
     }
 
     .ng-select .ng-select-container .ng-value-container .ng-placeholder {
-        color: var(--modal-header-text-color);
+        color: var(--ng-placeholder-color) !important;
     }
 }
 
@@ -2110,7 +2110,7 @@
                     top: 8px !important;
                     padding-bottom: 0 !important;
                     padding-left: 3px !important;
-                    color: var(--modal-sub-header-text-color) !important;
+                    color: var(--ng-placeholder-color) !important;
                 }
             }
 
@@ -2129,7 +2129,7 @@
             }
 
             .ng-option-selected {
-                background: var(--active-link-background-color) !important;
+                background: var(--ng-option-selected-bg-color) !important;
                 padding: 8px;
                 border-radius: 8px;
                 // margin-bottom: 8px;
@@ -2185,14 +2185,14 @@
             }
 
             .ng-option {
-                font-size: 14px;
+                font-size: 0.625vw;
                 font-family: 'SF Pro Display';
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row-reverse;
                 align-items: center;
                 &:hover {
-                    background-color: var(--dropdown-hover-bg-color) !important;
+                    background-color: var(--ng-option-selected-bg-color) !important;
                 }
             }
 
@@ -2201,7 +2201,11 @@
             }
 
            .ng-placeholder {
-                color: var(--settings-sub-text-color) !important;
+                color: var(--ng-placeholder-color) !important;
+            }
+
+            .ng-select-list-item {
+                color: var(--ng-select-list-item-color) !important;
             }
         }
 
@@ -2239,7 +2243,7 @@
                     top: 8px !important;
                     padding-bottom: 0 !important;
                     padding-left: 3px !important;
-                    color: #475467 !important;
+                    color: var(--ng-placeholder-color) !important;
                 }
                
                 .ng-clear-wrapper {
@@ -2280,13 +2284,13 @@
                 border-radius: 8px;
                 margin-bottom: 4px;
                 color: rgba(31, 29, 29, 0.76);
-                font-size: 14px;
+                font-size: 0.625vw;
                 font-family: 'SF Pro Display';
                 display: flex;
                 justify-content: space-between;
 
                 &:hover {
-                    background-color: var(--dropdown-hover-bg-color) !important;
+                    background-color: var(--ng-option-selected-bg-color) !important;
                 }
             }
 
@@ -2298,7 +2302,11 @@
             } 
 
             .ng-placeholder {
-                color: var(--settings-sub-text-color) !important;
+                color: var(--ng-placeholder-color) !important;
+            }
+
+            .ng-select-list-item {
+                color: var(--ng-select-list-item-color) !important;
             }
         }
 
@@ -2314,6 +2322,7 @@
                     padding-bottom: 0 !important;
                     padding-left: 3px !important;
                     // color: var(--modal-sub-header-text-color) !important;
+                    color: var(--ng-placeholder-color) !important;
                 }
 
                 
@@ -2967,7 +2976,7 @@
     color: var(--font-color) !important;
 }
 
-.div-height {
+.div-height, .divHeight {
     height: 90px;
     margin-bottom: 4px;
 }
@@ -3116,15 +3125,13 @@
 }
 
 .unlimited .checkmark:after {
-    left: 5px;
-    top: 1px;
+    left: 6px;
+    bottom: 4px;
     width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+    height: 12px;
+    border: solid var(--checked-mark-color);
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);    
 }
 /* CUSTOM CHECKBOX : Add New Plan - End */
 
