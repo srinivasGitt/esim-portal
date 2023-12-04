@@ -1,0 +1,403 @@
+<div class="main-content-div-area loyalty-point-program loyalty-content-div-area">
+    <div class=" heading-flex">
+        <div class="heading-text">
+            <h2>Loyalty Point Program</h2>
+        </div>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round on" (click)="disableDiv()">Enable</span>
+            <span class=" off" (click)="disableDiv()">Disable</span>
+            <!-- <span class="slider round" data-on="Enable" data-off="Disable" >Enable</span> -->
+        </label>
+    </div>
+
+    <div class="row loyalty-point-program dashboard-border-top es-modal add-edit-modal plan">
+        <div class="col-8 pe-0 ps-0 pt-2">
+            <form [formGroup]="loyaltyForm" (ngSubmit)="submit()">
+                <div class="dashboard-graph">
+                    <div  style="overflow-y: auto; overflow-x: hidden; max-height: calc(90vh - 100px);">
+                        <div class="row">
+                            <div class="dashboard-border-bottom p-3">
+                                <h1 class="heading">Reward Point Value</h1>
+                                <p class="sub-heading sub-heading-reward-value">Here you can set how much the reward point
+                                    is worth by setting up the value for it. (Example- Customer have 200 reward points it's
+                                    $ value will be 2$)</p>
+                                <div class="divHeight">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="p-2">
+                                                <label for="rewardPoints" class=" form-label label">Reward points</label>
+                                                <div class="d-flex relative">
+                                                    <span class="label price-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <path
+                                                                d="M5.00016 5C4.46969 5 3.96094 5.21073 3.58583 5.58583C3.21073 5.96094 3 6.46969 3 7.00016V8.59095C3 9.28434 3.36003 9.92706 3.94808 10.2911L9.10316 13.478C8.31906 13.9005 7.69837 14.5726 7.33947 15.3877C6.98057 16.2029 6.90398 17.1145 7.12183 17.9781C7.33969 18.8418 7.83953 19.608 8.54215 20.1554C9.24477 20.7028 10.11 21 11.0006 21C11.8913 21 12.7565 20.7028 13.4591 20.1554C14.1618 19.608 14.6616 18.8418 14.8795 17.9781C15.0973 17.1145 15.0207 16.2029 14.6618 15.3877C14.3029 14.5726 13.6822 13.9005 12.8981 13.478L18.0532 10.2911C18.3429 10.1119 18.5821 9.86167 18.748 9.56414C18.914 9.26661 19.0011 8.93162 19.0013 8.59095V7.00016C19.0013 6.46969 18.7906 5.96094 18.4155 5.58583C18.0404 5.21073 17.5316 5 17.0011 5H5.00016ZM8.33376 11.4352V6.33344H13.6675V11.4352L11.3513 12.8673C11.246 12.9325 11.1245 12.967 11.0006 12.967C10.8768 12.967 10.7553 12.9325 10.65 12.8673L8.33376 11.4352ZM11.0006 14.3341C11.7079 14.3341 12.3863 14.6151 12.8864 15.1152C13.3866 15.6153 13.6675 16.2937 13.6675 17.001C13.6675 17.7083 13.3866 18.3866 12.8864 18.8867C12.3863 19.3869 11.7079 19.6678 11.0006 19.6678C10.2933 19.6678 9.61501 19.3869 9.11487 18.8867C8.61474 18.3866 8.33376 17.7083 8.33376 17.001C8.33376 16.2937 8.61474 15.6153 9.11487 15.1152C9.61501 14.6151 10.2933 14.3341 11.0006 14.3341Z"
+                                                                fill="#475467" />
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text"
+                                                        class="input-field es-input price-input number-input-right-padding"
+                                                        id="rewardPoints" aria-describedby="rewardPoints"
+                                                        formControlName="rewardPoints"
+                                                        (keypress)="numberWithDecimalOnly($event)"
+                                                        [ngClass]="[f.rewardPoints.value != 0 && f.rewardPoints.valid ? 'border-purple':'']">
+                                                    <div class="input-number-btn input-number-btn-reward">
+                                                        <span class="number-decremental"
+                                                            (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                        <span class="number-incremental"
+                                                            (click)="updateValue('rewardPoints', 'inc')"> + </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="p-2">
+                                                <label for="cashValue" class=" form-label label">Cash Value
+                                                    <span>(<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <mask id="mask0_464_19992" style="mask-type:alpha"
+                                                                maskUnits="userSpaceOnUse" x="0" y="0" width="22"
+                                                                height="22">
+                                                                <rect y="9.15527e-05" width="22" height="22"
+                                                                    fill="#D9D9D9" />
+                                                            </mask>
+                                                            <g mask="url(#mask0_464_19992)">
+                                                                <path
+                                                                    d="M10.1055 19.2501V17.2793C9.29581 17.0959 8.59701 16.7445 8.00912 16.2251C7.42062 15.7056 6.98887 14.9723 6.71387 14.0251L8.4097 13.3376C8.63887 14.0709 8.97895 14.6286 9.42995 15.0105C9.88034 15.3925 10.4722 15.5834 11.2055 15.5834C11.8319 15.5834 12.363 15.4423 12.7987 15.1599C13.2338 14.877 13.4514 14.4376 13.4514 13.8418C13.4514 13.307 13.2833 12.8829 12.9472 12.5694C12.6111 12.2565 11.8319 11.9015 10.6097 11.5043C9.29581 11.0918 8.39442 10.5992 7.90553 10.0266C7.41665 9.45337 7.1722 8.75426 7.1722 7.92926C7.1722 6.9362 7.49303 6.16467 8.1347 5.61468C8.77637 5.06467 9.43331 4.75148 10.1055 4.67509V2.75009H11.9389V4.67509C12.7028 4.79731 13.3331 5.07598 13.83 5.51109C14.3262 5.94681 14.6889 6.47787 14.918 7.10426L13.2222 7.83759C13.0389 7.3487 12.7791 6.98204 12.443 6.73759C12.1069 6.49315 11.6486 6.37092 11.068 6.37092C10.3958 6.37092 9.88401 6.52004 9.53262 6.81826C9.18123 7.11587 9.00553 7.4862 9.00553 7.92926C9.00553 8.43342 9.2347 8.83065 9.69303 9.12092C10.1514 9.4112 10.9458 9.71676 12.0764 10.0376C13.1305 10.3431 13.929 10.8281 14.4716 11.4923C15.0137 12.1572 15.2847 12.9251 15.2847 13.7959C15.2847 14.8806 14.9639 15.7056 14.3222 16.2709C13.6805 16.8362 12.8861 17.1876 11.9389 17.3251V19.2501H10.1055Z"
+                                                                    fill="#475467" />
+                                                            </g>
+                                                        </svg>)
+                                                    </span>
+                                                </label>
+                                                <div class="d-flex relative">
+                                                    <span class="label price-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <mask id="mask0_464_19955" style="mask-type:alpha"
+                                                                maskUnits="userSpaceOnUse" x="0" y="0" width="22"
+                                                                height="22">
+                                                                <rect width="22" height="22" fill="#D9D9D9" />
+                                                            </mask>
+                                                            <g mask="url(#mask0_464_19955)">
+                                                                <path
+                                                                    d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z"
+                                                                    fill="#475467" />
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text"
+                                                        class="input-field es-input price-input number-input-right-padding"
+                                                        id="cashValue" aria-describedby="cashValue"
+                                                        formControlName="cashValue">
+                                                </div>
+                                                <div class="input-number-btn input-number-btn-cash">
+                                                    <span class="number-decremental"
+                                                        (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                    <span class="number-incremental"
+                                                        (click)="updateValue('rewardPoints', 'inc')"> + </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4"></div>
+                                        
+                                    </div>
+                                    <div class="ps-2 pb-0">
+                                        <span class="help-block ng-invalid text-danger"
+                                            *ngIf="(f.rewardPoints.touched && f.rewardPoints.pristine) || (f.cashValue.touched && f.cashValue.pristine) || ((f.rewardPoints.errors || f.cashValue.errors) && submitted)">
+                                            <span class="error-text">
+                                                Reward points or cash value is invalid, please check the details and try again.
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="dashboard-border-bottom p-3">
+                                <h1 class="heading">Reward Point Earning</h1>
+                                <p class="sub-heading sub-heading-reward-earning">Here you can set how much reward points
+                                    customer will get for every $ he spent while making any purchase. (Example- Customer
+                                    purchase plan worth 1$ then he will get 10 reward points)</p>
+                                <div class="divHeight">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="p-2">
+                                                <label for="purchaseValue" class="d-flex form-label label">Purchase Value
+                                                    <div>(<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <mask id="mask0_464_19992" style="mask-type:alpha"
+                                                                maskUnits="userSpaceOnUse" x="0" y="0" width="22"
+                                                                height="22">
+                                                                <rect y="9.15527e-05" width="22" height="22"
+                                                                    fill="#D9D9D9" />
+                                                            </mask>
+                                                            <g mask="url(#mask0_464_19992)">
+                                                                <path
+                                                                    d="M10.1055 19.2501V17.2793C9.29581 17.0959 8.59701 16.7445 8.00912 16.2251C7.42062 15.7056 6.98887 14.9723 6.71387 14.0251L8.4097 13.3376C8.63887 14.0709 8.97895 14.6286 9.42995 15.0105C9.88034 15.3925 10.4722 15.5834 11.2055 15.5834C11.8319 15.5834 12.363 15.4423 12.7987 15.1599C13.2338 14.877 13.4514 14.4376 13.4514 13.8418C13.4514 13.307 13.2833 12.8829 12.9472 12.5694C12.6111 12.2565 11.8319 11.9015 10.6097 11.5043C9.29581 11.0918 8.39442 10.5992 7.90553 10.0266C7.41665 9.45337 7.1722 8.75426 7.1722 7.92926C7.1722 6.9362 7.49303 6.16467 8.1347 5.61468C8.77637 5.06467 9.43331 4.75148 10.1055 4.67509V2.75009H11.9389V4.67509C12.7028 4.79731 13.3331 5.07598 13.83 5.51109C14.3262 5.94681 14.6889 6.47787 14.918 7.10426L13.2222 7.83759C13.0389 7.3487 12.7791 6.98204 12.443 6.73759C12.1069 6.49315 11.6486 6.37092 11.068 6.37092C10.3958 6.37092 9.88401 6.52004 9.53262 6.81826C9.18123 7.11587 9.00553 7.4862 9.00553 7.92926C9.00553 8.43342 9.2347 8.83065 9.69303 9.12092C10.1514 9.4112 10.9458 9.71676 12.0764 10.0376C13.1305 10.3431 13.929 10.8281 14.4716 11.4923C15.0137 12.1572 15.2847 12.9251 15.2847 13.7959C15.2847 14.8806 14.9639 15.7056 14.3222 16.2709C13.6805 16.8362 12.8861 17.1876 11.9389 17.3251V19.2501H10.1055Z"
+                                                                    fill="#475467" />
+                                                            </g>
+                                                        </svg>)
+                                                    </div>
+                                                </label>
+                                                <div class="d-flex relative">
+                                                    <span class="label price-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <mask id="mask0_464_19955" style="mask-type:alpha"
+                                                                maskUnits="userSpaceOnUse" x="0" y="0" width="22"
+                                                                height="22">
+                                                                <rect width="22" height="22" fill="#D9D9D9" />
+                                                            </mask>
+                                                            <g mask="url(#mask0_464_19955)">
+                                                                <path
+                                                                    d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z"
+                                                                    fill="#475467" />
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text"
+                                                        class="input-field es-input price-input number-input-right-padding"
+                                                        id="purchaseValue" aria-describedby="purchaseValue"
+                                                        formControlName="purchaseValue">
+                                                </div>
+                                                <div class="input-number-btn input-number-btn-cash">
+                                                    <span class="number-decremental"
+                                                        (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                    <span class="number-incremental"
+                                                        (click)="updateValue('rewardPoints', 'inc')"> + </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="p-2">
+                                                <label for="rewardPointsTwo" class=" form-label label">Reward points</label>
+                                                <div class="d-flex relative">
+                                                    <span class="label price-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <path
+                                                                d="M5.00016 5C4.46969 5 3.96094 5.21073 3.58583 5.58583C3.21073 5.96094 3 6.46969 3 7.00016V8.59095C3 9.28434 3.36003 9.92706 3.94808 10.2911L9.10316 13.478C8.31906 13.9005 7.69837 14.5726 7.33947 15.3877C6.98057 16.2029 6.90398 17.1145 7.12183 17.9781C7.33969 18.8418 7.83953 19.608 8.54215 20.1554C9.24477 20.7028 10.11 21 11.0006 21C11.8913 21 12.7565 20.7028 13.4591 20.1554C14.1618 19.608 14.6616 18.8418 14.8795 17.9781C15.0973 17.1145 15.0207 16.2029 14.6618 15.3877C14.3029 14.5726 13.6822 13.9005 12.8981 13.478L18.0532 10.2911C18.3429 10.1119 18.5821 9.86167 18.748 9.56414C18.914 9.26661 19.0011 8.93162 19.0013 8.59095V7.00016C19.0013 6.46969 18.7906 5.96094 18.4155 5.58583C18.0404 5.21073 17.5316 5 17.0011 5H5.00016ZM8.33376 11.4352V6.33344H13.6675V11.4352L11.3513 12.8673C11.246 12.9325 11.1245 12.967 11.0006 12.967C10.8768 12.967 10.7553 12.9325 10.65 12.8673L8.33376 11.4352ZM11.0006 14.3341C11.7079 14.3341 12.3863 14.6151 12.8864 15.1152C13.3866 15.6153 13.6675 16.2937 13.6675 17.001C13.6675 17.7083 13.3866 18.3866 12.8864 18.8867C12.3863 19.3869 11.7079 19.6678 11.0006 19.6678C10.2933 19.6678 9.61501 19.3869 9.11487 18.8867C8.61474 18.3866 8.33376 17.7083 8.33376 17.001C8.33376 16.2937 8.61474 15.6153 9.11487 15.1152C9.61501 14.6151 10.2933 14.3341 11.0006 14.3341Z"
+                                                                fill="#475467" />
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text"
+                                                        class="input-field es-input price-input number-input-right-padding"
+                                                        id="rewardPointsTwo" aria-describedby="rewardPointsTwo"
+                                                        formControlName="rewardPointsTwo">
+                                                    <div class="input-number-btn input-number-btn-reward">
+                                                        <span class="number-decremental"
+                                                            (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                        <span class="number-incremental"
+                                                            (click)="updateValue('rewardPoints', 'inc')"> + </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4"></div>
+                                    </div>
+                                    <div class="ps-2 pb-0">
+                                        <span class="help-block ng-invalid text-danger"
+                                            *ngIf="(f.purchaseValue.touched && f.purchaseValue.pristine) || (f.rewardPointsTwo.touched && f.rewardPointsTwo.pristine) || ((f.purchaseValue.errors || f.rewardPointsTwo.errors) && submitted)">
+                                            <span class="error-text">
+                                                Purchase value or reward points is invalid, please check the details and try again.
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="dashboard-border-bottom p-3">
+                                <h1 class="heading">Reward Point Redeem</h1>
+                                <p class="sub-heading sub-heading-reward-earning">Here you can set minimum and maximum
+                                    reward point redeem limit for customers on their purchases. (Example- Customer needs to
+                                    have at least 100 reward points to redeem and cannot redeem more than 500 rewards points
+                                    while making any purchases)</p>
+                                <div class="divHeight">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="p-2">
+                                                <label for="minimumRewardPoint" class="d-flex form-label label">Minimum
+                                                    Reward Point</label>
+                                                <div class="d-flex relative">
+                                                    <span class="label price-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <mask id="mask0_464_19955" style="mask-type:alpha"
+                                                                maskUnits="userSpaceOnUse" x="0" y="0" width="22"
+                                                                height="22">
+                                                                <rect width="22" height="22" fill="#D9D9D9" />
+                                                            </mask>
+                                                            <g mask="url(#mask0_464_19955)">
+                                                                <path
+                                                                    d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z"
+                                                                    fill="#475467" />
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text"
+                                                        class="input-field es-input price-input number-input-right-padding"
+                                                        id="minimumRewardPoint" aria-describedby="minimumRewardPoint"
+                                                        formControlName="minimumRewardPoint">
+                                                </div>
+                                                <div class="input-number-btn input-number-btn-cash">
+                                                    <span class="number-decremental"
+                                                        (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                    <span class="number-incremental"
+                                                        (click)="updateValue('rewardPoints', 'inc')"> + </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="p-2">
+                                                <label for="maximumRewardPoint" class="d-flex form-label label">Maximum Reward Point</label>
+                                                <div class="d-flex relative">
+                                                    <span class="label price-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            viewBox="0 0 22 22" fill="none">
+                                                            <mask id="mask0_464_19955" style="mask-type:alpha"
+                                                                maskUnits="userSpaceOnUse" x="0" y="0" width="22"
+                                                                height="22">
+                                                                <rect width="22" height="22" fill="#D9D9D9" />
+                                                            </mask>
+                                                            <g mask="url(#mask0_464_19955)">
+                                                                <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z"
+                                                                    fill="#475467" />
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="text"
+                                                        class="input-field es-input price-input number-input-right-padding"
+                                                        id="maximumRewardPoint" aria-describedby="maximumRewardPoint"
+                                                        formControlName="maximumRewardPoint">
+                                                </div>
+                                                <div class="input-number-btn input-number-btn-cash">
+                                                    <span class="number-decremental"
+                                                        (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                    <span class="number-incremental"
+                                                        (click)="updateValue('rewardPoints', 'inc')"> + </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4"></div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    
+
+                    <div class="row mt-2 gx-2 d-flex justify-content-end">
+                        <button class="btn btn-secondary btn-width" style="width: 17% !important">Cancel</button>
+                        <button type="submit" class="btn btn-primary ms-2 btn-width"
+                            style="width: 17% !important">Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Loading Spinner - Start -->
+            <!-- <ng-template #spinner class="loader-align">
+                <app-loading-spinner></app-loading-spinner>
+            </ng-template> -->
+            <!-- Loading Spinner - End -->
+        </div>
+        <div class="col-4  widget-card pe-0 ps-0 pt-2">
+            <div class="dashboard-widget">
+                <div class="widget-header">
+                    <div>
+                        <svg class="widget-icon" width="26" height="20" viewBox="0 0 26 20" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.166016 19.3337V16.067C0.166016 15.4059 0.336349 14.798 0.677016 14.2435C1.0169 13.6897 1.46879 13.267 2.03268 12.9753C3.23824 12.3725 4.46324 11.9203 5.70768 11.6185C6.95213 11.3175 8.21601 11.167 9.49935 11.167C10.7827 11.167 12.0466 11.3175 13.291 11.6185C14.5355 11.9203 15.7605 12.3725 16.966 12.9753C17.5299 13.267 17.9818 13.6897 18.3217 14.2435C18.6623 14.798 18.8327 15.4059 18.8327 16.067V19.3337H0.166016ZM21.166 19.3337V15.8337C21.166 14.9781 20.928 14.1564 20.452 13.3685C19.9752 12.5814 19.2993 11.9059 18.4243 11.342C19.416 11.4587 20.3493 11.6578 21.2243 11.9393C22.0993 12.2217 22.916 12.567 23.6743 12.9753C24.3743 13.3642 24.9091 13.7967 25.2785 14.2727C25.648 14.7494 25.8327 15.2698 25.8327 15.8337V19.3337H21.166ZM9.49935 10.0003C8.21601 10.0003 7.1174 9.54338 6.20352 8.62949C5.28963 7.7156 4.83268 6.61699 4.83268 5.33366C4.83268 4.05033 5.28963 2.95171 6.20352 2.03783C7.1174 1.12394 8.21601 0.666992 9.49935 0.666992C10.7827 0.666992 11.8813 1.12394 12.7952 2.03783C13.7091 2.95171 14.166 4.05033 14.166 5.33366C14.166 6.61699 13.7091 7.7156 12.7952 8.62949C11.8813 9.54338 10.7827 10.0003 9.49935 10.0003ZM21.166 5.33366C21.166 6.61699 20.7091 7.7156 19.7952 8.62949C18.8813 9.54338 17.7827 10.0003 16.4993 10.0003C16.2855 10.0003 16.0132 9.97621 15.6827 9.92799C15.3521 9.87899 15.0799 9.82533 14.866 9.76699C15.391 9.14477 15.7943 8.45449 16.0758 7.69616C16.3582 6.93782 16.4993 6.15033 16.4993 5.33366C16.4993 4.51699 16.3582 3.72949 16.0758 2.97116C15.7943 2.21283 15.391 1.52255 14.866 0.900325C15.1382 0.803103 15.4105 0.739715 15.6827 0.710159C15.9549 0.681381 16.2271 0.666992 16.4993 0.666992C17.7827 0.666992 18.8813 1.12394 19.7952 2.03783C20.7091 2.95171 21.166 4.05033 21.166 5.33366ZM2.49935 17.0003H16.4993V16.067C16.4993 15.8531 16.4461 15.6587 16.3395 15.4837C16.2322 15.3087 16.091 15.1725 15.916 15.0753C14.866 14.5503 13.8063 14.1564 12.7368 13.8935C11.6674 13.6314 10.5882 13.5003 9.49935 13.5003C8.41046 13.5003 7.33129 13.6314 6.26185 13.8935C5.1924 14.1564 4.13268 14.5503 3.08268 15.0753C2.90768 15.1725 2.7669 15.3087 2.66035 15.4837C2.55302 15.6587 2.49935 15.8531 2.49935 16.067V17.0003ZM9.49935 7.66699C10.141 7.66699 10.6905 7.43832 11.1478 6.98099C11.6044 6.52444 11.8327 5.97533 11.8327 5.33366C11.8327 4.69199 11.6044 4.14288 11.1478 3.68633C10.6905 3.22899 10.141 3.00033 9.49935 3.00033C8.85768 3.00033 8.30857 3.22899 7.85202 3.68633C7.39468 4.14288 7.16602 4.69199 7.16602 5.33366C7.16602 5.97533 7.39468 6.52444 7.85202 6.98099C8.30857 7.43832 8.85768 7.66699 9.49935 7.66699Z"
+                                fill="#04103B" />
+                        </svg>
+                    </div>
+                    <div class="widget-text">
+                        Total Reward Points of Subscribers
+                    </div>
+                </div>
+
+                <div class="widget-body d-flex justify-content-between">
+                    <div class="widget-count">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path
+                                d="M7 4C6.20435 4 5.44129 4.31607 4.87868 4.87868C4.31607 5.44129 4 6.20435 4 7V9.386C4 10.426 4.54 11.39 5.422 11.936L13.154 16.716C11.9779 17.3497 11.047 18.3577 10.5087 19.5803C9.97037 20.803 9.85549 22.1703 10.1823 23.4656C10.509 24.761 11.2587 25.9102 12.3126 26.7312C13.3664 27.5522 14.6641 27.9981 16 27.9981C17.3359 27.9981 18.6336 27.5522 19.6874 26.7312C20.7413 25.9102 21.491 24.761 21.8178 23.4656C22.1445 22.1703 22.0296 20.803 21.4913 19.5803C20.953 18.3577 20.0221 17.3497 18.846 16.716L26.578 11.936C27.0126 11.6672 27.3713 11.2919 27.6201 10.8457C27.869 10.3994 27.9998 9.89696 28 9.386V7C28 6.20435 27.6839 5.44129 27.1213 4.87868C26.5587 4.31607 25.7956 4 25 4H7ZM12 13.652V6H20V13.652L16.526 15.8C16.368 15.8977 16.1858 15.9495 16 15.9495C15.8142 15.9495 15.632 15.8977 15.474 15.8L12 13.652ZM16 18C17.0609 18 18.0783 18.4214 18.8284 19.1716C19.5786 19.9217 20 20.9391 20 22C20 23.0609 19.5786 24.0783 18.8284 24.8284C18.0783 25.5786 17.0609 26 16 26C14.9391 26 13.9217 25.5786 13.1716 24.8284C12.4214 24.0783 12 23.0609 12 22C12 20.9391 12.4214 19.9217 13.1716 19.1716C13.9217 18.4214 14.9391 18 16 18Z"
+                                fill="black" />
+                        </svg>
+                        1500
+                    </div>
+                    <div class="widget-graph">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="117" height="48" viewBox="0 0 117 48"
+                            fill="none">
+                            <path
+                                d="M1 18.1617L4.83333 22.6657C8.66667 27.1696 16.3333 36.1775 24 38.4634C31.6667 40.7494 39.3333 36.3133 47 35.8829C54.6667 35.4525 62.3333 39.0278 70 32.947C77.6667 26.8662 85.3333 11.1294 93 4.81006C100.667 -1.5093 108.333 1.58878 112.167 3.13781L116 4.68685"
+                                stroke="#6365EF" />
+                            <path
+                                d="M4.83333 22.6651L1 18.1612V47.9852H116V4.80967L115.853 4.75029C111.881 3.14347 100.571 -1.43111 93 4.8095C85.3333 11.1289 77.6667 26.8657 70 32.9464C62.3333 39.0272 54.6667 35.4519 47 35.8823C39.3333 36.3127 31.6667 40.7488 24 38.4629C16.3333 36.177 8.66667 27.1691 4.83333 22.6651Z"
+                                fill="url(#paint0_linear_464_19913)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_464_19913" x1="-0.314286" y1="17.4282" x2="1"
+                                    y2="90.371" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#6365EF" stop-opacity="0.1" />
+                                    <stop offset="1" stop-color="#D9D9D9" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-widget">
+                <div class="widget-header">
+                    <div>
+                        <svg class="widget-icon" width="26" height="20" viewBox="0 0 26 20" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.166016 19.3337V16.067C0.166016 15.4059 0.336349 14.798 0.677016 14.2435C1.0169 13.6897 1.46879 13.267 2.03268 12.9753C3.23824 12.3725 4.46324 11.9203 5.70768 11.6185C6.95213 11.3175 8.21601 11.167 9.49935 11.167C10.7827 11.167 12.0466 11.3175 13.291 11.6185C14.5355 11.9203 15.7605 12.3725 16.966 12.9753C17.5299 13.267 17.9818 13.6897 18.3217 14.2435C18.6623 14.798 18.8327 15.4059 18.8327 16.067V19.3337H0.166016ZM21.166 19.3337V15.8337C21.166 14.9781 20.928 14.1564 20.452 13.3685C19.9752 12.5814 19.2993 11.9059 18.4243 11.342C19.416 11.4587 20.3493 11.6578 21.2243 11.9393C22.0993 12.2217 22.916 12.567 23.6743 12.9753C24.3743 13.3642 24.9091 13.7967 25.2785 14.2727C25.648 14.7494 25.8327 15.2698 25.8327 15.8337V19.3337H21.166ZM9.49935 10.0003C8.21601 10.0003 7.1174 9.54338 6.20352 8.62949C5.28963 7.7156 4.83268 6.61699 4.83268 5.33366C4.83268 4.05033 5.28963 2.95171 6.20352 2.03783C7.1174 1.12394 8.21601 0.666992 9.49935 0.666992C10.7827 0.666992 11.8813 1.12394 12.7952 2.03783C13.7091 2.95171 14.166 4.05033 14.166 5.33366C14.166 6.61699 13.7091 7.7156 12.7952 8.62949C11.8813 9.54338 10.7827 10.0003 9.49935 10.0003ZM21.166 5.33366C21.166 6.61699 20.7091 7.7156 19.7952 8.62949C18.8813 9.54338 17.7827 10.0003 16.4993 10.0003C16.2855 10.0003 16.0132 9.97621 15.6827 9.92799C15.3521 9.87899 15.0799 9.82533 14.866 9.76699C15.391 9.14477 15.7943 8.45449 16.0758 7.69616C16.3582 6.93782 16.4993 6.15033 16.4993 5.33366C16.4993 4.51699 16.3582 3.72949 16.0758 2.97116C15.7943 2.21283 15.391 1.52255 14.866 0.900325C15.1382 0.803103 15.4105 0.739715 15.6827 0.710159C15.9549 0.681381 16.2271 0.666992 16.4993 0.666992C17.7827 0.666992 18.8813 1.12394 19.7952 2.03783C20.7091 2.95171 21.166 4.05033 21.166 5.33366ZM2.49935 17.0003H16.4993V16.067C16.4993 15.8531 16.4461 15.6587 16.3395 15.4837C16.2322 15.3087 16.091 15.1725 15.916 15.0753C14.866 14.5503 13.8063 14.1564 12.7368 13.8935C11.6674 13.6314 10.5882 13.5003 9.49935 13.5003C8.41046 13.5003 7.33129 13.6314 6.26185 13.8935C5.1924 14.1564 4.13268 14.5503 3.08268 15.0753C2.90768 15.1725 2.7669 15.3087 2.66035 15.4837C2.55302 15.6587 2.49935 15.8531 2.49935 16.067V17.0003ZM9.49935 7.66699C10.141 7.66699 10.6905 7.43832 11.1478 6.98099C11.6044 6.52444 11.8327 5.97533 11.8327 5.33366C11.8327 4.69199 11.6044 4.14288 11.1478 3.68633C10.6905 3.22899 10.141 3.00033 9.49935 3.00033C8.85768 3.00033 8.30857 3.22899 7.85202 3.68633C7.39468 4.14288 7.16602 4.69199 7.16602 5.33366C7.16602 5.97533 7.39468 6.52444 7.85202 6.98099C8.30857 7.43832 8.85768 7.66699 9.49935 7.66699Z"
+                                fill="#04103B" />
+                        </svg>
+                    </div>
+                    <div class="widget-text">
+                        Total used Reward Points
+                    </div>
+
+                </div>
+
+                <div class="widget-body d-flex justify-content-between">
+                    <div class="widget-count">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path
+                                d="M7 4C6.20435 4 5.44129 4.31607 4.87868 4.87868C4.31607 5.44129 4 6.20435 4 7V9.386C4 10.426 4.54 11.39 5.422 11.936L13.154 16.716C11.9779 17.3497 11.047 18.3577 10.5087 19.5803C9.97037 20.803 9.85549 22.1703 10.1823 23.4656C10.509 24.761 11.2587 25.9102 12.3126 26.7312C13.3664 27.5522 14.6641 27.9981 16 27.9981C17.3359 27.9981 18.6336 27.5522 19.6874 26.7312C20.7413 25.9102 21.491 24.761 21.8178 23.4656C22.1445 22.1703 22.0296 20.803 21.4913 19.5803C20.953 18.3577 20.0221 17.3497 18.846 16.716L26.578 11.936C27.0126 11.6672 27.3713 11.2919 27.6201 10.8457C27.869 10.3994 27.9998 9.89696 28 9.386V7C28 6.20435 27.6839 5.44129 27.1213 4.87868C26.5587 4.31607 25.7956 4 25 4H7ZM12 13.652V6H20V13.652L16.526 15.8C16.368 15.8977 16.1858 15.9495 16 15.9495C15.8142 15.9495 15.632 15.8977 15.474 15.8L12 13.652ZM16 18C17.0609 18 18.0783 18.4214 18.8284 19.1716C19.5786 19.9217 20 20.9391 20 22C20 23.0609 19.5786 24.0783 18.8284 24.8284C18.0783 25.5786 17.0609 26 16 26C14.9391 26 13.9217 25.5786 13.1716 24.8284C12.4214 24.0783 12 23.0609 12 22C12 20.9391 12.4214 19.9217 13.1716 19.1716C13.9217 18.4214 14.9391 18 16 18Z"
+                                fill="black" />
+                        </svg>
+                        500
+                    </div>
+                    <div class="widget-graph">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="117" height="46" viewBox="0 0 117 46"
+                            fill="none">
+                            <path
+                                d="M1 23.2214L4.19444 26.251C7.38889 29.2806 13.7778 35.3399 20.1667 36.478C26.5556 37.6162 32.9444 33.8332 39.3333 32.9828C45.7222 32.1324 52.1111 34.2144 58.5 29.2275C64.8889 24.2405 71.2778 12.1844 77.6667 7.02274C84.0556 1.86108 90.4444 3.5938 96.8333 3.73907C103.222 3.88435 109.611 2.44217 112.806 1.72109L116 1"
+                                stroke="#6365EF" />
+                            <path
+                                d="M4.19444 26.251L1 23.2214V45.4138H116V1L112.806 1.72109C109.611 2.44217 103.222 3.88435 96.8333 3.73907C90.4444 3.5938 84.0556 1.86108 77.6667 7.02274C71.2778 12.1844 64.8889 24.2405 58.5 29.2275C52.1111 34.2144 45.7222 32.1324 39.3333 32.9828C32.9444 33.8332 26.5556 37.6162 20.1667 36.478C13.7778 35.3399 7.38889 29.2806 4.19444 26.251Z"
+                                fill="url(#paint0_linear_464_19925)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_464_19925" x1="52.5517" y1="13.6897" x2="58.5"
+                                    y2="45.4138" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#6365EF" stop-opacity="0.16" />
+                                    <stop offset="1" stop-color="#D9D9D9" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

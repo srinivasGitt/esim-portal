@@ -131,7 +131,7 @@
 
     // Sidebar layout
     .sidebar-main{
-        width: 260px;
+        width: 15vw;
         height: 100vh;
         padding: 0 20px 0 0;
         // background-color: var(--card-background-color);
@@ -140,6 +140,7 @@
             // border-radius: var(--dark-sidebar-border-radius);
             // height: calc(100vh - 40px);
             height: 100vh;
+            width: 14vw;
             padding: 30px 8px;
             // box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);            
             background-color: var(--card-background-color);
@@ -1375,6 +1376,176 @@
     }
 }
 
+
+// Loyalty program page
+.loyalty-point-program{
+    font-family: var(--font-family-sf-pro-display);
+
+    .main-content-div-area {
+        margin-top: 63px !important;
+        font-family: var(--font-family-sf-pro-display) !important;
+    }
+
+    .main-base-container{
+        .dashboard-main {
+            overflow-y: unset !important;
+        }
+    }
+
+    .main-base-container {
+        .dashboard-main {
+            overflow-y: unset !important;
+        }
+    }
+    .add-edit-modal{
+        padding: 24px 13px 0px 13px;
+        .info-modal{ 
+            padding: 24px 14px;
+        }
+    }
+
+    .dashboard-graph{
+        width: 96% !important;
+        overflow-y: scroll !important;
+        margin-left: 0px !important;
+    }
+
+    .loyalty-content-div-area {
+        margin-top: 100px !important;
+        font-family: var(--font-family-sf-pro-display) !important;
+
+        .heading-flex {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .heading-text h2 {
+            font-size: var(--heading-text-size);
+            color: var(--main-heading-text-color);
+            font-weight: 600;
+        }
+    }
+
+    .loyalty-point-program-reward-section{
+        background: var(--card-background-color);
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        padding: 15px;
+        margin-left: 4px;
+        box-shadow: var(--box-shadow-size-color);
+    }
+    .heading{
+        color: #473BAA;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .sub-heading{
+        color: #000;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 26px; /* 162.5% */
+    }
+
+    .sub-heading-reward-value{
+        width: 100%;
+        font-size: 16px;
+    }
+    .sub-heading-reward-earning{
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .divHeight{
+        flex-shrink: 0 !important;
+        border-radius: 10px !important;
+        background: rgba(99, 101, 239, 0.10) !important;
+        height: 5.5vw !important;
+        margin-bottom: 4px !important;
+    }
+
+    .error-text{
+        font-size: 15px;
+    }
+
+    .label{
+        color: var(--modal-form-label-text-color) !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+    }
+
+    .price-icon{
+        display: flex;
+        width: 47px;
+        height: 4vh;
+        padding: 10px 12px 10px 14px;
+        align-items: center;
+        gap: 11px;
+        background-color: white;
+        border-radius: 8px 0px 0px 8px;
+        border: 1px solid rgba(99, 101, 239, 0.48);
+    }
+
+    .input-field{
+        display: flex;
+        width: 12vw;
+        height: 4vh;
+        padding: 10px 14px;
+        align-items: center;
+        gap: 8px;
+        align-self: stretch;
+        border-radius: 0px 8px 8px 0px;
+        border: 1px solid rgba(99, 101, 239, 0.48);
+        background: var(--base-white, #FFF);
+    }
+
+    .input-number-btn{
+        display: flex;
+        position: relative;
+        width: -moz-fit-content;
+        width: fit-content;
+        gap: 10px;
+    }
+
+    .input-number-btn-reward{
+        left: -21% !important;
+        margin-top: 9px !important;
+    }
+
+    .input-number-btn-cash{
+        left: 72% !important;
+        margin-top: -28px !important;
+    }
+    
+
+    .number-decremental{
+        height: 20px;
+        width: 20px;
+        line-height: 15px;
+        border-radius: 50%;
+        text-align: center;
+        border: 1px solid #D32F2F;
+        color: #D32F2F;
+        cursor: pointer;
+    }
+
+    .number-incremental{
+        height: 20px;
+        width: 20px;
+        line-height: 15px;
+        border-radius: 50%;
+        text-align: center;
+        border: 1px solid #00C853;
+        color: #00C853;
+        cursor: pointer;
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+}
 // Customer Management Table
 .customer-management{
 //     margin-top: 40px;
@@ -2215,6 +2386,65 @@
 .main-content-div-area{
     margin-top: 100px;
     font-family: var(--font-family-sf-pro-display);
+    
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 8.5vw;
+        height: 3.5vh;
+        border-radius: 10px;
+        
+        input{
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .round{
+            border-radius: 34px;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 100px;
+            border-color: transparent;
+            background: rgba(99, 101, 239, 0.10);
+            transition: 0.4s;
+        
+            &:before {
+                position: absolute;
+                content: "";
+                left: 1px;
+                bottom: 1px;
+                transition: 0.4s;
+                display: flex;
+                width: 5vw;
+                height: 3.5vh;
+                padding: 14px 40px 14px 41px;
+                justify-content: center;
+                align-items: center;
+                background-color: #6365EF;
+            }
+        }
+    }
+
+    input:checked + .slider{
+        border-radius: 100px;
+        background: rgba(99, 101, 239, 0.10);
+
+        &:before {
+            transform: translateX(70px);
+            background-color: #6365EF;
+        }
+    }
+    .slider.round:before {
+        border-radius: 100px;
+    }
 
     /* Dashboard CSS - Start */
     .info-head-section{
@@ -2245,6 +2475,10 @@
 
     .dashboard-border-top{
         border-top: 1px solid #a8a9fd57;
+    }
+
+    .dashboard-border-bottom{
+        border-bottom: 1px solid #a8a9fd57;
     }
 
     .dashboard-border-left{
@@ -2562,6 +2796,9 @@
         }
     }
 }
+
+
+
 .dark-light-toggle{
     .switch {
         position: relative;
