@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CustomerService, DialogService, UsersService, AlertService, DashboardService } from '../../service';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,9 +18,11 @@ export class SidebarComponent implements OnInit {
   parentCustomer:any;
   sidebarMenuList: Array<any> = [];
   userDetails: any = {};
+  isParentActive: any;
 
   
   constructor(private router:Router,
+              private activatedRoute: ActivatedRoute,
               private customerService: CustomerService,
               private dashboardService: DashboardService,
               private usersService: UsersService,
@@ -28,6 +31,16 @@ export class SidebarComponent implements OnInit {
 
     router.events.subscribe(
       (data: any) => {
+        if(data instanceof NavigationEnd){
+          const childRoute = this.activatedRoute.firstChild?.snapshot;
+          const routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
+          if (childRoute && routeConfig) {
+            const isChildActive = data.urlAfterRedirects.includes(childRoute.url.join('/'));
+            this.isParentActive = isChildActive;
+          }else{
+            this.isParentActive = false;
+          }
+        }
         this.activeUrl = this.router.url;
       }
     )

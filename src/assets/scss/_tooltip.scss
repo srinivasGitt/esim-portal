@@ -29,6 +29,8 @@ $border-color_4: transparent black transparent transparent;
 	border-radius: 25px;
 	z-index: 9999;
 	opacity: 0;
+	white-space: normal;
+	word-wrap: break-word;
 	&:after {
 		content: "";
 		position: absolute;

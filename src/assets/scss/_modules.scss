@@ -3219,11 +3219,12 @@
 
     .filter-div{
         position: relative;
-        height: 50px;
+        height: 2.6vw;
         border-radius: 13px;
         background-color: var(--card-background-color);
         box-shadow: var(--box-shadow-size-color);
         padding: 8px;
+        width: 10vw;
 
         .rotate-90-deg{
             transform: rotate(90deg);
@@ -3312,7 +3313,7 @@
         }
         
         .table-headers{
-            font-size: 0.875rem;
+            font-size: 1.042vw;
             font-weight: 500;
             color: var(--table-heading-text-color);
 
@@ -3345,7 +3346,7 @@
                 text-overflow: ellipsis;
                 word-break: inherit;
                 width: 100%;
-                height: 70px;
+                height: 3.6vw;
                 font-weight: 400;
                 &:not(.action-section){
                     line-height: 50px;
@@ -3355,7 +3356,7 @@
             .plan-info-section > span {
                 color: var(--plan-info-text-color);
                 font-weight: 400;
-                font-size: 0.875rem !important;
+                font-size: 1.042vw !important;
                 cursor: default;
                 z-index: 1;
             }
@@ -3379,10 +3380,10 @@
         .user-table-action{
             display: flex;
             align-items: center;
-            width: 115px;
+            width: 6vw;
             background-color: var(--action-background-color);
             border-radius: 40px;
-            height: 45px;
+            height: 2.34vw;
             
             .user-table-action-icon{
                 width: 15px;
@@ -3400,6 +3401,23 @@
 
     .ng-select .ng-select-container .ng-value-container .ng-placeholder {
         color: var(--modal-header-text-color);
+    }
+
+    .icon-email-support{
+        margin-left: auto;
+        position: relative;
+    }
+
+    .icon-numbercopy{
+        margin-left: auto;
+        position: relative;
+        left: -1.5vw;
+    }
+
+    .icon-email-contact{
+        margin-left: auto;
+        position: relative;
+        left: -2vw;
     }
 }
 
