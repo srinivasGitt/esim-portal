@@ -117,125 +117,104 @@
         </div>
         
         <!-- Currency Setup -->
-        <div class="col pe-0">
+        <div class="col pe-0 currency-setup">
             <div class="card settings-card border-0 rounded-0">
-                <div class="modal-content">
-                    <div class="es-modal" *ngIf="!inProgress; else spinner">
-                        <div class="es-modal-body mt-0">
-                            <div class="card-body d-flex flex-column justify-content-between p-0">
-                                <div>
-                                    <div>
-                                        <h1 class="modal-header-text">Currency</h1> 
-                                        <p>Set your customer mobile or web app currencies here and set one as default.</p>
-                                    </div>
-                                    <form class="es-modal-form" [formGroup]="currencySetupForm" novalidate>
-                                        <div class="divHeight d-flex justify-content-between">
-                                            <div class="col-12 currency-list-input">
-                                                <label for="currencies">Currencies</label>
-                                                <div class="relative">
-                                                    <ng-select 
-                                                        [items]="currencyList"
-                                                        formControlName="currencyList"
-                                                        bindLabel="currency_name"
-                                                        [multiple]="true"
-                                                        [closeOnSelect]="false"
-                                                        placeholder="Search Currencies / Multiple can be selected"
-                                                        (change)="onCurrenciesChange($event)"
-                                                        (remove)="onCurrencyRemoveFromList($event)"
-                                                        (clear)="onCurrenciesListClear($event)"
-                                                        class="custom-search">
-                            
-                                                        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                                                            <div class="ng-value d-flex" *ngFor="let item of items | slice:0:2">
-                                                                <span class="ng-value-label ellipsis">
-                                                                    <span class="w40">{{$any(item).currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{$any(item).currency_name}}</span>
-                                                                </span>
-                                                                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                                                            </div>
-                                                            <div class="ng-value" *ngIf="items.length > 2">
-                                                                <span class="ng-value-label" [tooltip]="displaySelectedCurrencies(items)" placement="top" delay="100" offset="15">+{{items.length - 2}}</span>
-                                                            </div>
-                                                        </ng-template>
-                            
-                                                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                                                <div class="d-flex justify-content-between border-1">
-                                                                    <div class="w40">{{item.currency | currencySymbol }}</div> 
-                                                                    <div>{{item.currency_name}}</div>
-                                                                </div>
-                                                                <div class="form-label es-modal-form-label unlimited">
-                                                                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> 
-                                                                    <span class="checkmark"></span>
-                                                                </div>
-                                                        </ng-template>
-                                                    </ng-select>
-                            
-                                                    <!-- <span class="ng-search">
-                                                        <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
-                                                            <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
-                                                        </svg>
-                                                    </span> -->
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="divHeight">
-                                            <div class="col-12 imsi-input default-currency-ng-select">
-                                                <label for="defaultCurrency">Select default currency</label>
-                                                <div class="relative container-ng-select">
-                                                    <ng-select
-                                                        [items]="defaultCurrencyList"
-                                                        [multiple]="false"
-                                                        [closeOnSelect]="true"
-                                                        bindLabel="currency_name"
-                                                        formControlName="defaultCurrency"
-                                                        placeholder="Search Currency"
-                                                        class="full-width custom-search">
-                                                        <ng-template ng-label-tmp let-item="item" let-item$="item$" let-index="index">
-                                                            <span class="w40">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
-                                                        </ng-template>
-                                                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                                            <div>
-                                                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> 
-                                                            </div>
-                                                            <div>
-                                                                <span class="w60">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
-                                                            </div>
-                                                            <!-- {{item.currency | currencySymbol }} {{item.currency_name}} -->
-
-                                                        </ng-template>
-                                                    </ng-select>
-                                                    <!-- <span class="ng-search">
-                                                        <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
-                                                            <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
-                                                        </svg>
-                                                    </span> -->
-                                                    <!-- <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg> -->
-                                                </div>
-                                            </div>  
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="d-flex justify-content-between btn-grp" *ngIf="isCurrencyEdit; else edit">
-                                    <button type="button" class="btn btn-secondary btn-width" (click)="cancel('currency')" >Cancel</button>
-                                    <button type="submit" class="btn btn-primary btn-width" (click)="saveCurrencySetup()" [disabled]="!currencySetupForm.valid">Save</button>
-                                </div>
-                                <ng-template #edit>
-                                    <div class="d-flex justify-content-between btn-grp">
-                                        <button type="submit" class="btn btn-primary ms-auto w100" (click)="editField('currency')">Edit</button>
-                                    </div>
-                                </ng-template>
-                            </div>
+                <div class="card-body d-flex flex-column justify-content-between p-0" *ngIf="!inProgress; else spinner">
+                    <div>
+                        <div>
+                            <h1 class="modal-header-text">Currency</h1> 
+                            <p>Set your customer mobile or web app currencies here and set one as default.</p>
                         </div>
+                        <form class="es-modal-form" [formGroup]="currencySetupForm" novalidate>
+                            <div class="divHeight d-flex justify-content-between">
+                                <div class="col-12 imsi-input currency-list-input">
+                                    <label for="currencies">Currencies</label>
+                                    <div class="relative">
+                                        <ng-select 
+                                            [items]="currencyList"
+                                            formControlName="currencyList"
+                                            bindLabel="currency_name"
+                                            [multiple]="true"
+                                            [closeOnSelect]="false"
+                                            placeholder="Search Currencies / Multiple can be selected"
+                                            (change)="onCurrenciesChange($event)"
+                                            (remove)="onCurrencyRemoveFromList($event)"
+                                            (clear)="onCurrenciesListClear($event)"
+                                            class="custom-search">
+                
+                                            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                                <div class="ng-value d-flex" *ngFor="let item of items | slice:0:2">
+                                                    <span class="ng-value-label ellipsis">
+                                                        <span class="w40">{{$any(item).currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{$any(item).currency_name}}</span>
+                                                    </span>
+                                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                                </div>
+                                                <div class="ng-value" *ngIf="items.length > 2">
+                                                    <span class="ng-value-label" [tooltip]="displaySelectedCurrencies(items)" placement="top" delay="100" offset="15">+{{items.length - 2}}</span>
+                                                </div>
+                                            </ng-template>
+                
+                                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                                    <div class="d-flex justify-content-between border-1">
+                                                        <div class="w40">{{item.currency | currencySymbol }}</div> 
+                                                        <div class="ng-select-list-item">{{item.currency_name}}</div>
+                                                    </div>
+                                                    <div class="form-label es-modal-form-label unlimited">
+                                                        <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> 
+                                                        <span class="checkmark"></span>
+                                                    </div>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="divHeight mt-3">
+                                <div class="col-12 imsi-input default-currency-ng-select">
+                                    <label for="defaultCurrency">Select default currency</label>
+                                    <div class="relative container-ng-select">
+                                        <ng-select
+                                            [items]="defaultCurrencyList"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            bindLabel="currency_name"
+                                            formControlName="defaultCurrency"
+                                            placeholder="Search Currency"
+                                            class="full-width custom-search">
+                                            <ng-template ng-label-tmp let-item="item" let-item$="item$" let-index="index">
+                                                <span class="w40">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;<span>{{item.currency_name}}</span>
+                                            </ng-template>
+                                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                                <div>
+                                                    <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> 
+                                                </div>
+                                                <div>
+                                                    <span class="w60">{{item.currency | currencySymbol }}</span>&nbsp;&nbsp;
+                                                    <span class="ng-select-list-item">{{item.currency_name}}</span>
+                                                </div>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>  
+                            </div>
+                        </form>
                     </div>
-                    
-                    <!-- Loading Spinner - Start -->
-                    <ng-template #spinner class="loader-align">
-                        <app-loading-spinner></app-loading-spinner>
+                    <div class="d-flex justify-content-between btn-grp" *ngIf="isCurrencyEdit; else edit">
+                        <button type="button" class="btn btn-secondary btn-width" (click)="cancel('currency')" >Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-width" (click)="saveCurrencySetup()" [disabled]="!currencySetupForm.valid">Save</button>
+                    </div>
+                    <ng-template #edit>
+                        <div class="d-flex justify-content-between btn-grp">
+                            <button type="submit" class="btn btn-primary ms-auto w100" (click)="editField('currency')">Edit</button>
+                        </div>
                     </ng-template>
-                    <!-- Loading Spinner - End -->
                 </div>
+                    
+                <!-- Loading Spinner - Start -->
+                <ng-template #spinner class="loader-align">
+                    <app-loading-spinner></app-loading-spinner>
+                </ng-template>
+                <!-- Loading Spinner - End -->
             </div>
         </div>
     </div>
