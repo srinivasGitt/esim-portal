@@ -315,6 +315,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
     this.selectedDayTerm = 'custom'
     this.inProgress = true;
     this.inSearch = false;
+    console.log(this.startDate)
     setTimeout( ()=>{
       this.getSubscribers(this.selectedDayTerm, this.startDate, this.endDate)
     }, 1000)
@@ -338,6 +339,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
     })
   }
   /* Get filtered data - End */
+
 
   ngOnDestroy(): void {
     this.inSearch = false

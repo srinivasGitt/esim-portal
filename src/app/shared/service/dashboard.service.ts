@@ -106,7 +106,7 @@ export class DashboardService {
       {
         title: 'Help Center',
         icon: 'assets/icons/headphone.svg',
-        link: null,
+        link: '/help-center',
         accessRole: ['admin','superAdmin'],
         hasGroup: true,
         childs: [
