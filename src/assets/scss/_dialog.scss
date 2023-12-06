@@ -51,7 +51,8 @@
         .modal-header-text{
             color: var(--modal-header-text-color);
             font-size: var(--modal-header-text-size);
-            font-weight: 600;
+            letter-spacing: 0;
+            // font-weight: 600;
         }
 
         .modal-sub-header-text{
@@ -127,6 +128,12 @@
                         padding: 10px 10px 10px 10px;
                         background: var(--card-background-color);
                         color: var(--table-heading-text-color);
+                        border-radius: 8px;
+                        margin-bottom: 4px;
+                    }
+
+                    .ng-option-marked {
+                        background-color: var(--ng-option-selected-bg-color) !important;
                     }
                 }
                 option{

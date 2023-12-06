@@ -204,7 +204,7 @@
     --info-details-text-color: #000000;
     --delete-button-bg-color: #D92D20;
     --subscription-modal-helper-text-color: #475467;
-    --subscription-data-text-color: #475467;
+    --subscription-data-text-color: #000000;
 
     --ng-select-value-bg-color: #F7F7F7;
     --ng-option-selected-bg-color: rgba(105, 112, 241, 0.10);
@@ -212,6 +212,15 @@
     --ng-placeholder-color: #667085;
     --ng-select-list-item-color: rgba(31, 29, 29, 0.76);
     --checked-mark-color: #FFFFFF;
+    --info-section-border-bottom-color: #EBEBEB;
+    --status-dropdown-bg-color: #FFFFFF;
+    --status-dropdown-border-color: #D3CBFB;
+    --placeholder-color: #000000;
+    --svg-fill-color: #475467;
+    --coupon-ng-value-bg-color: #F7F7F7;
+    --coupon-ng-value-color: #000000;
+    --svg-bright-value: 1;
+    --svg-invert-value: 0;
 
     /* SVG Color Change */
     .revenue-icon {
@@ -385,7 +394,7 @@
     --info-label-text-color: #EAEAEA;
     --info-details-text-color: #FFFFFF;
     --subscription-modal-helper-text-color: #FFFFFF;
-    --subscription-data-text-color: #8B8B8B;
+    --subscription-data-text-color: #FFFFFF;
 
     --ng-select-value-bg-color: #1E1E1E;
     --ng-option-selected-bg-color: rgba(99, 101, 239, 0.10);
@@ -393,7 +402,16 @@
     --ng-placeholder-color: #FFFFFF;
     --ng-select-list-item-color: rgba(255, 255, 255, 0.50);
     --checked-mark-color: #000000;
-    
+    --info-section-border-bottom-color: rgba(135, 118, 118, 0.13);
+    --status-dropdown-bg-color: #2C2D2D;
+    --status-dropdown-border-color: none;
+    --placeholder-color: #FFFFFF;
+    --svg-fill-color: #FFFFFF;
+    --coupon-ng-value-bg-color: rgba(99, 101, 239, 0.6);
+    --coupon-ng-value-color: #FFFFFF;
+    --svg-bright-value: 0;
+    --svg-invert-value: 1;
+
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
@@ -515,7 +533,8 @@ body {
     margin: 0;
     height: 100%;
     overflow: hidden;
-    
+    letter-spacing: 0.5px;
+
     .modal-lg {
         --bs-modal-width: 591px;        // for subscription and plan add/edit modals
     }

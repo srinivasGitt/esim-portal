@@ -16,7 +16,7 @@
       color: #A5A6EE;
       border-radius: 50%;
       border: 1px solid #A5A6EE;
-      background: transparent;
+      background: #FFFFFF;
       padding: 8.296px;
     }
     
@@ -67,10 +67,43 @@
     margin-right: 0 !important;
   }
 
-  input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    accent-color: #667085 !important;
+  input::placeholder {
+    color: var(--placeholder-color);
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  label {
+    color: var(--placeholder-color);
+  }
+
+  input[type='radio'] {
+    appearance: none;
+    margin: 0;
+    font: inherit;
+    color: #667085;
+    width: 1.4em;
+    height: 1.4em;
+    border: 0.14em solid #667085;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    top: 43%;
+    right: 10px;
+  }
+  
+  input[type="radio"]::before {
+    content: "";
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #667085;
+  }
+  
+  input[type="radio"]:checked::before {
+    transform: scale(1);
   }
 
   .checked {
@@ -146,7 +179,7 @@
 
   .use-div {
     .price-input {
-      background: #FFF;
+      background: var(--card-background-color);
     }
   }
 
@@ -162,7 +195,7 @@
     width: 32px;
     height: 22px;
     border-radius: 4px !important;
-    margin-right: 16px;
+    margin-right: 4px;
   }
   
   .dropdown-list-input {
@@ -176,7 +209,7 @@
             top: 8px !important;
             padding-bottom: 0 !important;
             padding-left: 3px !important;
-            color: #475467 !important;
+            color: var(--ng-placeholder-color) !important;
         }
        
         .ng-clear-wrapper {
@@ -185,11 +218,11 @@
     }
   
     .ng-value {
-        color: #475467 !important;
+        color: var(--coupon-ng-value-color) !important;
         border: none !important;
-        padding: 7px 8px !important;
+        padding: 4px 8px !important;
         border-radius: 8px !important;
-        background-color: #F7F7F7 !important;
+        background-color: var(--coupon-ng-value-bg-color) !important;
         width: auto !important;
         // font-size: 0.781vw;
   
@@ -297,7 +330,7 @@
   }
 
   ::ng-deep .mat-input-element::placeholder {
-      color: var(--modal-sub-header-text-color) !important;
+      color: var(--placeholder-color) !important;
   }  
 
   .input-width {
@@ -318,4 +351,15 @@
   font-family: FontAwesome !important;
   content: "\f002" !important;
   margin-right: 8px !important;
+  color: var(--placeholder-color);
+}
+
+.number-of-use-icon{
+  position: absolute;
+  border-right: 1px solid var(--input-border-color);
+  height: 37px;
+  width: 38px;
+  text-align: center;
+  line-height: 36px;
+  color: var(--modal-sub-header-text-color) !important;
 }

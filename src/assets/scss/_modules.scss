@@ -548,7 +548,7 @@
         cursor: pointer;
         border-radius: 13px;
         transform: translate(-25px, 50px) !important;
-        background-color: var(--card-background-color) !important;
+        background-color: var(--status-dropdown-bg-color);
         
         .lang-dropdown-item {
             color: var(--table-heading-text-color);
@@ -1753,12 +1753,12 @@
         .modal-label-text {
             color: var(--subscription-modal-helper-text-color);
             font-size: 14px;
-            font-weight: 600;
+            // font-weight: 600;
         }
 
         .modal-details-text{
             font-size: 1rem;
-            font-weight: 400;
+            font-weight: 500;
             margin-top: 12px;
             color: var(--subscription-data-text-color);
 
@@ -2000,7 +2000,7 @@
             
             svg {
                 path {
-                    fill: var(--modal-sub-header-text-color) !important;
+                    fill: var(--modal-sub-header-text-color);
                 }
             }
         }
@@ -2390,6 +2390,90 @@
         }
         
     }
+
+    .dropdown-list-input {
+        .ng-select-container{
+           
+            .ng-value-container .ng-placeholder {
+                color: var(--placeholder-color) !important;
+            }
+        }
+
+            .ng-dropdown-panel{
+                margin-top: 6px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+                border-radius: 4px;
+                border: none;
+                background: var(--card-background-color);
+                
+                .ng-option{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px 10px 10px 10px;
+                    background: var(--card-background-color);
+                    color: var(--table-heading-text-color);
+                }
+            }
+            
+            option{
+                color: var(--table-heading-text-color) !important;
+            }
+
+            .ng-select-container{
+                border-color: var(--dark-right-border);
+                padding-top: 0;
+                padding-bottom: 0;
+                height: 44px;
+
+                .ng-value-container .ng-placeholder {
+                    top: 8px !important;
+                    padding-bottom: 0 !important;
+                    padding-left: 3px !important;
+                    color: var(--ng-placeholder-color) !important;
+                }
+               
+                .ng-clear-wrapper {
+                    display: none !important;
+                }
+            }
+
+            .ng-value {
+                color: var(--table-heading-text-color) !important;
+                border: none !important;
+                padding: 7px 8px !important;
+                border-radius: 8px !important;
+                background-color: var(--ng-select-value-bg-color) !important;
+                width: auto !important;
+                font-size: 0.781vw;
+
+                .ellipsis {
+                    max-width: 6.25vw !important;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.right {
+                border-left: none !important;
+
+                &:hover {
+                    background-color: transparent !important;
+                }
+            }
+
+            .ng-dropdown-panel .scroll-host {
+                padding: 8px;
+            }
+
+            .ng-option-selected {
+                background-color: var(--ng-option-selected-bg-color) !important;
+                padding: 8px;
+            } 
+
+
+    }
+      
 }
 
 // Component Content Area Common Css
@@ -3219,11 +3303,12 @@
 
     .filter-div{
         position: relative;
-        height: 50px;
-        border-radius: 13px;
-        background-color: var(--card-background-color);
+        height: 44px;
+        border-radius: 12px;
+        background-color: var(--status-dropdown-bg-color);
         box-shadow: var(--box-shadow-size-color);
-        padding: 8px;
+        padding: 8px 16px;
+        border: 1px solid var(--status-dropdown-border-color);
 
         .rotate-90-deg{
             transform: rotate(90deg);
@@ -3262,7 +3347,7 @@
             cursor: pointer;
             border-radius: 13px;
             transform: translate(-25px, 50px) !important;
-            background-color: var(--card-background-color) !important;
+            background-color: var(--status-dropdown-bg-color);
             
             .lang-dropdown-item {
                 color: var(--table-heading-text-color);
@@ -3523,4 +3608,16 @@
     font-family: FontAwesome !important;
     content: "\f002" !important;
     margin-right: 8px !important;
+}
+
+.fill-color{
+    fill: var(--table-heading-text-color) !important;
+}
+
+.stroke-color{
+    stroke: var(--table-heading-text-color) !important;
+}
+
+.calendar-fill-color{
+    fill: var(--table-heading-text-color) !important;
 }

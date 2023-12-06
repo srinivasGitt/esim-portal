@@ -10,7 +10,7 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { CouponManagementService } from '../../service/coupon-management.service';
 import { combineLatest } from 'rxjs';
-import { AlertService } from 'src/app/shared/service';
+import { AlertService, DashboardService } from 'src/app/shared/service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
 const MY_FORMATS = {
@@ -45,10 +45,12 @@ export class AddCouponComponent implements OnInit {
   dialogRef: DialogComponent;
   currentDate = new Date().toISOString().slice(0, 10);
   currentStep: number = 0;
+  
+  // stepper
   stepCountArray: Array<number> = [1, 2, 3];
+  
+  // Arrays declaration
   list: Array<any> = [];
-  placeholderText: string = 'Search for plans / Multiple plans can be selected';
-  inProgress: boolean = false;
   plansList: Array<any> = [];
   regionList: Array<any> = [
     { name: 'Africa', flag: 'assets/regions/africa.svg'},
@@ -60,8 +62,11 @@ export class AddCouponComponent implements OnInit {
   ];
   countryList: Array<any> = [];
   countriesAlias: Array<any> = [];
+  
+  placeholderText: string = 'Search for plans / Multiple plans can be selected';
   @ViewChild('ngSelectComponent') ngSelectComponent!: NgSelectComponent;
 
+  // Form declaration & initialization
   couponForm = new FormGroup({
     stepOne: new FormGroup({
       code: new FormControl(null),
@@ -82,40 +87,29 @@ export class AddCouponComponent implements OnInit {
       applicableType: new FormControl('plan'),
       applicableValue: new FormControl(null)
     })
-  })
+  });
 
+  // Flags
+  inProgress: boolean = false;
   isCountry: boolean = false;
   isRegion: boolean = false;
   isPlan: boolean = false;
+  isDarkTheme!: boolean;
 
   constructor(private viewContainer: ViewContainerRef, 
               private stepperService: StepperService,
               private couponService: CouponManagementService,
-              private alertService: AlertService) { 
+              private alertService: AlertService,
+              private dashboardService: DashboardService) {
+                dashboardService.getAppTheme().subscribe((data : any) =>{
+                  this.isDarkTheme = data; 
+                }); 
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
 
+
     this.couponForm.get('stepThree.applicableType')?.valueChanges.subscribe((data: any) => {     
-      // if(data == 'plan') {
-      //   this.placeholderText = 'Search for plans / Multiple plans can be selected'; 
-      //   this.list = this.plansList;
-      //   this.isPlan = true;
-      //   this.isRegion = this.isCountry = false;
-      // }
 
-      // if(data == 'region') {
-      //   this.placeholderText = 'Search for regions / Multiple regions can be selected'; 
-      //   this.list = this.regionList;
-      //   this.isRegion = true;
-      //   this.isPlan = this.isCountry = false;
-      // } 
-
-      // if(data == 'country') {
-      //   this.placeholderText = 'Search for countries / Multiple countries can be selected'; 
-      //   this.list = this.countriesAlias;
-      //   this.isCountry = true;
-      //   this.isPlan = this.isRegion = false;
-      // } 
       const configMap: any = {
         'plan': {
           placeholderText: 'Search for plans / Multiple plans can be selected',
@@ -149,14 +143,6 @@ export class AddCouponComponent implements OnInit {
       }
 
       this.ngSelectComponent.clearModel(); 
-
-      // const placeholderTextMap: any = {
-      //   'plan': 'Search for plans / Multiple plans can be selected',
-      //   'region': 'Search for regions / Multiple regions can be selected',
-      //   'country': 'Search for countries / Multiple countries can be selected',
-      // };
-      
-      // this.placeholderText = placeholderTextMap[data] || 'Search for plans / Multiple plans can be selected';
     });
   }
 
