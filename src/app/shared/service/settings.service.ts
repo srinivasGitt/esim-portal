@@ -54,7 +54,8 @@ export class SettingsService {
       this.http.get(`${this.serverUrl}/customers/setting`),
       this.http.get(`${this.serverUrl}/customer/smtp/setup`),
       this.http.get(`${this.serverUrl}/customers/setting/currency`),
-      this.http.get(`${this.serverUrl}/currencies`)
-    ]
+      this.http.get(`${this.serverUrl}/currencies`),
+      this.http.get(`${this.serverUrl}/customers/setting/configuration`)
+    ];
   }
 }

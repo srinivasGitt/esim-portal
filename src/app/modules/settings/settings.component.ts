@@ -2,6 +2,7 @@ import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { ClientConfig } from 'src/app/shared/models/client-config.model';
 import { AlertService } from 'src/app/shared/service';
 import { SettingsService } from 'src/app/shared/service/settings.service';
 
@@ -33,9 +34,10 @@ export class SettingsComponent implements OnInit {
   defaultCurrencyList: any;
   currencySetupFormObj: any;
   isCurrencyEdit: boolean = false;
-  
+  clientConfig!: ClientConfig;
+
   constructor(private settingsService: SettingsService, private alertService: AlertService) { 
-    this.initForm()
+    this.initForm();
   }
 
   ngOnInit(): void {
@@ -43,13 +45,16 @@ export class SettingsComponent implements OnInit {
     forkJoin(this.settingsService.getAllSettings()).subscribe((response: any) => { 
       if(response) {
         // Inventory Response
-        this.getSettings(response[0]?.data)
+        this.getSettings(response[0]?.data);
 
         // Email Forwarding Response
-        this.getSMTPSettings(response[1]?.data)
+        this.getSMTPSettings(response[1]?.data);
         
         // Currency Response
-        this.getCurrencySettings(response[2]?.data, response[3]?.data)
+        this.getCurrencySettings(response[2]?.data, response[3]?.data);
+
+        // Client Configuration
+        this.getClientConfiguration(response[4]);
       }
       this.inProgress = false;
     }, err => {
@@ -172,6 +177,14 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  // Client Feature Configuration
+  getClientConfiguration(response: any) {
+    if(response) {
+      this.clientConfig = response;
+      if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
+    }
+  }
+
   sendTestMail(value: string) {
     this.isSubmitted = true;
     this.inProgress = true;
@@ -284,7 +297,6 @@ export class SettingsComponent implements OnInit {
 
   // Save Currency Settings
   saveCurrencySetup() {
-    console.log(this.currencySetupForm.value)
     this.isSubmitted = true
     this.inProgress = true
     
@@ -312,7 +324,6 @@ export class SettingsComponent implements OnInit {
   }
 
   onCurrencyRemoveFromList(event: any) {
-    console.log(event, this.currencySetupForm.value)
     const defaultCurrency = this.currencySetupForm.get('defaultCurrency');
     if(event && defaultCurrency && defaultCurrency != null && event.label == defaultCurrency?.value?.currency_name) {
       this.currencySetupForm.controls['defaultCurrency'].setValue(null);
