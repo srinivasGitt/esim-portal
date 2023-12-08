@@ -213,6 +213,26 @@
     --ng-select-list-item-color: rgba(31, 29, 29, 0.76);
     --checked-mark-color: #FFFFFF;
 
+    /*table border*/
+    --table-row-seperator-color:rgba(99, 102, 104, 0.2);
+
+    /*upload inventry*/
+    --upload-inventory-border: rgba(99, 101, 239, 0.37);
+
+    /*child menu*/
+    --child-route-bg-color:rgba(0, 0, 0, 0.05);
+
+    /*status filter*/
+    --status-filter-bg: #FFF;
+    --status-filter-box-shadow: #D8DAFF;
+    --status-filter-border:#D3CBFB;
+    --status-dropdown-bg-color:#FFF;
+    --status-dropdown-box-shadow: #D8DAFF;
+
+    /*download-sample-fill*/
+    --download-sample-icon-fill:#1C1B1F;
+
+
     /* SVG Color Change */
     .revenue-icon {
         circle {
@@ -393,10 +413,32 @@
     --ng-placeholder-color: #FFFFFF;
     --ng-select-list-item-color: rgba(255, 255, 255, 0.50);
     --checked-mark-color: #000000;
+
+    /*table border*/
+    --table-row-seperator-color:rgba(99, 102, 104, 0.2);
+
+    /*upload inventry*/
+    --upload-inventory-border: rgba(183, 184, 253, 0.37);
+
+    /*child menu*/
+    --child-route-bg-color:rgba(255, 255, 255, 0.05);
+
+    /*status filter*/
+    --status-filter-bg:rgba(255, 255, 255, 0.10);
+    --status-filter-box-shadow: rgba(0, 0, 0, 0.20);
+    --status-filter-border:#D3CBFB;
+    --status-dropdown-bg-color:#2C2D2D;
+    --status-dropdown-box-shadow: rgba(0, 0, 0, 0.20);
+
+    /*download-sample-fill*/
+    --download-sample-icon-fill:#949494;
+
     
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
+
+
 
     /* SVG Color Change */
     .search-icon-div {

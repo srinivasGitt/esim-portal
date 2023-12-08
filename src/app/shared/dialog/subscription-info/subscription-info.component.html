@@ -22,9 +22,17 @@
         <div class="row sub">
             <div class="col-4">
                 <label class="modal-label-text">Plan Name</label>
-                <div class="modal-details-text mt-0 pe-2">
-                    {{ subscriptionDetails.planName }}
+                <div class="col-8">
+                    <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="subscriptionDetails.planName.length > 20" [tooltip]="subscriptionDetails.planName" placement="top" delay="100" offset="0">
+                        {{ subscriptionDetails.planName }}
+                    </label>
+                    <label class="subscriber-details-text" *ngIf="subscriptionDetails.planName.length <= 20">
+                        {{ subscriptionDetails.planName }}
+                    </label>
                 </div>
+                <!-- <div class="modal-details-text mt-0 pe-2">
+                    {{ subscriptionDetails.planName }}
+                </div> -->
             </div>
             <div class="col-4">
                 <label class="modal-label-text">Date Created</label>
@@ -48,11 +56,11 @@
             </div>
             <div class="col-8">
                 <label class="modal-label-text">Transaction ID</label>
-                <div class="modal-details-text mt-0 d-flex align-text-center justify-content-between">
+                <div class="modal-details-text mt-0 d-flex align-text-center justify-content-between" (click)="copyToClipboard($event,subscriptionDetails.transactionId)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                     <label class="subscriber-details-text helper-text text-truncate w-85">
                         {{ subscriptionDetails.transactionId ?? 'NA'}} 
                     </label>
-                    <span class="icon" *ngIf="subscriptionDetails.transactionId" (click)="copyToClipboard($event,subscriptionDetails.transactionId)" [tooltip]="copyText" placement="top" delay="100" offset="10">
+                    <span class="icon" *ngIf="subscriptionDetails.transactionId" >
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_1322_24072" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                             <rect width="20" height="20" fill="#D9D9D9"/>

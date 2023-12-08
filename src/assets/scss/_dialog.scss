@@ -219,6 +219,10 @@
                         border: 1px solid var(--file-icon-border);
                         margin-right: 8px;
                     }
+
+                    .file-icon-fill{
+                        fill: var(--download-sample-icon-fill);
+                    }
                 }
 
                 path{
