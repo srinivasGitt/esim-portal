@@ -18,6 +18,7 @@ export class SubscriptionInfoComponent implements OnInit {
   dataUnit!: string;
   inProgress: boolean = false;
   usedDataForGuage!: number;
+  
 
   constructor(
     private viewContainer: ViewContainerRef, private subscriptionService: SubscriptionsService
@@ -75,4 +76,5 @@ export class SubscriptionInfoComponent implements OnInit {
     }
     navigator.clipboard.writeText(email);
   }
+
 }

@@ -21,6 +21,18 @@ import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-
 var papa = require('papaparse');
 var FileSaver = require('file-saver');
 
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 Chart.register(...registerables)
 @Component({
   selector: 'app-reports',
@@ -33,7 +45,7 @@ Chart.register(...registerables)
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
 export class ReportsComponent implements OnInit {

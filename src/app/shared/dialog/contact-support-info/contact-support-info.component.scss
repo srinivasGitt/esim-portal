@@ -112,12 +112,12 @@
     position: relative;
     height: 40px;
     border-radius: 13px;
-    background-color: var(--card-background-color);
-    box-shadow: var(--box-shadow-size-color);
+    background-color: var(--status-filter-bg);
+    box-shadow:0px 4px 8px 0px var(--status-filter-box-shadow);
     width: 200px;
 
     .div {
-        padding: 8px !important;
+        padding: 15px !important;
     }
     .rotate-90-deg{
         transform: rotate(90deg);
@@ -150,13 +150,13 @@
         left: 24px !important;
         padding: 16px !important;
         overflow: hidden;
-        box-shadow: var(--box-shadow-size-color);;
+        box-shadow: var(--status-dropdown-box-shadow);
         width: 200px !important;
         border: none;
         cursor: pointer;
         border-radius: 13px;
         transform: translate(-25px, 50px) !important;
-        background-color: var(--card-background-color) !important;
+        background-color: var(--status-dropdown-bg-color) !important;
         
         .lang-dropdown-item {
             color: var(--table-heading-text-color);
