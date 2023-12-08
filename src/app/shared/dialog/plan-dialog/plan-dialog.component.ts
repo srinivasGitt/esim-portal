@@ -78,23 +78,6 @@ export class PlanDialogComponent implements OnInit {
     this.title = this.dialogRef.context.title;
     this.inProgress = true
     this.createPlanForm();
-    // this.countryList = Country.default
-    // this.countryList = this.countryList.filter((x: any) => x.independent).sort((a:any,b:any) => a.name.common.localeCompare(b.name.common))
-    // this.countryList.forEach((country: any) => {
-    //   let flagNameInLower = country.cca3
-    //   flagNameInLower = flagNameInLower.toLowerCase()
-    //   country.flag = `assets/flags/${flagNameInLower}.svg` 
-    //   this.countriesAlias.push({name: country.name.common, flag: country.flag, cca3: country.cca3})
-    //   this.inProgress = false
-    // })
-    
-    // this.planService.getIMSITypeList().subscribe((res: any) => { 
-    //   if(res.code == 200){
-    //     this.imsiTypeList = res.data
-    //     this.imsiTypeList = this.imsiTypeList.sort((a:any,b:any) => a._id - b._id)
-    //     this.imsiTypeList.forEach((res: any) => res.label = "IMSI " + res._id)
-    //   }
-    // });
     this.getIMSIAndCountryList();
   }
   
@@ -129,31 +112,13 @@ export class PlanDialogComponent implements OnInit {
   }
 
   createPlanForm(): void {
-    // this.planForm = new UntypedFormGroup({
-    //   name: new UntypedFormControl(this.data?.name, [Validators.required]),
-    //   dataUnit: new UntypedFormControl(this.data?.dataUnit || 'GB', [Validators.required]),
-    //   dataSize: new UntypedFormControl(this.data?.dataSize, [Validators.required]),
-    //   validityUnit: new UntypedFormControl(this.data?.validityUnit || 'days', [Validators.required]),
-    //   validity: new UntypedFormControl(this.data?.validity, [Validators.required]),
-    //   smsPerDay: new UntypedFormControl(this.data?.smsPerDay, [Validators.required]),
-    //   unlimited: new UntypedFormControl(this.data?.unlimited),
-    //   voice: new UntypedFormControl(this.data?.voice, [Validators.required]),
-    //   supportedCountries: new UntypedFormControl(this.data?.supportedCountries, [Validators.required]),
-    //   cost: new UntypedFormControl(this.data?.cost, [Validators.required]),
-    //   dateEarliestActivation: new UntypedFormControl(this.data?.dateEarliestActivation, [Validators.required]),
-    //   dateLatestAvailable: new UntypedFormControl(this.data?.dateLatestAvailable, [Validators.required]),
-    //   dateEarliestAvailable: new UntypedFormControl(this.data?.dateEarliestAvailable, [Validators.required])
-    // });
     this.planForm = new UntypedFormGroup({
       productCategory: new UntypedFormControl(''),
-      name: new UntypedFormControl('', [Validators.required]),
+      name: new UntypedFormControl('', [Validators.required, Validators.maxLength(80)]),
       dataUnit: new UntypedFormControl('GB', [Validators.required]),
       dataSize: new UntypedFormControl(0, [Validators.required]),
       validityUnit: new UntypedFormControl('days', [Validators.required]),
       validity: new UntypedFormControl(0, [Validators.required]),
-      // smsPerDay: new UntypedFormControl(0, [Validators.required]),
-      // unlimited: new UntypedFormControl(false),
-      // voice: new UntypedFormControl(0, [Validators.required]),
       activationType: new UntypedFormControl('PDP', [Validators.required]),
       region: new UntypedFormControl(null),
       supportedCountries: new UntypedFormControl(''),
@@ -177,11 +142,6 @@ export class PlanDialogComponent implements OnInit {
     if (this.planForm.invalid) {
       return;
     }
-    // if (this.title === 'Edit Plan') {
-    //   this.update();
-    // } else {
-    //   this.createPlan();
-    // }
     if(this.planForm.value.region == null && this.planForm.value.supportedCountries.length == 0) {
       this.isErr = true;
       this.err = 'Either Region or Country is required'
@@ -236,19 +196,9 @@ export class PlanDialogComponent implements OnInit {
     })
   }
 
-  /* update an existing plan */
-  // update() {
-  //   this.planService.updatePlan(this.data._id, this.planForm.value)
-  //   .subscribe( (res: any) => {
-  //     this.dialogRef.close.emit(res);
-  //   }, err => {
-  //     this.alertService.error(err.error.message);
-  //   })
-  // }
 
   /* close modal */
   close(): void {
-    // this.data.amount = 343;
     this.dialogRef.close.emit(false);
   }
 
