@@ -176,6 +176,10 @@ export class DashboardService {
     ]
   }
 
+  getRaiseTicket(){
+    return 'https://support.glowingbud.com/';
+  }
+
   /*
   getProfiles(){
     return this.http.get(`${this.serverUrl}/dashboard`, this.getHeader());
