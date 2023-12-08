@@ -85,6 +85,10 @@
                     color: var(--modal-form-label-text-color);
                     border-radius: 8px;
                     border: 1px solid var(--input-border-color);
+
+                    &::placeholder {
+                        color: var(--table-heading-text-color);
+                    }
                     
                 }
 
