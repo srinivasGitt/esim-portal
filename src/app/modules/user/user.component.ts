@@ -121,6 +121,7 @@ export class UserComponent implements OnInit {
         (res: any) => {
           this.usersList = res.data;
           this.paginateConfig.totalItems = res?.count[0]?.totalCount;
+          console.log(this.usersList)
           // this.getAllRegions();
           // this.getAllPlans();
           this.inProgress = false;

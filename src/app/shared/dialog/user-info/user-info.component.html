@@ -82,8 +82,14 @@
             <a class="es-btn-close" (click)="close()"></a>
         </div>
     </div>
-    <div>
-        <p class="modal-header-text mb-0">{{userDetails.displayName | titlecase }}</p>
+    <div class="display-name">
+        <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="userDetails.displayName.length > 20" [tooltip]="userDetails.displayName" placement="top" delay="100" offset="0">
+            {{ userDetails.displayName | titlecase }}
+        </label>
+        <label class="subscriber-details-text" *ngIf="userDetails.displayName.length<= 20">
+            {{ userDetails.displayName | titlecase }}
+        </label>
+        <!-- <p class="modal-header-text mb-0">{{userDetails.displayName | titlecase }}</p> -->
     </div>
     <div class="es-modal-body">
         <div class="row d-flex align-items-center rowHeight custom-border-bottom">
@@ -91,9 +97,15 @@
                 <label class="subscriber-label-text">First Name</label>
             </div>
             <div class="col-8">
-                <label class="subscriber-details-text">
+                <!-- <label class="subscriber-details-text">
                     {{ userDetails.firstName | titlecase }}
-                </label>
+                </label> -->
+                    <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="userDetails.firstName.length > 20" [tooltip]="userDetails.firstName" placement="top" delay="100" offset="0">
+                        {{ userDetails.firstName | titlecase }}
+                    </label>
+                    <label class="subscriber-details-text" *ngIf="userDetails.firstName.length<= 20">
+                        {{ userDetails.firstName | titlecase }}
+                    </label>
             </div>
             <!-- <hr class="horizontal-line"> -->
         </div>
@@ -103,7 +115,13 @@
                 <label class="subscriber-label-text">Last Name</label>
             </div>
             <div class="col-8">
-                <label class="subscriber-details-text">
+                <!-- <label class="subscriber-details-text">
+                    {{ userDetails.lastName | titlecase }}
+                </label> -->
+                <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="userDetails.lastName.length > 20" [tooltip]="userDetails.lastName" placement="top" delay="100" offset="0">
+                    {{ userDetails.lastName | titlecase }}
+                </label>
+                <label class="subscriber-details-text" *ngIf="userDetails.lastName.length<= 20">
                     {{ userDetails.lastName | titlecase }}
                 </label>
             </div>

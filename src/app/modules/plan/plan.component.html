@@ -139,7 +139,12 @@
                             <span class="plan-info-icon d-flex">
                                 <img *ngIf="!plan.isActive" src="/assets/images/dashboard/icon/danger-info.svg" [tooltip]="tooltipText" placement="right" delay="50" svgPath="/assets/images/dashboard/icon/danger-info.svg">
                             </span>
-                            <span class="text-overflow-ellipsis">{{plan.name}}</span>
+                            <span class="text-overflow-ellipsis" *ngIf="plan.name.length>20" [tooltip]="plan.name" placement="top" delay="100" offset="0">
+                                {{plan.name}}
+                            </span>
+                            <span class="text-overflow-ellipsis" *ngIf="plan.name.length<=20">
+                                {{plan.name}}
+                            </span>
                         </div>
                         <div class="t-box b px-2 d-flex align-items-center">{{plan.validity}} Days</div>
                         <div class="t-box a px-1 d-flex align-items-center">{{ plan.priceBundle | currency: (plan.currency || currencyType) }}</div>

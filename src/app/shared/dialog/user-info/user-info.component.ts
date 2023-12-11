@@ -20,6 +20,7 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.userDetails = this.dialogRef.context.data;
+    console.log(this.userDetails)
   }
 
   close(): void {

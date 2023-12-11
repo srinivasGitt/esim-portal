@@ -1752,6 +1752,10 @@
         }
     }
 
+    .display-name{
+        width: 17vw;
+    }
+
     // Subscription info body
     .es-modal-body{
         color: var(--font-color);
@@ -1764,6 +1768,8 @@
                 // padding-right: 0 !important;
             }
         }
+
+        
 
         .row:last-child {
             border-bottom: none;
@@ -1903,9 +1909,6 @@
                 padding: 4px 8px;
                 text-overflow: ellipsis;
                 word-break: break-word;
-                svg {
-                    display: none;
-                }
             }
             
             // &:hover {
@@ -2720,6 +2723,22 @@
             border-radius: 50%;
         }
     }
+
+    .raise-ticket{
+        position: relative;
+        height: 1vw;
+    }
+
+    .help-icon{
+        // content: var(--help-image-path);
+        position: relative;
+        width: 4vw;
+        height: 4vw;
+        top: -0.9vw;
+          
+    }
+
+
 
     .dropdown-menu{
         background-color: var(--card-background-color) !important;

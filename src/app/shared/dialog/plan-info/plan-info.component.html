@@ -24,7 +24,7 @@
         <p class="modal-header-text mb-2">Plan Name - {{ planDetails.name }}</p>
     </div> -->
     <div>
-        <p class="modal-header-text mb-0">{{ planDetails.name }} - {{ planDetails.priceBundle | currency: (planDetails.currency || currencyType) }}</p>
+        <p class="modal-header-text mb-0 text-overflow-ellipsis">{{ planDetails.name }} - {{ planDetails.priceBundle | currency: (planDetails.currency || currencyType) }}</p>
     </div>
     <div class="es-modal-body mb-5">
         <!-- <div class="row">
