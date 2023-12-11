@@ -35,7 +35,6 @@ export class SettingsComponent implements OnInit {
   currencySetupFormObj: any;
   isCurrencyEdit: boolean = false;
   clientConfig!: ClientConfig;
-
   constructor(private settingsService: SettingsService, private alertService: AlertService) { 
     this.initForm();
   }
@@ -54,7 +53,7 @@ export class SettingsComponent implements OnInit {
         this.getCurrencySettings(response[2]?.data, response[3]?.data);
 
         // Client Configuration
-        this.getClientConfiguration(response[4]);
+        this.getClientConfiguration(response[4]?.data);
       }
       this.inProgress = false;
     }, err => {
