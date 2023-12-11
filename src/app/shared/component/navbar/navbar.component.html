@@ -83,12 +83,16 @@
             </label>
           </div>
         </li>
+        <li>
+          <div class="raise-ticket">
+            <a [href]="supportLink" target="_blank">
+              <img class="help-icon" [src]="'/assets/images/navbar/Help_'  + (isDarkTheme ? 'Dark.png' : '.png')" alt="" [tooltip]="tooltip" placement="bottom" delay="100" offset="5">
+              
+            </a>
+          </div>
+        </li>
       </ul>
-      <!-- <div class="raise-ticket">
-        <a href="">
-          <img src="/assets/images/navbar/Help.png" alt="">
-        </a>
-      </div> -->
+      
       <div class="d-flex user-div">
         <div class="user-name-div me-4 my-auto"> Hi, {{ userDetails?.firstName }} </div>
         <div class="dropdown">

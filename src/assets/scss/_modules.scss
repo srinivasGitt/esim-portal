@@ -2721,6 +2721,22 @@
         }
     }
 
+    .raise-ticket{
+        position: relative;
+        height: 1vw;
+    }
+
+    .help-icon{
+        // content: var(--help-image-path);
+        position: relative;
+        width: 4vw;
+        height: 4vw;
+        top: -0.9vw;
+          
+    }
+
+
+
     .dropdown-menu{
         background-color: var(--card-background-color) !important;
         left: -7.5vw;
