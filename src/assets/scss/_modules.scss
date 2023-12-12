@@ -2667,7 +2667,7 @@
     }
 
     .nav-item{
-        margin-right: 2.5vw;
+        margin-right: 1.5vw;
     }
     .nav-item.dropdown .dropdown-toggle{
         font-family: var(--font-family-sf-pro-display);
@@ -2711,6 +2711,7 @@
         font-size: 24px;
         line-height: 29px;
     }
+
     .user-profile-div{
         width: 40px;
         height: 40px;
@@ -2723,16 +2724,25 @@
 
     .raise-ticket{
         position: relative;
-        height: 1vw;
+        background-color: var(--support-link-circle);
+        height: 2.2vw;
+        width: 2.2vw;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .help-icon{
-        // content: var(--help-image-path);
+    .help-icon{  
         position: relative;
-        width: 4vw;
-        height: 4vw;
-        top: -0.9vw;
+        left: 0.1vw;
+        top: 0.1vw;
+        height: 2.4vw;
           
+    }
+
+    .navbar-nav{
+        margin-right: 6vw;
     }
 
 

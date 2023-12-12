@@ -20,7 +20,7 @@
 
     <!-- Filter, Theme toggle, login div -->
     <div class="d-flex ms-auto" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto">  
+      <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">  
         <!-- <li class="nav-item">
           <div class="enve-toggle-parent" tooltipPlacement="bottom">
             <div class="environment-toggle-text-container">
@@ -39,7 +39,7 @@
             </div>
           </div>
         </li> -->
-        <li class="nav-item dropdown cursor-not-allowed my-auto">
+        <!-- <li class="nav-item dropdown cursor-not-allowed my-auto">
           <a class="nav-link dropdown-toggle cursor-not-allowed d-flex language-dropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false" disabled>
             <span class="m-auto">EN</span>
@@ -52,7 +52,7 @@
             </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="nav-item my-auto">
           <div class="dark-light-toggle">
             <label class="switch">
@@ -86,8 +86,7 @@
         <li>
           <div class="raise-ticket">
             <a [href]="supportLink" target="_blank">
-              <img class="help-icon" [src]="'/assets/images/navbar/Help_'  + (isDarkTheme ? 'Dark.png' : '.png')" alt="" [tooltip]="tooltip" placement="bottom" delay="100" offset="5">
-              
+              <img class="help-icon" [src]="'/assets/images/navbar/Help_'  + (!isDarkTheme ? 'Dark.png' : '.png')" alt="" [tooltip]="tooltip" placement="bottom" delay="100" offset="5">
             </a>
           </div>
         </li>

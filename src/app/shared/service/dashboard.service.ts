@@ -122,13 +122,13 @@ export class DashboardService {
             accessRole: ['admin','superAdmin'],
             hasGroup: false
           },
-          {
-            title: 'Raise Ticket',
-            link: 'https://support.glowingbud.com/',
-            accessRole: ['admin','superAdmin'],
-            hasGroup: false,
-            external: true
-          }
+          // {
+          //   title: 'Raise Ticket',
+          //   link: 'https://support.glowingbud.com/',
+          //   accessRole: ['admin','superAdmin'],
+          //   hasGroup: false,
+          //   external: true
+          // }
         ]
       },
     ];
