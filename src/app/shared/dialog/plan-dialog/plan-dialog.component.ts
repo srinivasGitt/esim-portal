@@ -113,7 +113,7 @@ export class PlanDialogComponent implements OnInit {
 
   createPlanForm(): void {
     this.planForm = new UntypedFormGroup({
-      productCategory: new UntypedFormControl(''),
+      productCategory: new UntypedFormControl('', [Validators.maxLength(80)]),
       name: new UntypedFormControl('', [Validators.required, Validators.maxLength(80)]),
       dataUnit: new UntypedFormControl('GB', [Validators.required]),
       dataSize: new UntypedFormControl(0, [Validators.required]),
