@@ -38,6 +38,14 @@ export class LocalStorageService {
   getCurrency() {
     return localStorage.getItem('currency');
   }
+  
+  setCacheId(value: string) {
+    localStorage.setItem('cacheId', value);
+  }
+
+  getCacheId() {
+    return localStorage.getItem('cacheId');
+  }
 
   clearStorage() {
     localStorage.clear();
