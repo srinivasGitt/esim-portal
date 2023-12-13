@@ -4,6 +4,7 @@ import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validator
 import { forkJoin } from 'rxjs';
 import { ClientConfig } from 'src/app/shared/models/client-config.model';
 import { AlertService } from 'src/app/shared/service';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { SettingsService } from 'src/app/shared/service/settings.service';
 
 @Component({
@@ -35,13 +36,19 @@ export class SettingsComponent implements OnInit {
   currencySetupFormObj: any;
   isCurrencyEdit: boolean = false;
   clientConfig!: ClientConfig;
-  constructor(private settingsService: SettingsService, private alertService: AlertService) { 
+  cacheId!: string;
+
+  constructor(private settingsService: SettingsService, 
+              private alertService: AlertService,
+              private localStorage: LocalStorageService) { 
     this.initForm();
   }
 
   ngOnInit(): void {
     this.inProgress = true;
-    forkJoin(this.settingsService.getAllSettings()).subscribe((response: any) => { 
+    this.cacheId = this.localStorage.getCacheId()!;
+
+    forkJoin(this.settingsService.getAllSettings(this.cacheId)).subscribe((response: any) => { 
       if(response) {
         // Inventory Response
         this.getSettings(response[0]?.data);
@@ -180,6 +187,8 @@ export class SettingsComponent implements OnInit {
   getClientConfiguration(response: any) {
     if(response) {
       this.clientConfig = response;
+      this.localStorage.setCacheId(this.clientConfig?.cacheId);
+      this.cacheId = this.clientConfig?.cacheId;
       if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
     }
   }
@@ -310,6 +319,20 @@ export class SettingsComponent implements OnInit {
         this.isSubmitted = false;
         this.isCurrencyEdit = false;
         this.currencySetupForm.disable();
+        this.getConfiguration();
+      }
+    }, err => {
+      this.inProgress = false;
+      this.isSubmitted = false;
+      this.alertService.error(err.error.message, err.status);
+    })
+  }
+
+  getConfiguration() {
+    this.settingsService.getConfigurationSetting(this.cacheId).subscribe((res: any) => {
+      if(res && res.data) {
+        this.cacheId = res.data?.cacheId
+        this.localStorage.setCacheId(this.cacheId);
       }
     }, err => {
       this.inProgress = false;
