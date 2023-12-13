@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from 'src/app/shared/service/dialog';
 import { StepperService } from '../../service/stepper.service';
 import {
@@ -12,6 +12,7 @@ import { CouponManagementService } from '../../service/coupon-management.service
 import { combineLatest } from 'rxjs';
 import { AlertService, DashboardService } from 'src/app/shared/service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import * as moment from 'moment';
 
 const MY_FORMATS = {
   parse: {
@@ -69,16 +70,16 @@ export class AddCouponComponent implements OnInit {
   // Form declaration & initialization
   couponForm = new FormGroup({
     stepOne: new FormGroup({
-      code: new FormControl(null),
+      code: new FormControl(null, [Validators.required]),
       discountType: new FormControl('fixed'),
-      discountValue: new FormControl(0)
+      discountValue: new FormControl(0, [Validators.required, Validators.min(1)])
     }),
     stepTwo: new FormGroup({
-      startDate: new FormControl(null),
-      endDate: new FormControl(null),
-      total: new FormControl(0),
-      minPurchaseValue: new FormControl(0),
-      maxPurchaseValue: new FormControl(0),
+      startDate: new FormControl(null, [Validators.required]),
+      endDate: new FormControl(null, [Validators.required]),
+      total: new FormControl(0, [Validators.required, Validators.min(1)]),
+      minPurchaseValue: new FormControl(0, null),
+      maxPurchaseValue: new FormControl(0, null),
       useType: new FormControl('single'),
       totalUse: new FormControl(0),
       totalUseType: new FormControl('limited')
@@ -95,6 +96,7 @@ export class AddCouponComponent implements OnInit {
   isRegion: boolean = false;
   isPlan: boolean = false;
   isDarkTheme!: boolean;
+  isDateError: boolean = false;
 
   constructor(private viewContainer: ViewContainerRef, 
               private stepperService: StepperService,
@@ -107,7 +109,14 @@ export class AddCouponComponent implements OnInit {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
 
+    // Checking date validation based on end date compared with start date
+    this.couponForm.get('stepTwo.endDate')?.valueChanges.subscribe((data: any) => {
+      if(data && moment(this.couponForm.get('stepTwo.startDate')?.value).isAfter(data)) {
+        this.isDateError = true;
+      } 
+    })
 
+    // Changing the placeholder based on the radio selection on Coupon Form Step Three
     this.couponForm.get('stepThree.applicableType')?.valueChanges.subscribe((data: any) => {     
 
       const configMap: any = {
@@ -155,26 +164,26 @@ export class AddCouponComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.getDropdownData();
 
     // Initialize the current step
     this.stepperService.currentStep$.subscribe((step) => {
       this.currentStep = step;
     });
   }
-  
+
   displayList(items: any){
     return items.map((country: any) => country.name).slice(2).join(', ');
   }
 
-  getData() {
+  getDropdownData() {
     this.inProgress = true;
     combineLatest(this.couponService.getDropdownData()).subscribe((result : any) => { 
       if(result) {
         console.log(result)
         this.plansList = result[0].data;
-        // this.regionList = result[1].data;
-        this.countryList = result[1].data;
+        this.regionList = result[1].data;
+        this.countryList = result[2].data;
 
         this.list = this.plansList;
 
@@ -193,8 +202,40 @@ export class AddCouponComponent implements OnInit {
       this.inProgress = false;
       this.alertService.error(error.error.message);
     }
-    );
-    
+    );    
+  }
+
+  onInputFocus() {
+    this.couponForm.get('stepTwo')?.get('totalUse')?.setValue(0);
+    this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue('limited');
+  }
+  
+  onRadioButtonChange(selectedRadioValue: string) {
+    // Handle the radio button value change here
+    if(selectedRadioValue == 'fixed' || selectedRadioValue == 'percentage') {
+      this.couponForm.get('stepOne')?.get('discountValue')?.setValue(0);
+    }
+
+    if( selectedRadioValue == 'single' || selectedRadioValue == 'multi' || selectedRadioValue == 'limited' || selectedRadioValue == 'unlimited') {
+      this.couponForm.get('stepTwo')?.get('totalUse')?.setValue(0);
+      if(selectedRadioValue == 'multi') this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue('limited');
+      else this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue(selectedRadioValue);
+    }
+
+  }
+
+  /* increment and decrement input values */
+  updateValue(controlKey: string, updateBy: string){
+    // if(updateBy == 'inc'){
+    //   let incValue = isNaN(parseInt(this.f[controlKey].value)) ? 0 : parseInt(this.f[controlKey].value);
+    //   this.f[controlKey].setValue(++incValue);
+    // } else if(updateBy == 'dec'){
+    //   let decValue = isNaN(parseInt(this.f[controlKey].value)) ? 1 : parseInt(this.f[controlKey].value);
+    //   if(--decValue > -1){
+    //     this.f[controlKey].setValue(decValue);
+    //   }
+      
+    // }
   }
 
   submit() {
@@ -209,6 +250,15 @@ export class AddCouponComponent implements OnInit {
 
   previousStep(): void {
     this.stepperService.updateStep(this.currentStep - 1);
+  }
+
+  /* Restrict user to enter only numbers and decimal point */
+  numberWithDecimalOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 
   /* close modal */

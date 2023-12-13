@@ -2005,6 +2005,16 @@
             }
         }
         
+        .coupon-input-icon{
+            position: absolute;
+            border-right: 1px solid var(--input-border-color);
+            height: 37px;
+            width: 38px;
+            text-align: center;
+            line-height: 36px;
+            color: var(--modal-sub-header-text-color) !important;
+        }
+
         .date-input-icon{
             position: absolute;
             height: 38px;
@@ -3620,4 +3630,20 @@
 
 .calendar-fill-color{
     fill: var(--table-heading-text-color) !important;
+}
+
+.x-small {
+    font-size: x-small !important;
+}
+
+.w90 {
+    width: 90% !important;
+}
+
+.w86 {
+    width: 86% !important;
+}
+
+.w96 {
+    width: 96% !important;
 }

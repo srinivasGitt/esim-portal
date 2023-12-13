@@ -82,20 +82,20 @@
     margin: 0;
     font: inherit;
     color: #667085;
-    width: 1.4em;
-    height: 1.4em;
-    border: 0.14em solid #667085;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #667085;
     border-radius: 50%;
     display: grid;
     place-content: center;
-    top: 43%;
+    top: 46%;
     right: 10px;
   }
   
   input[type="radio"]::before {
     content: "";
-    width: 0.6em;
-    height: 0.6em;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
@@ -113,8 +113,8 @@
   }
 
   .total-use-number-button {
-    position: relative;
-    margin-top: -28px;
+    position: absolute;
+    top: 46%;
     left: 82% !important;
     display: flex;
     width: fit-content;
@@ -225,6 +225,8 @@
         background-color: var(--coupon-ng-value-bg-color) !important;
         width: auto !important;
         // font-size: 0.781vw;
+        display: flex;
+        align-items: center;
   
         .ellipsis {
             max-width: 6.25vw !important;

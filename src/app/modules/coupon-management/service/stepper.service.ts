@@ -20,6 +20,6 @@ export class StepperService {
 
   // Function to reset the current step
   resetStep(): void {
-    this.currentStepNumber$.next(0);
+    this.currentStepNumber$.next(1);
   }
 }

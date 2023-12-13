@@ -14,7 +14,7 @@ export class CouponManagementService {
   getDropdownData() {
     return [
       this.http.get(`${this.serverUrl}/plans`),
-      // this.http.get(`${this.serverUrl}/group`),
+      this.http.get(`${this.serverUrl}/group`),
       this.http.get(`${this.serverUrl}/countries`)
     ]
   }

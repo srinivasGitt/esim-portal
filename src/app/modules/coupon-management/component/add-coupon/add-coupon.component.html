@@ -63,30 +63,37 @@
         <!-- STEP ONE - Start -->
         <div formGroupName="stepOne" *ngIf="currentStep == 1">
           <div class="div-height">
-              <label for="code" class="form-label es-modal-form-label">Coupon Code</label>
-              <input type="text" class="form-control es-input" id="code" aria-describedby="code" name="code" formControlName="code" placeholder="Set Coupon Code">
+              <label for="code" class="form-label es-modal-form-label">Coupon Code*</label>
+              <input type="text" class="form-control es-input" id="code" aria-describedby="code" name="code" formControlName="code" placeholder="Set Coupon Code" [ngClass]="{'border-purple': couponForm.controls.stepOne.controls.code.valid, 'border-error': couponForm.controls.stepOne.controls.code.touched && couponForm.controls.stepOne.controls.code.errors?.['required']}">
+              <div>
+                <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepOne.controls.code.touched || couponForm.controls.stepOne.controls.code.dirty)">
+                    <span class="small" *ngIf="couponForm.controls.stepOne.controls.code.errors?.['required']">
+                        Please set a coupon code
+                    </span>
+                </span>
+              </div>
           </div>
           <div class="h-auto">
               <div>
                 <div class="mb-2">
-                  <span class="form-label es-modal-form-label">Discount Type</span>
+                  <span class="form-label es-modal-form-label">Discount Type*</span>
                 </div>
                 <div class="d-flex justify-content-between">
                   <div class="form-check custom-radio-div" [ngClass]="{'checked': couponForm.controls.stepOne.controls.discountType.value == 'fixed'}">
-                    <label for="fixed" class="w-100">Fix Price</label>
-                    <input type="radio" name="discountType" id="fixed" formControlName="discountType" value="fixed">
+                    <label for="fixed" class="w90">Fix Price</label>
+                    <input type="radio" name="discountType" id="fixed" formControlName="discountType" value="fixed" (change)="onRadioButtonChange('fixed')">
                   </div>
                   <div class="form-check custom-radio-div" [ngClass]="{'checked': couponForm.controls.stepOne.controls.discountType.value == 'percentage'}">
-                    <label for="percentage" class="w-100">Percentage</label>
-                    <input type="radio" name="discountType" id="percentage" formControlName="discountType" value="percentage">
+                    <label for="percentage" class="w90">Percentage</label>
+                    <input type="radio" name="discountType" id="percentage" formControlName="discountType" value="percentage"  (change)="onRadioButtonChange('percentage')">
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-between discount-value mt-3">
-                <div class="w-100">
+                <div class="w-100 div-height">
                   <div class="d-flex relative">
-                      <input type="text" class="form-control es-input price-input number-input-right-padding" id="discount-value" aria-describedby="discount-value" name="discountValue" formControlName="discountValue">
-                      <span class="form-label es-modal-form-label price-input-icon">
+                      <input type="text" class="form-control es-input price-input number-input-right-padding" id="discount-value" aria-describedby="discount-value" name="discountValue" formControlName="discountValue" appNumberOnly [ngClass]="{'border-purple': couponForm.controls.stepOne.controls.discountValue.valid, 'border-error': couponForm.controls.stepOne.controls.discountValue.touched && (couponForm.controls.stepOne.controls.discountValue.errors?.['required'] || couponForm.controls.stepOne.controls.discountValue.errors?.['min'])}">
+                      <span class="form-label es-modal-form-label price-input-icon" [ngStyle]="{'border-right-color': couponForm.controls.stepOne.controls.discountValue.touched && (couponForm.controls.stepOne.controls.discountValue.errors?.['required'] || couponForm.controls.stepOne.controls.discountValue.errors?.['min']) ? 'rgb(234,155,155)' : ''}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" *ngIf="couponForm.controls?.stepOne?.controls?.discountType?.value == 'fixed'; else percentage">
                           <mask id="mask0_464_18026" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
                             <rect width="22" height="22" fill="#D9D9D9"/>
@@ -104,15 +111,15 @@
                       </span>
                   </div>
                   <div class="input-number-btn">
-                      <span class="number-decremental"> - </span>
-                      <span class="number-incremental"> + </span>
+                    <span class="number-decremental" (click)="updateValue('priceBundle', 'dec')"> - </span>
+                    <span class="number-incremental" (click)="updateValue('priceBundle', 'inc')"> + </span>
                   </div>
                   <div class="mt-2">
-                      <span class="help-block ng-invalid text-danger">
-                          <span class="small">
-                              Price is required!
-                          </span>
-                      </span>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepOne.controls.discountValue.touched || couponForm.controls.stepOne.controls.discountValue.dirty)">
+                        <span class="small" *ngIf="couponForm.controls.stepOne.controls.discountValue.errors?.['required'] || couponForm.controls.stepOne.controls.discountValue.errors?.['min']">
+                            Fix price {{ couponForm.controls.stepOne.controls.discountType.value == 'fixed' ? 'value' : 'percentage' }} is invalid, please check the details and try again.
+                        </span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -122,11 +129,12 @@
 
         <!-- STEP TWO - Start -->
         <div formGroupName="stepTwo" *ngIf="currentStep == 2">
-          <div class="div-height d-flex justify-content-between">
-            <div class="input-width">
-                <label for="startDate" class="form-label es-modal-form-label">Start Date</label>
-                <div class="d-flex input-icon">
-                    <mat-form-field appearance="outline">
+          <div>
+            <div class="d-flex justify-content-between">
+              <div class="input-width">
+                  <label for="startDate" class="form-label es-modal-form-label">Start Date*</label>
+                  <div class="d-flex input-icon">
+                    <mat-form-field appearance="outline" [ngClass]="{'border-purple': couponForm.controls.stepTwo.controls.startDate.valid && !isDateError, 'border-error': isDateError}">
                         <input matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="DD-MM-YYYY" (click)="startDate.open()" [min]="currentDate">
                         <mat-datepicker-toggle matIconSuffix [for]="startDate">
                           <mat-icon matDatepickerToggleIcon>
@@ -137,13 +145,13 @@
                         </mat-datepicker-toggle>
                         <mat-datepicker #startDate></mat-datepicker>
                     </mat-form-field>
-                </div>
-            </div>
-            
-            <div class="input-width">
-                <label for="endDate" class="form-label es-modal-form-label">End Date</label>
-                <div class="d-flex input-icon">
-                    <mat-form-field appearance="outline">
+                  </div>
+              </div>
+              
+              <div class="input-width">
+                  <label for="endDate" class="form-label es-modal-form-label">End Date*</label>
+                  <div class="d-flex input-icon">
+                    <mat-form-field appearance="outline" [ngClass]="{'border-purple': couponForm.controls.stepTwo.controls.endDate.valid && !isDateError, 'border-error': isDateError}">
                         <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" (click)="endDate.open()" [min]="couponForm.controls.stepTwo.controls.startDate.value" #matDatePickerEle>
                         <mat-datepicker-toggle matIconSuffix [for]="endDate">
                           <mat-icon matDatepickerToggleIcon>
@@ -154,22 +162,30 @@
                         </mat-datepicker-toggle>
                         <mat-datepicker #endDate></mat-datepicker>
                     </mat-form-field>
-                </div>
+                  </div>
+              </div>
+            </div>
+
+            <div *ngIf="isDateError">
+              <span class="help-block ng-invalid text-danger">
+                <span class="small">
+                  Please set a start date and a end date
+              </span>
+            </span>
             </div>
           </div>
           
-          <div class="d-flex justify-content-between discount-value">
+          <div class="d-flex justify-content-between discount-value div-height mt-2">
             <div class="w-100">
-              <label for="total" class="form-label es-modal-form-label">Number of Coupon</label>
+              <label for="total" class="form-label es-modal-form-label">Number of Coupon*</label>
               <div class="d-flex relative">
-                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="total" aria-describedby="total" formControlName="total">
-                  <span class="form-label es-modal-form-label price-input-icon">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
-                        <rect width="22" height="22" fill="#D9D9D9"/>
-                      </mask>
-                      <g mask="url(#mask0_464_18397)">
-                        <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z" fill="#475467"/>
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="total" aria-describedby="total" formControlName="total" appNumberOnly [ngClass]="{'border-purple': couponForm.controls.stepTwo.controls.total.valid, 'border-error': couponForm.controls.stepTwo.controls.total.touched && (couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min'])}">
+                  <span class="form-label es-modal-form-label coupon-input-icon" [ngStyle]="{'border-right-color': couponForm.controls.stepTwo.controls.total.touched && (couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min']) ? 'rgb(234,155,155)' : ''}">
+                    <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="Group">
+                        <path class="stroke-color" id="Vector" d="M11.5046 1H7.99583C4.68833 1 3.03458 1 2.00645 2.0255C1.2977 2.73075 1.07808 3.73263 1.00895 5.36538C0.995827 5.68913 0.988827 5.85188 1.0492 5.9595C1.11045 6.06713 1.35108 6.20275 1.83408 6.47225C2.10614 6.62393 2.33277 6.84551 2.49054 7.11409C2.64831 7.38267 2.73149 7.68851 2.73149 8C2.73149 8.31149 2.64831 8.61733 2.49054 8.88591C2.33277 9.15449 2.10614 9.37607 1.83408 9.52775C1.35108 9.79813 1.10958 9.93287 1.0492 10.0405C0.988827 10.1481 0.995827 10.31 1.00983 10.6338C1.07808 12.2674 1.29858 13.2692 2.00645 13.9745C3.0337 15 4.68745 15 7.99583 15H11.5046C14.8121 15 16.4658 15 17.494 13.9745C18.2027 13.2692 18.4223 12.2674 18.4915 10.6346C18.5046 10.3109 18.5116 10.1481 18.4512 10.0405C18.39 9.93287 18.1493 9.79813 17.6663 9.52775C17.3943 9.37607 17.1676 9.15449 17.0099 8.88591C16.8521 8.61733 16.7689 8.31149 16.7689 8C16.7689 7.68851 16.8521 7.38267 17.0099 7.11409C17.1676 6.84551 17.3943 6.62393 17.6663 6.47225C18.1493 6.20275 18.3908 6.06713 18.4512 5.9595C18.5116 5.85188 18.5046 5.69 18.4906 5.36538C18.4223 3.73263 18.2018 2.73162 17.494 2.0255C16.4667 1 14.813 1 11.5046 1Z" stroke="black" stroke-width="1.5"/>
+                        <path class="stroke-color" id="Vector_2" d="M7.12524 10.625L12.3752 5.375" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+                        <path class="fill-color" id="Vector_3" d="M12.8127 10.1875C12.8127 10.4196 12.7206 10.6421 12.5565 10.8062C12.3924 10.9703 12.1698 11.0625 11.9377 11.0625C11.7057 11.0625 11.4831 10.9703 11.319 10.8062C11.1549 10.6421 11.0627 10.4196 11.0627 10.1875C11.0627 9.95544 11.1549 9.73288 11.319 9.56878C11.4831 9.40469 11.7057 9.3125 11.9377 9.3125C12.1698 9.3125 12.3924 9.40469 12.5565 9.56878C12.7206 9.73288 12.8127 9.95544 12.8127 10.1875ZM8.43774 5.8125C8.43774 6.04456 8.34556 6.26712 8.18146 6.43122C8.01737 6.59531 7.79481 6.6875 7.56274 6.6875C7.33068 6.6875 7.10812 6.59531 6.94403 6.43122C6.77993 6.26712 6.68774 6.04456 6.68774 5.8125C6.68774 5.58044 6.77993 5.35788 6.94403 5.19378C7.10812 5.02969 7.33068 4.9375 7.56274 4.9375C7.79481 4.9375 8.01737 5.02969 8.18146 5.19378C8.34556 5.35788 8.43774 5.58044 8.43774 5.8125Z" fill="black"/>
                       </g>
                     </svg>
                   </span>
@@ -179,20 +195,21 @@
                   <span class="number-incremental"> + </span>
               </div>
               <div class="mt-2">
-                  <span class="help-block ng-invalid text-danger">
-                      <span class="small">
-                          Price is required!
-                      </span>
-                  </span>
+                <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepTwo.controls.total.touched || couponForm.controls.stepTwo.controls.total.dirty)">
+                    <span class="small" *ngIf="couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min']">
+                        No. of coupon entered is invalid, please check the details and try again.
+                    </span>
+                </span>
               </div>
             </div>
           </div>
 
-          <div class="div-height d-flex justify-content-between">
-            <div class="input-width">
+          <div class="div-height mb-2">
+            <div class="d-flex justify-content-between">
+              <div class="input-width">
                 <label for="minPurchaseValue" class="form-label es-modal-form-label">Minimum Purchase Value</label>
                 <div class="d-flex relative">
-                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="minPurchaseValue" aria-describedby="minPurchaseValue" formControlName="minPurchaseValue">
+                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="minPurchaseValue" aria-describedby="minPurchaseValue" formControlName="minPurchaseValue" appNumberOnly>
                     <span class="form-label es-modal-form-label price-input-icon">
                       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
@@ -208,18 +225,11 @@
                     <span class="number-decremental"> - </span>
                     <span class="number-incremental"> + </span>
                 </div>
-                <div class="mt-2">
-                    <span class="help-block ng-invalid text-danger">
-                        <span class="small">
-                            Price is required!
-                        </span>
-                    </span>
-                </div>
-            </div>
-            <div class="input-width">
+              </div>
+              <div class="input-width">
                 <label for="maxPurchaseValue" class="form-label es-modal-form-label">Maximum Purchase Value</label>
                 <div class="d-flex relative">
-                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="maxPurchaseValue" aria-describedby="maxPurchaseValue" formControlName="maxPurchaseValue">
+                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="maxPurchaseValue" aria-describedby="maxPurchaseValue" formControlName="maxPurchaseValue" appNumberOnly>
                     <span class="form-label es-modal-form-label price-input-icon">
                       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
@@ -235,65 +245,65 @@
                     <span class="number-decremental"> - </span>
                     <span class="number-incremental"> + </span>
                 </div>
-                <div class="mt-2">
-                    <span class="help-block ng-invalid text-danger">
-                        <span class="small">
-                            Price is required!
-                        </span>
-                    </span>
-                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <span class="help-block ng-invalid text-danger" *ngIf="couponForm.controls.stepTwo.controls.minPurchaseValue.dirty &&  couponForm.controls.stepTwo.controls.maxPurchaseValue.dirty">
+                  <span class="x-small">
+                      Minimum or maximum purchase value is invalid, please check the details and try again.
+                  </span>
+              </span>
             </div>
           </div>
-         
-          <div class="div-height">
+          <div class="div-height mt-2">
             <div>
-              <label for="discount-type" class="form-label es-modal-form-label">Use Type</label>
+              <label for="discount-type" class="form-label es-modal-form-label">Use Type*</label>
             </div>
             <div class="d-flex justify-content-between">
               <div class="form-check form-check-inline custom-radio-div" [ngClass]="{'checked': couponForm.controls.stepTwo.controls.useType.value == 'single'}">
-                <label for="single" class="w-100">One Time</label>
-                <input type="radio" name="useType" id="single" formControlName="useType" value="single">
+                <label for="single" class="w90">One Time</label>
+                <input type="radio" name="useType" id="single" formControlName="useType" value="single" (change)="onRadioButtonChange('single')">
               </div>
               <div class="form-check form-check-inline custom-radio-div" [ngClass]="{'checked': couponForm.controls.stepTwo.controls.useType.value == 'multi'}">
-                <label for="multi" class="w-100">Multi Use</label>
-                <input type="radio" name="useType" id="multi" formControlName="useType" value="multi">
+                <label for="multi" class="w90">Multi Use</label>
+                <input type="radio" name="useType" id="multi" formControlName="useType" value="multi" (change)="onRadioButtonChange('multi')">
               </div>
             </div>
           </div>
         
           <div class="use-div" *ngIf="couponForm.controls.stepTwo.controls.useType.value == 'multi'">
             <div class="d-flex justify-content-between">
-              <div class="w-100 position-relative">
+              <div class="w-100 position-relative div-height">
                 <div class="mb-2">
                   <label for="totalUse">Number of Use</label>
                 </div>
                 <div class="d-flex position-relative">
-                  <input type="text" class="form-control es-input price-input number-input-right-padding" aria-describedby="totalUse" formControlName="totalUse">
-                  <span class="form-label es-modal-form-label number-of-use-icon">
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" aria-describedby="totalUse" formControlName="totalUse" (focus)="onInputFocus()" appNumberOnly>
+                  <span class="es-modal-form-label number-of-use-icon">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3 16.0002V6.00018L10 16.0002V6.00018M14 16.0002H19M14 9.00018C14 9.79583 14.2634 10.5589 14.7322 11.1215C15.2011 11.6841 15.837 12.0002 16.5 12.0002C17.163 12.0002 17.7989 11.6841 18.2678 11.1215C18.7366 10.5589 19 9.79583 19 9.00018C19 8.20453 18.7366 7.44147 18.2678 6.87886C17.7989 6.31625 17.163 6.00018 16.5 6.00018C15.837 6.00018 15.2011 6.31625 14.7322 6.87886C14.2634 7.44147 14 8.20453 14 9.00018Z" stroke="#475467" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </span>
                 </div>
-                <input class="position-absolute" type="radio" id="totalUse" name="totalUseType" name="totalUseType" formControlName="totalUseType" value="limited">
+                <input class="position-absolute" type="radio" id="totalUse" name="totalUseType" name="totalUseType" formControlName="totalUseType" value="limited" (change)="onRadioButtonChange('limited')">
                 <div class="total-use-number-button">
                     <span class="number-decremental"> - </span>
                     <span class="number-incremental"> + </span>
                 </div>
-                <div class="mt-2">
-                    <span class="help-block ng-invalid text-danger">
-                        <span class="small">
-                            Price is required!
-                        </span>
-                    </span>
+                <div *ngIf="couponForm.controls.stepTwo.controls.totalUseType.value == 'limited'">
+                  <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepTwo.controls.totalUse.touched || couponForm.controls.stepTwo.controls.totalUse.pristine)">
+                      <span class="small text-wrap x-small" *ngIf="couponForm.controls.stepTwo.controls.totalUse.errors?.['min']">
+                          No. of use entered is invalid, please check the details and try again.
+                      </span>
+                  </span>
                 </div>
               </div>
             </div>
   
             <div class="d-flex justify-content-between">
                 <div class="form-check form-check-inline custom-radio-div-block">
-                  <label for="unlimited"  class="w-100">Unlimited Use</label>
-                  <input type="radio" name="unlimited" id="unlimited" name="totalUseType" formControlName="totalUseType" value="unlimited">
+                  <label for="unlimited"  class="w96">Unlimited Use</label>
+                  <input type="radio" name="unlimited" id="unlimited" name="totalUseType" formControlName="totalUseType" value="unlimited" (change)="onRadioButtonChange('unlimited')">
                 </div>
             </div>
           </div>
@@ -304,15 +314,15 @@
         <div formGroupName="stepThree" *ngIf="currentStep == 3">
           <div class="d-flex justify-content-between mb-3">
             <div class="form-check custom-radio-div-inline-3" [ngClass]="{'checked': couponForm.controls.stepThree.controls.applicableType.value == 'plan'}">
-              <label for="plan" class="w-100">Specific Plan</label>
+              <label for="plan" class="w86">Specific Plan</label>
               <input type="radio" name="applicableType" id="plan" formControlName="applicableType" value="plan">
             </div>
             <div class="form-check custom-radio-div-inline-3" [ngClass]="{'checked': couponForm.controls.stepThree.controls.applicableType.value == 'region'}">
-              <label for="region" class="w-100">Region</label>
+              <label for="region" class="w86">Region</label>
               <input type="radio" name="applicableType" id="region" formControlName="applicableType" value="region">
             </div>
             <div class="form-check custom-radio-div-inline-3" [ngClass]="{'checked': couponForm.controls.stepThree.controls.applicableType.value == 'country'}">
-              <label for="country" class="w-100">Country</label>
+              <label for="country" class="w86">Country</label>
               <input type="radio" name="applicableType" id="country" formControlName="applicableType" value="country">
             </div>
           </div>
@@ -332,12 +342,15 @@
 
                   <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                       <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                        <ng-container *ngIf="isRegion || isCountry; else selectedValue">
-                          <span class="ng-value-label"><img [src]="$any(item).flag" class="flag-style" [ngStyle]="{'filter': isRegion && isDarkTheme ? 'invert(1)' : 'invert(0)' }"> {{$any(item).name}}</span>
+                        <ng-container *ngIf="isCountry; else selectedValue">
+                          <span class="ng-value-label">
+                            <img [src]="$any(item).flag" class="flag-style"> 
+                            <span>{{$any(item).name}}</span>
+                          </span>
                           <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                         </ng-container>
                         <ng-template #selectedValue>
-                          <span class="ng-value-label">{{$any(item).name}}</span>
+                          <span class="ng-value-label ellipsis">{{$any(item).name}}</span>
                           <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                         </ng-template>
                       </div>
@@ -347,12 +360,13 @@
                   </ng-template>
 
                   <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                      <div *ngIf="isRegion || isCountry; else plan">
-                          <img [src]="item.flag" class="flag-style" [ngStyle]="{'filter': isRegion && isDarkTheme ? 'invert(1)' : 'invert(0)' }"> 
-                          {{item.name}} <span *ngIf="isCountry">{{ item.iso3code}} ({{item.dial_code}})</span>
+                      <div *ngIf="isCountry; else plan">
+                          <img [src]="item.flag" class="flag-style"> 
+                          <span> {{item.name}} </span>
+                          <span *ngIf="isCountry">{{ item.iso3code}} ({{item.dial_code}})</span>
                       </div>
                       <ng-template #plan>
-                        {{item.name}}
+                        <span class="w90 text-wrap text-break">{{item.name}}</span>
                       </ng-template>
                       <div class="form-label es-modal-form-label unlimited">
                           <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" /> 
@@ -365,9 +379,9 @@
         </div>
         <!-- STEP THREE - End -->
 
-        <div class="row mt-3 gx-2 d-flex justify-content-between">
+        <div class="row gx-2 d-flex justify-content-between">
           <button class="btn btn-secondary btn-width" (click)="currentStep == 1 ? close() : previousStep()">{{ currentStep == 1 ? 'Cancel' : 'Back' }}</button>
-          <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="currentStep == 3 ? submit() : nextStep()" >{{ currentStep == 3 ? 'Submit' : 'Next' }}</button>
+          <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="currentStep == 3 ? submit() : nextStep()" [disabled]="(currentStep == 1 && !couponForm.controls.stepOne.valid) || (currentStep == 2 && !couponForm.controls.stepTwo.valid)">{{ currentStep == 3 ? 'Submit' : 'Next' }}</button>
         </div>
       </form>
   </div>
