@@ -12,12 +12,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { StepOneComponent } from './component/add-coupon/stepper/step-one/step-one.component';
+import { StepTwoComponent } from './component/add-coupon/stepper/step-two/step-two.component';
+import { StepThreeComponent } from './component/add-coupon/stepper/step-three/step-three.component';
 
 
 @NgModule({
   declarations: [
     CouponInfoComponent,
     AddCouponComponent,
+    StepOneComponent,
+    StepTwoComponent,
+    StepThreeComponent,
   ],
   imports: [
     CommonModule,
