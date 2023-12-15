@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from 'src/app/shared/service/dialog';
 import { StepperService } from '../../service/stepper.service';
@@ -53,14 +53,7 @@ export class AddCouponComponent implements OnInit {
   // Arrays declaration
   list: Array<any> = [];
   plansList: Array<any> = [];
-  regionList: Array<any> = [
-    { name: 'Africa', flag: 'assets/regions/africa.svg'},
-    { name: 'Asia', flag: 'assets/regions/asia.svg'},
-    { name: 'Europe', flag: 'assets/regions/europe.svg'},
-    { name: 'North America', flag: 'assets/regions/north-america.svg'},
-    { name: 'South America', flag: 'assets/regions/south-america.svg'},
-    { name: 'Oceania', flag: 'assets/regions/oceania.svg'}
-  ];
+  regionList: Array<any> = [];
   countryList: Array<any> = [];
   countriesAlias: Array<any> = [];
   
@@ -78,8 +71,8 @@ export class AddCouponComponent implements OnInit {
       startDate: new FormControl(null, [Validators.required]),
       endDate: new FormControl(null, [Validators.required]),
       total: new FormControl(0, [Validators.required, Validators.min(1)]),
-      minPurchaseValue: new FormControl(0, null),
-      maxPurchaseValue: new FormControl(0, null),
+      minPurchaseValue: new FormControl(0, Validators.min(1)),
+      maxPurchaseValue: new FormControl(0, Validators.min(1)),
       useType: new FormControl('single'),
       totalUse: new FormControl(0),
       totalUseType: new FormControl('limited')
@@ -97,12 +90,15 @@ export class AddCouponComponent implements OnInit {
   isPlan: boolean = false;
   isDarkTheme!: boolean;
   isDateError: boolean = false;
+  isMinMaxError: boolean = false;
+  isTotalUseError: boolean = false;
 
   constructor(private viewContainer: ViewContainerRef, 
               private stepperService: StepperService,
               private couponService: CouponManagementService,
               private alertService: AlertService,
-              private dashboardService: DashboardService) {
+              private dashboardService: DashboardService,
+              private cd: ChangeDetectorRef) {
                 dashboardService.getAppTheme().subscribe((data : any) =>{
                   this.isDarkTheme = data; 
                 }); 
@@ -113,7 +109,37 @@ export class AddCouponComponent implements OnInit {
     this.couponForm.get('stepTwo.endDate')?.valueChanges.subscribe((data: any) => {
       if(data && moment(this.couponForm.get('stepTwo.startDate')?.value).isAfter(data)) {
         this.isDateError = true;
-      } 
+      } else {
+        this.isDateError = false;
+      }
+    });
+
+    // Checking date validation based on maxPurchaseValue compared with minPurchaseValue
+    this.couponForm.get('stepTwo.minPurchaseValue')?.valueChanges.subscribe((data: any) => {
+      let maxValue = Number(this.couponForm?.controls.stepTwo.controls.maxPurchaseValue.value)
+      if(this.couponForm?.controls.stepTwo.controls.maxPurchaseValue.dirty && data > maxValue) {
+        this.isMinMaxError = true;
+      } else {
+        this.isMinMaxError = false;
+      }
+    });
+
+    this.couponForm.get('stepTwo.maxPurchaseValue')?.valueChanges.subscribe((data: any) => {
+      let minValue = Number(this.couponForm?.controls.stepTwo.controls.minPurchaseValue.value)
+      if(data < minValue) {
+        this.isMinMaxError = true;
+      } else {
+        this.isMinMaxError = false;
+      }
+    });
+   
+    // Checking date validation based on maxPurchaseValue compared with minPurchaseValue
+    this.couponForm.get('stepTwo.totalUse')?.valueChanges.subscribe((data: any) => {
+      if(data <= 0) {
+        this.isTotalUseError = true;
+      } else {
+        this.isTotalUseError = false;
+      }
     })
 
     // Changing the placeholder based on the radio selection on Coupon Form Step Three
@@ -172,6 +198,10 @@ export class AddCouponComponent implements OnInit {
     });
   }
 
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+  }
+
   displayList(items: any){
     return items.map((country: any) => country.name).slice(2).join(', ');
   }
@@ -180,7 +210,6 @@ export class AddCouponComponent implements OnInit {
     this.inProgress = true;
     combineLatest(this.couponService.getDropdownData()).subscribe((result : any) => { 
       if(result) {
-        console.log(result)
         this.plansList = result[0].data;
         this.regionList = result[1].data;
         this.countryList = result[2].data;
@@ -189,10 +218,10 @@ export class AddCouponComponent implements OnInit {
 
         this.countryList = this.countryList.sort((a: any, b: any) => a.name.localeCompare(b.name));
         this.countryList.forEach((country: any) => {
-          let flagNameInLower = country.iso3code
-          flagNameInLower = flagNameInLower.toLowerCase()
-          country.flag = `assets/flags/${flagNameInLower}.svg` 
-          this.countriesAlias.push({name: country.name, flag: country.flag, iso3code: country.iso3code, dial_code: country.dial_code})
+          let flagNameInLower = country.iso3code;
+          flagNameInLower = flagNameInLower.toLowerCase();
+          country.flag = `assets/flags/${flagNameInLower}.svg`;
+          this.countriesAlias.push({name: country.name, flag: country.flag, iso3code: country.iso3code, dial_code: country.dial_code});
         })
 
         this.inProgress = false;
@@ -201,8 +230,7 @@ export class AddCouponComponent implements OnInit {
     error => {
       this.inProgress = false;
       this.alertService.error(error.error.message);
-    }
-    );    
+    });    
   }
 
   onInputFocus() {
@@ -216,26 +244,24 @@ export class AddCouponComponent implements OnInit {
       this.couponForm.get('stepOne')?.get('discountValue')?.setValue(0);
     }
 
-    if( selectedRadioValue == 'single' || selectedRadioValue == 'multi' || selectedRadioValue == 'limited' || selectedRadioValue == 'unlimited') {
+    if(selectedRadioValue == 'single' || selectedRadioValue == 'multi' || selectedRadioValue == 'limited' || selectedRadioValue == 'unlimited') {
       this.couponForm.get('stepTwo')?.get('totalUse')?.setValue(0);
       if(selectedRadioValue == 'multi') this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue('limited');
       else this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue(selectedRadioValue);
     }
-
   }
 
   /* increment and decrement input values */
   updateValue(controlKey: string, updateBy: string){
-    // if(updateBy == 'inc'){
-    //   let incValue = isNaN(parseInt(this.f[controlKey].value)) ? 0 : parseInt(this.f[controlKey].value);
-    //   this.f[controlKey].setValue(++incValue);
-    // } else if(updateBy == 'dec'){
-    //   let decValue = isNaN(parseInt(this.f[controlKey].value)) ? 1 : parseInt(this.f[controlKey].value);
-    //   if(--decValue > -1){
-    //     this.f[controlKey].setValue(decValue);
-    //   }
-      
-    // }
+    if(updateBy == 'inc'){
+      let incValue = isNaN(parseInt(this.couponForm.get(controlKey)?.value)) ? 0 : parseInt(this.couponForm.get(controlKey)?.value);
+      this.couponForm.get(controlKey)?.setValue(++incValue);
+    } else if(updateBy == 'dec'){
+      let decValue = isNaN(parseInt(this.couponForm.get(controlKey)?.value)) ? 1 : parseInt(this.couponForm.get(controlKey)?.value);
+      if(--decValue > -1){
+        this.couponForm.get(controlKey)?.setValue(decValue);
+      }
+    }
   }
 
   submit() {

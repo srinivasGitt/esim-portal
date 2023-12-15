@@ -93,7 +93,9 @@
                 <div class="w-100 div-height">
                   <div class="d-flex relative">
                       <input type="text" class="form-control es-input price-input number-input-right-padding" id="discount-value" aria-describedby="discount-value" name="discountValue" formControlName="discountValue" appNumberOnly [ngClass]="{'border-purple': couponForm.controls.stepOne.controls.discountValue.valid, 'border-error': couponForm.controls.stepOne.controls.discountValue.touched && (couponForm.controls.stepOne.controls.discountValue.errors?.['required'] || couponForm.controls.stepOne.controls.discountValue.errors?.['min'])}">
-                      <span class="form-label es-modal-form-label price-input-icon" [ngStyle]="{'border-right-color': couponForm.controls.stepOne.controls.discountValue.touched && (couponForm.controls.stepOne.controls.discountValue.errors?.['required'] || couponForm.controls.stepOne.controls.discountValue.errors?.['min']) ? 'rgb(234,155,155)' : ''}">
+                      <span 
+                        class="form-label es-modal-form-label price-input-icon" 
+                        [ngClass]="{'border-right-error-color': couponForm.controls.stepOne.controls.discountValue.touched && (couponForm.controls.stepOne.controls.discountValue.errors?.['required'] || couponForm.controls.stepOne.controls.discountValue.errors?.['min']) ? 'rgb(234,155,155)' : '', 'border-right-valid-color': couponForm.controls.stepOne.controls.discountValue.valid}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" *ngIf="couponForm.controls?.stepOne?.controls?.discountType?.value == 'fixed'; else percentage">
                           <mask id="mask0_464_18026" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
                             <rect width="22" height="22" fill="#D9D9D9"/>
@@ -111,8 +113,8 @@
                       </span>
                   </div>
                   <div class="input-number-btn">
-                    <span class="number-decremental" (click)="updateValue('priceBundle', 'dec')"> - </span>
-                    <span class="number-incremental" (click)="updateValue('priceBundle', 'inc')"> + </span>
+                    <span class="number-decremental" (click)="updateValue('stepOne.discountValue', 'dec')"> - </span>
+                    <span class="number-incremental" (click)="updateValue('stepOne.discountValue', 'inc')"> + </span>
                   </div>
                   <div class="mt-2">
                     <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepOne.controls.discountValue.touched || couponForm.controls.stepOne.controls.discountValue.dirty)">
@@ -166,8 +168,8 @@
               </div>
             </div>
 
-            <div *ngIf="isDateError">
-              <span class="help-block ng-invalid text-danger">
+            <div>
+              <span class="help-block ng-invalid text-danger" *ngIf="isDateError">
                 <span class="small">
                   Please set a start date and a end date
               </span>
@@ -175,12 +177,13 @@
             </div>
           </div>
           
-          <div class="d-flex justify-content-between discount-value div-height mt-2">
+          <div class="d-flex justify-content-between discount-value div-height mt-3">
             <div class="w-100">
               <label for="total" class="form-label es-modal-form-label">Number of Coupon*</label>
               <div class="d-flex relative">
-                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="total" aria-describedby="total" formControlName="total" appNumberOnly [ngClass]="{'border-purple': couponForm.controls.stepTwo.controls.total.valid, 'border-error': couponForm.controls.stepTwo.controls.total.touched && (couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min'])}">
-                  <span class="form-label es-modal-form-label coupon-input-icon" [ngStyle]="{'border-right-color': couponForm.controls.stepTwo.controls.total.touched && (couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min']) ? 'rgb(234,155,155)' : ''}">
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" id="total" aria-describedby="total" formControlName="total" appNumberOnly 
+                  [ngClass]="{'border-purple border-right-valid-color': couponForm.controls.stepTwo.controls.total.valid, 'border-error': couponForm.controls.stepTwo.controls.total.touched && (couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min'])}">
+                  <span class="form-label es-modal-form-label coupon-input-icon" [ngClass]="{'border-right-error-color': couponForm.controls.stepTwo.controls.total.touched && (couponForm.controls.stepTwo.controls.total.errors?.['required'] || couponForm.controls.stepTwo.controls.total.errors?.['min']) ? 'rgb(234,155,155)' : '', 'border-right-valid-color': couponForm.controls.stepTwo.controls.total.valid}">
                     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g id="Group">
                         <path class="stroke-color" id="Vector" d="M11.5046 1H7.99583C4.68833 1 3.03458 1 2.00645 2.0255C1.2977 2.73075 1.07808 3.73263 1.00895 5.36538C0.995827 5.68913 0.988827 5.85188 1.0492 5.9595C1.11045 6.06713 1.35108 6.20275 1.83408 6.47225C2.10614 6.62393 2.33277 6.84551 2.49054 7.11409C2.64831 7.38267 2.73149 7.68851 2.73149 8C2.73149 8.31149 2.64831 8.61733 2.49054 8.88591C2.33277 9.15449 2.10614 9.37607 1.83408 9.52775C1.35108 9.79813 1.10958 9.93287 1.0492 10.0405C0.988827 10.1481 0.995827 10.31 1.00983 10.6338C1.07808 12.2674 1.29858 13.2692 2.00645 13.9745C3.0337 15 4.68745 15 7.99583 15H11.5046C14.8121 15 16.4658 15 17.494 13.9745C18.2027 13.2692 18.4223 12.2674 18.4915 10.6346C18.5046 10.3109 18.5116 10.1481 18.4512 10.0405C18.39 9.93287 18.1493 9.79813 17.6663 9.52775C17.3943 9.37607 17.1676 9.15449 17.0099 8.88591C16.8521 8.61733 16.7689 8.31149 16.7689 8C16.7689 7.68851 16.8521 7.38267 17.0099 7.11409C17.1676 6.84551 17.3943 6.62393 17.6663 6.47225C18.1493 6.20275 18.3908 6.06713 18.4512 5.9595C18.5116 5.85188 18.5046 5.69 18.4906 5.36538C18.4223 3.73263 18.2018 2.73162 17.494 2.0255C16.4667 1 14.813 1 11.5046 1Z" stroke="black" stroke-width="1.5"/>
@@ -191,8 +194,8 @@
                   </span>
               </div>
               <div class="input-number-btn">
-                  <span class="number-decremental"> - </span>
-                  <span class="number-incremental"> + </span>
+                  <span class="number-decremental" (click)="updateValue('stepTwo.total', 'dec')"> - </span>
+                  <span class="number-incremental" (click)="updateValue('stepTwo.total', 'inc')"> + </span>
               </div>
               <div class="mt-2">
                 <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepTwo.controls.total.touched || couponForm.controls.stepTwo.controls.total.dirty)">
@@ -209,8 +212,9 @@
               <div class="input-width">
                 <label for="minPurchaseValue" class="form-label es-modal-form-label">Minimum Purchase Value</label>
                 <div class="d-flex relative">
-                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="minPurchaseValue" aria-describedby="minPurchaseValue" formControlName="minPurchaseValue" appNumberOnly>
-                    <span class="form-label es-modal-form-label price-input-icon">
+                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="minPurchaseValue" aria-describedby="minPurchaseValue" formControlName="minPurchaseValue" appNumberOnly
+                    [ngClass]="{'border-purple border-right-valid-color': couponForm.controls.stepTwo.controls.minPurchaseValue.valid, 'border-error': couponForm.controls.stepTwo.controls.minPurchaseValue.dirty && isMinMaxError }">
+                    <span class="form-label es-modal-form-label price-input-icon" [ngClass]="{'border-right-valid-color': couponForm.controls.stepTwo.controls.minPurchaseValue.valid, 'border-right-error-color': couponForm.controls.stepTwo.controls.minPurchaseValue.dirty && isMinMaxError }">
                       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
                           <rect width="22" height="22" fill="#D9D9D9"/>
@@ -222,15 +226,17 @@
                     </span>
                 </div>
                 <div class="input-number-btn min-max-value">
-                    <span class="number-decremental"> - </span>
-                    <span class="number-incremental"> + </span>
+                  <span class="number-decremental" (click)="updateValue('stepTwo.minPurchaseValue', 'dec')"> - </span>
+                  <span class="number-incremental" (click)="updateValue('stepTwo.minPurchaseValue', 'inc')"> + </span>
                 </div>
               </div>
               <div class="input-width">
                 <label for="maxPurchaseValue" class="form-label es-modal-form-label">Maximum Purchase Value</label>
                 <div class="d-flex relative">
-                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="maxPurchaseValue" aria-describedby="maxPurchaseValue" formControlName="maxPurchaseValue" appNumberOnly>
-                    <span class="form-label es-modal-form-label price-input-icon">
+                    <input type="text" class="form-control es-input price-input number-input-right-padding" id="maxPurchaseValue" aria-describedby="maxPurchaseValue" formControlName="maxPurchaseValue" appNumberOnly
+                    [ngClass]="{'border-purple border-right-valid-color': couponForm.controls.stepTwo.controls.maxPurchaseValue.valid, 'border-error': couponForm.controls.stepTwo.controls.maxPurchaseValue.dirty && isMinMaxError}">
+                    <span class="form-label es-modal-form-label price-input-icon"
+                    [ngClass]="{'border-right-valid-color': couponForm.controls.stepTwo.controls.maxPurchaseValue.valid, 'border-right-error-color': couponForm.controls.stepTwo.controls.maxPurchaseValue.dirty && isMinMaxError }">
                       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_464_18397" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
                           <rect width="22" height="22" fill="#D9D9D9"/>
@@ -242,13 +248,13 @@
                     </span>
                 </div>
                 <div class="input-number-btn min-max-value">
-                    <span class="number-decremental"> - </span>
-                    <span class="number-incremental"> + </span>
+                  <span class="number-decremental" (click)="updateValue('stepTwo.maxPurchaseValue', 'dec')"> - </span>
+                  <span class="number-incremental" (click)="updateValue('stepTwo.maxPurchaseValue', 'inc')"> + </span>
                 </div>
               </div>
             </div>
             <div class="mt-2">
-              <span class="help-block ng-invalid text-danger" *ngIf="couponForm.controls.stepTwo.controls.minPurchaseValue.dirty &&  couponForm.controls.stepTwo.controls.maxPurchaseValue.dirty">
+              <span class="help-block ng-invalid text-danger" *ngIf="couponForm.controls.stepTwo.controls.minPurchaseValue.dirty && couponForm.controls.stepTwo.controls.maxPurchaseValue.touched && (isMinMaxError || (couponForm.controls.stepTwo.controls.minPurchaseValue.value == 0 && couponForm.controls.stepTwo.controls.maxPurchaseValue.value == 0))">
                   <span class="x-small">
                       Minimum or maximum purchase value is invalid, please check the details and try again.
                   </span>
@@ -278,8 +284,10 @@
                   <label for="totalUse">Number of Use</label>
                 </div>
                 <div class="d-flex position-relative">
-                  <input type="text" class="form-control es-input price-input number-input-right-padding" aria-describedby="totalUse" formControlName="totalUse" (focus)="onInputFocus()" appNumberOnly>
-                  <span class="es-modal-form-label number-of-use-icon">
+                  <input type="text" class="form-control es-input price-input number-input-right-padding" aria-describedby="totalUse" formControlName="totalUse" (focus)="onInputFocus()" appNumberOnly
+                  [ngClass]="{'border-purple border-right-valid-color': couponForm.controls.stepTwo.controls.totalUse.valid, 'border-error': couponForm.controls.stepTwo.controls.totalUseType.value == 'limited' && couponForm.controls.stepTwo.controls.totalUse.dirty && couponForm.controls.stepTwo.controls.totalUse.value == 0 }">
+                  <span class="es-modal-form-label number-of-use-icon"
+                  [ngClass]="{'border-right-valid-color': couponForm.controls.stepTwo.controls.totalUse.valid, 'border-right-error-color': couponForm.controls.stepTwo.controls.totalUseType.value == 'limited' && couponForm.controls.stepTwo.controls.totalUse.dirty && couponForm.controls.stepTwo.controls.totalUse.value == 0 }">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3 16.0002V6.00018L10 16.0002V6.00018M14 16.0002H19M14 9.00018C14 9.79583 14.2634 10.5589 14.7322 11.1215C15.2011 11.6841 15.837 12.0002 16.5 12.0002C17.163 12.0002 17.7989 11.6841 18.2678 11.1215C18.7366 10.5589 19 9.79583 19 9.00018C19 8.20453 18.7366 7.44147 18.2678 6.87886C17.7989 6.31625 17.163 6.00018 16.5 6.00018C15.837 6.00018 15.2011 6.31625 14.7322 6.87886C14.2634 7.44147 14 8.20453 14 9.00018Z" stroke="#475467" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -287,12 +295,12 @@
                 </div>
                 <input class="position-absolute" type="radio" id="totalUse" name="totalUseType" name="totalUseType" formControlName="totalUseType" value="limited" (change)="onRadioButtonChange('limited')">
                 <div class="total-use-number-button">
-                    <span class="number-decremental"> - </span>
-                    <span class="number-incremental"> + </span>
+                  <span class="number-decremental" (click)="updateValue('stepTwo.totalUse', 'dec')"> - </span>
+                  <span class="number-incremental" (click)="updateValue('stepTwo.totalUse', 'inc')"> + </span>
                 </div>
                 <div *ngIf="couponForm.controls.stepTwo.controls.totalUseType.value == 'limited'">
-                  <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepTwo.controls.totalUse.touched || couponForm.controls.stepTwo.controls.totalUse.pristine)">
-                      <span class="small text-wrap x-small" *ngIf="couponForm.controls.stepTwo.controls.totalUse.errors?.['min']">
+                  <span class="help-block ng-invalid text-danger" *ngIf="(couponForm.controls.stepTwo.controls.totalUse.dirty && isTotalUseError)">
+                      <span class="small text-wrap x-small">
                           No. of use entered is invalid, please check the details and try again.
                       </span>
                   </span>

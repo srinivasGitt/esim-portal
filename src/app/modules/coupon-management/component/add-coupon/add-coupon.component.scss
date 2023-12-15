@@ -334,6 +334,10 @@
   ::ng-deep .mat-input-element::placeholder {
       color: var(--placeholder-color) !important;
   }  
+  
+  ::ng-deep .mat-form-field-wrapper {
+      padding-bottom: 0 !important;
+  }  
 
   .input-width {
       ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
