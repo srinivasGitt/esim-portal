@@ -3655,3 +3655,10 @@
     stroke: var(--table-heading-text-color);
 }
 
+.word-wrap {
+    word-wrap: break-word !important;
+}
+
+.max-w80 {
+    max-width: 80% !important;
+}
