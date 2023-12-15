@@ -21,6 +21,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   showSearch: boolean = true;
   routeUrl!: string;
 
+  tooltip = 'Need Assistance?'
+  supportLink = 'https://support.glowingbud.com/'
+
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;

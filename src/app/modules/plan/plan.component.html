@@ -47,9 +47,9 @@
         <div class="row info-head-section">
             <div class="col-md-3 d-flex justify-content-between align-items-center gx-5">
                 <div class="heading">All Plans</div>
-                <div class="term">5G Access Included*</div>
+                <div class="term term-text">5G Access Included*</div>
             </div>
-            <div class="col-md-3 d-flex justify-content-evenly align-items-center">
+            <div class="col-md-3 d-flex justify-content-evenly align-items-center plan-status">
                 <div class="term">Plan status</div>
                 <div class="container-ng-select">
                     <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)" [ngClass]="[planStatus == 'active' ? 'active' : (planStatus == 'inactive' ? 'inactive': '')]">
@@ -80,7 +80,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <div class="col-md-6 d-flex justify-content-end align-items-center plan-entries">
                 <label class="show-entries">
                     {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: plansList.length }}
                 </label>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="t-box a px-2 d-flex">
                         <svg class="my-auto" width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="color-stroke" d="M5.16699 11.0002H16.0013M1 11.0002H1.01M5.16699 5.99985H16.0013M1 5.99985H1.01M5.16699 0.999512H16.0013M1 0.999512H1.01" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="stroke-color" d="M5.16699 11.0002H16.0013M1 11.0002H1.01M5.16699 5.99985H16.0013M1 5.99985H1.01M5.16699 0.999512H16.0013M1 0.999512H1.01" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span class="my-auto ms-2">IMSI</span>
                     </div>

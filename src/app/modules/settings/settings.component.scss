@@ -4,19 +4,21 @@
 }
 
 .settings {
-    justify-content: space-between;
-    padding-top: 16px;
+    // justify-content: space-between;
+    padding-top: 0.833vw;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
 
     &-card {
         background-color: var(--card-background-color);
         box-shadow: var(--box-shadow-size-color);
-        padding: 16px;
+        padding: 0.833vw;
 
         h1 {
             font-family: 'SF Pro Display';
             font-style: normal;
             font-weight: 500;
-            font-size: 24px;
+            font-size: 1.24vw;
             line-height: 130%;
             color: var(--settings-card-heading-text-color);
         }
@@ -25,7 +27,7 @@
             font-family: 'SF Pro Display';
             font-style: normal;
             font-weight: 500;
-            font-size: 20px;
+            font-size: 1.042vw;
             line-height: 130%;
             color: var(--settings-card-heading-text-color);
         }
@@ -34,39 +36,32 @@
             font-family: 'SF Pro Display';
             font-style: normal;
             font-weight: 400;
-            font-size: 16px;
+            font-size: 0.833vw;
             line-height: 130%;
-            color: var(--settings-helping-text-color);
+            color: var(--settings-sub-text-color);
         }
 
         .radio-div {
             font-family: 'SF Pro Display';
             font-style: normal;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 0.729vw;
             line-height: 20px;
             color: var(--radio-label-text-color);
             margin-top: 4px;
             
             input {
-                margin-right: 28px;
+                margin-right: 1vw;
             }
             
             input[type='radio'] {
-                accent-color: #667085;
+                accent-color: #6365EF;
             }
         }
         
-        .btn-grp {
-            margin-bottom: 20px;
-        }
-    }
-
-    .first {
-        width: 35%;
-    }
-    .second {
-        width: 62%;
+        // .btn-grp {
+        //     margin-top: 0.729vw;
+        // }
     }
 
     .email-div{
@@ -100,21 +95,26 @@
             border: none;
             background: #6365EF;
             border-radius: 8px;
-            width: 105px;
-            height: 28px;
+            min-width: 5.468vw;
+            height: 1.46vw;
             font-family: 'SF Pro Display';
             font-style: normal;
             font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
+            font-size: 0.729vw;
+            line-height: 1.042vw;
             color: #FFFFFF;
         }
     }    
 
+    .border-gray {
+        border: 1px solid rgba(208, 213, 221, 0.40);
+        border-radius: 8px;
+        padding: 10px;
+    }
+
     .border-purple {
         border: 1px solid var(--input-border-color-hover) !important;
     }
-
 }
 
 .heading {
@@ -128,9 +128,9 @@
         margin-bottom: 0px;
         position: relative;
         display: inline-block;
-        width: 32px;
+        width: 1.667vw;
         margin-top: 10px !important;
-        height: 18px;
+        height: 0.94vw;
         
         input{
             opacity: 0;
@@ -184,7 +184,7 @@ label {
     font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.729vw;
     color: var(--modal-form-label-text-color);
     margin-bottom: 12px;
 }
@@ -203,3 +203,384 @@ input {
 .custom {
     opacity: 0.5;
 }
+
+
+//////////////////////////////////////////////////////
+// Form
+.es-modal-form{
+    .form-control{
+        // border-color: var(--dark-right-border);
+        &[type=number], &[type=number]::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+        }
+        &.price-input{
+            padding-left: 2.5vw;
+        }
+        &.es-select{
+            background-color: transparent;
+            color: var(--modal-sub-header-text-color);
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            width: 5rem;
+            // background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICA8cGF0aCBmaWxsPSJncmF5IiBkPSJNMTAsMjMyLjdsNDkwLDUzNC41bDQ5MC01MzQuNUgxMHoiIC8+DQo8L3N2Zz4=);
+            // background-image: url(assets/icons/down-caret-black.svg);
+            background-repeat: no-repeat;
+            background-position: right;
+            background-position-x: 90%;
+            background-size: 10px;
+            border-color: var(--input-border-color);
+
+            option{
+                color: var(--modal-header-text-color) !important;
+                background: transparent;
+            }
+            &:before{
+                border-style: solid;
+                border-width: 0.25em 0.25em 0 0;
+                content: '>';
+                display: inline-block;
+                height: 0.45em;
+                left: 0.15em;
+                position: relative;
+                top: 0.15em;
+                transform: rotate(-45deg);
+                vertical-align: top;
+                width: 0.45em;
+            }
+
+            &:hover {
+                // border: 1px solid var(--dark-modal-input-border);
+                color: var(--modal-header-text-color);
+            }
+        }
+        &.left-radius-0{
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }            
+    
+        &:focus, &:hover{
+            background-color: var(--card-background-color);
+            color: var(--modal-header-text-color);
+            box-shadow: none;
+        }
+
+        &.validity-select {
+            width: 10rem !important;
+        }
+    }
+
+    .data-input {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
+    .unlimited {
+        font-size: 14px !important;
+        font-weight: 400  !important;
+        display: inline-flex;
+        gap: 10px;
+    }
+
+    .price-input-icon{
+        position: absolute;
+        border-right: 1px solid var(--input-border-color);
+        height: 1.978vw;
+        width: 1.978vw;
+        text-align: center;
+        line-height: 1.875vw;
+        color: var(--modal-sub-header-text-color) !important;
+        // font-weight: normal !important;
+        
+        svg {
+            path {
+                fill: var(--modal-sub-header-text-color) !important;
+            }
+        }
+    }
+    
+    .date-input-icon{
+        position: absolute;
+        height: 1.978vw;
+        width: 1.978vw;
+        text-align: center;
+        line-height: 1.875vw;
+    }
+
+    .input-icon {
+        position: relative;
+    
+        .down-caret-btn {
+            position: absolute;
+            height: 978vw;
+            width: 978vw;
+            line-height: 875vw;
+            right: 0;
+            text-align: center;
+        }
+    }
+
+    .input-number-btn {
+        display: flex;
+        position: relative;
+        left: 72%;
+        margin-top: -1.46vw;
+        width: fit-content;
+
+        .disabled{
+            border-color:#868987 !important;
+            color: #868987 !important;
+        }
+        .number-incremental{
+            height: 1.042vw;
+            width: 1.042vw;
+            line-height: 0.781vw;
+            border-radius: 50%;
+            text-align: center;
+            border: 1px solid #00C853;
+            color: #00C853;
+            cursor: pointer;
+            margin-left: 8px;
+            margin-right: 0.729vw;
+        }
+        .number-decremental{
+            height: 1.042vw;
+            width: 1.042vw;
+            line-height: 0.781vw;
+            border-radius: 50%;
+            text-align: center;
+            border: 1px solid #D32F2F;
+            color: #D32F2F;
+            cursor: pointer;
+        }
+    }
+    
+    // Plan location search
+    .ng-search {        
+        width: 1.042vw;
+        height: 1.042vw;
+        margin-left: 0.520vw;
+        // margin-top: -1.667vw;
+        position: absolute;
+    }
+
+    .ng-select-container{
+        padding: 10px 0px;
+        background: transparent;
+        height: 2.085vw;
+        width: 100%;
+        color: var(--table-heading-text-color);
+        border: none;
+        // border: 1px solid rgba(99, 101, 239, 0.48);
+        border: 1px solid var(--input-border-color) !important;
+        
+        input{
+            color: var(--table-heading-text-color);
+        }
+        .ng-arrow {
+            transform: rotate(-90deg);
+            // border-color: rgba(99, 101, 239, 0.48) transparent transparent;
+            border-color: var(--input-border-color) transparent transparent;
+        }
+
+    }
+
+    .ng-has-value {
+        border: 1px solid rgba(105, 105, 105, 0.50) !important;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .imsi-input {
+        .ng-select-container{
+            // border-color: var(--dark-right-border);
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: 0 !important;
+
+            .ng-value-container .ng-placeholder {
+                top: 8px !important;
+                padding-bottom: 0 !important;
+                padding-left: 3px !important;
+                color: var(--ng-placeholder-color) !important;
+            }
+        }
+
+        .ng-dropdown-panel .scroll-host {
+            padding: 8px;
+        }
+
+        .ng-option {
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            
+            &:hover {
+                background-color: var(--dropdown-hover-bg-color) !important;
+            }
+        }
+
+        .ng-option-selected {
+            background: var(--active-link-background-color) !important;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        input[type='radio'] {
+            appearance: none;
+            background-color: #667085;
+            margin: 0;
+            font: inherit;
+            color: #667085;
+            width: 1.5em;
+            height: 1.5em;
+            border: 0.05em solid #667085;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+        }
+
+        input[type="radio"]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em #667085;
+          }
+          
+          input[type="radio"]:checked::before {
+            transform: scale(1);
+          }
+    }
+    
+    .currency-input {
+        .ng-select-container{
+            border-color: var(--dark-right-border);
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: 1.875vw !important;
+
+            .ng-value-container .ng-placeholder {
+                top: 8px !important;
+                padding-bottom: 0 !important;
+                padding-left: 3px !important;
+                color: var(--ng-placeholder-color) !important;
+            }
+        }
+
+        .ng-dropdown-panel .scroll-host {
+            padding: 20px;
+        }
+
+        .ng-option {
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            color: rgba(31, 29, 29, 0.76);
+            font-size: 0.625vw;
+            font-family: 'SF Pro Display';
+            
+            &:hover {
+                background-color: var(--dropdown-hover-bg-color) !important;
+            }
+        }
+
+        .ng-option-selected {
+            background: var(--active-link-background-color) !important;
+            padding: 8px;
+        }
+    }
+
+    ::ng-deep{
+        .multi-select-counties{
+            .ng-select-container{
+                border-color: var(--dark-right-border);
+                padding-left: 36px;
+            }
+            .ng-arrow-wrapper{
+                display: none;
+            }                
+        }
+    }
+
+   
+}
+//////////////////////////////////////////////////////
+
+.card {
+    min-height: 40.62vh;
+}
+
+.location-input {
+
+    .ng-value {
+        border-radius: 8px;
+        background-color: #EDF1F9 !important;
+
+        .ellipsis {
+            max-width: 6.25vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    
+    .ng-value-icon.right {
+        border: none !important;
+    
+        &:hover {
+            background-color: transparent !important;
+        }
+    }
+
+    
+}
+
+
+.w40 {
+    width: 2.085vw;
+    font-weight: 600;
+}
+
+.w60 {
+    display: inline-block;
+    width: 2.085vw;
+    font-weight: 600;
+}
+
+.custom-search ::ng-deep .ng-placeholder::before{
+    font-family: FontAwesome !important;
+    content: "\f002" !important;
+    margin-right: 8px !important;
+}
+
+input[type='radio'] {
+    appearance: none;
+    background-color: #667085;
+    margin: 0;
+    font: inherit;
+    color: #667085;
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.05em solid #667085;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+}
+
+input[type="radio"]::before {
+    content: "";
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #667085;
+  }
+  
+  input[type="radio"]:checked::before {
+    transform: scale(1);
+  }

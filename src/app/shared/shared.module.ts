@@ -43,6 +43,7 @@ import { ContactSupportInfoComponent } from './dialog/contact-support-info/conta
 import { StatusColorDirective } from './directive/status-color.directive';
 import { SubscriptionRefundComponent } from './dialog/subscription-refund/subscription-refund.component';
 import { ReportAlertComponent } from './dialog/report-alert/report-alert.component';
+import { CurrencySymbolPipe } from './pipe/currency-symbol.pipe';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ReportAlertComponent } from './dialog/report-alert/report-alert.compone
     ContactSupportInfoComponent,
     StatusColorDirective,
     SubscriptionRefundComponent,
-    ReportAlertComponent
+    ReportAlertComponent,
+    CurrencySymbolPipe
   ],
   imports: [
     CommonModule,
@@ -105,7 +107,8 @@ import { ReportAlertComponent } from './dialog/report-alert/report-alert.compone
     TooltipDirective,
     LoadingSpinnerComponent,
     FormsModule, ReactiveFormsModule,
-    StatusColorDirective
+    StatusColorDirective,
+    CurrencySymbolPipe
   ],
   providers: [CurrencyPipe, DatePipe]
 })

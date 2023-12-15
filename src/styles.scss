@@ -206,6 +206,36 @@
     --subscription-modal-helper-text-color: #475467;
     --subscription-data-text-color: #475467;
 
+    --ng-select-value-bg-color: #F7F7F7;
+    --ng-option-selected-bg-color: rgba(105, 112, 241, 0.10);
+    --settings-sub-text-color: rgba(0, 0, 0, 0.50);
+    --ng-placeholder-color: #667085;
+    --ng-select-list-item-color: rgba(31, 29, 29, 0.76);
+    --checked-mark-color: #FFFFFF;
+
+    /*table border*/
+    --table-row-seperator-color:rgba(99, 102, 104, 0.2);
+
+    /*upload inventry*/
+    --upload-inventory-border: rgba(99, 101, 239, 0.37);
+
+    /*child menu*/
+    --child-route-bg-color:rgba(0, 0, 0, 0.05);
+
+    /*status filter*/
+    --status-filter-bg: #FFF;
+    --status-filter-box-shadow: #D8DAFF;
+    --status-filter-border:#D3CBFB;
+    --status-dropdown-bg-color:#FFF;
+    --status-dropdown-box-shadow: #D8DAFF;
+
+    /*download-sample-fill*/
+    --download-sample-icon-fill:#1C1B1F;
+
+    /*support link circle*/
+    --support-link-circle: #E9EAF0;
+
+
     /* SVG Color Change */
     .revenue-icon {
         circle {
@@ -380,9 +410,41 @@
     --subscription-modal-helper-text-color: #FFFFFF;
     --subscription-data-text-color: #8B8B8B;
 
+    --ng-select-value-bg-color: #1E1E1E;
+    --ng-option-selected-bg-color: rgba(99, 101, 239, 0.10);
+    --settings-sub-text-color: rgba(255, 255, 255, 0.50);
+    --ng-placeholder-color: #FFFFFF;
+    --ng-select-list-item-color: rgba(255, 255, 255, 0.50);
+    --checked-mark-color: #000000;
+
+    /*table border*/
+    --table-row-seperator-color:rgba(99, 102, 104, 0.2);
+
+    /*upload inventry*/
+    --upload-inventory-border: rgba(183, 184, 253, 0.37);
+
+    /*child menu*/
+    --child-route-bg-color:rgba(255, 255, 255, 0.05);
+
+    /*status filter*/
+    --status-filter-bg:rgba(255, 255, 255, 0.10);
+    --status-filter-box-shadow: rgba(0, 0, 0, 0.20);
+    --status-filter-border:#D3CBFB;
+    --status-dropdown-bg-color:#2C2D2D;
+    --status-dropdown-box-shadow: rgba(0, 0, 0, 0.20);
+
+    /*download-sample-fill*/
+    --download-sample-icon-fill:#949494;
+
+     /*support link circle*/
+    --support-link-circle: #24272C;
+
+    
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
+
+
 
     /* SVG Color Change */
     .search-icon-div {

@@ -85,6 +85,10 @@
                     color: var(--modal-form-label-text-color);
                     border-radius: 8px;
                     border: 1px solid var(--input-border-color);
+
+                    &::placeholder {
+                        color: var(--table-heading-text-color);
+                    }
                     
                 }
 
@@ -214,6 +218,10 @@
                         border-radius: 4px;
                         border: 1px solid var(--file-icon-border);
                         margin-right: 8px;
+                    }
+
+                    .file-icon-fill{
+                        fill: var(--download-sample-icon-fill);
                     }
                 }
 

@@ -18,6 +18,10 @@ export class SettingsService {
   getSettings() {
     return this.http.get(`${this.serverUrl}/customers/setting`);
   }
+
+  getCurrencies() {
+    return this.http.get(`${this.serverUrl}/currencies`);
+  }
   
   testMail(email: any) {
     let queryParams = new HttpParams();
@@ -29,12 +33,47 @@ export class SettingsService {
     return this.http.put(`${this.serverUrl}/customer/smtp/setup`, data);
   }
   
+  saveCurrencySetup(data: any) {
+    return this.http.post(`${this.serverUrl}/customers/setting/currency`, data);
+  }
+  
   getSMTP() {
     return this.http.get(`${this.serverUrl}/customer/smtp/setup`);
+  }
+  
+  getCurrencySettings() {
+    return this.http.get(`${this.serverUrl}/customers/setting/currency`);
   }
   
   testSMTP(data: any) {
     return this.http.post(`${this.serverUrl}/customer/smtp/setup`, data);
   }
 
+  getAllSettings(cacheId?: string) {
+    var configurationUrl: string;
+
+    if(cacheId) {
+      configurationUrl = `customers/setting/configuration?cacheId=${cacheId}`
+    } else {
+      configurationUrl =`customers/setting/configuration`
+    }
+    return [
+      this.http.get(`${this.serverUrl}/customers/setting`),
+      this.http.get(`${this.serverUrl}/customer/smtp/setup`),
+      this.http.get(`${this.serverUrl}/customers/setting/currency`),
+      this.http.get(`${this.serverUrl}/currencies`),
+      this.http.get(`${this.serverUrl}/${configurationUrl}`),
+    ];
+  }
+
+  getConfigurationSetting(cacheId?: string) {
+    var configurationUrl: string;
+
+    if(cacheId) {
+      configurationUrl = `customers/setting/configuration?cacheId=${cacheId}`
+    } else {
+      configurationUrl =`customers/setting/configuration`
+    }
+    return this.http.get(`${this.serverUrl}/${configurationUrl}`);
+  }
 }

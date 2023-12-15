@@ -22,13 +22,15 @@ $border-color_4: transparent black transparent transparent;
 	position: absolute;
 	max-width: 20vw;
 	font-size: 14px;
-	text-align: center;
+	text-align: left;
 	color: #fff;
 	padding: 9px 25px;
 	background: $background_color;
 	border-radius: 25px;
 	z-index: 9999;
 	opacity: 0;
+	white-space: normal;
+	word-wrap: break-word;
 	&:after {
 		content: "";
 		position: absolute;
