@@ -164,6 +164,9 @@
     --selected-value-background-color: rgba(105, 112, 241, 0.1);
     --input-text-color: #000000;
     --settings-card-heading-text-color: #473BAA;
+    --loyalty-card-heading-text-color: #473BAA;
+    --loyalty-card-sub-heading-text-color: #000;
+    --loyalty-card-input-field-color: #FFFFFF !important;
     --settings-helping-text-color: #000000;
     --radio-label-text-color: #000000;
     --bottom-border-color: #A8A9FD;
@@ -341,6 +344,9 @@
     --selected-value-background-color: rgba(105, 112, 241, 0.1);
     --input-text-color: #FFFFFF;
     --settings-card-heading-text-color: var(--table-heading-text-color);
+    --loyalty-card-heading-text-color: var(--table-heading-text-color);
+    --loyalty-card-sub-heading-text-color: rgba(255, 255, 255, 0.50);
+    --loyalty-card-input-field-color: transparent;
     --settings-helping-text-color: var(--table-text-color);
     --radio-label-text-color: #8B8B8B;
     --bottom-border-color: #A8A9FD;
