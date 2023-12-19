@@ -62,7 +62,7 @@
                         <div class="t-box a px-2 d-flex align-items-center">
                             <span class="text-overflow-ellipsis">{{contactRequest.name}}</span>
                         </div>
-                        <div class="t-box b d-flex align-items-center">
+                        <div class="t-box b px-1 d-flex align-items-center">
                                 {{contactRequest.email}} 
                                 <span class="icon-email-contact cursor-pointer" (click)="copyToClipboard($event,contactRequest.email)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@
                                     </svg>                           
                                 </span>
                         </div>
-                        <div class="t-box a px-1">
+                        <div class="t-box a px-1 d-flex align-items-center">
                             <span class="text-overflow-ellipsis" *ngIf="contactRequest.message.length > 20" [tooltip]="contactRequest.message" placement="top" delay="100" offset="5">
                                 {{contactRequest.message}}
                             </span>
@@ -83,7 +83,7 @@
                                 {{contactRequest.message}}
                             </span>
                         </div>
-                        <div class="t-box a px-1">{{contactRequest.created | date : 'dd/MM/YYYY' }}</div>
+                        <div class="t-box a px-1 d-flex align-items-center">{{contactRequest.created | date : 'dd/MM/YYYY' }}</div>
                         <label class="subscriber-details-text word-break custom-label-size">
                             <div class="filter-div d-flex">
                                 <div class="d-flex w-100 status-box">
