@@ -46,7 +46,8 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.inProgress = true;
-    this.cacheId = this.localStorage.getCacheId()!;
+    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+    this.cacheId = this.clientConfig?.cacheId;
 
     forkJoin(this.settingsService.getAllSettings(this.cacheId)).subscribe((response: any) => { 
       if(response) {
