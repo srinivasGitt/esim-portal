@@ -187,7 +187,8 @@ export class SettingsComponent implements OnInit {
   getClientConfiguration(response: any) {
     if(response) {
       this.clientConfig = response;
-      this.localStorage.setCacheId(this.clientConfig?.cacheId);
+      this.localStorage.setCacheConfig(JSON.stringify(this.clientConfig));
+      // this.localStorage.setCacheId(this.clientConfig?.cacheId);
       this.cacheId = this.clientConfig?.cacheId;
       if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
     }
@@ -332,7 +333,8 @@ export class SettingsComponent implements OnInit {
     this.settingsService.getConfigurationSetting(this.cacheId).subscribe((res: any) => {
       if(res && res.data) {
         this.cacheId = res.data?.cacheId
-        this.localStorage.setCacheId(this.cacheId);
+        // this.localStorage.setCacheId(this.cacheId);
+        this.localStorage.setCacheConfig(res.data);
       }
     }, err => {
       this.inProgress = false;
