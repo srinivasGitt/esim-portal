@@ -12,7 +12,16 @@ export class LoyaltyService {
   constructor(private http: HttpClient ) { }
 
   loyaltyPoints(loyaltyData:any) {
-    return this.http.post(`${this.serverUrl}/customers/setting/configuration`,loyaltyData);
+    return this.http.put(`${this.serverUrl}/customers/setting/configuration`,loyaltyData);
   }
+
+  GetLoyaltyPoints(){
+    return this.http.get(`${this.serverUrl}/customers/setting/configuration`);
+  }
+
+  GetLoyaltyWidgets(){
+    return this.http.get(`${this.serverUrl}/loyalty-points/report`);
+  }
+
 }
 

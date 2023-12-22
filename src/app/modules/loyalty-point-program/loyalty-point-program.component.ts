@@ -25,7 +25,37 @@ export class LoyaltyPointProgramComponent implements OnInit {
   ngOnInit(): void {
     this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
     this.getLoyaltyData();
-    
+
+    this.GetLoyaltyPoints();
+    this.GetLoyaltyWidgets();
+  }
+
+  GetLoyaltyPoints(){
+    this.loyaltyService.GetLoyaltyPoints()
+    .subscribe(
+      (res: any) => {
+        console.log(res);
+      }, err => {
+        this.err = err.message;
+        console.log(err.message);
+      }
+    );
+  }
+
+  GetLoyaltyWidgets(){
+    this.loyaltyService.GetLoyaltyWidgets()
+    .subscribe(
+      (res: any) => {
+        console.log(res);
+        this.totalRewardPoints = res.data[0].totalRewardPoints;
+        this.totalUsedRewardPoints = res.data[0].totalUsedRewardPoints;
+   
+
+      }, err => {
+        this.err = err.message;
+        console.log(err.message);
+      }
+    );
   }
 
   getLoyaltyData() {
@@ -52,8 +82,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
       this.loyaltyForm.enable() 
     } else {
       this.loyaltyForm.disable()
-      
-      //this.loyaltyForm.patchValue(this.externalEmailObj)
     }
   }
 
@@ -92,7 +120,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
       (res: any) => {
         console.log(loyaltyData);
         console.log(res);
-        this.alertService.success('You have successfully created a Loyalty Point Program.');
+        // this.alertService.success(res.message);
       }, err => {
         this.err = err.message;
         console.log(err.error.message);
@@ -117,21 +145,21 @@ export class LoyaltyPointProgramComponent implements OnInit {
     this.show = !this.show;
   }
 
-    /* increment and decrement input values */
-    updateValue(controlKey: string, updateBy: string){
-      if(updateBy == 'inc'){
-        let incValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 0 : parseInt(this.loyaltyForm.controls[controlKey].value);
-        this.loyaltyForm.controls[controlKey].setValue(++incValue);
-      } else if(updateBy == 'dec'){
-        let decValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 1 : parseInt(this.loyaltyForm.controls[controlKey].value);
-        if(--decValue > -1){
-          this.loyaltyForm.controls[controlKey].setValue(decValue);
-        }
-        
+  /* increment and decrement input values */
+  updateValue(controlKey: string, updateBy: string){
+    if(updateBy == 'inc'){
+      let incValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 0 : parseInt(this.loyaltyForm.controls[controlKey].value);
+      this.loyaltyForm.controls[controlKey].setValue(++incValue);
+    } else if(updateBy == 'dec'){
+      let decValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 1 : parseInt(this.loyaltyForm.controls[controlKey].value);
+      if(--decValue > -1){
+        this.loyaltyForm.controls[controlKey].setValue(decValue);
       }
+      
     }
+  }
 
-     /* Restrict user to enter only numbers and decimal point */
+  /* Restrict user to enter only numbers and decimal point */
   numberWithDecimalOnly(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -139,6 +167,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
     }
     return true;
   }
+
 
 }
 
