@@ -15,10 +15,6 @@ export class LoyaltyService {
     return this.http.put(`${this.serverUrl}/customers/setting/configuration`,loyaltyData);
   }
 
-  getLoyaltyPoints(){
-    return this.http.get(`${this.serverUrl}/customers/setting/configuration`);
-  }
-
   getLoyaltyWidgets(){
     return this.http.get(`${this.serverUrl}/loyalty-points/report`);
   }

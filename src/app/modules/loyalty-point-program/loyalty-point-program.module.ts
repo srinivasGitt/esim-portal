@@ -5,6 +5,7 @@ import { LoyaltyPointProgramRoutingModule } from './loyalty-point-program-routin
 import { LoyaltyPointProgramComponent } from './loyalty-point-program.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     LoyaltyPointProgramRoutingModule
   ]
 })

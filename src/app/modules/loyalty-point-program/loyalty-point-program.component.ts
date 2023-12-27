@@ -1,7 +1,8 @@
 import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/shared/service';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { LoyaltyService } from 'src/app/shared/service/loyalty.service';
 
 @Component({
@@ -10,127 +11,154 @@ import { LoyaltyService } from 'src/app/shared/service/loyalty.service';
   styleUrls: ['./loyalty-point-program.component.scss']
 })
 export class LoyaltyPointProgramComponent implements OnInit {
-  loyaltyForm: any; //loyaltyForm
+  loyaltyForm!: FormGroup; //loyaltyForm
   currencyType: any;
-  submitted = false;
+  submitted: boolean = false;
   show = true;
-  isDefault = true;
-  isEdit = false;
+  isDefault: boolean = false;
+  isEdit: boolean = false;
   totalRewardPoints = 0;
   totalUsedRewardPoints = 0;
   err : any;
+  inProgress: boolean = false;
+  clientConfig: any;
+  cacheId: any;
 
   constructor(private alertService: AlertService, 
     private loyaltyService: LoyaltyService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private localStorage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
-    this.getLoyaltyPoints();
+    
+    // Client Configuration
+    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+    this.cacheId = this.clientConfig?.cacheId;
+    if(this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled) {
+      this.loyaltyForm?.enable();
+    } else {
+      this.loyaltyForm?.disable();
+    }
+    this.createLoyaltyForm(this.clientConfig);
     this.getLoyaltyWidgets();
   }
 
-  getLoyaltyPoints(){
-    this.loyaltyService.getLoyaltyPoints()
-    .subscribe(
-      (res: any) => {
-        this.createLoyaltyForm(res);
-      }, err => {
-        this.err = err.message;
-      }
-    );
-  }
-
   getLoyaltyWidgets(){
-    this.loyaltyService.getLoyaltyWidgets()
-    .subscribe(
-      (res: any) => {
-        this.totalRewardPoints = res.data[0].totalRewardPoints;
-        this.totalUsedRewardPoints = res.data[0].totalUsedRewardPoints;
-   
-
-      }, err => {
-        this.err = err.message;
+    this.inProgress = true;
+    this.loyaltyService.getLoyaltyWidgets().subscribe((res: any) => {
+        if(res && res.data) {
+          this.totalRewardPoints = res?.data[0]?.totalRewardPoints;
+          this.totalUsedRewardPoints = res?.data[0]?.totalUsedRewardPoints;   
+          this.inProgress = false;
+        }
+      }, error => {
+        this.inProgress = false;
+        this.err = error.message;
+        this.alertService.error(error.error.message);
       }
     );
   }
 
-  createLoyaltyForm(res: any): void {
-    this.loyaltyForm = this.fb.group({
-      rewardPointsValue: this.fb.group({
-        cashValue: [res.data.rewardPointsValue.cashValue ? res.data.rewardPointsValue.cashValue : 0, [Validators.required, Validators.min(1)]],
-        rewardPoints: [res.data.rewardPointsValue.rewardPoints ? res.data.rewardPointsValue.rewardPoints : 0, [Validators.required, Validators.min(1)]]
-      }),
-      rewardPointsEarning: this.fb.group({
-          purchaseValue: [res.data.rewardPointsEarning.purchaseValue ? res.data.rewardPointsEarning.purchaseValue : 0, [Validators.required, Validators.min(1)]],
-          rewardPoints: [res.data.rewardPointsEarning.rewardPoints ? res.data.rewardPointsEarning.rewardPoints : 0, [Validators.required, Validators.min(1)]]
-      }),
-      rewardPointsMinRedeem: [res.data.rewardPointsMinRedeem ? res.data.rewardPointsMinRedeem : 0],
-      rewardPointsMaxRedeem: [res.data.rewardPointsMaxRedeem ? res.data.rewardPointsMaxRedeem : 0],
-      rewardPointsReferral: [res.data.rewardPointsReferral ? res.data.rewardPointsReferral : 0, [Validators.required, Validators.min(1)]]
-    });
+  createLoyaltyForm(config?: any): void {
+    // this.loyaltyForm = this.fb.group({
+    //   rewardPointsValue: this.fb.group({
+    //     cashValue: [config?.rewardPointsValue?.cashValue ?? 0, [Validators.required, Validators.min(1)]],
+    //     rewardPoints: [config?.rewardPointsValue?.rewardPoints ?? 0, [Validators.required, Validators.min(1)]]
+    //   }),
+    //   rewardPointsEarning: this.fb.group({
+    //       purchaseValue: [config?.rewardPointsEarning?.purchaseValue ?? 0, [Validators.required, Validators.min(1)]],
+    //       rewardPoints: [config?.rewardPointsEarning?.rewardPoints ?? 0, [Validators.required, Validators.min(1)]]
+    //   }),
+    //   rewardPointsMinRedeem: [config?.rewardPointsMinRedeem ?? 0],
+    //   rewardPointsMaxRedeem: [config?['rewardPointsMinRedeem'] ?? 0],
+    //   rewardPointsReferral: [config?.rewardPointsReferral ?? 0, [Validators.required, Validators.min(1)]]
+    // });
 
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls.rewardPointsMaxRedeem.value)]);
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+    this.loyaltyForm = new FormGroup({
+        rewardPointsValue: new FormGroup({
+          cashValue: new FormControl(config?.rewardPointsValue?.cashValue ?? 0, [Validators.required, Validators.min(1)]),
+          rewardPoints: new FormControl(config?.rewardPointsValue?.rewardPoints ?? 0, [Validators.required, Validators.min(1)])
+        }),
+        rewardPointsEarning: new FormGroup({
+            purchaseValue: new FormControl(config?.rewardPointsEarning?.purchaseValue ?? 0, [Validators.required, Validators.min(1)]),
+            rewardPoints: new FormControl(config?.rewardPointsEarning?.rewardPoints ?? 0, [Validators.required, Validators.min(1)])
+        }),
+        rewardPointsMinRedeem: new FormControl(config?.rewardPointsMinRedeem ?? 0),
+        rewardPointsMaxRedeem: new FormControl(config?.rewardPointsMaxRedeem ?? 0),
+        rewardPointsReferral: new FormControl(config?.rewardPointsReferral ?? 0, [Validators.required, Validators.min(1)])
+      });
+    // this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
+    // this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls.rewardPointsMinRedeem.value)]);
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity()
-
+    // this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
+    // this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
   }
 
   changeMode() {
     this.isDefault = !this.isDefault;
     if(this.isDefault) {
-      this.loyaltyForm.enable() 
+      this.loyaltyForm.enable();
     } else {
-      this.loyaltyForm.disable()
+      this.loyaltyForm.disable();
     }
   }
 
   submit() {
     this.submitted = true;
+    this.inProgress = true;
 
     if (this.loyaltyForm.invalid) {
       return;
     }
-
-    this.loyaltyService.loyaltyPoints({payloadFlag: "rewardPoints", ...this.loyaltyForm.value})
-    .subscribe(
+    
+    this.loyaltyService.loyaltyPoints({payloadFlag: "rewardPoints", ...this.loyaltyForm.value}).subscribe(
       (res: any) => {
         this.alertService.success(res.message);
+        this.submitted = false;
+        this.isEdit = false;
+        this.inProgress = false;
       }, err => {
         this.err = err.message;
         this.alertService.error(err.error.message);
+        this.submitted = false;
+        this.isEdit = false;
+        this.inProgress = false;
       }
     );
   }
 
-  edit() {
-    if(this.isDefault) {
-      this.loyaltyForm.enable() 
-    } else {
-      this.loyaltyForm.disable()
-      //this.loyaltyForm.patchValue(this.externalEmailObj)
-    }
+  reset() {
+    this.isEdit = false;
+    this.loyaltyForm.reset();
+    this.createLoyaltyForm(this.clientConfig);
   }
 
-  disableDiv() {
-    this.show = !this.show;
-  }
+  // edit() {
+  //   if(this.isDefault) {
+  //     this.loyaltyForm.enable() 
+  //   } else {
+  //     this.loyaltyForm.disable()
+  //   }
+  // }
+
+  // disableDiv() {
+  //   this.show = !this.show;
+  // }
 
   /* increment and decrement input values */
   updateValue(groupName:string, controlKey: string, updateBy: string){
 
     if(groupName) {
       if(updateBy == 'inc'){
-        let incValue = isNaN(parseInt(this.loyaltyForm.get(groupName).get(controlKey).value)) ? 0 : parseInt(this.loyaltyForm.get(groupName).get(controlKey).value);
-        this.loyaltyForm.get(groupName).get(controlKey).setValue(++incValue);
+        let incValue = isNaN(parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value)) ? 0 : parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value);
+        this.loyaltyForm.controls[groupName].get(controlKey)?.setValue(++incValue);
       } else if(updateBy == 'dec'){
-        let decValue = isNaN(parseInt(this.loyaltyForm.get(groupName).get(controlKey).value)) ? 1 : parseInt(this.loyaltyForm.get(groupName).get(controlKey).value);
+        let decValue = isNaN(parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value)) ? 1 : parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value);
         if(--decValue > -1){
-          this.loyaltyForm.get(groupName).get(controlKey).setValue(decValue);
+          this.loyaltyForm.controls[groupName].get(controlKey)?.setValue(decValue);
         }
-      }
+      }      
     } else {
       if(updateBy == 'inc'){
         let incValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 0 : parseInt(this.loyaltyForm.controls[controlKey].value);
@@ -156,10 +184,10 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
 
   updateValidation() {
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls.rewardPointsMaxRedeem.value)]);
+    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
     this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls.rewardPointsMinRedeem.value)]);
+    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
     this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
   }
 

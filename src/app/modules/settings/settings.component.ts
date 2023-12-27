@@ -46,8 +46,11 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.inProgress = true;
+    
+    // Client Configuration
     this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     this.cacheId = this.clientConfig?.cacheId;
+    if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
 
     forkJoin(this.settingsService.getAllSettings(this.cacheId)).subscribe((response: any) => { 
       if(response) {
@@ -60,8 +63,6 @@ export class SettingsComponent implements OnInit {
         // Currency Response
         this.getCurrencySettings(response[2]?.data, response[3]?.data);
 
-        // Client Configuration
-        this.getClientConfiguration(response[4]?.data);
       }
       this.inProgress = false;
     }, err => {
@@ -181,17 +182,6 @@ export class SettingsComponent implements OnInit {
         this.inProgress = false;
         this.alertService.error(err.error.message, err.status);
       })
-    }
-  }
-
-  // Client Feature Configuration
-  getClientConfiguration(response: any) {
-    if(response) {
-      this.clientConfig = response;
-      this.localStorage.setCacheConfig(JSON.stringify(this.clientConfig));
-      // this.localStorage.setCacheId(this.clientConfig?.cacheId);
-      this.cacheId = this.clientConfig?.cacheId;
-      if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
     }
   }
 
@@ -321,21 +311,6 @@ export class SettingsComponent implements OnInit {
         this.isSubmitted = false;
         this.isCurrencyEdit = false;
         this.currencySetupForm.disable();
-        this.getConfiguration();
-      }
-    }, err => {
-      this.inProgress = false;
-      this.isSubmitted = false;
-      this.alertService.error(err.error.message, err.status);
-    })
-  }
-
-  getConfiguration() {
-    this.settingsService.getConfigurationSetting(this.cacheId).subscribe((res: any) => {
-      if(res && res.data) {
-        this.cacheId = res.data?.cacheId
-        // this.localStorage.setCacheId(this.cacheId);
-        this.localStorage.setCacheConfig(res.data);
       }
     }, err => {
       this.inProgress = false;
