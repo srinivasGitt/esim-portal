@@ -12,7 +12,7 @@
 
     <div class="row loyalty-point-program dashboard-border-top es-modal add-edit-modal plan"> 
         <div class="col-8 pe-0 ps-0 pt-2 loyalty-point-program-form" [ngClass]="{custom: !isDefault}">
-            <form [formGroup]="loyaltyForm" (ngSubmit)="submit()">
+            <form [formGroup]="loyaltyForm" (ngSubmit)="submit()" *ngIf="loyaltyForm">
                 <div class="dashboard-graph">
                     <div  style="overflow-y: auto; overflow-x: hidden; max-height: calc(78vh - 98px);">
                         <div class="row">
@@ -21,13 +21,14 @@
                                 <p class="sub-heading sub-heading-reward-value">Here you can set how much the reward point
                                     is worth by setting up the value for it. (Example- Customer have 200 reward points it's
                                     $ value will be 2$)</p>
-                                <div class="divHeight">
+                                <div class="divHeight" formGroupName="rewardPointsValue">
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="p-2">
-                                                <label for="rewardPoints" class=" form-label label">Reward points</label>
+                                                <label for="rewardPoints" class="form-label label">Reward points</label>
                                                 <div class="d-flex relative align-items-center">
-                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.controls.rewardPoints.value == 0 || loyaltyForm.controls.rewardPoints.invalid) && submitted}">
+                                                    
+                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.get('rewardPointsValue').get('rewardPoints').invalid) && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                             viewBox="0 0 22 22" fill="none">
                                                             <path
@@ -40,12 +41,12 @@
                                                         id="rewardPoints" aria-describedby="rewardPoints"
                                                         formControlName="rewardPoints"
                                                         (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': loyaltyForm.controls.rewardPoints.value != 0 && loyaltyForm.controls.rewardPoints.valid, 'border-red': (loyaltyForm.controls.rewardPoints.value == 0 || loyaltyForm.controls.rewardPoints.invalid) && submitted, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (loyaltyForm.controls.rewardPoints.value == 0 || loyaltyForm.controls.rewardPoints.invalid) && submitted}">
+                                                        [ngClass]="{'border-purple': loyaltyForm.get('rewardPointsValue').get('rewardPoints').valid, 'border-red': (loyaltyForm.get('rewardPointsValue').get('rewardPoints').invalid) && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (loyaltyForm.get('rewardPointsValue').get('rewardPoints').invalid) && submitted}">
                                                         <span class="number-decremental" 
-                                                            (click)="updateValue('rewardPoints', 'dec')"> - </span>
+                                                            (click)="updateValue('rewardPointsValue', 'rewardPoints', 'dec')"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('rewardPoints'
+                                                            (click)="updateValue('rewardPointsValue','rewardPoints'
                                                             , 'inc')"> + </span>
                                                     </div>
                                                 </div>
@@ -53,7 +54,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="p-2">
-                                                <label for="cashValue" class=" form-label label">Cash Value
+                                                <label for="cashValue" class="form-label label">Cash Value
                                                     <span>(<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                         viewBox="0 0 22 22" fill="none">
                                                         <mask id="mask0_464_19992" style="mask-type:alpha"
@@ -71,7 +72,7 @@
                                                 </span>
                                                 </label>
                                                 <div class="d-flex align-items-center">
-                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.controls.cashValue.value == 0 || loyaltyForm.controls.cashValue.invalid) && submitted}">
+                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.get('rewardPointsValue').get('cashValue').invalid) && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                                 viewBox="0 0 22 22" fill="none">
                                                                 <mask id="mask0_464_19955" style="mask-type:alpha"
@@ -91,23 +92,21 @@
                                                         id="cashValue" aria-describedby="cashValue"
                                                         formControlName="cashValue"
                                                         (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': loyaltyForm.controls.cashValue.value != 0 && loyaltyForm.controls.cashValue.valid, 'border-red': (loyaltyForm.controls.cashValue.value == 0 || loyaltyForm.controls.cashValue.invalid) && submitted, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (f.cashValue.value == 0 || loyaltyForm.controls.cashValue.invalid) && submitted}">
+                                                        [ngClass]="{'border-purple': loyaltyForm.get('rewardPointsValue').get('cashValue').valid, 'border-red': (loyaltyForm.get('rewardPointsValue').get('cashValue').invalid) && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (loyaltyForm.get('rewardPointsValue').get('cashValue').invalid) && submitted}">
                                                         <span class="number-decremental"
-                                                            (click)="updateValue('cashValue', 'dec')"> - </span>
+                                                            (click)="updateValue('rewardPointsValue','cashValue', 'dec')"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('cashValue', 'inc')"> + </span>
+                                                            (click)="updateValue('rewardPointsValue','cashValue', 'inc')"> + </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-4"></div>
-                                        
                                     </div>
                                     <div class="ps-2 pb-0">
-                                          <!-- loyaltyForm.controls.invalid && (loyaltyForm.controls.cashValue.dirty || loyaltyForm.controls.cashValue.touched) -->
                                         <span class="help-block ng-invalid text-danger"
-                                            *ngIf="((loyaltyForm.controls.rewardPoints.touched && loyaltyForm.controls.rewardPoints.pristine) || (loyaltyForm.controls.cashValue.touched && loyaltyForm.controls.cashValue.pristine) || ((loyaltyForm.controls.rewardPoints.value == 0 || loyaltyForm.controls.cashValue.value == 0)) || ((loyaltyForm.controls.rewardPoints.errors && loyaltyForm.controls.cashValue.errors))) && submitted">
+                                            *ngIf="((loyaltyForm.get('rewardPointsValue').get('rewardPoints').touched && loyaltyForm.get('rewardPointsValue').get('rewardPoints').pristine) || (loyaltyForm.get('rewardPointsValue').get('cashValue').touched && loyaltyForm.get('rewardPointsValue').get('cashValue').pristine) || ((loyaltyForm.get('rewardPointsValue').get('rewardPoints').errors || loyaltyForm.get('rewardPointsValue').get('cashValue').errors))) && submitted">
                                             <span class="error-text">
                                                 Reward points or cash value is invalid, please check the details and try again.
                                             </span>
@@ -122,7 +121,7 @@
                                 <p class="sub-heading sub-heading-reward-earning">Here you can set how much reward points
                                     customer will get for every $ he spent while making any purchase. (Example- Customer
                                     purchase plan worth 1$ then he will get 10 reward points)</p>
-                                <div class="divHeight">
+                                <div class="divHeight" formGroupName="rewardPointsEarning">
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="p-2">
@@ -144,7 +143,7 @@
                                                     </span>
                                                 </label>
                                                 <div class="d-flex relative align-items-center">
-                                                    <span class="label price-icon" [ngClass]="{'border-red': (f.purchaseValue.value == 0 || f.purchaseValue.invalid) && submitted}">
+                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.get('rewardPointsEarning').get('purchaseValue').invalid) && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                             viewBox="0 0 22 22" fill="none">
                                                             <mask id="mask0_464_19955" style="mask-type:alpha"
@@ -164,12 +163,12 @@
                                                         id="purchaseValue" aria-describedby="purchaseValue"
                                                         formControlName="purchaseValue"
                                                         (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': f.purchaseValue.value != 0 && f.purchaseValue.valid, 'border-red': (f.purchaseValue.value == 0 || f.purchaseValue.invalid) && submitted, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (f.purchaseValue.value == 0 || f.purchaseValue.invalid) && submitted}">
+                                                        [ngClass]="{'border-purple': loyaltyForm.get('rewardPointsEarning').get('purchaseValue').valid, 'border-red': (loyaltyForm.get('rewardPointsEarning').get('purchaseValue').invalid) && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (loyaltyForm.get('rewardPointsEarning').get('purchaseValue').invalid) && submitted}">
                                                         <span class="number-decremental"
-                                                            (click)="updateValue('purchaseValue', 'dec')"> - </span>
+                                                            (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'dec')"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('purchaseValue', 'inc')"> + </span>
+                                                            (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'inc')"> + </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,7 +177,7 @@
                                             <div class="p-2">
                                                 <label for="rewardPointsTwo" class=" form-label label">Reward points</label>
                                                 <div class="d-flex relative align-items-center">
-                                                    <span class="label price-icon" [ngClass]="{'border-red': (f.rewardPointsTwo.value == 0 || f.rewardPointsTwo.invalid) && submitted}">
+                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.get('rewardPointsEarning').get('rewardPoints').invalid) && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                             viewBox="0 0 22 22" fill="none">
                                                             <path
@@ -189,14 +188,14 @@
                                                     <input type="text"
                                                         class="input-field es-input price-input number-input-right-padding"
                                                         id="rewardPointsTwo" aria-describedby="rewardPointsTwo"
-                                                        formControlName="rewardPointsTwo"
+                                                        formControlName="rewardPoints"
                                                         (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': f.rewardPointsTwo.value != 0 && f.rewardPointsTwo.valid, 'border-red': (f.rewardPointsTwo.value == 0 || f.rewardPointsTwo.invalid) && submitted, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (f.rewardPointsTwo.value == 0 || f.rewardPointsTwo.invalid) && submitted}">
+                                                        [ngClass]="{'border-purple': loyaltyForm.get('rewardPointsEarning').get('rewardPoints').valid, 'border-red': (loyaltyForm.get('rewardPointsEarning').get('rewardPoints').invalid) && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (loyaltyForm.get('rewardPointsEarning').get('rewardPoints').invalid) && submitted}">
                                                         <span class="number-decremental"
-                                                            (click)="updateValue('rewardPointsTwo', 'dec')"> - </span>
+                                                            (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'dec')"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('rewardPointsTwo', 'inc')"> + </span>
+                                                            (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'inc')"> + </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,7 +204,7 @@
                                     </div>
                                     <div class="ps-2 pb-0">
                                         <span class="help-block ng-invalid text-danger"
-                                            *ngIf="((loyaltyForm.controls.purchaseValue.touched && loyaltyForm.controls.purchaseValue.pristine) || (loyaltyForm.controls.rewardPointsTwo.touched && loyaltyForm.controls.rewardPointsTwo.pristine) || (loyaltyForm.controls.purchaseValue.value == 0 || loyaltyForm.controls.rewardPointsTwo.value == 0) || (loyaltyForm.controls.purchaseValue.errors || loyaltyForm.controls.rewardPointsTwo.errors)) && submitted">
+                                            *ngIf="((loyaltyForm.get('rewardPointsEarning').get('purchaseValue').touched && loyaltyForm.get('rewardPointsEarning').get('purchaseValue').pristine) || (loyaltyForm.get('rewardPointsEarning').get('rewardPoints').touched && loyaltyForm.get('rewardPointsEarning').get('rewardPoints').pristine) || (loyaltyForm.get('rewardPointsEarning').get('purchaseValue').errors || loyaltyForm.get('rewardPointsEarning').get('rewardPoints').errors)) && submitted">
                                             <span class="error-text">
                                                 Purchase value or reward points is invalid, please check the details and try again.
                                             </span>
@@ -227,7 +226,7 @@
                                             <div class="p-2">
                                                 <label for="minimumRewardPoint" class=" form-label label">Minimum Reward Point</label>
                                                 <div class="d-flex relative align-items-center">
-                                                    <span class="label price-icon">
+                                                    <span class="label price-icon" [ngClass]="{'border-red': loyaltyForm.controls.rewardPointsMinRedeem.invalid && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                             viewBox="0 0 22 22" fill="none">
                                                             <path
@@ -237,24 +236,25 @@
                                                     </span>
                                                     <input type="text"
                                                         class="input-field es-input price-input number-input-right-padding"
-                                                        id="minimumRewardPoint" aria-describedby="minimumRewardPoint"
-                                                        formControlName="minimumRewardPoint"
-                                                        (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': f.minimumRewardPoint.value != 0 && f.minimumRewardPoint.valid, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit}">
+                                                        id="rewardPointsMinRedeem" aria-describedby="rewardPointsMinRedeem"
+                                                        formControlName="rewardPointsMinRedeem"
+                                                        (keypress)="numberWithDecimalOnly($event);"
+                                                        (keyup)="updateValidation();"
+                                                        [ngClass]="{'border-purple': loyaltyForm.controls.rewardPointsMinRedeem.valid, 'border-red': loyaltyForm.controls.rewardPointsMinRedeem.invalid && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'border-red': loyaltyForm.controls.rewardPointsMinRedeem.invalid && submitted, 'disabled-input': !isDefault || !isEdit}">
                                                         <span class="number-decremental"
-                                                            (click)="updateValue('minimumRewardPoint', 'dec')"> - </span>
+                                                            (click)="updateValue('', 'rewardPointsMinRedeem', 'dec'); updateValidation()"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('minimumRewardPoint', 'inc')"> + </span>
+                                                            (click)="updateValue('', 'rewardPointsMinRedeem', 'inc'); updateValidation();"> + </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="p-2">
-                                                <label for="maximumRewardPoint" class=" form-label label">Maximum Reward Point</label>
+                                                <label for="rewardPointsMaxRedeem" class="form-label label">Maximum Reward Point</label>
                                                 <div class="d-flex relative align-items-center">
-                                                    <span class="label price-icon">
+                                                    <span class="label price-icon" [ngClass]="{'border-red': loyaltyForm.controls.rewardPointsMinRedeem.invalid && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                             viewBox="0 0 22 22" fill="none">
                                                             <path
@@ -264,20 +264,29 @@
                                                     </span>
                                                     <input type="text"
                                                         class="input-field es-input price-input number-input-right-padding"
-                                                        id="maximumRewardPoint" aria-describedby="maximumRewardPoint"
-                                                        formControlName="maximumRewardPoint"
+                                                        id="rewardPointsMaxRedeem" aria-describedby="rewardPointsMaxRedeem"
+                                                        formControlName="rewardPointsMaxRedeem"
                                                         (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': f.maximumRewardPoint.value != 0 && f.maximumRewardPoint.valid, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit}">
+                                                        (keyup)="updateValidation();"
+                                                        [ngClass]="{'border-purple': loyaltyForm.controls.rewardPointsMaxRedeem.valid, 'border-red': loyaltyForm.controls.rewardPointsMinRedeem.invalid && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'border-red': loyaltyForm.controls.rewardPointsMinRedeem.invalid && submitted, 'disabled-input': !isDefault || !isEdit}">
                                                         <span class="number-decremental"
-                                                            (click)="updateValue('maximumRewardPoint', 'dec')"> - </span>
+                                                            (click)="updateValue('', 'rewardPointsMaxRedeem', 'dec'); updateValidation();"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('maximumRewardPoint', 'inc')"> + </span>
+                                                            (click)="updateValue('', 'rewardPointsMaxRedeem', 'inc'); updateValidation();"> + </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-4"></div>
+                                    </div>
+                                    <div class="ps-2 pb-0">
+                                      <span class="help-block ng-invalid text-danger"
+                                          *ngIf="((loyaltyForm.controls.rewardPointsMaxRedeem.touched && loyaltyForm.controls.rewardPointsMaxRedeem.pristine) || (loyaltyForm.controls.rewardPointsMinRedeem.touched && loyaltyForm.controls.rewardPointsMinRedeem.pristine) || ((loyaltyForm.controls.rewardPointsMinRedeem.errors || loyaltyForm.controls.rewardPointsMinRedeem.errors))) && submitted">
+                                          <span class="error-text">
+                                            Minimum Reward Point or Maximum Reward Point is invalid, please check the details and try again.
+                                          </span>
+                                      </span>
                                     </div>
                                 </div>
                             </div>
@@ -293,9 +302,9 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="p-2">
-                                                <label for="rewardPointsThree" class=" form-label label">Reward Points</label>
+                                                <label for="rewardPointsReferral" class=" form-label label">Reward Points</label>
                                                 <div class="d-flex relative align-items-center">
-                                                    <span class="label price-icon" [ngClass]="{'border-red': (f.rewardPointsThree.value == 0 || f.rewardPointsThree.invalid) && submitted}">
+                                                    <span class="label price-icon" [ngClass]="{'border-red': (loyaltyForm.controls.rewardPointsReferral.invalid) && submitted}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                             viewBox="0 0 22 22" fill="none">
                                                             <path
@@ -305,15 +314,15 @@
                                                     </span>
                                                     <input type="text"
                                                         class="input-field es-input price-input number-input-right-padding"
-                                                        id="rewardPointsThree" aria-describedby="rewardPointsThree"
-                                                        formControlName="rewardPointsThree"
+                                                        id="rewardPointsReferral" aria-describedby="rewardPointsReferral"
+                                                        formControlName="rewardPointsReferral"
                                                         (keypress)="numberWithDecimalOnly($event)"
-                                                        [ngClass]="{'border-purple': f.rewardPointsThree.value != 0 && f.rewardPointsThree.valid, 'border-red': (f.rewardPointsThree.value == 0 || f.rewardPointsThree.invalid) && submitted, 'disabled-input': !isEdit}">
-                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (f.rewardPointsThree.value == 0 || f.rewardPointsThree.invalid) && submitted}">
+                                                        [ngClass]="{'border-purple': loyaltyForm.controls.rewardPointsReferral.valid, 'border-red': (loyaltyForm.controls.rewardPointsReferral.invalid) && submitted, 'disabled-input': !isEdit}">
+                                                    <div class="input-number-btn input-number-btn-reward" [ngClass]="{'disabled-input': !isDefault || !isEdit, 'border-red': (loyaltyForm.controls.rewardPointsReferral.invalid) && submitted}">
                                                         <span class="number-decremental"
-                                                            (click)="updateValue('rewardPointsThree', 'dec')"> - </span>
+                                                            (click)="updateValue('', 'rewardPointsReferral', 'dec')"> - </span>
                                                         <span class="number-incremental"
-                                                            (click)="updateValue('rewardPointsThree', 'inc')"> + </span>
+                                                            (click)="updateValue('', 'rewardPointsReferral', 'inc')"> + </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -322,7 +331,7 @@
                                     </div>
                                     <div class="ps-2 pb-0">
                                         <span class="help-block ng-invalid text-danger"
-                                            *ngIf="((f.rewardPointsThree.touched && f.rewardPointsThree.pristine) || f.rewardPointsThree.value == 0 || (f.rewardPointsThree.errors )) && submitted">
+                                            *ngIf="((loyaltyForm.controls.rewardPointsReferral.touched && loyaltyForm.controls.rewardPointsReferral.pristine) || (loyaltyForm.controls.rewardPointsReferral.errors)) && submitted">
                                             <span class="error-text">
                                                 Reward points is invalid, please check the details and try again.
                                             </span>

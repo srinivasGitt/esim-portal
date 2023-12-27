@@ -15,11 +15,11 @@ export class LoyaltyService {
     return this.http.put(`${this.serverUrl}/customers/setting/configuration`,loyaltyData);
   }
 
-  GetLoyaltyPoints(){
+  getLoyaltyPoints(){
     return this.http.get(`${this.serverUrl}/customers/setting/configuration`);
   }
 
-  GetLoyaltyWidgets(){
+  getLoyaltyWidgets(){
     return this.http.get(`${this.serverUrl}/loyalty-points/report`);
   }
 
