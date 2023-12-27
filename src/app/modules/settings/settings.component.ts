@@ -2,7 +2,9 @@ import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { ClientConfig } from 'src/app/shared/models/client-config.model';
 import { AlertService } from 'src/app/shared/service';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { SettingsService } from 'src/app/shared/service/settings.service';
 
 @Component({
@@ -33,23 +35,33 @@ export class SettingsComponent implements OnInit {
   defaultCurrencyList: any;
   currencySetupFormObj: any;
   isCurrencyEdit: boolean = false;
-  
-  constructor(private settingsService: SettingsService, private alertService: AlertService) { 
-    this.initForm()
+  clientConfig!: ClientConfig;
+  cacheId!: string;
+
+  constructor(private settingsService: SettingsService, 
+              private alertService: AlertService,
+              private localStorage: LocalStorageService) { 
+    this.initForm();
   }
 
   ngOnInit(): void {
     this.inProgress = true;
-    forkJoin(this.settingsService.getAllSettings()).subscribe((response: any) => { 
+    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+    this.cacheId = this.clientConfig?.cacheId;
+
+    forkJoin(this.settingsService.getAllSettings(this.cacheId)).subscribe((response: any) => { 
       if(response) {
         // Inventory Response
-        this.getSettings(response[0]?.data)
+        this.getSettings(response[0]?.data);
 
         // Email Forwarding Response
-        this.getSMTPSettings(response[1]?.data)
+        this.getSMTPSettings(response[1]?.data);
         
         // Currency Response
-        this.getCurrencySettings(response[2]?.data, response[3]?.data)
+        this.getCurrencySettings(response[2]?.data, response[3]?.data);
+
+        // Client Configuration
+        this.getClientConfiguration(response[4]?.data);
       }
       this.inProgress = false;
     }, err => {
@@ -166,15 +178,26 @@ export class SettingsComponent implements OnInit {
           this.inProgress = false;
         }
       }, err => {
-        this.alertService.error(err.error.message, err.status);
         this.inProgress = false;
+        this.alertService.error(err.error.message, err.status);
       })
     }
   }
 
+  // Client Feature Configuration
+  getClientConfiguration(response: any) {
+    if(response) {
+      this.clientConfig = response;
+      this.localStorage.setCacheConfig(JSON.stringify(this.clientConfig));
+      // this.localStorage.setCacheId(this.clientConfig?.cacheId);
+      this.cacheId = this.clientConfig?.cacheId;
+      if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
+    }
+  }
+
   sendTestMail(value: string) {
-    this.isSubmitted = true
-    this.inProgress = true
+    this.isSubmitted = true;
+    this.inProgress = true;
 
     this.settingsService.testMail(value).subscribe((res: any) => {
       if(res) {
@@ -183,6 +206,7 @@ export class SettingsComponent implements OnInit {
         this.isSubmitted = false;
       }
     }, err => {
+      this.inProgress = false;
       this.alertService.error(err.error.message, err.status);
     })
   }
@@ -283,7 +307,6 @@ export class SettingsComponent implements OnInit {
 
   // Save Currency Settings
   saveCurrencySetup() {
-    console.log(this.currencySetupForm.value)
     this.isSubmitted = true
     this.inProgress = true
     
@@ -297,17 +320,45 @@ export class SettingsComponent implements OnInit {
         this.inProgress = false;
         this.isSubmitted = false;
         this.isCurrencyEdit = false;
+        this.currencySetupForm.disable();
+        this.getConfiguration();
       }
     }, err => {
       this.inProgress = false;
       this.isSubmitted = false;
-      this.isCurrencyEdit = false;
+      this.alertService.error(err.error.message, err.status);
+    })
+  }
+
+  getConfiguration() {
+    this.settingsService.getConfigurationSetting(this.cacheId).subscribe((res: any) => {
+      if(res && res.data) {
+        this.cacheId = res.data?.cacheId
+        // this.localStorage.setCacheId(this.cacheId);
+        this.localStorage.setCacheConfig(res.data);
+      }
+    }, err => {
+      this.inProgress = false;
+      this.isSubmitted = false;
       this.alertService.error(err.error.message, err.status);
     })
   }
 
   displaySelectedCurrencies(currencies: any){
     return currencies.map((currency: any) => currency.currency_name).slice(2).join(', ');
+  }
+
+  onCurrencyRemoveFromList(event: any) {
+    const defaultCurrency = this.currencySetupForm.get('defaultCurrency');
+    if(event && defaultCurrency && defaultCurrency != null && event.label == defaultCurrency?.value?.currency_name) {
+      this.currencySetupForm.controls['defaultCurrency'].setValue(null);
+    }
+  }
+
+  onCurrenciesListClear(event: any) {
+    if(!event) {
+      this.currencySetupForm.controls['defaultCurrency'].setValue(null);
+    }
   }
 
   // Copy user email

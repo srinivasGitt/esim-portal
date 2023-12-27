@@ -128,6 +128,18 @@ export class SupportComponent implements OnInit, OnDestroy {
     navigator.clipboard.writeText(email);
   }
 
+  copyMobileToClipboard(event: MouseEvent, code: string | undefined, mobile: string | undefined){
+    event.preventDefault();
+
+   const number = `${code} ${mobile}`
+    if(!number){
+      return;
+    }
+
+    navigator.clipboard.writeText(number);
+  }
+
+
   ngOnDestroy(): void {
     this.inSearch = false
     this._searchService.searchedTerm = ''

@@ -22,9 +22,17 @@
         <div class="row sub">
             <div class="col-4">
                 <label class="modal-label-text">Plan Name</label>
-                <div class="modal-details-text mt-0 pe-2">
-                    {{ subscriptionDetails.planName }}
+                <div class="col-8">
+                    <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="subscriptionDetails.planName.length > 20" [tooltip]="subscriptionDetails.planName" placement="top" delay="100" offset="0">
+                        {{ subscriptionDetails.planName }}
+                    </label>
+                    <label class="subscriber-details-text" *ngIf="subscriptionDetails.planName.length <= 20">
+                        {{ subscriptionDetails.planName }}
+                    </label>
                 </div>
+                <!-- <div class="modal-details-text mt-0 pe-2">
+                    {{ subscriptionDetails.planName }}
+                </div> -->
             </div>
             <div class="col-4">
                 <label class="modal-label-text">Date Created</label>
@@ -48,7 +56,7 @@
             </div>
             <div class="col-8">
                 <label class="modal-label-text">Transaction ID</label>
-                <div class="modal-details-text mt-0 d-flex align-text-center justify-content-between">
+                <div class="modal-details-text mt-0 d-flex align-text-center justify-content-between" >
                     <label class="subscriber-details-text helper-text text-truncate w-85">
                         {{ subscriptionDetails.transactionId ?? 'NA'}} 
                     </label>
@@ -69,7 +77,12 @@
             <div class="col-4">
                 <label class="modal-label-text">Buying Price</label>
                 <div class="modal-details-text mt-0">
-                    {{ (subscriptionDetails.priceBundle || 0) | currency: subscriptionDetails?.buyingPrice?.currency || subscriptionDetails.currency }}
+                    <span *ngIf="subscriptionDetails.transactionId; else notApplicable">
+                        {{ (subscriptionDetails?.buyingPrice?.price || 0) | currency: subscriptionDetails?.buyingPrice?.currency }}
+                    </span>
+                    <ng-template #notApplicable>
+                        NA
+                    </ng-template>
                 </div>
             </div>
             <div class="col-6">

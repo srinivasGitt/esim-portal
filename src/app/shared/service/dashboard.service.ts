@@ -113,7 +113,7 @@ export class DashboardService {
       {
         title: 'Help Center',
         icon: 'assets/icons/headphone.svg',
-        link: null,
+        link: '/help-center',
         accessRole: ['admin','superAdmin'],
         hasGroup: true,
         childs: [
@@ -129,13 +129,13 @@ export class DashboardService {
             accessRole: ['admin','superAdmin'],
             hasGroup: false
           },
-          {
-            title: 'Raise Ticket',
-            link: 'https://support.glowingbud.com/',
-            accessRole: ['admin','superAdmin'],
-            hasGroup: false,
-            external: true
-          }
+          // {
+          //   title: 'Raise Ticket',
+          //   link: 'https://support.glowingbud.com/',
+          //   accessRole: ['admin','superAdmin'],
+          //   hasGroup: false,
+          //   external: true
+          // }
         ]
       },
     ];
@@ -181,6 +181,10 @@ export class DashboardService {
         increase: 2
       }
     ]
+  }
+
+  getRaiseTicket(){
+    return 'https://support.glowingbud.com/';
   }
 
   /*

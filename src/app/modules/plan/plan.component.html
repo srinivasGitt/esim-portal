@@ -44,12 +44,12 @@
                 </label>
             </div>
         </div> -->
-        <div class="row info-head-section">
+        <!-- <div class="row info-head-section">
             <div class="col-md-3 d-flex justify-content-between align-items-center gx-5">
                 <div class="heading">All Plans</div>
-                <div class="term">5G Access Included*</div>
+                <div class="term term-text">5G Access Included*</div>
             </div>
-            <div class="col-md-3 d-flex justify-content-evenly align-items-center">
+            <div class="col-md-3 d-flex justify-content-evenly align-items-center plan-status">
                 <div class="term">Plan status</div>
                 <div class="container-ng-select">
                     <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)" [ngClass]="[planStatus == 'active' ? 'active' : (planStatus == 'inactive' ? 'inactive': '')]">
@@ -80,13 +80,97 @@
                     </svg>
                 </div>
             </div>
-            <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <div class="col-md-6 d-flex justify-content-end align-items-center plan-entries">
                 <label class="show-entries">
                     {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: plansList.length }}
                 </label>
             </div>
-        </div>
+        </div> -->
         
+        <div class="info-head-section d-flex justify-content-between">
+            <div class="w-50 d-flex justify-content-between align-items-center">
+                <div class="w-50 d-flex align-items-center justify-content-between">
+                    <div class="heading">All Plans</div>
+                    <div class="mb-0">5G Access Included*</div>
+                </div>
+                <div class="w-50 d-flex align-items-center justify-content-end gap-2">
+                    <div>Plan status</div>
+                    <div class="container-ng-select">
+                        <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)" [ngClass]="[planStatus == 'active' ? 'active' : (planStatus == 'inactive' ? 'inactive': '')]">
+                            <ng-option value="active"> 
+                                <div class="d-flex justify-content-between w100">
+                                    <div class="active">Active</div>
+                                    <div>                                
+                                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 1L5 5L1 1" stroke="#43BE83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </ng-option>
+                            <ng-option value="inactive"> 
+                                <div class="d-flex justify-content-between">
+                                    <div class="inactive">Inactive</div>
+                                    <div>                                
+                                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 1L5 5L1 1" stroke="#EC5837" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </ng-option>
+    
+                        </ng-select>        
+                        <svg *ngIf="!planStatus" class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="w-50 d-flex justify-content-end align-items-center">
+                <label>
+                    {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: plansList.length }}
+                </label>
+            </div>
+            <!-- <div class="col-md-3 d-flex justify-content-between align-items-center gx-5">
+                <div class="heading">All Plans</div>
+                <div class="term term-text">5G Access Included*</div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-evenly align-items-center plan-status">
+                <div class="term">Plan status</div>
+                <div class="container-ng-select">
+                    <ng-select class="selector-filter" placeholder="All Plans" (change)="showPlan($event)" [ngClass]="[planStatus == 'active' ? 'active' : (planStatus == 'inactive' ? 'inactive': '')]">
+                        <ng-option value="active"> 
+                            <div class="d-flex justify-content-between w100">
+                                <div class="active">Active</div>
+                                <div>                                
+                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L5 5L1 1" stroke="#43BE83" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </ng-option>
+                        <ng-option value="inactive"> 
+                            <div class="d-flex justify-content-between">
+                                <div class="inactive">Inactive</div>
+                                <div>                                
+                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L5 5L1 1" stroke="#EC5837" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </ng-option>
+
+                    </ng-select>        
+                    <svg *ngIf="!planStatus" class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end align-items-center plan-entries">
+                <label class="show-entries">
+                    {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: plansList.length }}
+                </label>
+            </div> -->
+        </div>
         <ng-container class="user-dashboard-table mt-4" *ngIf="plansList && plansList.length > 0; else msg">
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers mt-3">
@@ -113,7 +197,7 @@
                     </div>
                     <div class="t-box a px-2 d-flex">
                         <svg class="my-auto" width="17" height="12" viewBox="0 0 17 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="color-stroke" d="M5.16699 11.0002H16.0013M1 11.0002H1.01M5.16699 5.99985H16.0013M1 5.99985H1.01M5.16699 0.999512H16.0013M1 0.999512H1.01" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="stroke-color" d="M5.16699 11.0002H16.0013M1 11.0002H1.01M5.16699 5.99985H16.0013M1 5.99985H1.01M5.16699 0.999512H16.0013M1 0.999512H1.01" stroke="black" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <span class="my-auto ms-2">IMSI</span>
                     </div>
