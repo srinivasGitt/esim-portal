@@ -262,7 +262,7 @@
             background: var(--main-background-color);
             position: fixed;
             width: calc(100vw - 285px);
-            padding-top: 20px;
+            padding-top: 25px;
             padding-bottom: 20px;
             z-index: 1;
         }
@@ -1740,6 +1740,10 @@
         }
     }
 
+    .display-name{
+        width: 17vw;
+    }
+
     // Subscription Info Icon
     .subscription-info-icon{
         background: var(--dark-info-background);
@@ -2913,6 +2917,7 @@
         top: 15%;
         left: 7%;
         background-color: #24272C;
+        box-shadow:  0px 4px 8px rgba(0, 0, 0, 0.4);
         // img{
         //     // width: 80%;
         //     height: auto;
@@ -3531,6 +3536,10 @@
         position: relative;
         left: -2vw;
     }
+
+    .copy-icon{
+        fill: var(--copy-icon-fill);
+    }
 }
 
 .w-85 {
@@ -3660,5 +3669,5 @@
 }
 
 .max-w80 {
-    max-width: 80% !important;
+    max-width: 100% !important;
 }

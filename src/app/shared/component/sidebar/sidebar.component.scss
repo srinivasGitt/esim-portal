@@ -166,6 +166,6 @@ svg{
 }
 
 .activeLinkChild{
-    background:  rgba(0, 0, 0, 0.05);
+    background:  var(--child-route-bg-color);
     border-radius: 8px;
 }

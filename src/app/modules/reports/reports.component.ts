@@ -270,7 +270,7 @@ export class ReportsComponent implements OnInit {
 
   downloadReport() {
     let data = {
-      title: `Success`,
+      title: `Successful!`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
@@ -314,7 +314,7 @@ export class ReportsComponent implements OnInit {
 
   sendTransactionAndRevenueReportMail() {
     let data = {
-      title: `Success`,
+      title: `Successful!`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
