@@ -132,7 +132,15 @@
                 </div>
                 <div class="t-body-overflow">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let subscriber of subscriberList | paginate: paginateConfig ">
-                        <div class="t-box a px-2">{{ subscriber.displayName }}</div>
+                        <div class="t-box a px-2">
+                            <!-- {{ subscriber.displayName }} -->
+                            <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="subscriber.displayName.length >20" [tooltip]="subscriber.displayName" placement="top" delay="100" offset="0">
+                                {{ subscriber.displayName }}
+                            </label>
+                            <label class="subscriber-details-text" *ngIf="subscriber.displayName.length <= 20">
+                                {{ subscriber.displayName }}
+                            </label>
+                        </div>
                         <!-- <div class="t-box b px-2">
                             <span class="text-overflow-ellipsis">{{subscriber.email}}</span>
                         </div> -->

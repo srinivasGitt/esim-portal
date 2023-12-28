@@ -78,8 +78,15 @@
                 <label class="subscriber-label-text">Assigned To</label>
             </div>
             <div class="col-8 d-flex align-items-center">
-                <label class="subscriber-details-text email-lable text-overflow-ellipsis ">
-                    {{ inventoryDetails.subscriberEmail }} 
+                <p class="modal-header-text mb-0 d-flex align-items-start">
+                    <span class="max-w80 word-wrap text-overflow-ellipsis">
+                        <span class="max-w80 word-wrap subscriber-details-text text-overflow-ellipsis" *ngIf=" inventoryDetails.subscriberEmail.length >20" placement="top" delay="100" offset="0">
+                            {{  inventoryDetails.subscriberEmail }}
+                        </span>
+                        <span class="max-w80 word-wrap subscriber-details-text" *ngIf=" inventoryDetails.subscriberEmail.length <= 20">
+                            {{ inventoryDetails.subscriberEmail }}
+                        </span>
+                    </span>
                     <span class="icon" *ngIf="inventoryDetails.subscriberEmail" (click)="copyToClipboard($event,inventoryDetails.subscriberEmail)" [tooltip]="copyText" placement="top" delay="100" offset="5">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -90,7 +97,7 @@
                             </g>
                         </svg>       
                     </span>
-                </label>
+                </p>
             </div>
             <!-- <hr class="horizontal-line"> -->
         </div>
