@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientConfig } from 'src/app/shared/models/client-config.model';
 import { AlertService } from 'src/app/shared/service';
+import { ConfigurationService } from 'src/app/shared/service/configuration.service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { LoyaltyService } from 'src/app/shared/service/loyalty.service';
 import { ILoyaltyPointsWidgetResponse } from './models/loyalty-points-widget-response.model';
-import { ConfigurationService } from 'src/app/shared/service/configuration.service';
 
 @Component({
   selector: 'app-loyalty-point-program',
@@ -94,28 +94,28 @@ export class LoyaltyPointProgramComponent implements OnInit {
       rewardPointsValue: new FormGroup({
         cashValue: new FormControl(config?.rewardPointsValue?.cashValue ?? 0, [
           Validators.required,
-          Validators.min(1),
+          Validators.min(0),
         ]),
         rewardPoints: new FormControl(config?.rewardPointsValue?.rewardPoints ?? 0, [
           Validators.required,
-          Validators.min(1),
+          Validators.min(0),
         ]),
       }),
       rewardPointsEarning: new FormGroup({
         purchaseValue: new FormControl(config?.rewardPointsEarning?.purchaseValue ?? 0, [
           Validators.required,
-          Validators.min(1),
+          Validators.min(0),
         ]),
         rewardPoints: new FormControl(config?.rewardPointsEarning?.rewardPoints ?? 0, [
           Validators.required,
-          Validators.min(1),
+          Validators.min(0),
         ]),
       }),
       rewardPointsMinRedeem: new FormControl(config?.rewardPointsMinRedeem ?? 0),
       rewardPointsMaxRedeem: new FormControl(config?.rewardPointsMaxRedeem ?? 0),
       rewardPointsReferral: new FormControl(config?.rewardPointsReferral ?? 0, [
         Validators.required,
-        Validators.min(1),
+        Validators.min(0),
       ]),
     });
     // this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
@@ -240,13 +240,16 @@ export class LoyaltyPointProgramComponent implements OnInit {
   getConfiguration() {
     const clientConfig = JSON.parse(localStorage.getItem('config')!);
 
-    this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe((res: any) => {
-      if(res) {
-        const data = res.data;
-        this.localStorage.setCacheConfig(JSON.stringify(data));
+    this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
+      (res: any) => {
+        if (res) {
+          const data = res.data;
+          this.localStorage.setCacheConfig(JSON.stringify(data));
+        }
+      },
+      (err) => {
+        this.alertService.error(err.error.message, err.status);
       }
-    }, err => {
-      this.alertService.error(err.error.message, err.status);
-    })
+    );
   }
 }
