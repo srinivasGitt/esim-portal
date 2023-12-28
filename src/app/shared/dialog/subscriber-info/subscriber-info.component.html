@@ -67,7 +67,13 @@
                 <label class="subscriber-label-text" [ngClass]="details.title == 'Contact Preferences' ? 'text-wrap' : ''"> {{ details.title }} </label>
             </div>
             <div class="col-7 ml-2" [ngClass]="details.title == 'Activation Code' ? 'activation-code-scroll': ''">
-                <label class="subscriber-details-text" [ngClass]="details.title == 'Email Address' ? 'email-lable' : ''" *ngIf="details.title != 'Contact Preferences'">
+
+                <label class="subscriber-details-text" [ngClass]="details.title == 'Email Address' ? 'email-lable' : ''" *ngIf="details.title != 'Contact Preferences' ">
+                    <span class="icon copy"   *ngIf="details.title == 'Available Reward Points' || details.title == 'Used Reward Points'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M3.9375 2.25C3.48995 2.25 3.06072 2.42779 2.74426 2.74426C2.42779 3.06072 2.25 3.48995 2.25 3.9375V5.27962C2.25 5.86462 2.55375 6.40687 3.04987 6.714L7.39913 9.40275C6.73759 9.75918 6.21393 10.3262 5.91113 11.0139C5.60833 11.7017 5.54371 12.4708 5.72752 13.1994C5.91132 13.928 6.33302 14.5745 6.92581 15.0363C7.5186 15.4981 8.24855 15.7489 9 15.7489C9.75145 15.7489 10.4814 15.4981 11.0742 15.0363C11.667 14.5745 12.0887 13.928 12.2725 13.1994C12.4563 12.4708 12.3917 11.7017 12.0889 11.0139C11.7861 10.3262 11.2624 9.75918 10.6009 9.40275L14.9501 6.714C15.1946 6.56282 15.3963 6.35171 15.5363 6.10068C15.6763 5.84966 15.7499 5.56704 15.75 5.27962V3.9375C15.75 3.48995 15.5722 3.06072 15.2557 2.74426C14.9393 2.42779 14.5101 2.25 14.0625 2.25H3.9375ZM6.75 7.67925V3.375H11.25V7.67925L9.29587 8.8875C9.20698 8.94248 9.10452 8.9716 9 8.9716C8.89548 8.9716 8.79302 8.94248 8.70412 8.8875L6.75 7.67925ZM9 10.125C9.59674 10.125 10.169 10.3621 10.591 10.784C11.0129 11.206 11.25 11.7783 11.25 12.375C11.25 12.9717 11.0129 13.544 10.591 13.966C10.169 14.3879 9.59674 14.625 9 14.625C8.40326 14.625 7.83097 14.3879 7.40901 13.966C6.98705 13.544 6.75 12.9717 6.75 12.375C6.75 11.7783 6.98705 11.206 7.40901 10.784C7.83097 10.3621 8.40326 10.125 9 10.125Z" fill="white"/>
+                        </svg>
+                    </span>
                     {{ details.isDate ? ( subscriberDetails[details.key] | date : 'dd/MM/YYYY Thh:mm:ss') : subscriberDetails[details.key] }}
                     <span class="icon" *ngIf="details.key == 'email'" (click)="copyToClipboard($event,subscriberDetails['email'])" [tooltip]="copyText" placement="top" delay="100" offset="5">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,6 +84,9 @@
                                 <path d="M4.16667 18.3332C3.70833 18.3332 3.31583 18.1701 2.98917 17.844C2.66306 17.5173 2.5 17.1248 2.5 16.6665V4.99984H4.16667V16.6665H13.3333V18.3332H4.16667ZM7.5 14.9998C7.04167 14.9998 6.64944 14.8368 6.32333 14.5107C5.99667 14.184 5.83333 13.7915 5.83333 13.3332V3.33317C5.83333 2.87484 5.99667 2.48234 6.32333 2.15567C6.64944 1.82956 7.04167 1.6665 7.5 1.6665H15C15.4583 1.6665 15.8508 1.82956 16.1775 2.15567C16.5036 2.48234 16.6667 2.87484 16.6667 3.33317V13.3332C16.6667 13.7915 16.5036 14.184 16.1775 14.5107C15.8508 14.8368 15.4583 14.9998 15 14.9998H7.5ZM7.5 13.3332H15V3.33317H7.5V13.3332Z" fill="#1C1B1F"/>
                             </g>
                         </svg>       
+                    </span>
+                    <span class="icon copy" *ngIf="details.title == 'Available Reward Points' || details.title == 'Used Reward Points'">
+                        ($5)    
                     </span>
                 </label>
                 <label class="subscriber-details-text mt-2" *ngIf="details.title == 'Contact Preferences'">
@@ -106,3 +115,5 @@
     <app-loading-spinner></app-loading-spinner>
 </ng-template>
 <!-- Loading Spinner - End -->
+
+

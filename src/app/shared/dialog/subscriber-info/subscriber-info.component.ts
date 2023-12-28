@@ -20,7 +20,9 @@ export class SubscriberInfoComponent implements OnInit {
     { title : 'Active Plan', key : 'planName', customClass: '' },
     { title : 'Plan Expiry', key : 'expiryDate', isDate : true },
     // { title : 'MSISDN', key : 'msisdn', customClass: '' },
-    { title : 'Contact Preferences', key : 'contactPreferences', customClass: '' }
+    { title : 'Contact Preferences', key : 'contactPreferences', customClass: '' },
+    { title: 'Available Reward Points', key : 'availableRewardPoints', customClass:''},
+    { title: 'Used Reward Points', key : 'usedRewardPoints', customClass:''}
   ]
 
   copyText: string = 'Copy'
@@ -37,6 +39,7 @@ export class SubscriberInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscriberDetails = this.dialogRef.context.data;
+
     if(this.subscriberDetails?._id){
       this.getSubscriberDetails();
     }
@@ -52,6 +55,8 @@ export class SubscriberInfoComponent implements OnInit {
           this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
           this.subscriberDetails.isSms = this.subscriberDetails?.contactPreferences?.sms;
           this.subscriberDetails.isEmail = this.subscriberDetails?.contactPreferences?.email;
+          this.subscriberDetails.availableRewardPoints = 200;
+          this.subscriberDetails.usedRewardPoints = 40;
           console.log(this.subscriberDetails)
         }
         this.inProgress = false;
