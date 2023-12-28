@@ -1,41 +1,51 @@
 import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClientConfig } from 'src/app/shared/models/client-config.model';
 import { AlertService } from 'src/app/shared/service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { LoyaltyService } from 'src/app/shared/service/loyalty.service';
+import { ILoyaltyPointsWidgetResponse } from './models/loyalty-points-widget-response.model';
+import { ConfigurationService } from 'src/app/shared/service/configuration.service';
 
 @Component({
   selector: 'app-loyalty-point-program',
   templateUrl: './loyalty-point-program.component.html',
-  styleUrls: ['./loyalty-point-program.component.scss']
+  styleUrls: ['./loyalty-point-program.component.scss'],
 })
 export class LoyaltyPointProgramComponent implements OnInit {
   loyaltyForm!: FormGroup; //loyaltyForm
-  currencyType: any;
+  currencyType!: string;
   submitted: boolean = false;
   show = true;
   isDefault: boolean = false;
   isEdit: boolean = false;
   totalRewardPoints = 0;
   totalUsedRewardPoints = 0;
-  err : any;
+  err!: string;
   inProgress: boolean = false;
-  clientConfig: any;
-  cacheId: any;
+  clientConfig!: ClientConfig;
+  cacheId!: string;
 
-  constructor(private alertService: AlertService, 
+  constructor(
+    private alertService: AlertService,
     private loyaltyService: LoyaltyService,
     private fb: FormBuilder,
-    private localStorage: LocalStorageService) { }
+    private localStorage: LocalStorageService,
+    private configurationService: ConfigurationService
+  ) {}
 
   ngOnInit(): void {
-    this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
-    
+    this.currencyType =
+      getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ??
+      getCurrencySymbol('USD', 'wide');
+
     // Client Configuration
     this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
-    this.cacheId = this.clientConfig?.cacheId;
-    if(this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled) {
+    const id = this.clientConfig?.cacheId;
+    this.cacheId = id!;
+
+    if (this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled) {
       this.loyaltyForm?.enable();
     } else {
       this.loyaltyForm?.disable();
@@ -44,15 +54,20 @@ export class LoyaltyPointProgramComponent implements OnInit {
     this.getLoyaltyWidgets();
   }
 
-  getLoyaltyWidgets(){
+  getLoyaltyWidgets() {
     this.inProgress = true;
-    this.loyaltyService.getLoyaltyWidgets().subscribe((res: any) => {
-        if(res && res.data) {
-          this.totalRewardPoints = res?.data[0]?.totalRewardPoints;
-          this.totalUsedRewardPoints = res?.data[0]?.totalUsedRewardPoints;   
+    this.loyaltyService.getLoyaltyWidgets().subscribe(
+      (res: ILoyaltyPointsWidgetResponse) => {
+        if (res && res.data && res.data.length > 0) {
+          const data = res?.data[0];
+          // Assuming data[0] is a JSON string, you might need to parse it
+          const jsonData = JSON.parse(JSON.stringify(data));
+          this.totalRewardPoints = jsonData.totalRewardPoints;
+          this.totalUsedRewardPoints = jsonData.totalUsedRewardPoints;
           this.inProgress = false;
         }
-      }, error => {
+      },
+      (error) => {
         this.inProgress = false;
         this.err = error.message;
         this.alertService.error(error.error.message);
@@ -60,7 +75,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
     );
   }
 
-  createLoyaltyForm(config?: any): void {
+  createLoyaltyForm(config?: ClientConfig): void {
     // this.loyaltyForm = this.fb.group({
     //   rewardPointsValue: this.fb.group({
     //     cashValue: [config?.rewardPointsValue?.cashValue ?? 0, [Validators.required, Validators.min(1)]],
@@ -76,18 +91,33 @@ export class LoyaltyPointProgramComponent implements OnInit {
     // });
 
     this.loyaltyForm = new FormGroup({
-        rewardPointsValue: new FormGroup({
-          cashValue: new FormControl(config?.rewardPointsValue?.cashValue ?? 0, [Validators.required, Validators.min(1)]),
-          rewardPoints: new FormControl(config?.rewardPointsValue?.rewardPoints ?? 0, [Validators.required, Validators.min(1)])
-        }),
-        rewardPointsEarning: new FormGroup({
-            purchaseValue: new FormControl(config?.rewardPointsEarning?.purchaseValue ?? 0, [Validators.required, Validators.min(1)]),
-            rewardPoints: new FormControl(config?.rewardPointsEarning?.rewardPoints ?? 0, [Validators.required, Validators.min(1)])
-        }),
-        rewardPointsMinRedeem: new FormControl(config?.rewardPointsMinRedeem ?? 0),
-        rewardPointsMaxRedeem: new FormControl(config?.rewardPointsMaxRedeem ?? 0),
-        rewardPointsReferral: new FormControl(config?.rewardPointsReferral ?? 0, [Validators.required, Validators.min(1)])
-      });
+      rewardPointsValue: new FormGroup({
+        cashValue: new FormControl(config?.rewardPointsValue?.cashValue ?? 0, [
+          Validators.required,
+          Validators.min(1),
+        ]),
+        rewardPoints: new FormControl(config?.rewardPointsValue?.rewardPoints ?? 0, [
+          Validators.required,
+          Validators.min(1),
+        ]),
+      }),
+      rewardPointsEarning: new FormGroup({
+        purchaseValue: new FormControl(config?.rewardPointsEarning?.purchaseValue ?? 0, [
+          Validators.required,
+          Validators.min(1),
+        ]),
+        rewardPoints: new FormControl(config?.rewardPointsEarning?.rewardPoints ?? 0, [
+          Validators.required,
+          Validators.min(1),
+        ]),
+      }),
+      rewardPointsMinRedeem: new FormControl(config?.rewardPointsMinRedeem ?? 0),
+      rewardPointsMaxRedeem: new FormControl(config?.rewardPointsMaxRedeem ?? 0),
+      rewardPointsReferral: new FormControl(config?.rewardPointsReferral ?? 0, [
+        Validators.required,
+        Validators.min(1),
+      ]),
+    });
     // this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
     // this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
@@ -97,7 +127,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
   changeMode() {
     this.isDefault = !this.isDefault;
-    if(this.isDefault) {
+    if (this.isDefault) {
       this.loyaltyForm.enable();
     } else {
       this.loyaltyForm.disable();
@@ -111,21 +141,27 @@ export class LoyaltyPointProgramComponent implements OnInit {
     if (this.loyaltyForm.invalid) {
       return;
     }
-    
-    this.loyaltyService.loyaltyPoints({payloadFlag: "rewardPoints", ...this.loyaltyForm.value}).subscribe(
-      (res: any) => {
-        this.alertService.success(res.message);
-        this.submitted = false;
-        this.isEdit = false;
-        this.inProgress = false;
-      }, err => {
-        this.err = err.message;
-        this.alertService.error(err.error.message);
-        this.submitted = false;
-        this.isEdit = false;
-        this.inProgress = false;
-      }
-    );
+
+    this.loyaltyService
+      .loyaltyPoints({ payloadFlag: 'rewardPoints', ...this.loyaltyForm.value })
+      .subscribe(
+        (res: ClientConfig) => {
+          const message = res?.message || '';
+          this.alertService.success(message);
+          this.getConfiguration();
+          this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+          this.submitted = false;
+          this.isEdit = false;
+          this.inProgress = false;
+        },
+        (err) => {
+          this.err = err.message;
+          this.alertService.error(err.error.message);
+          this.submitted = false;
+          this.isEdit = false;
+          this.inProgress = false;
+        }
+      );
   }
 
   reset() {
@@ -136,7 +172,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
   // edit() {
   //   if(this.isDefault) {
-  //     this.loyaltyForm.enable() 
+  //     this.loyaltyForm.enable()
   //   } else {
   //     this.loyaltyForm.disable()
   //   }
@@ -147,49 +183,70 @@ export class LoyaltyPointProgramComponent implements OnInit {
   // }
 
   /* increment and decrement input values */
-  updateValue(groupName:string, controlKey: string, updateBy: string){
-
-    if(groupName) {
-      if(updateBy == 'inc'){
-        let incValue = isNaN(parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value)) ? 0 : parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value);
+  updateValue(groupName: string, controlKey: string, updateBy: string) {
+    if (groupName) {
+      if (updateBy == 'inc') {
+        let incValue = isNaN(parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value))
+          ? 0
+          : parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value);
         this.loyaltyForm.controls[groupName].get(controlKey)?.setValue(++incValue);
-      } else if(updateBy == 'dec'){
-        let decValue = isNaN(parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value)) ? 1 : parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value);
-        if(--decValue > -1){
+      } else if (updateBy == 'dec') {
+        let decValue = isNaN(parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value))
+          ? 1
+          : parseInt(this.loyaltyForm.controls[groupName].get(controlKey)?.value);
+        if (--decValue > -1) {
           this.loyaltyForm.controls[groupName].get(controlKey)?.setValue(decValue);
         }
-      }      
+      }
     } else {
-      if(updateBy == 'inc'){
-        let incValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 0 : parseInt(this.loyaltyForm.controls[controlKey].value);
+      if (updateBy == 'inc') {
+        let incValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value))
+          ? 0
+          : parseInt(this.loyaltyForm.controls[controlKey].value);
         this.loyaltyForm.controls[controlKey].setValue(++incValue);
-      } else if(updateBy == 'dec'){
-        let decValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value)) ? 1 : parseInt(this.loyaltyForm.controls[controlKey].value);
-        if(--decValue > -1){
+      } else if (updateBy == 'dec') {
+        let decValue = isNaN(parseInt(this.loyaltyForm.controls[controlKey].value))
+          ? 1
+          : parseInt(this.loyaltyForm.controls[controlKey].value);
+        if (--decValue > -1) {
           this.loyaltyForm.controls[controlKey].setValue(decValue);
         }
       }
     }
-    
   }
 
   /* Restrict user to enter only numbers and decimal point */
-  numberWithDecimalOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
+  numberWithDecimalOnly(event: KeyboardEvent): boolean {
+    console.log(event);
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
     return true;
   }
 
-
   updateValidation() {
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
+    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([
+      Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
+    ]);
     this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
+    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([
+      Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
+    ]);
     this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
   }
 
-}
+  getConfiguration() {
+    const clientConfig = JSON.parse(localStorage.getItem('config')!);
 
+    this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe((res: any) => {
+      if(res) {
+        const data = res.data;
+        this.localStorage.setCacheConfig(JSON.stringify(data));
+      }
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+    })
+  }
+}
