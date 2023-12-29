@@ -1,66 +1,202 @@
 <ng-container [formGroup]="form">
   <div class="div-height">
-      <label for="code" class="form-label es-modal-form-label">Coupon Code*</label>
-      <input type="text" class="form-control es-input" id="code" aria-describedby="code" name="code" formControlName="code" placeholder="Set Coupon Code" [ngClass]="{'border-purple': form.get('code')?.valid, 'border-error': form.get('code')?.touched && form.get('code')?.errors?.['required']}">
-      <div>
-        <span class="help-block ng-invalid text-danger" *ngIf="(form.get('code')?.touched || form.get('code')?.dirty)">
-            <span class="small" *ngIf="form.get('code')?.errors?.['required']">
-                Please set a coupon code
-            </span>
+    <label for="code" class="form-label es-modal-form-label"
+      >Coupon Code*</label
+    >
+    <input
+      type="text"
+      class="form-control es-input"
+      id="code"
+      aria-describedby="code"
+      name="code"
+      formControlName="code"
+      placeholder="Set Coupon Code"
+      [ngClass]="{
+        'border-purple': form.get('code')?.valid,
+        'border-error':
+          form.get('code')?.touched && form.get('code')?.errors?.['required']
+      }"
+    />
+    <div>
+      <span
+        class="help-block ng-invalid text-danger"
+        *ngIf="form.get('code')?.touched && form.get('code')?.dirty"
+      >
+        <span class="small" *ngIf="form.get('code')?.errors?.['required']">
+          Please set a coupon code
         </span>
-      </div>
+        <span
+          class="small"
+          *ngIf="
+            form.get('code')?.errors?.['minlength'] ||
+            form.get('code')?.errors?.['maxlength']
+          "
+        >
+          Coupon code must have min.
+          {{ form.get("code")?.errors?.["minlength"]?.["requiredLength"] }} or
+          max.
+          {{ form.get("code")?.errors?.["maxlength"]?.["requiredLength"] }}
+          characters.
+        </span>
+      </span>
+    </div>
   </div>
   <div class="h-auto">
-      <div>
-        <div class="mb-2">
-          <span class="form-label es-modal-form-label">Discount Type*</span>
+    <div>
+      <div class="mb-2">
+        <span class="form-label es-modal-form-label">Discount Type*</span>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div
+          class="form-check custom-radio-div"
+          [ngClass]="{
+            checked: form.get('discountType')?.value == 'fixedPrice'
+          }"
+        >
+          <label for="fixedPrice" class="w90">Fix Price</label>
+          <input
+            type="radio"
+            name="discountType"
+            id="fixedPrice"
+            formControlName="discountType"
+            value="fixedPrice"
+            (change)="onRadioButtonChange('fixedPrice')"
+          />
         </div>
-        <div class="d-flex justify-content-between">
-          <div class="form-check custom-radio-div" [ngClass]="{'checked': form.get('discountType')?.value == 'fixed'}">
-            <label for="fixed" class="w90">Fix Price</label>
-            <input type="radio" name="discountType" id="fixed" formControlName="discountType" value="fixed" (change)="onRadioButtonChange('fixed')">
-          </div>
-          <div class="form-check custom-radio-div" [ngClass]="{'checked': form.get('discountType')?.value == 'percentage'}">
-            <label for="percentage" class="w90">Percentage</label>
-            <input type="radio" name="discountType" id="percentage" formControlName="discountType" value="percentage"  (change)="onRadioButtonChange('percentage')">
-          </div>
+        <div
+          class="form-check custom-radio-div"
+          [ngClass]="{
+            checked: form.get('discountType')?.value == 'percentage'
+          }"
+        >
+          <label for="percentage" class="w90">Percentage</label>
+          <input
+            type="radio"
+            name="discountType"
+            id="percentage"
+            formControlName="discountType"
+            value="percentage"
+            (change)="onRadioButtonChange('percentage')"
+          />
         </div>
       </div>
-      <div class="d-flex justify-content-between discount-value mt-3">
-        <div class="w-100 div-height">
-          <div class="d-flex relative">
-              <input type="text" class="form-control es-input price-input number-input-right-padding" id="discount-value" aria-describedby="discount-value" name="discountValue" formControlName="discountValue" appNumberOnly [ngClass]="{'border-purple': form.get('discountValue')?.valid, 'border-error': form.get('discountValue')?.touched && (form.get('discountValue')?.errors?.['required'] || form.get('discountValue')?.errors?.['min'])}">
-              <span 
-                class="form-label es-modal-form-label price-input-icon" 
-                [ngClass]="{'border-right-error-color': form.get('discountValue')?.touched && (form.get('discountValue')?.errors?.['required'] || form.get('discountValue')?.errors?.['min']) ? 'rgb(234,155,155)' : '', 'border-right-valid-color': form.get('discountValue')?.valid}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" *ngIf="form.get('discountType')?.value == 'fixed'; else percentage">
-                  <mask id="mask0_464_18026" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="22" height="22">
-                    <rect width="22" height="22" fill="#D9D9D9"/>
-                  </mask>
-                  <g mask="url(#mask0_464_18026)">
-                    <path d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z" fill="#475467"/>
-                  </g>
-                </svg>
+    </div>
+    <div class="d-flex justify-content-between discount-value mt-3">
+      <div class="w-100 div-height">
+        <div class="d-flex relative">
+          <input
+            type="text"
+            class="form-control es-input price-input number-input-right-padding"
+            id="discount-value"
+            aria-describedby="discount-value"
+            name="discountValue"
+            formControlName="discountValue"
+            appNumberOnly
+            [ngClass]="{
+              'border-purple': form.get('discountValue')?.valid,
+              'border-error':
+                form.get('discountValue')?.touched &&
+                (form.get('discountValue')?.errors?.['required'] ||
+                  form.get('discountValue')?.errors?.['min'])
+            }"
+          />
+          <span
+            class="form-label es-modal-form-label price-input-icon"
+            [ngClass]="{
+              'border-right-error-color':
+                form.get('discountValue')?.touched &&
+                (form.get('discountValue')?.errors?.['required'] ||
+                  form.get('discountValue')?.errors?.['min'])
+                  ? 'rgb(234,155,155)'
+                  : '',
+              'border-right-valid-color': form.get('discountValue')?.valid
+            }"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              *ngIf="
+                form.get('discountType')?.value == 'fixedPrice';
+                else percentage
+              "
+            >
+              <mask
+                id="mask0_464_18026"
+                style="mask-type: alpha"
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="22"
+                height="22"
+              >
+                <rect width="22" height="22" fill="#D9D9D9" />
+              </mask>
+              <g mask="url(#mask0_464_18026)">
+                <path
+                  d="M10.1055 19.25V17.2792C9.29581 17.0958 8.59701 16.7444 8.00912 16.225C7.42062 15.7056 6.98887 14.9722 6.71387 14.025L8.4097 13.3375C8.63887 14.0708 8.97895 14.6285 9.42995 15.0104C9.88034 15.3924 10.4722 15.5833 11.2055 15.5833C11.8319 15.5833 12.363 15.4422 12.7987 15.1598C13.2338 14.8769 13.4514 14.4375 13.4514 13.8417C13.4514 13.3069 13.2833 12.8828 12.9472 12.5693C12.6111 12.2564 11.8319 11.9014 10.6097 11.5042C9.29581 11.0917 8.39442 10.5991 7.90553 10.0265C7.41665 9.45328 7.1722 8.75417 7.1722 7.92917C7.1722 6.93611 7.49303 6.16458 8.1347 5.61458C8.77637 5.06458 9.43331 4.75139 10.1055 4.675V2.75H11.9389V4.675C12.7028 4.79722 13.3331 5.07589 13.83 5.511C14.3262 5.94672 14.6889 6.47778 14.918 7.10417L13.2222 7.8375C13.0389 7.34861 12.7791 6.98194 12.443 6.7375C12.1069 6.49306 11.6486 6.37083 11.068 6.37083C10.3958 6.37083 9.88401 6.51994 9.53262 6.81817C9.18123 7.11578 9.00553 7.48611 9.00553 7.92917C9.00553 8.43333 9.2347 8.83056 9.69303 9.12083C10.1514 9.41111 10.9458 9.71667 12.0764 10.0375C13.1305 10.3431 13.929 10.828 14.4716 11.4922C15.0137 12.1571 15.2847 12.925 15.2847 13.7958C15.2847 14.8806 14.9639 15.7056 14.3222 16.2708C13.6805 16.8361 12.8861 17.1875 11.9389 17.325V19.25H10.1055Z"
+                  fill="#475467"
+                />
+              </g>
+            </svg>
 
-                <ng-template #percentage>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.09668 1.62793C5.58919 2.18685 5.83545 2.94222 5.83545 3.89404C5.83545 4.84587 5.58919 5.60124 5.09668 6.16016C4.6097 6.71908 3.94564 6.99854 3.10449 6.99854C2.26888 6.99854 1.60482 6.71908 1.1123 6.16016C0.619792 5.60124 0.373535 4.84587 0.373535 3.89404C0.373535 2.94222 0.619792 2.18685 1.1123 1.62793C1.60482 1.06901 2.26888 0.789551 3.10449 0.789551C3.9401 0.789551 4.60417 1.06901 5.09668 1.62793ZM2.46533 5.09766C2.62028 5.38542 2.83333 5.5293 3.10449 5.5293C3.37565 5.5293 3.5887 5.38542 3.74365 5.09766C3.8986 4.80436 3.97607 4.40039 3.97607 3.88574C3.97607 3.37109 3.8986 2.96712 3.74365 2.67383C3.5887 2.38053 3.37565 2.23389 3.10449 2.23389C2.83333 2.23389 2.62028 2.38053 2.46533 2.67383C2.31038 2.96712 2.23291 3.37109 2.23291 3.88574C2.23291 4.40039 2.31038 4.80436 2.46533 5.09766ZM3.56934 13H1.56055L6.20898 6.6333L10.3013 1.02197H12.3018L7.78613 7.21436L3.56934 13ZM13.4888 10.0615C13.4888 11.0189 13.2425 11.777 12.75 12.3359C12.2575 12.8949 11.5934 13.1743 10.7578 13.1743C9.9222 13.1743 9.25814 12.8949 8.76562 12.3359C8.27311 11.7715 8.02686 11.0133 8.02686 10.0615C8.02686 9.1097 8.27311 8.35433 8.76562 7.79541C9.25814 7.23649 9.9222 6.95703 10.7578 6.95703C11.5934 6.95703 12.2575 7.23649 12.75 7.79541C13.2425 8.35433 13.4888 9.1097 13.4888 10.0615ZM10.1187 11.2651C10.2736 11.5529 10.4867 11.6968 10.7578 11.6968C11.029 11.6968 11.242 11.5529 11.397 11.2651C11.5519 10.9718 11.6294 10.5679 11.6294 10.0532C11.6294 9.53857 11.5519 9.1346 11.397 8.84131C11.242 8.54801 11.029 8.40137 10.7578 8.40137C10.4867 8.40137 10.2736 8.54801 10.1187 8.84131C9.9637 9.1346 9.88623 9.53857 9.88623 10.0532C9.88623 10.5679 9.9637 10.9718 10.1187 11.2651Z" fill="#475467"/>
-                  </svg>  
-                </ng-template>
-              </span>
-          </div>
-          <div class="input-number-btn">
-            <span class="number-decremental" (click)="updateValue('discountValue', 'dec')"> - </span>
-            <span class="number-incremental" (click)="updateValue('discountValue', 'inc')"> + </span>
-          </div>
-          <div class="mt-2">
-            <span class="help-block ng-invalid text-danger" *ngIf="(form.get('discountValue')?.touched || form.get('discountValue')?.dirty)">
-                <span class="small" *ngIf="form.get('discountValue')?.errors?.['required'] || form.get('discountValue')?.errors?.['min']">
-                    Fix price {{ form.get('discountType')?.value == 'fixed' ? 'value' : 'percentage' }} is invalid, please check the details and try again.
-                </span>
+            <ng-template #percentage>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.09668 1.62793C5.58919 2.18685 5.83545 2.94222 5.83545 3.89404C5.83545 4.84587 5.58919 5.60124 5.09668 6.16016C4.6097 6.71908 3.94564 6.99854 3.10449 6.99854C2.26888 6.99854 1.60482 6.71908 1.1123 6.16016C0.619792 5.60124 0.373535 4.84587 0.373535 3.89404C0.373535 2.94222 0.619792 2.18685 1.1123 1.62793C1.60482 1.06901 2.26888 0.789551 3.10449 0.789551C3.9401 0.789551 4.60417 1.06901 5.09668 1.62793ZM2.46533 5.09766C2.62028 5.38542 2.83333 5.5293 3.10449 5.5293C3.37565 5.5293 3.5887 5.38542 3.74365 5.09766C3.8986 4.80436 3.97607 4.40039 3.97607 3.88574C3.97607 3.37109 3.8986 2.96712 3.74365 2.67383C3.5887 2.38053 3.37565 2.23389 3.10449 2.23389C2.83333 2.23389 2.62028 2.38053 2.46533 2.67383C2.31038 2.96712 2.23291 3.37109 2.23291 3.88574C2.23291 4.40039 2.31038 4.80436 2.46533 5.09766ZM3.56934 13H1.56055L6.20898 6.6333L10.3013 1.02197H12.3018L7.78613 7.21436L3.56934 13ZM13.4888 10.0615C13.4888 11.0189 13.2425 11.777 12.75 12.3359C12.2575 12.8949 11.5934 13.1743 10.7578 13.1743C9.9222 13.1743 9.25814 12.8949 8.76562 12.3359C8.27311 11.7715 8.02686 11.0133 8.02686 10.0615C8.02686 9.1097 8.27311 8.35433 8.76562 7.79541C9.25814 7.23649 9.9222 6.95703 10.7578 6.95703C11.5934 6.95703 12.2575 7.23649 12.75 7.79541C13.2425 8.35433 13.4888 9.1097 13.4888 10.0615ZM10.1187 11.2651C10.2736 11.5529 10.4867 11.6968 10.7578 11.6968C11.029 11.6968 11.242 11.5529 11.397 11.2651C11.5519 10.9718 11.6294 10.5679 11.6294 10.0532C11.6294 9.53857 11.5519 9.1346 11.397 8.84131C11.242 8.54801 11.029 8.40137 10.7578 8.40137C10.4867 8.40137 10.2736 8.54801 10.1187 8.84131C9.9637 9.1346 9.88623 9.53857 9.88623 10.0532C9.88623 10.5679 9.9637 10.9718 10.1187 11.2651Z"
+                  fill="#475467"
+                />
+              </svg>
+            </ng-template>
+          </span>
+        </div>
+        <div class="input-number-btn">
+          <span
+            class="number-decremental"
+            (click)="updateValue('discountValue', 'dec')"
+          >
+            -
+          </span>
+          <span
+            class="number-incremental"
+            (click)="updateValue('discountValue', 'inc')"
+          >
+            +
+          </span>
+        </div>
+        <div class="mt-2">
+          <span
+            class="help-block ng-invalid text-danger"
+            *ngIf="
+              form.get('discountValue')?.touched &&
+              form.get('discountValue')?.dirty
+            "
+          >
+            <span
+              class="small"
+              *ngIf="
+                form.get('discountValue')?.errors?.['required'] ||
+                form.get('discountValue')?.errors?.['min']
+              "
+            >
+              {{
+                form.get("discountType")?.value == "fixedPrice"
+                  ? "Fix price "
+                  : "Percentage "
+              }}
+              is invalid, please check the details and try again.
             </span>
-          </div>
+          </span>
         </div>
       </div>
+    </div>
   </div>
 </ng-container>
