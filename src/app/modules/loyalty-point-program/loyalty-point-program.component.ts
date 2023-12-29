@@ -45,7 +45,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
     const id = this.clientConfig?.cacheId;
     this.cacheId = id!;
 
-    if (this.clientConfig.rewardPointsEnabled) {
+    if (this.clientConfig?.rewardPointsEnabled) {
       this.isDefault = true;
       this.loyaltyForm?.enable();
     } else {
