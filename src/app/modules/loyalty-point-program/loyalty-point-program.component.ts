@@ -45,9 +45,11 @@ export class LoyaltyPointProgramComponent implements OnInit {
     const id = this.clientConfig?.cacheId;
     this.cacheId = id!;
 
-    if (this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled) {
+    if (this.clientConfig.rewardPointsEnabled) {
+      this.isDefault = true;
       this.loyaltyForm?.enable();
     } else {
+      this.isDefault = false;
       this.loyaltyForm?.disable();
     }
     this.createLoyaltyForm(this.clientConfig);
@@ -127,12 +129,30 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
   changeMode() {
     this.isDefault = !this.isDefault;
-    if (this.isDefault) {
-      this.loyaltyForm.enable();
-    } else {
-      this.loyaltyForm.disable();
-    }
+    this.inProgress = true;
+    this.loyaltyService
+      .loyaltyPoints({ payloadFlag: 'featureFlags', rewardPointsEnabled: !this.isDefault })
+      .subscribe(
+        (res: ClientConfig) => {
+          const message = res?.message || '';
+          this.alertService.success(message);
+          this.getConfiguration();
+          this.isEdit = false;
+          this.inProgress = false;
+          this.clientConfig.rewardPointsEnabled
+            ? this.loyaltyForm.enable()
+            : this.loyaltyForm.disable();
+        },
+        (err) => {
+          this.err = err.message;
+          this.alertService.error(err.error.message);
+          this.isEdit = false;
+          this.inProgress = false;
+          this.isDefault ? (this.isDefault = false) : (this.isDefault = true);
+        }
+      );
   }
+
 
   submit() {
     this.submitted = true;
@@ -245,6 +265,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
         if (res) {
           const data = res.data;
           this.localStorage.setCacheConfig(JSON.stringify(data));
+          this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
         }
       },
       (err) => {
