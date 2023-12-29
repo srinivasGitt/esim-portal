@@ -131,7 +131,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
     this.isDefault = !this.isDefault;
     this.inProgress = true;
     this.loyaltyService
-      .loyaltyPoints({ payloadFlag: 'featureFlags', rewardPointsEnabled: !this.isDefault })
+      .loyaltyPoints({ payloadFlag: 'featureFlags', rewardPointsEnabled: this.isDefault })
       .subscribe(
         (res: ClientConfig) => {
           const message = res?.message || '';
@@ -139,7 +139,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
           this.getConfiguration();
           this.isEdit = false;
           this.inProgress = false;
-          this.clientConfig.rewardPointsEnabled
+          this.clientConfig?.rewardPointsEnabled
             ? this.loyaltyForm.enable()
             : this.loyaltyForm.disable();
         },
