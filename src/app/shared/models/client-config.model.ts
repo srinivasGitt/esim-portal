@@ -23,4 +23,5 @@ export interface ClientConfig {
   topupPlansEnabled?: boolean;
   topupPlansMasterEnabled?: boolean;
   message?: string | '';
+  payloadFlag?: string;
 }
