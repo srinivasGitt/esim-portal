@@ -9,20 +9,16 @@
         class="btn btn-t-default"
         [ngClass]="{
           'btn-custom-active':
-            this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled
+          isDefault
         }"
-        [ngStyle]="{ 'pointer-events': 'none' }"
-        >Enable</span
+        (click)="changeMode()">Enable</span
       >
       <span
         class="btn btn-custom"
         [ngClass]="{
-          'btn-custom-active': !(
-            this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled
-          )
+          'btn-custom-active': !isDefault
         }"
-        [ngStyle]="{ 'pointer-events': 'none' }"
-        >Disable</span
+        (click)="changeMode()">Disable</span
       >
     </div>
   </div>
@@ -35,7 +31,7 @@
       class="col-8 pe-0 ps-0 pt-2 loyalty-point-program-form"
       [ngClass]="{
         custom: !(
-          this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled
+          isDefault
         )
       }"
     >
@@ -91,8 +87,7 @@
                                   ?.valid,
                               'border-red':
                                 loyaltyForm.controls['rewardPointsValue'].get('rewardPoints')
-                                  ?.invalid,
-                              'disabled-input': !isEdit
+                                  ?.invalid
                             }"
                           />
                           <div
@@ -199,8 +194,7 @@
                               'border-purple':
                                 loyaltyForm.controls['rewardPointsValue'].get('cashValue')?.valid,
                               'border-red':
-                                loyaltyForm.controls['rewardPointsValue'].get('cashValue')?.invalid,
-                              'disabled-input': !isEdit
+                                loyaltyForm.controls['rewardPointsValue'].get('cashValue')?.invalid
                             }"
                           />
                           <div
@@ -353,8 +347,7 @@
                                   ?.valid,
                               'border-red':
                                 loyaltyForm.controls['rewardPointsEarning'].get('purchaseValue')
-                                  ?.invalid,
-                              'disabled-input': !isEdit
+                                  ?.invalid
                             }"
                           />
                           <div
@@ -420,8 +413,7 @@
                                   ?.valid,
                               'border-red':
                                 loyaltyForm.controls['rewardPointsEarning'].get('rewardPoints')
-                                  ?.invalid,
-                              'disabled-input': !isEdit
+                                  ?.invalid
                             }"
                           />
                           <div
@@ -527,8 +519,7 @@
                               'border-purple': loyaltyForm.controls['rewardPointsMinRedeem'].valid,
                               'border-red':
                                 loyaltyForm.controls['rewardPointsMinRedeem'].invalid ||
-                                loyaltyForm.controls['rewardPointsMaxRedeem'].invalid,
-                              'disabled-input': !isEdit
+                                loyaltyForm.controls['rewardPointsMaxRedeem'].invalid
                             }"
                           />
                           <div
@@ -599,8 +590,7 @@
                               'border-purple': loyaltyForm.controls['rewardPointsMaxRedeem'].valid,
                               'border-red':
                                 loyaltyForm.controls['rewardPointsMinRedeem'].invalid ||
-                                loyaltyForm.controls['rewardPointsMaxRedeem'].invalid,
-                              'disabled-input': !isEdit
+                                loyaltyForm.controls['rewardPointsMaxRedeem'].invalid
                             }"
                           />
                           <div
@@ -696,8 +686,7 @@
                             (keypress)="numberWithDecimalOnly($event)"
                             [ngClass]="{
                               'border-purple': loyaltyForm.controls['rewardPointsReferral'].valid,
-                              'border-red': loyaltyForm.controls['rewardPointsReferral'].invalid,
-                              'disabled-input': !isEdit
+                              'border-red': loyaltyForm.controls['rewardPointsReferral'].invalid
                             }"
                           />
                           <div
@@ -760,12 +749,9 @@
             <button
               type="button"
               class="btn btn-primary ms-2 btn-edit"
-              (click)="isEdit = true"
+              (click)="isEdit = true; loyaltyForm.enable();"
               [disabled]="
-                !(
-                  this.clientConfig?.rewardPointsMasterEnabled &&
-                  this.clientConfig.rewardPointsEnabled
-                )
+                !isDefault
               "
             >
               Edit

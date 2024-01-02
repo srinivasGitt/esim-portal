@@ -45,10 +45,10 @@ export class LoyaltyPointProgramComponent implements OnInit {
     const id = this.clientConfig?.cacheId;
     this.cacheId = id!;
 
-    if (this.clientConfig?.rewardPointsMasterEnabled && this.clientConfig.rewardPointsEnabled) {
-      this.loyaltyForm?.enable();
+    if (this.clientConfig?.rewardPointsEnabled) {
+      this.isDefault = true;
     } else {
-      this.loyaltyForm?.disable();
+      this.isDefault = false;
     }
     this.createLoyaltyForm(this.clientConfig);
     this.getLoyaltyWidgets();
@@ -76,20 +76,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
   }
 
   createLoyaltyForm(config?: ClientConfig): void {
-    // this.loyaltyForm = this.fb.group({
-    //   rewardPointsValue: this.fb.group({
-    //     cashValue: [config?.rewardPointsValue?.cashValue ?? 0, [Validators.required, Validators.min(1)]],
-    //     rewardPoints: [config?.rewardPointsValue?.rewardPoints ?? 0, [Validators.required, Validators.min(1)]]
-    //   }),
-    //   rewardPointsEarning: this.fb.group({
-    //       purchaseValue: [config?.rewardPointsEarning?.purchaseValue ?? 0, [Validators.required, Validators.min(1)]],
-    //       rewardPoints: [config?.rewardPointsEarning?.rewardPoints ?? 0, [Validators.required, Validators.min(1)]]
-    //   }),
-    //   rewardPointsMinRedeem: [config?.rewardPointsMinRedeem ?? 0],
-    //   rewardPointsMaxRedeem: [config?['rewardPointsMinRedeem'] ?? 0],
-    //   rewardPointsReferral: [config?.rewardPointsReferral ?? 0, [Validators.required, Validators.min(1)]]
-    // });
-
     this.loyaltyForm = new FormGroup({
       rewardPointsValue: new FormGroup({
         cashValue: new FormControl(config?.rewardPointsValue?.cashValue ?? 0, [
@@ -118,20 +104,32 @@ export class LoyaltyPointProgramComponent implements OnInit {
         Validators.min(0),
       ]),
     });
-    // this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
-    // this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    // this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
-    // this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+    this.isEdit ? this.loyaltyForm?.enable() : this.loyaltyForm?.disable();
   }
 
   changeMode() {
     this.isDefault = !this.isDefault;
-    if (this.isDefault) {
-      this.loyaltyForm.enable();
-    } else {
-      this.loyaltyForm.disable();
-    }
+    this.inProgress = true;
+    this.loyaltyService
+      .loyaltyPoints({ payloadFlag: 'featureFlags', rewardPointsEnabled: this.isDefault })
+      .subscribe(
+        (res: ClientConfig) => {
+          const message = res?.message || '';
+          this.alertService.success(message);
+          this.getConfiguration();
+          this.isEdit = false;
+          this.inProgress = false;
+          this.isEdit ? this.loyaltyForm?.enable() : this.loyaltyForm?.disable();
+        },
+        (err) => {
+          this.err = err.message;
+          this.alertService.error(err.error.message);
+          this.isEdit = false;
+          this.inProgress = false;
+          this.isDefault ? (this.isDefault = false) : (this.isDefault = true);
+        }
+      );
   }
 
   submit() {
@@ -217,7 +215,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
   /* Restrict user to enter only numbers and decimal point */
   numberWithDecimalOnly(event: KeyboardEvent): boolean {
-    console.log(event);
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
@@ -245,6 +242,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
         if (res) {
           const data = res.data;
           this.localStorage.setCacheConfig(JSON.stringify(data));
+          this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
         }
       },
       (err) => {
