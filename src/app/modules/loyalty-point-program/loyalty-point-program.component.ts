@@ -47,10 +47,8 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
     if (this.clientConfig?.rewardPointsEnabled) {
       this.isDefault = true;
-      this.loyaltyForm?.enable();
     } else {
       this.isDefault = false;
-      this.loyaltyForm?.disable();
     }
     this.createLoyaltyForm(this.clientConfig);
     this.getLoyaltyWidgets();
@@ -78,20 +76,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
   }
 
   createLoyaltyForm(config?: ClientConfig): void {
-    // this.loyaltyForm = this.fb.group({
-    //   rewardPointsValue: this.fb.group({
-    //     cashValue: [config?.rewardPointsValue?.cashValue ?? 0, [Validators.required, Validators.min(1)]],
-    //     rewardPoints: [config?.rewardPointsValue?.rewardPoints ?? 0, [Validators.required, Validators.min(1)]]
-    //   }),
-    //   rewardPointsEarning: this.fb.group({
-    //       purchaseValue: [config?.rewardPointsEarning?.purchaseValue ?? 0, [Validators.required, Validators.min(1)]],
-    //       rewardPoints: [config?.rewardPointsEarning?.rewardPoints ?? 0, [Validators.required, Validators.min(1)]]
-    //   }),
-    //   rewardPointsMinRedeem: [config?.rewardPointsMinRedeem ?? 0],
-    //   rewardPointsMaxRedeem: [config?['rewardPointsMinRedeem'] ?? 0],
-    //   rewardPointsReferral: [config?.rewardPointsReferral ?? 0, [Validators.required, Validators.min(1)]]
-    // });
-
     this.loyaltyForm = new FormGroup({
       rewardPointsValue: new FormGroup({
         cashValue: new FormControl(config?.rewardPointsValue?.cashValue ?? 0, [
@@ -120,11 +104,8 @@ export class LoyaltyPointProgramComponent implements OnInit {
         Validators.min(0),
       ]),
     });
-    // this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
-    // this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    // this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value)]);
-    // this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+    this.isEdit ? this.loyaltyForm?.enable() : this.loyaltyForm?.disable();
   }
 
   changeMode() {
@@ -139,9 +120,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
           this.getConfiguration();
           this.isEdit = false;
           this.inProgress = false;
-          this.clientConfig?.rewardPointsEnabled
-            ? this.loyaltyForm.enable()
-            : this.loyaltyForm.disable();
+          this.isEdit ? this.loyaltyForm?.enable() : this.loyaltyForm?.disable();
         },
         (err) => {
           this.err = err.message;
@@ -152,7 +131,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
         }
       );
   }
-
 
   submit() {
     this.submitted = true;
@@ -237,7 +215,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
 
   /* Restrict user to enter only numbers and decimal point */
   numberWithDecimalOnly(event: KeyboardEvent): boolean {
-    console.log(event);
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
