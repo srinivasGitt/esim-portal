@@ -44,9 +44,16 @@
 
                     <div class="dropdown-menu lang-dropdown-option border-secondary"
                         aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
-                        max-height: calc(99vh - 645px);">
+                        max-height: calc(99vh - 645px);" *ngIf="regionList && regionList.length > 0">
                         <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectedRegion = region; planAndRegionChange();" style="word-wrap: break-word; white-space: break-spaces;" *ngFor="let region of regionList"
                             >{{region.name}}</a>
+                    </div>
+
+                    <div class="dropdown-menu lang-dropdown-option border-secondary"
+                        aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
+                        max-height: calc(99vh - 645px);" *ngIf="regionList && regionList.length <= 0">
+                        <a class="dropdown-item lang-dropdown-item sg-font-regular" style="word-wrap: break-word; white-space: break-spaces;"
+                            >No data found</a>
                     </div>
                 </div>
             </div>
@@ -74,9 +81,16 @@
 
                     <div class="dropdown-menu lang-dropdown-option border-secondary"
                         aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
-                        max-height: calc(99vh - 645px);">
+                        max-height: calc(99vh - 645px);" *ngIf="planList && planList.length > 0">
                         <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectedPlan = plan; planAndRegionChange();" style="word-wrap: break-word; white-space: break-spaces;" *ngFor="let plan of planList"
                             >{{plan.name}}</a>
+                    </div>
+
+                    <div class="dropdown-menu lang-dropdown-option border-secondary"
+                        aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
+                        max-height: calc(99vh - 645px);" *ngIf="planList && planList.length <= 0">
+                        <a class="dropdown-item lang-dropdown-item sg-font-regular" style="word-wrap: break-word; white-space: break-spaces;"
+                            >No data found</a>
                     </div>
                 </div>
             </div>
