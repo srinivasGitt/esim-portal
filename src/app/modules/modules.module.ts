@@ -22,6 +22,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { SupportComponent } from './help-center/support/support.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
+import { RevenueComponent } from './reports/revenue/revenue.component';
+import { DataUsageComponent } from './reports/data-usage/data-usage.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { ContactusComponent } from './help-center/contactus/contactus.component'
     SettingsComponent,
     HelpCenterComponent,
     SupportComponent,
-    ContactusComponent
+    ContactusComponent,
+    RevenueComponent,
+    DataUsageComponent
   ],
   imports: [
     CommonModule,

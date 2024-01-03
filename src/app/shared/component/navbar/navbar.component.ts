@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center']
+  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center', '/reports/revenue', '/reports/data-usage']
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
