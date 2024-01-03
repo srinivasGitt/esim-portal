@@ -234,7 +234,14 @@
                 <div class="t-body-overflow">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
                     *ngFor="let data of dataUsageReportList | paginate: paginateConfig; index as i">
-                        <div class="t-box a px-2">{{ data.planName }}</div>
+                        <div class="t-box a px-2">
+                            <span class="text-overflow-ellipsis" *ngIf="data.planName.length>20" [tooltip]="data.planName" placement="top" delay="100" offset="0">
+                                {{data.planName}}
+                            </span>
+                            <span class="text-overflow-ellipsis" *ngIf="data.planName.length<=20">
+                                {{data.planName}}
+                            </span>
+                        </div>
                         <div class="t-box b px-2">
                             {{data.subscriptionsDate}}
                         </div>

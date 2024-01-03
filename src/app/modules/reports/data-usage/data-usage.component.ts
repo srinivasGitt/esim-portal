@@ -1,16 +1,15 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import * as moment from 'moment';
-import {
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { ReportService } from '../../../shared/service/report.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DialogService, PlansService } from 'src/app/shared/service';
-import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MomentDateAdapter
+} from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as moment from 'moment';
 import { PaginationInstance } from 'ngx-pagination';
+import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
+import { DialogService, PlansService } from 'src/app/shared/service';
+import { ReportService } from '../../../shared/service/report.service';
 
 var papa = require('papaparse');
 var FileSaver = require('file-saver');
@@ -74,6 +73,7 @@ export class DataUsageComponent implements OnInit {
   inProgress: boolean = false;
   selectedPlan: any;
   selectedRegion: any;
+  tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
 
   constructor(private reportService: ReportService,
     private renderer: Renderer2,
@@ -90,7 +90,6 @@ export class DataUsageComponent implements OnInit {
   getPlanList() {
     this.planService.listPlans()
       .subscribe((res: any) => {
-        console.log(res);
         this.planList = res.data;
       })
   }
@@ -98,7 +97,6 @@ export class DataUsageComponent implements OnInit {
   getRegionList() {
     this.planService.getRegionList() 
       .subscribe((res: any) => {
-        console.log(res);
         this.regionList = res.data;
       })
   }
