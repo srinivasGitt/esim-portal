@@ -8,7 +8,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import * as moment from 'moment';
 import { PaginationInstance } from 'ngx-pagination';
 import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
-import { DialogService, PlansService } from 'src/app/shared/service';
+import { DialogService, PlansService, SubscriptionsService } from 'src/app/shared/service';
 import { ReportService } from '../../../shared/service/report.service';
 
 var papa = require('papaparse');
@@ -79,7 +79,8 @@ export class DataUsageComponent implements OnInit {
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private planService: PlansService,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private subscriptionService: SubscriptionsService) { }
 
   ngOnInit(): void {
     this.getPlanList();
@@ -88,7 +89,7 @@ export class DataUsageComponent implements OnInit {
   }
 
   getPlanList() {
-    this.planService.listPlans()
+    this.subscriptionService.getPlans()
       .subscribe((res: any) => {
         this.planList = res.data;
       })
