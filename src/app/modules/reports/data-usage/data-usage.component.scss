@@ -1,0 +1,85 @@
+::ng-deep mat-form-field {
+    display: block !important;
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-calendar, ::ng-deep .mat-button-wrapper {
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+}
+
+::ng-deep .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    // width: 100% !important;
+    height: 50px !important;
+    color: var(--font-color);
+    border: none;
+    margin-top: 6px;
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: none !important;
+}
+
+::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected, ::ng-deep .mat-calendar-body-selected {
+    border-radius: 8px 0 0 8px !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-range-end .mat-calendar-body-selected {
+    border-radius: 0 8px 8px 0 !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range::before {
+    background-color: var(--calendar-range-date-bg-color) !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
+    color: var(--calendar-select-color) !important;
+}
+
+.row.card-report {
+    --bs-gutter-x: 2.5rem !important;
+}
+
+.card-usage-report {
+    font-family: var(--font-family-sf-pro-display); 
+    flex: 1; 
+    color: var(--graph-heading-text-color); 
+    padding: 16px 22px; 
+    background: var(--card-background-color);
+    border-radius: 20px; 
+    box-shadow: var(--box-shadow-size-color);
+    // max-width: 490px;
+    margin-bottom: 30px;
+
+    .svg-color {
+        path{
+            fill: var(--table-heading-text-color);
+            stroke: var(--table-heading-text-color);
+        }
+        circle {
+            fill: var(--table-heading-text-color);
+        }
+    }
+
+    .data-remaining {
+        path{
+            stroke: var(--table-heading-text-color);
+        }
+    }
+
+    // &:not(:last-child) {
+    //     margin-right: 80px; 
+    // }
+}
