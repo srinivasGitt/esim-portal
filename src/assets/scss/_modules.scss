@@ -131,7 +131,7 @@
 
     // Sidebar layout
     .sidebar-main{
-        width: 260px;
+        width: 15vw;
         height: 100vh;
         padding: 0 20px 0 0;
         // background-color: var(--card-background-color);
@@ -140,6 +140,7 @@
             // border-radius: var(--dark-sidebar-border-radius);
             // height: calc(100vh - 40px);
             height: 100vh;
+            width: 14vw;
             padding: 30px 8px;
             // box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);            
             background-color: var(--card-background-color);
@@ -262,7 +263,7 @@
             background: var(--main-background-color);
             position: fixed;
             width: calc(100vw - 285px);
-            padding-top: 20px;
+            padding-top: 25px;
             padding-bottom: 20px;
             z-index: 1;
         }
@@ -1521,6 +1522,211 @@
     // }
 }
 
+
+// Loyalty program page
+.loyalty-point-program{
+    font-family: var(--font-family-sf-pro-display);
+    
+    .custom{
+        opacity: 0.5 !important;
+        background-color: transparent !important;
+    }
+
+    .main-content-div-area {
+        margin-top: 63px !important;
+        font-family: var(--font-family-sf-pro-display) !important;
+    }
+
+    .main-base-container{
+        .dashboard-main {
+            overflow-y: unset !important;
+        }
+    }
+
+    .main-base-container {
+        .dashboard-main {
+            overflow-y: unset !important;
+        }
+    }
+    .add-edit-modal{
+        padding: 24px 13px 0px 13px;
+        .info-modal{ 
+            padding: 24px 14px;
+        }
+    }
+
+    .dashboard-graph{
+        width: 100% !important;
+        overflow-y: scroll !important;
+        margin-left: 0px !important;
+    }
+
+    .loyalty-content-div-area {
+        margin-top: 100px !important;
+        font-family: var(--font-family-sf-pro-display) !important;
+
+        .heading-flex {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .heading-text h2 {
+            font-size: var(--heading-text-size);
+            color: var(--main-heading-text-color);
+            font-weight: 600;
+        }
+    }
+
+    .loyalty-point-program-reward-section{
+        background: var(--card-background-color);
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        padding: 15px;
+        margin-left: 4px;
+        box-shadow: var(--box-shadow-size-color);
+    }
+    .heading{
+        color: var(--loyalty-card-heading-text-color);
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .sub-heading{
+        color: var(--loyalty-card-sub-heading-text-color);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 26px; /* 162.5% */
+    }
+
+    .sub-heading-reward-value{
+        width: 100%;
+        font-size: 16px;
+    }
+    .sub-heading-reward-earning{
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .divHeight, .input-card-bg{
+        flex-shrink: 0 !important;
+        border-radius: 10px !important;
+        background: rgba(99, 101, 239, 0.10) !important;
+        padding: 17px;
+        margin-bottom: 4px !important;
+    }
+
+    .error-text{
+        font-size: 15px;
+    }
+
+    .label{
+        color: var(--modal-form-label-text-color) !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+    }
+
+    .price-icon{
+        display: flex;
+        padding: 10px 7px;
+        width: 2vw;
+        align-items: center;
+        background-color: var(--loyalty-card-input-field-color);
+        border-radius: 8px 0px 0px 8px;
+        border: 1px solid rgba(99, 101, 239, 0.48);
+    }
+
+    .input-field{
+        display: flex;
+        font-weight: bold;
+        width: 9vw;
+        padding: 9px 17px;
+        align-items: center;
+        border-radius: 0px 8px 8px 0px;
+        border: 1px solid rgba(99, 101, 239, 0.48);
+        border-left: 0px;
+        border-right: 0px;
+        border-top-right-radius: unset;
+        border-bottom-right-radius: unset;
+        background: var(--loyalty-card-input-field-color);
+        color: var(--modal-form-label-text-color);
+
+        &:focus-visible {
+            outline: unset;
+        }
+    }
+
+    .disabled-input {
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .border-red {
+        border-color: red !important;
+    }
+
+    .input-number-btn{
+        display: flex;
+        position: relative;
+        width: -moz-fit-content;
+        width: fit-content;
+        gap: 10px;
+    }
+
+    .input-number-btn-reward{
+        display: flex;                           
+        padding: 11px 0px;
+        align-items: center;
+        gap: 11px;
+        background-color: var(--loyalty-card-input-field-color);
+        border-radius: 0px 8px 8px 0px;
+        border: 1px solid rgba(99, 101, 239, 0.48);
+        border-left: 0px;
+    }
+
+    .input-number-btn-cash{
+        left: 72% !important;
+        margin-top: -28px !important;
+    }
+    
+
+    .number-decremental{
+        height: 20px;
+        width: 20px;
+        line-height: 15px;
+        border-radius: 50%;
+        text-align: center;
+        border: 1px solid #D32F2F;
+        color: #D32F2F;
+        cursor: pointer;
+    }
+
+    .number-incremental{
+        height: 20px;
+        width: 20px;
+        line-height: 15px;
+        border-radius: 50%;
+        text-align: center;
+        border: 1px solid #00C853;
+        color: #00C853;
+        cursor: pointer;
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+    .loyalty-point-program-form {
+        path{
+            &:not(.color-stroke){
+                fill: var(--table-heading-text-color);
+            }
+            &.color-stroke{
+                stroke: var(--table-heading-text-color);
+            }
+        }
+    }
+}
 // Customer Management Table
 .customer-management{
 //     margin-top: 40px;
@@ -1846,6 +2052,10 @@
         path{
             fill: var(--main-heading-text-color);
         }
+    }
+
+    .display-name{
+        width: 17vw;
     }
 
     // Subscription Info Icon
@@ -2542,7 +2752,8 @@
 .main-content-div-area{
     margin-top: 100px;
     font-family: var(--font-family-sf-pro-display);
-
+    
+    
     /* Dashboard CSS - Start */
     .info-head-section{
         label{
@@ -2578,6 +2789,11 @@
 
     .dashboard-border-top{
         border-top: 1px solid #a8a9fd57;
+    }
+
+
+    .dashboard-border-bottom{
+        border-bottom: 1px solid #a8a9fd57;
     }
 
     .dashboard-border-left{
@@ -2934,6 +3150,9 @@
         }
     }
 }
+
+
+
 .dark-light-toggle{
     .switch {
         position: relative;
@@ -3021,6 +3240,7 @@
         top: 15%;
         left: 7%;
         background-color: #24272C;
+        box-shadow:  0px 4px 8px rgba(0, 0, 0, 0.4);
         // img{
         //     // width: 80%;
         //     height: auto;
@@ -3639,6 +3859,10 @@
         position: relative;
         left: -2vw;
     }
+
+    .copy-icon{
+        fill: var(--copy-icon-fill);
+    }
 }
 
 .w-85 {
@@ -3768,5 +3992,5 @@
 }
 
 .max-w80 {
-    max-width: 80% !important;
+    max-width: 100% !important;
 }

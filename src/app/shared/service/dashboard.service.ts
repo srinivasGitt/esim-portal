@@ -112,6 +112,13 @@ export class DashboardService {
         ]
       },
       {
+        title: 'Loyalty Point Program',
+        icon: 'assets/icons/fluent_reward-16-filled.svg',
+        link: '/loyalty-point-program',
+        accessRole: ['admin','superAdmin'],
+        hasGroup: false
+      },
+      {
         title: 'Settings',
         icon: 'assets/icons/settings-icon.svg',
         link: '/setting',

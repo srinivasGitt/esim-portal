@@ -52,7 +52,7 @@ const routes: Routes = [
           { path: 'support', component: SupportComponent }
         ]
       },
-      
+      { path: 'loyalty-point-program', loadChildren: () => import('./modules/loyalty-point-program/loyalty-point-program.module').then(m => m.LoyaltyPointProgramModule) }
     ]
   },
   {

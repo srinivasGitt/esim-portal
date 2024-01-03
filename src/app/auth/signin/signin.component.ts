@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import { ConfigurationService } from 'src/app/shared/service/configuration.service';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +22,8 @@ export class SigninComponent implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private alertService : AlertService,
-              private _localStorageService: LocalStorageService) { }
+              private _localStorageService: LocalStorageService,
+              private configurationService: ConfigurationService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -51,8 +53,7 @@ export class SigninComponent implements OnInit {
     this.authService.signin(userData)
       .subscribe((res: any) =>{
         this._localStorageService.setToken(res.token);
-        window.location.href = '/';
-        
+        this.getClientConfiguration();        
       }, (err: any) =>{
         this.errMsg = err?.error?.message
         this.err = true;
@@ -69,6 +70,20 @@ export class SigninComponent implements OnInit {
         //   this.err = true;
         // }
       })
+  }
+
+  // Client Feature Configuration
+  getClientConfiguration() {
+    const clientConfig = JSON.parse(localStorage.getItem('config')!);
+    
+    this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe((res: any) => {
+      if(res && res.data) {
+        this._localStorageService.setCacheConfig(JSON.stringify(res.data));
+        window.location.href = '/';
+      }
+    }, err => {
+      this.alertService.error(err.error.message, err.status);
+    })
   }
 
 }

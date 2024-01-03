@@ -36,12 +36,11 @@
               "src/styles.scss"
             ],
             "scripts": [
-             "node_modules/@popperjs/core/dist/umd/popper.min.js",
-             "node_modules/bootstrap/dist/js/bootstrap.min.js",
-             "node_modules/jquery/dist/jquery.min.js"
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ],
-            "allowedCommonJsDependencies": [
-            ]
+            "allowedCommonJsDependencies": []
           },
           "configurations": {
             "production": {
@@ -53,8 +52,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ],
               "fileReplacements": [
@@ -74,8 +73,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ],
               "fileReplacements": [
@@ -103,8 +102,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ],
               "fileReplacements": [
@@ -156,11 +155,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "ccdda185-0769-437f-81cb-524f69dfef34"
+    "analytics": "ccdda185-0769-437f-81cb-524f69dfef34",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

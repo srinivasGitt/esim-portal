@@ -61,19 +61,7 @@ export class SettingsService {
       this.http.get(`${this.serverUrl}/customers/setting`),
       this.http.get(`${this.serverUrl}/customer/smtp/setup`),
       this.http.get(`${this.serverUrl}/customers/setting/currency`),
-      this.http.get(`${this.serverUrl}/currencies`),
-      this.http.get(`${this.serverUrl}/${configurationUrl}`),
+      this.http.get(`${this.serverUrl}/currencies`)
     ];
-  }
-
-  getConfigurationSetting(cacheId?: string) {
-    var configurationUrl: string;
-
-    if(cacheId) {
-      configurationUrl = `customers/setting/configuration?cacheId=${cacheId}`
-    } else {
-      configurationUrl =`customers/setting/configuration`
-    }
-    return this.http.get(`${this.serverUrl}/${configurationUrl}`);
   }
 }
