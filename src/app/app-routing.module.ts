@@ -20,6 +20,8 @@ import { SettingsComponent } from './modules/settings/settings.component';
 import { ContactusComponent } from './modules/help-center/contactus/contactus.component';
 import { SupportComponent } from './modules/help-center/support/support.component';
 import { HelpCenterComponent } from './modules/help-center/help-center.component';
+import { RevenueComponent } from './modules/reports/revenue/revenue.component';
+import { DataUsageComponent } from './modules/reports/data-usage/data-usage.component';
 
 
 const routes: Routes = [
@@ -36,7 +38,12 @@ const routes: Routes = [
       { path: 'user-management', component: UserComponent },
       { path: 'user-management/:custId', component: UserComponent },
       { path: 'plans', component: PlanComponent },
-      { path: 'reports', component: ReportsComponent},
+      { path: 'reports', component: ReportsComponent,
+        children: [
+          { path: 'revenue', component: RevenueComponent },
+          { path: 'data-usage', component: DataUsageComponent }
+        ]
+      },
       { path: 'inventory', component: InventoryComponent},
       { path: 'setting', component: SettingsComponent},
       { path: 'help-center', component: HelpCenterComponent,

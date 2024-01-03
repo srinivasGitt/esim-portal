@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
   sidebarMenuList: Array<any> = [];
   userDetails: any = {};
   isParentActive: any;
+  routeConfig: any;
 
   
   constructor(private router:Router,
@@ -33,11 +34,12 @@ export class SidebarComponent implements OnInit {
       (data: any) => {
         if(data instanceof NavigationEnd){
           const childRoute = this.activatedRoute.firstChild?.snapshot;
-          const routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
-          if (childRoute && routeConfig) {
+          this.routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
+
+          if (childRoute && this.routeConfig) {
             const isChildActive = data.urlAfterRedirects.includes(childRoute.url.join('/'));
             this.isParentActive = isChildActive;
-          }else{
+          } else{
             this.isParentActive = false;
           }
         }
@@ -68,6 +70,7 @@ export class SidebarComponent implements OnInit {
   fetchNavBarMenuList(roles: Array<string>){
     this.sidebarMenuList = this.dashboardService.getNavBarMenus(roles);
   }
+
   setDefaultCustomer(){
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to default customer?`} })
     .instance.close.subscribe((data: any) => {
@@ -133,6 +136,10 @@ export class SidebarComponent implements OnInit {
 
     showSubmenu(itemEl: HTMLElement) {
       itemEl.classList.toggle("showMenu");
+    }
+
+    findUrl(menu: any){
+      return menu.childs.findIndex((ele: any) => ele.link === window.location.pathname) > -1 ? true : false
     }
   
 }

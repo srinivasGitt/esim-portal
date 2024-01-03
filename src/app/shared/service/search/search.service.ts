@@ -18,7 +18,6 @@ export class SearchService {
   getSearchResult(url: string, searchTerm: string, itemsPerPage?: number, currentPage?: number): Observable<any> {
     this.searchedTerm = searchTerm
     var finalURL = ''
-    console.log(url, this.searchedTerm)
 
     if(url.includes('inventory')) {
       url = '/inventories'

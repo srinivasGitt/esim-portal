@@ -34,4 +34,28 @@ export class ReportService {
       return this.http.get(`${this.serverUrl}/transaction/report/email?dateRange=year`)
     }
   }
+
+  getDataUsageReport(fromDate?: any, toDate?: any, plan?: any, country?: any, itemsPerPage?: any, currentPage?: any) {
+    if(plan && country) {
+      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&country=${country}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    } else if(plan) {
+      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    } else if(country) {
+      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&country=${country}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    } else {
+      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+  }
+
+  downloadDataUsageReport(fromDate?: any, toDate?: any, plan?: any, country?: any, itemsPerPage?: any, currentPage?: any) {
+    if(plan && country) {
+      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&country=${country}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    } else if(plan) {
+      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    } else if(country) {
+      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&country=${country}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    } else {
+      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
+    }
+  }
 }
