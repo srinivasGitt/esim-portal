@@ -125,6 +125,7 @@ export class DataUsageComponent implements OnInit {
   }
 
   initForm(): void {
+    this.inProgress = true;
     this.customForm = new FormGroup({
       fromDate: new FormControl<Date | null>(new Date(new Date().getFullYear(), new Date().getMonth(), 1)),
       toDate: new FormControl<Date | null>(new Date()),
