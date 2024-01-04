@@ -1,26 +1,45 @@
-<div class="es-modal add-edit-modal coupon-form" *ngIf="!inProgress; else spinner">
-
+<div
+  class="es-modal add-edit-modal coupon-form"
+  *ngIf="!inProgress; else spinner"
+>
   <div class="modal-header-flex">
-      <div class="modal-header-text-container">
-          <div class="mb-3 subscription-header-icon">
-            <svg class="add-plan" class="m-auto" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.75 13.5C8.75 13.0858 9.08579 12.75 9.5 12.75H11.25V11C11.25 10.5858 11.5858 10.25 12 10.25C12.4142 10.25 12.75 10.5858 12.75 11V12.75H14.5C14.9142 12.75 15.25 13.0858 15.25 13.5C15.25 13.9142 14.9142 14.25 14.5 14.25H12.75V16C12.75 16.4142 12.4142 16.75 12 16.75C11.5858 16.75 11.25 16.4142 11.25 16V14.25H9.5C9.08579 14.25 8.75 13.9142 8.75 13.5Z" fill="black"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M21.1612 9.74679C21.558 12.233 21.5296 14.7686 21.077 17.2453C20.8747 18.353 19.9483 19.1833 18.8252 19.2636L17.1873 19.3808C13.7334 19.6279 10.2664 19.6279 6.81252 19.3808L5.29851 19.2725C4.10249 19.1869 3.11598 18.3027 2.90046 17.1232C2.46379 14.7333 2.38904 12.2913 2.6787 9.87915L2.95118 7.61004C3.11289 6.26343 4.25529 5.25 5.61158 5.25H7.90314C9.0209 5.25 9.95217 6.04846 10.1577 7.10612H18.4721C19.7785 7.10612 20.8912 8.05533 21.0971 9.34535L21.1612 9.74679ZM19.6015 16.9757C20.0235 14.6662 20.05 12.3017 19.6799 9.98322L19.6158 9.58178C19.5261 9.0197 19.0413 8.60612 18.4721 8.60612H9.75927C9.1742 8.60612 8.69991 8.13183 8.69991 7.54677C8.69991 7.10672 8.34319 6.75 7.90314 6.75H5.61158C5.01455 6.75 4.51167 7.19611 4.44048 7.78888L4.168 10.058C3.89627 12.3208 3.9664 14.6116 4.37603 16.8536C4.46856 17.36 4.89208 17.7396 5.40556 17.7763L6.91956 17.8846C10.3021 18.1266 13.6977 18.1266 17.0803 17.8846L18.7181 17.7674C19.1587 17.7359 19.5221 17.4102 19.6015 16.9757Z" fill="black"/>
-            </svg>
-          </div>  
+    <div class="modal-header-text-container">
+      <div class="mb-3 subscription-header-icon">
+        <svg
+          class="add-plan"
+          class="m-auto"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.75 13.5C8.75 13.0858 9.08579 12.75 9.5 12.75H11.25V11C11.25 10.5858 11.5858 10.25 12 10.25C12.4142 10.25 12.75 10.5858 12.75 11V12.75H14.5C14.9142 12.75 15.25 13.0858 15.25 13.5C15.25 13.9142 14.9142 14.25 14.5 14.25H12.75V16C12.75 16.4142 12.4142 16.75 12 16.75C11.5858 16.75 11.25 16.4142 11.25 16V14.25H9.5C9.08579 14.25 8.75 13.9142 8.75 13.5Z"
+            fill="black"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M21.1612 9.74679C21.558 12.233 21.5296 14.7686 21.077 17.2453C20.8747 18.353 19.9483 19.1833 18.8252 19.2636L17.1873 19.3808C13.7334 19.6279 10.2664 19.6279 6.81252 19.3808L5.29851 19.2725C4.10249 19.1869 3.11598 18.3027 2.90046 17.1232C2.46379 14.7333 2.38904 12.2913 2.6787 9.87915L2.95118 7.61004C3.11289 6.26343 4.25529 5.25 5.61158 5.25H7.90314C9.0209 5.25 9.95217 6.04846 10.1577 7.10612H18.4721C19.7785 7.10612 20.8912 8.05533 21.0971 9.34535L21.1612 9.74679ZM19.6015 16.9757C20.0235 14.6662 20.05 12.3017 19.6799 9.98322L19.6158 9.58178C19.5261 9.0197 19.0413 8.60612 18.4721 8.60612H9.75927C9.1742 8.60612 8.69991 8.13183 8.69991 7.54677C8.69991 7.10672 8.34319 6.75 7.90314 6.75H5.61158C5.01455 6.75 4.51167 7.19611 4.44048 7.78888L4.168 10.058C3.89627 12.3208 3.9664 14.6116 4.37603 16.8536C4.46856 17.36 4.89208 17.7396 5.40556 17.7763L6.91956 17.8846C10.3021 18.1266 13.6977 18.1266 17.0803 17.8846L18.7181 17.7674C19.1587 17.7359 19.5221 17.4102 19.6015 16.9757Z"
+            fill="black"
+          />
+        </svg>
       </div>
-      <div class="es-btn-close-container mt-0 mb-auto me-3">
-          <a class="es-btn-close" (click)="close()"></a>
-      </div>
+    </div>
+    <div class="es-btn-close-container mt-0 mb-auto me-3">
+      <a class="es-btn-close" (click)="close()"></a>
+    </div>
   </div>
-  
+
   <div>
-      <p class="modal-header-text mb-0">Add New Coupon</p>
-      <p class="modal-sub-header-text mb-0 mt-2">Add a new coupon according to your liking.</p>
+    <p class="modal-header-text mb-0">Add New Coupon</p>
+    <p class="modal-sub-header-text mb-0 mt-2">
+      Add a new coupon according to your liking.
+    </p>
   </div>
   <div class="es-modal-body">
-      
-      <!-- <div class="steps">
+    <!-- <div class="steps">
         <div class="active">
           <span *ngIf="currentStep == 1; else tick">1</span>
           <ng-template #tick>
@@ -30,7 +49,7 @@
           </ng-template>
         </div>
         <span class="line" [ngClass]="{'active': currentStep == 2 || currentStep == 3 }"></span>
-        
+
         <div [ngClass]="{'active': currentStep == 2 || currentStep == 3 }">
           <span *ngIf="currentStep == 1 || currentStep == 2; else tick">2</span>
           <ng-template #tick>
@@ -43,40 +62,88 @@
 
         <div [ngClass]="{'active': currentStep == 3 }">3</div>
       </div>  -->
-    
- 
-      <div class="steps">
-        <ng-container *ngFor="let step of stepCountArray; let last = last">
-          <div [ngClass]="{'active': currentStep >= step }">
-            <span *ngIf="currentStep <= step; else tick">{{ step }}</span>
-            <ng-template #tick>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.1818 4.00049L6.18182 11.0005L3 7.81867" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </ng-template>
-          </div>
-          <span class="line" *ngIf="!last" [ngClass]="{'active': currentStep > step }"></span>
-        </ng-container>
-      </div>
 
-      <form class="es-modal-form" [formGroup]="couponForm" novalidate autocomplete="off">
-        <!-- STEP ONE - Start -->
-        <app-step-one formGroupName="stepOne" *ngIf="currentStep == 1"></app-step-one>
-        <!-- STEP ONE - End -->
-
-        <!-- STEP TWO - Start -->
-        <app-step-two formGroupName="stepTwo" *ngIf="currentStep == 2"></app-step-two>
-        <!-- STEP TWO - End -->
-        
-        <!-- STEP THREE - Start -->
-        <app-step-three formGroupName="stepThree" *ngIf="currentStep == 3" [planList]="plansList" [regionList]="regionList" [countryList]="countriesAlias"></app-step-three>
-        <!-- STEP THREE - End -->
-
-        <div class="row gx-2 d-flex justify-content-between">
-          <button class="btn btn-secondary btn-width" (click)="currentStep == 1 ? close() : previousStep()">{{ currentStep == 1 ? 'Cancel' : 'Back' }}</button>
-          <button type="submit" class="btn btn-primary ms-auto btn-width" (click)="currentStep == 3 ? submit() : nextStep()" [disabled]="(currentStep == 1 && !couponForm.get('stepOne')?.valid) || (currentStep == 2 && !couponForm.get('stepTwo')?.valid)">{{ currentStep == 3 ? 'Submit' : 'Next' }}</button>
+    <div class="steps">
+      <ng-container *ngFor="let step of stepCountArray; let last = last">
+        <div [ngClass]="{ active: currentStep >= step }">
+          <span *ngIf="currentStep <= step; else tick">{{ step }}</span>
+          <ng-template #tick>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13.1818 4.00049L6.18182 11.0005L3 7.81867"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </ng-template>
         </div>
-      </form>
+        <span
+          class="line"
+          *ngIf="!last"
+          [ngClass]="{ active: currentStep > step }"
+        ></span>
+      </ng-container>
+    </div>
+
+    <form
+      class="es-modal-form"
+      [formGroup]="couponForm"
+      novalidate
+      autocomplete="off"
+    >
+      <!-- STEP ONE - Start -->
+      <app-step-one
+        formGroupName="stepOne"
+        *ngIf="currentStep == 1"
+      ></app-step-one>
+      <!-- STEP ONE - End -->
+
+      <!-- STEP TWO - Start -->
+      <app-step-two
+        formGroupName="stepTwo"
+        *ngIf="currentStep == 2"
+      ></app-step-two>
+      <!-- STEP TWO - End -->
+
+      <!-- STEP THREE - Start -->
+      <app-step-three
+        formGroupName="stepThree"
+        *ngIf="currentStep == 3"
+        [planList]="plansList"
+        [regionList]="regionList"
+        [countryList]="countriesAlias"
+        (selectedListData)="selectedData($event)"
+      ></app-step-three>
+      <!-- STEP THREE - End -->
+
+      <div class="row gx-2 d-flex justify-content-between mt-3">
+        <button
+          class="btn btn-secondary btn-width"
+          (click)="currentStep == 1 ? close() : previousStep()"
+        >
+          {{ currentStep == 1 ? "Cancel" : "Back" }}
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary ms-auto btn-width"
+          (click)="currentStep == 3 ? submit() : nextStep()"
+          [disabled]="
+            (currentStep == 1 && !couponForm.get('stepOne')?.valid) ||
+            (currentStep == 2 && !couponForm.get('stepTwo')?.valid)
+          "
+        >
+          {{ currentStep == 3 ? "Submit" : "Next" }}
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 

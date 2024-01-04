@@ -14,7 +14,7 @@
       [ngClass]="{
         'border-purple': form.get('code')?.valid,
         'border-error':
-          form.get('code')?.touched && form.get('code')?.errors?.['required']
+          form.get('code')?.touched && form.get('code')?.errors?.['required'] || form.get('code')?.errors?.['spacesOnly']
       }"
     />
     <div>
@@ -24,6 +24,9 @@
       >
         <span class="small" *ngIf="form.get('code')?.errors?.['required']">
           Please set a coupon code
+        </span>
+        <span class="small" *ngIf="form.get('code')?.errors?.['spacesOnly']">
+          Value contains spaces only!
         </span>
         <span
           class="small"

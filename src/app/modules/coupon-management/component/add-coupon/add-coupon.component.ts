@@ -19,6 +19,7 @@ import { combineLatest } from 'rxjs';
 import { AlertService, DashboardService } from 'src/app/shared/service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { trimSpaceValidator } from 'src/app/shared/validators/trimSpaceValidator';
 
 @Component({
   selector: 'app-add-coupon',
@@ -38,6 +39,7 @@ export class AddCouponComponent implements OnInit {
   regionList: Array<any> = [];
   countryList: Array<any> = [];
   countriesAlias: Array<any> = [];
+  selectedFinalData: any;
 
   // Form declaration & initialization
   // couponForm = new FormGroup({
@@ -72,7 +74,7 @@ export class AddCouponComponent implements OnInit {
     private stepperService: StepperService,
     private alertService: AlertService,
     private dashboardService: DashboardService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     dashboardService.getAppTheme().subscribe((data: any) => {
       this.isDarkTheme = data;
@@ -99,6 +101,7 @@ export class AddCouponComponent implements OnInit {
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(12),
+            trimSpaceValidator,
           ],
         ],
         discountType: ['fixedPrice'],
@@ -108,8 +111,8 @@ export class AddCouponComponent implements OnInit {
         startDate: [null, Validators.required],
         endDate: [null, Validators.required],
         total: [0, [Validators.required, Validators.min(1)]],
-        minPurchaseValue: [0, Validators.min(1)],
-        maxPurchaseValue: [0, Validators.min(1)],
+        minPurchaseValue: [0],
+        maxPurchaseValue: [0],
         useType: ['single'],
         totalUse: [0],
         totalUseType: ['limited'],
@@ -133,7 +136,7 @@ export class AddCouponComponent implements OnInit {
           this.list = this.plansList;
 
           this.countryList = this.countryList.sort((a: any, b: any) =>
-            a.name.localeCompare(b.name),
+            a.name.localeCompare(b.name)
           );
           this.countryList.forEach((country: any) => {
             let flagNameInLower = country.iso3code;
@@ -153,7 +156,7 @@ export class AddCouponComponent implements OnInit {
       (error) => {
         this.inProgress = false;
         this.alertService.error(error.error.message);
-      },
+      }
     );
   }
 
@@ -203,16 +206,19 @@ export class AddCouponComponent implements OnInit {
     }
   }
 
+  selectedData(data: any) {
+    this.selectedFinalData = data;
+  }
+
   submit() {
-    console.log(this.couponForm.value);
-    // this.inProgress = true;
+    this.inProgress = true;
 
     if (this.couponForm.invalid) {
       return;
     }
     const coupon = this.couponForm.value;
 
-    const couponObj = {
+    var couponObj: any = {
       couponCode: coupon.stepOne.code,
       discount: {
         discountType: coupon.stepOne.discountType,
@@ -226,22 +232,35 @@ export class AddCouponComponent implements OnInit {
       useType: coupon.stepTwo.useType,
       useCount: +coupon.stepTwo.totalUse,
       couponApplicable: coupon.stepThree.applicableType,
-      supportedCountries: coupon.stepThree.applicableValue,
+      isUnlimited: coupon.stepTwo.totalUseType == 'unlimited' ? true : false,
     };
 
-    console.log(couponObj);
-    this.stepperService.saveCoupon(couponObj).subscribe((response: any) => {
-      if (response) {
-        this.dialogRef.close.emit(response);
-        this.alertService.success(response?.message);
-        this.stepperService.resetStep();
+    const typeMappings: Record<string, string> = {
+      plan: 'supportedPlans',
+      region: 'groupId',
+      country: 'supportedCountries',
+    };
+
+    const type = this.selectedFinalData?.type;
+
+    if (type && typeMappings[type]) {
+      couponObj[typeMappings[type]] = this.selectedFinalData.data;
+    }
+
+    this.stepperService.saveCoupon(couponObj).subscribe(
+      (response: any) => {
+        if (response) {
+          this.dialogRef.close.emit(response);
+          this.alertService.success(response?.message);
+          this.stepperService.resetStep();
+          this.inProgress = false;
+        }
+      },
+      (error: any) => {
+        this.alertService.error(error.error.message, error.status);
         this.inProgress = false;
       }
-    },
-    (error: any) => {
-      this.alertService.error(error.error.message, error.status);
-      this.inProgress = false;
-    });
+    );
   }
 
   nextStep(): void {
@@ -263,6 +282,7 @@ export class AddCouponComponent implements OnInit {
 
   /* close modal */
   close(): void {
+    this.stepperService.resetStep();
     this.dialogRef.close.emit(false);
   }
 }

@@ -35,7 +35,7 @@ export class CouponInfoComponent implements OnInit {
 
   constructor(
     private viewContainer: ViewContainerRef,
-    private alertService: AlertService,
+    private alertService: AlertService
   ) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
@@ -43,10 +43,18 @@ export class CouponInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.couponDetails = this.dialogRef.context.data;
+    console.log(this.couponDetails);
   }
 
   close(): void {
     this.dialogRef.close.emit();
+  }
+
+  displayList(items: any) {
+    return items
+      .map((item: any) => item.name)
+      .slice(1)
+      .join(', ');
   }
 
   // Copy user email
