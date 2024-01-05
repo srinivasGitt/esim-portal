@@ -16,7 +16,7 @@
 }
 
 :root{
- /*  
+ /*
     --dark-background: #fff;
     // --dark-background-v1: #F5F6F9;              // --main-background-color
     // --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
@@ -64,7 +64,7 @@
     --file-icon-border: #D1D1FB;
     --table-data-text-color: rgba(0, 0, 0, 0.53);
     --email-hover-background-color: #F4F3F3;
-    --inactive-text-color: rgba(71, 84, 103, 0.5); 
+    --inactive-text-color: rgba(71, 84, 103, 0.5);
 */
     /* Whitelabel Variables*/
  /*   --main-background-color: #F5F6F9;
@@ -76,7 +76,7 @@
     --add-button-hover-bg-color: #585ABA;
     --info-button-bg-color: #428EFF;
     --info-label-text-color: #475467;
-    
+
     --font-family-sf-pro-display: 'SF Pro Display';
     --font-family-inter: 'Inter';
     --pagination-font-color: #fff;
@@ -86,7 +86,7 @@
             fill: var(--search-placeholder-text);
         }
     }
-    
+
     .info-default {
         path {
             fill: var(--info-button-bg-color);
@@ -98,11 +98,11 @@
             fill: red !important;
         // }
     }
-    
+
     // .btn-outline-custom {
     //     color: #000 !important;
     // }
-    
+
     .user-dashboard-table-container {
         color: var(--dark-text-white-v6);
         background: var(--card-background-color);
@@ -134,7 +134,7 @@
     --sidebar-link-color: #1C1C1C;
     --navbar-ele-bg-color: #E9EAF0;
     --navbar-ele-hover-bg-color: #D9D9D9;
-    --hover-bg-color: #D9D9D9; 
+    --hover-bg-color: #D9D9D9;
     --search-placeholder-text-icon-color: rgba(0, 0, 0, 0.72);
     --navbar-username-text-color: rgba(0, 0, 0, 0.83);
     --main-heading-text-color: #000000;
@@ -241,6 +241,13 @@
     /*copy-symbol-fill*/
     --copy-icon-fill: black;
 
+     /*disabled input*/
+     --disabled-input-color:rgba(105, 105, 105, 0.8);
+
+     /*date icon colors*/
+    --enabled-date-icon-color: rgba(0, 0, 0, 0.70);
+    --disabled-date-icon-color:rgba(105, 105, 105, 0.8);
+
 
     /* SVG Color Change */
     .revenue-icon {
@@ -259,7 +266,7 @@
             fill: var(--info-button-bg-color);
             opacity: 0.55;
         }
-    }    
+    }
 
     .user-dashboard-table-container {
         background: var(--card-background-color);
@@ -282,7 +289,7 @@
 }
 
 .darkMode{
- /*   
+ /*
     --dark-background: #151616;
     // --dark-background-v1: #151616;              // --main-background-color
     // --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
@@ -352,7 +359,7 @@
     --sidebar-link-color: #FFFFFF;
     --navbar-ele-bg-color: #24272C;
     --navbar-ele-hover-bg-color: #24272c;
-    --hover-bg-color: #0D0E0E; 
+    --hover-bg-color: #0D0E0E;
     --search-placeholder-text-icon-color: rgba(255, 255, 255, 0.72);
     --navbar-username-text-color: rgba(255, 255, 255, 0.83);
     --main-heading-text-color: #FFFFFF;
@@ -451,7 +458,14 @@
     /*copy-symbol-fill*/
     --copy-icon-fill: white;
 
-    
+      /*disabled input*/
+    --disabled-input-color:rgba(105, 105, 105, 1);
+
+    /*date icon colors*/
+    --enabled-date-icon-color:#fff;
+    --disabled-date-icon-color:rgba(105, 105, 105, 1);
+
+
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
@@ -470,7 +484,7 @@
             fill: var(--info-button-bg-color);
             opacity: 1;
         }
-    }   
+    }
 
     .revenue-icon {
         circle {
@@ -494,7 +508,7 @@
             stroke: #1F6644;
         }
     }
-    
+
     .confirmation-icon {
         .rect1 {
             fill: #FFD6D3;
@@ -535,7 +549,7 @@
     .ng-tooltip{
         &-light {
             background: #0D0C0F !important;
-            color: #FFFFFF !important; 
+            color: #FFFFFF !important;
         }
     }
 
@@ -552,14 +566,14 @@
         color: var(--table-heading-text-color);
     }
 
-    .mat-calendar-table-header, 
-    .mat-calendar-body-label, 
-    .mat-calendar-body-cell-content.mat-focus-indicator, 
-    .mat-calendar-previous-button::after, 
+    .mat-calendar-table-header,
+    .mat-calendar-body-label,
+    .mat-calendar-body-cell-content.mat-focus-indicator,
+    .mat-calendar-previous-button::after,
     .mat-calendar-next-button::after, .mat-date-range-input-separator, .mat-datepicker-toggle-default-icon {
         color: var(--table-heading-text-color);
     }
-    
+
     .mat-calendar-arrow polygon {
         fill: var(--table-heading-text-color);
     }
@@ -575,7 +589,7 @@ body {
     margin: 0;
     height: 100%;
     overflow: hidden;
-    
+
     .modal-lg {
         --bs-modal-width: 591px;        // for subscription and plan add/edit modals
     }
@@ -583,7 +597,7 @@ body {
     .modal-md{
         --bs-modal-width: 419px;        // for subscription info modals
     }
-    
+
     .modal-sm{
         --bs-modal-width: 400px;        // for customer add/edit, plan info, subscriber info modals
     }
