@@ -6,6 +6,7 @@ import { CouponInfoComponent } from './component/coupon-info/coupon-info.compone
 import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
 import { CouponManagementService } from './service/coupon-management.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { SearchService } from 'src/app/shared/service/search/search.service';
 
 @Component({
   selector: 'app-coupon-management',
@@ -31,8 +32,16 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
   constructor(
     private couponService: CouponManagementService,
     private dialogService: DialogService,
-    private alertService: AlertService
-  ) {}
+    private alertService: AlertService,
+    private _searchService: SearchService) {
+      _searchService.getResults().subscribe((results: any) => {
+        if(results) {
+          this.couponsList = results?.data
+          this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+          this.paginateConfig.currentPage = 1;
+          this.inSearch = true;
+        }
+      })}
 
   ngOnInit(): void {
     this.getCouponList();
@@ -42,11 +51,11 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
     this.inProgress = true;
     this.couponsSubscription = this.couponService.getCouponList().subscribe(
       (response: any) => {
-        if (response && response.data && response.data?.length > 0) {
+        if (response && response.data) {
           this.couponsList = response.data;
           this.paginateConfig.totalItems = response?.count[0]?.totalCount;
-          this.inProgress = false;
         }
+        this.inProgress = false;
       },
       (error) => {
         this.inProgress = false;
@@ -95,6 +104,17 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
   getPageNumber(event: any) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event;
+
+    /* Pagination based on searched data */
+    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService.getSearchResult('/coupon-management', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
+        this.couponsList = result.data;
+        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+        this.inProgress = false;
+      })
+    }
+    /* Pagination based on all data */
+    else {
     this.couponService
       .getCouponList(
         this.paginateConfig.itemsPerPage,
@@ -113,6 +133,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
           this.inProgress = false;
         }
       );
+    }
   }
 
   // Copy user email
