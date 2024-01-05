@@ -8,6 +8,7 @@ import { PaginationInstance } from 'ngx-pagination';
 import { SubscriptionInfoComponent } from 'src/app/shared/dialog';
 import { SearchService } from 'src/app/shared/service/search/search.service';
 import { SubscriptionRefundComponent } from 'src/app/shared/dialog/subscription-refund/subscription-refund.component';
+import { getCurrencySymbol } from '@angular/common';
 
 @Component({
   selector: 'app-subscription',
@@ -36,7 +37,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   constructor(private subscriptionsService: SubscriptionsService,
               private dialogService: DialogService,
-              private alertService : AlertService, 
+              private alertService : AlertService,
               private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
@@ -49,8 +50,9 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
               }
   ngOnInit(): void {
     this.getAllSubscription();
+    this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
   }
-  
+
   createSubscription() {
     this.dialogService.openModal(SubscriptionDialogComponent, { cssClass: 'modal-lg', context: {data: {}, title: 'Add New Subscription'} })
       .instance.close.subscribe((data: any) => {
@@ -59,7 +61,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
             this.alertService.success('Subscription Created');
             this.paginateConfig.currentPage = 1;
             this.getAllSubscription();
-          } 
+          }
         })
   }
 
@@ -84,7 +86,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
             });
             // this.alertService.success('Subscription Created');
             // this.paginateConfig.currentPage = 1;
-          } 
+          }
         })
   }
 
@@ -172,7 +174,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   getPageNumber(event: any) {
     this.inProgress = true;
-    this.paginateConfig.currentPage = event; 
+    this.paginateConfig.currentPage = event;
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
@@ -181,7 +183,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
         this.paginateConfig.totalItems = result?.count[0]?.totalCount;
         this.inProgress = false;
       })
-    } 
+    }
     /* Pagination based on all data */
     else {
       this.subscriptionsService.subscriptionList(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
@@ -205,10 +207,10 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     if(!email) {
       return;
     }
-    
+
     navigator.clipboard.writeText(email);
   }
-    
+
   ngOnDestroy(): void {
     this.inSearch = false
     this._searchService.searchedTerm = ''

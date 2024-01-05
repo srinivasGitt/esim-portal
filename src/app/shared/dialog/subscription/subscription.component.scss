@@ -1,5 +1,5 @@
 ::ng-deep .cdk-overlay-container { z-index: 1200 !important; }
-::ng-deep mat-datepicker-toggle {position: relative;} 
+::ng-deep mat-datepicker-toggle {position: relative;}
 
 ::ng-deep mat-form-field {
     display: block !important;
@@ -14,7 +14,7 @@
     margin: 0 !important;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick:hover { 
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick:hover {
     color: none !important;
 }
 
@@ -56,21 +56,31 @@
     color: transparent !important;
 }
 
-::ng-deep .mat-button-wrapper {
+.endDate ::ng-deep .mat-button-wrapper {
     svg {
-        fill: var(--modal-sub-header-text-color) !important;
+        fill: var(--disabled-date-icon-color) !important;
     }
+}
+
+::ng-deep .mat-button-wrapper {
+  svg {
+      fill: var(--enabled-date-icon-color) !important;
+  }
 }
 
 ::ng-deep .mat-input-element::placeholder {
     color: var(--modal-sub-header-text-color) !important;
-}  
+}
+
+.ng-select::placeholder{
+  color: var(--disabled-date-icon-color);
+}
 
 .input-width {
     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
             padding: 0 !important;
         }
-        
+
     ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
             flex-direction: row-reverse !important;
         }
