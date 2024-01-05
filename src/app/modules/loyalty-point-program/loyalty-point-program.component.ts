@@ -50,7 +50,9 @@ export class LoyaltyPointProgramComponent implements OnInit {
     } else {
       this.isDefault = false;
     }
-    this.createLoyaltyForm(this.clientConfig);
+
+    this.getConfiguration();
+    // this.createLoyaltyForm(this.clientConfig);
     this.getLoyaltyWidgets();
   }
 
@@ -235,6 +237,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
   }
 
   getConfiguration() {
+    this.inProgress = true;
     const clientConfig = JSON.parse(localStorage.getItem('config')!);
 
     this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
@@ -243,10 +246,13 @@ export class LoyaltyPointProgramComponent implements OnInit {
           const data = res.data;
           this.localStorage.setCacheConfig(JSON.stringify(data));
           this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+          this.createLoyaltyForm(this.clientConfig);
+          this.inProgress = false;
         }
       },
       (err) => {
         this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
       }
     );
   }
