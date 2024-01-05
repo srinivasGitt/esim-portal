@@ -1269,6 +1269,10 @@
                 &:not(.action-section){
                     opacity: 0.55;
                 }
+
+                &:nth-child(2),&:nth-child(3),&:nth-child(4),&:nth-child(5),&:nth-child(6){
+                  margin-left: 5px;
+                }
             }
             &:hover, .active{
                 .t-box{
@@ -2265,6 +2269,12 @@
             cursor: pointer;
         }
 
+        .disable-color{
+          color: var(--disabled-input-color);
+          font-size: 16px;
+          font-weight: 600;
+        }
+
     }
 
     .fix-height {
@@ -2354,7 +2364,7 @@
             width: 38px;
             text-align: center;
             line-height: 36px;
-            color: var(--modal-sub-header-text-color) !important;
+            color: var(--disabled-input-color) !important;
 
             svg {
                 path {
@@ -2441,6 +2451,10 @@
             input{
                 color: var(--table-heading-text-color);
             }
+
+
+
+
             .ng-arrow {
                 transform: rotate(-90deg);
                 // border-color: rgba(99, 101, 239, 0.48) transparent transparent;
@@ -2456,6 +2470,9 @@
         .full-width {
             width: 100%;
         }
+        .custom-select::placeholder{
+          color: var(--disabled-date-icon-color);
+        }
 
         .imsi-input {
             .ng-select-container{
@@ -2470,8 +2487,8 @@
                     padding-left: 3px !important;
                     color: var(--ng-placeholder-color) !important;
                 }
-            }
 
+            }
             .ng-dropdown-panel .scroll-host {
                 padding: 8px;
             }
@@ -2493,11 +2510,35 @@
                 // margin-bottom: 8px;
             }
 
-            input[type='radio'] {
-                accent-color: #667085;
+            // input[type='radio'] {
+            //     accent-color: rgba(99, 101, 239, 1);
+            //     border: 1px solid rgba(99, 101, 239, 1);
+            // }
+
+            input[type="radio"] {
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+              accent-color: rgba(99, 101, 239, 1);
+              border: 2px solid rgba(99, 101, 239, 1);
+            }
+
+            input[type="radio"]:checked::before {
+              content: '';
+              display: block;
+              width: 10px;
+              height: 10px;
+              background-color: rgba(99, 101, 239, 1);
+              border-radius: 50%;
+              position: relative;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
             }
         }
-
 
         .default-currency-ng-select {
 
