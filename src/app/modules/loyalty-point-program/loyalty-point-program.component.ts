@@ -225,15 +225,34 @@ export class LoyaltyPointProgramComponent implements OnInit {
   }
 
   updateValidation() {
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([
-      Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
-    ]);
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([
-      Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
-    ]);
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+    let rewardPointsMin = this.loyaltyForm.controls['rewardPointsMinRedeem'].value;
+    let rewardPointsMax = this.loyaltyForm.controls['rewardPointsMaxRedeem'].value;
+
+    if(rewardPointsMin || rewardPointsMax){
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([ Validators.required, Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),]);
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([ Validators.required, Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),]);
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+
+    }else{
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].clearValidators();
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].clearValidators();
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([
+        Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
+      ]);
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([
+        Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
+      ]);
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+    }
+
+    console.log(this.loyaltyForm);
   }
 
   getConfiguration() {

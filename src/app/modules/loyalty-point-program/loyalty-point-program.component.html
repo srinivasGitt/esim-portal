@@ -101,13 +101,13 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'dec')"
+                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'dec')" *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'inc')"
+                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'inc')" *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -207,13 +207,13 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsValue', 'cashValue', 'dec')"
+                              (click)="updateValue('rewardPointsValue', 'cashValue', 'dec')" *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsValue', 'cashValue', 'inc')"
+                              (click)="updateValue('rewardPointsValue', 'cashValue', 'inc')" *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -361,13 +361,13 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'dec')"
+                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'dec')" *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'inc')"
+                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'inc')" *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -427,13 +427,13 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'dec')"
+                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'dec')" *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'inc')"
+                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'inc')" *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -605,16 +605,14 @@
                             <span
                               class="number-decremental"
                               (click)="
-                                updateValue('', 'rewardPointsMaxRedeem', 'dec'); updateValidation()
-                              "
+                                updateValue('', 'rewardPointsMaxRedeem', 'dec'); updateValidation()" *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
                               (click)="
-                                updateValue('', 'rewardPointsMaxRedeem', 'inc'); updateValidation()
-                              "
+                                updateValue('', 'rewardPointsMaxRedeem', 'inc'); updateValidation()" *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -698,13 +696,13 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('', 'rewardPointsReferral', 'dec')"
+                              (click)="updateValue('', 'rewardPointsReferral', 'dec')" *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('', 'rewardPointsReferral', 'inc')"
+                              (click)="updateValue('', 'rewardPointsReferral', 'inc')" *ngIf="isEdit"
                             >
                               +
                             </span>
