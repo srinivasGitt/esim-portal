@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { CustomerService, DialogService, UsersService, AlertService, DashboardService } from '../../service';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
-import { filter } from 'rxjs';
+import { AlertService, CustomerService, DashboardService, DialogService, UsersService } from '../../service';
 import { LocalStorageService } from '../../service/local-storage.service';
 
 @Component({
@@ -21,6 +20,7 @@ export class SidebarComponent implements OnInit {
   userDetails: any = {};
   isParentActive: any;
   clientConfig!: any;
+  routeConfig: any;
 
   constructor(private router:Router,
               private activatedRoute: ActivatedRoute,
@@ -35,11 +35,12 @@ export class SidebarComponent implements OnInit {
       (data: any) => {
         if(data instanceof NavigationEnd){
           const childRoute = this.activatedRoute.firstChild?.snapshot;
-          const routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
-          if (childRoute && routeConfig) {
+          this.routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
+
+          if (childRoute && this.routeConfig) {
             const isChildActive = data.urlAfterRedirects.includes(childRoute.url.join('/'));
             this.isParentActive = isChildActive;
-          }else{
+          } else{
             this.isParentActive = false;
           }
         }
@@ -75,13 +76,14 @@ export class SidebarComponent implements OnInit {
       if(!this.clientConfig?.rewardPointsMasterEnabled) {
         this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Loyalty Point Program'));
       }
-      
+
       if(!this.clientConfig?.currencyConversionMasterEnabled) {
         this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Coupon Management'));
       }
 
     }
   }
+
   setDefaultCustomer(){
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to default customer?`} })
     .instance.close.subscribe((data: any) => {
@@ -147,6 +149,10 @@ export class SidebarComponent implements OnInit {
 
     showSubmenu(itemEl: HTMLElement) {
       itemEl.classList.toggle("showMenu");
+    }
+
+    findUrl(menu: any){
+      return menu.childs.findIndex((ele: any) => ele.link === window.location.pathname) > -1 ? true : false
     }
 
 }

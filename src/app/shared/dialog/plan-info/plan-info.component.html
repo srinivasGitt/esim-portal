@@ -25,7 +25,14 @@
     </div> -->
     <div>
         <p class="modal-header-text mb-0 d-flex align-items-start">
-            <span class="max-w80 word-wrap">{{ planDetails.name }}</span>&nbsp;-&nbsp;<span>{{ planDetails.priceBundle | currency: (planDetails.currency || currencyType) }}</span>
+            <span class="max-w80 word-wrap text-overflow-ellipsis">
+                <span class="max-w80 word-wrap subscriber-details-text text-overflow-ellipsis" *ngIf=" planDetails.name.length >20" [tooltip]=" planDetails.name" placement="top" delay="100" offset="0">
+                    {{  planDetails.name }}
+                </span>
+                <span class="max-w80 word-wrap subscriber-details-text" *ngIf=" planDetails.name.length <= 20">
+                    {{  planDetails.name }}
+                </span>
+            </span>&nbsp;-&nbsp;<span>{{ planDetails.priceBundle | currency: (planDetails.currency || currencyType) }}</span>
         </p>
     </div>
     <div class="es-modal-body mb-5">

@@ -68,7 +68,7 @@
                 </a>
             </div>
             <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer">
-                <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink: isParentActive}">
+                <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
                     <span class="link-icon">
                         <img [src]="menu.icon" [alt]="menu.title">
                     </span>

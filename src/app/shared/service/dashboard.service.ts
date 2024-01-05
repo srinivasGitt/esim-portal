@@ -94,7 +94,22 @@ export class DashboardService {
         icon: 'assets/icons/reports-icon.svg',
         link: '/reports',
         accessRole: ['admin','superAdmin'],
-        hasGroup: false
+        hasGroup: true,
+        isLinkActive: false,
+        childs: [
+          {
+            title: 'Revenue',
+            link: '/reports/revenue',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          },
+          {
+            title: 'Data Usage',
+            link: '/reports/data-usage',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          }
+        ]
       },
       {
         title: 'Loyalty Point Program',
@@ -116,6 +131,7 @@ export class DashboardService {
         link: '/help-center',
         accessRole: ['admin','superAdmin'],
         hasGroup: true,
+        isLinkActive: false,
         childs: [
           {
             title: 'Contact Us',

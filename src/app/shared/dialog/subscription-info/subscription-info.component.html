@@ -109,8 +109,15 @@
                     <div class="col-12">
                         <label class="modal-label-text">User Email</label>
                         <div class="modal-details-text mt-0">
-                            <label class="subscriber-details-text email-lable helper-text">
-                                {{ subscriptionDetails.subscriberEmail }} 
+                            <p class="modal-header-text mb-0 d-flex align-items-start">
+                                <span class="max-w80 word-wrap text-overflow-ellipsis">
+                                    <span class="max-w80 word-wrap subscriber-details-text text-overflow-ellipsis" *ngIf=" subscriptionDetails.subscriberEmail.length >20" placement="top" delay="100" offset="0">
+                                        {{  subscriptionDetails.subscriberEmail}}
+                                    </span>
+                                    <span class="max-w80 word-wrap subscriber-details-text" *ngIf="subscriptionDetails.subscriberEmail.length <= 20">
+                                        {{ subscriptionDetails.subscriberEmail}}
+                                    </span>
+                                </span>
                                 <span class="icon" *ngIf="subscriptionDetails.subscriberEmail"  (click)="copyToClipboard($event,subscriptionDetails.subscriberEmail)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_1322_24072" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -121,7 +128,7 @@
                                         </g>
                                     </svg>
                                 </span>
-                            </label>
+                            </p>
                         </div>
                     </div>
                 </div>
