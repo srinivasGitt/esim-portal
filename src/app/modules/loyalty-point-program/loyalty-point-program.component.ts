@@ -263,7 +263,6 @@ export class LoyaltyPointProgramComponent implements OnInit {
       (res: any) => {
         if (res) {
           const data = res.data;
-          data.rewardPointsMasterEnabled = false;
           this.localStorage.setCacheConfig(JSON.stringify(data));
           this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
 
