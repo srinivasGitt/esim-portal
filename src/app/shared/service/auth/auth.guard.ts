@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     const token = this._localStorageService.getToken();
+    let url: string = state.url;
 
     if(token) {
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
@@ -26,16 +27,35 @@ export class AuthGuard implements CanActivate {
         this._localStorageService.setCurrency('USD');
       }
 
-      if((check.includes('superAdmin') || check.includes('admin')) && !this._tokenExpiration(tokenDecode.exp)) 
-      return true;
+      if((check.includes('superAdmin') || check.includes('admin')) && !this._tokenExpiration(tokenDecode.exp)) {
+
+        if(url.includes('loyalty-point-program')) this.checkFeatureAccess(route, url);
+        return true;
+      }
     }
 
     this._router.navigate(['/signin']);
     return false;
   }
-  
+
   // token expiration
   private _tokenExpiration(expiration: number): boolean {
     return Math.floor(new Date().getTime() / 1000) >= expiration
   }
+
+  // Feature Access
+  checkFeatureAccess(route: ActivatedRouteSnapshot, url: any): boolean{
+    const clientConfig = JSON.parse(this._localStorageService.getCacheConfig()!);
+
+    if (clientConfig?.rewardPointsMasterEnabled) {
+      if (route.data?.['rewardPointsMasterEnabled'] && route.data?.['rewardPointsMasterEnabled'] !== clientConfig?.rewardPointsMasterEnabled) {
+        return false;
+      }
+      return true;
+    }
+
+    this._router.navigate(['/']);
+    return false;
+  }
+
 }
