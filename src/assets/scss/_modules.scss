@@ -1072,20 +1072,32 @@
 .data-usage-report {
     font-family: var(--font-family-sf-pro-display);
 
+    .download-button {
+        width: 13vw !important;
+
+        @media screen and (min-width: 1441px) { 
+            width: 11vw !important;
+        }
+    }
+
     .t-grid-table-new {
         @media screen and (max-width: 1500px) {
             min-width: 470px;
         }
         .t-body-overflow {
             overflow: auto;
-            height: calc(97vh - 555px);
+            height: calc(97vh - 580px);
             padding-top: 10px;
             overflow-x: hidden;
             align-items: center;
+
+            @media screen and (max-width: 1440px) { 
+                height: calc(97vh - 602px);
+            }
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 1.3fr 1.5fr 1fr 1.2fr 1.2fr 1fr;
+            grid-template-columns: 1.2fr 1.5fr 1fr 1.2fr 1.2fr 1fr;
         }
         .table-headers{
             font-size: 1rem;

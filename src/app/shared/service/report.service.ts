@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { group } from 'console';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -35,27 +34,18 @@ export class ReportService {
     }
   }
 
-  getDataUsageReport(fromDate?: any, toDate?: any, plan?: any, country?: any, itemsPerPage?: any, currentPage?: any) {
-    if(plan && country) {
-      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&country=${country}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    } else if(plan) {
-      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    } else if(country) {
-      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&country=${country}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    } else {
-      return this.http.get(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    }
+  getDataUsageReport(fromDate?: any, toDate?: any, body?: any, itemsPerPage?: any, currentPage?: any) {
+    return this.http.post(`${this.serverUrl}/data-Usage/report?fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`, body);
   }
 
-  downloadDataUsageReport(fromDate?: any, toDate?: any, plan?: any, country?: any, itemsPerPage?: any, currentPage?: any) {
-    if(plan && country) {
-      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&country=${country}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    } else if(plan) {
-      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&plan=${plan}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    } else if(country) {
-      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&country=${country}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    } else {
-      return this.http.get(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    }
+  downloadDataUsageReport(fromDate?: any, toDate?: any, body?: any, itemsPerPage?: any, currentPage?: any) {
+    return this.http.post(`${this.serverUrl}/data-Usage/download?fromDate=${fromDate}&toDate=${toDate}&itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`, body);
+  }
+
+  getCountryAndPlanList() {
+    return [
+      this.http.get(`${this.serverUrl}/subscription/countries`),
+      this.http.get(`${this.serverUrl}/subscription/plans`),
+    ];
   }
 }
