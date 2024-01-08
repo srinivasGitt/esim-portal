@@ -50,7 +50,9 @@ export class LoyaltyPointProgramComponent implements OnInit {
     } else {
       this.isDefault = false;
     }
-    this.createLoyaltyForm(this.clientConfig);
+
+    this.getConfiguration();
+    // this.createLoyaltyForm(this.clientConfig);
     this.getLoyaltyWidgets();
   }
 
@@ -223,18 +225,38 @@ export class LoyaltyPointProgramComponent implements OnInit {
   }
 
   updateValidation() {
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([
-      Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
-    ]);
-    this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
 
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([
-      Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
-    ]);
-    this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+    let rewardPointsMin = this.loyaltyForm.controls['rewardPointsMinRedeem'].value;
+    let rewardPointsMax = this.loyaltyForm.controls['rewardPointsMaxRedeem'].value;
+
+    if(rewardPointsMin || rewardPointsMax){
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([ Validators.required, Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),]);
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([ Validators.required, Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),]);
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+
+    }else{
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].clearValidators();
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].clearValidators();
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].setValidators([
+        Validators.max(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
+      ]);
+      this.loyaltyForm.controls['rewardPointsMinRedeem'].updateValueAndValidity();
+
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].setValidators([
+        Validators.min(this.loyaltyForm.controls['rewardPointsMinRedeem'].value),
+      ]);
+      this.loyaltyForm.controls['rewardPointsMaxRedeem'].updateValueAndValidity();
+    }
+
+    console.log(this.loyaltyForm);
   }
 
   getConfiguration() {
+    this.inProgress = true;
     const clientConfig = JSON.parse(localStorage.getItem('config')!);
 
     this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
@@ -243,10 +265,13 @@ export class LoyaltyPointProgramComponent implements OnInit {
           const data = res.data;
           this.localStorage.setCacheConfig(JSON.stringify(data));
           this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+          this.createLoyaltyForm(this.clientConfig);
+          this.inProgress = false;
         }
       },
       (err) => {
         this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
       }
     );
   }
