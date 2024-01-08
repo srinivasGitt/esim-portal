@@ -3,25 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './auth/signin/signin.component';
 // import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { CoreComponent } from './core/core.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { UserComponent } from './modules/user/user.component';
-import { PlanComponent } from './modules/plan/plan.component';
-import { SubscriptionComponent } from './modules/subscription/subscription.component';
-import { ReportsComponent } from './modules/reports/reports.component';
-import { InventoryComponent } from './modules/inventory/inventory.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { CoreComponent } from './core/core.component';
 import { CustomerManagementComponent } from './modules/customer-management/customer-management.component';
-import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
-import { AuthGuard } from './shared/service/auth/auth.guard';
-import { NotFoundComponent } from './shared/component/not-found/not-found.component';
-import { SettingsComponent } from './modules/settings/settings.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { ContactusComponent } from './modules/help-center/contactus/contactus.component';
-import { SupportComponent } from './modules/help-center/support/support.component';
 import { HelpCenterComponent } from './modules/help-center/help-center.component';
-import { RevenueComponent } from './modules/reports/revenue/revenue.component';
+import { SupportComponent } from './modules/help-center/support/support.component';
+import { InventoryComponent } from './modules/inventory/inventory.component';
+import { PlanComponent } from './modules/plan/plan.component';
 import { DataUsageComponent } from './modules/reports/data-usage/data-usage.component';
+import { ReportsComponent } from './modules/reports/reports.component';
+import { RevenueComponent } from './modules/reports/revenue/revenue.component';
+import { SettingsComponent } from './modules/settings/settings.component';
+import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
+import { SubscriptionComponent } from './modules/subscription/subscription.component';
+import { UserComponent } from './modules/user/user.component';
+import { NotFoundComponent } from './shared/component/not-found/not-found.component';
+import { AuthGuard } from './shared/service/auth/auth.guard';
 
 
 const routes: Routes = [
@@ -52,7 +52,13 @@ const routes: Routes = [
           { path: 'support', component: SupportComponent }
         ]
       },
-      { path: 'loyalty-point-program', loadChildren: () => import('./modules/loyalty-point-program/loyalty-point-program.module').then(m => m.LoyaltyPointProgramModule) }
+      { path: 'loyalty-point-program',
+        loadChildren: () => import('./modules/loyalty-point-program/loyalty-point-program.module').then(m => m.LoyaltyPointProgramModule),
+        // canActivate: [AuthGuard],
+        data: {
+          rewardPointsMasterEnabled: true
+        }
+    }
     ]
   },
   {
@@ -80,7 +86,7 @@ const routes: Routes = [
     path: '**',
     component: NotFoundComponent
   }
-  
+
 ];
 
 @NgModule({

@@ -38,7 +38,7 @@ export class LocalStorageService {
   getCurrency() {
     return localStorage.getItem('currency');
   }
-  
+
   setCacheConfig(value: string) {
     localStorage.setItem('config', value);
   }
@@ -46,7 +46,7 @@ export class LocalStorageService {
   getCacheConfig() {
     return localStorage.getItem('config');
   }
-  
+
   setCacheId(value: string) {
     localStorage.setItem('cacheId', value);
   }

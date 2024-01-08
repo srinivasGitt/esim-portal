@@ -265,6 +265,7 @@ export class LoyaltyPointProgramComponent implements OnInit {
           const data = res.data;
           this.localStorage.setCacheConfig(JSON.stringify(data));
           this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+
           this.createLoyaltyForm(this.clientConfig);
           this.inProgress = false;
         }
