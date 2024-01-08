@@ -72,6 +72,8 @@ export class SidebarComponent implements OnInit {
   fetchNavBarMenuList(roles: Array<string>){
     this.sidebarMenuList = this.dashboardService.getNavBarMenus(roles);
 
+    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+
     if(this.clientConfig) {
       if(!this.clientConfig?.rewardPointsMasterEnabled) {
         this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Loyalty Point Program'));
