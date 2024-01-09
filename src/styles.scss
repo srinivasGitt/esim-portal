@@ -167,6 +167,7 @@
     --loyalty-card-heading-text-color: #473BAA;
     --loyalty-card-sub-heading-text-color: #000;
     --loyalty-card-input-field-color: #FFFFFF !important;
+    --loyalty-card-cancel-btn-color: rgba(0, 0, 0, 0.5);
     --settings-helping-text-color: #000000;
     --radio-label-text-color: #000000;
     --bottom-border-color: #A8A9FD;
@@ -286,6 +287,13 @@
     .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
         color: var(--calendar-other-date-text-color);
     }
+
+    .loyalty-point-program-svg {
+      path {
+        fill: #000000 !important;
+        fill-opacity: 0.7 !important;
+      }
+    }
 }
 
 .darkMode{
@@ -387,6 +395,7 @@
     --loyalty-card-heading-text-color: var(--table-heading-text-color);
     --loyalty-card-sub-heading-text-color: rgba(255, 255, 255, 0.50);
     --loyalty-card-input-field-color: transparent;
+    --loyalty-card-cancel-btn-color: #FFFFFF;
     --settings-helping-text-color: var(--table-text-color);
     --radio-label-text-color: #8B8B8B;
     --bottom-border-color: #A8A9FD;
@@ -580,6 +589,13 @@
 
     .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
         color: var(--calendar-other-date-text-color);
+    }
+
+    .loyalty-point-program-svg {
+      path {
+        fill: #FFFFFF !important;
+        fill-opacity: 1 !important;
+      }
     }
 }
 
