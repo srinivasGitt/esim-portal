@@ -44,6 +44,15 @@ export class StepThreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.rootFormGroup.control.get(this.formGroupName) as FormGroup;
+    const config = {
+      placeholderText: 'Search for plans / Multiple plans can be selected',
+      list: this.planList,
+      isPlan: true,
+      isRegion: false,
+      isCountry: false,
+    };
+
+    this.updateView(config);
   }
 
   ngAfterContentChecked(): void {

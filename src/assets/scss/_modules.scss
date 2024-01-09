@@ -1753,13 +1753,13 @@
     .modal-label-text {
       color: var(--subscription-modal-helper-text-color);
       font-size: 14px;
-      // font-weight: 600;
+      font-weight: 600;
     }
 
     .modal-details-text {
-      font-size: 1rem;
+      font-size: 16px;
       font-weight: 500;
-      margin-top: 12px;
+      // margin-top: 4px;
       color: var(--subscription-data-text-color);
 
       &.total-data {
@@ -1843,7 +1843,7 @@
     }
 
     .subscriber-label-text {
-      font-size: 0.729vw;
+      font-size: 14px;
       font-weight: 500;
       padding-left: 0;
       color: var(--info-label-text-color);
@@ -1852,7 +1852,7 @@
     }
 
     .subscriber-details-text {
-      font-size: 0.833vw;
+      font-size: 16px;
       font-weight: 500;
       width: 100%;
       color: var(--info-details-text-color);
@@ -3524,10 +3524,10 @@
     }
     .t-grid-table-wrapper {
       display: grid;
-      grid-template-columns: 2fr 2.5fr 2fr 1.5fr 1.5fr 1.5fr 120px;
+      grid-template-columns: 2fr 2.5fr 1.5fr 1.5fr 1.5fr 1.5fr 140px;
     }
     .table-headers {
-      font-size: 1.042vw;
+      font-size: 20px;
       font-weight: 500;
       margin-bottom: 20px;
 
@@ -3558,7 +3558,7 @@
       word-break: break-word;
     }
     .t-body-bg {
-      font-size: 0.833vw;
+      font-size: 16px;
 
       .t-box {
         color: var(--table-heading-text-color);
@@ -3588,7 +3588,7 @@
       }
     }
     .bg-body-table-dark-bg {
-      border-top: 1px dashed #636668;
+      border-top: 1px dashed rgba(99, 102, 104, 0.3);
     }
     .action-section {
       display: flex;
