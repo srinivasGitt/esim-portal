@@ -248,6 +248,12 @@
     --enabled-date-icon-color: rgba(0, 0, 0, 0.70);
     --disabled-date-icon-color:rgba(105, 105, 105, 0.8);
 
+     /* navbar child border*/
+     --navbar-child-border:rgba(0, 0, 0, 0.14);
+     --navbar-child-arrow:rgba(28, 28, 28, 1);
+
+
+
 
     /* SVG Color Change */
     .revenue-icon {
@@ -465,11 +471,15 @@
     --enabled-date-icon-color:#fff;
     --disabled-date-icon-color:rgba(105, 105, 105, 1);
 
+     /* navbar child border*/
+     --navbar-child-border: rgba(255, 255, 255, 0.14);
+     --navbar-child-arrow:rgba(255, 255, 255, 1);
+
+
 
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
-
 
 
     /* SVG Color Change */
