@@ -76,7 +76,14 @@
                 <div class="t-body-overflow">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
                     *ngFor="let user of usersList | paginate: paginateConfig; index as i">
-                        <div class="t-box a px-2">{{ user.firstName }} {{ user.lastName }}</div>
+                        <div class="t-box a px-2">
+                            <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="user.firstName && user.lastName && (user.firstName.length > 20 || user.lastName.length >20)" [tooltip]="user.firstName + ' ' + user.lastName" placement="top" delay="100" offset="0">
+                                {{ user.firstName }} {{ user.lastName }}
+                            </label>
+                            <label class="subscriber-details-text" *ngIf="user.firstName && user.lastName && (user.firstName.length <= 20 || user.lastName.length<= 20)">
+                                {{ user.firstName }} {{ user.lastName }}
+                            </label>
+                        </div>
                         <div class="t-box b px-2 copy-div">
                             <span class="copy justify-content-around">
                                     {{user.email}}

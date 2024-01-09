@@ -94,6 +94,28 @@ export class DashboardService {
         icon: 'assets/icons/reports-icon.svg',
         link: '/reports',
         accessRole: ['admin','superAdmin'],
+        hasGroup: true,
+        isLinkActive: false,
+        childs: [
+          {
+            title: 'Revenue',
+            link: '/reports/revenue',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          },
+          {
+            title: 'Data Usage',
+            link: '/reports/data-usage',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          }
+        ]
+      },
+      {
+        title: 'Loyalty Point Program',
+        icon: 'assets/icons/fluent_reward-16-filled.svg',
+        link: '/loyalty-point-program',
+        accessRole: ['admin','superAdmin'],
         hasGroup: false
       },
       {
@@ -113,9 +135,10 @@ export class DashboardService {
       {
         title: 'Help Center',
         icon: 'assets/icons/headphone.svg',
-        link: null,
+        link: '/help-center',
         accessRole: ['admin','superAdmin'],
         hasGroup: true,
+        isLinkActive: false,
         childs: [
           {
             title: 'Contact Us',
@@ -129,13 +152,13 @@ export class DashboardService {
             accessRole: ['admin','superAdmin'],
             hasGroup: false
           },
-          {
-            title: 'Raise Ticket',
-            link: 'https://support.glowingbud.com/',
-            accessRole: ['admin','superAdmin'],
-            hasGroup: false,
-            external: true
-          }
+          // {
+          //   title: 'Raise Ticket',
+          //   link: 'https://support.glowingbud.com/',
+          //   accessRole: ['admin','superAdmin'],
+          //   hasGroup: false,
+          //   external: true
+          // }
         ]
       },
     ];
@@ -181,6 +204,10 @@ export class DashboardService {
         increase: 2
       }
     ]
+  }
+
+  getRaiseTicket(){
+    return 'https://support.glowingbud.com/';
   }
 
   /*

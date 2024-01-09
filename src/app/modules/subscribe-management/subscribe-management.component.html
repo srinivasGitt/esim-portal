@@ -132,7 +132,15 @@
                 </div>
                 <div class="t-body-overflow">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let subscriber of subscriberList | paginate: paginateConfig ">
-                        <div class="t-box a px-2">{{ subscriber.displayName }}</div>
+                        <div class="t-box a px-2">
+                            <!-- {{ subscriber.displayName }} -->
+                            <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="subscriber.displayName.length >20" [tooltip]="subscriber.displayName" placement="top" delay="100" offset="0">
+                                {{ subscriber.displayName }}
+                            </label>
+                            <label class="subscriber-details-text" *ngIf="subscriber.displayName.length <= 20">
+                                {{ subscriber.displayName }}
+                            </label>
+                        </div>
                         <!-- <div class="t-box b px-2">
                             <span class="text-overflow-ellipsis">{{subscriber.email}}</span>
                         </div> -->
@@ -153,13 +161,13 @@
                         </div>
                         <div class="t-box a px-2 iccid-text">{{ subscriber.iccid }}</div>
                         <div class="t-box b px-2 activation-code-section">{{ subscriber.activationCode }}</div>
-                        <div class="t-box a px-2">{{ subscriber.created  | date : 'dd/MM/YYYY' }}</div>
+                        <div class="t-box a px-2">{{ subscriber.created  | date : "dd-MM-yyyy" }}</div>
                         <div class="t-box b px-2 action-section">
                             <div class="user-table-action">
-                                <div class="user-table-action-icon mx-auto" (click)="showSubscriber(subscriber)" tooltip="Info" placement="top" delay="100" offset="15">
+                                <div class="user-table-action-icon" (click)="showSubscriber(subscriber)" tooltip="Info" placement="top" delay="100" offset="15">
                                     <img src="/assets/images/dashboard/icon/information.svg">
                                 </div>
-                                <div class="user-table-action-icon mx-auto" (click)="deleteSubscriber(subscriber)" tooltip="Delete" placement="top" delay="100" offset="15">
+                                <div class="user-table-action-icon" (click)="deleteSubscriber(subscriber)" tooltip="Delete" placement="top" delay="100" offset="15">
                                     <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.93548 0C5.50791 0 5.16129 0.348336 5.16129 0.778022V1.55604H0.774194C0.346622 1.55604 0 1.90438 0 2.33407C0 2.76375 0.346622 3.11209 0.774194 3.11209H15.2258C15.6534 3.11209 16 2.76375 16 2.33407C16 1.90438 15.6534 1.55604 15.2258 1.55604H10.8387V0.778022C10.8387 0.348336 10.4921 0 10.0645 0H5.93548Z" fill="#495058"/>
                                         <path d="M9.09491 13.2263L10.6119 14.751C10.9143 15.0548 10.9143 15.5473 10.6119 15.8512C10.3096 16.155 9.81945 16.155 9.51711 15.8512L8 14.3267L6.48289 15.8512C6.18054 16.155 5.69039 16.155 5.38805 15.8512C5.08571 15.5473 5.08571 15.0548 5.38805 14.751L6.90508 13.2263L5.38804 11.7017C5.08571 11.3979 5.08571 10.9053 5.38804 10.6015C5.69038 10.2977 6.18054 10.2977 6.48289 10.6015L8 12.126L9.51711 10.6015C9.81945 10.2977 10.3096 10.2977 10.6119 10.6015C10.9143 10.9053 10.9143 11.3979 10.6119 11.7017L9.09491 13.2263Z" fill="#495058"/>

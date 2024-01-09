@@ -90,8 +90,8 @@
                             </span>
                         </div>
                         <div class="t-box px-1">{{ inventory.subscriberEmail }}</div>
-                        <div class="t-box px-1">{{ inventory.createdAt }}</div>
-                        <div class="t-box px-1 activation-code-section">{{ inventory.createdAt }}</div>
+                        <div class="t-box px-1 date-space">{{ inventory.createdAt | date: "dd-MM-yyyy 'T'HH:mm:ss.SSS'Z'" }}</div>
+                        <div class="t-box px-1 activation-code-section date-space">{{ inventory.createdAt | date: "dd-MM-yyyy 'T'HH:mm:ss.SSS'Z'"}}</div>
                         <div class="t-box px-1">{{ inventory.status | titlecase }}</div>
                         <div class="t-box px-1 action-section">
                             <div class="user-table-action">

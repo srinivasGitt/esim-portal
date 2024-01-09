@@ -63,6 +63,9 @@
                         <span class="small" *ngIf="f.firstName.errors.spacesOnly">
                             Value contains spaces only!
                         </span>
+                        <span class="small" *ngIf="f.firstName.errors?.maxlength?.requiredLength">
+                            First Name should have max. {{ f.firstName.errors?.maxlength?.requiredLength }} characters.
+                        </span>
                     </span>
                 </div>
             </div>
@@ -77,6 +80,9 @@
                         </span>
                         <span class="small" *ngIf="f.lastName.errors.spacesOnly">
                             Value contains spaces only!
+                        </span>
+                        <span class="small" *ngIf="f.lastName.errors?.maxlength?.requiredLength">
+                            Last Name should have max. {{ f.lastName.errors?.maxlength?.requiredLength }} characters.
                         </span>
                     </span>
                 </div>

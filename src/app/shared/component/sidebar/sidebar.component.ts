@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CustomerService, DialogService, UsersService, AlertService, DashboardService } from '../../service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { AlertService, CustomerService, DashboardService, DialogService, UsersService } from '../../service';
+import { LocalStorageService } from '../../service/local-storage.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,17 +18,32 @@ export class SidebarComponent implements OnInit {
   parentCustomer:any;
   sidebarMenuList: Array<any> = [];
   userDetails: any = {};
+  isParentActive: any;
+  clientConfig!: any;
+  routeConfig: any;
 
-  
   constructor(private router:Router,
+              private activatedRoute: ActivatedRoute,
               private customerService: CustomerService,
               private dashboardService: DashboardService,
               private usersService: UsersService,
               private alertService: AlertService,
-              private dialogService: DialogService) { 
+              private dialogService: DialogService,
+              private localStorage: LocalStorageService) {
 
     router.events.subscribe(
       (data: any) => {
+        if(data instanceof NavigationEnd){
+          const childRoute = this.activatedRoute.firstChild?.snapshot;
+          this.routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
+
+          if (childRoute && this.routeConfig) {
+            const isChildActive = data.urlAfterRedirects.includes(childRoute.url.join('/'));
+            this.isParentActive = isChildActive;
+          } else{
+            this.isParentActive = false;
+          }
+        }
         this.activeUrl = this.router.url;
       }
     )
@@ -42,19 +58,34 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
- 
+
 
   ngOnInit(): void {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     }else{
       // this.getAllCustomer();
+      this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     }
   }
 
   fetchNavBarMenuList(roles: Array<string>){
     this.sidebarMenuList = this.dashboardService.getNavBarMenus(roles);
+
+    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+
+    if(this.clientConfig) {
+      if(!this.clientConfig?.rewardPointsMasterEnabled) {
+        this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Loyalty Point Program'));
+      }
+
+      if(!this.clientConfig?.currencyConversionMasterEnabled) {
+        this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Coupon Management'));
+      }
+
+    }
   }
+
   setDefaultCustomer(){
     this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to default customer?`} })
     .instance.close.subscribe((data: any) => {
@@ -121,7 +152,11 @@ export class SidebarComponent implements OnInit {
     showSubmenu(itemEl: HTMLElement) {
       itemEl.classList.toggle("showMenu");
     }
-  
+
+    findUrl(menu: any){
+      return menu.childs.findIndex((ele: any) => ele.link === window.location.pathname) > -1 ? true : false
+    }
+
 }
 
 

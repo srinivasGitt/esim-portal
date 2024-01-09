@@ -21,10 +21,14 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   showSearch: boolean = true;
   routeUrl!: string;
 
+  tooltip = 'Need Assistance?'
+  supportLink = 'https://support.glowingbud.com/'
+
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center']
+  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center', '/loyalty-point-program', '/reports/revenue', '/reports/data-usage'];
+
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
@@ -32,7 +36,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
               public router: Router,
               private _localStorage: LocalStorageService,
               private _searchService: SearchService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {
-    
+
       // show/hide search box
       router.events.subscribe((route) => {
         if(route instanceof NavigationEnd) {
@@ -50,7 +54,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     if (!this._localStorage.getToken()) {
       this.router.navigate(['/signin']);
     }else{
@@ -71,7 +75,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    
+
     // Search Input Logic
     /*
     if(this.searchForm?.valueChanges) {

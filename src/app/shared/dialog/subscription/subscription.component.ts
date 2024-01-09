@@ -12,6 +12,18 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import * as moment from 'moment';
 import { SubscriptionsService } from '../../service';
 import { getCurrencySymbol } from '@angular/common';
+
+const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'app-dialog-subscription',
   templateUrl: './subscription.component.html',
@@ -23,7 +35,7 @@ import { getCurrencySymbol } from '@angular/common';
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
 export class SubscriptionDialogComponent  implements OnInit {
@@ -54,7 +66,7 @@ export class SubscriptionDialogComponent  implements OnInit {
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
 
   }
-  
+
   ngOnInit(): void {
     this.data = this.dialogRef.context.data;
     this.title = this.dialogRef.context.title;
@@ -97,7 +109,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       }
     )
   }
-  
+
   getPlans(){
     this.subscriptionService.getPlans()
     .subscribe(
@@ -109,7 +121,7 @@ export class SubscriptionDialogComponent  implements OnInit {
     )
   }
 
-  onPlanSelect(event: any) { 
+  onPlanSelect(event: any) {
     if(event) {
       console.log(event)
       this.f.startDate.setValue(this.currentDate)
@@ -134,7 +146,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       this.f.startDate.setValue(startDate)
       var endDate = moment(startDate).add(this.selectedPlan.validity, "days").toDate();
       this.f.endDate.setValue(endDate)
-    }   
+    }
   }
 
   submit() {
@@ -146,14 +158,14 @@ export class SubscriptionDialogComponent  implements OnInit {
     // this.dialogRef.close.emit(this.subscriptionForm.value);
 
     // const subscription = this.subscriptionForm.value
-    
+
     const obj = {
       email: this.f.email.value,
       country: this.f.country.value ?? this.f.regionId.value,
       activationDate: String(this.f.startDate.value),
       expiryDate: String(this.f.endDate.value),
       planId: this.f.planId.value
-    } 
+    }
 
     if(!this.f.regionId.value && obj && obj.country == null) {
       this.err = true
@@ -197,7 +209,7 @@ export class SubscriptionDialogComponent  implements OnInit {
       if(--decValue > -1){
         this.f[controlKey].setValue(decValue);
       }
-      
+
     }
   }
 
@@ -207,15 +219,15 @@ export class SubscriptionDialogComponent  implements OnInit {
       this.showHideRegion = true
       this.f.regionId.setValue(null)
       this.err = false
-    } 
+    }
 
     if(event && event.groupId) {
       this.showHideRegion = true
       this.f.regionId.setValue(event.region)
       this.countryList = null
       this.err = false
-    } 
-    
+    }
+
     if(event && !event.groupId && event.supportedCountries) {
       this.countryList = event.supportedCountries
       this.showHideRegion = false

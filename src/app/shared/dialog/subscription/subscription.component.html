@@ -26,17 +26,17 @@
                 <svg *ngIf="title === 'Add New Subscription'" class="m-auto" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M3.57082 0.257265C6.63992 -0.085755 9.81272 -0.085755 12.8818 0.257265C14.5945 0.448685 15.9762 1.7981 16.1774 3.51759C16.5443 6.65526 16.5443 9.82495 16.1774 12.9626C15.9762 14.6821 14.5945 16.0315 12.8818 16.2229C9.81272 16.5659 6.63992 16.5659 3.57082 16.2229C1.8581 16.0315 0.476337 14.6821 0.275227 12.9626C-0.0917425 9.82495 -0.0917425 6.65526 0.275227 3.51759C0.476337 1.7981 1.8581 0.448685 3.57082 0.257265ZM8.22632 3.24741C8.64052 3.24741 8.97632 3.58319 8.97632 3.99741V7.49006H12.469C12.8832 7.49006 13.219 7.82586 13.219 8.24006C13.219 8.65425 12.8832 8.99006 12.469 8.99006H8.97632V12.4827C8.97632 12.897 8.64052 13.2327 8.22632 13.2327C7.81212 13.2327 7.47632 12.897 7.47632 12.4827V8.99006H3.98371C3.56949 8.99006 3.23371 8.65425 3.23371 8.24006C3.23371 7.82586 3.56949 7.49006 3.98371 7.49006H7.47632V3.99741C7.47632 3.58319 7.81212 3.24741 8.22632 3.24741Z" fill="white"/>
                 </svg>
-                
+
                 <svg *ngIf="title === 'Edit Subscription'" class="m-auto" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 11.0837V14H3.09572L12.226 5.39897L9.13032 2.48271L0 11.0837ZM14.6201 3.14373C14.942 2.84044 14.942 2.35051 14.6201 2.04722L12.6883 0.227468C12.3664 -0.0758228 11.8463 -0.0758228 11.5243 0.227468L10.0136 1.6506L13.1094 4.56687L14.6201 3.14373Z" fill="#475467"/>
                 </svg>
-            </div>  
+            </div>
         </div>
         <div class="es-btn-close-container mt-0 mb-auto me-3">
             <a class="es-btn-close" (click)="close()"></a>
         </div>
     </div>
-    
+
     <div>
         <p class="modal-header-text mb-0">{{title}}</p>
         <p class="modal-sub-header-text mb-0 mt-2">
@@ -44,7 +44,7 @@
         </p>
     </div>
     <div class="es-modal-body">
-        <!-- 
+        <!--
         <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()">
             <div class="mb-3 row d-flex justify-content-between">
                 <div class="col-6">
@@ -66,7 +66,7 @@
                                 Plan is required!
                             </span>
                         </span>
-                    </div>   
+                    </div>
                 </div>
                 <div class="col-6 gap-2">
                     <div>
@@ -85,7 +85,7 @@
                                 Subscriber is required!
                             </span>
                         </span>
-                    </div>   
+                    </div>
                 </div>
             </div>
 
@@ -169,8 +169,8 @@
         -->
 
         <form class="es-modal-form" [formGroup]="subscriptionForm" novalidate (ngSubmit)="submit()" autocomplete="off">
-            
-            <div class="div-height d-flex justify-content-between">
+
+            <div class="divHeight d-flex justify-content-between">
                 <div class="input-width imsi-input">
                     <label for="region" class="form-label es-modal-form-label">Plan*</label>
                     <div class="d-flex relative container-ng-select">
@@ -186,10 +186,10 @@
                             (change)="onPlanSelection($event)"
                             (clear)="clearForm()">
                             <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input id="item-{{index}}" type="radio"/> {{item.name }}
+                                <input id="item-{{index}}" type="radio" class="custom-radio"/> {{item.name }}
                             </ng-template>
                             <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input  id="item-{{index}}" type="radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                                <input  id="item-{{index}}" type="radio" class="custom-radio" name="name" [checked]="item$.selected" /> {{item.name}}
                             </ng-template>
                         </ng-select>
                         <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,7 +205,7 @@
                     </div>
                 </div>
                 <div class="input-width imsi-input" *ngIf="showHideRegion">
-                    <label for="regionId" class="form-label es-modal-form-label">Region</label>
+                    <label for="regionId" class="form-label  disable-color">Region</label>
                     <input type="text" class="form-control es-input" id="regionId" aria-describedby="regionId" formControlName="regionId" [class.disabled]="true">
                 </div>
                 <div class="input-width imsi-input" *ngIf="!showHideRegion">
@@ -217,9 +217,9 @@
                             [closeOnSelect]="true"
                             bindLabel="name"
                             bindValue="name"
-                            placeholder="Select Country"
+                            placeholder="Choose Country"
                             formControlName="country"
-                            class="full-width"
+                            class="full-width custom-select"
                             (change)="true">
                             <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                                 <input id="item-{{index}}" type="radio"/> {{item.name }}
@@ -261,7 +261,8 @@
                     <div class="d-flex input-icon">
                         <mat-form-field appearance="outline" [ngClass]="[f.startDate.valid ? 'border-purple':'']">
                             <input matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="DD-MM-YYYY" (click)="startDate.open()" [min]="currentDate" (dateChange)="onDateChange($event)">
-                            <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker-toggle matIconSuffix [for]="startDate">
+                            </mat-datepicker-toggle>
                             <mat-datepicker #startDate></mat-datepicker>
                         </mat-form-field>
                     </div>
@@ -273,13 +274,13 @@
                         </span>
                     </div>
                 </div>
-                
+
                 <div class="input-width">
-                    <label for="endDate" class="form-label es-modal-form-label">Expiry Date</label>
+                    <label for="endDate" class="form-label disable-color">Expiry Date</label>
                     <div class="d-flex input-icon">
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="DD-MM-YYYY" readonly id="endDate">
-                            <mat-datepicker-toggle matIconSuffix [for]="endDate" [disabled]="true"></mat-datepicker-toggle>
+                            <mat-datepicker-toggle class="endDate" matIconSuffix [for]="endDate" [disabled]="true"></mat-datepicker-toggle>
                             <mat-datepicker #endDate [disabled]="true"></mat-datepicker>
                         </mat-form-field>
                     </div>
@@ -288,10 +289,10 @@
 
             <div class="div-height d-flex justify-content-between">
                 <div class="input-width">
-                    <label for="priceBundle" class="form-label es-modal-form-label">Price</label>
+                    <label for="priceBundle" class="form-label disable-color">Price</label>
                     <div class="d-flex">
-                        <input type="number" class="form-control es-input price-input" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [disabled]="true">
-                        <span class="form-label es-modal-form-label price-input-icon"> {{ currencyType }} </span>
+                        <input type="number" class="form-control es-input price-input disable-color" id="priceBundle" aria-describedby="priceBundle" formControlName="priceBundle" [disabled]="true">
+                        <span class="form-label disable-color price-input-icon"> {{ currencyType }} </span>
                     </div>
                     <div class="mt-2">
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.priceBundle.touched && f.priceBundle.pristine) || (f.priceBundle.errors && submitted)">
@@ -302,8 +303,8 @@
                     </div>
                 </div>
 
-                <div class="col-6 gap-2">
-                    <label for="data" class="form-label es-modal-form-label">Data</label>
+                <div class="col-6 gap-2 input-width">
+                    <label for="data" class="form-label disable-color">Data</label>
                     <input type="text" class="form-control es-input" id="data" aria-describedby="data" formControlName="data" [class.disabled]="true">
                     <div>
                         <span class="help-block ng-invalid text-danger" *ngIf="(f.data.touched && f.data.pristine) || (f.data.errors && submitted)">

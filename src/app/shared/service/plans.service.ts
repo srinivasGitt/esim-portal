@@ -65,6 +65,7 @@ export class PlansService {
   fetchPlansByRegion(regionId: string) {
     return this.http.get(`${this.serverUrl}/customer-plans?regionId=${regionId}`);
   }
+
   createPlan(data: any) {
     return this.http.post(`${this.serverUrl}/plans`, data);
   }
@@ -87,5 +88,9 @@ export class PlansService {
       this.http.get(`${this.serverUrl}/countries`),
       this.http.get(`${this.serverUrl}/group`)
     ];
+  }
+
+  getRegionList() {
+    return this.http.get(`${this.serverUrl}/group`);
   }
 }

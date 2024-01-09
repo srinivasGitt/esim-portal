@@ -3,24 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './auth/signin/signin.component';
 // import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { CoreComponent } from './core/core.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { UserComponent } from './modules/user/user.component';
-import { PlanComponent } from './modules/plan/plan.component';
-import { SubscriptionComponent } from './modules/subscription/subscription.component';
-import { ReportsComponent } from './modules/reports/reports.component';
-import { InventoryComponent } from './modules/inventory/inventory.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { CoreComponent } from './core/core.component';
 import { CustomerManagementComponent } from './modules/customer-management/customer-management.component';
-import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
-import { AuthGuard } from './shared/service/auth/auth.guard';
-import { NotFoundComponent } from './shared/component/not-found/not-found.component';
-import { SettingsComponent } from './modules/settings/settings.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { ContactusComponent } from './modules/help-center/contactus/contactus.component';
-import { SupportComponent } from './modules/help-center/support/support.component';
 import { HelpCenterComponent } from './modules/help-center/help-center.component';
-
+import { SupportComponent } from './modules/help-center/support/support.component';
+import { InventoryComponent } from './modules/inventory/inventory.component';
+import { PlanComponent } from './modules/plan/plan.component';
+import { DataUsageComponent } from './modules/reports/data-usage/data-usage.component';
+import { ReportsComponent } from './modules/reports/reports.component';
+import { RevenueComponent } from './modules/reports/revenue/revenue.component';
+import { SettingsComponent } from './modules/settings/settings.component';
+import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
+import { SubscriptionComponent } from './modules/subscription/subscription.component';
+import { UserComponent } from './modules/user/user.component';
+import { NotFoundComponent } from './shared/component/not-found/not-found.component';
+import { AuthGuard } from './shared/service/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -36,48 +37,73 @@ const routes: Routes = [
       { path: 'user-management', component: UserComponent },
       { path: 'user-management/:custId', component: UserComponent },
       { path: 'plans', component: PlanComponent },
-      { path: 'reports', component: ReportsComponent},
-      { path: 'inventory', component: InventoryComponent},
-      { path: 'setting', component: SettingsComponent},
-      { path: 'help-center', component: HelpCenterComponent,
+      {
+        path: 'reports',
+        component: ReportsComponent,
+        children: [
+          { path: 'revenue', component: RevenueComponent },
+          { path: 'data-usage', component: DataUsageComponent },
+        ],
+      },
+      { path: 'inventory', component: InventoryComponent },
+      { path: 'setting', component: SettingsComponent },
+      {
+        path: 'help-center',
+        component: HelpCenterComponent,
         children: [
           { path: 'contactus', component: ContactusComponent },
-          { path: 'support', component: SupportComponent }
-        ]
+          { path: 'support', component: SupportComponent },
+        ],
       },
-      { path: 'coupon-management', loadChildren: () => import('./modules/coupon-management/coupon-management.module').then(m => m.CouponManagementModule) }
-    ]
+      {
+        path: 'coupon-management',
+        loadChildren: () =>
+          import('./modules/coupon-management/coupon-management.module').then(
+            (m) => m.CouponManagementModule
+          ),
+      },
+      {
+        path: 'loyalty-point-program',
+        loadChildren: () =>
+          import('./modules/loyalty-point-program/loyalty-point-program.module').then(
+            (m) => m.LoyaltyPointProgramModule
+          ),
+        // canActivate: [AuthGuard],
+        data: {
+          rewardPointsMasterEnabled: true,
+        },
+      },
+    ],
   },
   {
     path: 'signin',
-    component: SigninComponent
+    component: SigninComponent,
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component: ForgotPasswordComponent,
   },
   {
     path: 'reset-password/:token',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
   },
   {
     path: '',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
   },
   {
     path: '',
     redirectTo: '/signin',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '**',
-    component: NotFoundComponent
-  }
-  
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
