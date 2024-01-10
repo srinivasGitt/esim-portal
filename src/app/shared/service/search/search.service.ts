@@ -22,9 +22,13 @@ export class SearchService {
     if(url.includes('inventory')) {
       url = '/inventories'
     }
-    
+
     if(url.includes('setting')) {
       url = '/customers/setting'
+    }
+
+    if(url.includes('coupon-management')) {
+      url = '/couponCode'
     }
 
     if(url.includes('support') || url.includes('contactus')) {
@@ -32,16 +36,17 @@ export class SearchService {
         url = '/support-request'
         finalURL = `${this.serverUrl}${url}?type=support&q=${searchTerm}`
       }
-      
+
       if(url.includes('contactus')) {
         url = '/support-request'
         finalURL = `${this.serverUrl}${url}?type=contact&q=${searchTerm}`
       }
     }
+
     else {
       finalURL = `${this.serverUrl}${url}/search?q=${searchTerm}`
     }
-    
+
 
     if(searchTerm && searchTerm.length > 3) {
       if(itemsPerPage && currentPage) {

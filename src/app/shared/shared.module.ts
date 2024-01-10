@@ -44,6 +44,7 @@ import { StatusColorDirective } from './directive/status-color.directive';
 import { SubscriptionRefundComponent } from './dialog/subscription-refund/subscription-refund.component';
 import { ReportAlertComponent } from './dialog/report-alert/report-alert.component';
 import { CurrencySymbolPipe } from './pipe/currency-symbol.pipe';
+import { NumberOnlyDirective } from './directive/number-only.directive';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { CurrencySymbolPipe } from './pipe/currency-symbol.pipe';
     StatusColorDirective,
     SubscriptionRefundComponent,
     ReportAlertComponent,
-    CurrencySymbolPipe
+    CurrencySymbolPipe,
+    NumberOnlyDirective
   ],
   imports: [
     CommonModule,
@@ -108,7 +110,8 @@ import { CurrencySymbolPipe } from './pipe/currency-symbol.pipe';
     LoadingSpinnerComponent,
     FormsModule, ReactiveFormsModule,
     StatusColorDirective,
-    CurrencySymbolPipe
+    CurrencySymbolPipe,
+    NumberOnlyDirective
   ],
   providers: [CurrencyPipe, DatePipe]
 })

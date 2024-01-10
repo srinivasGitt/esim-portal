@@ -1,0 +1,101 @@
+<ng-container [formGroup]="form">
+  <div class="d-flex justify-content-between mb-3">
+    <div
+      class="form-check custom-radio-div-inline-3"
+      [ngClass]="{ checked: form.get('applicableType')?.value === 'plan' }"
+    >
+      <label for="plan" class="w86">Specific Plan</label>
+      <input
+        type="radio"
+        name="applicableType"
+        id="plan"
+        formControlName="applicableType"
+        value="plan"
+      />
+    </div>
+    <div
+      class="form-check custom-radio-div-inline-3"
+      [ngClass]="{ checked: form.get('applicableType')?.value === 'region' }"
+    >
+      <label for="region" class="w86">Region</label>
+      <input
+        type="radio"
+        name="applicableType"
+        id="region"
+        formControlName="applicableType"
+        value="region"
+      />
+    </div>
+    <div
+      class="form-check custom-radio-div-inline-3"
+      [ngClass]="{ checked: form.get('applicableType')?.value === 'country' }"
+    >
+      <label for="country" class="w86">Country</label>
+      <input
+        type="radio"
+        name="applicableType"
+        id="country"
+        formControlName="applicableType"
+        value="country"
+      />
+    </div>
+  </div>
+
+  <div class="dropdown-list-input">
+    <div class="relative div-height">
+      <ng-select
+        [items]="list"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        formControlName="applicableValue"
+        bindLabel="name"
+        bindValue="name"
+        [placeholder]="placeholderText"
+        class="full-width custom-search"
+        (change)="onListChange($event, form.get('applicableType')?.value)"
+        #ngSelectComponent
+      >
+        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+          <div class="ng-value" *ngFor="let item of items | slice: 0 : 2">
+            <ng-container *ngIf="isCountry; else selectedValue">
+              <span class="ng-value-label">
+                <img [src]="$any(item).flag" class="flag-style" />
+                <span>{{ $any(item).name }}</span>
+              </span>
+              <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+            </ng-container>
+            <ng-template #selectedValue>
+              <span class="ng-value-label ellipsis">{{ $any(item).name }}</span>
+              <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+            </ng-template>
+          </div>
+          <div class="ng-value" *ngIf="items.length > 2">
+            <span
+              class="ng-value-label"
+              [tooltip]="displayList(items)"
+              placement="top"
+              delay="100"
+              offset="15"
+              >{{ items.length - 2 }} more...</span
+            >
+          </div>
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+          <div *ngIf="isCountry; else plan">
+            <img [src]="item.flag" class="flag-style" />
+            <span> {{ item.name }} </span>
+            <span *ngIf="isCountry">{{ item.iso3code }} ({{ item.dial_code }})</span>
+          </div>
+          <ng-template #plan>
+            <span class="w90 text-wrap text-break">{{ item.name }}</span>
+          </ng-template>
+          <div class="form-label es-modal-form-label unlimited">
+            <input id="item-{{ index }}" type="checkbox" [checked]="item$.selected" />
+            <span class="checkmark"></span>
+          </div>
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+</ng-container>
