@@ -77,17 +77,43 @@ export class DataUsageComponent implements OnInit {
   tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
   regionPlaceholderString = 'Region/Country';
   planPlaceholderString = 'Plan';
+  isRegionDropDownOpen = false;
+  isPlanDropDownOpen = false;
 
   constructor(private reportService: ReportService,
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private planService: PlansService,
     private dialogService: DialogService,
-    private subscriptionService: SubscriptionsService) { }
+    private subscriptionService: SubscriptionsService) {}
 
   ngOnInit(): void {
+    
+
     this.getCountryAndPlanList();
     this.initForm();
+
+    console.log(document.getElementById('region')?.classList);
+  }
+
+  toggleRegionDropdownClass() {
+    setTimeout(() => {
+      if(document.getElementById('region')?.classList.contains('ng-select-opened')) {
+        this.isRegionDropDownOpen = true;
+      } else {
+        this.isRegionDropDownOpen = false;
+      }
+    }, 10);
+  }
+
+  togglePlanDropdownClass() {
+    setTimeout(() => {
+      if(document.getElementById('plan')?.classList.contains('ng-select-opened')) {
+        this.isPlanDropDownOpen = true;
+      } else {
+        this.isPlanDropDownOpen = false;
+      }
+    }, 10);
   }
 
   getCountryAndPlanList() {
@@ -121,7 +147,7 @@ export class DataUsageComponent implements OnInit {
       .subscribe((res: any) => {
         this.inProgress = false;
         this.dataUsageReportList = res.data;
-
+        
         let totalData = res.totalData;
         this.totalDataAllocated = totalData.allocated;
         this.totalDataRemaining = totalData.remaining;

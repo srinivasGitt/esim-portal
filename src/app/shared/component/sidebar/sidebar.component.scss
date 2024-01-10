@@ -151,14 +151,11 @@
     padding: 0;
     position: relative;
     // left: -0.8vw;
-    border-left: 2px solid var( --navbar-child-border);
-    padding-left: 10px;
+    border-left: 2px solid rgba(0, 0, 0, 0.14);
+    padding-left: 15px;
     margin-top: 5px;
-    // width: 7vw;
-    width: 10vw;
-}
-.sub-menu li{
-  width: 8vw;
+    width: 170px;
+    margin-left: -16px;
 }
 
 .sub-menu li:last-child {
@@ -175,4 +172,14 @@ svg{
 .activeLinkChild{
     background:  var(--child-route-bg-color);
     border-radius: 8px;
+}
+
+.sidebar-sub-title {
+    display: flex;
+    align-items: center;
+    // height: 48px;
+    margin: 8px auto;
+    font-weight: 400;
+    font-size: var(--sidebar-text-size);
+    font-family: var(--font-family-inter);
 }

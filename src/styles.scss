@@ -622,6 +622,10 @@
         color: var(--calendar-other-date-text-color);
     }
 
+    .showMenu .sub-menu {
+        border-left: 2px solid rgba(255, 255, 255, 0.14) !important;
+    }
+    
     .loyalty-point-program-svg {
       path {
         fill: #FFFFFF !important;
