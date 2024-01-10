@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { DialogComponent } from '../../service/dialog';
 import { AlertService, subscriberService } from '../../service';
+import { DialogComponent } from '../../service/dialog';
 
 @Component({
   selector: 'app-subscriber-info',
@@ -55,8 +55,8 @@ export class SubscriberInfoComponent implements OnInit {
           this.subscriberDetails.expiryDate = this.subscriberDetails?.subscriptions?.length > 0 ? this.subscriberDetails?.subscriptions[0].expiryDate : '';
           this.subscriberDetails.isSms = this.subscriberDetails?.contactPreferences?.sms;
           this.subscriberDetails.isEmail = this.subscriberDetails?.contactPreferences?.email;
-          this.subscriberDetails.availableRewardPoints = 200;
-          this.subscriberDetails.usedRewardPoints = 40;
+          this.subscriberDetails.availableRewardPoints = this.subscriberDetails?.rewardPoints;
+          this.subscriberDetails.usedRewardPoints = this.subscriberDetails?.rewardPointsRedeemed;
           console.log(this.subscriberDetails)
         }
         this.inProgress = false;

@@ -15,7 +15,7 @@
                 <span class="">
                     {{ menu.title }}
                 </span>
-                
+
             </a>
             <a class="nav-link" *ngIf="menu.hasGroup"  [routerLinkActive]="['activeLink']"  (click)="showSubmenu(itemEl)">
                 <span class="link-icon">
@@ -28,7 +28,7 @@
                     <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
                 </div>
             </a>
-            
+
             <ul class="sub-menu">
                 <li *ngFor="let child of menu.childs" routerLinkActive="active">
                     <a class="nav-link" [routerLink]="[child.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{ exact: true }">
