@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit {
         this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Loyalty Point Program'));
       }
 
-      if(!this.clientConfig?.currencyConversionMasterEnabled) {
+      if(!this.clientConfig?.couponCodesMasterEnabled) {
         this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Coupon Management'));
       }
 
