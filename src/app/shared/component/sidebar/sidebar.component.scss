@@ -25,16 +25,16 @@
     }
     .close-icon{
         font-size: 10px !important;
-        
+
     }
     i{
         font-size: 15px;
     }
-   
-}   
+
+}
 
 .sidebar-accordion{
-    
+
     .accordion{
         --bs-accordion-color:var(--dark-background);
         --bs-accordion-bg: var(--dark-background) !important;
@@ -51,12 +51,12 @@
         --bs-accordion-body-padding-y: unset !important;
         --bs-accordion-body-padding-x:unset !important;
 
-      
+
       .accordion-body {
             padding-left: 15px !important;
             padding-top: 10px !important;
        }
-       
+
         .accordion-button {
             font-family: var(--dark-font-family);
             position: relative;
@@ -68,18 +68,18 @@
             text-align: left;
             background-color:unset!important;
             overflow-anchor: none;
-           
+
             &::after {
                 background-image: unset !important;
-               
+
             }
-    
-        }  
-        
+
+        }
+
         .accordion-button:not(.collapsed)::after {
-            background-image: unset !important; 
-            
-           
+            background-image: unset !important;
+
+
         }
     }
 
@@ -118,8 +118,8 @@
             background: var(--dark-background) !important;
         }
     }
-    
-    
+
+
 
 
 }
@@ -144,17 +144,21 @@
 
 .showMenu .arrow {
     transform: rotate(90deg);
-}  
+}
 
 .showMenu .sub-menu {
     display: block;
     padding: 0;
     position: relative;
     // left: -0.8vw;
-    border-left: 2px solid rgba(0, 0, 0, 0.14);
+    border-left: 2px solid var( --navbar-child-border);
     padding-left: 10px;
     margin-top: 5px;
     // width: 7vw;
+    width: 10vw;
+}
+.sub-menu li{
+  width: 8vw;
 }
 
 .sub-menu li:last-child {
@@ -163,6 +167,9 @@
 
 svg{
     margin-left: auto;
+    path{
+      fill: var(--navbar-child-arrow);
+    }
 }
 
 .activeLinkChild{
