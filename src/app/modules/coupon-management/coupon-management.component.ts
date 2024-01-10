@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Coupon } from 'src/app/modules/coupon-management/model/coupon.model';
 import { AlertService, DialogService } from 'src/app/shared/service';
-import { CouponInfoComponent } from './component/coupon-info/coupon-info.component';
-import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
-import { CouponManagementService } from './service/coupon-management.service';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { SearchService } from 'src/app/shared/service/search/search.service';
+import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
+import { CouponInfoComponent } from './component/coupon-info/coupon-info.component';
+import { CouponManagementService } from './service/coupon-management.service';
 
 @Component({
   selector: 'app-coupon-management',
@@ -33,15 +33,17 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
     private couponService: CouponManagementService,
     private dialogService: DialogService,
     private alertService: AlertService,
-    private _searchService: SearchService) {
-      _searchService.getResults().subscribe((results: any) => {
-        if(results) {
-          this.couponsList = results?.data
-          this.paginateConfig.totalItems = results?.count[0]?.totalCount;
-          this.paginateConfig.currentPage = 1;
-          this.inSearch = true;
-        }
-      })}
+    private _searchService: SearchService
+  ) {
+    _searchService.getResults().subscribe((results: any) => {
+      if (results) {
+        this.couponsList = results?.data;
+        this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+        this.paginateConfig.currentPage = 1;
+        this.inSearch = true;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getCouponList();
@@ -86,9 +88,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
     this.couponService.playAndPauseCoupon(coupon, isActive).subscribe(
       (res: any) => {
         if (res.code == 200) {
-          let index = this.couponsList.findIndex(
-            (item: any) => item._id === coupon._id
-          );
+          const index = this.couponsList.findIndex((item: any) => item._id === coupon._id);
           this.couponsList[index] = res.data;
           this.alertService.success(res.message);
           this.inProgress = false;
@@ -106,33 +106,36 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
     this.paginateConfig.currentPage = event;
 
     /* Pagination based on searched data */
-    if(this.inSearch && this._searchService.searchedTerm.length > 3) {
-      this._searchService.getSearchResult('/coupon-management', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
-        this.couponsList = result.data;
-        this.paginateConfig.totalItems = result?.count[0]?.totalCount;
-        this.inProgress = false;
-      })
-    }
-    /* Pagination based on all data */
-    else {
-    this.couponService
-      .getCouponList(
-        this.paginateConfig.itemsPerPage,
-        this.paginateConfig.currentPage - 1
-      )
-      .subscribe(
-        (response: any) => {
-          if (response && response.data && response.data?.length > 0) {
-            this.couponsList = response.data;
-            this.paginateConfig.totalItems = response?.count[0]?.totalCount;
+    if (this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService
+        .getSearchResult(
+          '/coupon-management',
+          this._searchService.searchedTerm,
+          this.paginateConfig.itemsPerPage,
+          this.paginateConfig.currentPage - 1
+        )
+        .subscribe((result: any) => {
+          this.couponsList = result.data;
+          this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+          this.inProgress = false;
+        });
+    } else {
+      /* Pagination based on all data */
+      this.couponService
+        .getCouponList(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage - 1)
+        .subscribe(
+          (response: any) => {
+            if (response && response.data && response.data?.length > 0) {
+              this.couponsList = response.data;
+              this.paginateConfig.totalItems = response?.count[0]?.totalCount;
+              this.inProgress = false;
+            }
+          },
+          (err) => {
+            this.alertService.error(err.error.message);
             this.inProgress = false;
           }
-        },
-        (err) => {
-          this.alertService.error(err.error.message);
-          this.inProgress = false;
-        }
-      );
+        );
     }
   }
 

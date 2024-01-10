@@ -1,8 +1,6 @@
 <ng-container [formGroup]="form">
   <div class="div-height">
-    <label for="code" class="form-label es-modal-form-label"
-      >Coupon Code*</label
-    >
+    <label for="code" class="form-label es-modal-form-label">Coupon Code*</label>
     <input
       type="text"
       class="form-control es-input"
@@ -14,7 +12,12 @@
       [ngClass]="{
         'border-purple': form.get('code')?.valid,
         'border-error':
-          form.get('code')?.touched && form.get('code')?.errors?.['required'] || form.get('code')?.errors?.['spacesOnly']
+          form.get('code')?.touched &&
+          form.get('code')?.dirty &&
+          (form.get('code')?.errors?.['required'] ||
+            form.get('code')?.errors?.['spacesOnly'] ||
+            form.get('code')?.errors?.['minlength'] ||
+            form.get('code')?.errors?.['maxlength'])
       }"
     />
     <div>
@@ -30,15 +33,11 @@
         </span>
         <span
           class="small"
-          *ngIf="
-            form.get('code')?.errors?.['minlength'] ||
-            form.get('code')?.errors?.['maxlength']
-          "
+          *ngIf="form.get('code')?.errors?.['minlength'] || form.get('code')?.errors?.['maxlength']"
         >
           Coupon code must have min.
-          {{ form.get("code")?.errors?.["minlength"]?.["requiredLength"] }} or
-          max.
-          {{ form.get("code")?.errors?.["maxlength"]?.["requiredLength"] }}
+          {{ form.get('code')?.errors?.['minlength']?.['requiredLength'] }} or max.
+          {{ form.get('code')?.errors?.['maxlength']?.['requiredLength'] }}
           characters.
         </span>
       </span>
@@ -53,7 +52,7 @@
         <div
           class="form-check custom-radio-div"
           [ngClass]="{
-            checked: form.get('discountType')?.value == 'fixedPrice'
+            checked: form.get('discountType')?.value === 'fixedPrice'
           }"
         >
           <label for="fixedPrice" class="w90">Fix Price</label>
@@ -69,7 +68,7 @@
         <div
           class="form-check custom-radio-div"
           [ngClass]="{
-            checked: form.get('discountType')?.value == 'percentage'
+            checked: form.get('discountType')?.value === 'percentage'
           }"
         >
           <label for="percentage" class="w90">Percentage</label>
@@ -122,8 +121,7 @@
               viewBox="0 0 22 22"
               fill="none"
               *ngIf="
-                form.get('discountType')?.value == 'fixedPrice';
-                else percentage
+                form.get('discountType')?.value === 'fixedPrice'; else percentage
               "
             >
               <mask
@@ -162,26 +160,13 @@
           </span>
         </div>
         <div class="input-number-btn">
-          <span
-            class="number-decremental"
-            (click)="updateValue('discountValue', 'dec')"
-          >
-            -
-          </span>
-          <span
-            class="number-incremental"
-            (click)="updateValue('discountValue', 'inc')"
-          >
-            +
-          </span>
+          <span class="number-decremental" (click)="updateValue('discountValue', 'dec')"> - </span>
+          <span class="number-incremental" (click)="updateValue('discountValue', 'inc')"> + </span>
         </div>
         <div class="mt-2">
           <span
             class="help-block ng-invalid text-danger"
-            *ngIf="
-              form.get('discountValue')?.touched &&
-              form.get('discountValue')?.dirty
-            "
+            *ngIf="form.get('discountValue')?.touched && form.get('discountValue')?.dirty"
           >
             <span
               class="small"
@@ -190,11 +175,7 @@
                 form.get('discountValue')?.errors?.['min']
               "
             >
-              {{
-                form.get("discountType")?.value == "fixedPrice"
-                  ? "Fix price "
-                  : "Percentage "
-              }}
+              {{ form.get('discountType')?.value === 'fixedPrice' ? 'Fix price ' : 'Percentage ' }}
               is invalid, please check the details and try again.
             </span>
           </span>

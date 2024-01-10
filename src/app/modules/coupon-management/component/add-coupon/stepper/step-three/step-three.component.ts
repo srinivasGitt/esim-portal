@@ -67,16 +67,14 @@ export class StepThreeComponent implements OnInit {
           isCountry: false,
         },
         region: {
-          placeholderText:
-            'Search for regions / Multiple regions can be selected',
+          placeholderText: 'Search for regions / Multiple regions can be selected',
           list: this.regionList,
           isPlan: false,
           isRegion: true,
           isCountry: false,
         },
         country: {
-          placeholderText:
-            'Search for countries / Multiple countries can be selected',
+          placeholderText: 'Search for countries / Multiple countries can be selected',
           list: this.countryList,
           isPlan: false,
           isRegion: false,

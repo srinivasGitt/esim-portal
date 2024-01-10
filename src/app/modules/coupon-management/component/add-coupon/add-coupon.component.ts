@@ -1,24 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from 'src/app/shared/service/dialog';
 import { StepperService } from '../../service/stepper.service';
 
-import { CouponManagementService } from '../../service/coupon-management.service';
+import * as moment from 'moment';
 import { combineLatest } from 'rxjs';
 import { AlertService, DashboardService } from 'src/app/shared/service';
-import { NgSelectComponent } from '@ng-select/ng-select';
-import * as moment from 'moment';
 import { trimSpaceValidator } from 'src/app/shared/validators/trimSpaceValidator';
 
 @Component({
@@ -162,10 +149,7 @@ export class AddCouponComponent implements OnInit {
 
   onRadioButtonChange(selectedRadioValue: string) {
     // Handle the radio button value change here
-    if (
-      selectedRadioValue == 'fixedPrice' ||
-      selectedRadioValue == 'percentage'
-    ) {
+    if (selectedRadioValue == 'fixedPrice' || selectedRadioValue == 'percentage') {
       this.couponForm.get('stepOne')?.get('discountValue')?.setValue(0);
     }
 
@@ -177,15 +161,8 @@ export class AddCouponComponent implements OnInit {
     ) {
       this.couponForm.get('stepTwo')?.get('totalUse')?.setValue(0);
       if (selectedRadioValue == 'multi')
-        this.couponForm
-          .get('stepTwo')
-          ?.get('totalUseType')
-          ?.setValue('limited');
-      else
-        this.couponForm
-          .get('stepTwo')
-          ?.get('totalUseType')
-          ?.setValue(selectedRadioValue);
+        this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue('limited');
+      else this.couponForm.get('stepTwo')?.get('totalUseType')?.setValue(selectedRadioValue);
     }
   }
 
@@ -218,7 +195,7 @@ export class AddCouponComponent implements OnInit {
     }
     const coupon = this.couponForm.value;
 
-    var couponObj: any = {
+    const couponObj: any = {
       couponCode: coupon.stepOne.code,
       discount: {
         discountType: coupon.stepOne.discountType,

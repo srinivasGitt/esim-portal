@@ -1,15 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import {
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MomentDateAdapter,
 } from '@angular/material-moment-adapter';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as moment from 'moment';
 
 const MY_FORMATS = {
@@ -122,10 +117,9 @@ export class StepTwoComponent implements OnInit {
         discountValueControl?.setValue(0);
         break;
 
+      case 'single':
       case 'unlimited':
-        const minValidator = Validators.min(1);
         totalUseControl?.setValue(0);
-        console.log(minValidator);
         totalUseControl?.clearValidators();
         totalUseControl?.setValidators(null);
         totalUseControl?.updateValueAndValidity();

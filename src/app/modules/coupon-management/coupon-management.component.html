@@ -4,11 +4,7 @@
       <h2>Coupon Management</h2>
     </div>
     <div>
-      <button
-        type="button"
-        class="btn btn-dashboard-head d-flex"
-        (click)="openAddNewCoupon()"
-      >
+      <button type="button" class="btn btn-dashboard-head d-flex" (click)="openAddNewCoupon()">
         <span class="me-3 m-auto">
           <svg
             width="20"
@@ -29,10 +25,7 @@
   </div>
   <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
     <div class="d-flex info-head-section justify-content-end mb-2">
-      <label
-        class="mt-auto mx-2 show-entries"
-        *ngIf="couponsList && couponsList.length > 0"
-      >
+      <label class="mt-auto mx-2 show-entries" *ngIf="couponsList && couponsList.length > 0">
         {{
           paginateConfig.currentPage - 1
             | showentries
@@ -47,9 +40,7 @@
       *ngIf="couponsList && couponsList.length > 0; else msg"
     >
       <div class="t-grid-table-new">
-        <div
-          class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers"
-        >
+        <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
           <div class="t-box a px-1 d-flex">
             <svg
               width="20"
@@ -219,7 +210,7 @@
         <div class="t-body-overflow">
           <div
             class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"
-            *ngFor="let coupon of couponsList | paginate : paginateConfig"
+            *ngFor="let coupon of couponsList | paginate: paginateConfig"
             [ngClass]="{ 'active-coupon': coupon.isActive }"
           >
             <div class="t-box b px-2 copy-div d-flex align-items-center">
@@ -262,44 +253,38 @@
               </span>
             </div>
             <div class="t-box b px-1 d-flex text-overflow-ellipsis">
-              <span *ngIf="!(coupon.useType == 'unlimited')"
+              <span *ngIf="!(coupon.useType === 'unlimited')"
                 >{{ coupon.numberOfCoupons }}
                 <span class="fs14"
                   >(
                   {{
-                    "Used:" +
+                    'Used:' +
                       (coupon.useCount >= coupon.availableCount
                         ? coupon.useCount - coupon.availableCount
                         : 0) +
-                      ", Remaining: " +
+                      ', Remaining: ' +
                       coupon.availableCount
                   }}
                   )</span
                 ></span
               >
-              <span *ngIf="coupon.useType == 'unlimited'">{{
-                coupon.useType | titlecase
-              }}</span>
+              <span *ngIf="coupon.useType === 'unlimited'">{{ coupon.useType | titlecase }}</span>
             </div>
             <div class="t-box a px-1 d-flex">
-              {{
-                coupon?.discount?.discountType == "fixedPrice"
-                  ? "Fix Price"
-                  : "Percentage"
-              }}
+              {{ coupon?.discount?.discountType === 'fixedPrice' ? 'Fix Price' : 'Percentage' }}
             </div>
             <div class="t-box b px-1 d-flex">
               {{
-                coupon?.discount?.discountType == "fixedPrice"
+                coupon?.discount?.discountType === 'fixedPrice'
                   ? (coupon?.discount?.value || 0 | currency)
-                  : coupon?.discount?.value + " %"
+                  : coupon?.discount?.value + ' %'
               }}
             </div>
             <div class="t-box b px-1 d-flex">
-              {{ coupon.startDate | date : "dd-MM-YYYY" : "GMT" }}
+              {{ coupon.startDate | date: 'dd-MM-YYYY' : 'GMT' }}
             </div>
             <div class="t-box b px-1 d-flex">
-              {{ coupon.endDate | date : "dd-MM-YYYY" : "GMT" }}
+              {{ coupon.endDate | date: 'dd-MM-YYYY' : 'GMT' }}
             </div>
             <div class="t-box a action-section">
               <div class="user-table-action">

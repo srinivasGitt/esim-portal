@@ -1,7 +1,4 @@
-<div
-  class="es-modal add-edit-modal coupon-form"
-  *ngIf="!inProgress; else spinner"
->
+<div class="es-modal add-edit-modal coupon-form" *ngIf="!inProgress; else spinner">
   <div class="modal-header-flex">
     <div class="modal-header-text-container">
       <div class="mb-3 subscription-header-icon">
@@ -34,9 +31,7 @@
 
   <div>
     <p class="modal-header-text mb-0">Add New Coupon</p>
-    <p class="modal-sub-header-text mb-0 mt-2">
-      Add a new coupon according to your liking.
-    </p>
+    <p class="modal-sub-header-text mb-0 mt-2">Add a new coupon according to your liking.</p>
   </div>
   <div class="es-modal-body">
     <!-- <div class="steps">
@@ -85,38 +80,23 @@
             </svg>
           </ng-template>
         </div>
-        <span
-          class="line"
-          *ngIf="!last"
-          [ngClass]="{ active: currentStep > step }"
-        ></span>
+        <span class="line" *ngIf="!last" [ngClass]="{ active: currentStep > step }"></span>
       </ng-container>
     </div>
 
-    <form
-      class="es-modal-form"
-      [formGroup]="couponForm"
-      novalidate
-      autocomplete="off"
-    >
+    <form class="es-modal-form" [formGroup]="couponForm" novalidate autocomplete="off">
       <!-- STEP ONE - Start -->
-      <app-step-one
-        formGroupName="stepOne"
-        *ngIf="currentStep == 1"
-      ></app-step-one>
+      <app-step-one formGroupName="stepOne" *ngIf="currentStep === 1"></app-step-one>
       <!-- STEP ONE - End -->
 
       <!-- STEP TWO - Start -->
-      <app-step-two
-        formGroupName="stepTwo"
-        *ngIf="currentStep == 2"
-      ></app-step-two>
+      <app-step-two formGroupName="stepTwo" *ngIf="currentStep === 2"></app-step-two>
       <!-- STEP TWO - End -->
 
       <!-- STEP THREE - Start -->
       <app-step-three
         formGroupName="stepThree"
-        *ngIf="currentStep == 3"
+        *ngIf="currentStep === 3"
         [planList]="plansList"
         [regionList]="regionList"
         [countryList]="countriesAlias"
@@ -127,20 +107,20 @@
       <div class="row gx-2 d-flex justify-content-between mt-3">
         <button
           class="btn btn-secondary btn-width"
-          (click)="currentStep == 1 ? close() : previousStep()"
+          (click)="currentStep === 1 ? close() : previousStep()"
         >
-          {{ currentStep == 1 ? "Cancel" : "Back" }}
+          {{ currentStep === 1 ? 'Cancel' : 'Back' }}
         </button>
         <button
           type="submit"
           class="btn btn-primary ms-auto btn-width"
-          (click)="currentStep == 3 ? submit() : nextStep()"
+          (click)="currentStep === 3 ? submit() : nextStep()"
           [disabled]="
-            (currentStep == 1 && !couponForm.get('stepOne')?.valid) ||
-            (currentStep == 2 && !couponForm.get('stepTwo')?.valid)
+            (currentStep === 1 && !couponForm.get('stepOne')?.valid) ||
+            (currentStep === 2 && !couponForm.get('stepTwo')?.valid)
           "
         >
-          {{ currentStep == 3 ? "Submit" : "Next" }}
+          {{ currentStep === 3 ? 'Submit' : 'Next' }}
         </button>
       </div>
     </form>

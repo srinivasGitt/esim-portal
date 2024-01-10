@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { CouponManagementRoutingModule } from './coupon-management-routing.module';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { CouponInfoComponent } from './component/coupon-info/coupon-info.component';
-import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { StepOneComponent } from './component/add-coupon/stepper/step-one/step-one.component';
-import { StepTwoComponent } from './component/add-coupon/stepper/step-two/step-two.component';
-import { StepThreeComponent } from './component/add-coupon/stepper/step-three/step-three.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
+import { StepOneComponent } from './component/add-coupon/stepper/step-one/step-one.component';
+import { StepThreeComponent } from './component/add-coupon/stepper/step-three/step-three.component';
+import { StepTwoComponent } from './component/add-coupon/stepper/step-two/step-two.component';
+import { CouponInfoComponent } from './component/coupon-info/coupon-info.component';
+import { CouponManagementRoutingModule } from './coupon-management-routing.module';
 
 @NgModule({
   declarations: [

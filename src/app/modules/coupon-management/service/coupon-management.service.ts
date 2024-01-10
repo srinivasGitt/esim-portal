@@ -25,4 +25,8 @@ export class CouponManagementService {
       isActive: isActive,
     });
   }
+
+  getCouponById(id: string) {
+    return this.http.get(`${this.serverUrl}/couponCode/${id}`);
+  }
 }

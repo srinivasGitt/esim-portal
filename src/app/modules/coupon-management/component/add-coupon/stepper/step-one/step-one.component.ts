@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
@@ -18,11 +18,9 @@ export class StepOneComponent implements OnInit {
 
   onRadioButtonChange(selectedRadioValue: string) {
     // Handle the radio button value change here
-    if (
-      selectedRadioValue == 'fixedPrice' ||
-      selectedRadioValue == 'percentage'
-    ) {
+    if (selectedRadioValue == 'fixedPrice' || selectedRadioValue == 'percentage') {
       this.form.get('discountValue')?.setValue(0);
+      this.form.get('discountValue')?.updateValueAndValidity();
     }
   }
 

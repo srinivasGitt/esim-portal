@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Coupon } from 'src/app/modules/coupon-management/model/coupon.model';
 import { AlertService } from 'src/app/shared/service';
 import { DialogComponent } from 'src/app/shared/service/dialog';
+import { CouponManagementService } from '../../service/coupon-management.service';
 
 @Component({
   selector: 'app-coupon-info',
@@ -10,6 +10,7 @@ import { DialogComponent } from 'src/app/shared/service/dialog';
 })
 export class CouponInfoComponent implements OnInit {
   dialogRef: DialogComponent;
+  couponId!: string;
   couponDetails!: any;
   couponDetailsRow: Array<any> = [
     { title: 'Coupon Creation Date', key: 'createdAt' },
@@ -35,15 +36,33 @@ export class CouponInfoComponent implements OnInit {
 
   constructor(
     private viewContainer: ViewContainerRef,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private couponService: CouponManagementService
   ) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
 
   ngOnInit(): void {
-    this.couponDetails = this.dialogRef.context.data;
-    console.log(this.couponDetails);
+    const couponData = this.dialogRef.context.data;
+    this.couponId = couponData._id;
+    this.getCouponDetails(this.couponId);
+  }
+
+  getCouponDetails(couponId: string) {
+    this.inProgress = true;
+    this.couponService.getCouponById(couponId).subscribe(
+      (response: any) => {
+        if (response) {
+          this.couponDetails = response.data[0];
+        }
+        this.inProgress = false;
+      },
+      (error) => {
+        this.alertService.error(error.error.message);
+        this.inProgress = false;
+      }
+    );
   }
 
   close(): void {

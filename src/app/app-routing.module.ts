@@ -61,6 +61,9 @@ const routes: Routes = [
           import('./modules/coupon-management/coupon-management.module').then(
             (m) => m.CouponManagementModule
           ),
+        data: {
+          couponCodesMasterEnabled: true,
+        },
       },
       {
         path: 'loyalty-point-program',
@@ -68,7 +71,6 @@ const routes: Routes = [
           import('./modules/loyalty-point-program/loyalty-point-program.module').then(
             (m) => m.LoyaltyPointProgramModule
           ),
-        // canActivate: [AuthGuard],
         data: {
           rewardPointsMasterEnabled: true,
         },

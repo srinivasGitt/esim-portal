@@ -107,7 +107,7 @@
       </div>
       <div class="col-7">
         <label class="subscriber-details-text">{{
-          couponDetails.createdAt | date : "dd-MM-YY"
+          couponDetails.createdAt | date: 'dd-MM-YY' : 'GMT'
         }}</label>
       </div>
     </div>
@@ -165,12 +165,12 @@
       <div class="col-7">
         <label
           class="subscriber-details-text"
-          *ngIf="couponDetails.discount?.discountType == 'fixedPrice'"
+          *ngIf="couponDetails.discount?.discountType === 'fixedPrice'"
           >Fix Price</label
         >
         <label
           class="subscriber-details-text"
-          *ngIf="couponDetails.discount?.discountType == 'percentage'"
+          *ngIf="couponDetails.discount?.discountType === 'percentage'"
           >Percentage</label
         >
       </div>
@@ -182,9 +182,9 @@
       </div>
       <div class="col-7">
         <label class="subscriber-details-text">{{
-          couponDetails.discount?.discountType == "fixedPrice"
+          couponDetails.discount?.discountType === 'fixedPrice'
             ? (couponDetails.discount?.value || 0 | currency)
-            : couponDetails.discount?.value + " %"
+            : couponDetails.discount?.value + ' %'
         }}</label>
       </div>
     </div>
@@ -195,7 +195,7 @@
       </div>
       <div class="col-7">
         <label class="subscriber-details-text">{{
-          couponDetails.startDate | date : "dd-MM-YY"
+          couponDetails.startDate | date: 'dd-MM-YY' : 'GMT'
         }}</label>
       </div>
     </div>
@@ -206,7 +206,7 @@
       </div>
       <div class="col-7">
         <label class="subscriber-details-text">{{
-          couponDetails.endDate | date : "dd-MM-YY"
+          couponDetails.endDate | date: 'dd-MM-YY' : 'GMT'
         }}</label>
       </div>
     </div>
@@ -216,9 +216,7 @@
         <label class="subscriber-label-text">Number of Coupons</label>
       </div>
       <div class="col-7">
-        <label class="subscriber-details-text"
-          >{{ couponDetails.numberOfCoupons || 0 }}
-        </label>
+        <label class="subscriber-details-text">{{ couponDetails.numberOfCoupons || 0 }} </label>
       </div>
     </div>
 
@@ -251,7 +249,7 @@
       <div class="col-7">
         <label class="subscriber-details-text"
           >{{ couponDetails.useType | titlecase }}
-          <span *ngIf="couponDetails.useType == 'multi'"
+          <span *ngIf="couponDetails.useType === 'multi'"
             >(No. of Use: {{ couponDetails.useCount || 0 }})</span
           ></label
         >
@@ -260,14 +258,12 @@
 
     <ng-container
       *ngIf="
-        couponDetails?.groupId.length == 0 &&
+        couponDetails?.groupId.length === 0 &&
         couponDetails?.supportedPlans &&
         couponDetails?.supportedPlans.length > 0
       "
     >
-      <div
-        class="row rowHeight40 d-flex align-items-center custom-border-bottom"
-      >
+      <div class="row rowHeight40 d-flex align-items-center custom-border-bottom">
         <div class="col-5">
           <label class="subscriber-label-text">Specific Plans</label>
         </div>
@@ -290,12 +286,8 @@
       </div>
     </ng-container>
 
-    <ng-container
-      *ngIf="couponDetails?.groupId && couponDetails?.groupId.length > 0"
-    >
-      <div
-        class="row rowHeight40 d-flex align-items-center custom-border-bottom"
-      >
+    <ng-container *ngIf="couponDetails?.groupId && couponDetails?.groupId.length > 0">
+      <div class="row rowHeight40 d-flex align-items-center custom-border-bottom">
         <div class="col-5">
           <label class="subscriber-label-text">Region</label>
         </div>
@@ -320,14 +312,12 @@
 
     <ng-container
       *ngIf="
-        couponDetails?.groupId.length == 0 &&
+        couponDetails?.groupId.length === 0 &&
         couponDetails?.supportedCountries &&
         couponDetails?.supportedCountries.length > 0
       "
     >
-      <div
-        class="row rowHeight40 d-flex align-items-center custom-border-bottom"
-      >
+      <div class="row rowHeight40 d-flex align-items-center custom-border-bottom">
         <div class="col-5">
           <label class="subscriber-label-text">Country</label>
         </div>
@@ -372,9 +362,7 @@
         <label class="subscriber-label-text">Remaining Coupon</label>
       </div>
       <div class="col-7">
-        <label class="subscriber-details-text">{{
-          couponDetails.availableCount || 0
-        }}</label>
+        <label class="subscriber-details-text">{{ couponDetails.availableCount || 0 }}</label>
       </div>
     </div>
   </div>

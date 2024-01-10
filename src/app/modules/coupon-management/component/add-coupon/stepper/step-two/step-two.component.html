@@ -2,9 +2,7 @@
   <div>
     <div class="d-flex justify-content-between">
       <div class="input-width">
-        <label for="startDate" class="form-label es-modal-form-label"
-          >Start Date*</label
-        >
+        <label for="startDate" class="form-label es-modal-form-label">Start Date*</label>
         <div class="d-flex input-icon">
           <mat-form-field
             appearance="outline"
@@ -44,9 +42,7 @@
       </div>
 
       <div class="input-width">
-        <label for="endDate" class="form-label es-modal-form-label"
-          >End Date*</label
-        >
+        <label for="endDate" class="form-label es-modal-form-label">End Date*</label>
         <div class="d-flex input-icon">
           <mat-form-field
             appearance="outline"
@@ -96,9 +92,7 @@
 
   <div class="d-flex justify-content-between discount-value div-height mt-3">
     <div class="w-100">
-      <label for="total" class="form-label es-modal-form-label"
-        >Number of Coupon*</label
-      >
+      <label for="total" class="form-label es-modal-form-label">Number of Coupon*</label>
       <div class="d-flex relative">
         <input
           type="text"
@@ -107,11 +101,23 @@
           aria-describedby="total"
           formControlName="total"
           appNumberOnly
-          [ngClass]="{'border-purple border-right-valid-color': form.get('total')?.valid, 'border-error': form.get('total')?.touched && (form.get('total')?.errors?.['required'] || form.get('total')?.errors?.['min'])}"
+          [ngClass]="{
+            'border-purple border-right-valid-color': form.get('total')?.valid,
+            'border-error':
+              form.get('total')?.touched &&
+              (form.get('total')?.errors?.['required'] || form.get('total')?.errors?.['min'])
+          }"
         />
         <span
           class="form-label es-modal-form-label coupon-input-icon"
-          [ngClass]="{'border-right-error-color': form.get('total')?.touched && (form.get('total')?.errors?.['required'] || form.get('total')?.errors?.['min']) ? 'rgb(234,155,155)' : '', 'border-right-valid-color': form.get('total')?.valid}"
+          [ngClass]="{
+            'border-right-error-color':
+              form.get('total')?.touched &&
+              (form.get('total')?.errors?.['required'] || form.get('total')?.errors?.['min'])
+                ? 'rgb(234,155,155)'
+                : '',
+            'border-right-valid-color': form.get('total')?.valid
+          }"
         >
           <svg
             width="20"
@@ -147,12 +153,8 @@
         </span>
       </div>
       <div class="input-number-btn">
-        <span class="number-decremental" (click)="updateValue('total', 'dec')">
-          -
-        </span>
-        <span class="number-incremental" (click)="updateValue('total', 'inc')">
-          +
-        </span>
+        <span class="number-decremental" (click)="updateValue('total', 'dec')"> - </span>
+        <span class="number-incremental" (click)="updateValue('total', 'inc')"> + </span>
       </div>
       <div class="mt-2">
         <span
@@ -163,8 +165,7 @@
             class="small"
             *ngIf="form.get('total')?.errors?.['required'] || form.get('total')?.errors?.['min']"
           >
-            No. of coupon entered is invalid, please check the details and try
-            again.
+            No. of coupon entered is invalid, please check the details and try again.
           </span>
         </span>
       </div>
@@ -187,10 +188,11 @@
             (input)="updateMinMaxValidation()"
             appNumberOnly
             [ngClass]="{
-              'border-purple border-right-valid-color':
-                form.get('minPurchaseValue')?.valid,
+              'border-purple border-right-valid-color': form.get('minPurchaseValue')?.valid,
               'border-error':
-                form.get('minPurchaseValue')?.dirty && (form.get('minPurchaseValue')?.errors?.['min'] || form.get('maxPurchaseValue')?.errors?.['min'])
+                form.get('minPurchaseValue')?.dirty &&
+                (form.get('minPurchaseValue')?.errors?.['min'] ||
+                  form.get('maxPurchaseValue')?.errors?.['min'])
             }"
           />
           <span
@@ -198,7 +200,9 @@
             [ngClass]="{
               'border-right-valid-color': form.get('minPurchaseValue')?.valid,
               'border-right-error-color':
-                form.get('minPurchaseValue')?.dirty && (form.get('minPurchaseValue')?.errors?.['min'] || form.get('maxPurchaseValue')?.errors?.['min'])
+                form.get('minPurchaseValue')?.dirty &&
+                (form.get('minPurchaseValue')?.errors?.['min'] ||
+                  form.get('maxPurchaseValue')?.errors?.['min'])
             }"
           >
             <svg
@@ -229,16 +233,10 @@
           </span>
         </div>
         <div class="input-number-btn min-max-value">
-          <span
-            class="number-decremental"
-            (click)="updateValue('minPurchaseValue', 'dec')"
-          >
+          <span class="number-decremental" (click)="updateValue('minPurchaseValue', 'dec')">
             -
           </span>
-          <span
-            class="number-incremental"
-            (click)="updateValue('minPurchaseValue', 'inc')"
-          >
+          <span class="number-incremental" (click)="updateValue('minPurchaseValue', 'inc')">
             +
           </span>
         </div>
@@ -257,10 +255,11 @@
             (input)="updateMinMaxValidation()"
             appNumberOnly
             [ngClass]="{
-              'border-purple border-right-valid-color':
-                form.get('maxPurchaseValue')?.valid,
+              'border-purple border-right-valid-color': form.get('maxPurchaseValue')?.valid,
               'border-error':
-                form.get('maxPurchaseValue')?.dirty && (form.get('minPurchaseValue')?.errors?.['min'] || form.get('maxPurchaseValue')?.errors?.['min'])
+                form.get('maxPurchaseValue')?.dirty &&
+                (form.get('minPurchaseValue')?.errors?.['min'] ||
+                  form.get('maxPurchaseValue')?.errors?.['min'])
             }"
           />
           <span
@@ -268,7 +267,9 @@
             [ngClass]="{
               'border-right-valid-color': form.get('maxPurchaseValue')?.valid,
               'border-right-error-color':
-                form.get('maxPurchaseValue')?.dirty && (form.get('minPurchaseValue')?.errors?.['min'] || form.get('maxPurchaseValue')?.errors?.['min'])
+                form.get('maxPurchaseValue')?.dirty &&
+                (form.get('minPurchaseValue')?.errors?.['min'] ||
+                  form.get('maxPurchaseValue')?.errors?.['min'])
             }"
           >
             <svg
@@ -299,16 +300,10 @@
           </span>
         </div>
         <div class="input-number-btn min-max-value">
-          <span
-            class="number-decremental"
-            (click)="updateValue('maxPurchaseValue', 'dec')"
-          >
+          <span class="number-decremental" (click)="updateValue('maxPurchaseValue', 'dec')">
             -
           </span>
-          <span
-            class="number-incremental"
-            (click)="updateValue('maxPurchaseValue', 'inc')"
-          >
+          <span class="number-incremental" (click)="updateValue('maxPurchaseValue', 'inc')">
             +
           </span>
         </div>
@@ -317,26 +312,25 @@
     <div class="mt-2">
       <span
         class="help-block ng-invalid text-danger"
-        *ngIf="form.get('minPurchaseValue')?.errors?.['min'] || form.get('maxPurchaseValue')?.errors?.['min']
+        *ngIf="
+          form.get('minPurchaseValue')?.errors?.['min'] ||
+          form.get('maxPurchaseValue')?.errors?.['min']
         "
       >
         <span class="x-small">
-          Minimum or maximum purchase value is invalid, please check the details
-          and try again.
+          Minimum or maximum purchase value is invalid, please check the details and try again.
         </span>
       </span>
     </div>
   </div>
   <div class="div-height mt-2">
     <div>
-      <label for="discount-type" class="form-label es-modal-form-label"
-        >Use Type*</label
-      >
+      <label for="discount-type" class="form-label es-modal-form-label">Use Type*</label>
     </div>
     <div class="d-flex justify-content-between">
       <div
         class="form-check form-check-inline custom-radio-div"
-        [ngClass]="{ checked: form.get('useType')?.value == 'single' }"
+        [ngClass]="{ checked: form.get('useType')?.value === 'single' }"
       >
         <label for="single" class="w90">One Time</label>
         <input
@@ -350,7 +344,7 @@
       </div>
       <div
         class="form-check form-check-inline custom-radio-div"
-        [ngClass]="{ checked: form.get('useType')?.value == 'multi' }"
+        [ngClass]="{ checked: form.get('useType')?.value === 'multi' }"
       >
         <label for="multi" class="w90">Multi Use</label>
         <input
@@ -359,13 +353,13 @@
           id="multi"
           formControlName="useType"
           value="multi"
-          (change)="onRadioButtonChange('multi')"
+          (change)="onRadioButtonChange('multi'); updateValidation()"
         />
       </div>
     </div>
   </div>
 
-  <div class="use-div" *ngIf="form.get('useType')?.value == 'multi'">
+  <div class="use-div" *ngIf="form.get('useType')?.value === 'multi'">
     <div class="d-flex justify-content-between">
       <div class="w-100 position-relative div-height">
         <div class="mb-2">
@@ -380,12 +374,12 @@
             (focus)="onInputFocus(); updateValidation()"
             appNumberOnly
             [ngClass]="{
-              'border-purple border-right-valid-color':
-                form.get('totalUse')?.valid,
+              'border-purple border-right-valid-color': form.get('totalUse')?.valid,
               'border-error':
-                form.get('totalUseType')?.value == 'limited' &&
+                form.get('totalUseType')?.value === 'limited' &&
                 form.get('totalUse')?.dirty &&
-                form.get('totalUse')?.value == 0
+                (form.get('totalUse')?.errors?.['required'] ||
+                  form.get('totalUse')?.errors?.['min'])
             }"
           />
           <span
@@ -393,9 +387,10 @@
             [ngClass]="{
               'border-right-valid-color': form.get('totalUse')?.valid,
               'border-right-error-color':
-                form.get('totalUseType')?.value == 'limited' &&
+                form.get('totalUseType')?.value === 'limited' &&
                 form.get('totalUse')?.dirty &&
-                form.get('totalUse')?.value == 0
+                (form.get('totalUse')?.errors?.['required'] ||
+                  form.get('totalUse')?.errors?.['min'])
             }"
           >
             <svg
@@ -426,27 +421,19 @@
           (change)="onRadioButtonChange('limited')"
         />
         <div class="total-use-number-button">
-          <span
-            class="number-decremental"
-            (click)="updateValue('totalUse', 'dec')"
-          >
-            -
-          </span>
-          <span
-            class="number-incremental"
-            (click)="updateValue('totalUse', 'inc')"
-          >
-            +
-          </span>
+          <span class="number-decremental" (click)="updateValue('totalUse', 'dec')"> - </span>
+          <span class="number-incremental" (click)="updateValue('totalUse', 'inc')"> + </span>
         </div>
-        <div *ngIf="form.get('totalUseType')?.value == 'limited'">
+        <div *ngIf="form.get('totalUseType')?.value === 'limited'">
           <span
             class="help-block ng-invalid text-danger"
-            *ngIf="form.get('totalUse')?.dirty && isTotalUseError"
+            *ngIf="
+              form.get('totalUse')?.dirty &&
+              (form.get('totalUse')?.errors?.['required'] || form.get('totalUse')?.errors?.['min'])
+            "
           >
             <span class="small text-wrap x-small">
-              No. of use entered is invalid, please check the details and try
-              again.
+              No. of use entered is invalid, please check the details and try again.
             </span>
           </span>
         </div>
