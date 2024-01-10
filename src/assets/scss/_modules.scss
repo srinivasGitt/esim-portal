@@ -164,7 +164,7 @@
                 height: calc(100vh - 170px);
                 overflow-y: scroll;
 
-                li {
+                .sidebar-main-title {
                     display: flex;
                     align-items: center;
                     // height: 48px;
@@ -196,7 +196,7 @@
                     // }
                 }
 
-                a, div {
+                a, .sidebar-title {
                     text-decoration: none;
                     color: var(--sidebar-link-color);
                     display: block;
@@ -1105,12 +1105,23 @@
 
             path{
                 fill: var(--table-heading-text-color);
-                stroke: var(--table-heading-text-color);
             }
             circle {
                 fill: var(--table-heading-text-color);
             }
         }
+
+        .table-headers-data-allocated {
+            fill: var(--table-heading-text-color);
+        }
+
+        .table-headers-plan-name{
+            path{
+                fill: var(--table-heading-text-color);
+                stroke: var(--table-heading-text-color);
+            }
+        }
+
         .data-remaining {
             path{
                 stroke: var(--table-heading-text-color);
@@ -3604,7 +3615,7 @@
 
 .mat-date-range-input-separator {
     font-family: var(--font-family-sf-pro-display);
-    color: var(--table-heading-text-color);
+    color: var(--table-heading-text-color) !important;
     font-style: normal;
     font-weight: 600;
     // font-size: 8px !important;
