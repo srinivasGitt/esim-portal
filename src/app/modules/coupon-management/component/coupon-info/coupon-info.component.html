@@ -286,7 +286,7 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="couponDetails?.groupId && couponDetails?.groupId.length > 0">
+    <ng-container *ngIf="couponDetails?.regions && couponDetails?.regions.length > 0">
       <div class="row rowHeight40 d-flex align-items-center custom-border-bottom">
         <div class="col-5">
           <label class="subscriber-label-text">Region</label>
@@ -294,16 +294,16 @@
         <div class="col-7">
           <label class="subscriber-details-text">
             <span>
-              {{ couponDetails?.groupId[0]?.name }}
+              {{ couponDetails?.regions[0]?.name }}
             </span>
             <span
               class="ng-value-label more"
-              [tooltip]="displayList(couponDetails?.groupId)"
+              [tooltip]="displayList(couponDetails?.regions)"
               placement="top"
               delay="100"
               offset="15"
-              *ngIf="couponDetails?.groupId?.length > 1"
-              >+{{ couponDetails?.groupId?.length - 1 }} more</span
+              *ngIf="couponDetails?.regions?.length > 1"
+              >+{{ couponDetails?.regions?.length - 1 }} more</span
             >
           </label>
         </div>
