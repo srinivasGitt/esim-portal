@@ -1,162 +1,214 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
-import { AlertService, CustomerService, DashboardService, DialogService, UsersService } from '../../service';
+import {
+  AlertService,
+  CustomerService,
+  DashboardService,
+  DialogService,
+  UsersService,
+} from '../../service';
+import { ConfigurationService } from '../../service/configuration.service';
 import { LocalStorageService } from '../../service/local-storage.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
   isDarkTheme = false;
-  defaultId:any;
+  defaultId: any;
   activeUrl = 'dashboard';
-  show:boolean=false;
+  show: boolean = false;
   customerList: any = [];
-  parentCustomer:any;
+  parentCustomer: any;
   sidebarMenuList: Array<any> = [];
   userDetails: any = {};
   isParentActive: any;
   clientConfig!: any;
   routeConfig: any;
 
-  constructor(private router:Router,
-              private activatedRoute: ActivatedRoute,
-              private customerService: CustomerService,
-              private dashboardService: DashboardService,
-              private usersService: UsersService,
-              private alertService: AlertService,
-              private dialogService: DialogService,
-              private localStorage: LocalStorageService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private customerService: CustomerService,
+    private dashboardService: DashboardService,
+    private usersService: UsersService,
+    private alertService: AlertService,
+    private dialogService: DialogService,
+    private localStorage: LocalStorageService,
+    private configurationService: ConfigurationService
+  ) {
+    router.events.subscribe((data: any) => {
+      if (data instanceof NavigationEnd) {
+        const childRoute = this.activatedRoute.firstChild?.snapshot;
+        this.routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
 
-    router.events.subscribe(
-      (data: any) => {
-        if(data instanceof NavigationEnd){
-          const childRoute = this.activatedRoute.firstChild?.snapshot;
-          this.routeConfig = this.activatedRoute.firstChild?.routeConfig?.children;
-
-          if (childRoute && this.routeConfig) {
-            const isChildActive = data.urlAfterRedirects.includes(childRoute.url.join('/'));
-            this.isParentActive = isChildActive;
-          } else{
-            this.isParentActive = false;
-          }
+        if (childRoute && this.routeConfig) {
+          const isChildActive = data.urlAfterRedirects.includes(childRoute.url.join('/'));
+          this.isParentActive = isChildActive;
+        } else {
+          this.isParentActive = false;
         }
-        this.activeUrl = this.router.url;
       }
-    )
+      this.activeUrl = this.router.url;
+    });
 
-    dashboardService.getAppTheme().subscribe((data : any) =>{
+    dashboardService.getAppTheme().subscribe((data: any) => {
       this.isDarkTheme = data;
     });
-    usersService.getCurrentUser().subscribe(result => {
+    usersService.getCurrentUser().subscribe((result) => {
       this.userDetails = result;
-      if(this.userDetails?.roles) {
-        this.fetchNavBarMenuList(this.userDetails.roles)
+      if (this.userDetails?.roles) {
+        this.fetchNavBarMenuList(this.userDetails.roles);
       }
     });
   }
 
-
   ngOnInit(): void {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
-    }else{
+    } else {
       // this.getAllCustomer();
       this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     }
   }
 
-  fetchNavBarMenuList(roles: Array<string>){
-    this.sidebarMenuList = this.dashboardService.getNavBarMenus(roles);
-
-    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
-
-    if(this.clientConfig) {
-      if(!this.clientConfig?.rewardPointsMasterEnabled) {
-        this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Loyalty Point Program'));
-      }
-
-      if(!this.clientConfig?.couponCodesMasterEnabled) {
-        this.sidebarMenuList = this.sidebarMenuList.filter(menu => !(menu.title == 'Coupon Management'));
-      }
-
+  async fetchNavBarMenuList(roles: Array<string>) {
+    this.usersService.inProgress.next(true);
+    
+    if (!roles.includes('superAdmin')) {
+      await this.getClientConfiguration();
     }
+
+    let menuList = this.dashboardService.getNavBarMenus(roles);
+
+    if (this.clientConfig) {
+      if (!this.clientConfig?.rewardPointsMasterEnabled) {
+        menuList = menuList.filter((menu) => !(menu.title == 'Loyalty Point Program'));
+      }
+
+      if (!this.clientConfig?.couponCodesMasterEnabled) {
+        menuList = menuList.filter((menu) => !(menu.title == 'Coupon Management'));
+      }
+    }
+
+    this.sidebarMenuList = menuList;
+    this.usersService.inProgress.next(false);
   }
 
-  setDefaultCustomer(){
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to default customer?`} })
-    .instance.close.subscribe((data: any) => {
-      const vm = this;
-      if (data) {
-        this.usersService.setDefaultCustomer()
-      .subscribe(
-        (data: any) => {
-          localStorage.setItem("authToken",data.token);
-          window.location.href = '/';
-        }, err => {
-          this.alertService.error(err.error.message);
-        });
-      }
+  // Client Feature Configuration
+  getClientConfiguration() {
+    const clientConfig = JSON.parse(localStorage.getItem('config')!);
+
+    // this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
+    //   (res: any) => {
+    //     if (res && res.data) {
+    //       this.clientConfig = res.data;
+    //       this.localStorage.setCacheConfig(JSON.stringify(res.data));
+    //     }
+    //   },
+    //   (err) => {
+    //     this.alertService.error(err.error.message, err.status);
+    //   }
+    // );
+
+    return new Promise((resolve, reject) => {
+      this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
+        (res: any) => {
+          if (res && res.data) {
+            this.clientConfig = res.data;
+            this.localStorage.setCacheConfig(JSON.stringify(res.data));
+          }
+          resolve(true);
+        },
+        (err: any) => {
+          this.alertService.error(err.error.message, err.status);
+          reject(err);
+        }
+      );
     });
   }
 
-
-
-  getAllCustomer() {
-    this.customerService.customers()
-     .subscribe(
-      (data: any) => {
-      this.parentCustomer = data.name;       //parent customer name
-      this.customerList = data.childCustomer; //anuyat under child
-      }, err => {
-        this.alertService.error(err.error.message);
-      }
-   );
+  setDefaultCustomer() {
+    this.dialogService
+      .openModal(ConfirmComponent, {
+        cssClass: 'modal-sm',
+        context: { message: `Do you want to change to default customer?` },
+      })
+      .instance.close.subscribe((data: any) => {
+        const vm = this;
+        if (data) {
+          this.usersService.setDefaultCustomer().subscribe(
+            (data: any) => {
+              localStorage.setItem('authToken', data.token);
+              window.location.href = '/';
+            },
+            (err) => {
+              this.alertService.error(err.error.message);
+            }
+          );
+        }
+      });
   }
 
-  customerSidebar(){
+  getAllCustomer() {
+    this.customerService.customers().subscribe(
+      (data: any) => {
+        this.parentCustomer = data.name; //parent customer name
+        this.customerList = data.childCustomer; //anuyat under child
+      },
+      (err) => {
+        this.alertService.error(err.error.message);
+      }
+    );
+  }
+
+  customerSidebar() {
     // this.show=!this.show;
   }
 
-  closeSidebar(){
-    if(this.show === true){
+  closeSidebar() {
+    if (this.show === true) {
       this.show = false;
     }
   }
 
-  switchTocustomer(customerId: any){
-    const currentCustomer =  {currentCustomerId: customerId}
-    this.usersService.changeCurrentCustomer(currentCustomer)
-    .subscribe((data:any)=>{
-      localStorage.setItem("authToken",data.token);
+  switchTocustomer(customerId: any) {
+    const currentCustomer = { currentCustomerId: customerId };
+    this.usersService.changeCurrentCustomer(currentCustomer).subscribe(
+      (data: any) => {
+        localStorage.setItem('authToken', data.token);
         window.location.href = '/';
-    }, err => {
-      this.alertService.error(err.error.message);
-    });
+      },
+      (err) => {
+        this.alertService.error(err.error.message);
+      }
+    );
   }
 
   changeCustomer(customer: any) {
-    this.dialogService.openModal(ConfirmComponent, { cssClass: 'modal-sm', context: {message: `Do you want to change to customer - ${customer.name}?`} })
-    .instance.close.subscribe((data: any) => {
-      const vm = this;
-      if (data) {
-        this.switchTocustomer(customer._id);
-      }
+    this.dialogService
+      .openModal(ConfirmComponent, {
+        cssClass: 'modal-sm',
+        context: { message: `Do you want to change to customer - ${customer.name}?` },
+      })
+      .instance.close.subscribe((data: any) => {
+        const vm = this;
+        if (data) {
+          this.switchTocustomer(customer._id);
+        }
       });
-    }
+  }
 
+  showSubmenu(itemEl: HTMLElement) {
+    itemEl.classList.toggle('showMenu');
+  }
 
-    showSubmenu(itemEl: HTMLElement) {
-      itemEl.classList.toggle("showMenu");
-    }
-
-    findUrl(menu: any){
-      return menu.childs.findIndex((ele: any) => ele.link === window.location.pathname) > -1 ? true : false
-    }
-
+  findUrl(menu: any) {
+    return menu.childs.findIndex((ele: any) => ele.link === window.location.pathname) > -1
+      ? true
+      : false;
+  }
 }
-
-
