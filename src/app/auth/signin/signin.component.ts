@@ -33,9 +33,9 @@ export class SigninComponent implements OnInit {
       email: new UntypedFormControl(null, [Validators.required, Validators.email]),
       password: new UntypedFormControl(null, [Validators.required])
     });
-    
+
   }
-  
+
   get f() { return this.signinForm.controls; }
 
   submit(): void {
@@ -53,7 +53,8 @@ export class SigninComponent implements OnInit {
     this.authService.signin(userData)
       .subscribe((res: any) =>{
         this._localStorageService.setToken(res.token);
-        this.getClientConfiguration();        
+        window.location.href = '/';
+
       }, (err: any) =>{
         this.errMsg = err?.error?.message
         this.err = true;
@@ -70,20 +71,6 @@ export class SigninComponent implements OnInit {
         //   this.err = true;
         // }
       })
-  }
-
-  // Client Feature Configuration
-  getClientConfiguration() {
-    const clientConfig = JSON.parse(localStorage.getItem('config')!);
-    
-    this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe((res: any) => {
-      if(res && res.data) {
-        this._localStorageService.setCacheConfig(JSON.stringify(res.data));
-        window.location.href = '/';
-      }
-    }, err => {
-      this.alertService.error(err.error.message, err.status);
-    })
   }
 
 }
