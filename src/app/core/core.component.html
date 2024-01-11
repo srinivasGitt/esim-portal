@@ -1,16 +1,24 @@
 <div class="main">
-    <div class="main-base-container text-warning">
+    <div class="main-base-container text-warning" [class.d-none]="userService.inProgress | async">
         <div class="sidebar-main">
-            <app-sidebar></app-sidebar> 
+            <app-sidebar></app-sidebar>
         </div>
         <div class="dashboard-main">
-            
+
             <div class="navbar-main">
                 <app-navbar></app-navbar>
             </div>
             <div class="main-overflow-scroll">
-                <router-outlet></router-outlet> 
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>
+
+    <!-- Loading Spinner - Start -->
+    <ng-template #spinner class="loader-align" *ngIf="userService.inProgress | async">
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <!-- Loading Spinner - End -->
 </div>
+
+
