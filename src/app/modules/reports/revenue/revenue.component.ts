@@ -64,6 +64,7 @@ export class RevenueComponent implements OnInit {
   selectedDay: string = 'Current Year';
   currencyType: string = 'USD';
   userDetails: any;
+  axisColor: any;
 
   constructor(private dashboardService: DashboardService,
               private alertService: AlertService,
@@ -75,8 +76,6 @@ export class RevenueComponent implements OnInit {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
-        // this.drawChart();
-        
       });
 
       usersService.getCurrentUser().subscribe(result => {
@@ -91,8 +90,9 @@ export class RevenueComponent implements OnInit {
   ngOnInit(): void {
       // this.drawChart();
       this.currencyType = localStorage.getItem('currency')!;
-      this.initForm()
-      this.getReports('year')
+      this.initForm();
+
+      this.getReports('year');
   }
 
   /* Get reports data - Start */
@@ -124,112 +124,121 @@ export class RevenueComponent implements OnInit {
   /* Get reports data - End */
 
   /* Draw Chart based on API data - Start */
-  drawChart(label: any, revenue: any, timeFrameValue: string) {
-    this.label = [];
-    this.data = [];
-    let formatValue: string;
+  drawChart(label?: any, revenue?: any, timeFrameValue?: string) {
 
-    switch(timeFrameValue) {
-      case 'week':
-        formatValue = 'ddd'
-        break;
-      case 'year':
-        formatValue = 'MMM'
-        break;
-      case 'custom':
-        formatValue = 'DD MMM'
-        break;
-      default:
-        formatValue = 'MMM'
-    }
-  
-    for (let i = 0; i < label.length; i++) {
-      let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
-      this.label.push(formattedLabelValue);
-      this.data.push(revenue[i]);
-    }
+    this.dashboardService.getAppTheme().subscribe((data : any) =>{
+      setTimeout(() => {
+        var style = getComputedStyle(document.body);
+        this.axisColor = style.getPropertyValue('--grpah-axis-label-color');
 
-    if(this.graphElement) this.graphElement.destroy();
-    this.graphElement = new Chart("revenueChart", {
-      type: 'line',
-      data: {
-        labels: this.label,
-        datasets: [
-        {
-          label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
-          data: this.data,
-          fill: true,
-          backgroundColor: [
-            '#6365EF10'
-          ],
-          borderColor: [
-            '#6365EF'
-          ],
-          borderWidth: 1,
-          pointRadius: 3,
-          pointStyle: 'circle',
-          tension: 0
-        }],
+        this.label = [];
+        this.data = [];
+        let formatValue: string;
 
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        layout:{
-          padding: 20
-        },
-        scales: {
-          x: {
-            grid: {
-              borderColor: '#00000014',
-              display:false,
-              tickWidth: 20,
-              tickLength: 30
-            },
-            ticks:{
-              color: '#6365ef',
-              font: {
-                weight: '400',
-                size: 17.3639,
-                family: 'SF Pro Display'
-              }
-            },
+        switch(timeFrameValue) {
+          case 'week':
+            formatValue = 'ddd'
+            break;
+          case 'year':
+            formatValue = 'MMM'
+            break;
+          case 'custom':
+            formatValue = 'DD MMM'
+            break;
+          default:
+            formatValue = 'MMM'
+        }
+
+        for (let i = 0; i < label.length; i++) {
+          let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+          this.label.push(formattedLabelValue);
+          this.data.push(revenue[i]);
+        }
+
+        if(this.graphElement) this.graphElement.destroy();
+        this.graphElement = new Chart("revenueChart", {
+          type: 'line',
+          data: {
+            labels: this.label,
+            datasets: [
+            {
+              label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
+              data: this.data,
+              fill: true,
+              backgroundColor: [
+                '#6365EF10'
+              ],
+              borderColor: [
+                '#6365EF'
+              ],
+              borderWidth: 1,
+              pointRadius: 3,
+              pointStyle: 'circle',
+              tension: 0
+            }],
+
           },
-          y: {
-            grid: {
-              borderColor: '#00000014',
-              display:false,
-              tickWidth: 20,
-              tickLength: 20
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            layout:{
+              padding: 20
             },
-            beginAtZero: true,
-            ticks:{
-              color: '#6365ef',
-              font: {
-                weight: '400',
-                size: 17.3639,
-                family: 'SF Pro Display'
+            scales: {
+              x: {
+                grid: {
+                  borderColor: '#00000014',
+                  display:false,
+                  tickWidth: 20,
+                  tickLength: 30
+                },
+                ticks:{
+                  color: this.axisColor,
+                  font: {
+                    weight: '400',
+                    size: 17.3639,
+                    family: 'SF Pro Display'
+                  }
+                },
+              },
+              y: {
+                grid: {
+                  borderColor: '#00000014',
+                  display:false,
+                  tickWidth: 20,
+                  tickLength: 20
+                },
+                beginAtZero: true,
+                ticks:{
+                  color: this.axisColor,
+                  font: {
+                    weight: '400',
+                    size: 17.3639,
+                    family: 'SF Pro Display'
+                  }
+                },
+                title: {
+                  display: true,
+                  // text: 'Revenue in $',
+                  color: '#6365ef'
+                }
               }
             },
-            title: {
-              display: true,
-              // text: 'Revenue in $',
-              color: '#6365ef'
+            elements: {
+              line: {
+                tension: 0  // smooth lines
+              },
+            },
+            plugins: {
+              legend: {
+                display: false
+              }
             }
           }
-        },
-        elements: {
-          line: {
-            tension: 0  // smooth lines
-          },
-        },
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-      }
+        });
+      }, 10);         
     });
+    
   }
   /* Draw Chart based on API data - End */
 
@@ -263,7 +272,7 @@ export class RevenueComponent implements OnInit {
     this.endDate = dateRangeEnd.value
     setTimeout( ()=>{
       this.getReports('custom', this.startDate, this.endDate)
-      }, 1000)
+    }, 1000);
   }
 
   downloadReport() {
@@ -278,15 +287,10 @@ export class RevenueComponent implements OnInit {
       message: 'Report is successfully downloaded'
     };
 
-    
-    // return;
-
     let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
 
     this.reportService.getDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
-
-        
 
           if(res && res.length <= 0) {
             let customTitle: string = 'Info';
