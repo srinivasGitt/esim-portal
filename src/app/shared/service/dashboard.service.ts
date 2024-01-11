@@ -1,7 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Subject } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -106,6 +106,18 @@ export class DashboardService {
           {
             title: 'Data Usage',
             link: '/reports/data-usage',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          },
+          {
+            title: 'Subscribers Reports',
+            link: '/reports/subscriber',
+            accessRole: ['admin','superAdmin'],
+            hasGroup: false
+          },
+          {
+            title: 'Subscription Reports',
+            link: '/reports/subscription',
             accessRole: ['admin','superAdmin'],
             hasGroup: false
           }

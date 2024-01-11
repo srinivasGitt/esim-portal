@@ -182,7 +182,12 @@ button {
     }
 
     .email-report-btn {
-        width: 190px;
+        // width: 190px;
     }
 }
 
+.btn-dashboard-head {
+    @media screen and (max-width: 1440px) {
+      width: 14vw !important;
+    }
+}
