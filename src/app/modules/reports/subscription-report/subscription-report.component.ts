@@ -13,7 +13,6 @@ import { DialogService, UsersService } from 'src/app/shared/service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
 import { ReportService } from 'src/app/shared/service/report.service';
-
 var papa = require('papaparse');
 var FileSaver = require('file-saver');
 
@@ -32,9 +31,9 @@ const MY_FORMATS = {
 Chart.register(...registerables)
 
 @Component({
-  selector: 'app-revenue',
-  templateUrl: './revenue.component.html',
-  styleUrls: ['./revenue.component.scss'],
+  selector: 'app-subscription-report',
+  templateUrl: './subscription-report.component.html',
+  styleUrls: ['./subscription-report.component.scss'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
     {
@@ -45,7 +44,7 @@ Chart.register(...registerables)
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-export class RevenueComponent implements OnInit {
+export class SubscriptionReportComponent implements OnInit {
 
   totalProfiles: any;
   customerList: any;
@@ -76,6 +75,8 @@ export class RevenueComponent implements OnInit {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
+        // this.drawChart();
+        
       });
 
       usersService.getCurrentUser().subscribe(result => {
@@ -90,18 +91,17 @@ export class RevenueComponent implements OnInit {
   ngOnInit(): void {
       // this.drawChart();
       this.currencyType = localStorage.getItem('currency')!;
-      this.initForm();
-
-      this.getReports('year');
+      this.initForm()
+      this.getReports('year')
   }
 
   /* Get reports data - Start */
   getReports(value?: any, fromDate?: any, toDate?: any) {
     this.inProgress = true
-    this.dashboardService.getReports(value, fromDate, toDate).subscribe((res: any) => {
+    this.reportService.getSubscriptionGraphReport(value, fromDate, toDate).subscribe((res: any) => {
       if(res.result) {
         const labelData : any[] = []
-        const revenueData : any[] = []
+        const subscriptionData : any[] = []
         this.data = res?.result
         this.range = res?.range
         this.startDate = this.range.startDate
@@ -109,11 +109,11 @@ export class RevenueComponent implements OnInit {
 
         this.data.forEach((x: any) => {
           labelData.push(x.label)
-          revenueData.push(x.revenue)
+          subscriptionData.push(x.subscription)
         })
         this.inProgress = false
         setTimeout(() => {
-          this.drawChart(labelData, revenueData, value)
+          this.drawChart(labelData, subscriptionData, value)
         }, 10)
       }
     }, err => {
@@ -124,7 +124,7 @@ export class RevenueComponent implements OnInit {
   /* Get reports data - End */
 
   /* Draw Chart based on API data - Start */
-  drawChart(label?: any, revenue?: any, timeFrameValue?: string) {
+  drawChart(label: any, revenue: any, timeFrameValue: string) {
 
     this.dashboardService.getAppTheme().subscribe((data : any) =>{
       setTimeout(() => {
@@ -148,7 +148,7 @@ export class RevenueComponent implements OnInit {
           default:
             formatValue = 'MMM'
         }
-
+      
         for (let i = 0; i < label.length; i++) {
           let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
           this.label.push(formattedLabelValue);
@@ -236,8 +236,8 @@ export class RevenueComponent implements OnInit {
             }
           }
         });
-      }, 10);         
-    });
+      },10);
+    })
     
   }
   /* Draw Chart based on API data - End */
@@ -272,7 +272,7 @@ export class RevenueComponent implements OnInit {
     this.endDate = dateRangeEnd.value
     setTimeout( ()=>{
       this.getReports('custom', this.startDate, this.endDate)
-    }, 1000);
+      }, 1000)
   }
 
   downloadReport() {
@@ -287,10 +287,15 @@ export class RevenueComponent implements OnInit {
       message: 'Report is successfully downloaded'
     };
 
+    
+    // return;
+
     let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
 
-    this.reportService.getDownloadReport(timeFrame, this.startDate, this.endDate)
+    this.reportService.getSubscriptionDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
+
+        
 
           if(res && res.length <= 0) {
             let customTitle: string = 'Info';
@@ -306,30 +311,30 @@ export class RevenueComponent implements OnInit {
                   } 
                 });
 
-            papa.unparse(res);
-            const fileName = `TransactionReport.csv`;
-            const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
+            papa.unparse(res.result);
+            const fileName = `SubscriptionReport.csv`;
+            const blob = new Blob([papa.unparse(res.result)], { type: 'text/plain;charset=utf-8' });
             FileSaver(blob, fileName);
           }
       });
   }
 
-  sendTransactionAndRevenueReportMail() {
+  sendSubscriptionReportEmail() {
     let data = {
-      title: `Success`,
+      title: `Report emailed successfully!`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
         // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
         { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
       ],
-      message: `Report is successfully sent on your email`,
+      message: `Subscription report has been successfully sent to your registered email id.`,
       email: this.userDetails.email
     };
 
     let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
 
-    this.reportService.sendTransactionAndRevenueReportMail(timeFrame, this.startDate, this.endDate)
+    this.reportService.sendSubscriptionReportEmail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
           this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
           .instance.close.subscribe((data: any) => {
@@ -346,5 +351,4 @@ export class RevenueComponent implements OnInit {
         }
       })
   }
-
 }

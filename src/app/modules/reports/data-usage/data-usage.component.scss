@@ -66,7 +66,7 @@
     .svg-color {
         path{
             fill: var(--table-heading-text-color);
-            stroke: var(--table-heading-text-color);
+            // stroke: var(--table-heading-text-color);
         }
         circle {
             fill: var(--table-heading-text-color);
@@ -91,7 +91,7 @@
         border-radius: 13px !important;
         margin-top: 12px !important;
         padding-bottom: 8px !important;
-        width: 230px !important;
+        width: 270px !important;
         background: var(--card-background-color) !important;
     }
 
@@ -110,6 +110,7 @@
     .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-child {
         padding-left: 10px !important;
         background: var(--card-background-color) !important;
+        position: relative;
     }
     
     .ng-optgroup, .ng-option {
@@ -143,6 +144,7 @@
         background: rgba(105, 112, 241, 0.10) !important;
         font-weight: bold !important;
         border-radius: 8px !important;
+        color: var(--table-heading-text-color);
     }
 
     .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input > input {
@@ -152,6 +154,24 @@
     .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
         border-radius: 13px !important;
         background: var(--card-background-color) !important;
+    }
+
+    .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+        color: var(--graph-heading-text-color) !important;
+    }
+
+    .ng-select .ng-clear-wrapper .ng-clear {
+        font-size: 23px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .ng-select .ng-clear-wrapper {
+        width: 23px !important;
+    }
+
+    .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+        background-color: unset;
     }
 }
 
@@ -176,9 +196,23 @@
 }
 
 .data-usage-dropdown {
-    width: 230px;
+    width: 270px;
     height: 50px;
     border-radius: 13px;
     background-color: var(--card-background-color);
     box-shadow: var(--box-shadow-size-color);
+
+    path{
+        fill: var(--table-heading-text-color);
+    }
+}
+
+.ng-tooltip {
+    background-color: var(--table-heading-text-color) !important;
+    color: var(--card-background-color);
+}
+
+.ng-tooltip-top:after {
+    border-color: var(--table-heading-text-color) transparent transparent transparent !important;
+    // color: var(--card-background-color);
 }

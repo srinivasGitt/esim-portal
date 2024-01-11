@@ -16,6 +16,8 @@ import { PlanComponent } from './modules/plan/plan.component';
 import { DataUsageComponent } from './modules/reports/data-usage/data-usage.component';
 import { ReportsComponent } from './modules/reports/reports.component';
 import { RevenueComponent } from './modules/reports/revenue/revenue.component';
+import { SubscriberComponent } from './modules/reports/subscriber/subscriber.component';
+import { SubscriptionReportComponent } from './modules/reports/subscription-report/subscription-report.component';
 import { SettingsComponent } from './modules/settings/settings.component';
 import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
 import { SubscriptionComponent } from './modules/subscription/subscription.component';
@@ -43,6 +45,8 @@ const routes: Routes = [
         children: [
           { path: 'revenue', component: RevenueComponent },
           { path: 'data-usage', component: DataUsageComponent },
+          { path: 'subscriber', component: SubscriberComponent },
+          { path: 'subscription', component: SubscriptionReportComponent },
         ],
       },
       { path: 'inventory', component: InventoryComponent },

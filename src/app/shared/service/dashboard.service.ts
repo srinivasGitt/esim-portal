@@ -112,6 +112,18 @@ export class DashboardService {
             accessRole: ['admin', 'superAdmin'],
             hasGroup: false,
           },
+          {
+            title: 'Subscribers Reports',
+            link: '/reports/subscriber',
+            accessRole: ['admin', 'superAdmin'],
+            hasGroup: false,
+          },
+          {
+            title: 'Subscription Reports',
+            link: '/reports/subscription',
+            accessRole: ['admin', 'superAdmin'],
+            hasGroup: false,
+          },
         ],
       },
       {

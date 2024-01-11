@@ -263,6 +263,9 @@
      --navbar-child-border:rgba(0, 0, 0, 0.14);
      --navbar-child-arrow:rgba(28, 28, 28, 1);
 
+     --grpah-axis-label-color: #6D42F2;
+     --graph-title-color: #1C1C1C;
+
   /* SVG Color Change */
   .revenue-icon {
     circle {
@@ -508,6 +511,9 @@
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
 
+    --grpah-axis-label-color: #FFFFFF;
+    --graph-title-color: rgba(178, 178, 178, 0.65);
+
   /* SVG Color Change */
   .search-icon-div {
     path {
@@ -622,6 +628,10 @@
         color: var(--calendar-other-date-text-color);
     }
 
+    .showMenu .sub-menu {
+        border-left: 2px solid rgba(255, 255, 255, 0.14) !important;
+    }
+    
     .loyalty-point-program-svg {
       path {
         fill: #FFFFFF !important;
