@@ -39,8 +39,10 @@ export class AuthGuard implements CanActivate {
         !this._tokenExpiration(tokenDecode.exp)
       ) {
         if (check.includes('admin')) {
-          if (url.includes('loyalty-point-program') || url.includes('coupon-management'))
-            this.checkFeatureAccess();
+          if (url.includes('loyalty-point-program') || url.includes('coupon-management')) {
+            this.checkFeatureAccess(route, url);
+          }
+          return true;
         }
       }
       return true;
@@ -56,14 +58,25 @@ export class AuthGuard implements CanActivate {
   }
 
   // Feature Access
-  checkFeatureAccess(): boolean {
+  checkFeatureAccess(route: ActivatedRouteSnapshot, url: any): boolean {
     const clientConfig = JSON.parse(this._localStorageService.getCacheConfig()!);
 
     if (clientConfig?.rewardPointsMasterEnabled) {
-      return true;
-    }
+      if (
+        url.includes('loyalty-point-program') &&
+        route.data?.['rewardPointsMasterEnabled'] &&
+        route.data?.['rewardPointsMasterEnabled'] !== clientConfig?.rewardPointsMasterEnabled
+      ) {
+        return false;
+      }
 
-    if (clientConfig?.couponCodesMasterEnabled) {
+      if (
+        url.includes('coupon-management') &&
+        route.data?.['couponCodesMasterEnabled'] &&
+        route.data?.['couponCodesMasterEnabled'] !== clientConfig?.couponCodesMasterEnabled
+      ) {
+        return false;
+      }
       return true;
     }
 
