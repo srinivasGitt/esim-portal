@@ -32,9 +32,9 @@ const MY_FORMATS = {
 Chart.register(...registerables)
 
 @Component({
-  selector: 'app-revenue',
-  templateUrl: './revenue.component.html',
-  styleUrls: ['./revenue.component.scss'],
+  selector: 'app-subscriber',
+  templateUrl: './subscriber.component.html',
+  styleUrls: ['./subscriber.component.scss'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-IN'},
     {
@@ -45,7 +45,7 @@ Chart.register(...registerables)
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-export class RevenueComponent implements OnInit {
+export class SubscriberComponent implements OnInit {
 
   totalProfiles: any;
   customerList: any;
@@ -98,22 +98,22 @@ export class RevenueComponent implements OnInit {
   /* Get reports data - Start */
   getReports(value?: any, fromDate?: any, toDate?: any) {
     this.inProgress = true
-    this.dashboardService.getReports(value, fromDate, toDate).subscribe((res: any) => {
+    this.reportService.getSubscriberGraphReport(value, fromDate, toDate).subscribe((res: any) => {
       if(res.result) {
-        const labelData : any[] = []
-        const revenueData : any[] = []
-        this.data = res?.result
-        this.range = res?.range
-        this.startDate = this.range.startDate
-        this.endDate = this.range.endDate
+        const labelData : any[] = [];
+        const subscriberData : any[] = [];
+        this.data = res?.result;
+        this.range = res?.range;
+        this.startDate = this.range.startDate;
+        this.endDate = this.range.endDate;
 
         this.data.forEach((x: any) => {
-          labelData.push(x.label)
-          revenueData.push(x.revenue)
+          labelData.push(x.label);
+          subscriberData.push(x.subscriber);
         })
         this.inProgress = false
         setTimeout(() => {
-          this.drawChart(labelData, revenueData, value)
+          this.drawChart(labelData, subscriberData, value)
         }, 10)
       }
     }, err => {
@@ -150,7 +150,7 @@ export class RevenueComponent implements OnInit {
     }
 
     if(this.graphElement) this.graphElement.destroy();
-    this.graphElement = new Chart("revenueChart", {
+    this.graphElement = new Chart("subscriberChart", {
       type: 'line',
       data: {
         labels: this.label,
@@ -278,17 +278,12 @@ export class RevenueComponent implements OnInit {
       message: 'Report is successfully downloaded'
     };
 
-    
-    // return;
+    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'));
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
-
-    this.reportService.getDownloadReport(timeFrame, this.startDate, this.endDate)
+    this.reportService.getSubscriberDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
 
-        
-
-          if(res && res.length <= 0) {
+          if(res && res.result.length <= 0) {
             let customTitle: string = 'Info';
         
             this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
@@ -296,36 +291,36 @@ export class RevenueComponent implements OnInit {
             });
           } else {
 
-            this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
+            this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Report is successfully downloaded'} })
               .instance.close.subscribe((data: any) => {
                 if(data){
                   } 
                 });
 
-            papa.unparse(res);
-            const fileName = `TransactionReport.csv`;
-            const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
+            papa.unparse(res.result);
+            const fileName = `SubscriberReport.csv`;
+            const blob = new Blob([papa.unparse(res.result)], { type: 'text/plain;charset=utf-8' });
             FileSaver(blob, fileName);
           }
       });
   }
 
-  sendTransactionAndRevenueReportMail() {
+  sendSubscriberReportEmail() {
     let data = {
-      title: `Success`,
+      title: `Report emailed successfully!`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
         // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
         { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
       ],
-      message: `Report is successfully sent on your email`,
+      message: `Subscribers report has been successfully sent to your registered email id.`,
       email: this.userDetails.email
     };
 
     let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
 
-    this.reportService.sendTransactionAndRevenueReportMail(timeFrame, this.startDate, this.endDate)
+    this.reportService.sendSubscriberReportEmail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
           this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
           .instance.close.subscribe((data: any) => {
