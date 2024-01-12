@@ -56,7 +56,8 @@
                     </ng-template>
                     <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                         <div class="unlimited" style="font-size: unset;" [ngStyle]="{'margin-bottom': item.name ? 'unset' : '21px'}">
-                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>{{item.name}}
+                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>
+                            <span style="white-space: break-spaces;">{{item.name}}</span>
                             <span class="checkmark" style="top: 5px; left: 8px;"></span>
                         </div>
                     </ng-template>
@@ -103,7 +104,8 @@
                     </ng-template>
                     <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                         <div class="unlimited" style="font-size: unset;" [ngStyle]="{'margin-bottom': item.name ? 'unset' : '21px'}">
-                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>{{item.name}}
+                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>
+                            <span style="white-space: break-spaces;">{{item.name}}</span>
                             <span class="checkmark" style="top: 5px; left: 8px;"></span>
                         </div>
                     </ng-template>

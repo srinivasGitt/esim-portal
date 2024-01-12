@@ -45,7 +45,7 @@ export class ReportService {
   getCountryAndPlanList() {
     return [
       this.http.get(`${this.serverUrl}/subscription/countries`),
-      this.http.get(`${this.serverUrl}/subscription/plans`),
+      this.http.get(`${this.serverUrl}/subscription/planDropdown`),
     ];
   }
 
