@@ -7,6 +7,7 @@ import {
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as moment from 'moment';
 import { PaginationInstance } from 'ngx-pagination';
+import { combineLatest } from 'rxjs';
 import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
 import { DialogService, PlansService, SubscriptionsService } from 'src/app/shared/service';
 import { ReportService } from '../../../shared/service/report.service';
@@ -71,44 +72,77 @@ export class DataUsageComponent implements OnInit {
   userDetails: any;
   customerId: any;
   inProgress: boolean = false;
-  selectedPlan: any;
-  selectedRegion: any;
+  selectedPlans: any;
+  selectedRegions: any;
   tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
+  regionPlaceholderString = 'Region/Country';
+  planPlaceholderString = 'Plan';
+  isRegionDropDownOpen = false;
+  isPlanDropDownOpen = false;
 
   constructor(private reportService: ReportService,
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private planService: PlansService,
     private dialogService: DialogService,
-    private subscriptionService: SubscriptionsService) { }
+    private subscriptionService: SubscriptionsService) {}
 
   ngOnInit(): void {
-    this.getPlanList();
-    this.getRegionList();
+    this.getCountryAndPlanList();
     this.initForm();
   }
 
-  getPlanList() {
-    this.subscriptionService.getPlans()
-      .subscribe((res: any) => {
-        this.planList = res.data;
-      })
+  toggleRegionDropdownClass() {
+    setTimeout(() => {
+      if(document.getElementById('region')?.classList.contains('ng-select-opened')) {
+        this.isRegionDropDownOpen = true;
+      } else {
+        this.isRegionDropDownOpen = false;
+      }
+    }, 10);
   }
 
-  getRegionList() {
-    this.planService.getRegionList() 
-      .subscribe((res: any) => {
-        this.regionList = res.data;
-      })
+  togglePlanDropdownClass() {
+    setTimeout(() => {
+      if(document.getElementById('plan')?.classList.contains('ng-select-opened')) {
+        this.isPlanDropDownOpen = true;
+      } else {
+        this.isPlanDropDownOpen = false;
+      }
+    }, 10);
   }
 
-  getDataUsageReport(fromDate?: any, toDate?: any, plan?: any, region?: any, itemsPerPage?: any, currentPage?: any) {
+  getCountryAndPlanList() {
+    combineLatest(this.reportService.getCountryAndPlanList()).subscribe((result : any) => {
+      if(result) {
+        this.inProgress = false;
+        this.regionList = result[0];
+        this.planList = result[1];
+        this.regionList = this.regionList.map((country: any) => {
+          let obj = {name: country._id, group: 'country'};
+          return obj;
+        })
+        this.planList = this.planList.data.map((plan: any) => {
+          let obj = {name: plan.name, group: 'plan', productId: Number(plan.productId)};
+          return obj;
+        })
+      }
+    });
+  }
+
+  getDataUsageReport(fromDate?: any, toDate?: any, itemsPerPage?: any, currentPage?: any) {
     this.inProgress = true;
-    this.reportService.getDataUsageReport(fromDate, toDate, plan, region, itemsPerPage, currentPage)
+
+    let body = {
+      country: this.selectedRegions,
+      plan: this.selectedPlans
+    };
+
+    this.reportService.getDataUsageReport(fromDate, toDate, body, itemsPerPage, currentPage)
       .subscribe((res: any) => {
         this.inProgress = false;
         this.dataUsageReportList = res.data;
-
+        
         let totalData = res.totalData;
         this.totalDataAllocated = totalData.allocated;
         this.totalDataRemaining = totalData.remaining;
@@ -156,13 +190,7 @@ export class DataUsageComponent implements OnInit {
     this.startDate = dateRangeStart.value
     this.endDate = dateRangeEnd.value
     setTimeout( ()=>{
-      this.getDataUsageReport(this.startDate, this.endDate, this.selectedPlan?.productId, this.selectedRegion?.name, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
-    }, 1000);
-  }
-
-  planAndRegionChange() {
-    setTimeout( ()=>{
-      this.getDataUsageReport(this.startDate, this.endDate, this.selectedPlan?.productId, this.selectedRegion?.name, this.paginateConfig.itemsPerPage = 20, this.paginateConfig.currentPage = 0)
+      this.getDataUsageReport(this.startDate, this.endDate, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
     }, 1000);
   }
 
@@ -170,11 +198,16 @@ export class DataUsageComponent implements OnInit {
     this.inProgress = true;
     this.paginateConfig.currentPage = event; 
 
-    this.getDataUsageReport(this.startDate, this.endDate, this.selectedPlan?.productId, this.selectedRegion?.name, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1);
+    this.getDataUsageReport(this.startDate, this.endDate, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1);
   }
 
   downloadDataUsageReport() {
-    this.reportService.downloadDataUsageReport(this.startDate, this.endDate, this.selectedPlan?.productId, this.selectedRegion?.name, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
+    let body = {
+      country: this.selectedRegions,
+      plan: this.selectedPlans
+    };
+
+    this.reportService.downloadDataUsageReport(this.startDate, this.endDate, body, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
       .subscribe((res: any) => {
 
         if(res?.data?.length <= 0) {
@@ -190,5 +223,26 @@ export class DataUsageComponent implements OnInit {
           FileSaver(blob, fileName);
         }
       });
+  }
+
+  selectedRegionValues(event: any) {
+    if(!event.isTrusted) {
+      let selectedRegions = event.map((item:any) => item.name);
+      this.selectedRegions = selectedRegions;
+      this.getDataUsageReport(this.startDate, this.endDate, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1);
+    }
+  }
+
+  selectedPlanValues(event: any) {
+    if(!event.isTrusted) {
+      let selectedPlans = event.map((item:any) => item.productId);
+      console.log(selectedPlans);
+      this.selectedPlans = selectedPlans;
+      this.getDataUsageReport(this.startDate, this.endDate, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1);
+    }
+  }
+
+  displayList(items: any){
+    return items.map((item: any) => item.name).slice(1).join(', ');
   }
 }

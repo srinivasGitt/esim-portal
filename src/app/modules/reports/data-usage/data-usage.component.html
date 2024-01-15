@@ -1,12 +1,12 @@
-<div class="common-header user-dashboard  main-content-div-area data-usage-report">
-    <div class="heading-flex">
-        <div class="heading-text">
+<div class="common-header user-dashboard data-usage-report">
+    <div class="dashboard-head-flex">
+        <div class="dashboard-head-text">
             <h2>Data Usage</h2>
         </div>
     </div>
 
     <div style="display: flex;">
-        <div class="dashboard-head-flex me-5" style="width: 313px;">
+        <div class="dashboard-head-flex me-5" style="width: 313px; cursor: pointer;">
             <div class="filter-head" style="width: 100%">
                 <mat-form-field appearance="outline">
                     <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker"
@@ -22,83 +22,104 @@
             </div>
         </div>
 
-        <div class="dashboard-head-flex me-5" style="width: 250px;">
-            <div class="filter-head d-flex py-1 px-4" style="width: 100%">
-                <div class="dropdown d-flex w-100">
-                    <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button"
-                        id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <span id="languageTootltip">{{selectedRegion ? selectedRegion.name : 'Region'}}
-                        </span>
-                        <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
-                        <!-- <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt=""> -->
-                        <span class="ms-auto">
-                            <svg class="down-arrow" width="13" height="7" viewBox="0 0 13 7" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"
-                                    fill="#1C1C1C" />
-                            </svg>
-                        </span>
-                    </a>
+        <div class="location-input d-flex align-items-center data-usage-dropdown me-5" style="width: 270px; cursor: pointer;">
+            <div class="relative d-flex" style="width: 93%;">
+                <ng-select 
+                    id="region"
+                    [items]="regionList"
+                    [multiple]="true"
+                    bindLabel="name"
+                    groupBy="group"
+                    bindValue="name"
+                    [placeholder]="regionPlaceholderString"
+                    [selectableGroup]="true"
+                    [selectableGroupAsModel]="false"
+                    [closeOnSelect]="false"
+                    (open)="toggleRegionDropdownClass()"
+                    (close)="toggleRegionDropdownClass()"
+                    (change)="selectedRegionValues($event)">
 
-                    <div class="dropdown-menu lang-dropdown-option border-secondary"
-                        aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
-                        max-height: calc(99vh - 645px);" *ngIf="regionList && regionList.length > 0">
-                        <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectedRegion = region; planAndRegionChange();" style="word-wrap: break-word; white-space: break-spaces;" *ngFor="let region of regionList"
-                            >{{region.name}}</a>
-                    </div>
+                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                            <span class="ng-value-label">{{$any(item).name}}</span>
+                        </div>
+                        <div class="ng-value" *ngIf="items.length > 1">
+                            <span class="ng-value-label" [tooltip]="displayList(items)" placement="top" delay="100" offset="15">+{{items.length - 1}}</span>
+                        </div>
+                    </ng-template>
 
-                    <div class="dropdown-menu lang-dropdown-option border-secondary"
-                        aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
-                        max-height: calc(99vh - 645px);" *ngIf="regionList && regionList.length <= 0">
-                        <a class="dropdown-item lang-dropdown-item sg-font-regular" style="word-wrap: break-word; white-space: break-spaces;"
-                            >No data found</a>
-                    </div>
-                </div>
+                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                        <div class="unlimited" style="font-size: unset; margin-bottom: unset;">
+                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" class="selectAllText"/>(Select All)
+                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
+                        </div>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                        <div class="unlimited" style="font-size: unset;" [ngStyle]="{'margin-bottom': item.name ? 'unset' : '21px'}">
+                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>
+                            <span style="white-space: break-spaces;">{{item.name}}</span>
+                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
+                        </div>
+                    </ng-template>
+                </ng-select>
             </div>
+
+            <svg class="me-2" xmlns="http://www.w3.org/2000/svg" [ngStyle]="{'transform': isRegionDropDownOpen ? 'rotate(180deg)' : 'rotate(0deg)'}" width="13" height="7" viewBox="0 0 13 7" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"/>
+            </svg>
+
         </div>
 
-        <div class="dashboard-head-flex" style="width: 250px;">
-            <div class="filter-head d-flex py-1 px-4" style="width: 100%">
-                <div class="dropdown d-flex w-100">
-                    <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button"
-                        id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <span id="languageTootltip">{{selectedPlan ? selectedPlan.name : 'Plan'}}
-                        </span>
-                        <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
-                        <!-- <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt=""> -->
-                        <span class="ms-auto">
-                            <svg class="down-arrow" width="13" height="7" viewBox="0 0 13 7" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"
-                                    fill="#1C1C1C" />
-                            </svg>
-                        </span>
-                    </a>
+        <div class="location-input d-flex align-items-center data-usage-dropdown" style="width: 270px; cursor: pointer;">
+            <div class="relative d-flex" style="width: 93%;">
+                <ng-select 
+                    id="plan"
+                    [items]="planList"
+                    [multiple]="true"
+                    bindLabel="name"
+                    groupBy="group"
+                    bindValue="name"
+                    [placeholder]="planPlaceholderString"
+                    [selectableGroup]="true"
+                    [selectableGroupAsModel]="false"
+                    [closeOnSelect]="false"
+                    (open)="togglePlanDropdownClass()"
+                    (close)="togglePlanDropdownClass()"
+                    (change)="selectedPlanValues($event)" >
 
-                    <div class="dropdown-menu lang-dropdown-option border-secondary"
-                        aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
-                        max-height: calc(99vh - 645px);" *ngIf="planList && planList.length > 0">
-                        <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectedPlan = plan; planAndRegionChange();" style="word-wrap: break-word; white-space: break-spaces;" *ngFor="let plan of planList"
-                            >{{plan.name}}</a>
-                    </div>
+                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                            <span class="ng-value-label">{{$any(item).name}}</span>
+                        </div>
+                        <div class="ng-value" *ngIf="items.length > 1">
+                            <span class="ng-value-label" [tooltip]="displayList(items)" placement="top" delay="100" offset="15">+{{items.length - 1}}</span>
+                        </div>
+                    </ng-template>
 
-                    <div class="dropdown-menu lang-dropdown-option border-secondary"
-                        aria-labelledby="dropdownMenuLink-lang" style="width: 250px;overflow: auto;
-                        max-height: calc(99vh - 645px);" *ngIf="planList && planList.length <= 0">
-                        <a class="dropdown-item lang-dropdown-item sg-font-regular" style="word-wrap: break-word; white-space: break-spaces;"
-                            >No data found</a>
-                    </div>
-                </div>
+                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                        <div class="unlimited" style="font-size: unset; margin-bottom: unset;">
+                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" class="selectAllText"/>(Select All)
+                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
+                        </div>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                        <div class="unlimited" style="font-size: unset;" [ngStyle]="{'margin-bottom': item.name ? 'unset' : '21px'}">
+                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>
+                            <span style="white-space: break-spaces;">{{item.name}}</span>
+                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
+                        </div>
+                    </ng-template>
+                </ng-select>
             </div>
+
+            <svg class="me-2" xmlns="http://www.w3.org/2000/svg" [ngStyle]="{'transform': isPlanDropDownOpen ? 'rotate(180deg)' : 'rotate(0deg)'}" width="13" height="7" viewBox="0 0 13 7" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z" fill="black"/>
+            </svg>
         </div>
 
         <div class="dashboard-head-flex ms-auto">
             <div>
-                <button type="button" class="btn btn-dashboard-head d-flex justify-content-center align-items-center" style="width: 11vw;" (click)="downloadDataUsageReport()">
+                <button type="button" class="btn btn-dashboard-head d-flex justify-content-center align-items-center download-button" (click)="downloadDataUsageReport()">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22"
                             fill="none">
@@ -191,18 +212,17 @@
     </div>
 
     <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
-        <!-- <div class="d-flex info-head-section justify-content-end mb-2">
+        <div class="d-flex info-head-section justify-content-end mb-2">
             <label class="mt-auto mx-2 show-entries" *ngIf="dataUsageReportList && dataUsageReportList.length > 0">
-                Showing {{paginateConfig.itemsPerPage * (paginateConfig.currentPage-1) + dataUsageReportList.length}} of {{ paginateConfig.totalItems }} entries
                 {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: dataUsageReportList.length }}
             </label>
-        </div> -->
+        </div>
 
         <ng-container class="user-dashboard-table" *ngIf="dataUsageReportList && dataUsageReportList.length > 0; else msg">
             
             <div class="t-grid-table-new">
                 <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
-                    <div class="t-box b px-2 d-flex table-headers">
+                    <div class="t-box b px-2 d-flex table-headers table-headers-plan-name">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M8.16699 17.0007H19.0013M4 17.0007H4.01M8.16699 12.0003H19.0013M4 12.0003H4.01M8.16699 7H19.0013M4 7H4.01" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -222,9 +242,9 @@
                         <span class="my-auto ms-2">Region/Country</span>
                     </div>
                     
-                    <div class="t-box b px-2 d-flex table-headers">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M22 7.60516H13V9.60516H22V7.60516ZM22 15.6052H13V17.6052H22V15.6052ZM5.54 11.6052L2 8.06516L3.41 6.65516L5.53 8.77516L9.77 4.53516L11.18 5.94516L5.54 11.6052ZM5.54 19.6052L2 16.0652L3.41 14.6552L5.53 16.7752L9.77 12.5352L11.18 13.9452L5.54 19.6052Z" fill="#3D3D3D"/>
+                    <div class="t-box b px-2 d-flex table-headers-data-allocated">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M22 7.60516H13V9.60516H22V7.60516ZM22 15.6052H13V17.6052H22V15.6052ZM5.54 11.6052L2 8.06516L3.41 6.65516L5.53 8.77516L9.77 4.53516L11.18 5.94516L5.54 11.6052ZM5.54 19.6052L2 16.0652L3.41 14.6552L5.53 16.7752L9.77 12.5352L11.18 13.9452L5.54 19.6052Z"/>
                         </svg>
                         <span class="my-auto ms-2">Data Allocated</span>
                     </div>
@@ -257,14 +277,12 @@
                             </span>
                         </div>
                         <div class="t-box b px-2">
-                            {{data.subscriptionsDate}}
+                            {{data.subscriptionsDate | date: "dd-MM-yyyy 'T'HH:mm:ss.SSS 'Z'"}}
                         </div>
                         <div class="t-box a px-2">
                             {{data.country ? data.country : 'NA'}}
                         </div>
-                        <div class="t-box b px-2">
-                            {{data.totalDataSizeInGB}} GB
-                        </div>
+                        <div class="t-box b px-2">{{data.totalDataSizeInGB}} GB</div>
                         <div class="t-box a px-2">{{ data.usedDataSizeInGB }} GB</div>
                         <div class="t-box a px-2">{{ data.remainingDataSizeInGB }} GB</div>
                     </div>

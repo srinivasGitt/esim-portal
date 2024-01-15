@@ -52,7 +52,7 @@
     </div>
     <div class="es-modal-body" *ngIf="userForm">
         <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submit()">
-            <div class="divHeight">
+            <div class="div-height">
                 <label for="name" class="form-label es-modal-form-label">First Name</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="firstName" [ngClass]="[f.firstName.valid ? 'border-purple':'']">
                 <div>
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="divHeight">
+            <div class="div-height">
                 <label for="name" class="form-label es-modal-form-label">Last Name</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="lastName" [ngClass]="[f.lastName.valid ? 'border-purple':'']">
                 <div>
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="divHeight">
+            <div class="div-height">
                 <label for="name" class="form-label es-modal-form-label">Email Address</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="email" [ngClass]="[f.email.valid || f.email.disabled ? 'border-purple':'']">
                 <div>
@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="divHeight">
+            <div class="div-height">
                 <label for="name" class="form-label es-modal-form-label">Phone Number</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" [ngClass]="[f.mobile.valid ? 'border-purple':'']">
                 <div>

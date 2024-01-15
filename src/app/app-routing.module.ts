@@ -16,13 +16,14 @@ import { PlanComponent } from './modules/plan/plan.component';
 import { DataUsageComponent } from './modules/reports/data-usage/data-usage.component';
 import { ReportsComponent } from './modules/reports/reports.component';
 import { RevenueComponent } from './modules/reports/revenue/revenue.component';
+import { SubscriberComponent } from './modules/reports/subscriber/subscriber.component';
+import { SubscriptionReportComponent } from './modules/reports/subscription-report/subscription-report.component';
 import { SettingsComponent } from './modules/settings/settings.component';
 import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
 import { SubscriptionComponent } from './modules/subscription/subscription.component';
 import { UserComponent } from './modules/user/user.component';
 import { NotFoundComponent } from './shared/component/not-found/not-found.component';
 import { AuthGuard } from './shared/service/auth/auth.guard';
-
 
 const routes: Routes = [
   {
@@ -38,59 +39,77 @@ const routes: Routes = [
       { path: 'user-management', component: UserComponent },
       { path: 'user-management/:custId', component: UserComponent },
       { path: 'plans', component: PlanComponent },
-      { path: 'reports', component: ReportsComponent,
+      {
+        path: 'reports',
+        component: ReportsComponent,
         children: [
           { path: 'revenue', component: RevenueComponent },
-          { path: 'data-usage', component: DataUsageComponent }
-        ]
+          { path: 'data-usage', component: DataUsageComponent },
+          { path: 'subscriber', component: SubscriberComponent },
+          { path: 'subscription', component: SubscriptionReportComponent },
+        ],
       },
-      { path: 'inventory', component: InventoryComponent},
-      { path: 'setting', component: SettingsComponent},
-      { path: 'help-center', component: HelpCenterComponent,
+      { path: 'inventory', component: InventoryComponent },
+      { path: 'setting', component: SettingsComponent },
+      {
+        path: 'help-center',
+        component: HelpCenterComponent,
         children: [
           { path: 'contactus', component: ContactusComponent },
-          { path: 'support', component: SupportComponent }
-        ]
+          { path: 'support', component: SupportComponent },
+        ],
       },
-      { path: 'loyalty-point-program',
-        loadChildren: () => import('./modules/loyalty-point-program/loyalty-point-program.module').then(m => m.LoyaltyPointProgramModule),
-        // canActivate: [AuthGuard],
+      {
+        path: 'coupon-management',
+        loadChildren: () =>
+          import('./modules/coupon-management/coupon-management.module').then(
+            (m) => m.CouponManagementModule
+          ),
         data: {
-          rewardPointsMasterEnabled: true
-        }
-    }
-    ]
+          couponCodesMasterEnabled: true,
+        },
+      },
+      {
+        path: 'loyalty-point-program',
+        loadChildren: () =>
+          import('./modules/loyalty-point-program/loyalty-point-program.module').then(
+            (m) => m.LoyaltyPointProgramModule
+          ),
+        data: {
+          rewardPointsMasterEnabled: true,
+        },
+      },
+    ],
   },
   {
     path: 'signin',
-    component: SigninComponent
+    component: SigninComponent,
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component: ForgotPasswordComponent,
   },
   {
     path: 'reset-password/:token',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
   },
   {
     path: '',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
   },
   {
     path: '',
     redirectTo: '/signin',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '**',
-    component: NotFoundComponent
-  }
-
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
