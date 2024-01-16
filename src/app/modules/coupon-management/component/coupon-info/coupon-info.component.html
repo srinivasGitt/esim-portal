@@ -258,7 +258,7 @@
 
     <ng-container
       *ngIf="
-        couponDetails?.groupId.length === 0 &&
+        couponDetails?.groupId && couponDetails?.groupId.length === 0 &&
         couponDetails?.supportedPlans &&
         couponDetails?.supportedPlans.length > 0
       "
@@ -312,7 +312,7 @@
 
     <ng-container
       *ngIf="
-        couponDetails?.groupId.length === 0 &&
+        couponDetails?.groupId && couponDetails?.groupId.length === 0 &&
         couponDetails?.supportedCountries &&
         couponDetails?.supportedCountries.length > 0
       "
@@ -350,9 +350,7 @@
       </div>
       <div class="col-7">
         <label class="subscriber-details-text">{{
-          couponDetails.useCount >= couponDetails.availableCount
-            ? couponDetails.useCount - couponDetails.availableCount
-            : 0
+          (couponDetails.numberOfCoupons - couponDetails.availableCount) || 0
         }}</label>
       </div>
     </div>
