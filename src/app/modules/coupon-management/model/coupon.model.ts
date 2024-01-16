@@ -1,4 +1,5 @@
 export interface Coupon {
+  _id?: string;
   couponCode: string;
   discount: {
     discountType: string;

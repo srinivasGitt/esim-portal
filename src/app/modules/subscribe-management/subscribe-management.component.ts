@@ -154,6 +154,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
     this.subscriberService.getAllSubscriber().subscribe(
       (res: any) => {
+        console.log(res.data);
         this.subscriberList = res.data;
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         // this.getAllRegions();

@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { PaginationInstance } from 'ngx-pagination';
 import { combineLatest } from 'rxjs';
 import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
+import { ReportSuccessInfoComponent } from 'src/app/shared/dialog/report-success-info/report-success-info.component';
 import { DialogService, PlansService, SubscriptionsService } from 'src/app/shared/service';
 import { ReportService } from '../../../shared/service/report.service';
 
@@ -207,6 +208,17 @@ export class DataUsageComponent implements OnInit {
       plan: this.selectedPlans
     };
 
+    let data = {
+      title: `Report downloaded successfully!`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
+      ],
+      message: 'Data usage report has been successfully downloaded.'
+    };
+
     this.reportService.downloadDataUsageReport(this.startDate, this.endDate, body, this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
       .subscribe((res: any) => {
 
@@ -217,6 +229,12 @@ export class DataUsageComponent implements OnInit {
             .instance.close.subscribe((data: any) => {
           });
         } else {
+          this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Report is successfully downloaded'} })
+              .instance.close.subscribe((data: any) => {
+                if(data){
+                  } 
+                });
+
           papa.unparse(res);
           const fileName = `dataUsageReport.csv`;
           const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
