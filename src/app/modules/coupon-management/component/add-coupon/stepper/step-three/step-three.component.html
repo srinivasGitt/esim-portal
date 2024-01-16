@@ -1,10 +1,23 @@
 <ng-container [formGroup]="form">
-  <div class="d-flex justify-content-between mb-3">
+  <div class="d-flex justify-content-between mb-3 gap-1">
+    <div
+      class="form-check custom-radio-div-inline-3"
+      [ngClass]="{ checked: form.get('applicableType')?.value === 'none' }"
+    >
+      <label for="none" class="w80">None</label>
+      <input
+        type="radio"
+        name="applicableType"
+        id="none"
+        formControlName="applicableType"
+        value="none"
+      />
+    </div>
     <div
       class="form-check custom-radio-div-inline-3"
       [ngClass]="{ checked: form.get('applicableType')?.value === 'plan' }"
     >
-      <label for="plan" class="w86">Specific Plan</label>
+      <label for="plan" class="w80">Specific Plan</label>
       <input
         type="radio"
         name="applicableType"
@@ -17,7 +30,7 @@
       class="form-check custom-radio-div-inline-3"
       [ngClass]="{ checked: form.get('applicableType')?.value === 'region' }"
     >
-      <label for="region" class="w86">Region</label>
+      <label for="region" class="w80">Region</label>
       <input
         type="radio"
         name="applicableType"
@@ -30,7 +43,7 @@
       class="form-check custom-radio-div-inline-3"
       [ngClass]="{ checked: form.get('applicableType')?.value === 'country' }"
     >
-      <label for="country" class="w86">Country</label>
+      <label for="country" class="w80">Country</label>
       <input
         type="radio"
         name="applicableType"
@@ -41,7 +54,7 @@
     </div>
   </div>
 
-  <div class="dropdown-list-input">
+  <div class="dropdown-list-input" *ngIf="form.get('applicableType')?.value !== 'none'; else emptyDiv">
     <div class="relative div-height">
       <ng-select
         [items]="list"
@@ -98,4 +111,8 @@
       </ng-select>
     </div>
   </div>
+
+  <ng-template #emptyDiv>
+    <div class="div-height"></div>
+  </ng-template>
 </ng-container>
