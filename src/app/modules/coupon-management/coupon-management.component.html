@@ -259,11 +259,9 @@
                   >(
                   {{
                     'Used:' +
-                      (coupon.useCount >= coupon.availableCount
-                        ? coupon.useCount - coupon.availableCount
-                        : 0) +
+                      (coupon.useCount || 0) +
                       ', Remaining: ' +
-                      coupon.availableCount
+                      (coupon.availableCount || 0)
                   }}
                   )</span
                 ></span

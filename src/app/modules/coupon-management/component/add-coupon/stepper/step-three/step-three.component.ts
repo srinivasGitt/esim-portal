@@ -80,6 +80,12 @@ export class StepThreeComponent implements OnInit {
           isRegion: false,
           isCountry: true,
         },
+        none: {
+          list: [],
+          isPlan: false,
+          isRegion: false,
+          isCountry: false,
+        },
       };
 
       const config = configMap[data];

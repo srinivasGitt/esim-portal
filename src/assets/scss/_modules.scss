@@ -4318,13 +4318,20 @@
 
   .custom-radio-div-inline-3 {
     display: flex;
-    width: 32%;
-    padding: 10px;
+    padding: 10px 6px;
     justify-content: space-between;
     align-items: center;
     border-radius: 8px;
     border: 1px solid rgba(99, 101, 239, 0.48);
     margin-right: 0 !important;
+  }
+
+  .custom-radio-div-inline-3:nth-child(1) {
+    width: 19%;
+  }
+
+  .custom-radio-div-inline-3:not(:nth-child(1)) {
+    width: 25%;
   }
 
   .custom-radio-div-block {
@@ -4378,7 +4385,7 @@
   }
 
   .checked {
-    border: none;
+    border: 1px solid rgba(105, 112, 241, 0.1);
     border-radius: 8px;
     background: rgba(105, 112, 241, 0.1);
   }
