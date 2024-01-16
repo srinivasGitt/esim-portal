@@ -259,7 +259,7 @@
                   >(
                   {{
                     'Used:' +
-                      (coupon.useCount || 0) +
+                      (coupon.numberOfCoupons - coupon.availableCount || 0) +
                       ', Remaining: ' +
                       (coupon.availableCount || 0)
                   }}

@@ -350,7 +350,7 @@
       </div>
       <div class="col-7">
         <label class="subscriber-details-text">{{
-          couponDetails.useCount || 0
+          (couponDetails.numberOfCoupons - couponDetails.availableCount) || 0
         }}</label>
       </div>
     </div>
