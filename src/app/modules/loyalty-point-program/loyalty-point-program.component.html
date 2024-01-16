@@ -4,21 +4,22 @@
       <h2 class="mb-0">Loyalty Point Program</h2>
     </div>
 
-    <div class="email-custom-toggle  mb-3">
+    <div class="email-custom-toggle mb-3">
       <span
         class="btn btn-t-default"
         [ngClass]="{
-          'btn-custom-active':
-          isDefault
+          'btn-custom-active': isDefault
         }"
-        (click)="changeMode()">Enable</span
+        (click)="changeMode()"
+        >Enable</span
       >
       <span
         class="btn btn-custom"
         [ngClass]="{
           'btn-custom-active': !isDefault
         }"
-        (click)="changeMode()">Disable</span
+        (click)="changeMode()"
+        >Disable</span
       >
     </div>
   </div>
@@ -30,9 +31,7 @@
     <div
       class="col-8 pe-0 ps-0 pt-2 loyalty-point-program-form"
       [ngClass]="{
-        custom: !(
-          isDefault
-        )
+        custom: !isDefault
       }"
     >
       <form [formGroup]="loyaltyForm" (ngSubmit)="submit()" *ngIf="loyaltyForm">
@@ -62,7 +61,8 @@
                                   ?.errors
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -71,7 +71,7 @@
                             >
                               <path
                                 d="M5.00016 5C4.46969 5 3.96094 5.21073 3.58583 5.58583C3.21073 5.96094 3 6.46969 3 7.00016V8.59095C3 9.28434 3.36003 9.92706 3.94808 10.2911L9.10316 13.478C8.31906 13.9005 7.69837 14.5726 7.33947 15.3877C6.98057 16.2029 6.90398 17.1145 7.12183 17.9781C7.33969 18.8418 7.83953 19.608 8.54215 20.1554C9.24477 20.7028 10.11 21 11.0006 21C11.8913 21 12.7565 20.7028 13.4591 20.1554C14.1618 19.608 14.6616 18.8418 14.8795 17.9781C15.0973 17.1145 15.0207 16.2029 14.6618 15.3877C14.3029 14.5726 13.6822 13.9005 12.8981 13.478L18.0532 10.2911C18.3429 10.1119 18.5821 9.86167 18.748 9.56414C18.914 9.26661 19.0011 8.93162 19.0013 8.59095V7.00016C19.0013 6.46969 18.7906 5.96094 18.4155 5.58583C18.0404 5.21073 17.5316 5 17.0011 5H5.00016ZM8.33376 11.4352V6.33344H13.6675V11.4352L11.3513 12.8673C11.246 12.9325 11.1245 12.967 11.0006 12.967C10.8768 12.967 10.7553 12.9325 10.65 12.8673L8.33376 11.4352ZM11.0006 14.3341C11.7079 14.3341 12.3863 14.6151 12.8864 15.1152C13.3866 15.6153 13.6675 16.2937 13.6675 17.001C13.6675 17.7083 13.3866 18.3866 12.8864 18.8867C12.3863 19.3869 11.7079 19.6678 11.0006 19.6678C10.2933 19.6678 9.61501 19.3869 9.11487 18.8867C8.61474 18.3866 8.33376 17.7083 8.33376 17.001C8.33376 16.2937 8.61474 15.6153 9.11487 15.1152C9.61501 14.6151 10.2933 14.3341 11.0006 14.3341Z"
-                                />
+                              />
                             </svg>
                           </span>
                           <input
@@ -101,13 +101,15 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'dec')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'dec')"
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'inc')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsValue', 'rewardPoints', 'inc')"
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -119,9 +121,7 @@
                       <div class="p-2">
                         <label for="cashValue" class="form-label label"
                           >Cash Value
-                          <span
-                            >(&#65284;)
-                          </span>
+                          <span>(&#65284;) </span>
                         </label>
                         <div class="d-flex align-items-center">
                           <span
@@ -133,7 +133,8 @@
                                 loyaltyForm.controls['rewardPointsValue'].get('cashValue')?.invalid
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -182,13 +183,15 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsValue', 'cashValue', 'dec')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsValue', 'cashValue', 'dec')"
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsValue', 'cashValue', 'inc')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsValue', 'cashValue', 'inc')"
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -246,9 +249,7 @@
                       <div class="p-2">
                         <label for="purchaseValue" class="form-label label"
                           >Purchase Value
-                          <span
-                            >(&#65284;)
-                          </span>
+                          <span>(&#65284;) </span>
                         </label>
                         <div class="d-flex relative align-items-center">
                           <span
@@ -259,7 +260,8 @@
                                   ?.invalid
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -311,13 +313,15 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'dec')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'dec')"
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'inc')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsEarning', 'purchaseValue', 'inc')"
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -337,7 +341,8 @@
                                   ?.invalid
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -376,13 +381,15 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'dec')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'dec')"
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'inc')" *ngIf="isEdit"
+                              (click)="updateValue('rewardPointsEarning', 'rewardPoints', 'inc')"
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -443,7 +450,8 @@
                                 loyaltyForm.controls['rewardPointsMaxRedeem'].invalid
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -483,7 +491,8 @@
                               class="number-decremental"
                               (click)="
                                 updateValue('', 'rewardPointsMinRedeem', 'dec'); updateValidation()
-                              "  *ngIf="isEdit"
+                              "
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
@@ -491,7 +500,8 @@
                               class="number-incremental"
                               (click)="
                                 updateValue('', 'rewardPointsMinRedeem', 'inc'); updateValidation()
-                              " *ngIf="isEdit"
+                              "
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -513,7 +523,8 @@
                                 loyaltyForm.controls['rewardPointsMaxRedeem'].invalid
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -552,14 +563,18 @@
                             <span
                               class="number-decremental"
                               (click)="
-                                updateValue('', 'rewardPointsMaxRedeem', 'dec'); updateValidation()" *ngIf="isEdit"
+                                updateValue('', 'rewardPointsMaxRedeem', 'dec'); updateValidation()
+                              "
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
                               (click)="
-                                updateValue('', 'rewardPointsMaxRedeem', 'inc'); updateValidation()" *ngIf="isEdit"
+                                updateValue('', 'rewardPointsMaxRedeem', 'inc'); updateValidation()
+                              "
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -578,7 +593,7 @@
                       "
                     >
                       <span class="error-text">
-                        Minimum reward point or maximum reward point is invalid, please check the
+                        Minimum reward points or maximum reward points is invalid, please check the
                         details and try again.
                       </span>
                     </span>
@@ -609,7 +624,8 @@
                               'border-red': loyaltyForm.controls['rewardPointsReferral'].invalid
                             }"
                           >
-                            <svg class="loyalty-point-program-svg"
+                            <svg
+                              class="loyalty-point-program-svg"
                               xmlns="http://www.w3.org/2000/svg"
                               width="22"
                               height="22"
@@ -642,13 +658,15 @@
                           >
                             <span
                               class="number-decremental"
-                              (click)="updateValue('', 'rewardPointsReferral', 'dec')" *ngIf="isEdit"
+                              (click)="updateValue('', 'rewardPointsReferral', 'dec')"
+                              *ngIf="isEdit"
                             >
                               -
                             </span>
                             <span
                               class="number-incremental"
-                              (click)="updateValue('', 'rewardPointsReferral', 'inc')" *ngIf="isEdit"
+                              (click)="updateValue('', 'rewardPointsReferral', 'inc')"
+                              *ngIf="isEdit"
                             >
                               +
                             </span>
@@ -677,7 +695,11 @@
           </div>
 
           <div class="row mt-2 pe-3 d-flex justify-content-end" *ngIf="isEdit">
-            <button type="button" class="btn btn-secondary btn-cancel btn-cancel-save" (click)="reset()">
+            <button
+              type="button"
+              class="btn btn-secondary btn-cancel btn-cancel-save"
+              (click)="reset()"
+            >
               Cancel
             </button>
             <button
@@ -693,10 +715,8 @@
             <button
               type="button"
               class="btn btn-primary ms-2 btn-edit"
-              (click)="isEdit = true; loyaltyForm.enable();"
-              [disabled]="
-                !isDefault
-              "
+              (click)="isEdit = true; loyaltyForm.enable()"
+              [disabled]="!isDefault"
             >
               Edit
             </button>
@@ -732,7 +752,8 @@
               width="32"
               height="32"
               viewBox="0 0 32 32"
-              fill="none" class="margin-right"
+              fill="none"
+              class="margin-right"
             >
               <path
                 d="M7 4C6.20435 4 5.44129 4.31607 4.87868 4.87868C4.31607 5.44129 4 6.20435 4 7V9.386C4 10.426 4.54 11.39 5.422 11.936L13.154 16.716C11.9779 17.3497 11.047 18.3577 10.5087 19.5803C9.97037 20.803 9.85549 22.1703 10.1823 23.4656C10.509 24.761 11.2587 25.9102 12.3126 26.7312C13.3664 27.5522 14.6641 27.9981 16 27.9981C17.3359 27.9981 18.6336 27.5522 19.6874 26.7312C20.7413 25.9102 21.491 24.761 21.8178 23.4656C22.1445 22.1703 22.0296 20.803 21.4913 19.5803C20.953 18.3577 20.0221 17.3497 18.846 16.716L26.578 11.936C27.0126 11.6672 27.3713 11.2919 27.6201 10.8457C27.869 10.3994 27.9998 9.89696 28 9.386V7C28 6.20435 27.6839 5.44129 27.1213 4.87868C26.5587 4.31607 25.7956 4 25 4H7ZM12 13.652V6H20V13.652L16.526 15.8C16.368 15.8977 16.1858 15.9495 16 15.9495C15.8142 15.9495 15.632 15.8977 15.474 15.8L12 13.652ZM16 18C17.0609 18 18.0783 18.4214 18.8284 19.1716C19.5786 19.9217 20 20.9391 20 22C20 23.0609 19.5786 24.0783 18.8284 24.8284C18.0783 25.5786 17.0609 26 16 26C14.9391 26 13.9217 25.5786 13.1716 24.8284C12.4214 24.0783 12 23.0609 12 22C12 20.9391 12.4214 19.9217 13.1716 19.1716C13.9217 18.4214 14.9391 18 16 18Z"
@@ -801,7 +822,8 @@
               width="32"
               height="32"
               viewBox="0 0 32 32"
-              fill="none" class="margin-right"
+              fill="none"
+              class="margin-right"
             >
               <path
                 d="M7 4C6.20435 4 5.44129 4.31607 4.87868 4.87868C4.31607 5.44129 4 6.20435 4 7V9.386C4 10.426 4.54 11.39 5.422 11.936L13.154 16.716C11.9779 17.3497 11.047 18.3577 10.5087 19.5803C9.97037 20.803 9.85549 22.1703 10.1823 23.4656C10.509 24.761 11.2587 25.9102 12.3126 26.7312C13.3664 27.5522 14.6641 27.9981 16 27.9981C17.3359 27.9981 18.6336 27.5522 19.6874 26.7312C20.7413 25.9102 21.491 24.761 21.8178 23.4656C22.1445 22.1703 22.0296 20.803 21.4913 19.5803C20.953 18.3577 20.0221 17.3497 18.846 16.716L26.578 11.936C27.0126 11.6672 27.3713 11.2919 27.6201 10.8457C27.869 10.3994 27.9998 9.89696 28 9.386V7C28 6.20435 27.6839 5.44129 27.1213 4.87868C26.5587 4.31607 25.7956 4 25 4H7ZM12 13.652V6H20V13.652L16.526 15.8C16.368 15.8977 16.1858 15.9495 16 15.9495C15.8142 15.9495 15.632 15.8977 15.474 15.8L12 13.652ZM16 18C17.0609 18 18.0783 18.4214 18.8284 19.1716C19.5786 19.9217 20 20.9391 20 22C20 23.0609 19.5786 24.0783 18.8284 24.8284C18.0783 25.5786 17.0609 26 16 26C14.9391 26 13.9217 25.5786 13.1716 24.8284C12.4214 24.0783 12 23.0609 12 22C12 20.9391 12.4214 19.9217 13.1716 19.1716C13.9217 18.4214 14.9391 18 16 18Z"
