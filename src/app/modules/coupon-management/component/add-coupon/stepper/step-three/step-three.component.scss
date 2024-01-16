@@ -1,0 +1,7 @@
+.custom-search ::ng-deep .ng-placeholder::before{
+  font-family: FontAwesome !important;
+  content: url("/assets/icons/search.svg") !important;
+  margin-right: 8px !important;
+  position: relative;
+  top: 3px;
+}

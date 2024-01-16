@@ -88,12 +88,8 @@ export class DataUsageComponent implements OnInit {
     private subscriptionService: SubscriptionsService) {}
 
   ngOnInit(): void {
-    
-
     this.getCountryAndPlanList();
     this.initForm();
-
-    console.log(document.getElementById('region')?.classList);
   }
 
   toggleRegionDropdownClass() {
@@ -122,7 +118,6 @@ export class DataUsageComponent implements OnInit {
         this.inProgress = false;
         this.regionList = result[0];
         this.planList = result[1];
-        console.log(this.planList);
         this.regionList = this.regionList.map((country: any) => {
           let obj = {name: country._id, group: 'country'};
           return obj;

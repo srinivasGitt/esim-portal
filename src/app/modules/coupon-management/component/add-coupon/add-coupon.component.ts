@@ -105,7 +105,7 @@ export class AddCouponComponent implements OnInit {
         totalUseType: ['limited'],
       }),
       stepThree: this.fb.group({
-        applicableType: ['plan'],
+        applicableType: ['none'],
         applicableValue: [null],
       }),
     });

@@ -128,7 +128,10 @@ export class StepTwoComponent implements OnInit {
   }
 
   updateValidation() {
-    this.form.controls['totalUse'].setValidators(Validators.min(1));
+    this.form.controls['totalUse'].setValidators([
+      Validators.min(1),
+      Validators.max(this.form.controls['total'].value),
+    ]);
     this.form.controls['totalUse'].updateValueAndValidity();
   }
 
