@@ -277,14 +277,14 @@ export class SubscriptionReportComponent implements OnInit {
 
   downloadReport() {
     let data = {
-      title: `Success`,
+      title: `Report downloaded successfully!`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
         // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
         { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
       ],
-      message: 'Report is successfully downloaded'
+      message: 'Subscription report has been successfully downloaded.'
     };
 
     
