@@ -1775,7 +1775,8 @@
     padding: 10px 7px;
     width: 2vw;
     align-items: center;
-    background-color: var(--loyalty-card-input-field-color);
+    // background-color: var(--loyalty-card-input-field-color);
+    background-color: var(--status-filter-bg);
     border-radius: 8px 0px 0px 8px;
     border: 1px solid rgba(99, 101, 239, 0.48);
   }
@@ -1792,7 +1793,8 @@
     border-right: 0px;
     border-top-right-radius: unset;
     border-bottom-right-radius: unset;
-    background: var(--loyalty-card-input-field-color);
+    // background: var(--loyalty-card-input-field-color);
+    background-color: var(--status-filter-bg);
     color: var(--modal-form-label-text-color);
 
     &:focus-visible {
@@ -1822,7 +1824,8 @@
     padding: 11px 0px;
     align-items: center;
     gap: 11px;
-    background-color: var(--loyalty-card-input-field-color);
+    // background-color: var(--loyalty-card-input-field-color);
+    background-color: var(--status-filter-bg);
     border-radius: 0px 8px 8px 0px;
     border: 1px solid rgba(99, 101, 239, 0.48);
     border-left: 0px;
