@@ -1,27 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { DialogComponent } from './shared/service/dialog/dialog.component';
-import { CoreComponent } from './core/core.component';
-import { AuthService } from './shared/service/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from './shared/shared.module';
-import { ModulesModule } from './modules/modules.module';
 import { RouterModule } from '@angular/router';
-import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
-import { TooltipDirective } from './shared/directive/tooltip.directive';
-import { JwtInterceptor } from './shared/service/interceptor/jwt.interceptor';
-// import { NgChartsModule } from 'chart.js';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
-
+import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from './auth';
+import { CoreComponent } from './core/core.component';
+import { ModulesModule } from './modules/modules.module';
+import { AuthService, JwtInterceptor } from './shared/service';
+import { DialogComponent } from './shared/service/dialog';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -42,9 +36,9 @@ import { JwtInterceptor } from './shared/service/interceptor/jwt.interceptor';
     SharedModule,
     ModulesModule,
     AngularOtpLibModule,
-    PasswordStrengthMeterModule.forRoot()
+    PasswordStrengthMeterModule.forRoot(),
   ],
-  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
