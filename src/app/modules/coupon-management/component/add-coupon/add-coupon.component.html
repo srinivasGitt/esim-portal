@@ -117,7 +117,7 @@
           (click)="currentStep === 3 ? submit() : nextStep()"
           [disabled]="
             (currentStep === 1 && !couponForm.get('stepOne')?.valid) ||
-            (currentStep === 2 && !couponForm.get('stepTwo')?.valid)
+            (currentStep === 2 && !couponForm.get('stepTwo')?.valid) || (currentStep === 3 && couponForm.invalid)
           "
         >
           {{ currentStep === 3 ? 'Submit' : 'Next' }}
