@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Coupon } from 'src/app/modules/coupon-management/model/coupon.model';
-import { AlertService, DialogService } from 'src/app/shared/service';
-import { SearchService } from 'src/app/shared/service/search/search.service';
-import { AddCouponComponent } from './component/add-coupon/add-coupon.component';
-import { CouponInfoComponent } from './component/coupon-info/coupon-info.component';
-import { CouponManagementService } from './service/coupon-management.service';
+import { ICustomResponse } from 'src/app/shared/models';
+import { AlertService, DialogService, SearchService } from 'src/app/shared/service';
+import { AddCouponComponent, CouponInfoComponent } from './component';
+import { CouponManagementService } from './service';
 
 @Component({
   selector: 'app-coupon-management',
@@ -35,7 +34,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private _searchService: SearchService
   ) {
-    _searchService.getResults().subscribe((results: any) => {
+    _searchService.getResults().subscribe((results: ICustomResponse) => {
       if (results) {
         this.couponsList = results?.data;
         this.paginateConfig.totalItems = results?.count[0]?.totalCount;
@@ -52,7 +51,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
   getCouponList() {
     this.inProgress = true;
     this.couponsSubscription = this.couponService.getCouponList().subscribe(
-      (response: any) => {
+      (response: ICustomResponse) => {
         if (response && response.data) {
           this.couponsList = response.data;
           this.paginateConfig.totalItems = response?.count[0]?.totalCount;
@@ -83,12 +82,12 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
       });
   }
 
-  playAndPauseCoupon(coupon: any, isActive: boolean) {
+  playAndPauseCoupon(coupon: Coupon, isActive: boolean) {
     this.inProgress = true;
     this.couponService.playAndPauseCoupon(coupon, isActive).subscribe(
-      (res: any) => {
+      (res: ICustomResponse) => {
         if (res.code == 200) {
-          const index = this.couponsList.findIndex((item: any) => item._id === coupon._id);
+          const index = this.couponsList.findIndex((item: Coupon) => item._id === coupon._id);
           this.couponsList[index] = res.data;
           this.alertService.success(res.message);
           this.inProgress = false;
@@ -101,7 +100,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  getPageNumber(event: any) {
+  getPageNumber(event: number) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event;
 
@@ -114,7 +113,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
           this.paginateConfig.itemsPerPage,
           this.paginateConfig.currentPage - 1
         )
-        .subscribe((result: any) => {
+        .subscribe((result: ICustomResponse) => {
           this.couponsList = result.data;
           this.paginateConfig.totalItems = result?.count[0]?.totalCount;
           this.inProgress = false;
@@ -124,7 +123,7 @@ export class CouponManagementComponent implements OnInit, OnDestroy {
       this.couponService
         .getCouponList(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage - 1)
         .subscribe(
-          (response: any) => {
+          (response: ICustomResponse) => {
             if (response && response.data && response.data?.length > 0) {
               this.couponsList = response.data;
               this.paginateConfig.totalItems = response?.count[0]?.totalCount;
