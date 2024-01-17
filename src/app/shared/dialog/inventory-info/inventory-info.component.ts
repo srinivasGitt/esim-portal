@@ -7,7 +7,7 @@ import { DialogComponent } from '../../service/dialog/dialog.component';
   styleUrls: ['./inventory-info.component.scss']
 })
 export class InventoryInfoComponent implements OnInit {
-  
+
   dialogRef: DialogComponent;
   inventoryDetails: any;
   copyText: string = 'Copy'
@@ -24,14 +24,14 @@ export class InventoryInfoComponent implements OnInit {
   // Copy user email
   copyToClipboard(event: MouseEvent, email: string | undefined) {
     event.preventDefault();
-    
+
     if(!email) {
       return;
     }
-    
+
     navigator.clipboard.writeText(email);
   }
-  
+
   close(): void {
     this.dialogRef.close.emit();
   }

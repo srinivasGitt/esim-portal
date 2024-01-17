@@ -2366,7 +2366,7 @@
             // }
         }
         .activation-code-scroll {
-            width: 230px;
+            width: 200px;
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
@@ -2376,6 +2376,13 @@
       &::-webkit-scrollbar {
         display: none !important;
       }
+    }
+
+    .email-ellipsis{
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;
+      cursor: pointer;
     }
 
     .horizontal-line {
@@ -4102,6 +4109,10 @@
   width: 85%;
 }
 
+.w-80{
+  width: 80%;
+}
+
 .border-bottom {
   border-bottom: 1px solid rgba(168, 169, 253, 0.3) !important;
 }
@@ -4569,4 +4580,9 @@
 
 .max-w80 {
   max-width: 100% !important;
+}
+
+.pos-top{
+  position: relative;
+  top: -7px;
 }
