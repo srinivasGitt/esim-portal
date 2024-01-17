@@ -371,7 +371,8 @@
             class="form-control es-input price-input number-input-right-padding"
             aria-describedby="totalUse"
             formControlName="totalUse"
-            (focus)="onInputFocus(); updateValidation()"
+            (focus)="onInputFocus()"
+            (keyup)="updateValidation()"
             appNumberOnly
             [ngClass]="{
               'border-purple border-right-valid-color': form.get('totalUse')?.valid,
