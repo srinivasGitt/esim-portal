@@ -1,218 +1,240 @@
 ::ng-deep mat-form-field {
-    display: block !important;
-    font-family: var(--font-family-sf-pro-display) !important;
+  display: block !important;
+  font-family: var(--font-family-sf-pro-display) !important;
 }
 
-::ng-deep .mat-calendar, ::ng-deep .mat-button-wrapper {
-    font-family: var(--font-family-sf-pro-display) !important;
+::ng-deep .mat-calendar,
+::ng-deep .mat-button-wrapper {
+  font-family: var(--font-family-sf-pro-display) !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 ::ng-deep .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
-    // width: 100% !important;
-    height: 50px !important;
-    color: var(--font-color);
-    border: none;
-    margin-top: 6px;
-    font-family: var(--font-family-sf-pro-display) !important;
+  // width: 100% !important;
+  height: 50px !important;
+  color: var(--font-color);
+  border: none;
+  margin-top: 6px;
+  font-family: var(--font-family-sf-pro-display) !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 0 !important;
-    display: flex;
-    align-items: center;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
-    border: none !important;
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border: none !important;
 }
 
-::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected, ::ng-deep .mat-calendar-body-selected {
-    border-radius: 8px 0 0 8px !important;
-    background-color: var(--calendar-select-color) !important;
+::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected,
+::ng-deep .mat-calendar-body-selected {
+  border-radius: 8px 0 0 8px !important;
+  background-color: var(--calendar-select-color) !important;
 }
 
 ::ng-deep .mat-calendar-body-range-end .mat-calendar-body-selected {
-    border-radius: 0 8px 8px 0 !important;
-    background-color: var(--calendar-select-color) !important;
+  border-radius: 0 8px 8px 0 !important;
+  background-color: var(--calendar-select-color) !important;
 }
 
 ::ng-deep .mat-calendar-body-in-range::before {
-    background-color: var(--calendar-range-date-bg-color) !important;
+  background-color: var(--calendar-range-date-bg-color) !important;
 }
 
 ::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
-    color: var(--calendar-select-color) !important;
+  color: var(--calendar-select-color) !important;
 }
 
 .row.card-report {
-    --bs-gutter-x: 2.5rem !important;
+  --bs-gutter-x: 2.5rem !important;
 }
 
 .card-usage-report {
-    font-family: var(--font-family-sf-pro-display); 
-    flex: 1; 
-    color: var(--graph-heading-text-color); 
-    padding: 16px 22px; 
-    background: var(--card-background-color);
-    border-radius: 20px; 
+  font-family: var(--font-family-sf-pro-display);
+  flex: 1;
+  color: var(--graph-heading-text-color);
+  padding: 16px 22px;
+  background: var(--card-background-color);
+  border-radius: 20px;
+  box-shadow: var(--box-shadow-size-color);
+  // max-width: 490px;
+  margin-bottom: 30px;
+
+  .svg-color {
+    path {
+      fill: var(--table-heading-text-color);
+      // stroke: var(--table-heading-text-color);
+    }
+    circle {
+      fill: var(--table-heading-text-color);
+    }
+  }
+
+  .data-remaining {
+    path {
+      stroke: var(--table-heading-text-color);
+    }
+  }
+
+  // &:not(:last-child) {
+  //     margin-right: 80px;
+  // }
+}
+
+::ng-deep {
+  .ng-dropdown-panel.ng-select-bottom {
+    border: none !important;
     box-shadow: var(--box-shadow-size-color);
-    // max-width: 490px;
-    margin-bottom: 30px;
+    border-radius: 13px !important;
+    margin-top: 12px !important;
+    padding-bottom: 8px !important;
+    width: 270px !important;
+    background: var(--card-background-color) !important;
+  }
 
-    .svg-color {
-        path{
-            fill: var(--table-heading-text-color);
-            // stroke: var(--table-heading-text-color);
-        }
-        circle {
-            fill: var(--table-heading-text-color);
-        }
+  .ng-select .ng-select-container {
+    background: var(--card-background-color) !important;
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
+    background: var(--card-background-color) !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked,
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    background-color: transparent !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-child {
+    padding-left: 10px !important;
+    background: var(--card-background-color) !important;
+    position: relative;
+  }
+
+  .ng-optgroup,
+  .ng-option {
+    color: var(--table-heading-text-color) !important;
+
+    input {
+      margin-right: 12px !important;
     }
+  }
 
-    .data-remaining {
-        path{
-            stroke: var(--table-heading-text-color);
-        }
-    }
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-selected,
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-selected.ng-option-marked {
+    font-weight: 0 !important;
+  }
 
-    // &:not(:last-child) {
-    //     margin-right: 80px; 
-    // }
+  .ng-select.ng-select-opened .ng-select-container {
+    border-radius: 13px !important;
+    border: unset !important;
+  }
+
+  .ng-select .ng-select-container {
+    border-radius: 13px !important;
+    border: unset !important;
+  }
+
+  .ng-select .ng-select-container:hover {
+    box-shadow: unset !important;
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-label {
+    padding: 5px 15px !important;
+    background: rgba(105, 112, 241, 0.1) !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    color: var(--table-heading-text-color);
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input > input {
+    cursor: pointer !important;
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
+    border-radius: 13px !important;
+    background: var(--card-background-color) !important;
+  }
+
+  .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    color: var(--graph-heading-text-color) !important;
+  }
+
+  .ng-select .ng-clear-wrapper .ng-clear {
+    font-size: 23px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .ng-select .ng-clear-wrapper {
+    width: 23px !important;
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    background-color: unset;
+  }
 }
 
 ::ng-deep {
-    .ng-dropdown-panel.ng-select-bottom {
-        border: none !important;
-        box-shadow: var(--box-shadow-size-color);
-        border-radius: 13px !important;
-        margin-top: 12px !important;
-        padding-bottom: 8px !important;
-        width: 270px !important;
-        background: var(--card-background-color) !important;
+  .filter-head {
+    .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
+    .ng-select.ng-select-opened > .ng-select-container,
+    .ng-select-container {
+      background: transparent !important;
+      background-color: transparent !important;
     }
 
-    .ng-select .ng-select-container {
-        background: var(--card-background-color) !important;
+    .ng-optgroup,
+    .ng-option {
+      background-color: transparent !important;
+
+      :hover {
+        background-color: var(--dropdown-hover-bg-color) !important;
+      }
     }
-
-    .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
-        background: var(--card-background-color) !important;
-    }
-
-    .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected, .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked, .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked{
-        background-color: transparent !important;
-    }
-
-    .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-child {
-        padding-left: 10px !important;
-        background: var(--card-background-color) !important;
-        position: relative;
-    }
-    
-    .ng-optgroup, .ng-option {
-        color: var(--table-heading-text-color) !important;
-
-        input {
-            margin-right: 12px !important;
-        }
-    }
-
-    .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-selected, .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-selected.ng-option-marked {
-        font-weight: 0 !important;
-    }
-
-    .ng-select.ng-select-opened .ng-select-container {
-        border-radius: 13px !important;
-        border: unset !important;
-    }
-
-    .ng-select .ng-select-container {
-        border-radius: 13px !important;
-        border: unset !important;
-    }
-
-    .ng-select .ng-select-container:hover {
-        box-shadow: unset !important;
-    }
-
-    .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-label {
-        padding: 5px 15px !important;
-        background: rgba(105, 112, 241, 0.10) !important;
-        font-weight: bold !important;
-        border-radius: 8px !important;
-        color: var(--table-heading-text-color);
-    }
-
-    .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input > input {
-        cursor: pointer !important;
-    }
-
-    .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
-        border-radius: 13px !important;
-        background: var(--card-background-color) !important;
-    }
-
-    .ng-select .ng-select-container .ng-value-container .ng-placeholder {
-        color: var(--graph-heading-text-color) !important;
-    }
-
-    .ng-select .ng-clear-wrapper .ng-clear {
-        font-size: 23px !important;
-        display: flex !important;
-        align-items: center !important;
-    }
-
-    .ng-select .ng-clear-wrapper {
-        width: 23px !important;
-    }
-
-    .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-        background-color: unset;
-    }
-}
-
-::ng-deep {
-    .filter-head {
-
-        .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
-        .ng-select.ng-select-opened>.ng-select-container,
-        .ng-select-container {
-            background: transparent !important;
-            background-color: transparent !important;
-        }
-
-        .ng-optgroup, .ng-option {
-            background-color: transparent !important;
-
-            :hover {
-                background-color: var(--dropdown-hover-bg-color) !important;
-            }
-        }
-    }
+  }
 }
 
 .data-usage-dropdown {
-    width: 270px;
-    height: 50px;
-    border-radius: 13px;
-    background-color: var(--card-background-color);
-    box-shadow: var(--box-shadow-size-color);
+  width: 270px;
+  height: 50px;
+  border-radius: 13px;
+  background-color: var(--card-background-color);
+  box-shadow: var(--box-shadow-size-color);
 
-    path{
-        fill: var(--table-heading-text-color);
-    }
+  path {
+    fill: var(--table-heading-text-color);
+  }
 }
 
 .ng-tooltip {
-    background-color: var(--table-heading-text-color) !important;
-    color: var(--card-background-color);
+  background-color: var(--table-heading-text-color) !important;
+  color: var(--card-background-color);
 }
 
 .ng-tooltip-top:after {
-    border-color: var(--table-heading-text-color) transparent transparent transparent !important;
-    // color: var(--card-background-color);
+  border-color: var(--table-heading-text-color) transparent transparent transparent !important;
+  // color: var(--card-background-color);
+}
+
+.data-usage-dropdown {
+  .ng-select {
+    width: 100%;
+    z-index: 0;
+  }
+
+  .svg-icon {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    z-index: 1000;
+    pointer-events: none;
+  }
 }
