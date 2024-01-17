@@ -253,7 +253,7 @@
               </span>
             </div>
             <div class="t-box b px-1 d-flex text-overflow-ellipsis">
-              <span *ngIf="!(coupon.useType === 'unlimited')"
+              <span
                 >{{ coupon.numberOfCoupons }}
                 <span class="fs14"
                   >(
@@ -266,7 +266,6 @@
                   )</span
                 ></span
               >
-              <span *ngIf="coupon.useType === 'unlimited'">{{ coupon.useType | titlecase }}</span>
             </div>
             <div class="t-box a px-1 d-flex">
               {{ coupon?.discount?.discountType === 'fixedPrice' ? 'Fix Price' : 'Percentage' }}
