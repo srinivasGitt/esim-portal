@@ -1,317 +1,558 @@
 <div class="common-header user-dashboard data-usage-report">
-    <div class="dashboard-head-flex">
-        <div class="dashboard-head-text">
-            <h2>Data Usage</h2>
-        </div>
+  <div class="dashboard-head-flex">
+    <div class="dashboard-head-text">
+      <h2>Data Usage</h2>
+    </div>
+  </div>
+
+  <div style="display: flex">
+    <div class="dashboard-head-flex me-5" style="width: 313px; cursor: pointer">
+      <div class="filter-head" style="width: 100%">
+        <mat-form-field appearance="outline">
+          <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker" [max]="currentDate">
+            <input
+              matStartDate
+              formControlName="fromDate"
+              placeholder="DD-MM-YYYY"
+              #dateRangeStart
+              [disabled]="true"
+            />
+            <input
+              matEndDate
+              formControlName="toDate"
+              placeholder="DD-MM-YYYY"
+              #dateRangeEnd
+              (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)"
+              [disabled]="true"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker [disabled]="false" #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
     </div>
 
-    <div style="display: flex;">
-        <div class="dashboard-head-flex me-5" style="width: 313px; cursor: pointer;">
-            <div class="filter-head" style="width: 100%">
-                <mat-form-field appearance="outline">
-                    <mat-date-range-input [formGroup]="customForm" [rangePicker]="picker"
-                        [max]="currentDate">
-                        <input matStartDate formControlName="fromDate" placeholder="DD-MM-YYYY"
-                            #dateRangeStart [disabled]="true">
-                        <input matEndDate formControlName="toDate" placeholder="DD-MM-YYYY" #dateRangeEnd
-                            (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)" [disabled]="true">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker [disabled]="false" #picker></mat-date-range-picker>
-                </mat-form-field>
+    <div
+      class="location-input d-flex align-items-center data-usage-dropdown me-5"
+      style="width: 270px; cursor: pointer"
+    >
+      <div class="relative d-flex" style="width: 100%">
+        <ng-select
+          id="region"
+          [items]="regionList"
+          [multiple]="true"
+          bindLabel="name"
+          groupBy="group"
+          bindValue="name"
+          [placeholder]="regionPlaceholderString"
+          [selectableGroup]="true"
+          [selectableGroupAsModel]="false"
+          [closeOnSelect]="false"
+          (open)="toggleRegionDropdownClass(); isRegionDropDownOpen = true"
+          (close)="toggleRegionDropdownClass(); isRegionDropDownOpen = false"
+          (change)="selectedRegionValues($event)"
+        >
+          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+            <div class="ng-value" *ngFor="let item of items | slice: 0 : 1">
+              <span class="ng-value-label">{{ $any(item).name }}</span>
             </div>
-        </div>
-
-        <div class="location-input d-flex align-items-center data-usage-dropdown me-5" style="width: 270px; cursor: pointer;">
-            <div class="relative d-flex" style="width: 93%;">
-                <ng-select 
-                    id="region"
-                    [items]="regionList"
-                    [multiple]="true"
-                    bindLabel="name"
-                    groupBy="group"
-                    bindValue="name"
-                    [placeholder]="regionPlaceholderString"
-                    [selectableGroup]="true"
-                    [selectableGroupAsModel]="false"
-                    [closeOnSelect]="false"
-                    (open)="toggleRegionDropdownClass()"
-                    (close)="toggleRegionDropdownClass()"
-                    (change)="selectedRegionValues($event)">
-
-                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                        <div class="ng-value" *ngFor="let item of items | slice:0:1">
-                            <span class="ng-value-label">{{$any(item).name}}</span>
-                        </div>
-                        <div class="ng-value" *ngIf="items.length > 1">
-                            <span class="ng-value-label" [tooltip]="displayList(items)" placement="top" delay="100" offset="15">+{{items.length - 1}}</span>
-                        </div>
-                    </ng-template>
-
-                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                        <div class="unlimited" style="font-size: unset; margin-bottom: unset;">
-                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" class="selectAllText"/>(Select All)
-                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
-                        </div>
-                    </ng-template>
-                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                        <div class="unlimited" style="font-size: unset;" [ngStyle]="{'margin-bottom': item.name ? 'unset' : '21px'}">
-                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>
-                            <span style="white-space: break-spaces;">{{item.name}}</span>
-                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
-                        </div>
-                    </ng-template>
-                </ng-select>
+            <div class="ng-value" *ngIf="items.length > 1">
+              <span
+                class="ng-value-label"
+                [tooltip]="displayList(items)"
+                placement="top"
+                delay="100"
+                offset="15"
+                >+{{ items.length - 1 }}</span
+              >
             </div>
+          </ng-template>
 
-            <svg class="me-3" xmlns="http://www.w3.org/2000/svg" [ngStyle]="{'transform': isRegionDropDownOpen ? 'rotate(180deg)' : 'rotate(0deg)'}" width="13" height="7" viewBox="0 0 13 7" fill="none">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"/>
+          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+            <div class="unlimited" style="font-size: unset; margin-bottom: unset">
+              <input
+                style="cursor: pointer"
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+                class="selectAllText"
+              />(Select All)
+              <span class="checkmark" style="top: 5px; left: 8px"></span>
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <div
+              class="unlimited"
+              style="font-size: unset"
+              [ngStyle]="{ 'margin-bottom': item.name ? 'unset' : '21px' }"
+            >
+              <input
+                style="cursor: pointer"
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+              />
+              <span style="white-space: break-spaces">{{ item.name }}</span>
+              <span class="checkmark" style="top: 5px; left: 8px"></span>
+            </div>
+          </ng-template>
+        </ng-select>
+        <svg
+          class="me-3 svg-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          [ngStyle]="{ transform: isRegionDropDownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }"
+          width="13"
+          height="7"
+          viewBox="0 0 13 7"
+          fill="none"
+          (click)="toggleRegion()"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div
+      class="location-input d-flex align-items-center data-usage-dropdown"
+      style="width: 270px; cursor: pointer"
+    >
+      <div class="relative d-flex" style="width: 100%">
+        <ng-select
+          id="plan"
+          [items]="planList"
+          [multiple]="true"
+          bindLabel="name"
+          groupBy="group"
+          bindValue="name"
+          [placeholder]="planPlaceholderString"
+          [selectableGroup]="true"
+          [selectableGroupAsModel]="false"
+          [closeOnSelect]="false"
+          (open)="togglePlanDropdownClass(); isPlanDropDownOpen = true"
+          (close)="togglePlanDropdownClass(); isPlanDropDownOpen = false"
+          (change)="selectedPlanValues($event)"
+        >
+          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+            <div class="ng-value" *ngFor="let item of items | slice: 0 : 1">
+              <span class="ng-value-label">{{ $any(item).name }}</span>
+            </div>
+            <div class="ng-value" *ngIf="items.length > 1">
+              <span
+                class="ng-value-label"
+                [tooltip]="displayList(items)"
+                placement="top"
+                delay="100"
+                offset="15"
+                >+{{ items.length - 1 }}</span
+              >
+            </div>
+          </ng-template>
+
+          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+            <div class="unlimited" style="font-size: unset; margin-bottom: unset">
+              <input
+                style="cursor: pointer"
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+                class="selectAllText"
+              />(Select All)
+              <span class="checkmark" style="top: 5px; left: 8px"></span>
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <div
+              class="unlimited"
+              style="font-size: unset"
+              [ngStyle]="{ 'margin-bottom': item.name ? 'unset' : '21px' }"
+            >
+              <input
+                style="cursor: pointer"
+                id="item-{{ index }}"
+                type="checkbox"
+                [ngModel]="item$.selected"
+              />
+              <span style="white-space: break-spaces">{{ item.name }}</span>
+              <span class="checkmark" style="top: 5px; left: 8px"></span>
+            </div>
+          </ng-template>
+        </ng-select>
+        <svg
+          class="me-3 svg-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          [ngStyle]="{ transform: isPlanDropDownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }"
+          width="13"
+          height="7"
+          viewBox="0 0 13 7"
+          fill="none"
+          (click)="togglePlan()"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div class="dashboard-head-flex ms-auto">
+      <div>
+        <button
+          type="button"
+          class="btn btn-dashboard-head d-flex justify-content-center align-items-center download-button"
+          (click)="downloadDataUsageReport()"
+        >
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="22"
+              viewBox="0 0 21 22"
+              fill="none"
+            >
+              <circle cx="10.5" cy="11" r="10.5" fill="white" />
+              <mask
+                id="mask0_6253_15674"
+                style="mask-type: alpha"
+                maskUnits="userSpaceOnUse"
+                x="2"
+                y="2"
+                width="17"
+                height="17"
+              >
+                <rect x="2" y="2" width="17" height="17" fill="#D9D9D9" />
+              </mask>
+              <g mask="url(#mask0_6253_15674)">
+                <mask
+                  id="mask1_6253_15674"
+                  style="mask-type: alpha"
+                  maskUnits="userSpaceOnUse"
+                  x="2"
+                  y="2"
+                  width="17"
+                  height="17"
+                >
+                  <rect x="2" y="2" width="17" height="17" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask1_6253_15674)">
+                  <path
+                    d="M6.25065 16.1665C5.86107 16.1665 5.52756 16.0278 5.25013 15.7503C4.9727 15.4729 4.83398 15.1394 4.83398 14.7498V12.6248H6.25065V14.7498H14.7507V12.6248H16.1673V14.7498C16.1673 15.1394 16.0286 15.4729 15.7512 15.7503C15.4737 16.0278 15.1402 16.1665 14.7507 16.1665H6.25065ZM10.5007 13.3332L6.95898 9.79149L7.95065 8.76441L9.79232 10.6061V4.83316H11.209V10.6061L13.0507 8.76441L14.0423 9.79149L10.5007 13.3332Z"
+                    fill="#6365EF"
+                  />
+                </g>
+              </g>
             </svg>
+          </span>
+          <span class="m-auto">Download Report</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
-        </div>
-
-        <div class="location-input d-flex align-items-center data-usage-dropdown" style="width: 270px; cursor: pointer;">
-            <div class="relative d-flex" style="width: 93%;">
-                <ng-select 
-                    id="plan"
-                    [items]="planList"
-                    [multiple]="true"
-                    bindLabel="name"
-                    groupBy="group"
-                    bindValue="name"
-                    [placeholder]="planPlaceholderString"
-                    [selectableGroup]="true"
-                    [selectableGroupAsModel]="false"
-                    [closeOnSelect]="false"
-                    (open)="togglePlanDropdownClass()"
-                    (close)="togglePlanDropdownClass()"
-                    (change)="selectedPlanValues($event)" >
-
-                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                        <div class="ng-value" *ngFor="let item of items | slice:0:1">
-                            <span class="ng-value-label">{{$any(item).name}}</span>
-                        </div>
-                        <div class="ng-value" *ngIf="items.length > 1">
-                            <span class="ng-value-label" [tooltip]="displayList(items)" placement="top" delay="100" offset="15">+{{items.length - 1}}</span>
-                        </div>
-                    </ng-template>
-
-                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                        <div class="unlimited" style="font-size: unset; margin-bottom: unset;">
-                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" class="selectAllText"/>(Select All)
-                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
-                        </div>
-                    </ng-template>
-                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                        <div class="unlimited" style="font-size: unset;" [ngStyle]="{'margin-bottom': item.name ? 'unset' : '21px'}">
-                            <input style="cursor: pointer;" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/>
-                            <span style="white-space: break-spaces;">{{item.name}}</span>
-                            <span class="checkmark" style="top: 5px; left: 8px;"></span>
-                        </div>
-                    </ng-template>
-                </ng-select>
-            </div>
-
-            <svg class="me-3" xmlns="http://www.w3.org/2000/svg" [ngStyle]="{'transform': isPlanDropDownOpen ? 'rotate(180deg)' : 'rotate(0deg)'}" width="13" height="7" viewBox="0 0 13 7" fill="none">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z" fill="black"/>
+  <div class="d-flex mt-3 flex-wrap row card-report">
+    <div class="col-4">
+      <div class="d-flex justify-content-between align-items-center card-usage-report">
+        <div>
+          <div class="d-flex align-items-center mb-3 svg-color">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+            >
+              <path
+                d="M25.6693 8.87268H15.1693V11.206H25.6693V8.87268ZM25.6693 18.206H15.1693V20.5393H25.6693V18.206ZM6.46594 13.5393L2.33594 9.40935L3.98094 7.76435L6.45427 10.2377L11.4009 5.29102L13.0459 6.93602L6.46594 13.5393ZM6.46594 22.8727L2.33594 18.7427L3.98094 17.0977L6.45427 19.571L11.4009 14.6243L13.0459 16.2693L6.46594 22.8727Z"
+                fill="#3D3D3D"
+              />
             </svg>
+            <p class="ms-3 mb-0" style="font-size: 20px">Total Data Allocated</p>
+          </div>
+          <div>
+            <p class="mb-0" style="font-size: 32px; font-weight: 700">
+              {{ totalDataAllocated }} GB
+            </p>
+          </div>
         </div>
-
-        <div class="dashboard-head-flex ms-auto">
-            <div>
-                <button type="button" class="btn btn-dashboard-head d-flex justify-content-center align-items-center download-button" (click)="downloadDataUsageReport()">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22"
-                            fill="none">
-                            <circle cx="10.5" cy="11" r="10.5" fill="white" />
-                            <mask id="mask0_6253_15674" style="mask-type:alpha" maskUnits="userSpaceOnUse"
-                                x="2" y="2" width="17" height="17">
-                                <rect x="2" y="2" width="17" height="17" fill="#D9D9D9" />
-                            </mask>
-                            <g mask="url(#mask0_6253_15674)">
-                                <mask id="mask1_6253_15674" style="mask-type:alpha"
-                                    maskUnits="userSpaceOnUse" x="2" y="2" width="17" height="17">
-                                    <rect x="2" y="2" width="17" height="17" fill="#D9D9D9" />
-                                </mask>
-                                <g mask="url(#mask1_6253_15674)">
-                                    <path
-                                        d="M6.25065 16.1665C5.86107 16.1665 5.52756 16.0278 5.25013 15.7503C4.9727 15.4729 4.83398 15.1394 4.83398 14.7498V12.6248H6.25065V14.7498H14.7507V12.6248H16.1673V14.7498C16.1673 15.1394 16.0286 15.4729 15.7512 15.7503C15.4737 16.0278 15.1402 16.1665 14.7507 16.1665H6.25065ZM10.5007 13.3332L6.95898 9.79149L7.95065 8.76441L9.79232 10.6061V4.83316H11.209V10.6061L13.0507 8.76441L14.0423 9.79149L10.5007 13.3332Z"
-                                        fill="#6365EF" />
-                                </g>
-                            </g>
-                        </svg>
-                    </span>
-                    <span class="m-auto">Download Report</span>
-                </button>
-            </div>
+        <div>
+          <img
+            style="width: 174px; height: 100%"
+            src="assets/images/dashboard/widgets-icon/graph-1.svg"
+            alt=""
+          />
         </div>
+      </div>
     </div>
 
-    <div class="d-flex mt-3 flex-wrap row card-report">
-        <div class="col-4 ">
-            <div class="d-flex justify-content-between align-items-center card-usage-report">
-                <div>
-                    <div class="d-flex align-items-center mb-3 svg-color">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 28 28" fill="none">
-                            <path d="M25.6693 8.87268H15.1693V11.206H25.6693V8.87268ZM25.6693 18.206H15.1693V20.5393H25.6693V18.206ZM6.46594 13.5393L2.33594 9.40935L3.98094 7.76435L6.45427 10.2377L11.4009 5.29102L13.0459 6.93602L6.46594 13.5393ZM6.46594 22.8727L2.33594 18.7427L3.98094 17.0977L6.45427 19.571L11.4009 14.6243L13.0459 16.2693L6.46594 22.8727Z" fill="#3D3D3D"/>
-                        </svg>
-                        <p class="ms-3 mb-0" style="font-size: 20px;">Total Data Allocated</p>
-                    </div>
-                    <div>
-                        <p class="mb-0" style="font-size: 32px; font-weight: 700;">{{totalDataAllocated}} GB</p>
-                    </div>
-                </div>
-                <div>
-                    <img style="width: 174px; height: 100%;" src="assets/images/dashboard/widgets-icon/graph-1.svg" alt="">
-                </div>
-            </div>
+    <div class="col-4">
+      <div class="d-flex justify-content-between align-items-center card-usage-report">
+        <div>
+          <div class="d-flex align-items-center mb-3 svg-color">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="32"
+              viewBox="0 0 26 20"
+              fill="none"
+            >
+              <path
+                d="M14.0084 26.5297C13.2734 26.5297 12.5501 26.2847 11.9784 25.7947L10.1351 24.2197C9.94839 24.0564 9.48172 23.893 9.23672 23.893H7.19505C6.36581 23.893 5.57053 23.5636 4.98416 22.9773C4.3978 22.3909 4.06839 21.5956 4.06839 20.7664V18.7714C4.06839 18.5264 3.90505 18.0597 3.75339 17.8847L2.16672 16.018C1.21005 14.8864 1.21005 13.113 2.16672 11.9697L3.75339 10.103C3.90505 9.92805 4.06839 9.46138 4.06839 9.21638V7.23305C4.06839 5.50638 5.46839 4.10638 7.19505 4.10638H9.21339C9.45839 4.10638 9.91339 3.93138 10.1117 3.76805L11.9551 2.19305C13.0984 1.22471 14.8834 1.22471 16.0267 2.19305L17.8701 3.76805C18.0567 3.93138 18.5351 4.09471 18.7801 4.09471H20.7634C22.4901 4.09471 23.8901 5.49471 23.8901 7.22138V9.20471C23.8901 9.44971 24.0651 9.90471 24.2284 10.103L25.8034 11.9464C26.7834 13.1014 26.7717 14.8864 25.8034 16.018L24.2284 17.8614C24.0651 18.0597 23.9017 18.5147 23.9017 18.7597V20.743C23.9017 22.4697 22.5017 23.8697 20.7751 23.8697H18.7917C18.5467 23.8697 18.0917 24.0447 17.8817 24.208L16.0384 25.783C15.4667 26.2847 14.7317 26.5297 14.0084 26.5297ZM7.19505 5.85638C6.43672 5.85638 5.81839 6.47471 5.81839 7.23305V9.21638C5.81839 9.88138 5.51505 10.7214 5.08339 11.2347L3.49672 13.1014C3.10005 13.5797 3.10005 14.4197 3.49672 14.8864L5.07172 16.7414C5.49172 17.2197 5.80672 18.0947 5.80672 18.7597V20.7547C5.80672 21.513 6.42505 22.1314 7.18339 22.1314H9.21339C9.86672 22.1314 10.7301 22.4464 11.2434 22.878L13.0984 24.4647C13.5767 24.873 14.4167 24.873 14.8951 24.4647L16.7384 22.8897C17.2634 22.4464 18.1151 22.143 18.7684 22.143H20.7517C21.5101 22.143 22.1284 21.5247 22.1284 20.7664V18.783C22.1284 18.1297 22.4434 17.278 22.8751 16.753L24.4617 14.898C24.8701 14.4197 24.8701 13.5797 24.4617 13.1014L22.8867 11.258C22.4434 10.733 22.1401 9.88138 22.1401 9.22805V7.23305C22.1401 6.47471 21.5217 5.85638 20.7634 5.85638H18.7801C18.1151 5.85638 17.2517 5.54138 16.7384 5.10971L14.8834 3.52305C14.4051 3.11471 13.5767 3.11471 13.0867 3.52305L11.2551 5.10971C10.7301 5.54138 9.87839 5.85638 9.21339 5.85638H7.19505Z"
+                fill="black"
+              />
+              <path
+                d="M13.9987 19.6834C13.357 19.6834 12.832 19.1584 12.832 18.5167C12.832 17.875 13.3454 17.35 13.9987 17.35C14.6404 17.35 15.1654 17.875 15.1654 18.5167C15.1654 19.1584 14.652 19.6834 13.9987 19.6834ZM13.9987 16.006C13.5204 16.006 13.1237 15.6094 13.1237 15.131V9.48437C13.1237 9.00604 13.5204 8.60938 13.9987 8.60938C14.477 8.60938 14.8737 9.00604 14.8737 9.48437V15.1194C14.8737 15.6094 14.4887 16.006 13.9987 16.006Z"
+                fill="black"
+              />
+            </svg>
+            <p class="ms-3 mb-0" style="font-size: 20px">Total Data Used</p>
+          </div>
+          <div>
+            <p class="mb-0" style="font-size: 32px; font-weight: 700">{{ totalDataUsed }} GB</p>
+          </div>
         </div>
-        
-        <div class="col-4">
-            <div class="d-flex justify-content-between align-items-center card-usage-report">
-                <div>
-                    <div class="d-flex align-items-center mb-3 svg-color">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="32" viewBox="0 0 26 20" fill="none">
-                            <path d="M14.0084 26.5297C13.2734 26.5297 12.5501 26.2847 11.9784 25.7947L10.1351 24.2197C9.94839 24.0564 9.48172 23.893 9.23672 23.893H7.19505C6.36581 23.893 5.57053 23.5636 4.98416 22.9773C4.3978 22.3909 4.06839 21.5956 4.06839 20.7664V18.7714C4.06839 18.5264 3.90505 18.0597 3.75339 17.8847L2.16672 16.018C1.21005 14.8864 1.21005 13.113 2.16672 11.9697L3.75339 10.103C3.90505 9.92805 4.06839 9.46138 4.06839 9.21638V7.23305C4.06839 5.50638 5.46839 4.10638 7.19505 4.10638H9.21339C9.45839 4.10638 9.91339 3.93138 10.1117 3.76805L11.9551 2.19305C13.0984 1.22471 14.8834 1.22471 16.0267 2.19305L17.8701 3.76805C18.0567 3.93138 18.5351 4.09471 18.7801 4.09471H20.7634C22.4901 4.09471 23.8901 5.49471 23.8901 7.22138V9.20471C23.8901 9.44971 24.0651 9.90471 24.2284 10.103L25.8034 11.9464C26.7834 13.1014 26.7717 14.8864 25.8034 16.018L24.2284 17.8614C24.0651 18.0597 23.9017 18.5147 23.9017 18.7597V20.743C23.9017 22.4697 22.5017 23.8697 20.7751 23.8697H18.7917C18.5467 23.8697 18.0917 24.0447 17.8817 24.208L16.0384 25.783C15.4667 26.2847 14.7317 26.5297 14.0084 26.5297ZM7.19505 5.85638C6.43672 5.85638 5.81839 6.47471 5.81839 7.23305V9.21638C5.81839 9.88138 5.51505 10.7214 5.08339 11.2347L3.49672 13.1014C3.10005 13.5797 3.10005 14.4197 3.49672 14.8864L5.07172 16.7414C5.49172 17.2197 5.80672 18.0947 5.80672 18.7597V20.7547C5.80672 21.513 6.42505 22.1314 7.18339 22.1314H9.21339C9.86672 22.1314 10.7301 22.4464 11.2434 22.878L13.0984 24.4647C13.5767 24.873 14.4167 24.873 14.8951 24.4647L16.7384 22.8897C17.2634 22.4464 18.1151 22.143 18.7684 22.143H20.7517C21.5101 22.143 22.1284 21.5247 22.1284 20.7664V18.783C22.1284 18.1297 22.4434 17.278 22.8751 16.753L24.4617 14.898C24.8701 14.4197 24.8701 13.5797 24.4617 13.1014L22.8867 11.258C22.4434 10.733 22.1401 9.88138 22.1401 9.22805V7.23305C22.1401 6.47471 21.5217 5.85638 20.7634 5.85638H18.7801C18.1151 5.85638 17.2517 5.54138 16.7384 5.10971L14.8834 3.52305C14.4051 3.11471 13.5767 3.11471 13.0867 3.52305L11.2551 5.10971C10.7301 5.54138 9.87839 5.85638 9.21339 5.85638H7.19505Z" fill="black"/>
-                            <path d="M13.9987 19.6834C13.357 19.6834 12.832 19.1584 12.832 18.5167C12.832 17.875 13.3454 17.35 13.9987 17.35C14.6404 17.35 15.1654 17.875 15.1654 18.5167C15.1654 19.1584 14.652 19.6834 13.9987 19.6834ZM13.9987 16.006C13.5204 16.006 13.1237 15.6094 13.1237 15.131V9.48437C13.1237 9.00604 13.5204 8.60938 13.9987 8.60938C14.477 8.60938 14.8737 9.00604 14.8737 9.48437V15.1194C14.8737 15.6094 14.4887 16.006 13.9987 16.006Z" fill="black"/>
-                        </svg>
-                        <p class="ms-3 mb-0" style="font-size: 20px;">Total Data Used</p>
-                    </div>
-                    <div>
-                        <p class="mb-0" style="font-size: 32px; font-weight: 700;">{{totalDataUsed}} GB</p>
-                    </div>
-                </div>
-                <div>
-                    <img style="width: 174px; height: 100%;" src="assets/images/dashboard/widgets-icon/graph-1.svg" alt="">
-                </div>
-            </div>
+        <div>
+          <img
+            style="width: 174px; height: 100%"
+            src="assets/images/dashboard/widgets-icon/graph-1.svg"
+            alt=""
+          />
         </div>
-
-        <div class="col-4">
-            <div class="d-flex justify-content-between align-items-center card-usage-report">
-                <div>
-                    <div class="d-flex align-items-center mb-3 data-remaining">
-    
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" fill="none">
-                            <path d="M4.68479 6.96565C3.20313 8.92565 2.32812 11.364 2.32812 14.0007C2.32812 20.4407 7.55479 25.6673 13.9948 25.6673C20.4348 25.6673 25.6615 20.4407 25.6615 14.0007C25.6615 7.56065 20.4348 2.33398 13.9948 2.33398" stroke="#292D32" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M13.9961 22.1673C18.5111 22.1673 22.1628 18.5157 22.1628 14.0007C22.1628 9.48565 18.5111 5.83398 13.9961 5.83398" stroke="#292D32" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <p class="ms-3 mb-0" style="font-size: 20px;">Total Data Remaining</p>
-                    </div>
-                    <div>
-                        <p class="mb-0" style="font-size: 32px; font-weight: 700;">{{totalDataRemaining}} GB</p>
-                    </div>
-                </div>
-                <div>
-                    <img style="width: 174px; height: 100%;" src="assets/images/dashboard/widgets-icon/graph-1.svg" alt="">
-                </div>
-            </div>
-        </div>
-
-        
+      </div>
     </div>
 
-    <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
-        <div class="d-flex info-head-section justify-content-end mb-2">
-            <label class="mt-auto mx-2 show-entries" *ngIf="dataUsageReportList && dataUsageReportList.length > 0">
-                {{ (paginateConfig.currentPage-1) | showentries: (paginateConfig.totalItems || 0): paginateConfig.itemsPerPage: dataUsageReportList.length }}
-            </label>
+    <div class="col-4">
+      <div class="d-flex justify-content-between align-items-center card-usage-report">
+        <div>
+          <div class="d-flex align-items-center mb-3 data-remaining">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="28"
+              viewBox="0 0 26 28"
+              fill="none"
+            >
+              <path
+                d="M4.68479 6.96565C3.20313 8.92565 2.32812 11.364 2.32812 14.0007C2.32812 20.4407 7.55479 25.6673 13.9948 25.6673C20.4348 25.6673 25.6615 20.4407 25.6615 14.0007C25.6615 7.56065 20.4348 2.33398 13.9948 2.33398"
+                stroke="#292D32"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M13.9961 22.1673C18.5111 22.1673 22.1628 18.5157 22.1628 14.0007C22.1628 9.48565 18.5111 5.83398 13.9961 5.83398"
+                stroke="#292D32"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p class="ms-3 mb-0" style="font-size: 20px">Total Data Remaining</p>
+          </div>
+          <div>
+            <p class="mb-0" style="font-size: 32px; font-weight: 700">
+              {{ totalDataRemaining }} GB
+            </p>
+          </div>
         </div>
+        <div>
+          <img
+            style="width: 174px; height: 100%"
+            src="assets/images/dashboard/widgets-icon/graph-1.svg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <ng-container class="user-dashboard-table" *ngIf="dataUsageReportList && dataUsageReportList.length > 0; else msg">
-            
-            <div class="t-grid-table-new">
-                <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
-                    <div class="t-box b px-2 d-flex table-headers table-headers-plan-name">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M8.16699 17.0007H19.0013M4 17.0007H4.01M8.16699 12.0003H19.0013M4 12.0003H4.01M8.16699 7H19.0013M4 7H4.01" stroke-width="1.66678" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span class="my-auto ms-2">Plan Name</span>
-                    </div>
-                    <div class="t-box b px-2 d-flex table-headers">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M8 5.75C7.59 5.75 7.25 5.41 7.25 5V2C7.25 1.59 7.59 1.25 8 1.25C8.41 1.25 8.75 1.59 8.75 2V5C8.75 5.41 8.41 5.75 8 5.75ZM16 5.75C15.59 5.75 15.25 5.41 15.25 5V2C15.25 1.59 15.59 1.25 16 1.25C16.41 1.25 16.75 1.59 16.75 2V5C16.75 5.41 16.41 5.75 16 5.75ZM8.5 14.498C8.37 14.498 8.24 14.468 8.12 14.418C7.99 14.368 7.89 14.298 7.79 14.208C7.61 14.018 7.5 13.768 7.5 13.498C7.5 13.368 7.53 13.238 7.58 13.118C7.63 12.998 7.7 12.888 7.79 12.788C7.89 12.698 7.99 12.628 8.12 12.578C8.48 12.428 8.93 12.508 9.21 12.788C9.39 12.978 9.5 13.238 9.5 13.498C9.5 13.558 9.49 13.628 9.48 13.698C9.47 13.758 9.45 13.818 9.42 13.878C9.4 13.938 9.37 13.998 9.33 14.058C9.3 14.108 9.25 14.158 9.21 14.208C9.02 14.388 8.76 14.498 8.5 14.498ZM12 14.499C11.87 14.499 11.74 14.469 11.62 14.419C11.49 14.369 11.39 14.299 11.29 14.209C11.11 14.019 11 13.769 11 13.499C11 13.369 11.03 13.239 11.08 13.119C11.13 12.999 11.2 12.889 11.29 12.789C11.39 12.699 11.49 12.629 11.62 12.579C11.98 12.419 12.43 12.509 12.71 12.789C12.89 12.979 13 13.239 13 13.499C13 13.559 12.99 13.629 12.98 13.699C12.97 13.759 12.95 13.819 12.92 13.879C12.9 13.939 12.87 13.999 12.83 14.059C12.8 14.109 12.75 14.159 12.71 14.209C12.52 14.389 12.26 14.499 12 14.499ZM15.5 14.499C15.37 14.499 15.24 14.469 15.12 14.419C14.99 14.369 14.89 14.299 14.79 14.209L14.67 14.059C14.6321 14.0033 14.6019 13.9427 14.58 13.879C14.5511 13.8223 14.5309 13.7617 14.52 13.699C14.51 13.629 14.5 13.559 14.5 13.499C14.5 13.239 14.61 12.979 14.79 12.789C14.89 12.699 14.99 12.629 15.12 12.579C15.49 12.419 15.93 12.509 16.21 12.789C16.39 12.979 16.5 13.239 16.5 13.499C16.5 13.559 16.49 13.629 16.48 13.699C16.47 13.759 16.45 13.819 16.42 13.879C16.4 13.939 16.37 13.999 16.33 14.059C16.3 14.109 16.25 14.159 16.21 14.209C16.02 14.389 15.76 14.499 15.5 14.499ZM8.5 18C8.37 18 8.24 17.97 8.12 17.92C8 17.87 7.89 17.8 7.79 17.71C7.61 17.52 7.5 17.26 7.5 17C7.5 16.87 7.53 16.74 7.58 16.62C7.63 16.49 7.7 16.38 7.79 16.29C8.16 15.92 8.84 15.92 9.21 16.29C9.39 16.48 9.5 16.74 9.5 17C9.5 17.26 9.39 17.52 9.21 17.71C9.02 17.89 8.76 18 8.5 18ZM12 18C11.74 18 11.48 17.89 11.29 17.71C11.11 17.52 11 17.26 11 17C11 16.87 11.03 16.74 11.08 16.62C11.13 16.49 11.2 16.38 11.29 16.29C11.66 15.92 12.34 15.92 12.71 16.29C12.8 16.38 12.87 16.49 12.92 16.62C12.97 16.74 13 16.87 13 17C13 17.26 12.89 17.52 12.71 17.71C12.52 17.89 12.26 18 12 18ZM15.5 18C15.24 18 14.98 17.89 14.79 17.71C14.6975 17.6161 14.6259 17.5036 14.58 17.38C14.5286 17.2598 14.5015 17.1307 14.5 17C14.5 16.87 14.53 16.74 14.58 16.62C14.63 16.49 14.7 16.38 14.79 16.29C15.02 16.06 15.37 15.95 15.69 16.02C15.76 16.03 15.82 16.05 15.88 16.08C15.94 16.1 16 16.13 16.06 16.17C16.11 16.2 16.16 16.25 16.21 16.29C16.39 16.48 16.5 16.74 16.5 17C16.5 17.26 16.39 17.52 16.21 17.71C16.02 17.89 15.76 18 15.5 18ZM20.5 9.84H3.5C3.09 9.84 2.75 9.5 2.75 9.09C2.75 8.68 3.09 8.34 3.5 8.34H20.5C20.91 8.34 21.25 8.68 21.25 9.09C21.25 9.5 20.91 9.84 20.5 9.84Z" fill="#1C1B1F"/>
-                            <path d="M16 22.75H8C4.35 22.75 2.25 20.65 2.25 17V8.5C2.25 4.85 4.35 2.75 8 2.75H16C19.65 2.75 21.75 4.85 21.75 8.5V17C21.75 20.65 19.65 22.75 16 22.75ZM8 4.25C5.14 4.25 3.75 5.64 3.75 8.5V17C3.75 19.86 5.14 21.25 8 21.25H16C18.86 21.25 20.25 19.86 20.25 17V8.5C20.25 5.64 18.86 4.25 16 4.25H8Z" fill="#1C1B1F"/>
-                        </svg>
-                        <span class="my-auto ms-2">Subscription Date</span>
-                    </div>
-                    <div class="t-box a px-2 d-flex table-headers">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2.4375C10.1087 2.4375 8.25991 2.99833 6.68736 4.04907C5.11482 5.09981 3.88917 6.59327 3.16541 8.34059C2.44164 10.0879 2.25227 12.0106 2.62125 13.8656C2.99022 15.7205 3.90096 17.4244 5.2383 18.7617C6.57564 20.099 8.27951 21.0098 10.1345 21.3788C11.9894 21.7477 13.9121 21.5584 15.6594 20.8346C17.4067 20.1108 18.9002 18.8852 19.9509 17.3126C21.0017 15.7401 21.5625 13.8913 21.5625 12C21.5595 9.46478 20.5511 7.03425 18.7584 5.24158C16.9658 3.44891 14.5352 2.44048 12 2.4375ZM19.6472 8.4375H15.8803C15.4704 6.73724 14.7228 5.13677 13.6819 3.73125C14.9741 3.9968 16.1864 4.5606 17.2221 5.3777C18.2578 6.19479 19.0882 7.24258 19.6472 8.4375ZM20.4375 12C20.4381 12.8257 20.3172 13.647 20.0784 14.4375H16.1119C16.3794 12.8235 16.3794 11.1765 16.1119 9.5625H20.0784C20.3172 10.353 20.4381 11.1743 20.4375 12ZM12 20.4375C11.9766 20.4376 11.9535 20.4328 11.9321 20.4232C11.9108 20.4137 11.8918 20.3997 11.8763 20.3822C10.6688 19.0819 9.78188 17.4122 9.28125 15.5625H14.7188C14.2181 17.4122 13.3313 19.0819 12.1238 20.3822C12.1083 20.3997 12.0892 20.4137 12.0679 20.4232C12.0465 20.4328 12.0234 20.4376 12 20.4375ZM9.02907 14.4375C8.74033 12.8253 8.74033 11.1747 9.02907 9.5625H14.9709C15.2597 11.1747 15.2597 12.8253 14.9709 14.4375H9.02907ZM3.5625 12C3.56187 11.1743 3.68286 10.353 3.92157 9.5625H7.88813C7.62061 11.1765 7.62061 12.8235 7.88813 14.4375H3.92157C3.68286 13.647 3.56187 12.8257 3.5625 12ZM12 3.5625C12.0234 3.56237 12.0465 3.56724 12.0679 3.57678C12.0892 3.58632 12.1083 3.60031 12.1238 3.61781C13.3313 4.91812 14.2181 6.58781 14.7188 8.4375H9.28125C9.78188 6.58781 10.6688 4.91812 11.8763 3.61781C11.8918 3.60031 11.9108 3.58632 11.9321 3.57678C11.9535 3.56724 11.9766 3.56237 12 3.5625ZM10.3181 3.73125C9.27724 5.13677 8.52961 6.73724 8.11969 8.4375H4.35282C4.9118 7.24258 5.74225 6.19479 6.77795 5.3777C7.81364 4.5606 9.02593 3.9968 10.3181 3.73125ZM4.35282 15.5625H8.11969C8.52961 17.2628 9.27724 18.8632 10.3181 20.2687C9.02593 20.0032 7.81364 19.4394 6.77795 18.6223C5.74225 17.8052 4.9118 16.7574 4.35282 15.5625ZM13.6819 20.2687C14.7228 18.8632 15.4704 17.2628 15.8803 15.5625H19.6472C19.0882 16.7574 18.2578 17.8052 17.2221 18.6223C16.1864 19.4394 14.9741 20.0032 13.6819 20.2687Z" fill="black"/>
-                        </svg>
-                        <span class="my-auto ms-2">Region/Country</span>
-                    </div>
-                    
-                    <div class="t-box b px-2 d-flex table-headers-data-allocated">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M22 7.60516H13V9.60516H22V7.60516ZM22 15.6052H13V17.6052H22V15.6052ZM5.54 11.6052L2 8.06516L3.41 6.65516L5.53 8.77516L9.77 4.53516L11.18 5.94516L5.54 11.6052ZM5.54 19.6052L2 16.0652L3.41 14.6552L5.53 16.7752L9.77 12.5352L11.18 13.9452L5.54 19.6052Z"/>
-                        </svg>
-                        <span class="my-auto ms-2">Data Allocated</span>
-                    </div>
-
-                    <div class="t-box a px-2 d-flex table-headers">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12.0072 22.7403C11.3772 22.7403 10.7572 22.5303 10.2672 22.1103L8.68719 20.7603C8.52719 20.6203 8.12719 20.4803 7.91719 20.4803H6.16719C5.45641 20.4803 4.77474 20.198 4.27214 19.6954C3.76954 19.1928 3.48719 18.5111 3.48719 17.8003V16.0903C3.48719 15.8803 3.34719 15.4803 3.21719 15.3303L1.85719 13.7303C1.03719 12.7603 1.03719 11.2403 1.85719 10.2603L3.21719 8.66031C3.34719 8.51031 3.48719 8.11031 3.48719 7.90031V6.20031C3.48719 4.72031 4.68719 3.52031 6.16719 3.52031H7.89719C8.10719 3.52031 8.49719 3.37031 8.66719 3.23031L10.2472 1.88031C11.2272 1.05031 12.7572 1.05031 13.7372 1.88031L15.3172 3.23031C15.4772 3.37031 15.8872 3.51031 16.0972 3.51031H17.7972C19.2772 3.51031 20.4772 4.71031 20.4772 6.19031V7.89031C20.4772 8.10031 20.6272 8.49031 20.7672 8.66031L22.1172 10.2403C22.9572 11.2303 22.9472 12.7603 22.1172 13.7303L20.7672 15.3103C20.6272 15.4803 20.4872 15.8703 20.4872 16.0803V17.7803C20.4872 19.2603 19.2872 20.4603 17.8072 20.4603H16.1072C15.8972 20.4603 15.5072 20.6103 15.3272 20.7503L13.7472 22.1003C13.2572 22.5303 12.6272 22.7403 12.0072 22.7403ZM6.16719 5.02031C5.51719 5.02031 4.98719 5.55031 4.98719 6.20031V7.90031C4.98719 8.47031 4.72719 9.19031 4.35719 9.63031L2.99719 11.2303C2.65719 11.6403 2.65719 12.3603 2.99719 12.7603L4.34719 14.3503C4.70719 14.7603 4.97719 15.5103 4.97719 16.0803V17.7903C4.97719 18.4403 5.50719 18.9703 6.15719 18.9703H7.89719C8.45719 18.9703 9.19719 19.2403 9.63719 19.6103L11.2272 20.9703C11.6372 21.3203 12.3572 21.3203 12.7672 20.9703L14.3472 19.6203C14.7972 19.2403 15.5272 18.9803 16.0872 18.9803H17.7872C18.4372 18.9803 18.9672 18.4503 18.9672 17.8003V16.1003C18.9672 15.5403 19.2372 14.8103 19.6072 14.3603L20.9672 12.7703C21.3172 12.3603 21.3172 11.6403 20.9672 11.2303L19.6172 9.65031C19.2372 9.20031 18.9772 8.47031 18.9772 7.91031V6.20031C18.9772 5.55031 18.4472 5.02031 17.7972 5.02031H16.0972C15.5272 5.02031 14.7872 4.75031 14.3472 4.38031L12.7572 3.02031C12.3472 2.67031 11.6372 2.67031 11.2172 3.02031L9.64719 4.38031C9.19719 4.75031 8.46719 5.02031 7.89719 5.02031H6.16719Z" fill="black"/>
-                            <path d="M12 16.8709C11.45 16.8709 11 16.4209 11 15.8709C11 15.3209 11.44 14.8709 12 14.8709C12.55 14.8709 13 15.3209 13 15.8709C13 16.4209 12.56 16.8709 12 16.8709ZM12 13.7189C11.59 13.7189 11.25 13.3789 11.25 12.9689V8.12891C11.25 7.71891 11.59 7.37891 12 7.37891C12.41 7.37891 12.75 7.71891 12.75 8.12891V12.9589C12.75 13.3789 12.42 13.7189 12 13.7189Z" fill="black"/>
-                        </svg>
-                        <span class="my-auto ms-2">Data Used</span>
-                    </div>
-
-                    <div class="t-box a px-2 d-flex data-remaining">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M4.01609 5.97C2.74609 7.65 1.99609 9.74 1.99609 12C1.99609 17.52 6.47609 22 11.9961 22C17.5161 22 21.9961 17.52 21.9961 12C21.9961 6.48 17.5161 2 11.9961 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M11.9961 19C15.8661 19 18.9961 15.87 18.9961 12C18.9961 8.13 15.8661 5 11.9961 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span class="my-auto ms-2">Data Remaining</span>
-                    </div>
-                </div>
-                <div class="t-body-overflow">
-                    <div class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
-                    *ngFor="let data of dataUsageReportList | paginate: paginateConfig; index as i">
-                        <div class="t-box a px-2">
-                            <span class="text-overflow-ellipsis" *ngIf="data.planName.length>20" [tooltip]="data.planName" placement="top" delay="100" offset="0">
-                                {{data.planName}}
-                            </span>
-                            <span class="text-overflow-ellipsis" *ngIf="data.planName.length<=20">
-                                {{data.planName}}
-                            </span>
-                        </div>
-                        <div class="t-box b px-2">
-                            {{data.subscriptionsDate | date: "dd-MM-yyyy 'T'HH:mm:ss.SSS 'Z'"}}
-                        </div>
-                        <div class="t-box a px-2">
-                            {{data.country ? data.country : 'NA'}}
-                        </div>
-                        <div class="t-box b px-2">{{data.totalDataSizeInGB}} GB</div>
-                        <div class="t-box a px-2">{{ data.usedDataSizeInGB }} GB</div>
-                        <div class="t-box a px-2">{{ data.remainingDataSizeInGB }} GB</div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
+  <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
+    <div class="d-flex info-head-section justify-content-end mb-2">
+      <label
+        class="mt-auto mx-2 show-entries"
+        *ngIf="dataUsageReportList && dataUsageReportList.length > 0"
+      >
+        {{
+          paginateConfig.currentPage - 1
+            | showentries
+              : paginateConfig.totalItems || 0
+              : paginateConfig.itemsPerPage
+              : dataUsageReportList.length
+        }}
+      </label>
     </div>
 
-    <!-- Not data - Start -->
-    <ng-template #msg>
-        <div class="pb-2 no-data">
-            No records found.
-        </div>
-    </ng-template>
-    <!-- Not data - End -->
+    <ng-container
+      class="user-dashboard-table"
+      *ngIf="dataUsageReportList && dataUsageReportList.length > 0; else msg"
+    >
+      <div class="t-grid-table-new">
+        <div class="t-grid-table-wrapper t-head-bg border-bottom-light">
+          <div class="t-box b px-2 d-flex table-headers table-headers-plan-name">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M8.16699 17.0007H19.0013M4 17.0007H4.01M8.16699 12.0003H19.0013M4 12.0003H4.01M8.16699 7H19.0013M4 7H4.01"
+                stroke-width="1.66678"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="my-auto ms-2">Plan Name</span>
+          </div>
+          <div class="t-box b px-2 d-flex table-headers">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M8 5.75C7.59 5.75 7.25 5.41 7.25 5V2C7.25 1.59 7.59 1.25 8 1.25C8.41 1.25 8.75 1.59 8.75 2V5C8.75 5.41 8.41 5.75 8 5.75ZM16 5.75C15.59 5.75 15.25 5.41 15.25 5V2C15.25 1.59 15.59 1.25 16 1.25C16.41 1.25 16.75 1.59 16.75 2V5C16.75 5.41 16.41 5.75 16 5.75ZM8.5 14.498C8.37 14.498 8.24 14.468 8.12 14.418C7.99 14.368 7.89 14.298 7.79 14.208C7.61 14.018 7.5 13.768 7.5 13.498C7.5 13.368 7.53 13.238 7.58 13.118C7.63 12.998 7.7 12.888 7.79 12.788C7.89 12.698 7.99 12.628 8.12 12.578C8.48 12.428 8.93 12.508 9.21 12.788C9.39 12.978 9.5 13.238 9.5 13.498C9.5 13.558 9.49 13.628 9.48 13.698C9.47 13.758 9.45 13.818 9.42 13.878C9.4 13.938 9.37 13.998 9.33 14.058C9.3 14.108 9.25 14.158 9.21 14.208C9.02 14.388 8.76 14.498 8.5 14.498ZM12 14.499C11.87 14.499 11.74 14.469 11.62 14.419C11.49 14.369 11.39 14.299 11.29 14.209C11.11 14.019 11 13.769 11 13.499C11 13.369 11.03 13.239 11.08 13.119C11.13 12.999 11.2 12.889 11.29 12.789C11.39 12.699 11.49 12.629 11.62 12.579C11.98 12.419 12.43 12.509 12.71 12.789C12.89 12.979 13 13.239 13 13.499C13 13.559 12.99 13.629 12.98 13.699C12.97 13.759 12.95 13.819 12.92 13.879C12.9 13.939 12.87 13.999 12.83 14.059C12.8 14.109 12.75 14.159 12.71 14.209C12.52 14.389 12.26 14.499 12 14.499ZM15.5 14.499C15.37 14.499 15.24 14.469 15.12 14.419C14.99 14.369 14.89 14.299 14.79 14.209L14.67 14.059C14.6321 14.0033 14.6019 13.9427 14.58 13.879C14.5511 13.8223 14.5309 13.7617 14.52 13.699C14.51 13.629 14.5 13.559 14.5 13.499C14.5 13.239 14.61 12.979 14.79 12.789C14.89 12.699 14.99 12.629 15.12 12.579C15.49 12.419 15.93 12.509 16.21 12.789C16.39 12.979 16.5 13.239 16.5 13.499C16.5 13.559 16.49 13.629 16.48 13.699C16.47 13.759 16.45 13.819 16.42 13.879C16.4 13.939 16.37 13.999 16.33 14.059C16.3 14.109 16.25 14.159 16.21 14.209C16.02 14.389 15.76 14.499 15.5 14.499ZM8.5 18C8.37 18 8.24 17.97 8.12 17.92C8 17.87 7.89 17.8 7.79 17.71C7.61 17.52 7.5 17.26 7.5 17C7.5 16.87 7.53 16.74 7.58 16.62C7.63 16.49 7.7 16.38 7.79 16.29C8.16 15.92 8.84 15.92 9.21 16.29C9.39 16.48 9.5 16.74 9.5 17C9.5 17.26 9.39 17.52 9.21 17.71C9.02 17.89 8.76 18 8.5 18ZM12 18C11.74 18 11.48 17.89 11.29 17.71C11.11 17.52 11 17.26 11 17C11 16.87 11.03 16.74 11.08 16.62C11.13 16.49 11.2 16.38 11.29 16.29C11.66 15.92 12.34 15.92 12.71 16.29C12.8 16.38 12.87 16.49 12.92 16.62C12.97 16.74 13 16.87 13 17C13 17.26 12.89 17.52 12.71 17.71C12.52 17.89 12.26 18 12 18ZM15.5 18C15.24 18 14.98 17.89 14.79 17.71C14.6975 17.6161 14.6259 17.5036 14.58 17.38C14.5286 17.2598 14.5015 17.1307 14.5 17C14.5 16.87 14.53 16.74 14.58 16.62C14.63 16.49 14.7 16.38 14.79 16.29C15.02 16.06 15.37 15.95 15.69 16.02C15.76 16.03 15.82 16.05 15.88 16.08C15.94 16.1 16 16.13 16.06 16.17C16.11 16.2 16.16 16.25 16.21 16.29C16.39 16.48 16.5 16.74 16.5 17C16.5 17.26 16.39 17.52 16.21 17.71C16.02 17.89 15.76 18 15.5 18ZM20.5 9.84H3.5C3.09 9.84 2.75 9.5 2.75 9.09C2.75 8.68 3.09 8.34 3.5 8.34H20.5C20.91 8.34 21.25 8.68 21.25 9.09C21.25 9.5 20.91 9.84 20.5 9.84Z"
+                fill="#1C1B1F"
+              />
+              <path
+                d="M16 22.75H8C4.35 22.75 2.25 20.65 2.25 17V8.5C2.25 4.85 4.35 2.75 8 2.75H16C19.65 2.75 21.75 4.85 21.75 8.5V17C21.75 20.65 19.65 22.75 16 22.75ZM8 4.25C5.14 4.25 3.75 5.64 3.75 8.5V17C3.75 19.86 5.14 21.25 8 21.25H16C18.86 21.25 20.25 19.86 20.25 17V8.5C20.25 5.64 18.86 4.25 16 4.25H8Z"
+                fill="#1C1B1F"
+              />
+            </svg>
+            <span class="my-auto ms-2">Subscription Date</span>
+          </div>
+          <div class="t-box a px-2 d-flex table-headers">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M12 2.4375C10.1087 2.4375 8.25991 2.99833 6.68736 4.04907C5.11482 5.09981 3.88917 6.59327 3.16541 8.34059C2.44164 10.0879 2.25227 12.0106 2.62125 13.8656C2.99022 15.7205 3.90096 17.4244 5.2383 18.7617C6.57564 20.099 8.27951 21.0098 10.1345 21.3788C11.9894 21.7477 13.9121 21.5584 15.6594 20.8346C17.4067 20.1108 18.9002 18.8852 19.9509 17.3126C21.0017 15.7401 21.5625 13.8913 21.5625 12C21.5595 9.46478 20.5511 7.03425 18.7584 5.24158C16.9658 3.44891 14.5352 2.44048 12 2.4375ZM19.6472 8.4375H15.8803C15.4704 6.73724 14.7228 5.13677 13.6819 3.73125C14.9741 3.9968 16.1864 4.5606 17.2221 5.3777C18.2578 6.19479 19.0882 7.24258 19.6472 8.4375ZM20.4375 12C20.4381 12.8257 20.3172 13.647 20.0784 14.4375H16.1119C16.3794 12.8235 16.3794 11.1765 16.1119 9.5625H20.0784C20.3172 10.353 20.4381 11.1743 20.4375 12ZM12 20.4375C11.9766 20.4376 11.9535 20.4328 11.9321 20.4232C11.9108 20.4137 11.8918 20.3997 11.8763 20.3822C10.6688 19.0819 9.78188 17.4122 9.28125 15.5625H14.7188C14.2181 17.4122 13.3313 19.0819 12.1238 20.3822C12.1083 20.3997 12.0892 20.4137 12.0679 20.4232C12.0465 20.4328 12.0234 20.4376 12 20.4375ZM9.02907 14.4375C8.74033 12.8253 8.74033 11.1747 9.02907 9.5625H14.9709C15.2597 11.1747 15.2597 12.8253 14.9709 14.4375H9.02907ZM3.5625 12C3.56187 11.1743 3.68286 10.353 3.92157 9.5625H7.88813C7.62061 11.1765 7.62061 12.8235 7.88813 14.4375H3.92157C3.68286 13.647 3.56187 12.8257 3.5625 12ZM12 3.5625C12.0234 3.56237 12.0465 3.56724 12.0679 3.57678C12.0892 3.58632 12.1083 3.60031 12.1238 3.61781C13.3313 4.91812 14.2181 6.58781 14.7188 8.4375H9.28125C9.78188 6.58781 10.6688 4.91812 11.8763 3.61781C11.8918 3.60031 11.9108 3.58632 11.9321 3.57678C11.9535 3.56724 11.9766 3.56237 12 3.5625ZM10.3181 3.73125C9.27724 5.13677 8.52961 6.73724 8.11969 8.4375H4.35282C4.9118 7.24258 5.74225 6.19479 6.77795 5.3777C7.81364 4.5606 9.02593 3.9968 10.3181 3.73125ZM4.35282 15.5625H8.11969C8.52961 17.2628 9.27724 18.8632 10.3181 20.2687C9.02593 20.0032 7.81364 19.4394 6.77795 18.6223C5.74225 17.8052 4.9118 16.7574 4.35282 15.5625ZM13.6819 20.2687C14.7228 18.8632 15.4704 17.2628 15.8803 15.5625H19.6472C19.0882 16.7574 18.2578 17.8052 17.2221 18.6223C16.1864 19.4394 14.9741 20.0032 13.6819 20.2687Z"
+                fill="black"
+              />
+            </svg>
+            <span class="my-auto ms-2">Region/Country</span>
+          </div>
 
-    <!-- Loading Spinner - Start -->
-    <ng-template #spinner class="loader-align">
-        <app-loading-spinner></app-loading-spinner>
-    </ng-template>
-    <!-- Loading Spinner - End -->
-    
-    <!-- Pagination -->
-    <ng-container *ngIf="!inProgress && dataUsageReportList && dataUsageReportList.length > 0">
-        <div class="custom-pagination-section">
-            <pagination-controls id="userListPagination" previousLabel="" nextLabel="" (pageChange)="getPageNumber($event)"></pagination-controls>
+          <div class="t-box b px-2 d-flex table-headers-data-allocated">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                d="M22 7.60516H13V9.60516H22V7.60516ZM22 15.6052H13V17.6052H22V15.6052ZM5.54 11.6052L2 8.06516L3.41 6.65516L5.53 8.77516L9.77 4.53516L11.18 5.94516L5.54 11.6052ZM5.54 19.6052L2 16.0652L3.41 14.6552L5.53 16.7752L9.77 12.5352L11.18 13.9452L5.54 19.6052Z"
+              />
+            </svg>
+            <span class="my-auto ms-2">Data Allocated</span>
+          </div>
+
+          <div class="t-box a px-2 d-flex table-headers">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M12.0072 22.7403C11.3772 22.7403 10.7572 22.5303 10.2672 22.1103L8.68719 20.7603C8.52719 20.6203 8.12719 20.4803 7.91719 20.4803H6.16719C5.45641 20.4803 4.77474 20.198 4.27214 19.6954C3.76954 19.1928 3.48719 18.5111 3.48719 17.8003V16.0903C3.48719 15.8803 3.34719 15.4803 3.21719 15.3303L1.85719 13.7303C1.03719 12.7603 1.03719 11.2403 1.85719 10.2603L3.21719 8.66031C3.34719 8.51031 3.48719 8.11031 3.48719 7.90031V6.20031C3.48719 4.72031 4.68719 3.52031 6.16719 3.52031H7.89719C8.10719 3.52031 8.49719 3.37031 8.66719 3.23031L10.2472 1.88031C11.2272 1.05031 12.7572 1.05031 13.7372 1.88031L15.3172 3.23031C15.4772 3.37031 15.8872 3.51031 16.0972 3.51031H17.7972C19.2772 3.51031 20.4772 4.71031 20.4772 6.19031V7.89031C20.4772 8.10031 20.6272 8.49031 20.7672 8.66031L22.1172 10.2403C22.9572 11.2303 22.9472 12.7603 22.1172 13.7303L20.7672 15.3103C20.6272 15.4803 20.4872 15.8703 20.4872 16.0803V17.7803C20.4872 19.2603 19.2872 20.4603 17.8072 20.4603H16.1072C15.8972 20.4603 15.5072 20.6103 15.3272 20.7503L13.7472 22.1003C13.2572 22.5303 12.6272 22.7403 12.0072 22.7403ZM6.16719 5.02031C5.51719 5.02031 4.98719 5.55031 4.98719 6.20031V7.90031C4.98719 8.47031 4.72719 9.19031 4.35719 9.63031L2.99719 11.2303C2.65719 11.6403 2.65719 12.3603 2.99719 12.7603L4.34719 14.3503C4.70719 14.7603 4.97719 15.5103 4.97719 16.0803V17.7903C4.97719 18.4403 5.50719 18.9703 6.15719 18.9703H7.89719C8.45719 18.9703 9.19719 19.2403 9.63719 19.6103L11.2272 20.9703C11.6372 21.3203 12.3572 21.3203 12.7672 20.9703L14.3472 19.6203C14.7972 19.2403 15.5272 18.9803 16.0872 18.9803H17.7872C18.4372 18.9803 18.9672 18.4503 18.9672 17.8003V16.1003C18.9672 15.5403 19.2372 14.8103 19.6072 14.3603L20.9672 12.7703C21.3172 12.3603 21.3172 11.6403 20.9672 11.2303L19.6172 9.65031C19.2372 9.20031 18.9772 8.47031 18.9772 7.91031V6.20031C18.9772 5.55031 18.4472 5.02031 17.7972 5.02031H16.0972C15.5272 5.02031 14.7872 4.75031 14.3472 4.38031L12.7572 3.02031C12.3472 2.67031 11.6372 2.67031 11.2172 3.02031L9.64719 4.38031C9.19719 4.75031 8.46719 5.02031 7.89719 5.02031H6.16719Z"
+                fill="black"
+              />
+              <path
+                d="M12 16.8709C11.45 16.8709 11 16.4209 11 15.8709C11 15.3209 11.44 14.8709 12 14.8709C12.55 14.8709 13 15.3209 13 15.8709C13 16.4209 12.56 16.8709 12 16.8709ZM12 13.7189C11.59 13.7189 11.25 13.3789 11.25 12.9689V8.12891C11.25 7.71891 11.59 7.37891 12 7.37891C12.41 7.37891 12.75 7.71891 12.75 8.12891V12.9589C12.75 13.3789 12.42 13.7189 12 13.7189Z"
+                fill="black"
+              />
+            </svg>
+            <span class="my-auto ms-2">Data Used</span>
+          </div>
+
+          <div class="t-box a px-2 d-flex data-remaining">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M4.01609 5.97C2.74609 7.65 1.99609 9.74 1.99609 12C1.99609 17.52 6.47609 22 11.9961 22C17.5161 22 21.9961 17.52 21.9961 12C21.9961 6.48 17.5161 2 11.9961 2"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11.9961 19C15.8661 19 18.9961 15.87 18.9961 12C18.9961 8.13 15.8661 5 11.9961 5"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="my-auto ms-2">Data Remaining</span>
+          </div>
         </div>
+        <div class="t-body-overflow">
+          <div
+            class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
+            *ngFor="let data of dataUsageReportList | paginate: paginateConfig; index as i"
+          >
+            <div class="t-box a px-2">
+              <span
+                class="text-overflow-ellipsis"
+                *ngIf="data.planName.length > 20"
+                [tooltip]="data.planName"
+                placement="top"
+                delay="100"
+                offset="0"
+              >
+                {{ data.planName }}
+              </span>
+              <span class="text-overflow-ellipsis" *ngIf="data.planName.length <= 20">
+                {{ data.planName }}
+              </span>
+            </div>
+            <div class="t-box b px-2">
+              {{ data.subscriptionsDate | date: "dd-MM-yyyy 'T'HH:mm:ss.SSS 'Z'" }}
+            </div>
+            <div class="t-box a px-2">
+              {{ data.country ? data.country : 'NA' }}
+            </div>
+            <div class="t-box b px-2">{{ data.totalDataSizeInGB }} GB</div>
+            <div class="t-box a px-2">{{ data.usedDataSizeInGB }} GB</div>
+            <div class="t-box a px-2">{{ data.remainingDataSizeInGB }} GB</div>
+          </div>
+        </div>
+      </div>
     </ng-container>
-    
-    
-</div>
+  </div>
 
+  <!-- Not data - Start -->
+  <ng-template #msg>
+    <div class="pb-2 no-data">No records found.</div>
+  </ng-template>
+  <!-- Not data - End -->
+
+  <!-- Loading Spinner - Start -->
+  <ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+  <!-- Loading Spinner - End -->
+
+  <!-- Pagination -->
+  <ng-container *ngIf="!inProgress && dataUsageReportList && dataUsageReportList.length > 0">
+    <div class="custom-pagination-section">
+      <pagination-controls
+        id="userListPagination"
+        previousLabel=""
+        nextLabel=""
+        (pageChange)="getPageNumber($event)"
+      ></pagination-controls>
+    </div>
+  </ng-container>
+</div>
