@@ -101,6 +101,7 @@
                 (form.get('discountValue')?.errors?.['required'] ||
                   form.get('discountValue')?.errors?.['min'])
             }"
+            (keypress)="numberWithDecimalOnly($event)"
           />
           <span
             class="form-label es-modal-form-label price-input-icon"
@@ -120,9 +121,7 @@
               height="22"
               viewBox="0 0 22 22"
               fill="none"
-              *ngIf="
-                form.get('discountType')?.value === 'fixedPrice'; else percentage
-              "
+              *ngIf="form.get('discountType')?.value === 'fixedPrice'; else percentage"
             >
               <mask
                 id="mask0_464_18026"
