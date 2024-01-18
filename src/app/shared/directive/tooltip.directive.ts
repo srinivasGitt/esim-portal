@@ -1,7 +1,13 @@
-import { Directive, Input, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  HostListener,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
-  selector: '[tooltip]'
+  selector: '[tooltip]',
 })
 export class TooltipDirective {
   @Input('tooltip') tooltipTitle!: string;
@@ -10,24 +16,30 @@ export class TooltipDirective {
   @Input() offset: string = '0';
   @Input() svgPath!: string;
   tooltip!: HTMLElement | undefined;
-  
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('mouseenter') onMouseEnter() {
-    if (!this.tooltip) { this.show(); }
-  }
-
-  @HostListener('mouseleave') onMouseLeave() {
-    if (this.tooltip) { this.hide(); }
-  }
-
-  @HostListener('click') onClick() {
-    if (this.tooltip?.innerText == 'Copy') { 
-      this.tooltip.innerText = 'Copied';
+    if (!this.tooltip) {
+      this.show();
     }
   }
 
+  @HostListener('mouseleave') onMouseLeave() {
+    if (this.tooltip) {
+      this.hide();
+    }
+  }
+
+  @HostListener('click') onClick() {
+    if (this.tooltip?.innerText == 'Copy') {
+      this.tooltip.innerText = 'Copied';
+    }
+
+    if (this.tooltip && this.tooltip?.innerText != 'Copied') {
+      this.hide();
+    }
+  }
 
   show() {
     this.create();
@@ -46,18 +58,18 @@ export class TooltipDirective {
 
   create() {
     this.tooltip = this.renderer.createElement('span');
-    
-    if(this.svgPath) {
-      var img = this.renderer.createElement('img')
-      img.setAttribute('src', this.svgPath)
-      this.renderer.appendChild(this.tooltip, img )
+
+    if (this.svgPath) {
+      var img = this.renderer.createElement('img');
+      img.setAttribute('src', this.svgPath);
+      this.renderer.appendChild(this.tooltip, img);
       this.renderer.addClass(this.tooltip, 'ng-tooltip-light');
     }
 
     this.renderer.appendChild(
       this.tooltip,
       this.renderer.createText(this.tooltipTitle) // textNode
-      );
+    );
 
     this.renderer.appendChild(document.body, this.tooltip);
     // this.renderer.appendChild(this.el.nativeElement, this.tooltip);
@@ -65,10 +77,26 @@ export class TooltipDirective {
     this.renderer.addClass(this.tooltip, 'ng-tooltip');
     this.renderer.addClass(this.tooltip, `ng-tooltip-${this.placement}`);
 
-    this.renderer.setStyle(this.tooltip, '-webkit-transition', `opacity ${this.delay}ms`);
-    this.renderer.setStyle(this.tooltip, '-moz-transition', `opacity ${this.delay}ms`);
-    this.renderer.setStyle(this.tooltip, '-o-transition', `opacity ${this.delay}ms`);
-    this.renderer.setStyle(this.tooltip, 'transition', `opacity ${this.delay}ms`);
+    this.renderer.setStyle(
+      this.tooltip,
+      '-webkit-transition',
+      `opacity ${this.delay}ms`
+    );
+    this.renderer.setStyle(
+      this.tooltip,
+      '-moz-transition',
+      `opacity ${this.delay}ms`
+    );
+    this.renderer.setStyle(
+      this.tooltip,
+      '-o-transition',
+      `opacity ${this.delay}ms`
+    );
+    this.renderer.setStyle(
+      this.tooltip,
+      'transition',
+      `opacity ${this.delay}ms`
+    );
   }
 
   setPosition() {
@@ -76,7 +104,11 @@ export class TooltipDirective {
 
     const tooltipPos = this.tooltip?.getBoundingClientRect();
 
-    const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const scrollPos =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
 
     let top, left;
 

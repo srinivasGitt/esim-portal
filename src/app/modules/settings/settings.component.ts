@@ -35,32 +35,34 @@ export class SettingsComponent implements OnInit {
   defaultCurrencyList: any;
   currencySetupFormObj: any;
   isCurrencyEdit: boolean = false;
-  clientConfig!: ClientConfig;
+  clientConfig!: any;
   cacheId!: string;
 
-  constructor(private settingsService: SettingsService, 
+  constructor(private settingsService: SettingsService,
               private alertService: AlertService,
-              private localStorage: LocalStorageService) { 
+              private localStorage: LocalStorageService) {
     this.initForm();
   }
 
   ngOnInit(): void {
     this.inProgress = true;
-    this.cacheId = this.localStorage.getCacheId()!;
 
-    forkJoin(this.settingsService.getAllSettings(this.cacheId)).subscribe((response: any) => { 
+    // Client Configuration
+    this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
+    this.cacheId = this.clientConfig?.cacheId;
+    if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
+
+    forkJoin(this.settingsService.getAllSettings(this.cacheId)).subscribe((response: any) => {
       if(response) {
         // Inventory Response
         this.getSettings(response[0]?.data);
 
         // Email Forwarding Response
         this.getSMTPSettings(response[1]?.data);
-        
+
         // Currency Response
         this.getCurrencySettings(response[2]?.data, response[3]?.data);
 
-        // Client Configuration
-        this.getClientConfiguration(response[4]?.data);
       }
       this.inProgress = false;
     }, err => {
@@ -118,7 +120,7 @@ export class SettingsComponent implements OnInit {
     }
     else {
       this.inProgress = true;
-      this.settingsService.getSettings().subscribe((res: any) => { 
+      this.settingsService.getSettings().subscribe((res: any) => {
         if(res) {
           let result = res.data
           this.contactEmail = result.contactUsEmail
@@ -138,12 +140,12 @@ export class SettingsComponent implements OnInit {
 
 
   getSMTPSettings(response? : any) {
-    if(response) { 
+    if(response) {
       this.emailSetupForm.patchValue(response)
     }
     else {
       this.inProgress = true;
-      this.settingsService.getSMTP().subscribe((res: any) => { 
+      this.settingsService.getSMTP().subscribe((res: any) => {
         if(res) {
           this.externalEmailObj = res.data
           this.emailSetupForm.patchValue(this.externalEmailObj)
@@ -155,7 +157,7 @@ export class SettingsComponent implements OnInit {
       })
     }
   }
-  
+
   getCurrencySettings(response1? : any, response2?: any) {
     if(response1 && response2) {
       this.currencySetupForm.patchValue({
@@ -168,7 +170,7 @@ export class SettingsComponent implements OnInit {
     }
     else {
       this.inProgress = true;
-      this.settingsService.getCurrencySettings().subscribe((res: any) => { 
+      this.settingsService.getCurrencySettings().subscribe((res: any) => {
         if(res) {
           this.currencySetupForm.patchValue({
             currencyList: res.data?.currencyList,
@@ -180,16 +182,6 @@ export class SettingsComponent implements OnInit {
         this.inProgress = false;
         this.alertService.error(err.error.message, err.status);
       })
-    }
-  }
-
-  // Client Feature Configuration
-  getClientConfiguration(response: any) {
-    if(response) {
-      this.clientConfig = response;
-      this.localStorage.setCacheId(this.clientConfig?.cacheId);
-      this.cacheId = this.clientConfig?.cacheId;
-      if(!this.clientConfig?.currencyConversionMasterEnabled) this.currencySetupForm.disable();
     }
   }
 
@@ -217,7 +209,7 @@ export class SettingsComponent implements OnInit {
       this.currencySetupForm.enable();
     }
   }
-  
+
   cancel(str: string) {
     switch (str) {
       case 'email':
@@ -244,7 +236,7 @@ export class SettingsComponent implements OnInit {
 
   edit() {
     if(this.isCustom) {
-      this.emailSetupForm.enable() 
+      this.emailSetupForm.enable()
     } else {
       this.emailSetupForm.disable()
       this.emailSetupForm.patchValue(this.externalEmailObj)
@@ -265,7 +257,7 @@ export class SettingsComponent implements OnInit {
       if(res) {
         this.alertService.success(res.message);
         this.inProgress = false;
-        this.isSubmitted = false;      
+        this.isSubmitted = false;
         this.getCurrencySettings();
       }
     }, err => {
@@ -278,7 +270,7 @@ export class SettingsComponent implements OnInit {
   sendTestSMTPEMail() {
     this.isSubmitted = true
     this.inProgress = true
-    
+
     if (this.emailSetupForm.invalid) {
       return;
     }
@@ -307,7 +299,7 @@ export class SettingsComponent implements OnInit {
   saveCurrencySetup() {
     this.isSubmitted = true
     this.inProgress = true
-    
+
     if (this.currencySetupForm.invalid) {
       return;
     }
@@ -319,20 +311,6 @@ export class SettingsComponent implements OnInit {
         this.isSubmitted = false;
         this.isCurrencyEdit = false;
         this.currencySetupForm.disable();
-        this.getConfiguration();
-      }
-    }, err => {
-      this.inProgress = false;
-      this.isSubmitted = false;
-      this.alertService.error(err.error.message, err.status);
-    })
-  }
-
-  getConfiguration() {
-    this.settingsService.getConfigurationSetting(this.cacheId).subscribe((res: any) => {
-      if(res && res.data) {
-        this.cacheId = res.data?.cacheId
-        this.localStorage.setCacheId(this.cacheId);
       }
     }, err => {
       this.inProgress = false;

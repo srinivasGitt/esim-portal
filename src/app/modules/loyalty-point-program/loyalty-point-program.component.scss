@@ -1,0 +1,49 @@
+.email-custom-toggle {
+  border-radius: 50px;
+  overflow: hidden;
+  border: 1px solid rgba(128, 128, 128, 0.767) !important;
+  border-color: transparent !important;
+  background-color: rgba(99, 101, 239, 0.1);
+  margin-right: 2%;
+
+  color: var(--main-heading-text-color);
+  .btn {
+    padding: 10px 25px;
+    outline: none;
+    box-shadow: none;
+    color: var(--main-heading-text-color);
+  }
+  .btn-custom-active {
+    background-color: #6365ef;
+    color: #fff;
+    border-radius: 50px;
+  }
+  .btn:first-child:active {
+    border: unset;
+  }
+  :not(.btn-check) + .btn:active {
+    border: unset;
+  }
+}
+.custom {
+  opacity: 0.5 !important;
+  background-color: transparent !important;
+}
+
+.btn-cancel-save {
+  width: 8.8vw !important;
+}
+
+.btn-cancel {
+  color: var(--loyalty-card-cancel-btn-color) !important;
+}
+
+.btn-edit {
+  width: 18vw !important;
+}
+
+
+
+.margin-right{
+  margin-right:12px;
+}

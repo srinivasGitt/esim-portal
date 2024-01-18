@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
+import { FormBuilder, FormGroup, NgModel } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { AlertService, CustomerService, DashboardService, UsersService } from '../../service';
 import { LocalStorageService } from '../../service/local-storage.service';
-import { FormBuilder, FormGroup, NgForm, NgModel } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, pluck, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../service/search/search.service';
 declare var $: any;
 
@@ -27,7 +27,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center']
+  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center', '/loyalty-point-program', '/reports/revenue', '/reports/data-usage',
+  '/reports/subscriber', '/reports/subscription'];
+
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,
               private alertService : AlertService,
@@ -35,7 +37,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
               public router: Router,
               private _localStorage: LocalStorageService,
               private _searchService: SearchService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {
-    
+
       // show/hide search box
       router.events.subscribe((route) => {
         if(route instanceof NavigationEnd) {
@@ -53,7 +55,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     if (!this._localStorage.getToken()) {
       this.router.navigate(['/signin']);
     }else{
@@ -74,7 +76,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    
+
     // Search Input Logic
     /*
     if(this.searchForm?.valueChanges) {

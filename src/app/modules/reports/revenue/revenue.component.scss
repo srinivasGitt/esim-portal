@@ -1,0 +1,193 @@
+.multi-color-border {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.multi-color-border::after{
+    content: '';
+    height: 1px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(99, 101, 239, 1) 0%,rgba(99, 101, 239, 1) 25%, var(--dark-multi-color-border) 25%,var(--dark-multi-color-border) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.nav-lang-container {
+    .lang-dropdown-option {
+        position: absolute;
+        left: -58px;
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        .lang-dropdown-item {
+            color: #000 ;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            &:hover {
+                background-color: #E37134;
+            }
+        }
+        .lang-dropdown-item-active {
+            background-color: #E37134;
+        }
+    }
+}
+
+.lang-dropdown-option {
+    box-shadow: var(--box-shadow-size-color);;
+    width: 370px;
+    border: none;
+    cursor: pointer;
+    border-radius: 13px;
+    transform: translate(-25px, 50px) !important;
+    background-color: var(--card-background-color) !important;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    .lang-dropdown-item {
+        color: var(--table-heading-text-color);
+        padding: 10px 15px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+    }
+    .dropdown-item {
+        &:hover {
+            background-color: var(--dropdown-hover-bg-color) !important;
+        }
+    }
+    .lang-dropdown-item-active {
+        color: #fff;
+    }
+
+    .hover-bg {
+        background-color: var(--dropdown-hover-bg-color) !important;
+    }
+}
+
+.lang-dropdown {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 5px 0px !important;
+    padding-left: 0px !important;
+    color: var(--table-heading-text-color);
+    text-decoration: none;
+    .fa-angle-down {
+        color: rgba(99, 101, 239, 1);
+    }
+}
+
+// .apexcharts-tooltip {
+//     background: #f3f3f3;
+//     color: var(--font-color) !important;
+// }
+button {
+    background: #fff;
+    color: #222;
+    border: 1px solid #e7e7e7;
+    border-bottom: 2px solid #ddd;
+    border-radius: 2px;
+    padding: 4px 17px;
+  }
+  
+  button.active {
+    color: #fff;
+    background: #008ffb;
+    border: 1px solid blue;
+    border-bottom: 2px solid blue;
+  }
+  
+  button:focus {
+    outline: 0;
+  }
+  
+
+
+// ::ng-deep mat-form-field{
+//     //custom css
+//     display: none !important;
+// } 
+
+// ::ng-deep .cdk-overlay-pane {
+//     top: 274px !important;
+//     left: 260px !important;
+// }
+
+::ng-deep mat-form-field {
+    display: block !important;
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-calendar, ::ng-deep .mat-button-wrapper {
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+}
+
+::ng-deep .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    // width: 100% !important;
+    height: 50px !important;
+    color: var(--font-color);
+    border: none;
+    margin-top: 6px;
+    font-family: var(--font-family-sf-pro-display) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end, ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: none !important;
+}
+
+::ng-deep .mat-calendar-body-range-start .mat-calendar-body-selected, ::ng-deep .mat-calendar-body-selected {
+    border-radius: 8px 0 0 8px !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-range-end .mat-calendar-body-selected {
+    border-radius: 0 8px 8px 0 !important;
+    background-color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range::before {
+    background-color: var(--calendar-range-date-bg-color) !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
+    color: var(--calendar-select-color) !important;
+}
+
+
+.dashboard-graph {
+    width: 100% !important;
+    height: 440px;
+    padding-bottom: 38px;
+}
+
+.report-utility {
+    height: 440px;
+
+    .report-utility-text {
+        font-size: 16px;
+        color: var(--main-heading-text-color);
+        margin-top: 12px;
+    }
+
+    .email-report-btn {
+        // width: 190px;
+    }
+}
+
+.btn-dashboard-head {
+    @media screen and (max-width: 1440px) {
+      width: 14vw !important;
+    }
+}

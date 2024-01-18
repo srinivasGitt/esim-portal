@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import { ConfigurationService } from 'src/app/shared/service/configuration.service';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +22,8 @@ export class SigninComponent implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private alertService : AlertService,
-              private _localStorageService: LocalStorageService) { }
+              private _localStorageService: LocalStorageService,
+              private configurationService: ConfigurationService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -31,9 +33,9 @@ export class SigninComponent implements OnInit {
       email: new UntypedFormControl(null, [Validators.required, Validators.email]),
       password: new UntypedFormControl(null, [Validators.required])
     });
-    
+
   }
-  
+
   get f() { return this.signinForm.controls; }
 
   submit(): void {
@@ -52,7 +54,7 @@ export class SigninComponent implements OnInit {
       .subscribe((res: any) =>{
         this._localStorageService.setToken(res.token);
         window.location.href = '/';
-        
+
       }, (err: any) =>{
         this.errMsg = err?.error?.message
         this.err = true;
