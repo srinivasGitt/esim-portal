@@ -175,6 +175,7 @@
 
   .ng-select .ng-clear-wrapper {
     width: 23px !important;
+    margin-right: 30px;
   }
 
   .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
@@ -233,7 +234,7 @@
   .svg-icon {
     position: absolute;
     right: 0px;
-    top: 50%;
+    top: 44%;
     z-index: 1000;
     pointer-events: none;
   }
