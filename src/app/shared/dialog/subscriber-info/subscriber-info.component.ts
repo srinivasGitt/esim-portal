@@ -58,6 +58,12 @@ export class SubscriberInfoComponent implements OnInit {
         } else {
           ele.display = false;
         }
+      } else if (ele.title === 'Contact Preferences') {
+        if (this.clientConfig.contactPreferenceEnabled) {
+          ele.display = true;
+        } else {
+          ele.display = false;
+        }
       } else {
         ele.display = true;
       }
