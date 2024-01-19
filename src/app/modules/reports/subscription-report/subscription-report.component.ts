@@ -294,10 +294,7 @@ export class SubscriptionReportComponent implements OnInit {
 
     this.reportService.getSubscriptionDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
-
-        
-
-          if(res && res.length <= 0) {
+          if(res && res.result.length <= 0) {
             let customTitle: string = 'Info';
         
             this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
