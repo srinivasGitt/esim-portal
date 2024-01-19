@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-step-one',
@@ -18,10 +18,15 @@ export class StepOneComponent implements OnInit {
 
   onRadioButtonChange(selectedRadioValue: string) {
     // Handle the radio button value change here
-    if (selectedRadioValue == 'fixedPrice' || selectedRadioValue == 'percentage') {
-      this.form.get('discountValue')?.setValue(0);
-      this.form.get('discountValue')?.updateValueAndValidity();
+    this.form.get('discountValue')?.setValue(0);
+    this.updateValidation();
+
+    if (selectedRadioValue == 'percentage') {
+      this.form
+        .get('discountValue')
+        ?.setValidators([Validators.required, Validators.min(1), Validators.max(100)]);
     }
+    this.form.get('discountValue')?.updateValueAndValidity();
   }
 
   /* increment and decrement input values */
@@ -41,11 +46,11 @@ export class StepOneComponent implements OnInit {
     }
   }
 
-  numberWithDecimalOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
+  updateValidation() {
+    if (this.form.get('discountType')?.value == 'fixedPrice') {
+      this.form.get('discountValue')?.clearValidators();
+      this.form.get('discountValue')?.setValidators([Validators.required, Validators.min(1)]);
+      this.form.get('discountValue')?.updateValueAndValidity();
     }
-    return true;
   }
 }
