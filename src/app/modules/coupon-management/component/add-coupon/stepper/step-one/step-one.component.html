@@ -99,9 +99,9 @@
               'border-error':
                 form.get('discountValue')?.touched &&
                 (form.get('discountValue')?.errors?.['required'] ||
-                  form.get('discountValue')?.errors?.['min'])
+                  form.get('discountValue')?.errors?.['min']) || form.get('discountValue')?.errors?.['max']
             }"
-            (keypress)="numberWithDecimalOnly($event)"
+            (input)="updateValidation()"
           />
           <span
             class="form-label es-modal-form-label price-input-icon"
@@ -109,7 +109,7 @@
               'border-right-error-color':
                 form.get('discountValue')?.touched &&
                 (form.get('discountValue')?.errors?.['required'] ||
-                  form.get('discountValue')?.errors?.['min'])
+                  form.get('discountValue')?.errors?.['min']) || form.get('discountValue')?.errors?.['max']
                   ? 'rgb(234,155,155)'
                   : '',
               'border-right-valid-color': form.get('discountValue')?.valid
@@ -176,6 +176,12 @@
             >
               {{ form.get('discountType')?.value === 'fixedPrice' ? 'Fix price ' : 'Percentage ' }}
               is invalid, please check the details and try again.
+            </span>
+            <span
+              class="small"
+              *ngIf="form.get('discountValue')?.errors?.['max']"
+            >
+              Percent value cannot be more than 100.
             </span>
           </span>
         </div>
