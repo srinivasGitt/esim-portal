@@ -51,6 +51,10 @@
                                     </div>
                                 </div>
                                 <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('all'); selectedDay = 'Current Week'">All</a>
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('previous_year'); selectedDay = 'Current Week'">Last 365 Days</a>
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('previous_month'); selectedDay = 'Current Month'">Last Month</a>
+                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('previous_week'); selectedDay = 'Current Year'">Last Week</a>
                                     <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'">Current Week</a>
                                     <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'">Current Month</a>
                                     <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'">Current Year</a>

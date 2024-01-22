@@ -60,7 +60,7 @@ export class SubscriptionReportComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year';
+  selectedDay: string = 'All';
   currencyType: string = 'USD';
   userDetails: any;
   axisColor: any;

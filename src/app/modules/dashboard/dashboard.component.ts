@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart, registerables } from 'chart.js'
-import { Observable, combineLatest } from 'rxjs';
+import { Chart, registerables } from 'chart.js';
+import * as moment from 'moment';
+import { combineLatest } from 'rxjs';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import * as moment from 'moment';
 
 Chart.register(...registerables)
 
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year'
+  selectedDay: string = 'All';
   selectedDayTerm: string = '';
   currencyType: string = 'USD';
 
