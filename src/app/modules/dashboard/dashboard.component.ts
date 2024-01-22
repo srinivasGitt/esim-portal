@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart, registerables } from 'chart.js'
-import { Observable, combineLatest } from 'rxjs';
+import { Chart, registerables } from 'chart.js';
+import * as moment from 'moment';
+import { combineLatest } from 'rxjs';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import * as moment from 'moment';
 
 Chart.register(...registerables)
 
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year'
+  selectedDay: string = 'All';
   selectedDayTerm: string = '';
   currencyType: string = 'USD';
 
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
       // this.drawChart();
-      this.getReports('year')
+      this.getReports('all')
       this.getDashboardCounts();
   }
 /*
@@ -213,10 +213,18 @@ export class DashboardComponent implements OnInit {
     }
   
     for (let i = 0; i < label.length; i++) {
-      let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+      let formattedLabelValue : any;
+      if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'previous_year' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
+        formattedLabelValue = label[i];
+      } else {
+        formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
+      }
+
       this.label.push(formattedLabelValue);
       this.data.push(revenue[i]);
     }
+
+    console.log(this.label);
 
     if(this.graphElement) this.graphElement.destroy();
     this.graphElement = new Chart("downloadChart", {
