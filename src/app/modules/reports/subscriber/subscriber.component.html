@@ -29,6 +29,18 @@
 
                       <div class="dropdown-menu lang-dropdown-option border-secondary"
                           aria-labelledby="dropdownMenuLink-lang">
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'All'}"
+                                (click)="selectTimeframe('all'); selectedDay = 'All'; isCustomRange= false">All</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'Last 365 Days'}"
+                                (click)="selectTimeframe('previous_year'); selectedDay = 'Last 365 Days'; isCustomRange= false">Last 365 Days</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'Last Month'}"
+                                (click)="selectTimeframe('previous_month'); selectedDay = 'Last Month'; isCustomRange= false">Last Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'Last Week'}"
+                                (click)="selectTimeframe('previous_week'); selectedDay = 'Last Week'; isCustomRange= false">Last Week</a>
                           <a class="dropdown-item lang-dropdown-item sg-font-regular"
                               [ngClass]="{'hover-bg': selectedDay == 'Current Week'}"
                               (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current
