@@ -93,7 +93,7 @@ export class SubscriberComponent implements OnInit {
       // this.drawChart();
       this.currencyType = localStorage.getItem('currency')!;
       this.initForm()
-      this.getReports('year')
+      this.getReports('all')
   }
 
   /* Get reports data - Start */
@@ -151,7 +151,13 @@ export class SubscriberComponent implements OnInit {
         }
       
         for (let i = 0; i < label.length; i++) {
-          let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+          let formattedLabelValue : any;
+          if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'previous_year' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
+            formattedLabelValue = label[i];
+          } else {
+            formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
+          }
+          
           this.label.push(formattedLabelValue);
           this.data.push(revenue[i]);
         }
