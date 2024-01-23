@@ -34,7 +34,7 @@
                                 (click)="selectTimeframe('all'); selectedDay = 'All'; isCustomRange= false">All</a>
                             <a class="dropdown-item lang-dropdown-item sg-font-regular"
                                 [ngClass]="{'hover-bg': selectedDay == 'Last 365 Days'}"
-                                (click)="selectTimeframe('previous_year'); selectedDay = 'Last 365 Days'; isCustomRange= false">Last 365 Days</a>
+                                (click)="selectTimeframe('last_365_days'); selectedDay = 'Last 365 Days'; isCustomRange= false">Last 365 Days</a>
                             <a class="dropdown-item lang-dropdown-item sg-font-regular"
                                 [ngClass]="{'hover-bg': selectedDay == 'Last Month'}"
                                 (click)="selectTimeframe('previous_month'); selectedDay = 'Last Month'; isCustomRange= false">Last Month</a>
