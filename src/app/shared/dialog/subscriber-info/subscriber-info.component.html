@@ -107,9 +107,11 @@
               </svg>
             </span>
             {{
-              details.isDate
-                ? (subscriberDetails[details.key] | date: 'dd/MM/YYYY Thh:mm:ss')
-                : subscriberDetails[details.key]
+              !subscriberDetails[details.key]
+                ? 'NA'
+                : details.isDate
+                  ? (subscriberDetails[details.key] | date: 'dd/MM/YYYY Thh:mm:ss')
+                  : subscriberDetails[details.key]
             }}
             <span
               class="icon"
@@ -188,6 +190,15 @@
             <div class="small-text" *ngIf="subscriberDetails.isEmail">Email</div>
             <div class="small-text" *ngIf="subscriberDetails.relevantInfo">
               Relevant Communication
+            </div>
+            <div
+              *ngIf="
+                !subscriberDetails.isSms &&
+                !subscriberDetails.isEmail &&
+                !subscriberDetails.relevantInfo
+              "
+            >
+              NA
             </div>
           </label>
         </div>
