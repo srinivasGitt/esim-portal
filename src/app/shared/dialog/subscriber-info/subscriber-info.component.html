@@ -65,11 +65,11 @@
 
     <ng-container *ngFor="let details of detailsRow; let i = index; last as isLast">
       <div
-        class="row rowHeight d-flex align-items-center gap-1"
+        class="row rowHeight d-flex align-items-center"
         *ngIf="details.display"
         [ngClass]="{ 'custom-border-bottom': !isLast }"
       >
-        <div class="col-4 pl-0">
+        <div class="col-5 pl-0">
           <label
             class="subscriber-label-text"
             [ngClass]="details.title === 'Contact Preferences' ? 'text-wrap' : ''"
@@ -107,9 +107,11 @@
               </svg>
             </span>
             {{
-              details.isDate
-                ? (subscriberDetails[details.key] | date: 'dd/MM/YYYY Thh:mm:ss')
-                : subscriberDetails[details.key]
+              !subscriberDetails[details.key]
+                ? 'NA'
+                : details.isDate
+                  ? (subscriberDetails[details.key] | date: 'dd/MM/YYYY Thh:mm:ss')
+                  : subscriberDetails[details.key]
             }}
             <span
               class="icon"
@@ -188,6 +190,15 @@
             <div class="small-text" *ngIf="subscriberDetails.isEmail">Email</div>
             <div class="small-text" *ngIf="subscriberDetails.relevantInfo">
               Relevant Communication
+            </div>
+            <div
+              *ngIf="
+                !subscriberDetails.isSms &&
+                !subscriberDetails.isEmail &&
+                !subscriberDetails.relevantInfo
+              "
+            >
+              NA
             </div>
           </label>
         </div>

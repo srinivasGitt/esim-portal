@@ -224,7 +224,7 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
   showSubscriber(subscriber: any) {
     this.dialogService
-      .openModal(SubscriberInfoComponent, { cssClass: 'subsInfo', context: { data: subscriber } })
+      .openModal(SubscriberInfoComponent, { cssClass: '', context: { data: subscriber } })
       .instance.close.subscribe(
         (data: any) => {},
         (err) => {}
