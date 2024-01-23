@@ -152,7 +152,7 @@ export class SubscriberComponent implements OnInit {
       
         for (let i = 0; i < label.length; i++) {
           let formattedLabelValue : any;
-          if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'previous_year' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
+          if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'last_365_days' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
             formattedLabelValue = label[i];
           } else {
             formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
@@ -310,7 +310,7 @@ export class SubscriberComponent implements OnInit {
         timeFrame = 'all';
         break;
       case 'Last 365 Days':
-        timeFrame = 'previous_year';
+        timeFrame = 'last_365_days';
         break;
       case 'Last Month':
         timeFrame = 'previous_month';
@@ -376,7 +376,7 @@ export class SubscriberComponent implements OnInit {
         timeFrame = 'all';
         break;
       case 'Last 365 Days':
-        timeFrame = 'previous_year';
+        timeFrame = 'last_365_days';
         break;
       case 'Last Month':
         timeFrame = 'previous_month';
