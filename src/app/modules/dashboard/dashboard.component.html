@@ -1,35 +1,45 @@
-<div class="main-content-div-area"> 
-    <div class="heading-flex">
-        <div class="heading-text">
-            <h2>Dashboard</h2>
-        </div>
+<div class="main-content-div-area">
+  <div class="heading-flex">
+    <div class="heading-text">
+      <h2>Dashboard</h2>
     </div>
-    <div class="row">
-        <div class="col-8">
-            <label class="section-head-text graph-label">Overview</label>
-        </div>
-        <div class="col-4 d-flex">
-            <label class="ms-3 section-head-text graph-label">Widgets</label>
-            <img class="ms-auto me-3" src="/assets/images/dashboard/icon/swap_vertical_circle.svg" alt="icon">
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <label class="section-head-text graph-label">Overview</label>
     </div>
-    <div class="row dashboard-border-top">
-        <div class="col-8 pt-4">
-            <div class="dashboard-graph" *ngIf="!inProgress; else spinner">
-                <div class="dashboard-heading d-flex align-items-center mb-2">
-                    <h4>Revenue Trend Graph</h4>
-                    <div class="ms-auto d-flex align-items-center mr-2">
-                        <span>
-                            <svg class="revenue-icon" width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="5.5" cy="6" r="5.5" fill="white"/>
-                            </svg>
-                        </span>&nbsp;&nbsp;
-                        <span class="ml-2">Revenue</span>&nbsp;&nbsp;
-                    </div>
-                    <!-- <div class="mx-2 d-flex mt-2"><span class="sub-legend current-status"></span> Current week</div>
+    <div class="col-4 d-flex">
+      <label class="ms-3 section-head-text graph-label">Widgets</label>
+      <img
+        class="ms-auto me-3"
+        src="/assets/images/dashboard/icon/swap_vertical_circle.svg"
+        alt="icon"
+      />
+    </div>
+  </div>
+  <div class="row dashboard-border-top">
+    <div class="col-8 pt-4">
+      <div class="dashboard-graph" *ngIf="!inProgress; else spinner">
+        <div class="dashboard-heading d-flex align-items-center mb-2">
+          <h4>Revenue Trend Graph</h4>
+          <div class="ms-auto d-flex align-items-center mr-2">
+            <span>
+              <svg
+                class="revenue-icon"
+                width="11"
+                height="12"
+                viewBox="0 0 11 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="5.5" cy="6" r="5.5" fill="white" />
+              </svg> </span
+            >&nbsp;&nbsp; <span class="ml-2">Revenue</span>&nbsp;&nbsp;
+          </div>
+          <!-- <div class="mx-2 d-flex mt-2"><span class="sub-legend current-status"></span> Current week</div>
                     <div class="mx-2 d-flex mt-2"><span class="sub-legend previous-status"></span> Previous week</div> -->
-                    <div class="ml-2"> 
-                        <!-- <div class="container-ng-select">
+          <div class="ml-2">
+            <!-- <div class="container-ng-select">
                             <ng-select class="selector-filter" [(ngModel)]="graphFilterBy" (change)="selectTimeframe($event)" [clearable]="false">
                                 <ng-option value="week">Current Week</ng-option>
                                 <ng-option value="month">Current Month</ng-option>
@@ -39,84 +49,169 @@
                                 <path d="M9 1L5 5L1 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div> -->
-                        <div class="filter-head d-flex py-1 px-4">
-                            <div class="dropdown pt-2 pb-2 d-flex">
-                                <div class="lang-dropdown sg-font-small-regular d-flex" role="button" id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div id="filterText">{{selectedDay}}</div>
-                                    <div class="icon">
-                                        <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/icons/down-caret-white.svg" alt="">
-                                        <!-- <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="filter-head d-flex py-1 px-4">
+              <div class="dropdown pt-2 pb-2 d-flex">
+                <div
+                  class="lang-dropdown sg-font-small-regular d-flex"
+                  role="button"
+                  id="dropdownMenuLink-lang"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <div id="filterText">{{ selectedDay }}</div>
+                  <div class="icon">
+                    <img
+                      class="fa-angle-down ms-auto"
+                      style="height: 9px"
+                      src="assets/icons/down-caret-white.svg"
+                      alt=""
+                    />
+                    <!-- <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9 1L5 5L1 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg> -->
-                                    </div>
-                                </div>
-                                <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('all'); selectedDay = 'All'">All</a>
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('last_365_days'); selectedDay = 'Last 365 Days'">Last 365 Days</a>
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('previous_month'); selectedDay = 'Last Month'">Last Month</a>
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('previous_week'); selectedDay = 'Last Week'">Last Week</a>
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('week'); selectedDay = 'Current Week'">Current Week</a>
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('month'); selectedDay = 'Current Month'">Current Month</a>
-                                    <a class="dropdown-item lang-dropdown-item sg-font-regular" (click)="selectTimeframe('year'); selectedDay = 'Current Year'">Current Year</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <div class="dashboard-heading d-flex align-items-center mb-2">
-                    <h6 class="revenue-text">
-                        Revenue in <span *ngIf="currencyType == 'GBP'; else dollar">&#163;</span>
-                        <ng-template #dollar>$</ng-template>
-                    </h6>
+                <div
+                  class="dropdown-menu lang-dropdown-option border-secondary"
+                  aria-labelledby="dropdownMenuLink-lang"
+                >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('all'); selectedDay = 'All'"
+                    >All</a
+                  >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('last_365_days'); selectedDay = 'Last 365 Days'"
+                    >Last 365 Days</a
+                  >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('previous_month'); selectedDay = 'Last Month'"
+                    >Last Month</a
+                  >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('previous_week'); selectedDay = 'Last Week'"
+                    >Last Week</a
+                  >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('week'); selectedDay = 'Current Week'"
+                    >Current Week</a
+                  >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('month'); selectedDay = 'Current Month'"
+                    >Current Month</a
+                  >
+                  <a
+                    class="dropdown-item lang-dropdown-item sg-font-regular"
+                    (click)="selectTimeframe('year'); selectedDay = 'Current Year'"
+                    >Current Year</a
+                  >
                 </div>
-                <canvas id="downloadChart"></canvas>
-                
+              </div>
             </div>
-            
-            <!-- Loading Spinner - Start -->
-            <ng-template #spinner class="loader-align">
-                <app-loading-spinner></app-loading-spinner>
-            </ng-template>
-            <!-- Loading Spinner - End -->
+          </div>
         </div>
-        <div class="col-4 dashboard-border-left widget-card pt-4" *ngIf="dashboardDetails">
-            <div class="dashboard-widget" *ngFor="let widget of dashboardWidgets">
-                <div class="widget-header">
-                    <div>
-                        <!-- <img [src]="widget.titleIcon" alt="" class="fill-color"> -->
-                        
-                        <svg class="widget-icon" *ngIf="widget.title == 'Total Revenue' || widget.title == 'Total Subscribers'" width="26" height="20" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.166016 19.3337V16.067C0.166016 15.4059 0.336349 14.798 0.677016 14.2435C1.0169 13.6897 1.46879 13.267 2.03268 12.9753C3.23824 12.3725 4.46324 11.9203 5.70768 11.6185C6.95213 11.3175 8.21601 11.167 9.49935 11.167C10.7827 11.167 12.0466 11.3175 13.291 11.6185C14.5355 11.9203 15.7605 12.3725 16.966 12.9753C17.5299 13.267 17.9818 13.6897 18.3217 14.2435C18.6623 14.798 18.8327 15.4059 18.8327 16.067V19.3337H0.166016ZM21.166 19.3337V15.8337C21.166 14.9781 20.928 14.1564 20.452 13.3685C19.9752 12.5814 19.2993 11.9059 18.4243 11.342C19.416 11.4587 20.3493 11.6578 21.2243 11.9393C22.0993 12.2217 22.916 12.567 23.6743 12.9753C24.3743 13.3642 24.9091 13.7967 25.2785 14.2727C25.648 14.7494 25.8327 15.2698 25.8327 15.8337V19.3337H21.166ZM9.49935 10.0003C8.21601 10.0003 7.1174 9.54338 6.20352 8.62949C5.28963 7.7156 4.83268 6.61699 4.83268 5.33366C4.83268 4.05033 5.28963 2.95171 6.20352 2.03783C7.1174 1.12394 8.21601 0.666992 9.49935 0.666992C10.7827 0.666992 11.8813 1.12394 12.7952 2.03783C13.7091 2.95171 14.166 4.05033 14.166 5.33366C14.166 6.61699 13.7091 7.7156 12.7952 8.62949C11.8813 9.54338 10.7827 10.0003 9.49935 10.0003ZM21.166 5.33366C21.166 6.61699 20.7091 7.7156 19.7952 8.62949C18.8813 9.54338 17.7827 10.0003 16.4993 10.0003C16.2855 10.0003 16.0132 9.97621 15.6827 9.92799C15.3521 9.87899 15.0799 9.82533 14.866 9.76699C15.391 9.14477 15.7943 8.45449 16.0758 7.69616C16.3582 6.93782 16.4993 6.15033 16.4993 5.33366C16.4993 4.51699 16.3582 3.72949 16.0758 2.97116C15.7943 2.21283 15.391 1.52255 14.866 0.900325C15.1382 0.803103 15.4105 0.739715 15.6827 0.710159C15.9549 0.681381 16.2271 0.666992 16.4993 0.666992C17.7827 0.666992 18.8813 1.12394 19.7952 2.03783C20.7091 2.95171 21.166 4.05033 21.166 5.33366ZM2.49935 17.0003H16.4993V16.067C16.4993 15.8531 16.4461 15.6587 16.3395 15.4837C16.2322 15.3087 16.091 15.1725 15.916 15.0753C14.866 14.5503 13.8063 14.1564 12.7368 13.8935C11.6674 13.6314 10.5882 13.5003 9.49935 13.5003C8.41046 13.5003 7.33129 13.6314 6.26185 13.8935C5.1924 14.1564 4.13268 14.5503 3.08268 15.0753C2.90768 15.1725 2.7669 15.3087 2.66035 15.4837C2.55302 15.6587 2.49935 15.8531 2.49935 16.067V17.0003ZM9.49935 7.66699C10.141 7.66699 10.6905 7.43832 11.1478 6.98099C11.6044 6.52444 11.8327 5.97533 11.8327 5.33366C11.8327 4.69199 11.6044 4.14288 11.1478 3.68633C10.6905 3.22899 10.141 3.00033 9.49935 3.00033C8.85768 3.00033 8.30857 3.22899 7.85202 3.68633C7.39468 4.14288 7.16602 4.69199 7.16602 5.33366C7.16602 5.97533 7.39468 6.52444 7.85202 6.98099C8.30857 7.43832 8.85768 7.66699 9.49935 7.66699Z" fill="#04103B"/>
-                        </svg>    
+        <div class="dashboard-heading d-flex align-items-center mb-2">
+          <h6 class="revenue-text">
+            Revenue in <span *ngIf="currencyType === 'GBP'; else dollar">&#163;</span>
+            <ng-template #dollar>$</ng-template>
+          </h6>
+        </div>
+        <canvas id="downloadChart"></canvas>
+      </div>
 
-                        <svg class="widget-icon" *ngIf="widget.title == 'Total Subscriptions'" width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M28 4.27804H15.4V7.06503H28V4.27804ZM28 15.426H15.4V18.213H28V15.426ZM4.956 9.85202L0 4.91904L1.974 2.95421L4.942 5.90843L10.878 0L12.852 1.96483L4.956 9.85202ZM4.956 21L0 16.067L1.974 14.1022L4.942 17.0564L10.878 11.148L12.852 13.1128L4.956 21Z" fill="#04103B"/>
-                        </svg>
-                            
-                        <svg  class="widget-icon" *ngIf="widget.title == 'Active Plans'" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.83398 20.9163V11.1663H0.0839844L10.9173 0.333008H20.6673V10.083L9.83398 20.9163ZM16.334 11.3559L18.5007 9.18926V2.49967H11.8111L9.6444 4.66634H16.334V11.3559ZM12.0007 15.6893L14.1673 13.5226V6.83301H7.47773L5.31107 8.99967H12.0007V15.6893Z" fill="#04103B"/>
-                        </svg>
-    
-                    </div>
-                    <div class="widget-text">
-                        {{ widget.title }}
-                    </div>
-                </div>
-                <div class="widget-body d-flex justify-content-between">
-                    <div class="widget-count">
-                        <!-- <span *ngIf="widget.detailsType == 'currency'"> $</span> 
-                        {{ dashboardDetails[widget.detailsKey] }} -->
-                        {{ widget.detailsType == 'currency' ? (dashboardDetails[widget.detailsKey] | currency: currencyType)  : dashboardDetails[widget.detailsKey] }}
-                    </div>
-                    <div class="widget-graph" *ngIf="widget.graphIcon != ''">
-                        <img [src]="widget.graphIcon" alt="">
-                    </div>
-                </div>
-                <div class="widget-footer d-flex align-items-center" *ngIf="widget.showFooter">
-                    <img src="/assets/images/dashboard/widgets-icon/arrow-circle-up.svg" alt="">
-                    <div class="ms-1 wigdet-helper-text"> {{widget.increase}}% increase from the previous month</div>
-                </div>
-            </div>
-        </div>
+      <!-- Loading Spinner - Start -->
+      <ng-template #spinner class="loader-align">
+        <app-loading-spinner></app-loading-spinner>
+      </ng-template>
+      <!-- Loading Spinner - End -->
     </div>
+    <div class="col-4 dashboard-border-left widget-card pt-4" *ngIf="dashboardDetails">
+      <div class="dashboard-widget" *ngFor="let widget of dashboardWidgets">
+        <div class="widget-header">
+          <div>
+            <!-- <img [src]="widget.titleIcon" alt="" class="fill-color"> -->
+
+            <svg
+              class="widget-icon"
+              *ngIf="widget.title === 'Total Revenue' || widget.title === 'Total Subscribers'"
+              width="26"
+              height="20"
+              viewBox="0 0 26 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.166016 19.3337V16.067C0.166016 15.4059 0.336349 14.798 0.677016 14.2435C1.0169 13.6897 1.46879 13.267 2.03268 12.9753C3.23824 12.3725 4.46324 11.9203 5.70768 11.6185C6.95213 11.3175 8.21601 11.167 9.49935 11.167C10.7827 11.167 12.0466 11.3175 13.291 11.6185C14.5355 11.9203 15.7605 12.3725 16.966 12.9753C17.5299 13.267 17.9818 13.6897 18.3217 14.2435C18.6623 14.798 18.8327 15.4059 18.8327 16.067V19.3337H0.166016ZM21.166 19.3337V15.8337C21.166 14.9781 20.928 14.1564 20.452 13.3685C19.9752 12.5814 19.2993 11.9059 18.4243 11.342C19.416 11.4587 20.3493 11.6578 21.2243 11.9393C22.0993 12.2217 22.916 12.567 23.6743 12.9753C24.3743 13.3642 24.9091 13.7967 25.2785 14.2727C25.648 14.7494 25.8327 15.2698 25.8327 15.8337V19.3337H21.166ZM9.49935 10.0003C8.21601 10.0003 7.1174 9.54338 6.20352 8.62949C5.28963 7.7156 4.83268 6.61699 4.83268 5.33366C4.83268 4.05033 5.28963 2.95171 6.20352 2.03783C7.1174 1.12394 8.21601 0.666992 9.49935 0.666992C10.7827 0.666992 11.8813 1.12394 12.7952 2.03783C13.7091 2.95171 14.166 4.05033 14.166 5.33366C14.166 6.61699 13.7091 7.7156 12.7952 8.62949C11.8813 9.54338 10.7827 10.0003 9.49935 10.0003ZM21.166 5.33366C21.166 6.61699 20.7091 7.7156 19.7952 8.62949C18.8813 9.54338 17.7827 10.0003 16.4993 10.0003C16.2855 10.0003 16.0132 9.97621 15.6827 9.92799C15.3521 9.87899 15.0799 9.82533 14.866 9.76699C15.391 9.14477 15.7943 8.45449 16.0758 7.69616C16.3582 6.93782 16.4993 6.15033 16.4993 5.33366C16.4993 4.51699 16.3582 3.72949 16.0758 2.97116C15.7943 2.21283 15.391 1.52255 14.866 0.900325C15.1382 0.803103 15.4105 0.739715 15.6827 0.710159C15.9549 0.681381 16.2271 0.666992 16.4993 0.666992C17.7827 0.666992 18.8813 1.12394 19.7952 2.03783C20.7091 2.95171 21.166 4.05033 21.166 5.33366ZM2.49935 17.0003H16.4993V16.067C16.4993 15.8531 16.4461 15.6587 16.3395 15.4837C16.2322 15.3087 16.091 15.1725 15.916 15.0753C14.866 14.5503 13.8063 14.1564 12.7368 13.8935C11.6674 13.6314 10.5882 13.5003 9.49935 13.5003C8.41046 13.5003 7.33129 13.6314 6.26185 13.8935C5.1924 14.1564 4.13268 14.5503 3.08268 15.0753C2.90768 15.1725 2.7669 15.3087 2.66035 15.4837C2.55302 15.6587 2.49935 15.8531 2.49935 16.067V17.0003ZM9.49935 7.66699C10.141 7.66699 10.6905 7.43832 11.1478 6.98099C11.6044 6.52444 11.8327 5.97533 11.8327 5.33366C11.8327 4.69199 11.6044 4.14288 11.1478 3.68633C10.6905 3.22899 10.141 3.00033 9.49935 3.00033C8.85768 3.00033 8.30857 3.22899 7.85202 3.68633C7.39468 4.14288 7.16602 4.69199 7.16602 5.33366C7.16602 5.97533 7.39468 6.52444 7.85202 6.98099C8.30857 7.43832 8.85768 7.66699 9.49935 7.66699Z"
+                fill="#04103B"
+              />
+            </svg>
+
+            <svg
+              class="widget-icon"
+              *ngIf="widget.title === 'Total Subscriptions'"
+              width="28"
+              height="21"
+              viewBox="0 0 28 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M28 4.27804H15.4V7.06503H28V4.27804ZM28 15.426H15.4V18.213H28V15.426ZM4.956 9.85202L0 4.91904L1.974 2.95421L4.942 5.90843L10.878 0L12.852 1.96483L4.956 9.85202ZM4.956 21L0 16.067L1.974 14.1022L4.942 17.0564L10.878 11.148L12.852 13.1128L4.956 21Z"
+                fill="#04103B"
+              />
+            </svg>
+
+            <svg
+              class="widget-icon"
+              *ngIf="widget.title === 'Active Plans'"
+              width="21"
+              height="21"
+              viewBox="0 0 21 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.83398 20.9163V11.1663H0.0839844L10.9173 0.333008H20.6673V10.083L9.83398 20.9163ZM16.334 11.3559L18.5007 9.18926V2.49967H11.8111L9.6444 4.66634H16.334V11.3559ZM12.0007 15.6893L14.1673 13.5226V6.83301H7.47773L5.31107 8.99967H12.0007V15.6893Z"
+                fill="#04103B"
+              />
+            </svg>
+          </div>
+          <div class="widget-text">
+            {{ widget.title }}
+          </div>
+        </div>
+        <div class="widget-body d-flex justify-content-between">
+          <div class="widget-count">
+            <ng-container *ngIf="widget.detailsType === 'currency'; else notCurrency">
+              <span class="currency-symbol">{{ currencySymbol }}&nbsp;</span>
+              <span class="price">{{
+                dashboardDetails[widget.detailsKey]
+                  | currency: currencyType
+                  | slice: currencySymbol.length
+              }}</span>
+            </ng-container>
+
+            <ng-template #notCurrency>
+              {{ dashboardDetails[widget.detailsKey] }}
+            </ng-template>
+          </div>
+          <div class="widget-graph" *ngIf="widget.graphIcon !== ''">
+            <img [src]="widget.graphIcon" alt="" />
+          </div>
+        </div>
+        <div class="widget-footer d-flex align-items-center" *ngIf="widget.showFooter">
+          <img src="/assets/images/dashboard/widgets-icon/arrow-circle-up.svg" alt="" />
+          <div class="ms-1 wigdet-helper-text">
+            {{ widget.increase }}% increase from the previous month
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
