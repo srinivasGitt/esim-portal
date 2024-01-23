@@ -11,7 +11,6 @@ export class ReportService {
   constructor(private http: HttpClient ) { }
 
   getDownloadReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
-    console.log(dateRangeValue);
     if (dateRangeValue) {
       if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/transaction/report?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
