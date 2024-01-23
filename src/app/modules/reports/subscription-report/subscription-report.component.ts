@@ -292,11 +292,34 @@ export class SubscriptionReportComponent implements OnInit {
       ],
       message: 'Subscription report has been successfully downloaded.'
     };
-
     
-    // return;
-
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'previous_year';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
     this.reportService.getSubscriptionDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
@@ -335,7 +358,33 @@ export class SubscriptionReportComponent implements OnInit {
       email: this.userDetails.email
     };
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'previous_year';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
     this.reportService.sendSubscriptionReportEmail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
