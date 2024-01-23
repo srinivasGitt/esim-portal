@@ -105,8 +105,6 @@ export class SubscriberComponent implements OnInit {
         const subscriberData : any[] = [];
         this.data = res?.result;
         this.range = res?.range;
-        this.startDate = this.range.startDate;
-        this.endDate = this.range.endDate;
 
         this.data.forEach((x: any) => {
           labelData.push(x.label);
