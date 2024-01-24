@@ -263,6 +263,9 @@
      --navbar-child-border:rgba(0, 0, 0, 0.14);
      --navbar-child-arrow:rgba(28, 28, 28, 1);
 
+     /*selected country bg*/
+     --selected-country-bg-color: rgba(99, 101, 239, 0.10);
+
      --grpah-axis-label-color: #6D42F2;
      --graph-title-color: #1C1C1C;
 
@@ -507,6 +510,9 @@
      --navbar-child-border: rgba(255, 255, 255, 0.14);
      --navbar-child-arrow:rgba(255, 255, 255, 1);
 
+     /*selected country bg*/
+     --selected-country-bg-color: rgba(105, 112, 241, 0.10);
+
     /* SWITCH */
     --dark-primary-background: #59D956;
     --dark-text-white-v2: #959595;
@@ -631,7 +637,7 @@
     .showMenu .sub-menu {
         border-left: 2px solid rgba(255, 255, 255, 0.14) !important;
     }
-    
+
     .loyalty-point-program-svg {
       path {
         fill: #FFFFFF !important;
