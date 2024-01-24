@@ -3,6 +3,7 @@ import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/ap
 import { DialogService, PlansService, AlertService } from 'src/app/shared/service';
 import { PaginationInstance } from 'ngx-pagination';
 import { SearchService } from 'src/app/shared/service/search/search.service';
+import { getCurrencySymbol } from '@angular/common';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -24,25 +25,26 @@ export class PlanComponent implements OnInit, OnDestroy {
   };
   inProgress: boolean = false;
   inSearch : boolean = false;
-  tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
+  tooltipText: string = '\u00A0\u00A0This plan is inactive, please enable the \u00A0\u00A0plan again to view it.'
   planStatus: string | null = null;
   currencyType: string = 'USD';
-  
+
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
               private alertService: AlertService,
-              private _searchService: SearchService) { 
+              private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
                     this.plansList = results?.data
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
                     this.paginateConfig.currentPage = 1;
-                    this.inSearch = true;  
+                    this.inSearch = true;
                   }
                 })
               }
   ngOnInit(): void {
     this.getAllPlans();
+    this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
   }
 
   createPlan() {
@@ -115,7 +117,7 @@ export class PlanComponent implements OnInit, OnDestroy {
           this.alertService.error(err.error.message, err.status);
         })
       }
-     
+
     });
   }
 
@@ -149,7 +151,7 @@ export class PlanComponent implements OnInit, OnDestroy {
 
   getPageNumber(event: any) {
     this.inProgress = true;
-    this.paginateConfig.currentPage = event; 
+    this.paginateConfig.currentPage = event;
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
@@ -158,7 +160,7 @@ export class PlanComponent implements OnInit, OnDestroy {
           this.paginateConfig.totalItems = result?.count[0]?.totalCount;
           this.inProgress = false;
       })
-    } 
+    }
     /* Pagination based on Plan status filtered data */
     else if(this.planStatus) {
       this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1, this.planStatus).subscribe((result: any) => {
@@ -187,7 +189,7 @@ export class PlanComponent implements OnInit, OnDestroy {
   showPlan(event: string) {
     this.planStatus = event
     this.filteredPlans(this.planStatus)
-    
+
   }
 
   filteredPlans(planStatus: string) {

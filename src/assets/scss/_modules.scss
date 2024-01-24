@@ -955,6 +955,10 @@
         &:not(.action-section) {
           line-height: 50px;
         }
+
+        &:nth-child(2),&:nth-child(3),&:nth-child(4),&:nth-child(5){
+          margin-left: 5px;
+        }
       }
 
       .plan-info-section > span {
@@ -2903,7 +2907,7 @@
       }
 
       .ng-option-selected {
-        background: var(--active-link-background-color) !important;
+        background: var(--selected-country-bg-color) !important;
         padding: 8px;
       }
     }
@@ -4580,4 +4584,8 @@
 
 .max-w80 {
   max-width: 100% !important;
+}
+
+.gap-50{
+  gap: 50px;
 }
