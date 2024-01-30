@@ -1,22 +1,18 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { Chart, registerables } from 'chart.js'
+import { FormControl, FormGroup } from '@angular/forms';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MomentDateAdapter
+} from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Chart, registerables } from 'chart.js';
+import * as moment from 'moment';
+import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
+import { ReportSuccessInfoComponent } from 'src/app/shared/dialog/report-success-info/report-success-info.component';
+import { DialogService, UsersService } from 'src/app/shared/service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DashboardService } from 'src/app/shared/service/dashboard.service';
-import * as moment from 'moment';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { debounceTime } from 'rxjs';
-import {
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import { DialogService, UsersService } from 'src/app/shared/service';
-import { ReportSuccessInfoComponent } from 'src/app/shared/dialog/report-success-info/report-success-info.component';
 import { ReportService } from 'src/app/shared/service/report.service';
-import { AlertComponent } from 'src/app/shared/dialog';
-import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
 
 var papa = require('papaparse');
 var FileSaver = require('file-saver');
@@ -65,9 +61,10 @@ export class RevenueComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year';
+  selectedDay: string = 'All';
   currencyType: string = 'USD';
   userDetails: any;
+  axisColor: any;
 
   constructor(private dashboardService: DashboardService,
               private alertService: AlertService,
@@ -79,8 +76,6 @@ export class RevenueComponent implements OnInit {
       this.dashboardWidgets = dashboardService.getDashboardWidgets();
       dashboardService.getAppTheme().subscribe((data : any) =>{
         this.isDarkTheme = data;
-        // this.drawChart();
-        
       });
 
       usersService.getCurrentUser().subscribe(result => {
@@ -95,8 +90,9 @@ export class RevenueComponent implements OnInit {
   ngOnInit(): void {
       // this.drawChart();
       this.currencyType = localStorage.getItem('currency')!;
-      this.initForm()
-      this.getReports('year')
+      this.initForm();
+
+      this.getReports('all');
   }
 
   /* Get reports data - Start */
@@ -106,10 +102,8 @@ export class RevenueComponent implements OnInit {
       if(res.result) {
         const labelData : any[] = []
         const revenueData : any[] = []
-        this.data = res?.result
-        this.range = res?.range
-        this.startDate = this.range.startDate
-        this.endDate = this.range.endDate
+        this.data = res?.result;
+        this.range = res?.range;
 
         this.data.forEach((x: any) => {
           labelData.push(x.label)
@@ -128,112 +122,128 @@ export class RevenueComponent implements OnInit {
   /* Get reports data - End */
 
   /* Draw Chart based on API data - Start */
-  drawChart(label: any, revenue: any, timeFrameValue: string) {
-    this.label = [];
-    this.data = [];
-    let formatValue: string;
+  drawChart(label?: any, revenue?: any, timeFrameValue?: string) {
 
-    switch(timeFrameValue) {
-      case 'week':
-        formatValue = 'ddd'
-        break;
-      case 'year':
-        formatValue = 'MMM'
-        break;
-      case 'custom':
-        formatValue = 'DD MMM'
-        break;
-      default:
-        formatValue = 'MMM'
-    }
-  
-    for (let i = 0; i < label.length; i++) {
-      let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
-      this.label.push(formattedLabelValue);
-      this.data.push(revenue[i]);
-    }
+    this.dashboardService.getAppTheme().subscribe((data : any) =>{
+      setTimeout(() => {
+        var style = getComputedStyle(document.body);
+        this.axisColor = style.getPropertyValue('--grpah-axis-label-color');
 
-    if(this.graphElement) this.graphElement.destroy();
-    this.graphElement = new Chart("revenueChart", {
-      type: 'line',
-      data: {
-        labels: this.label,
-        datasets: [
-        {
-          label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
-          data: this.data,
-          fill: true,
-          backgroundColor: [
-            '#6365EF10'
-          ],
-          borderColor: [
-            '#6365EF'
-          ],
-          borderWidth: 1,
-          pointRadius: 3,
-          pointStyle: 'circle',
-          tension: 0
-        }],
+        this.label = [];
+        this.data = [];
+        let formatValue: string;
 
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        layout:{
-          padding: 20
-        },
-        scales: {
-          x: {
-            grid: {
-              borderColor: '#00000014',
-              display:false,
-              tickWidth: 20,
-              tickLength: 30
-            },
-            ticks:{
-              color: '#6365ef',
-              font: {
-                weight: '400',
-                size: 17.3639,
-                family: 'SF Pro Display'
-              }
-            },
+        switch(timeFrameValue) {
+          case 'week':
+            formatValue = 'ddd'
+            break;
+          case 'year':
+            formatValue = 'MMM'
+            break;
+          case 'custom':
+            formatValue = 'DD MMM'
+            break;
+          default:
+            formatValue = 'MMM'
+        }
+
+        for (let i = 0; i < label.length; i++) {
+
+          let formattedLabelValue : any;
+          if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'last_365_days' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
+            formattedLabelValue = label[i];
+          } else {
+            formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
+          }
+
+          this.label.push(formattedLabelValue);
+          this.data.push(revenue[i]);
+        }
+
+        if(this.graphElement) this.graphElement.destroy();
+        this.graphElement = new Chart("revenueChart", {
+          type: 'line',
+          data: {
+            labels: this.label,
+            datasets: [
+            {
+              label: timeFrameValue ? timeFrameValue.toUpperCase() : ('year').toUpperCase(),
+              data: this.data,
+              fill: true,
+              backgroundColor: [
+                '#6365EF10'
+              ],
+              borderColor: [
+                '#6365EF'
+              ],
+              borderWidth: 1,
+              pointRadius: 3,
+              pointStyle: 'circle',
+              tension: 0
+            }],
+
           },
-          y: {
-            grid: {
-              borderColor: '#00000014',
-              display:false,
-              tickWidth: 20,
-              tickLength: 20
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            layout:{
+              padding: 20
             },
-            beginAtZero: true,
-            ticks:{
-              color: '#6365ef',
-              font: {
-                weight: '400',
-                size: 17.3639,
-                family: 'SF Pro Display'
+            scales: {
+              x: {
+                grid: {
+                  borderColor: '#00000014',
+                  display:false,
+                  tickWidth: 20,
+                  tickLength: 30
+                },
+                ticks:{
+                  color: this.axisColor,
+                  font: {
+                    weight: '400',
+                    size: 17.3639,
+                    family: 'SF Pro Display'
+                  }
+                },
+              },
+              y: {
+                grid: {
+                  borderColor: '#00000014',
+                  display:false,
+                  tickWidth: 20,
+                  tickLength: 20
+                },
+                beginAtZero: true,
+                ticks:{
+                  color: this.axisColor,
+                  font: {
+                    weight: '400',
+                    size: 17.3639,
+                    family: 'SF Pro Display'
+                  }
+                },
+                title: {
+                  display: true,
+                  // text: 'Revenue in $',
+                  color: '#6365ef'
+                }
               }
             },
-            title: {
-              display: true,
-              // text: 'Revenue in $',
-              color: '#6365ef'
+            elements: {
+              line: {
+                tension: 0  // smooth lines
+              },
+            },
+            plugins: {
+              legend: {
+                display: false
+              }
             }
           }
-        },
-        elements: {
-          line: {
-            tension: 0  // smooth lines
-          },
-        },
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-      }
+        });
+      }, 10);         
     });
+    
   }
   /* Draw Chart based on API data - End */
 
@@ -267,30 +277,51 @@ export class RevenueComponent implements OnInit {
     this.endDate = dateRangeEnd.value
     setTimeout( ()=>{
       this.getReports('custom', this.startDate, this.endDate)
-      }, 1000)
+    }, 1000);
   }
 
   downloadReport() {
     let data = {
-      title: `Success`,
+      title: `Report downloaded successfully!`,
       icon: 'trash',
       showCloseBtn: true,
       buttonGroup: [
         // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
         { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
       ],
-      message: 'Report is successfully downloaded'
+      message: 'Revenue report has been successfully downloaded.'
     };
-
     
-    // return;
-
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'last_365_days';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
     this.reportService.getDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
-
-        
 
           if(res && res.length <= 0) {
             let customTitle: string = 'Info';
@@ -307,7 +338,7 @@ export class RevenueComponent implements OnInit {
                 });
 
             papa.unparse(res);
-            const fileName = `transactionReport.csv`;
+            const fileName = `TransactionReport.csv`;
             const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
             FileSaver(blob, fileName);
           }
@@ -327,7 +358,33 @@ export class RevenueComponent implements OnInit {
       email: this.userDetails.email
     };
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'last_365_days';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
     this.reportService.sendTransactionAndRevenueReportMail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {

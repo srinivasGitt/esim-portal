@@ -1,18 +1,19 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
   serverUrl = environment.serverUrl;
   private _currentUser$ = new BehaviorSubject<any>(undefined);
+  inProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient) {}
 
-  /* 
+  /*
   ************************************
   Commented to check with interceptor
   ************************************
@@ -65,7 +66,7 @@ export class UsersService {
     } else {
       return this.http.get(`${this.serverUrl}/users`, this.getHeader());
     }
-    
+
   }
 
   updateUser(id: any, data: any) {
@@ -83,23 +84,23 @@ export class UsersService {
 
   */
 
-  getUserDetails(){
+  getUserDetails() {
     return this.http.get(`${this.serverUrl}/users/me`);
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     return this._currentUser$.asObservable();
   }
 
-  setCurrentUser(userDetails : any){
+  setCurrentUser(userDetails: any) {
     this._currentUser$.next(userDetails);
   }
 
-  changeCurrentCustomer( data:any){
+  changeCurrentCustomer(data: any) {
     return this.http.post(`${this.serverUrl}/users/change-customer`, data);
   }
 
-  setDefaultCustomer(){
+  setDefaultCustomer() {
     return this.http.get(`${this.serverUrl}/users/set-default-customer`);
   }
 
@@ -108,13 +109,13 @@ export class UsersService {
   }
 
   getAllUsers(custId: any, itemsPerPage?: number, currentPage?: number) {
-    if(itemsPerPage && currentPage) {
-      return this.http.get(`${this.serverUrl}/users?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`);
-    }
-    else if(custId) {
+    if (itemsPerPage && currentPage) {
+      return this.http.get(
+        `${this.serverUrl}/users?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`
+      );
+    } else if (custId) {
       return this.http.get(`${this.serverUrl}/users?customerId=${custId}`);
-    } 
-    else {
+    } else {
       return this.http.get(`${this.serverUrl}/users`);
     }
   }
@@ -128,9 +129,7 @@ export class UsersService {
   }
 
   // Invite User
-  inviteUser(data:any){
+  inviteUser(data: any) {
     return this.http.post(`${this.serverUrl}/users/invite-user`, data);
   }
-
-
 }

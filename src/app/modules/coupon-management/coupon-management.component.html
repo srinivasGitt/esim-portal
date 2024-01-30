@@ -253,22 +253,19 @@
               </span>
             </div>
             <div class="t-box b px-1 d-flex text-overflow-ellipsis">
-              <span *ngIf="!(coupon.useType === 'unlimited')"
+              <span
                 >{{ coupon.numberOfCoupons }}
                 <span class="fs14"
                   >(
                   {{
                     'Used:' +
-                      (coupon.useCount >= coupon.availableCount
-                        ? coupon.useCount - coupon.availableCount
-                        : 0) +
+                      (coupon.numberOfCoupons - coupon.availableCount || 0) +
                       ', Remaining: ' +
-                      coupon.availableCount
+                      (coupon.availableCount || 0)
                   }}
                   )</span
                 ></span
               >
-              <span *ngIf="coupon.useType === 'unlimited'">{{ coupon.useType | titlecase }}</span>
             </div>
             <div class="t-box a px-1 d-flex">
               {{ coupon?.discount?.discountType === 'fixedPrice' ? 'Fix Price' : 'Percentage' }}

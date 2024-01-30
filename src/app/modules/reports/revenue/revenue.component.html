@@ -1,7 +1,7 @@
 <div class="common-header user-dashboard  main-content-div-area">
     <div class="heading-flex">
         <div class="heading-text">
-            <h2>Reports</h2>
+            <h2>Revenue Report</h2>
         </div>
     </div>
 
@@ -17,7 +17,7 @@
                         <a class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center" role="button"
                             id="dropdownMenuLink-lang" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <span id="languageTootltip">{{selectedDay}}
+                            <span id="languageTootltip" style="font-weight: 600;">{{selectedDay}}
                             </span>
                             <!-- <i class="fa fa-angle-down ms-auto" style="top: 4px;right: -18px;"></i> -->
                             <!-- <img class="fa-angle-down ms-auto" style="height: 9px;" src="assets/images/dashboard/icon/down-arrow.svg" alt=""> -->
@@ -33,6 +33,18 @@
 
                         <div class="dropdown-menu lang-dropdown-option border-secondary"
                             aria-labelledby="dropdownMenuLink-lang">
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'All'}"
+                                (click)="selectTimeframe('all'); selectedDay = 'All'; isCustomRange= false">All</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'Last 365 Days'}"
+                                (click)="selectTimeframe('last_365_days'); selectedDay = 'Last 365 Days'; isCustomRange= false">Last 365 Days</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'Last Month'}"
+                                (click)="selectTimeframe('previous_month'); selectedDay = 'Last Month'; isCustomRange= false">Last Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular"
+                                [ngClass]="{'hover-bg': selectedDay == 'Last Week'}"
+                                (click)="selectTimeframe('previous_week'); selectedDay = 'Last Week'; isCustomRange= false">Last Week</a>
                             <a class="dropdown-item lang-dropdown-item sg-font-regular"
                                 [ngClass]="{'hover-bg': selectedDay == 'Current Week'}"
                                 (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current
@@ -114,8 +126,8 @@
 
                     <div class="dashboard-head-flex">
                         <div>
-                            <button type="button" class="btn btn-dashboard-head d-flex" (click)="downloadReport()">
-                                <span class="me-3 m-auto">
+                            <button type="button" class="btn btn-dashboard-head d-flex align-items-center" (click)="downloadReport()">
+                                <span class="me-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22"
                                         fill="none">
                                         <circle cx="10.5" cy="11" r="10.5" fill="white" />
@@ -136,7 +148,7 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <span class="m-auto">Download Report</span>
+                                <span>Download Report</span>
                             </button>
                         </div>
                     </div>
@@ -149,13 +161,13 @@
 
                     <div class="dashboard-head-flex">
                         <div>
-                            <button type="button" class="btn btn-dashboard-head d-flex email-report-btn" (click)="sendTransactionAndRevenueReportMail()">
-                                <span class="me-3 my-auto">
+                            <button type="button" class="btn btn-dashboard-head d-flex align-items-center" (click)="sendTransactionAndRevenueReportMail()">
+                                <span class="me-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
                                         <path d="M15.75 0H1.75C0.7875 0 0.00874999 0.7875 0.00874999 1.75L0 12.25C0 13.2125 0.7875 14 1.75 14H15.75C16.7125 14 17.5 13.2125 17.5 12.25V1.75C17.5 0.7875 16.7125 0 15.75 0ZM15.75 3.5L8.75 7.875L1.75 3.5V1.75L8.75 6.125L15.75 1.75V3.5Z" fill="white"/>
                                     </svg>
                                 </span>
-                                <span class="my-auto">Email Report</span>
+                                <span>Email Report</span>
                             </button>
                         </div>
                     </div>

@@ -25,6 +25,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
+import { SubscriberComponent } from './reports/subscriber/subscriber.component';
+import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { UserComponent } from './user/user.component';
     CouponManagementComponent,
     RevenueComponent,
     DataUsageComponent,
+    SubscriberComponent,
+    SubscriptionReportComponent,
   ],
   imports: [
     CommonModule,

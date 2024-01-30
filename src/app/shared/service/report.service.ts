@@ -45,7 +45,91 @@ export class ReportService {
   getCountryAndPlanList() {
     return [
       this.http.get(`${this.serverUrl}/subscription/countries`),
-      this.http.get(`${this.serverUrl}/subscription/plans`),
+      this.http.get(`${this.serverUrl}/subscription/planDropdown`),
     ];
+  }
+
+  getSubscriberGraphReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscribers/report/graph?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscribers/report/graph?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscribers/report/graph?dateRange=year`)
+    }
+  }
+
+  getSubscriberDownloadReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscribers/report/data?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscribers/report/data?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscribers/report/data?dateRange=year`)
+    }
+  }
+
+  sendSubscriberReportEmail(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscribers/report/email?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscribers/report/email?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscribers/report/email?dateRange=year`)
+    }
+  }
+
+  getSubscriptionGraphReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscriptions/report/graph?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscriptions/report/graph?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscriptions/report/graph?dateRange=year`)
+    }
+  }
+
+  getSubscriptionDownloadReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscriptions/report/data?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscriptions/report/data?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscriptions/report/data?dateRange=year`)
+    }
+  }
+
+  sendSubscriptionReportEmail(dateRangeValue?: string, fromDate?: any, toDate?: any) {
+    if(dateRangeValue) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
+        return this.http.get(`${this.serverUrl}/subscriptions/report/email?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
+      }
+      else {
+        return this.http.get(`${this.serverUrl}/subscriptions/report/email?dateRange=${dateRangeValue}`)
+      }
+    }
+    else {
+      return this.http.get(`${this.serverUrl}/subscriptions/report/email?dateRange=year`)
+    }
   }
 }

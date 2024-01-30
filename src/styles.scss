@@ -1,22 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./assets/scss/onboarding";
-@import "./assets/scss/fonts";
-@import "./assets/scss/authCommon";
-@import "./assets/scss/cursorstyling";
-@import "./assets/scss/modules";
-@import "./assets/scss/dialog";
-@import "./assets/scss/navbar";
-@import "./assets/scss/tooltip";
-@import "~@ng-select/ng-select/themes/default.theme.css";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "./assets/scss/pagination";
+@import './assets/scss/onboarding';
+@import './assets/scss/fonts';
+@import './assets/scss/authCommon';
+@import './assets/scss/cursorstyling';
+@import './assets/scss/modules';
+@import './assets/scss/dialog';
+@import './assets/scss/navbar';
+@import './assets/scss/tooltip';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import './assets/scss/pagination';
 
 * {
   scrollbar-width: thin !important;
 }
 
-:root{
- /*
+:root {
+  /*
     --dark-background: #fff;
     // --dark-background-v1: #F5F6F9;              // --main-background-color
     // --dark-background-v2: #E9EAF0;              // --navbar-ele-bg-color
@@ -124,54 +124,54 @@
     }
 */
   /* FONTS */
-  --font-family-sf-pro-display: "SF Pro Display";
-  --font-family-inter: "Inter";
+  --font-family-sf-pro-display: 'SF Pro Display';
+  --font-family-inter: 'Inter';
 
-    /* COLORS */
-    --main-background-color: #F6F7FF;
-    --card-background-color: #FFFFFF;
-    --box-shadow-size-color: 0px 4px 8px #D8DAFF;
-    --sidebar-link-color: #1C1C1C;
-    --navbar-ele-bg-color: #E9EAF0;
-    --navbar-ele-hover-bg-color: #D9D9D9;
-    --hover-bg-color: #D9D9D9;
-    --search-placeholder-text-icon-color: rgba(0, 0, 0, 0.72);
-    --navbar-username-text-color: rgba(0, 0, 0, 0.83);
-    --main-heading-text-color: #000000;
-    --dark-right-border: rgb(69, 69, 69, 0.48);
-    --add-button-bg-color: #6365EF;
-    --graph-heading-text-color: #04103B;
-    --dropdown-filter: #1F1F1F;
-    --dropdown-text: #FFFFFF;
-    --add-button-hover-bg-color: #585ABA;
-    --pagination-font-color: #FFFFFF;
-    --modal-cross-icon-color: #667085;
-    --active-link-background-color: rgba(99, 101, 239, 0.17);
-    --info-button-bg-color: #428EFF;
-    --upload-border: rgba(99, 101, 239, 0.3);
-    --file-icon-border: #D1D1FB;
-    --dark-multi-color-border: rgba(218, 218, 218, 1);
-    --calendar-start-select-bg-color: rgba(99, 101, 239, 0.6);
-    --calendar-select-color: #6365EF;
-    --calendar-range-date-bg-color: rgba(99, 101, 239, 0.1);
-    --dropdown-hover-bg-color: var(--active-link-background-color);
-    --widget-svg-color: #04103B;
-    --plan-status-hover-bg-color: #FFFFFF;
-    --active-status-text-color: #43BE83;
-    --inactive-status-text-color: #EC5837;
-    --calendar-value-text-color: #6365EF;
-    --calendar-other-date-text-color:#8B8B8B;
-    --selected-value-background-color: rgba(105, 112, 241, 0.1);
-    --input-text-color: #000000;
-    --settings-card-heading-text-color: #473BAA;
-    --loyalty-card-heading-text-color: #473BAA;
-    --loyalty-card-sub-heading-text-color: #000;
-    --loyalty-card-input-field-color: #FFFFFF !important;
-    --loyalty-card-cancel-btn-color: rgba(0, 0, 0, 0.5);
-    --settings-helping-text-color: #000000;
-    --radio-label-text-color: #000000;
-    --bottom-border-color: #A8A9FD;
-    --show-more-text-color: #475467;
+  /* COLORS */
+  --main-background-color: #f6f7ff;
+  --card-background-color: #ffffff;
+  --box-shadow-size-color: 0px 4px 8px #d8daff;
+  --sidebar-link-color: #1c1c1c;
+  --navbar-ele-bg-color: #e9eaf0;
+  --navbar-ele-hover-bg-color: #d9d9d9;
+  --hover-bg-color: #d9d9d9;
+  --search-placeholder-text-icon-color: rgba(0, 0, 0, 0.72);
+  --navbar-username-text-color: rgba(0, 0, 0, 0.83);
+  --main-heading-text-color: #000000;
+  --dark-right-border: rgb(69, 69, 69, 0.48);
+  --add-button-bg-color: #6365ef;
+  --graph-heading-text-color: #04103b;
+  --dropdown-filter: #1f1f1f;
+  --dropdown-text: #ffffff;
+  --add-button-hover-bg-color: #585aba;
+  --pagination-font-color: #ffffff;
+  --modal-cross-icon-color: #667085;
+  --active-link-background-color: rgba(99, 101, 239, 0.17);
+  --info-button-bg-color: #428eff;
+  --upload-border: rgba(99, 101, 239, 0.3);
+  --file-icon-border: #d1d1fb;
+  --dark-multi-color-border: rgba(218, 218, 218, 1);
+  --calendar-start-select-bg-color: rgba(99, 101, 239, 0.6);
+  --calendar-select-color: #6365ef;
+  --calendar-range-date-bg-color: rgba(99, 101, 239, 0.1);
+  --dropdown-hover-bg-color: var(--active-link-background-color);
+  --widget-svg-color: #04103b;
+  --plan-status-hover-bg-color: #ffffff;
+  --active-status-text-color: #43be83;
+  --inactive-status-text-color: #ec5837;
+  --calendar-value-text-color: #6365ef;
+  --calendar-other-date-text-color: #8b8b8b;
+  --selected-value-background-color: rgba(105, 112, 241, 0.1);
+  --input-text-color: #000000;
+  --settings-card-heading-text-color: #473baa;
+  --loyalty-card-heading-text-color: #473baa;
+  --loyalty-card-sub-heading-text-color: #000;
+  --loyalty-card-input-field-color: #ffffff !important;
+  --loyalty-card-cancel-btn-color: rgba(0, 0, 0, 0.5);
+  --settings-helping-text-color: #000000;
+  --radio-label-text-color: #000000;
+  --bottom-border-color: #a8a9fd;
+  --show-more-text-color: #475467;
 
   /* SWITCH */
   --dark-primary-background: #59d956;
@@ -211,57 +211,63 @@
   --subscription-modal-helper-text-color: #475467;
   --subscription-data-text-color: #000000;
 
-    --ng-select-value-bg-color: #F7F7F7;
-    --ng-option-selected-bg-color: rgba(105, 112, 241, 0.10);
-    --settings-sub-text-color: rgba(0, 0, 0, 0.50);
-    --ng-placeholder-color: #667085;
-    --ng-select-list-item-color: rgba(31, 29, 29, 0.76);
-    --checked-mark-color: #FFFFFF;
-    --info-section-border-bottom-color: #ebebeb;
-    --status-dropdown-bg-color: #ffffff;
-    --status-dropdown-border-color: #d3cbfb;
-    --placeholder-color: #000000;
-    --svg-fill-color: #475467;
-    --coupon-ng-value-bg-color: #f7f7f7;
-    --coupon-ng-value-color: #000000;
-    --svg-bright-value: 1;
-    --svg-invert-value: 0;
+  --ng-select-value-bg-color: #f7f7f7;
+  --ng-option-selected-bg-color: rgba(105, 112, 241, 0.1);
+  --settings-sub-text-color: rgba(0, 0, 0, 0.5);
+  --ng-placeholder-color: #667085;
+  --ng-select-list-item-color: rgba(31, 29, 29, 0.76);
+  --checked-mark-color: #ffffff;
+  --info-section-border-bottom-color: #ebebeb;
+  --status-dropdown-bg-color: #ffffff;
+  --status-dropdown-border-color: #d3cbfb;
+  --placeholder-color: #000000;
+  --svg-fill-color: #475467;
+  --coupon-ng-value-bg-color: #f7f7f7;
+  --coupon-ng-value-color: #000000;
+  --svg-bright-value: 1;
+  --svg-invert-value: 0;
 
-    /*table border*/
-    --table-row-seperator-color:rgba(99, 102, 104, 0.2);
+  /*table border*/
+  --table-row-seperator-color: rgba(99, 102, 104, 0.2);
 
-    /*upload inventry*/
-    --upload-inventory-border: rgba(99, 101, 239, 0.37);
+  /*upload inventry*/
+  --upload-inventory-border: rgba(99, 101, 239, 0.37);
 
-    /*child menu*/
-    --child-route-bg-color:rgba(0, 0, 0, 0.05);
+  /*child menu*/
+  --child-route-bg-color: rgba(0, 0, 0, 0.05);
 
-    /*status filter*/
-    --status-filter-bg: #FFF;
-    --status-filter-box-shadow: #D8DAFF;
-    --status-filter-border:#D3CBFB;
-    --status-dropdown-bg-color:#FFF;
-    --status-dropdown-box-shadow: #D8DAFF;
+  /*status filter*/
+  --status-filter-bg: #fff;
+  --status-filter-box-shadow: #d8daff;
+  --status-filter-border: #d3cbfb;
+  --status-dropdown-bg-color: #fff;
+  --status-dropdown-box-shadow: #d8daff;
 
-    /*download-sample-fill*/
-    --download-sample-icon-fill:#1C1B1F;
+  /*download-sample-fill*/
+  --download-sample-icon-fill: #1c1b1f;
 
-    /*support link circle*/
-    --support-link-circle: #E9EAF0;
+  /*support link circle*/
+  --support-link-circle: #e9eaf0;
 
-    /*copy-symbol-fill*/
-    --copy-icon-fill: black;
+  /*copy-symbol-fill*/
+  --copy-icon-fill: black;
 
-     /*disabled input*/
-     --disabled-input-color:rgba(105, 105, 105, 0.8);
+  /*disabled input*/
+  --disabled-input-color: rgba(105, 105, 105, 0.8);
 
-     /*date icon colors*/
-    --enabled-date-icon-color: rgba(0, 0, 0, 0.70);
-    --disabled-date-icon-color:rgba(105, 105, 105, 0.8);
+  /*date icon colors*/
+  --enabled-date-icon-color: rgba(0, 0, 0, 0.7);
+  --disabled-date-icon-color: rgba(105, 105, 105, 0.8);
 
-     /* navbar child border*/
-     --navbar-child-border:rgba(0, 0, 0, 0.14);
-     --navbar-child-arrow:rgba(28, 28, 28, 1);
+  /* navbar child border*/
+  --navbar-child-border: rgba(0, 0, 0, 0.14);
+  --navbar-child-arrow: rgba(28, 28, 28, 1);
+
+  /*selected country bg*/
+  --selected-country-bg-color: rgba(99, 101, 239, 0.1);
+
+  --grpah-axis-label-color: #6d42f2;
+  --graph-title-color: #1c1c1c;
 
   /* SVG Color Change */
   .revenue-icon {
@@ -270,17 +276,18 @@
     }
   }
 
-    .icon {
-        path, circle {
-            fill: var(--search-placeholder-text-icon-color);
-        }
+  .icon {
+    path,
+    circle {
+      fill: var(--search-placeholder-text-icon-color);
     }
-    .info-default {
-        path {
-            fill: var(--info-button-bg-color);
-            opacity: 0.55;
-        }
+  }
+  .info-default {
+    path {
+      fill: var(--info-button-bg-color);
+      opacity: 0.55;
     }
+  }
 
   .user-dashboard-table-container {
     background: var(--card-background-color);
@@ -294,26 +301,29 @@
     box-shadow: none;
   }
 
-  input[type="date"] {
+  input[type='date'] {
     &::-webkit-calendar-picker-indicator {
       background: url(/assets/icons/down-caret-black.svg) no-repeat;
     }
   }
 
-    .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-        color: var(--calendar-other-date-text-color);
-    }
+  .mat-calendar-body-disabled
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+      .mat-calendar-body-comparison-identical
+    ) {
+    color: var(--calendar-other-date-text-color);
+  }
 
-    .loyalty-point-program-svg {
-      path {
-        fill: #000000 !important;
-        fill-opacity: 0.7 !important;
-      }
+  .loyalty-point-program-svg {
+    path {
+      fill: #000000 !important;
+      fill-opacity: 0.7 !important;
     }
+  }
 }
 
-.darkMode{
- /*
+.darkMode {
+  /*
     --dark-background: #151616;
     // --dark-background-v1: #151616;              // --main-background-color
     // --dark-background-v2: #1C1C1E;              // --navbar-ele-bg-color
@@ -376,46 +386,46 @@
     --pagination-font-color: #25282B;
 */
 
-    /* COLORS */
-    --main-background-color: #0D0E0E;
-    --card-background-color: #151616;
-    --box-shadow-size-color: 0px 2px 2px rgba(36, 39, 44, 0.49);
-    --sidebar-link-color: #FFFFFF;
-    --navbar-ele-bg-color: #24272C;
-    --navbar-ele-hover-bg-color: #24272c;
-    --hover-bg-color: #0D0E0E;
-    --search-placeholder-text-icon-color: rgba(255, 255, 255, 0.72);
-    --navbar-username-text-color: rgba(255, 255, 255, 0.83);
-    --main-heading-text-color: #FFFFFF;
-    --dark-right-border: rgb(69, 69, 69, 0.48);
-    --add-button-bg-color: #6365EF;
-    --graph-heading-text-color: #FFFFFF;
-    --dropdown-filter: #6365EF;
-    --dropdown-text: #FFFFFF;
-    --add-button-hover-bg-color: #585ABA;
-    --pagination-font-color: #FFFFFF;
-    --modal-cross-icon-color: #667085;
-    --active-link-background-color: rgba(99, 101, 239, 0.17);
-    --upload-border: rgba(183, 184, 253, 0.13);
-    --file-icon-border: var(--upload-border);
-    --info-button-bg-color: #FFFFFF;
-    --dark-multi-color-border: rgba(24, 24, 24, 1);
-    --dropdown-hover-bg-color: var(--main-background-color);
-    --widget-svg-color: #9A9BF6;
-    --plan-status-hover-bg-color: #FFFFFF;
-    --calendar-value-text-color: #AEAFFF;
-    --calendar-other-date-text-color:#2C2C2C;
-    --selected-value-background-color: rgba(105, 112, 241, 0.1);
-    --input-text-color: #FFFFFF;
-    --settings-card-heading-text-color: var(--table-heading-text-color);
-    --loyalty-card-heading-text-color: var(--table-heading-text-color);
-    --loyalty-card-sub-heading-text-color: rgba(255, 255, 255, 0.50);
-    --loyalty-card-input-field-color: transparent;
-    --loyalty-card-cancel-btn-color: #FFFFFF;
-    --settings-helping-text-color: var(--table-text-color);
-    --radio-label-text-color: #8B8B8B;
-    --bottom-border-color: #A8A9FD;
-    --show-more-text-color: rgba(255, 255, 255, 0.5);
+  /* COLORS */
+  --main-background-color: #0d0e0e;
+  --card-background-color: #151616;
+  --box-shadow-size-color: 0px 2px 2px rgba(36, 39, 44, 0.49);
+  --sidebar-link-color: #ffffff;
+  --navbar-ele-bg-color: #24272c;
+  --navbar-ele-hover-bg-color: #24272c;
+  --hover-bg-color: #0d0e0e;
+  --search-placeholder-text-icon-color: rgba(255, 255, 255, 0.72);
+  --navbar-username-text-color: rgba(255, 255, 255, 0.83);
+  --main-heading-text-color: #ffffff;
+  --dark-right-border: rgb(69, 69, 69, 0.48);
+  --add-button-bg-color: #6365ef;
+  --graph-heading-text-color: #ffffff;
+  --dropdown-filter: #6365ef;
+  --dropdown-text: #ffffff;
+  --add-button-hover-bg-color: #585aba;
+  --pagination-font-color: #ffffff;
+  --modal-cross-icon-color: #667085;
+  --active-link-background-color: rgba(99, 101, 239, 0.17);
+  --upload-border: rgba(183, 184, 253, 0.13);
+  --file-icon-border: var(--upload-border);
+  --info-button-bg-color: #ffffff;
+  --dark-multi-color-border: rgba(24, 24, 24, 1);
+  --dropdown-hover-bg-color: var(--main-background-color);
+  --widget-svg-color: #9a9bf6;
+  --plan-status-hover-bg-color: #ffffff;
+  --calendar-value-text-color: #aeafff;
+  --calendar-other-date-text-color: #2c2c2c;
+  --selected-value-background-color: rgba(105, 112, 241, 0.1);
+  --input-text-color: #ffffff;
+  --settings-card-heading-text-color: var(--table-heading-text-color);
+  --loyalty-card-heading-text-color: var(--table-heading-text-color);
+  --loyalty-card-sub-heading-text-color: rgba(255, 255, 255, 0.5);
+  --loyalty-card-input-field-color: transparent;
+  --loyalty-card-cancel-btn-color: #ffffff;
+  --settings-helping-text-color: var(--table-text-color);
+  --radio-label-text-color: #8b8b8b;
+  --bottom-border-color: #a8a9fd;
+  --show-more-text-color: rgba(255, 255, 255, 0.5);
 
   /* SWITCH */
   --settings-slider-bg-color: #b4b4b4;
@@ -432,7 +442,7 @@
   --table-text-color: rgba(255, 255, 255, 0.55);
   --show-entries-text-color: rgba(255, 255, 255, 0.5);
   --action-background-color: #181b21;
-  --widget-helper-text-color: #c1c1c1;
+  --widget-helper-text-color: rgba(255, 255, 255, 0.55);
   --plan-info-text-color: #aaaeb6;
   --svg-color: #ffffff;
 
@@ -452,61 +462,67 @@
   --subscription-modal-helper-text-color: #ffffff;
   --subscription-data-text-color: #ffffff;
 
-    --ng-select-value-bg-color: #1E1E1E;
-    --ng-option-selected-bg-color: rgba(99, 101, 239, 0.10);
-    --settings-sub-text-color: rgba(255, 255, 255, 0.50);
-    --ng-placeholder-color: #FFFFFF;
-    --ng-select-list-item-color: rgba(255, 255, 255, 0.50);
-    --checked-mark-color: #000000;
-    --info-section-border-bottom-color: rgba(135, 118, 118, 0.13);
-    --status-dropdown-bg-color: #2c2d2d;
-    --status-dropdown-border-color: none;
-    --placeholder-color: #ffffff;
-    --svg-fill-color: #ffffff;
-    --coupon-ng-value-bg-color: rgba(99, 101, 239, 0.6);
-    --coupon-ng-value-color: #ffffff;
-    --svg-bright-value: 0;
-    --svg-invert-value: 1;
+  --ng-select-value-bg-color: #1e1e1e;
+  --ng-option-selected-bg-color: rgba(99, 101, 239, 0.1);
+  --settings-sub-text-color: rgba(255, 255, 255, 0.5);
+  --ng-placeholder-color: #ffffff;
+  --ng-select-list-item-color: rgba(255, 255, 255, 0.5);
+  --checked-mark-color: #000000;
+  --info-section-border-bottom-color: rgba(135, 118, 118, 0.13);
+  --status-dropdown-bg-color: #2c2d2d;
+  --status-dropdown-border-color: none;
+  --placeholder-color: #ffffff;
+  --svg-fill-color: #ffffff;
+  --coupon-ng-value-bg-color: rgba(99, 101, 239, 0.6);
+  --coupon-ng-value-color: #ffffff;
+  --svg-bright-value: 0;
+  --svg-invert-value: 1;
 
-    /*table border*/
-    --table-row-seperator-color:rgba(99, 102, 104, 0.2);
+  /*table border*/
+  --table-row-seperator-color: rgba(99, 102, 104, 0.2);
 
-    /*upload inventry*/
-    --upload-inventory-border: rgba(183, 184, 253, 0.37);
+  /*upload inventry*/
+  --upload-inventory-border: rgba(183, 184, 253, 0.37);
 
-    /*child menu*/
-    --child-route-bg-color:rgba(255, 255, 255, 0.05);
+  /*child menu*/
+  --child-route-bg-color: rgba(255, 255, 255, 0.05);
 
-    /*status filter*/
-    --status-filter-bg:rgba(255, 255, 255, 0.10);
-    --status-filter-box-shadow: rgba(0, 0, 0, 0.20);
-    --status-filter-border:#D3CBFB;
-    --status-dropdown-bg-color:#2C2D2D;
-    --status-dropdown-box-shadow: rgba(0, 0, 0, 0.20);
+  /*status filter*/
+  --status-filter-bg: rgba(255, 255, 255, 0.1);
+  --status-filter-box-shadow: rgba(0, 0, 0, 0.2);
+  --status-filter-border: #d3cbfb;
+  --status-dropdown-bg-color: #2c2d2d;
+  --status-dropdown-box-shadow: rgba(0, 0, 0, 0.2);
 
-    /*download-sample-fill*/
-    --download-sample-icon-fill:#949494;
+  /*download-sample-fill*/
+  --download-sample-icon-fill: #949494;
 
-     /*support link circle*/
-    --support-link-circle: #24272C;
+  /*support link circle*/
+  --support-link-circle: #24272c;
 
-    /*copy-symbol-fill*/
-    --copy-icon-fill: white;
+  /*copy-symbol-fill*/
+  --copy-icon-fill: white;
 
-      /*disabled input*/
-    --disabled-input-color:rgba(105, 105, 105, 1);
+  /*disabled input*/
+  --disabled-input-color: rgba(105, 105, 105, 1);
 
-    /*date icon colors*/
-    --enabled-date-icon-color:#fff;
-    --disabled-date-icon-color:rgba(105, 105, 105, 1);
+  /*date icon colors*/
+  --enabled-date-icon-color: #fff;
+  --disabled-date-icon-color: rgba(105, 105, 105, 1);
 
-     /* navbar child border*/
-     --navbar-child-border: rgba(255, 255, 255, 0.14);
-     --navbar-child-arrow:rgba(255, 255, 255, 1);
+  /* navbar child border*/
+  --navbar-child-border: rgba(255, 255, 255, 0.14);
+  --navbar-child-arrow: rgba(255, 255, 255, 1);
 
-    /* SWITCH */
-    --dark-primary-background: #59D956;
-    --dark-text-white-v2: #959595;
+  /*selected country bg*/
+  --selected-country-bg-color: rgba(105, 112, 241, 0.1);
+
+  /* SWITCH */
+  --dark-primary-background: #59d956;
+  --dark-text-white-v2: #959595;
+
+  --grpah-axis-label-color: #ffffff;
+  --graph-title-color: rgba(178, 178, 178, 0.65);
 
   /* SVG Color Change */
   .search-icon-div {
@@ -515,12 +531,12 @@
     }
   }
 
-    .info-default {
-        path {
-            fill: var(--info-button-bg-color);
-            opacity: 1;
-        }
+  .info-default {
+    path {
+      fill: var(--info-button-bg-color);
+      opacity: 1;
     }
+  }
 
   .revenue-icon {
     circle {
@@ -536,23 +552,23 @@
     }
   }
 
-    .add-user-icon {
-        .rect1 {
-            fill: #33A85B;
-        }
-        .rect2 {
-            stroke: #1F6644;
-        }
+  .add-user-icon {
+    .rect1 {
+      fill: #33a85b;
     }
+    .rect2 {
+      stroke: #1f6644;
+    }
+  }
 
-    .confirmation-icon {
-        .rect1 {
-            fill: #FFD6D3;
-        }
-        .rect2 {
-            stroke: #FF6D63;
-        }
+  .confirmation-icon {
+    .rect1 {
+      fill: #ffd6d3;
     }
+    .rect2 {
+      stroke: #ff6d63;
+    }
+  }
 
   .down-arrow {
     path {
@@ -586,14 +602,14 @@
     background-image: url(assets/icons/select-arrow-dark.svg) !important;
   }
 
-    .ng-tooltip{
-        &-light {
-            background: #0D0C0F !important;
-            color: #FFFFFF !important;
-        }
+  .ng-tooltip {
+    &-light {
+      background: #0d0c0f !important;
+      color: #ffffff !important;
     }
+  }
 
-  input[type="date"] {
+  input[type='date'] {
     &::-webkit-calendar-picker-indicator {
       background: url(/assets/icons/down-caret-white.svg) no-repeat;
     }
@@ -606,49 +622,58 @@
     color: var(--table-heading-text-color);
   }
 
-    .mat-calendar-table-header,
-    .mat-calendar-body-label,
-    .mat-calendar-body-cell-content.mat-focus-indicator,
-    .mat-calendar-previous-button::after,
-    .mat-calendar-next-button::after, .mat-date-range-input-separator, .mat-datepicker-toggle-default-icon {
-        color: var(--table-heading-text-color);
-    }
+  .mat-calendar-table-header,
+  .mat-calendar-body-label,
+  .mat-calendar-body-cell-content.mat-focus-indicator,
+  .mat-calendar-previous-button::after,
+  .mat-calendar-next-button::after,
+  .mat-date-range-input-separator,
+  .mat-datepicker-toggle-default-icon {
+    color: var(--table-heading-text-color);
+  }
 
-    .mat-calendar-arrow polygon {
-        fill: var(--table-heading-text-color);
-    }
+  .mat-calendar-arrow polygon {
+    fill: var(--table-heading-text-color);
+  }
 
-    .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-        color: var(--calendar-other-date-text-color);
-    }
+  .mat-calendar-body-disabled
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+      .mat-calendar-body-comparison-identical
+    ) {
+    color: var(--calendar-other-date-text-color);
+  }
 
-    .loyalty-point-program-svg {
-      path {
-        fill: #FFFFFF !important;
-        fill-opacity: 1 !important;
-      }
+  .showMenu .sub-menu {
+    border-left: 2px solid rgba(255, 255, 255, 0.14) !important;
+  }
+
+  .loyalty-point-program-svg {
+    path {
+      fill: #ffffff !important;
+      fill-opacity: 1 !important;
     }
+  }
 }
 
 body {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-    letter-spacing: 0.5px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  letter-spacing: 0.5px;
 
-    .modal-lg {
-        --bs-modal-width: 591px;        // for subscription and plan add/edit modals
-    }
+  .modal-lg {
+    --bs-modal-width: 591px; // for subscription and plan add/edit modals
+  }
 
-    .modal-md{
-        --bs-modal-width: 419px;        // for subscription info modals
-    }
+  .modal-md {
+    --bs-modal-width: 419px; // for subscription info modals
+  }
 
-    .modal-sm{
-        --bs-modal-width: 400px;        // for customer add/edit, plan info, subscriber info modals
-    }
+  .modal-sm {
+    --bs-modal-width: 400px; // for customer add/edit, plan info, subscriber info modals
+  }
 }
 
 ::-webkit-scrollbar {

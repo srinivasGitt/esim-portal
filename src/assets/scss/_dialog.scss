@@ -34,7 +34,7 @@
           &:after {
             position: absolute;
             left: 10px;
-            content: " ";
+            content: ' ';
             height: 17px;
             width: 2px;
             background-color: var(--modal-cross-icon-color);
@@ -45,6 +45,95 @@
           &:after {
             transform: rotate(-45deg);
           }
+        }
+      }
+    }
+    .modal-header-text {
+      color: var(--modal-header-text-color);
+      font-size: var(--modal-header-text-size);
+      font-weight: 600;
+    }
+
+    .modal-sub-header-text {
+      margin-top: 5px;
+      color: var(--modal-sub-header-text-color);
+      font-style: normal;
+      font-weight: 400;
+      font-size: var(--sidebar-text-size);
+      line-height: 20px;
+    }
+
+    .modal-sub-header-emil-text {
+      color: var(--modal-header-text-color);
+      font-style: normal;
+      font-weight: 400;
+      font-size: var(--sidebar-text-size);
+      line-height: 20px;
+    }
+
+    .es-modal-body {
+      margin-top: 16px;
+
+      .es-modal-form {
+        .es-modal-form-label {
+          color: var(--modal-form-label-text-color);
+          font-size: 16px;
+          font-weight: 600;
+        }
+        .es-input {
+          background-color: transparent;
+          color: var(--modal-form-label-text-color);
+          border-radius: 8px;
+          border: 1px solid var(--input-border-color);
+
+          &::placeholder {
+            color: var(--table-heading-text-color);
+          }
+        }
+
+        .border-purple {
+          border: 1px solid var(--input-border-color-hover) !important;
+        }
+        input:-internal-autofill-selected {
+          appearance: menulist-button;
+          background-image: none !important;
+          background-color: none !important;
+          color: fieldtext !important;
+        }
+        // .ng-select-container{
+        //     padding: 10px 0px;
+        //     background: transparent;
+        //     height: 40px;
+        //     width: 100%;
+        //     color: var(--dark-text-white-v6);
+        //     border: none;
+        //     border: 1px solid rgba(99, 101, 239, 0.48);
+        //     input{
+        //         color: transparent;
+        //     }
+        //     .ng-arrow {
+        //         transform: rotate(-90deg);
+        //         border-color: rgba(99, 101, 239, 0.48) transparent transparent;
+        //     }
+        // }
+
+        .ng-dropdown-panel {
+          margin-top: 10px;
+          box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+          border-radius: 4px;
+          border: none;
+          background: var(--card-background-color);
+          .ng-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 10px 10px;
+            background: var(--card-background-color);
+            color: var(--table-heading-text-color);
+          }
+        }
+        option {
+          color: var(--table-heading-text-color) !important;
         }
       }
     }
@@ -75,82 +164,82 @@
     .es-modal-body {
       margin-top: 16px;
 
-            .es-modal-form{
-                .es-modal-form-label{
-                    color: var(--modal-form-label-text-color);
-                    font-size: 16px;
-                    font-weight: 600;
-                }
-                .es-input{
-                    background-color: transparent;
-                    color: var(--modal-form-label-text-color);
-                    border-radius: 8px;
-                    border: 1px solid var(--input-border-color);
+      .es-modal-form {
+        .es-modal-form-label {
+          color: var(--modal-form-label-text-color);
+          font-size: 16px;
+          font-weight: 600;
+        }
+        .es-input {
+          background-color: transparent;
+          color: var(--modal-form-label-text-color);
+          border-radius: 8px;
+          border: 1px solid var(--input-border-color);
 
-                    &::placeholder {
-                      color: var(--table-heading-text-color);
-                  }
-                }
+          &::placeholder {
+            color: var(--table-heading-text-color);
+          }
+        }
 
-                .border-purple {
-                    border: 1px solid var(--input-border-color-hover) !important;
-                }
+        .border-purple {
+          border: 1px solid var(--input-border-color-hover) !important;
+        }
 
-                .border-error {
-                  border: 1px solid rgb(225, 112, 112) !important;
-                }
+        .border-error {
+          border: 1px solid rgb(225, 112, 112) !important;
+        }
 
-                .text-danger {
-                  color: rgb(225, 112, 112) !important;
-                }
+        .text-danger {
+          color: rgb(225, 112, 112) !important;
+        }
 
-                input:-internal-autofill-selected {
-                    appearance: menulist-button;
-                    background-image: none !important;
-                    background-color:none !important;
-                    color: fieldtext !important;
-                }
-                // .ng-select-container{
-                //     padding: 10px 0px;
-                //     background: transparent;
-                //     height: 40px;
-                //     width: 100%;
-                //     color: var(--dark-text-white-v6);
-                //     border: none;
-                //     border: 1px solid rgba(99, 101, 239, 0.48);
-                //     input{
-                //         color: transparent;
-                //     }
-                //     .ng-arrow {
-                //         transform: rotate(-90deg);
-                //         border-color: rgba(99, 101, 239, 0.48) transparent transparent;
-                //     }
-                // }
+        input:-internal-autofill-selected {
+          appearance: menulist-button;
+          background-image: none !important;
+          background-color: none !important;
+          color: fieldtext !important;
+        }
+        // .ng-select-container{
+        //     padding: 10px 0px;
+        //     background: transparent;
+        //     height: 40px;
+        //     width: 100%;
+        //     color: var(--dark-text-white-v6);
+        //     border: none;
+        //     border: 1px solid rgba(99, 101, 239, 0.48);
+        //     input{
+        //         color: transparent;
+        //     }
+        //     .ng-arrow {
+        //         transform: rotate(-90deg);
+        //         border-color: rgba(99, 101, 239, 0.48) transparent transparent;
+        //     }
+        // }
 
-                .ng-dropdown-panel{
-                    margin-top: 10px;
-                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-                    border-radius: 4px;
-                    border: none;
-                    background: var(--card-background-color);
-                    .ng-option{
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        padding: 10px 10px 10px 10px;
-                        background: var(--card-background-color);
-                        color: var(--table-heading-text-color);
-                        border-radius: 8px;
-                        margin-bottom: 4px;
-                    }
+        .ng-dropdown-panel {
+          margin-top: 10px;
+          box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+          border-radius: 4px;
+          border: none;
+          background: var(--card-background-color);
+          .ng-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 10px 10px;
+            background: var(--card-background-color);
+            color: var(--table-heading-text-color);
+            border-radius: 8px;
+            margin-bottom: 4px;
+          }
 
-                    .ng-option-marked {
-                      background-color: var(--ng-option-selected-bg-color) !important;
-                    }
-                  }
-                option{
-                    color: var(--table-heading-text-color) !important;
-                }
+          .ng-option-marked {
+            background-color: var(--ng-option-selected-bg-color) !important;
+          }
+        }
+        option {
+          color: var(--table-heading-text-color) !important;
+        }
 
         .imsi-input .ng-dropdown-panel {
           margin-top: 10px;
@@ -180,32 +269,32 @@
         color: var(--table-heading-text-color);
       }
 
-            /* upload inventory section - start */
-            .file-upload-body {
-                display: flex;
-                align-items: center;
-                border: 1px solid var(--upload-border);
-                border-radius: 7px;
-                height: 44px;
-                padding: 8px;
-                margin-bottom: 10px;
+      /* upload inventory section - start */
+      .file-upload-body {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--upload-border);
+        border-radius: 7px;
+        height: 44px;
+        padding: 8px;
+        margin-bottom: 10px;
 
-                .file-icon {
-                    display: flex;
-                    align-items: center;
+        .file-icon {
+          display: flex;
+          align-items: center;
 
-                    .file-icon-border {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 30px;
-                        height: 32px;
-                        border-radius: 4px;
-                        border: 1px solid var(--file-icon-border);
-                        margin-right: 8px;
-                    }
-                }
-            }
+          .file-icon-border {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid var(--file-icon-border);
+            margin-right: 8px;
+          }
+        }
+      }
 
       .file-download-body {
         display: flex;
@@ -224,42 +313,42 @@
           color: var(--modal-sub-header-text-color);
           font-size: 0.75rem;
 
-                    .file-icon-border {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 30px;
-                        height: 32px;
-                        border-radius: 4px;
-                        border: 1px solid var(--file-icon-border);
-                        margin-right: 8px;
-                    }
+          .file-icon-border {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid var(--file-icon-border);
+            margin-right: 8px;
+          }
 
-                    .file-icon-fill{
-                      fill: var(--download-sample-icon-fill);
-                  }
-                }
-
-                path{
-                    &:not(.color-stroke){
-                        fill: var(--table-heading-text-color);
-                    }
-                    &.color-stroke{
-                        stroke: var(--table-heading-text-color);
-                    }
-                }
-            }
-            /* upload inventory section - end */
+          .file-icon-fill {
+            fill: var(--download-sample-icon-fill);
+          }
         }
 
-        // Plan dialog
-        .plan-dialog-bodyscroll {
-            height: 63vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 8px;
+        path {
+          &:not(.color-stroke) {
+            fill: var(--table-heading-text-color);
+          }
+          &.color-stroke {
+            stroke: var(--table-heading-text-color);
+          }
         }
+      }
+      /* upload inventory section - end */
     }
+
+    // Plan dialog
+    .plan-dialog-bodyscroll {
+      height: 63vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 8px;
+    }
+  }
 }
 
 .select-bg {
@@ -322,6 +411,10 @@
 //         border: var(--dark-secondary-btn-border) solid #D0D5DD;
 //     }
 // }
+
+.subsInfo {
+  --bs-modal-width: 530px !important;
+}
 
 .border-right-valid-color {
   border-right-color: rgba(99, 101, 239, 0.48) !important;

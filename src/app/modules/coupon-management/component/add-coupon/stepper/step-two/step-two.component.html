@@ -371,7 +371,8 @@
             class="form-control es-input price-input number-input-right-padding"
             aria-describedby="totalUse"
             formControlName="totalUse"
-            (focus)="onInputFocus(); updateValidation()"
+            (focus)="onInputFocus()"
+            (keyup)="updateValidation()"
             appNumberOnly
             [ngClass]="{
               'border-purple border-right-valid-color': form.get('totalUse')?.valid,
@@ -379,7 +380,8 @@
                 form.get('totalUseType')?.value === 'limited' &&
                 form.get('totalUse')?.dirty &&
                 (form.get('totalUse')?.errors?.['required'] ||
-                  form.get('totalUse')?.errors?.['min'])
+                  form.get('totalUse')?.errors?.['min'] ||
+                  form.get('totalUse')?.errors?.['max'])
             }"
           />
           <span
@@ -390,7 +392,8 @@
                 form.get('totalUseType')?.value === 'limited' &&
                 form.get('totalUse')?.dirty &&
                 (form.get('totalUse')?.errors?.['required'] ||
-                  form.get('totalUse')?.errors?.['min'])
+                  form.get('totalUse')?.errors?.['min'] ||
+                  form.get('totalUse')?.errors?.['max'])
             }"
           >
             <svg
@@ -419,6 +422,7 @@
           formControlName="totalUseType"
           value="limited"
           (change)="onRadioButtonChange('limited')"
+          (keyup)="updateValidation()"
         />
         <div class="total-use-number-button">
           <span class="number-decremental" (click)="updateValue('totalUse', 'dec')"> - </span>
@@ -434,6 +438,14 @@
           >
             <span class="small text-wrap x-small">
               No. of use entered is invalid, please check the details and try again.
+            </span>
+          </span>
+          <span
+            class="help-block ng-invalid text-danger"
+            *ngIf="form.get('totalUse')?.dirty && form.get('totalUse')?.errors?.['max']"
+          >
+            <span class="small text-wrap x-small">
+              Number of use can't be more than the number of coupons.
             </span>
           </span>
         </div>

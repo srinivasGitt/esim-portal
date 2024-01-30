@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { CustomerService, UsersService, AlertService, DashboardService } from '../../service';
+import { FormBuilder, FormGroup, NgModel } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { AlertService, CustomerService, DashboardService, UsersService } from '../../service';
 import { LocalStorageService } from '../../service/local-storage.service';
-import { FormBuilder, FormGroup, NgForm, NgModel } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, pluck, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../service/search/search.service';
 declare var $: any;
 
@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center', '/loyalty-point-program', '/reports/revenue', '/reports/data-usage'];
+  urlList = ['/', '/reports', '/customer-management', '/user-management', '/setting', '/help-center', '/loyalty-point-program', '/reports/revenue', '/reports/data-usage',
+  '/reports/subscriber', '/reports/subscription'];
 
   constructor(private customerService: CustomerService,
               private dashboardService: DashboardService,

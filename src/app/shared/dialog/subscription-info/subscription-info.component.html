@@ -499,8 +499,9 @@
         <div class="modal-details-text">
           <span *ngIf="subscriptionDetails.transactionId; else noTransactionId">
             {{
-              subscriptionDetails?.buyingPrice?.price || 0
-                | currency : subscriptionDetails?.buyingPrice?.currency
+              (subscriptionDetails?.buyingPrice?.price
+                | currency : subscriptionDetails?.buyingPrice?.currency) ?? ((subscriptionDetails?.defaultPrice?.price
+              | currency : subscriptionDetails?.defaultPrice?.currency))
             }}
           </span>
           <ng-template #noTransactionId>NA</ng-template>
@@ -657,10 +658,7 @@
         </div>
         <div class="modal-details-text mt-0">
           {{
-            subscriptionDetails?.invoice?.convertedPrice -
-              (subscriptionDetails?.invoice?.cashValueRedeemed +
-                subscriptionDetails?.invoice?.couponAmount)
-              | currency : subscriptionDetails?.buyingPrice?.currency
+            subscriptionDetails?.price | currency : subscriptionDetails?.currency
           }}
         </div>
       </div>

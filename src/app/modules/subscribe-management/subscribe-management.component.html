@@ -1,5 +1,5 @@
 <div class="common-header subscriber-management">
-    <!-- <div class="d-flex search-form">
+  <!-- <div class="d-flex search-form">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search" #searchInput (keyup.enter)="searchRecord(searchInput.value)" (search)="searchRecord()">
         <span class="search-icon-div">
           <svg class="img-fluid" fill="#707070" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
@@ -9,7 +9,7 @@
           </svg>
         </span>
     </div> -->
-    <!-- <div class="dashboard-head-flex">
+  <!-- <div class="dashboard-head-flex">
         <div class="dashboard-head-text">
             <h2>Subscriber Management</h2>
         </div>
@@ -20,11 +20,11 @@
             </button>
         </div>
     </div> -->
-    <div class="row">
-        <div class="col-3">
-            <div>
-                <label class="section-head-text">Date Range</label>
-            </div>
+  <div class="row">
+    <div class="col-3">
+      <div>
+        <label class="section-head-text">Date Range</label>
+      </div>
 
             <div class="dashboard-head-flex">
                 <div class="filter-head d-flex py-1 px-4">
@@ -42,10 +42,10 @@
                         </a>
 
                         <div class="dropdown-menu lang-dropdown-option border-secondary" aria-labelledby="dropdownMenuLink-lang">
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Week'}" (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current Week</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Month'}" (click)="selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange= false">Current Month</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Current Year'}" (click)="selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange= false">Current Year</a>
-                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay == 'Custom Range'}" (click)="selectedDay = 'Custom Range'; isCustomRange= true;">Custom Range</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay === 'Current Week'}" (click)="selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange= false">Current Week</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay === 'Current Month'}" (click)="selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange= false">Current Month</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay === 'Current Year'}" (click)="selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange= false">Current Year</a>
+                            <a class="dropdown-item lang-dropdown-item sg-font-regular" [ngClass]="{'hover-bg': selectedDay === 'Custom Range'}" (click)="selectedDay = 'Custom Range'; isCustomRange= true;">Custom Range</a>
                         </div>
                     </div>
                 </div>
@@ -132,21 +132,21 @@
                 </div>
                 <div class="t-body-overflow">
                     <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light bg-body-table-dark-bg"  *ngFor="let subscriber of subscriberList | paginate: paginateConfig ">
-                        <div class="t-box a px-2 text-overflow-ellipsis">
+                        <div class="t-box a px-2  text-overflow-ellipsis">
                             <!-- {{ subscriber.displayName }} -->
-                            <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="subscriber?.displayName?.length >20" [tooltip]="subscriber?.displayName" placement="top" delay="100" offset="0">
-                                {{ subscriber?.displayName ?? 'N/A' }}
+                            <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="subscriber?.displayName && subscriber?.displayName?.length >20" [tooltip]="subscriber?.displayName" placement="top" delay="100" offset="0">
+                                {{ subscriber.displayName ?? 'N/A'}}
                             </label>
-                            <label class="subscriber-details-text" *ngIf="subscriber?.displayName?.length <= 20">
-                                {{ subscriber?.displayName ?? 'N/A' }}
+                            <label class="subscriber-details-text" *ngIf="subscriber?.displayName && subscriber?.displayName?.length <= 20">
+                                {{ subscriber.displayName ?? 'N/A' }}
                             </label>
                         </div>
                         <!-- <div class="t-box b px-2">
                             <span class="text-overflow-ellipsis">{{subscriber.email}}</span>
                         </div> -->
                         <div class="t-box b px-2 copy-div">
-                            <span class="copy justify-content-around ">
-                                    <span class="w-80 text-overflow-ellipsis">{{subscriber.email}}</span>
+                            <span class="copy justify-content-around text-overflow-ellipsis">
+                              <span class="w-80 text-overflow-ellipsis">{{subscriber.email}}</span>
                                 <span class="icon cursor-pointer pos-top" (click)="copyToClipboard($event,subscriber.email)" [tooltip]="copyText" placement="top" delay="100" offset="12">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -159,7 +159,6 @@
                                 </span>
                             </span>
                         </div>
-
                         <div class="t-box a px-2 iccid-text">{{ subscriber.iccid }}</div>
                         <div class="t-box b px-2 activation-code-section">{{ subscriber.activationCode }}</div>
                         <div class="t-box a px-2">{{ subscriber.created  | date : "dd-MM-yyyy" }}</div>
@@ -183,23 +182,26 @@
         </ng-container>
     </div>
 
-    <!-- Not data - Start -->
-    <ng-template #msg>
-        <div class="pb-2 no-data">
-            No records found.
-        </div>
-    </ng-template>
+  <!-- Not data - Start -->
+  <ng-template #msg>
+    <div class="pb-2 no-data">No records found.</div>
+  </ng-template>
 
-    <!-- Loading Spinner - Start -->
-    <ng-template #spinner class="loader-align">
-        <app-loading-spinner></app-loading-spinner>
-    </ng-template>
-    <!-- Loading Spinner - End -->
+  <!-- Loading Spinner - Start -->
+  <ng-template #spinner class="loader-align">
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+  <!-- Loading Spinner - End -->
 
-    <!-- Pagination -->
-    <ng-container *ngIf="!inProgress && subscriberList && subscriberList.length > 0">
-        <div class="custom-pagination-section">
-            <pagination-controls id="subscriberListPagination" previousLabel="" nextLabel="" (pageChange)=" getPageNumber($event)"></pagination-controls>
-        </div>
-    </ng-container>
+  <!-- Pagination -->
+  <ng-container *ngIf="!inProgress && subscriberList && subscriberList.length > 0">
+    <div class="custom-pagination-section">
+      <pagination-controls
+        id="subscriberListPagination"
+        previousLabel=""
+        nextLabel=""
+        (pageChange)="getPageNumber($event)"
+      ></pagination-controls>
+    </div>
+  </ng-container>
 </div>

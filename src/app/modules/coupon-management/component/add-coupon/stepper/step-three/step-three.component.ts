@@ -7,7 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { CouponManagementService } from 'src/app/modules/coupon-management/service/coupon-management.service';
 import { AlertService } from 'src/app/shared/service';
@@ -80,6 +80,12 @@ export class StepThreeComponent implements OnInit {
           isRegion: false,
           isCountry: true,
         },
+        none: {
+          list: [],
+          isPlan: false,
+          isRegion: false,
+          isCountry: false,
+        },
       };
 
       const config = configMap[data];
@@ -90,6 +96,9 @@ export class StepThreeComponent implements OnInit {
         // Handle default case if needed
       }
 
+      this.form.get('applicableType')?.value != 'none'
+        ? this.form.get('applicableValue')?.setValidators(Validators.required)
+        : this.form.get('applicableValue')?.clearValidators();
       this.ngSelectComponent.clearModel();
     });
 

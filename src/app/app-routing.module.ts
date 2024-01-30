@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SigninComponent } from './auth/signin/signin.component';
-// import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-// import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from './auth';
 import { CoreComponent } from './core/core.component';
-import { CustomerManagementComponent } from './modules/customer-management/customer-management.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { ContactusComponent } from './modules/help-center/contactus/contactus.component';
-import { HelpCenterComponent } from './modules/help-center/help-center.component';
-import { SupportComponent } from './modules/help-center/support/support.component';
-import { InventoryComponent } from './modules/inventory/inventory.component';
-import { PlanComponent } from './modules/plan/plan.component';
-import { DataUsageComponent } from './modules/reports/data-usage/data-usage.component';
-import { ReportsComponent } from './modules/reports/reports.component';
-import { RevenueComponent } from './modules/reports/revenue/revenue.component';
-import { SettingsComponent } from './modules/settings/settings.component';
-import { SubscribeManagementComponent } from './modules/subscribe-management/subscribe-management.component';
-import { SubscriptionComponent } from './modules/subscription/subscription.component';
-import { UserComponent } from './modules/user/user.component';
-import { NotFoundComponent } from './shared/component/not-found/not-found.component';
-import { AuthGuard } from './shared/service/auth/auth.guard';
+import {
+  ContactusComponent,
+  CustomerManagementComponent,
+  DashboardComponent,
+  DataUsageComponent,
+  HelpCenterComponent,
+  InventoryComponent,
+  PlanComponent,
+  ReportsComponent,
+  RevenueComponent,
+  SettingsComponent,
+  SubscribeManagementComponent,
+  SubscriberComponent,
+  SubscriptionComponent,
+  SubscriptionReportComponent,
+  SupportComponent,
+  UserComponent,
+} from './modules';
+import { AuthGuard } from './shared/service';
+import { NotFoundComponent } from './shared/component';
 
 const routes: Routes = [
   {
@@ -43,6 +43,8 @@ const routes: Routes = [
         children: [
           { path: 'revenue', component: RevenueComponent },
           { path: 'data-usage', component: DataUsageComponent },
+          { path: 'subscriber', component: SubscriberComponent },
+          { path: 'subscription', component: SubscriptionReportComponent },
         ],
       },
       { path: 'inventory', component: InventoryComponent },
