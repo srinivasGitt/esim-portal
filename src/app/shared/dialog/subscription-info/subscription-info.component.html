@@ -422,20 +422,20 @@
       <div class="col-4">
         <label class="modal-label-text">Date Created</label>
         <div class="modal-details-text">
-          {{ (subscriptionDetails.createdAt | date : "dd-MM-YYYY") ?? "NA" }}
+          {{ (subscriptionDetails.createdAt | date : "dd-MM-yyyy") ?? "NA" }}
         </div>
       </div>
       <div class="col-4">
         <label class="modal-label-text">Expiry Date</label>
         <div class="modal-details-text">
-          {{ (subscriptionDetails.expiryDate | date : "dd-MM-YYYY") ?? "NA" }}
+          {{ (subscriptionDetails.expiryDate | date : "dd-MM-yyyy") ?? "NA" }}
         </div>
       </div>
       <div class="col-4">
         <label class="modal-label-text">Activation Date</label>
         <div class="modal-details-text">
           {{
-            (subscriptionDetails.activationDate | date : "dd-MM-YYYY") ?? "NA"
+            (subscriptionDetails.activationDate | date : "dd-MM-yyyy") ?? "NA"
           }}
         </div>
       </div>
