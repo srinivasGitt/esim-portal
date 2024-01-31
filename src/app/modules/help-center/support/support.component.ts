@@ -29,13 +29,13 @@ export class SupportComponent implements OnInit, OnDestroy {
   constructor(private supportService: SupportService,
               private dialogService: DialogService,
               private alertService: AlertService,
-              private _searchService: SearchService) { 
+              private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
                     this.supportRequestList = results?.data
                     this.paginateConfig.totalItems = results?.count;
                     this.paginateConfig.currentPage = 1;
-                    this.inSearch = true;  
+                    this.inSearch = true;
                   }
                 })
               }
@@ -74,8 +74,8 @@ export class SupportComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSelect(value: string, data: any) {    
-    const status = value 
+  onSelect(value: string, data: any) {
+    const status = value
     this.supportService.updateContactSupportRequestStatus(data._id, status).subscribe((res: any) => {
       if(res) {
         this.alertService.success(res.message);
@@ -90,7 +90,7 @@ export class SupportComponent implements OnInit, OnDestroy {
 
   getPageNumber(event: any) {
     this.inProgress = true;
-    this.paginateConfig.currentPage = event; 
+    this.paginateConfig.currentPage = event;
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
       this._searchService.getSearchResult('support', this._searchService.searchedTerm,this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1).subscribe((result: any) => {
@@ -99,7 +99,7 @@ export class SupportComponent implements OnInit, OnDestroy {
         this.paginateConfig.totalItems = result?.count;
         this.inProgress = false;
       })
-    } 
+    }
     /* Pagination based on all data */
     else {
       this.supportService.getAllContactSupportRequests('support',this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1)
@@ -124,7 +124,7 @@ export class SupportComponent implements OnInit, OnDestroy {
     if(!email) {
       return;
     }
-    
+
     navigator.clipboard.writeText(email);
   }
 

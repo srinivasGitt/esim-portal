@@ -62,14 +62,13 @@
                 </label>
             </div>
         </div> -->
-
     <ng-container *ngFor="let details of detailsRow; let i = index; last as isLast">
       <div
-        class="row rowHeight d-flex align-items-center"
-        *ngIf="details.display"
+        class="row rowHeight d-flex align-items-center gap-1"
         [ngClass]="{ 'custom-border-bottom': !isLast }"
+        *ngIf="details.display"
       >
-        <div class="col-5 pl-0">
+        <div class="col-4 pl-0">
           <label
             class="subscriber-label-text"
             [ngClass]="details.title === 'Contact Preferences' ? 'text-wrap' : ''"

@@ -76,7 +76,12 @@
                             <!-- </span> -->
                         </div>
                         <div class="t-box b px-2 d-flex align-items-center">
-                                {{supportRequest.email}}
+                          <span class="max-w80 word-wrap subscriber-details-text text-overflow-ellipsis" *ngIf=" supportRequest.email.length >20" placement="top" delay="100" offset="0">
+                            {{  supportRequest.email}}
+                        </span>
+                        <span class="max-w80 word-wrap subscriber-details-text" *ngIf="supportRequest.email.length <= 20">
+                            {{ supportRequest.email}}
+                        </span>
                                 <span class="icon-email-support cursor-pointer" (click)="copyToClipboard($event,supportRequest.email)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -100,8 +105,16 @@
                                 </svg>
                             </span>
                         </div>
-                        <div class="t-box a px-1 d-flex align-items-center">{{supportRequest.deviceInfo ?? 'N/A'}}</div>
-                        <div class="t-box a px-1">{{supportRequest.created | date : 'dd/MM/yyyy'}}</div>
+                        <div class="t-box a px-1 d-flex align-items-center">
+                          <span class=" subscriber-details-text text-overflow-ellipsis" *ngIf="supportRequest?.deviceInfo?.length >20" [tooltip]="supportRequest.name" placement="top" delay="100" offset="0">
+                            {{supportRequest.deviceInfo ?? 'N/A'}}
+                        </span>
+                        <span class=" subscriber-details-text" *ngIf="supportRequest?.deviceInfo?.length <= 20">
+                            {{supportRequest.deviceInfo ?? 'N/A'}}
+                        </span>
+                        <!-- {{supportRequest.deviceInfo ?? 'N/A'}} -->
+                      </div>
+                        <div class="t-box a px-1">{{supportRequest.created | date : 'dd/MM/YYYY'}}</div>
                         <label class="subscriber-details-text word-break custom-label-size">
                             <div class="filter-div d-flex">
                                 <div class="d-flex w-100 status-box">
