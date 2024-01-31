@@ -257,12 +257,12 @@
               }}</span>
             </div>
             <div class="t-box b px-1 d-flex">
-              {{ (subscription.createdAt | date : "dd-MM-YYYY") ?? "NA" }}
+              {{ (subscription.createdAt | date : "dd-MM-yyyy") ?? "NA" }}
             </div>
             <div class="t-box b px-1 d-flex">
               {{
                 subscription.expiryDate
-                  ? (subscription.expiryDate | date : "dd-MM-YYYY")
+                  ? (subscription.expiryDate | date : "dd-MM-yyyy")
                   : "NA"
               }}
             </div>

@@ -14,7 +14,7 @@
         <div class="modal-header-text-container">
             <div class="mb-3 d-flex">
                 <img class="m-auto" src="/assets/icons/info.svg" alt="info-icon">
-            </div>  
+            </div>
         </div>
         <div class="es-btn-close-container mt-0 mb-auto me-3">
             <a class="es-btn-close" (click)="close()"></a>
@@ -91,17 +91,17 @@
             </div>
             <div class="col-4">
                 <label class="modal-label-text">Earliest Activation</label>
-                <div class="modal-details-text">{{ planDetails.dateEarliestActivation | date: 'dd-MM-YYYY' }}</div>
+                <div class="modal-details-text">{{ planDetails.dateEarliestActivation | date: 'dd-MM-yyyy' }}</div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-4">
                 <label class="modal-label-text">Earliest Available</label>
-                <div class="modal-details-text">{{ planDetails.dateEarliestAvailable | date: 'dd-MM-YYYY' }}</div>
+                <div class="modal-details-text">{{ planDetails.dateEarliestAvailable | date: 'dd-MM-yyyy' }}</div>
             </div>
             <div class="col-4">
                 <label class="modal-label-text">Latest Available</label>
-                <div class="modal-details-text">{{ planDetails.dateLatestAvailable | date: 'dd-MM-YYYY' }}</div>
+                <div class="modal-details-text">{{ planDetails.dateLatestAvailable | date: 'dd-MM-yyyy' }}</div>
             </div>
         </div>
     </div>
