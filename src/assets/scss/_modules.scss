@@ -2404,6 +2404,13 @@
       }
     }
 
+    .email-ellipsis{
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
     .horizontal-line {
       // color: var(--horizontal-line-color);
       color: black;
@@ -4113,6 +4120,10 @@
   width: 85%;
 }
 
+.w-80{
+  width: 80%;
+}
+
 .border-bottom {
   border-bottom: 1px solid rgba(168, 169, 253, 0.3) !important;
 }
@@ -4588,7 +4599,11 @@
 .max-w80 {
   max-width: 100% !important;
 }
-
 .gap-50 {
   gap: 50px;
+}
+
+.pos-top{
+  position: relative;
+  top: -7px;
 }
