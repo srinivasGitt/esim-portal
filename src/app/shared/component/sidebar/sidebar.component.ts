@@ -10,6 +10,7 @@ import {
 } from '../../service';
 import { ConfigurationService } from '../../service/configuration.service';
 import { LocalStorageService } from '../../service/local-storage.service';
+import { SidebarService } from '../../service/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,12 +29,14 @@ export class SidebarComponent implements OnInit {
   isParentActive: any;
   clientConfig!: any;
   routeConfig: any;
+  isCustomerSelected = false;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     private dashboardService: DashboardService,
+    private sidebarService: SidebarService,
     private usersService: UsersService,
     private alertService: AlertService,
     private dialogService: DialogService,
@@ -58,10 +61,11 @@ export class SidebarComponent implements OnInit {
     dashboardService.getAppTheme().subscribe((data: any) => {
       this.isDarkTheme = data;
     });
+
     usersService.getCurrentUser().subscribe((result) => {
       this.userDetails = result;
       if (this.userDetails?.roles) {
-        this.fetchNavBarMenuList(this.userDetails.roles);
+        this.fetchSideBarMenuList(this.userDetails.roles);
       }
     });
   }
@@ -70,19 +74,18 @@ export class SidebarComponent implements OnInit {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     } else {
-      // this.getAllCustomer();
       this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     }
   }
 
-  async fetchNavBarMenuList(roles: Array<string>) {
+  async fetchSideBarMenuList(roles: Array<string>) {
     this.usersService.inProgress.next(true);
     
     if (!roles.includes('superAdmin')) {
       await this.getClientConfiguration();
     }
 
-    let menuList = this.dashboardService.getNavBarMenus(roles);
+    let menuList = this.sidebarService.getSideBarMenus(roles);
 
     if (this.clientConfig) {
       if (!this.clientConfig?.rewardPointsMasterEnabled) {
@@ -101,18 +104,6 @@ export class SidebarComponent implements OnInit {
   // Client Feature Configuration
   getClientConfiguration() {
     const clientConfig = JSON.parse(localStorage.getItem('config')!);
-
-    // this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
-    //   (res: any) => {
-    //     if (res && res.data) {
-    //       this.clientConfig = res.data;
-    //       this.localStorage.setCacheConfig(JSON.stringify(res.data));
-    //     }
-    //   },
-    //   (err) => {
-    //     this.alertService.error(err.error.message, err.status);
-    //   }
-    // );
 
     return new Promise((resolve, reject) => {
       this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
@@ -163,10 +154,6 @@ export class SidebarComponent implements OnInit {
         this.alertService.error(err.error.message);
       }
     );
-  }
-
-  customerSidebar() {
-    // this.show=!this.show;
   }
 
   closeSidebar() {
