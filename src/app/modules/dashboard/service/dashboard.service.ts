@@ -16,23 +16,6 @@ export class DashboardService {
     private _localStorage: LocalStorageService
   ) {}
 
-  /*
-   ************************************
-  Commented to check with interceptor
-  ************************************
-  getHeader() {
-    const authToken = localStorage.getItem('authToken');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Accept: 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${authToken}`,
-        'Content-Type': 'application/json',
-      })
-    };
-    return httpOptions;
-  }
-*/
-
   setAppTheme(theme: any) {
     this._themeSelection$.next(theme);
   }

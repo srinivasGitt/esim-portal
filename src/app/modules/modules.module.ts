@@ -12,6 +12,8 @@ import { ShowentriesPipe } from '../shared/pipe/showentries.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { CouponManagementComponent } from './coupon-management/coupon-management.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { AdminDashboardComponent } from './dashboard/component/admin-dashboard/admin-dashboard.component';
+import { SuperAdminDashboardComponent } from './dashboard/component/super-admin-dashboard/super-admin-dashboard.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
@@ -21,14 +23,12 @@ import { PlanComponent } from './plan/plan.component';
 import { DataUsageComponent } from './reports/data-usage/data-usage.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RevenueComponent } from './reports/revenue/revenue.component';
+import { SubscriberComponent } from './reports/subscriber/subscriber.component';
+import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
-import { SubscriberComponent } from './reports/subscriber/subscriber.component';
-import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
-import { AdminDashboardComponent } from './dashboard/component/admin-dashboard/admin-dashboard.component';
-import { SuperAdminDashboardComponent } from './dashboard/component/super-admin-dashboard/super-admin-dashboard.component';
 
 @NgModule({
   declarations: [
