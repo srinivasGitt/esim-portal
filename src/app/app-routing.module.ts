@@ -20,8 +20,8 @@ import {
   SupportComponent,
   UserComponent,
 } from './modules';
-import { AuthGuard } from './shared/service';
 import { NotFoundComponent } from './shared/component';
+import { AuthGuard } from './shared/service';
 
 const routes: Routes = [
   {

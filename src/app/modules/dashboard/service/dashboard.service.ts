@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../../../shared/service/local-storage.service';
 
 @Injectable({
   providedIn: 'root',

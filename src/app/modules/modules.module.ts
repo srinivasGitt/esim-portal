@@ -27,6 +27,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
 import { SubscriberComponent } from './reports/subscriber/subscriber.component';
 import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
+import { AdminDashboardComponent } from './dashboard/component/admin-dashboard/admin-dashboard.component';
+import { SuperAdminDashboardComponent } from './dashboard/component/super-admin-dashboard/super-admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { SubscriptionReportComponent } from './reports/subscription-report/subsc
     DataUsageComponent,
     SubscriberComponent,
     SubscriptionReportComponent,
+    AdminDashboardComponent,
+    SuperAdminDashboardComponent,
   ],
   imports: [
     CommonModule,
