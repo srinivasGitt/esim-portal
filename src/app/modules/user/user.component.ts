@@ -11,8 +11,6 @@ import {
 import { InviteUserComponent, UserInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { ActivatedRoute } from '@angular/router';
-import { OtpVerificationComponent } from 'src/app/shared/dialog/otp-verification/otp-verification.component';
-import { buttonText, otpType } from 'src/app/shared/dialog/otp-verification/otpType.model';
 
 @Component({
   selector: 'app-user',
@@ -124,23 +122,22 @@ export class UserComponent implements OnInit {
   }
 
   createUser() {
-    // this.dialogService
-    //   .openModal(UserMgmtComponent, {
-    //     cssClass: 'modal-sm',
-    //     context: {
-    //       data: {},
-    //       title: 'Add New User',
-    //       customerId: this.userDetails.customerId || this.customerId,
-    //     },
-    //   })
-    //   .instance.close.subscribe((data: any) => {
-    //     if (data) {
-    //       this.alertService.success(data.message);
-    //       this.paginateConfig.currentPage = 1;
-    //       this.getAllUsers();
-    //     }
-    //   });
-    this.dialogService.openModal(OtpVerificationComponent,{ context: { config:{type : otpType.delete_product_trs, buttonText: buttonText.delete}} });
+    this.dialogService
+      .openModal(UserMgmtComponent, {
+        cssClass: 'modal-sm',
+        context: {
+          data: {},
+          title: 'Add New User',
+          customerId: this.userDetails.customerId || this.customerId,
+        },
+      })
+      .instance.close.subscribe((data: any) => {
+        if (data) {
+          this.alertService.success(data.message);
+          this.paginateConfig.currentPage = 1;
+          this.getAllUsers();
+        }
+      });
   }
 
   getAllUsers() {
