@@ -12,9 +12,6 @@ import { ShowentriesPipe } from '../shared/pipe/showentries.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { CouponManagementComponent } from './coupon-management/coupon-management.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { AdminDashboardComponent } from './dashboard/component/admin-dashboard/admin-dashboard.component';
-import { SuperAdminDashboardComponent } from './dashboard/component/super-admin-dashboard/super-admin-dashboard.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { SupportComponent } from './help-center/support/support.component';
@@ -35,7 +32,6 @@ import { UserComponent } from './user/user.component';
     UserComponent,
     SubscriptionComponent,
     PlanComponent,
-    DashboardComponent,
     ReportsComponent,
     InventoryComponent,
     CustomerManagementComponent,
@@ -51,8 +47,6 @@ import { UserComponent } from './user/user.component';
     DataUsageComponent,
     SubscriberComponent,
     SubscriptionReportComponent,
-    AdminDashboardComponent,
-    SuperAdminDashboardComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +60,7 @@ import { UserComponent } from './user/user.component';
     MatFormFieldModule,
     MatDatepickerModule,
   ],
-  exports: [UserComponent, SubscriptionComponent, PlanComponent, DashboardComponent],
+  exports: [UserComponent, SubscriptionComponent, PlanComponent],
   providers: [CurrencyPipe],
 })
 export class ModulesModule {
