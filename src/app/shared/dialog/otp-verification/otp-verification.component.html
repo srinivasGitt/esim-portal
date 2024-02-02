@@ -1,8 +1,8 @@
-<div class="es-modal info-modal">
+<div class="es-modal info-modal" *ngIf="config">
     <div class="modal-header-flex">
         <div class="modal-header-text-container">
             <div class="mb-3 d-flex">
-                <ng-container [ngSwitch]="config?.type">
+                <ng-container [ngSwitch]="config.type">
                     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none" *ngSwitchCase="'enable customer'">
                         <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
                         <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
@@ -62,8 +62,8 @@
     </div>
     <div>
         <p class="modal-header-text mb-0 text-capitalize">
-            <ng-container *ngIf="config?.type === 'delete product trs'; else remaingType" >Delete Product “TRS”?</ng-container>
-            <ng-template #remaingType>{{ config?.type }}</ng-template>
+            <ng-container *ngIf="config.type === 'delete product trs'; else remaingType" >Delete Product “TRS”?</ng-container>
+            <ng-template #remaingType>{{ config.type }}</ng-template>
         </p>
     </div>
     <div class="es-modal-body">
@@ -79,9 +79,9 @@
     </div>
     <div class="es-modal-footer d-flex pt-4">
         <button class="btn btn-secondary ms-auto w-100 me-3" (click)="close()"> Cancel </button>
-        <button class="btn ms-auto w-100 ms-3 text-capitalize" [ngClass]=" otpError || otpValue.length < settings.length ? 'btn-secondary' : (config?.buttonText != 'delete' ? 'btn-primary' : 'btn-danger')"
+        <button class="btn ms-auto w-100 ms-3 text-capitalize" [ngClass]=" otpError || otpValue.length < settings.length ? 'btn-secondary' : (config.buttonText != 'delete' ? 'btn-primary' : 'btn-danger')"
          (click)="validateOTP()" [disabled]="otpError || otpValue.length < settings.length">
-            {{ config?.buttonText }} 
+            {{ config.buttonText }} 
         </button>
     </div>
 </div>

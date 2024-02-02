@@ -34,4 +34,8 @@ export class AuthService {
   resetPssword(userData: any){
     return this.http.post(`${this.serverUrl}/auth/reset`, userData);
   }
+
+  validateUser(email: string){
+    return this.http.get(`${this.serverUrl}/auth/validate/${email}`);
+  }
 }

@@ -54,10 +54,23 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
   sendOtp() {
+    this.authService.validateUser(this.userDetails.email).subscribe(
+      (result) => {
 
+      },
+      (error) => {
+
+      });
   }
 
   validateOTP(){
-    
+    this.authService.validateOTP({ email: this.userDetails.email, otp: this.otpValue}).subscribe(
+      (result) => {
+        this.dialogRef.close.emit(true);
+      },
+      (error) => {
+        this.otpError = true;
+        this.settings.errorMessage = error.error.message;
+      });
   }
 }

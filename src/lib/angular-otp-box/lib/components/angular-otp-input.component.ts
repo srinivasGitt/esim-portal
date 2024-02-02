@@ -23,10 +23,9 @@ export class OtpInputComponent implements OnInit, OnChanges {
 	inputControls: FormControl[] = new Array(this.setting.length);
 	componentKey = Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
 	public counter: any;
-	
-	constructor(private keysPipe: KeysPipe) {
-		
-	}
+	public finalValue: string = '';
+
+	constructor(private keysPipe: KeysPipe) {}
 
 	public ngOnInit(): void {
 		this.otpForm = new FormGroup({})
@@ -134,6 +133,7 @@ export class OtpInputComponent implements OnInit, OnChanges {
 				val += this.otpForm.controls[k].value;
 			}
 		});
+		this.finalValue = val;
 		this.onValueChange.emit(val);
 	}
 
@@ -163,5 +163,44 @@ export class OtpInputComponent implements OnInit, OnChanges {
 		ret += "" + mins + ":" + (secs < 10 ? "0" : "");
 		ret += "" + secs;
 		return ret;
+	}
+
+	// Add the onPaste method to handle the paste event
+	onPaste(event: ClipboardEvent) {
+		event.preventDefault();
+
+		// Get the pasted content from the clipboard
+		const pastedText = event.clipboardData?.getData('text') || '';
+
+		// Process the pasted content (you may want to validate and sanitize it)
+		if (pastedText?.length === this.setting?.length) {
+			this.processPastedText(pastedText);
+		}
+	}
+
+	// Add the method to process the pasted content and update the input fields
+	private processPastedText(pastedText: string) {
+		// Remove spaces from the pasted text
+		pastedText = pastedText.replace(/\s/g, '');
+		// Validate if the pasted content is a valid 6-digit number
+		const isValidNumber = /^\d{6}$/.test(pastedText);
+
+		if (isValidNumber) {
+			// Ensure the pasted content does not exceed the expected length
+			pastedText = pastedText.substring(0, this.setting.length);
+
+			// Update the form controls with the pasted content
+			for (let i = 0; i < pastedText.length; i++) {
+				const controlName = this.getControlName(i);
+				this.otpForm.controls[controlName].setValue(pastedText[i]);
+			}
+
+			// Move focus to the next input field
+			const nextInputId = this.appendKey(`otp_${pastedText.length - 1}`);
+			this.setSelected(nextInputId);
+
+			// Rebuild the value after pasting
+			this.rebuildValue();
+		}
 	}
 }
