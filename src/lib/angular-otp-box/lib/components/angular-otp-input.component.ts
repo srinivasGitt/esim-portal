@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChildren } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, OnChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { KeysPipe } from '../pipes/keys.pipe';
 import { Setting } from '../models/setting';
@@ -10,12 +10,13 @@ import { CounterDirective } from '../directives/timer.directive';
 	styleUrls: ['./angular-otp-input.component.scss']
 })
 
-export class OtpInputComponent implements OnInit {
+export class OtpInputComponent implements OnInit, OnChanges {
 	@Input() setting: Setting = { 
 		length: 4, 
 		timer: 0,
 		timerType: 0
 	};
+	@Input() hasError = false;
 	@Output() onValueChange = new EventEmitter<any>();
 	@ViewChildren(CounterDirective) CounterDirective : any;
 	otpForm!: FormGroup;
@@ -28,14 +29,18 @@ export class OtpInputComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		console.log(this.setting);
 		this.otpForm = new FormGroup({})
 		for (let index = 0; index < this.setting.length; index++) {
 			this.otpForm.addControl(this.getControlName(index), new FormControl())
 		}
-		console.log(this.otpForm);
 	}
 	
+	ngOnChanges(): void {
+		if(this.hasError){
+			this.otpForm?.reset();
+		}
+	}
+
 	public ngAfterViewInit(): void {
 		let containerItem = document.getElementById(`c_${this.componentKey}`);
 		if (containerItem) {

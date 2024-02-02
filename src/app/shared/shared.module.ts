@@ -56,6 +56,8 @@ import {
 } from './directive';
 
 import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    OtpVerificationComponent,
   ],
   imports: [
     CommonModule,
@@ -108,6 +111,7 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    AngularOtpLibModule
   ],
   exports: [
     SubscriptionDialogComponent,
