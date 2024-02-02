@@ -102,10 +102,8 @@ export class SubscriptionReportComponent implements OnInit {
       if(res.result) {
         const labelData : any[] = []
         const subscriptionData : any[] = []
-        this.data = res?.result
-        this.range = res?.range
-        this.startDate = this.range.startDate
-        this.endDate = this.range.endDate
+        this.data = res?.result;
+        this.range = res?.range;
 
         this.data.forEach((x: any) => {
           labelData.push(x.label)
