@@ -20,7 +20,7 @@ export class SidebarService {
         title: 'Customers',
         icon: 'assets/icons/customer-icon.svg',
         link: '/customer-management',
-        accessRole: ['superAdmin'],
+        accessRole: ['admin', 'superAdmin'],
         hasGroup: false,
       },
       {

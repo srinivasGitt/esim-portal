@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class CustomerService {
   serverUrl = environment.serverUrl;
   authToken: string = '';
+  private customer = new Subject<any>();
 
   constructor(private http: HttpClient ) { }
   /*
@@ -103,5 +105,13 @@ export class CustomerService {
       else {
         return this.http.get(`${this.serverUrl}/customers?dateRange=all`)
       }
+    }
+
+    sendCustomer(customer: any) {
+      this.customer.next(customer);
+    }
+  
+    getCustomer(): Observable<any[]> {
+      return this.customer.asObservable();
     }
 } 
