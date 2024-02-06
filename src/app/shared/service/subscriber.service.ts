@@ -91,4 +91,8 @@ export class subscriberService {
       return this.http.get(`${this.serverUrl}/subscribers?dateRange=year`)
     }
   }
+
+  getSubscriptionsList(subscriberId: string){
+    return this.http.get(`${this.serverUrl}/subscriptions/${subscriberId}`);
+  }
 }

@@ -27,6 +27,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
 import { SubscriberComponent } from './reports/subscriber/subscriber.component';
 import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
+import { SubscriberSubscriptionsComponent } from './subscribe-management/subscriber-subscriptions/subscriber-subscriptions.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { SubscriptionReportComponent } from './reports/subscription-report/subsc
     DataUsageComponent,
     SubscriberComponent,
     SubscriptionReportComponent,
+    SubscriberSubscriptionsComponent,
   ],
   imports: [
     CommonModule,
