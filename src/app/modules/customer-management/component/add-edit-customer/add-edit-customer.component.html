@@ -1,0 +1,429 @@
+<div class="common-header">
+  <!-- Customer Form Header Section -->
+  <div class=" customer-form-header">
+    <div class="row justify-content-between">
+      <div class="col-4 d-flex align-items-center">
+        <span class="d-inline-block mr-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+          >
+            <mask
+              id="mask0_103_21499"
+              style="mask-type: alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="26"
+              height="26"
+            >
+              <rect width="26" height="26" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_103_21499)">
+              <path
+                d="M13.0007 21.6676L4.33398 13.0009L13.0007 4.33423L14.2736 5.5981L7.77354 12.0981H21.6673V13.9037H7.77354L14.2736 20.4037L13.0007 21.6676Z"
+                fill="black"
+              />
+            </g>
+          </svg>
+        </span>
+        <button type="button" class="btn back-btn" (click)="previousStep()">Back</button>
+      </div>
+      <div class="col-4 text-end">
+        <button type="button" class="btn action-btn" (click)="cancelFormAndResetStepper()">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn action-btn ms-3"
+          (click)="currentStep === 3 ? submitCustomerDetails() : nextStep()"
+          [ngClass]="{'btn-primary text-white': customerForm.get('stepOne')?.valid || customerForm.get('stepTwo')?.valid || customerForm.get('stepThree')?.valid}"
+          [disabled]="
+            (currentStep === 1 && !customerForm.get('stepOne')?.valid) ||
+            (currentStep === 2 && !customerForm.get('stepTwo')?.valid) || (currentStep === 3 && customerForm.invalid)
+          "
+        >
+          {{ currentStep === 3 ? 'Submit' : 'Next' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="row mt-3 justify-content-between gap-1 customer-form">
+    <!-- Stepper Section -->
+    <div class="col-3 left-div">
+      <div class="steps p-3">
+        <ng-container *ngFor="let step of stepCountArray; let last = last">
+          <div class="row p-3">
+            <div class="col-3 circle" [ngClass]="{ active: currentStep >= step.number }">
+              <span>{{ step.number }}</span>
+            </div>
+            <div class="col-9 title-section">
+              <h2>{{ step.title }}</h2>
+              <p>{{ step.subTitle }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- Form Section -->
+    <div class="col-8 p-3 right-div">
+      <form class="es-modal-form" [formGroup]="customerForm" novalidate autocomplete="off">
+        <!-- STEP ONE -->
+        <ng-container formGroupName="stepOne" *ngIf="currentStep === 1">
+          <!-- Company name and website -->
+          <div class="row">
+            <div class="col-6">
+              <div class="div-height">
+                <label for="companyName" class="form-label es-modal-form-label"
+                  >Company Name*</label
+                >
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="companyName"
+                  aria-describedby="companyName"
+                  name="companyName"
+                  formControlName="companyName"
+                  placeholder="Enter the full company name"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small"> Company Name is required! </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="div-height">
+                <label for="website" class="form-label es-modal-form-label">Website Link*</label>
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="website"
+                  aria-describedby="website"
+                  name="website"
+                  formControlName="websiteLink"
+                  placeholder="Enter the full company name"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small"> Invalid website address </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Billing Address -->
+          <ng-container formGroupName="billingAddress">
+            <div class="row">
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="addressLine" class="form-label es-modal-form-label"
+                    >Address Line*</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="addressLine"
+                    aria-describedby="addressLine"
+                    name="addressLine"
+                    formControlName="addressLine"
+                    placeholder="Enter the address of the company"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">Address Line is required!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="landmark" class="form-label es-modal-form-label">Landmark*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="landmark"
+                    aria-describedby="landmark"
+                    name="landmark"
+                    formControlName="landmark"
+                    placeholder="Enter the nearby landmark"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small"> Invalid website address </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="pincode" class="form-label es-modal-form-label">PIN Code*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="pincode"
+                    aria-describedby="pincode"
+                    name="pincode"
+                    formControlName="pincode"
+                    placeholder="Enter the PIN Code"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">Invalid PIN Code Format!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="city" class="form-label es-modal-form-label">City*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="city"
+                    aria-describedby="city"
+                    name="city"
+                    formControlName="city"
+                    placeholder="Enter the city of the address"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">City is required!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="state" class="form-label es-modal-form-label">State*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="state"
+                    aria-describedby="state"
+                    name="state"
+                    formControlName="state"
+                    placeholder="Enter the state of the address"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">State is required!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="country" class="form-label es-modal-form-label">Country*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="country"
+                    aria-describedby="country"
+                    name="country"
+                    formControlName="country"
+                    placeholder="Enter the country of the address"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">Country is required!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Contact Details -->
+          <ng-container formGroupName="companyContactDetails">
+            <div class="row">
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="email" class="form-label es-modal-form-label">Email Address*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="email"
+                    aria-describedby="email"
+                    name="email"
+                    formControlName="email"
+                    placeholder="Enter the company’s email address"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">Invalid email address!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="div-height">
+                  <label for="phone" class="form-label es-modal-form-label">Phone Number*</label>
+                  <input
+                    type="text"
+                    class="form-control es-input"
+                    id="phone"
+                    aria-describedby="phone"
+                    name="phone"
+                    formControlName="phone"
+                  />
+                  <div>
+                    <span class="help-block ng-invalid text-danger">
+                      <span class="small">Invalid phone number!</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!-- STEP TWO -->
+        <ng-container formGroupName="stepTwo" *ngIf="currentStep === 2">
+          <!-- Allocation of Product -->
+          <div class="row">
+            <div class="col-6">
+              <div class="form-check">
+                <label for="none" class="w80">iOS Application</label>
+                <input
+                  type="checkbox"
+                  id="iOS Application"
+                  formControlName="allocatedProducts"
+                  value="iOS Application"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-check">
+                <label for="none" class="w80">Android Application</label>
+                <input
+                  type="checkbox"
+                  id="Android Application"
+                  formControlName="allocatedProducts"
+                  value="Android Application"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- STEP THREE -->
+        <ng-container formGroupName="stepThree" *ngIf="currentStep === 3">
+          <!-- Invite User -->
+          <div class="row">
+            <div class="col-6">
+              <div class="div-height">
+                <label for="firstName" class="form-label es-modal-form-label">First Name*</label>
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="firstName"
+                  aria-describedby="firstName"
+                  name="firstName"
+                  formControlName="firstName"
+                  placeholder="Enter the first name"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small">First Name is required!</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="div-height">
+                <label for="lastName" class="form-label es-modal-form-label">Last Name*</label>
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="lastName"
+                  aria-describedby="lastName"
+                  name="lastName"
+                  formControlName="lastName"
+                  placeholder="Enter the last name"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small">Last Name is required!</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="div-height">
+                <label for="email" class="form-label es-modal-form-label">Email Address*</label>
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="email"
+                  aria-describedby="email"
+                  name="email"
+                  formControlName="email"
+                  placeholder="Enter the email address"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small">First Name is required!</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="div-height">
+                <label for="phone" class="form-label es-modal-form-label">Phone Number*</label>
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="phone"
+                  aria-describedby="phone"
+                  name="phone"
+                  formControlName="phone"
+                  placeholder="Enter the last name"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small">Phone Number is required!</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="div-height">
+                <label for="role" class="form-label es-modal-form-label">Role*</label>
+                <input
+                  type="text"
+                  class="form-control es-input"
+                  id="role"
+                  aria-describedby="role"
+                  name="role"
+                  formControlName="role"
+                  placeholder="Enter the email address"
+                />
+                <div>
+                  <span class="help-block ng-invalid text-danger">
+                    <span class="small">Role is required!</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+</div>

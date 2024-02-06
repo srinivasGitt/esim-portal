@@ -22,6 +22,7 @@ import {
 } from './modules';
 import { AuthGuard } from './shared/service';
 import { NotFoundComponent } from './shared/component';
+import { AddEditCustomerComponent } from './modules/customer-management/component/add-edit-customer/add-edit-customer.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'customer-management', component: CustomerManagementComponent },
-      { path: 'customer-management/:id', component: CustomerManagementComponent },
+      { path: 'customer-management/add', component: AddEditCustomerComponent },
       { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'user-management', component: UserComponent },
