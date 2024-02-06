@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'customer-management', component: CustomerManagementComponent },
+      { path: 'customer-management', loadChildren: () => import('./modules/customer-management/customer-management.module').then((m) => m.CustomerManagementModule) },
       { path: 'customer-management/add', component: AddEditCustomerComponent },
       { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },

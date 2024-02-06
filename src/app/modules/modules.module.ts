@@ -8,10 +8,8 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from '../shared/pipe/filter.pipe';
-import { ShowentriesPipe } from '../shared/pipe/showentries.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { CouponManagementComponent } from './coupon-management/coupon-management.component';
-import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
@@ -27,7 +25,6 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
 import { SubscriberComponent } from './reports/subscriber/subscriber.component';
 import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
-import { AddEditCustomerComponent } from './customer-management/component/add-edit-customer/add-edit-customer.component';
 
 @NgModule({
   declarations: [
@@ -37,10 +34,8 @@ import { AddEditCustomerComponent } from './customer-management/component/add-ed
     DashboardComponent,
     ReportsComponent,
     InventoryComponent,
-    CustomerManagementComponent,
     SubscribeManagementComponent,
     FilterPipe,
-    ShowentriesPipe,
     SettingsComponent,
     HelpCenterComponent,
     SupportComponent,
@@ -49,8 +44,7 @@ import { AddEditCustomerComponent } from './customer-management/component/add-ed
     RevenueComponent,
     DataUsageComponent,
     SubscriberComponent,
-    SubscriptionReportComponent,
-    AddEditCustomerComponent,
+    SubscriptionReportComponent
   ],
   imports: [
     CommonModule,
