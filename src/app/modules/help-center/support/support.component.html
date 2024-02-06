@@ -93,7 +93,8 @@
                                     </svg>
                                 </span>
                         </div>
-                        <div class="t-box a px-1 d-flex align-items-center">{{ supportRequest.countryCode ? (supportRequest.countryCode + ' ' + supportRequest.number) ?? 'N/A' : (supportRequest.number ?? 'N/A')}}
+                        <div class="t-box a px-1 d-flex align-items-center ">
+                          <span class="text-overflow-ellipsis w-75">{{ supportRequest.countryCode ? (supportRequest.countryCode + ' ' + supportRequest.number) ?? 'N/A' : (supportRequest.number ?? 'N/A')}}</span>
                             <span class="icon-numbercopy cursor-pointer" (click)="copyMobileToClipboard($event,supportRequest.countryCode, supportRequest.number)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                 <svg  width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
