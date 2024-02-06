@@ -1,4 +1,9 @@
 .subscriber-subscriptions{
+    .dashboard-head-flex {
+        path {
+            fill: var(--table-heading-text-color);
+        }
+    }
     .subscriber-details{
         background: var(--add-button-bg-color);
         margin: -6px -10px;
