@@ -1,16 +1,15 @@
+import { DatePipe, getCurrencySymbol } from '@angular/common';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MomentDateAdapter
+} from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { combineLatest } from 'rxjs';
+import { AlertService } from '../../service/alert.service';
 import { DialogComponent } from '../../service/dialog';
 import { PlansService } from '../../service/plans.service';
-import { AlertService } from '../../service/alert.service';
-import { DatePipe, getCurrencySymbol } from '@angular/common';
-import {
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { combineLatest } from 'rxjs';
 
 const MY_FORMATS = {
   parse: {
@@ -75,6 +74,7 @@ export class PlanDialogComponent implements OnInit {
   ngOnInit(): void {
     this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
     this.data = this.dialogRef.context.data;
+    console.log(this.data);
     this.title = this.dialogRef.context.title;
     this.inProgress = true
     this.createPlanForm();
@@ -112,21 +112,30 @@ export class PlanDialogComponent implements OnInit {
   }
 
   createPlanForm(): void {
+    let dataSize;
+    if(this.data) {
+      if(this.data.data) {
+        dataSize = this.data.data.split(" ");
+      }
+    }
+    
+    console.log(this.data.supportedCountries);
+    this.selectedCountries = this.data.supportedCountries
     this.planForm = new UntypedFormGroup({
-      productCategory: new UntypedFormControl('', [Validators.maxLength(80)]),
-      name: new UntypedFormControl('', [Validators.required, Validators.maxLength(80)]),
-      dataUnit: new UntypedFormControl('GB', [Validators.required]),
-      dataSize: new UntypedFormControl(0, [Validators.required]),
-      validityUnit: new UntypedFormControl('days', [Validators.required]),
-      validity: new UntypedFormControl(0, [Validators.required]),
-      activationType: new UntypedFormControl('PDP', [Validators.required]),
-      region: new UntypedFormControl(null),
-      supportedCountries: new UntypedFormControl(''),
-      priceBundle: new UntypedFormControl(0, [Validators.required]),
-      imsiType: new UntypedFormControl(null, [Validators.required]),
-      dateEarliestActivation: new UntypedFormControl('', [Validators.required]),
-      dateLatestAvailable: new UntypedFormControl('', [Validators.required]),
-      dateEarliestAvailable: new UntypedFormControl('', [Validators.required])
+      productCategory: new UntypedFormControl(this.data.productCategory ? this.data.productCategory : '', [Validators.maxLength(80)]),
+      name: new UntypedFormControl(this.data.name, [Validators.required, Validators.maxLength(80)]),
+      dataUnit: new UntypedFormControl(dataSize ? dataSize[1] : 'GB', [Validators.required]),
+      dataSize: new UntypedFormControl(dataSize ? dataSize[0] : 0, [Validators.required]),
+      validityUnit: new UntypedFormControl(this.data.cycleUnits ? (this.data.cycleUnits === 'day' ? 'days' : this.data.cycleUnits) : 'days', [Validators.required]),
+      validity: new UntypedFormControl(this.data.cycle ? this.data.cycle : 0, [Validators.required]),
+      activationType: new UntypedFormControl(this.data.activationType ? this.data.activationType : 'PDP', [Validators.required]),
+      region: new UntypedFormControl(this.data.groupId ? this.data.groupId : null),
+      supportedCountries: new UntypedFormControl(this.data.supportedCountries ? this.data.supportedCountries : ''),
+      priceBundle: new UntypedFormControl(this.data.priceBundle ? this.data.priceBundle : 0, [Validators.required]),
+      imsiType: new UntypedFormControl( this.data.preferredImsiId ? this.data.preferredImsiId : null, [Validators.required]),
+      dateEarliestActivation: new UntypedFormControl(this.data.dateEarliestActivation ? new Date(this.data.dateEarliestActivation) : '', [Validators.required]),
+      dateLatestAvailable: new UntypedFormControl(this.data.dateLatestAvailable ? new Date(this.data.dateLatestAvailable) : '', [Validators.required]),
+      dateEarliestAvailable: new UntypedFormControl(this.data.dateEarliestAvailable ? new Date(this.data.dateEarliestAvailable) : '', [Validators.required])
     });
   }
 

@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
-import { DialogService, PlansService, AlertService } from 'src/app/shared/service';
-import { PaginationInstance } from 'ngx-pagination';
-import { SearchService } from 'src/app/shared/service/search/search.service';
 import { getCurrencySymbol } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PaginationInstance } from 'ngx-pagination';
+import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
+import { AlertService, DialogService, PlansService } from 'src/app/shared/service';
+import { SearchService } from 'src/app/shared/service/search/search.service';
 @Component({
   selector: 'app-plan',
   templateUrl: './plan.component.html',
@@ -79,9 +79,9 @@ export class PlanComponent implements OnInit, OnDestroy {
     );
   }
 
-  /*
   // edit plan
   editPlans(plan: any) {
+    console.log(plan);
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-lg', context: {data: plan, title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
           if(data){
@@ -92,7 +92,6 @@ export class PlanComponent implements OnInit, OnDestroy {
           this.alertService.error(err.error.message);
         });
   }
-  */
 
   deletePlan( plan : any) {
     let data = {
