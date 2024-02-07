@@ -31,7 +31,22 @@ import { DialogService } from 'src/app/shared/service/dialog';
   ],
 })
 export class CustomerManagementComponent implements OnInit {
-  customerList: any = [];
+  customerList = [{
+    _id: '1',
+    name: 'abc',
+    createdAt: '12/12/2024',
+    subscriberCount: 12
+  },{
+    _id: '2',
+    name: 'abc 1',
+    createdAt: '12/12/2024',
+    subscriberCount: 12
+  },{
+    _id: '3',
+    name: 'abc 2',
+    createdAt: '12/12/2024',
+    subscriberCount: 12
+  }]      
   customerId: any = null;
   currentCustomerId: any = null;
   subCustomerName: any = null;
@@ -84,7 +99,7 @@ export class CustomerManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.getAllCustomer();
+    // this.getAllCustomer();
   }
 
   getSingleCustomer() {
@@ -128,6 +143,7 @@ export class CustomerManagementComponent implements OnInit {
       (res: any) => {
         if (res) {
           this.customerList = res.data;
+               
           this.paginateConfig.totalItems = res?.count[0]?.totalCount;
           this.inProgress = false;
         }
@@ -250,7 +266,7 @@ export class CustomerManagementComponent implements OnInit {
         .customers(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage - 1)
         .subscribe(
           (res: any) => {
-            this.customerList = res.data;
+            this.customerList = res.data;     
             this.paginateConfig.totalItems = res?.count[0]?.totalCount;
             this.inProgress = false;
           },
@@ -308,7 +324,7 @@ export class CustomerManagementComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res) {
-            this.customerList = res.data;
+            this.customerList = res.data;    
             this.paginateConfig.totalItems = res?.count[0]?.totalCount;
             this.inProgress = false;
           }
