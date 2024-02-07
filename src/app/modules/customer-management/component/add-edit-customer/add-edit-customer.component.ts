@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from 'src/app/shared/validators/custom-validators';
 import { CustomerStepperService } from '../../service/customer-stepper.service';
 
 @Component({
@@ -25,43 +26,90 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private customerStepperService: CustomerStepperService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     // Initialize the current step
     this.customerStepperService.currentStep$.subscribe((step) => {
       this.currentStep = step;
     });
+  }
+
+  ngOnInit(): void {
     this._initForm();
   }
 
   _initForm() {
     this.customerForm = this.fb.group({
       stepOne: this.fb.group({
-        companyName: [null, [Validators.required]],
-        websiteLink: [null],
+        companyName: [
+          null,
+          [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
+        ],
+        websiteLink: [null, [CustomValidators.websiteValidator]],
         billingAddress: this.fb.group({
-          addressLine: [null, [Validators.required]],
-          landmark: [null],
-          pincode: [null, [Validators.required]],
-          city: [null, [Validators.required]],
-          state: [null, [Validators.required]],
-          country: [null, [Validators.required]],
+          addressLine: [
+            null,
+            [Validators.required, Validators.minLength(10), Validators.maxLength(50)],
+          ],
+          landmark: [null, [Validators.minLength(5), Validators.maxLength(30)]],
+          pincode: [null, [Validators.required, Validators.pattern(/^[1-9][0-9]{4,19}$/)]], //PIN code could be either 5 or 20 digits long.
+          city: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+          state: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+          country: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
         }),
-        companyContactDetails: this.fb.group({
-          email: [null, [Validators.required]],
-          phone: [null, [Validators.required]],
+        contactDetails: this.fb.group({
+          emailAddress: [
+            null,
+            [
+              Validators.required,
+              Validators.email,
+              Validators.minLength(7),
+              Validators.maxLength(254),
+            ],
+          ],
+          phoneNumber: [
+            null,
+            [
+              Validators.required,
+              Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
+              Validators.minLength(7),
+              Validators.maxLength(15),
+            ],
+          ],
         }),
       }),
       stepTwo: this.fb.group({
-        allocatedProducts: [null, [Validators.required]],
+        products: [null, [Validators.required]],
       }),
       stepThree: this.fb.group({
-        firstName: [null, [Validators.required]],
-        lastName: [null, [Validators.required]],
-        email: [null, [Validators.required]],
-        phone: [null, [Validators.required]],
-        role: ['admin', [Validators.required]],
+        userInvite: this.fb.group({
+          firstName: [
+            null,
+            [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+          ],
+          lastName: [
+            null,
+            [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+          ],
+          email: [
+            null,
+            [
+              Validators.required,
+              Validators.email,
+              Validators.minLength(3),
+              Validators.maxLength(254),
+            ],
+          ],
+          phone: [
+            null,
+            [
+              Validators.required,
+              Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
+              Validators.minLength(7),
+              Validators.maxLength(15),
+            ],
+          ],
+          role: ['admin', [Validators.required]],
+        }),
       }),
     });
   }
@@ -88,6 +136,5 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.customerStepperService.resetStep();
-    this.customerStepperService.currentStepNumber$.complete();
   }
 }

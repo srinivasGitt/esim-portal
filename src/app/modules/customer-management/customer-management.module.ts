@@ -12,12 +12,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ShowentriesPipe } from 'src/app/shared/pipe';
+import { StepOneComponent } from './component/stepper/step-one/step-one.component';
 
 
 @NgModule({
   declarations: [
     CustomerManagementComponent,
-    AddEditCustomerComponent
+    AddEditCustomerComponent,
+    StepOneComponent
   ],
   imports: [
     CommonModule,

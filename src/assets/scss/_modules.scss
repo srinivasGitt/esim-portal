@@ -2435,6 +2435,13 @@
 
   // Form
   .es-modal-form {
+
+    .es-modal-form-label {
+      color: var(--modal-form-label-text-color);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
     .form-control {
       // border-color: var(--dark-right-border);
       &[type='number'],
@@ -4607,3 +4614,151 @@
   position: relative;
   top: -7px;
 }
+
+
+
+// SA - Customer CSS
+.customer-form-header {
+  .back-btn {
+    color: #000;
+    font-family: 'SF Pro Display';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 160% */
+    letter-spacing: -0.4px;
+  }
+
+  .action-btn {
+    width: 126px;
+    height: 58px;
+    padding: 13px 31px 13px 30px;
+    border-radius: 100px;
+    border: 1px solid #D0D5DD;
+    background: #E6E6E6;
+    color: #000;
+    text-align: center;
+    font-family: 'SF Pro Display';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 145.455% */
+    letter-spacing: -0.44px;
+  }
+}
+
+.customer-form {
+  height: 80vh;
+
+  .left-div {
+    width: 20% !important;
+  }
+
+  .right-div {
+    width: 78% !important;
+  }
+
+  .left-div,
+  .right-div {
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 7px 10px 36px 0px rgba(65, 35, 184, 0.15);
+  }
+
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    // margin-top: 30px;
+    // margin-bottom: 30px;
+    height: 100%;
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      color: #a5a6ee;
+      border-radius: 50%;
+      border: 1px solid #a5a6ee;
+      background: #ffffff;
+      padding: 8.296px;
+    }
+
+    .active {
+      color: #ffffff;
+      border: 1px solid #6365ef;
+      background: #6365ef !important;
+    }
+  }
+
+  input::placeholder {
+    color: var(--placeholder-color);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  label {
+    color: #000 !important;
+    font-family: 'SF Pro Display' !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 130% !important; /* 20.8px */
+  }
+
+  .use-div {
+    border-radius: 10px;
+    background: rgba(105, 112, 241, 0.1);
+    padding: 10px;
+  }
+
+  .fill-none {
+    fill: none !important;
+  }
+
+  .fill-color {
+    fill: var(--table-heading-text-color);
+  }
+
+  .stroke-color {
+    stroke: var(--table-heading-text-color);
+  }
+
+  .position-absolute {
+    position: absolute;
+    top: 36px;
+    right: 10px;
+  }
+
+  .line {
+    display: block;
+    height: 1px;
+    background-color: #a5a6ee !important;
+    // margin: auto 0;
+    // width: 50%;
+    margin-left: -90%;
+    transform: rotate(90deg);
+  }
+
+  .title-section {
+    h2 {
+      color: #000;
+      font-family: 'SF Pro Display';
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 28px; /* 127.273% */
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.5);
+      font-family: 'SF Pro Display';
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px; /* 175% */
+      letter-spacing: -0.32px;
+    }
+  }
+}
+

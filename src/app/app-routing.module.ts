@@ -4,7 +4,6 @@ import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from
 import { CoreComponent } from './core/core.component';
 import {
   ContactusComponent,
-  CustomerManagementComponent,
   DashboardComponent,
   DataUsageComponent,
   HelpCenterComponent,
@@ -20,9 +19,8 @@ import {
   SupportComponent,
   UserComponent,
 } from './modules';
-import { AuthGuard } from './shared/service';
 import { NotFoundComponent } from './shared/component';
-import { AddEditCustomerComponent } from './modules/customer-management/component/add-edit-customer/add-edit-customer.component';
+import { AuthGuard } from './shared/service';
 
 const routes: Routes = [
   {
@@ -31,8 +29,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'customer-management', loadChildren: () => import('./modules/customer-management/customer-management.module').then((m) => m.CustomerManagementModule) },
-      { path: 'customer-management/add', component: AddEditCustomerComponent },
+      {
+        path: 'customer-management',
+        loadChildren: () =>
+          import('./modules/customer-management/customer-management.module').then(
+            (m) => m.CustomerManagementModule
+          ),
+      },
       { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'user-management', component: UserComponent },

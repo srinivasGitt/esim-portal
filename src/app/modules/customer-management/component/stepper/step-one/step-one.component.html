@@ -1,0 +1,334 @@
+<ng-container [formGroup]="form">
+  <!-- Company name and website -->
+  <div class="row p-3">
+    <div class="col-6 px-1 border-bottom">
+      <div class="div-height">
+        <label for="companyName" class="form-label es-modal-form-label">Company Name*</label>
+        <input
+          type="text"
+          class="form-control es-input"
+          id="companyName"
+          aria-describedby="companyName"
+          name="companyName"
+          formControlName="companyName"
+          placeholder="Enter the full company name"
+        />
+        <div>
+          <span
+            class="help-block ng-invalid text-danger"
+            *ngIf="
+              form.get('companyName')?.touched &&
+              form.get('companyName')?.dirty &&
+              form.get('companyName')?.errors
+            "
+          >
+            <span class="small" *ngIf="form.get('companyName')?.errors?.['required']"
+              >Company Name is required!</span
+            >
+            <span class="small" *ngIf="form.get('companyName')?.errors?.['spacesOnly']"
+              >Value contains spaces only!</span
+            >
+            <span
+              class="small"
+              *ngIf="
+                form.get('companyName')?.errors?.['minlength'] ||
+                form.get('companyName')?.errors?.['maxlength']
+              "
+            >
+              Company name must have min.
+              {{ form.get('companyName')?.errors?.['minlength']?.['requiredLength'] }}
+              or max.
+              {{ form.get('companyName')?.errors?.['maxlength']?.['requiredLength'] }}
+              characters.
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 px-1 border-bottom">
+      <div class="div-height">
+        <label for="website" class="form-label es-modal-form-label">Website Link</label>
+        <input
+          type="text"
+          class="form-control es-input"
+          id="website"
+          aria-describedby="website"
+          name="website"
+          formControlName="websiteLink"
+          placeholder="Enter the full company name"
+        />
+        <div>
+          <span
+            class="help-block ng-invalid text-danger"
+            *ngIf="
+              form.get('websiteLink')?.touched &&
+              form.get('websiteLink')?.dirty &&
+              form.get('websiteLink')?.errors
+            "
+          >
+            <span class="small" *ngIf="form.get('websiteLink')?.errors?.['invalidWebsite']">
+              Invalid website address
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Billing Address -->
+  <ng-container formGroupName="billingAddress">
+    <div class="row p-3">
+      <div class="col-6">
+        <div class="div-height">
+          <label for="addressLine" class="form-label es-modal-form-label">Address Line*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="addressLine"
+            aria-describedby="addressLine"
+            name="addressLine"
+            formControlName="addressLine"
+            placeholder="Enter the address of the company"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['billingAddress'].get('addressLine')?.touched &&
+                form.controls['billingAddress'].get('addressLine')?.dirty &&
+                form.controls['billingAddress'].get('addressLine')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['billingAddress'].get('addressLine')?.errors?.['required']"
+                >Address Line is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="div-height">
+          <label for="landmark" class="form-label es-modal-form-label">Landmark</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="landmark"
+            aria-describedby="landmark"
+            name="landmark"
+            formControlName="landmark"
+            placeholder="Enter the nearby landmark"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row p-3">
+      <div class="col-6">
+        <div class="div-height">
+          <label for="pincode" class="form-label es-modal-form-label">PIN Code*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="pincode"
+            aria-describedby="pincode"
+            name="pincode"
+            formControlName="pincode"
+            placeholder="Enter the PIN Code"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['billingAddress'].get('pincode')?.touched &&
+                form.controls['billingAddress'].get('pincode')?.dirty &&
+                form.controls['billingAddress'].get('pincode')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['billingAddress'].get('pincode')?.errors?.['pattern']"
+                >Invalid PIN Code Format!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="div-height">
+          <label for="city" class="form-label es-modal-form-label">City*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="city"
+            aria-describedby="city"
+            name="city"
+            formControlName="city"
+            placeholder="Enter the city of the address"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['billingAddress'].get('city')?.touched &&
+                form.controls['billingAddress'].get('city')?.dirty &&
+                form.controls['billingAddress'].get('city')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['billingAddress'].get('city')?.errors?.['required']"
+                >City is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row p-3">
+      <div class="col-6 border-bottom">
+        <div class="div-height">
+          <label for="state" class="form-label es-modal-form-label">State*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="state"
+            aria-describedby="state"
+            name="state"
+            formControlName="state"
+            placeholder="Enter the state of the address"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['billingAddress'].get('state')?.touched &&
+                form.controls['billingAddress'].get('state')?.dirty &&
+                form.controls['billingAddress'].get('state')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['billingAddress'].get('state')?.errors?.['required']"
+                >State is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 border-bottom">
+        <div class="div-height">
+          <label for="country" class="form-label es-modal-form-label">Country*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="country"
+            aria-describedby="country"
+            name="country"
+            formControlName="country"
+            placeholder="Enter the country of the address"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['billingAddress'].get('country')?.touched &&
+                form.controls['billingAddress'].get('country')?.dirty &&
+                form.controls['billingAddress'].get('country')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['billingAddress'].get('country')?.errors?.['required']"
+                >Country is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Contact Details -->
+  <ng-container formGroupName="contactDetails">
+    <div class="row">
+      <div class="col-6">
+        <div class="div-height">
+          <label for="email" class="form-label es-modal-form-label">Email Address*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="email"
+            aria-describedby="email"
+            name="email"
+            formControlName="emailAddress"
+            placeholder="Enter the company’s email address"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['contactDetails'].get('emailAddress')?.touched &&
+                form.controls['contactDetails'].get('emailAddress')?.dirty &&
+                form.controls['contactDetails'].get('emailAddress')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['contactDetails'].get('emailAddress')?.errors?.['required']"
+                >Email Address is required!</span
+              >
+              <span
+                class="small"
+                *ngIf="
+                  (form.controls['contactDetails'].get('emailAddress')?.errors?.['email'] ||
+                    form.controls['contactDetails'].get('emailAddress')?.errors?.['minlength'] ||
+                    form.controls['contactDetails'].get('emailAddress')?.errors?.['maxlength']) &&
+                  !form.controls['contactDetails'].get('phoneNumber')?.errors?.['email']
+                "
+                >Invalid email address!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="div-height">
+          <label for="phone" class="form-label es-modal-form-label">Phone Number*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="phone"
+            aria-describedby="phone"
+            name="phone"
+            formControlName="phoneNumber"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['contactDetails'].get('phoneNumber')?.touched &&
+                form.controls['contactDetails'].get('phoneNumber')?.dirty &&
+                form.controls['contactDetails'].get('phoneNumber')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['contactDetails'].get('phoneNumber')?.errors?.['required']"
+                >Phone Number is required!</span
+              >
+              <span
+                class="small"
+                *ngIf="
+                  form.controls['contactDetails'].get('phoneNumber')?.errors?.['pattern'] &&
+                  !form.controls['contactDetails'].get('phoneNumber')?.errors?.['required']
+                "
+                >Invalid phone number!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

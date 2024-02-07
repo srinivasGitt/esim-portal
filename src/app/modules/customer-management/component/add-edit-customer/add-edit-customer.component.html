@@ -1,6 +1,6 @@
 <div class="common-header">
   <!-- Customer Form Header Section -->
-  <div class=" customer-form-header">
+  <div class="customer-form-header">
     <div class="row justify-content-between">
       <div class="col-4 d-flex align-items-center">
         <span class="d-inline-block mr-3">
@@ -40,10 +40,16 @@
           type="button"
           class="btn action-btn ms-3"
           (click)="currentStep === 3 ? submitCustomerDetails() : nextStep()"
-          [ngClass]="{'btn-primary text-white': customerForm.get('stepOne')?.valid || customerForm.get('stepTwo')?.valid || customerForm.get('stepThree')?.valid}"
+          [ngClass]="{
+            'btn-primary text-white':
+              customerForm.get('stepOne')?.valid ||
+              customerForm.get('stepTwo')?.valid ||
+              customerForm.get('stepThree')?.valid
+          }"
           [disabled]="
             (currentStep === 1 && !customerForm.get('stepOne')?.valid) ||
-            (currentStep === 2 && !customerForm.get('stepTwo')?.valid) || (currentStep === 3 && customerForm.invalid)
+            (currentStep === 2 && !customerForm.get('stepTwo')?.valid) ||
+            (currentStep === 3 && customerForm.invalid)
           "
         >
           {{ currentStep === 3 ? 'Submit' : 'Next' }}
@@ -53,16 +59,16 @@
   </div>
 
   <!-- Form Section -->
-  <div class="row mt-3 justify-content-between gap-1 customer-form">
+  <div class="row mt-3 ms-1 justify-content-between gap-1 customer-form">
     <!-- Stepper Section -->
-    <div class="col-3 left-div">
-      <div class="steps p-3">
+    <div class="col-3 left-div p-0">
+      <div class="steps px-3 py-5">
         <ng-container *ngFor="let step of stepCountArray; let last = last">
-          <div class="row p-3">
-            <div class="col-3 circle" [ngClass]="{ active: currentStep >= step.number }">
+          <div class="row d-flex justify-content-between m-0">
+            <div class="col-2 circle" [ngClass]="{ active: currentStep >= step.number }">
               <span>{{ step.number }}</span>
             </div>
-            <div class="col-9 title-section">
+            <div class="col-10 title-section">
               <h2>{{ step.title }}</h2>
               <p>{{ step.subTitle }}</p>
             </div>
@@ -71,223 +77,10 @@
       </div>
     </div>
     <!-- Form Section -->
-    <div class="col-8 p-3 right-div">
-      <form class="es-modal-form" [formGroup]="customerForm" novalidate autocomplete="off">
+    <div class="col-8 right-div">
+      <form [formGroup]="customerForm" novalidate autocomplete="off">
         <!-- STEP ONE -->
-        <ng-container formGroupName="stepOne" *ngIf="currentStep === 1">
-          <!-- Company name and website -->
-          <div class="row">
-            <div class="col-6">
-              <div class="div-height">
-                <label for="companyName" class="form-label es-modal-form-label"
-                  >Company Name*</label
-                >
-                <input
-                  type="text"
-                  class="form-control es-input"
-                  id="companyName"
-                  aria-describedby="companyName"
-                  name="companyName"
-                  formControlName="companyName"
-                  placeholder="Enter the full company name"
-                />
-                <div>
-                  <span class="help-block ng-invalid text-danger">
-                    <span class="small"> Company Name is required! </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="div-height">
-                <label for="website" class="form-label es-modal-form-label">Website Link*</label>
-                <input
-                  type="text"
-                  class="form-control es-input"
-                  id="website"
-                  aria-describedby="website"
-                  name="website"
-                  formControlName="websiteLink"
-                  placeholder="Enter the full company name"
-                />
-                <div>
-                  <span class="help-block ng-invalid text-danger">
-                    <span class="small"> Invalid website address </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Billing Address -->
-          <ng-container formGroupName="billingAddress">
-            <div class="row">
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="addressLine" class="form-label es-modal-form-label"
-                    >Address Line*</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="addressLine"
-                    aria-describedby="addressLine"
-                    name="addressLine"
-                    formControlName="addressLine"
-                    placeholder="Enter the address of the company"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">Address Line is required!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="landmark" class="form-label es-modal-form-label">Landmark*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="landmark"
-                    aria-describedby="landmark"
-                    name="landmark"
-                    formControlName="landmark"
-                    placeholder="Enter the nearby landmark"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small"> Invalid website address </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="pincode" class="form-label es-modal-form-label">PIN Code*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="pincode"
-                    aria-describedby="pincode"
-                    name="pincode"
-                    formControlName="pincode"
-                    placeholder="Enter the PIN Code"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">Invalid PIN Code Format!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="city" class="form-label es-modal-form-label">City*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="city"
-                    aria-describedby="city"
-                    name="city"
-                    formControlName="city"
-                    placeholder="Enter the city of the address"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">City is required!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="state" class="form-label es-modal-form-label">State*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="state"
-                    aria-describedby="state"
-                    name="state"
-                    formControlName="state"
-                    placeholder="Enter the state of the address"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">State is required!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="country" class="form-label es-modal-form-label">Country*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="country"
-                    aria-describedby="country"
-                    name="country"
-                    formControlName="country"
-                    placeholder="Enter the country of the address"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">Country is required!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-
-          <!-- Contact Details -->
-          <ng-container formGroupName="companyContactDetails">
-            <div class="row">
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="email" class="form-label es-modal-form-label">Email Address*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="email"
-                    aria-describedby="email"
-                    name="email"
-                    formControlName="email"
-                    placeholder="Enter the company’s email address"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">Invalid email address!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="div-height">
-                  <label for="phone" class="form-label es-modal-form-label">Phone Number*</label>
-                  <input
-                    type="text"
-                    class="form-control es-input"
-                    id="phone"
-                    aria-describedby="phone"
-                    name="phone"
-                    formControlName="phone"
-                  />
-                  <div>
-                    <span class="help-block ng-invalid text-danger">
-                      <span class="small">Invalid phone number!</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-        </ng-container>
+        <app-step-one formGroupName="stepOne" *ngIf="currentStep === 1"></app-step-one>
 
         <!-- STEP TWO -->
         <ng-container formGroupName="stepTwo" *ngIf="currentStep === 2">
