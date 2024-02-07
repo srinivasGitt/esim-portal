@@ -29,7 +29,8 @@ export class SidebarComponent implements OnInit {
   isParentActive: any;
   clientConfig!: any;
   routeConfig: any;
-  isCustomerSelected = false;
+  isCustomerSelected = true;
+  isRole = 'superAdmin';
 
   constructor(
     private router: Router,

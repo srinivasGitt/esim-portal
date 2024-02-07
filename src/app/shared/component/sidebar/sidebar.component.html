@@ -1,55 +1,189 @@
-<div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
-    <div class="sidebar-brand-parent">
-        <a class="sidebar-brand" routerLink="/">
-            <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
-        </a>
-    </div>
+<div style="position: fixed; top: 30px; left: 500px; z-index: 1000;"> 
+    <button class="btn btn-warning" (click)="isRole = 'admin';">Admin test</button>
+    <button class="btn btn-info" (click)="isRole = 'superAdmin';">SuperAdmin test</button>
 
-    <ul class="sidebar-menu-list">
-        <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
-            <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
-                <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
-                    <span class="link-icon">
-                        <img [src]="menu.icon" [alt]="menu.title">
-                    </span>
-                    <span class="">
-                        {{ menu.title }}
-                    </span>
+    <button class="btn btn-danger" (click)="isCustomerSelected = !isCustomerSelected;">Customer Selected</button>
+</div>
+
+<ng-container *ngIf="isRole === 'superAdmin'">
+    <div class="super-admin-main">
+
+        <div class="super-admin-sidebar" [ngClass]="{'super-admin-customer-selected': isCustomerSelected}" >
+            <div class="sidebar-brand-parent">
+                <a class="sidebar-brand" routerLink="/">
+                    <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
+                    <img class="brand-logo-small" src="http://localhost:4600/assets/images/auth/gb-logo-small.png" alt="">
                 </a>
             </div>
-            <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
-                <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
-                    <span class="link-icon">
-                        <img [src]="menu.icon" [alt]="menu.title">
-                    </span>
-                    <span class="">
-                        {{ menu.title }}
-                    </span>
-                    <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
-                        <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
-                    </div>
-                </a>
-            </div>
-            <div *ngIf="menu.childs && menu.childs.length > 0">   
-                <ul class="sub-menu">
-                    <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
-                        <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
-                            <span class="">
-                                {{ child.title }}
+        
+            <ul class="sidebar-menu-list">
+                <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
+                    <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
+                        <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                            <span class="link-icon">
+                                <img [src]="menu.icon" [alt]="menu.title">
                             </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
-                                </svg>
+                            <span class="sidebar-menu-title">
+                                {{ menu.title }}
+                            </span>
                         </a>
+                    </div>
+                    <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                        <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
+                            <span class="link-icon">
+                                <img [src]="menu.icon" [alt]="menu.title">
+                            </span>
+                            <span class="sidebar-menu-title">
+                                {{ menu.title }}
+                            </span>
+                            <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                                <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <!-- <div *ngIf="menu.childs && menu.childs.length > 0">   
+                        <ul class="sub-menu">
+                            <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
+                                <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
+                                    <span class="">
+                                        {{ child.title }}
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
+                                        </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> -->
+                    
+                </li>
+            </ul>
+        
+            <div class="d-flex align-items-center meta-footer">
+                <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
+                </span>
+            </div>
+        </div>
+
+        <!-- admin navbar -->
+        <ng-container *ngIf="isCustomerSelected">
+            <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
+                <div class="sidebar-brand-parent">
+                    <a class="sidebar-brand" routerLink="/">
+                        <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
+                    </a>
+                    <a href="" class="customer-name">Travel Sim</a>
+                </div>
+            
+                <ul class="sidebar-menu-list">
+                    <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
+                        <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
+                            <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                                <span class="link-icon">
+                                    <img [src]="menu.icon" [alt]="menu.title">
+                                </span>
+                                <span class="">
+                                    {{ menu.title }}
+                                </span>
+                            </a>
+                        </div>
+                        <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                            <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
+                                <span class="link-icon">
+                                    <img [src]="menu.icon" [alt]="menu.title">
+                                </span>
+                                <span class="">
+                                    {{ menu.title }}
+                                </span>
+                                <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                                    <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <div *ngIf="menu.childs && menu.childs.length > 0">   
+                            <ul class="sub-menu">
+                                <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
+                                    <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
+                                        <span class="">
+                                            {{ child.title }}
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
+                                            </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
                     </li>
                 </ul>
-            </div>
             
-        </li>
-    </ul>
+                <div class="d-flex align-items-center meta-footer">
+                    <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
+                    </span>
+                </div>
+            </div>
+        </ng-container>
 
-    <div class="d-flex align-items-center meta-footer">
-        <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
-        </span>
     </div>
-</div>
+</ng-container>
+
+
+<!-- only admin navbar -->
+<ng-container *ngIf="isRole === 'admin'">
+    <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
+        <div class="sidebar-brand-parent">
+            <a class="sidebar-brand" routerLink="/">
+                <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
+            </a>
+        </div>
+    
+        <ul class="sidebar-menu-list">
+            <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
+                <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
+                    <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                        <span class="link-icon">
+                            <img [src]="menu.icon" [alt]="menu.title">
+                        </span>
+                        <span class="">
+                            {{ menu.title }}
+                        </span>
+                    </a>
+                </div>
+                <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                    <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
+                        <span class="link-icon">
+                            <img [src]="menu.icon" [alt]="menu.title">
+                        </span>
+                        <span class="">
+                            {{ menu.title }}
+                        </span>
+                        <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                            <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
+                        </div>
+                    </a>
+                </div>
+                <div *ngIf="menu.childs && menu.childs.length > 0">   
+                    <ul class="sub-menu">
+                        <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
+                            <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
+                                <span class="">
+                                    {{ child.title }}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
+                                    </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </li>
+        </ul>
+    
+        <div class="d-flex align-items-center meta-footer">
+            <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
+            </span>
+        </div>
+    </div>
+</ng-container>
