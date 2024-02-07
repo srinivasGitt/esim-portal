@@ -35,7 +35,11 @@ export class AuthService {
     return this.http.post(`${this.serverUrl}/auth/reset`, userData);
   }
 
-  validateUser(email: string){
-    return this.http.get(`${this.serverUrl}/auth/validate/${email}`);
+  validateUser(){
+    return this.http.get(`${this.serverUrl}/otp/generate`);
+  }
+
+  verifyUser(requestData : any){
+    return this.http.post(`${this.serverUrl}/otp/verify`, requestData);
   }
 }

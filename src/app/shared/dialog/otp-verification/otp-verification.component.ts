@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { DialogComponent } from '../../service/dialog';
 import { AuthService, UsersService } from '../../service';
-import { OtpVerification } from './otpType.model';
+import { OtpVerification, otpType } from './otpType.model';
 @Component({
   selector: 'app-otp-verification',
   templateUrl: './otp-verification.component.html',
@@ -13,7 +13,8 @@ export class OtpVerificationComponent implements OnInit {
   config!: OtpVerification;
   userDetails: any;
   otpError = true;
-  otpValue = '';
+  otpDetails: { id: string, otp: string, requestType: string } = { id: '', otp: '', requestType: ''};
+  payload: any;
 
   public settings = {
     length: 6,
@@ -39,6 +40,8 @@ export class OtpVerificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const indexOfS = Object.values(otpType).indexOf(this.config.type as unknown as otpType);
+    this.otpDetails.requestType = Object.keys(otpType)[indexOfS];
   }
 
   close(): void {
@@ -47,24 +50,29 @@ export class OtpVerificationComponent implements OnInit {
 
   onOTPChange(value : any){
     if(value.length === this.settings.length) {
-      this.otpValue = value;
+      this.otpDetails.otp = value;
       this.otpError = false;
     } else if(value === -2){
       this.sendOtp();
     }
   }
   sendOtp() {
-    this.authService.validateUser(this.userDetails.email).subscribe(
-      (result) => {
-
+    this.authService.validateUser().subscribe(
+      (result : any) => {
+        if(result.id) {
+          this.otpDetails.id= result.id;
+          this.otpError = false;
+          this.settings.errorMessage = '';
+        };
       },
       (error) => {
-
+        this.otpError = true;
+        this.settings.errorMessage = error.error.message;
       });
   }
 
-  validateOTP(){
-    this.authService.validateOTP({ email: this.userDetails.email, otp: this.otpValue}).subscribe(
+  verifyUser(){
+    this.authService.verifyUser({ ...this.otpDetails, payload: this.payload}).subscribe(
       (result) => {
         this.dialogRef.close.emit(true);
       },
@@ -74,3 +82,4 @@ export class OtpVerificationComponent implements OnInit {
       });
   }
 }
+// this.dialogService.openModal(OtpVerificationComponent, { context : { config: { type: otpType.CUSTOMER_ENABLE, buttonText: buttonText.enable}, payload: {}}})

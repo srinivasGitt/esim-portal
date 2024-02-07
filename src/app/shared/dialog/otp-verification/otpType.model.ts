@@ -1,11 +1,11 @@
 export enum otpType {
-    enable_product = 'enable product',
-    disable_product = 'disable product',
-    enable_customer = 'enable customer',
-    disable_customer = 'disable customer',
-    enable_agent = 'enable agent',
-    disable_agent = 'disable agent',
-    delete_product_trs = 'delete product trs'
+    CUSTOMER_PRODUCT_ENABLE = 'enable product',
+    CUSTOMER_PRODUCT_DISABLE = 'disable product',
+    CUSTOMER_UPDATE = 'edit customer',
+    CUSTOMER_ENABLE = 'enable customer',
+    CUSTOMER_DISABLE = 'disable customer',
+    AGENT_ENABLE = 'enable agent',
+    AGENT_DISABLE = 'disable agent',
 }
 
 export enum buttonText {
