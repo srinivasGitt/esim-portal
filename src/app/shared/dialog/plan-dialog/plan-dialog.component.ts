@@ -69,7 +69,7 @@ export class PlanDialogComponent implements OnInit {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
-  
+
 
   ngOnInit(): void {
     this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
@@ -80,16 +80,16 @@ export class PlanDialogComponent implements OnInit {
     this.createPlanForm();
     this.getIMSIAndCountryList();
   }
-  
+
 
   getIMSIAndCountryList() {
     combineLatest(this.planService.getIMSIAndCountryList()).subscribe((result : any) => {
       if(result) {
-        
+
         const imsi = result[0]
         const countries = result[1]
         const regions = result[2]
-        
+
         this.imsiTypeList = imsi.data
         this.regionList = regions.data
         this.countryList = countries.data
@@ -101,7 +101,7 @@ export class PlanDialogComponent implements OnInit {
         this.countryList.forEach((country: any) => {
           let flagNameInLower = country.iso3code
           flagNameInLower = flagNameInLower.toLowerCase()
-          country.flag = `assets/flags/${flagNameInLower}.svg` 
+          country.flag = `assets/flags/${flagNameInLower}.svg`
           this.countriesAlias.push({name: country.name, flag: country.flag, iso3code: country.iso3code, dial_code: country.dial_code})
         })
         this.inProgress = false
@@ -118,7 +118,7 @@ export class PlanDialogComponent implements OnInit {
         dataSize = this.data.data.split(" ");
       }
     }
-    
+
     console.log(this.data.supportedCountries);
     this.selectedCountries = this.data.supportedCountries
     this.planForm = new UntypedFormGroup({
@@ -140,6 +140,11 @@ export class PlanDialogComponent implements OnInit {
   }
 
   get f() { return this.planForm.controls; }
+
+  /* Comparing Selected Countries with the list of countries in Edit Plan Mode */
+  compareCountries(country: any, selectedCountry: any): boolean {
+    return country.name === selectedCountry.name
+  }
 
   submit() {
     this.submitted = true;
@@ -221,7 +226,7 @@ export class PlanDialogComponent implements OnInit {
       if(--decValue > -1){
         this.f[controlKey].setValue(decValue);
       }
-      
+
     }
   }
 
@@ -234,7 +239,7 @@ export class PlanDialogComponent implements OnInit {
       this.selectedIMSIType = value._id
     }
   }
-  
+
   selectRegion(value: any) {
     if(value) {
       this.selectedRegion = value.label
