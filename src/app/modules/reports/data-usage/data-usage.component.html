@@ -205,7 +205,7 @@
         <button
           type="button"
           class="btn btn-dashboard-head d-flex justify-content-center align-items-center download-button"
-          (click)="downloadDataUsageReport()"
+          (click)="downloadDataUsageReport()" [disabled]="disableDownloadButton"
         >
           <span>
             <svg
