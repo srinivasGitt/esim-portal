@@ -70,7 +70,6 @@ export class PlanDialogComponent implements OnInit {
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
 
-
   ngOnInit(): void {
     this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
     this.data = this.dialogRef.context.data;
@@ -119,8 +118,6 @@ export class PlanDialogComponent implements OnInit {
       }
     }
 
-    console.log(this.data.supportedCountries);
-    this.selectedCountries = this.data.supportedCountries
     this.planForm = new UntypedFormGroup({
       productCategory: new UntypedFormControl(this.data.productCategory ? this.data.productCategory : '', [Validators.maxLength(80)]),
       name: new UntypedFormControl(this.data.name, [Validators.required, Validators.maxLength(80)]),
@@ -210,7 +207,6 @@ export class PlanDialogComponent implements OnInit {
     })
   }
 
-
   /* close modal */
   close(): void {
     this.dialogRef.close.emit(false);
@@ -266,5 +262,21 @@ export class PlanDialogComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  updatePlan() {
+    const data = {
+      name: this.planForm.value.name,  
+      priceBundle: this.planForm.value.priceBundle
+    }
+
+    this.planService.updatePlan(this.data._id, data)
+      .subscribe((res: any) => {
+        this.dialogRef.close.emit(res.data);
+        this.inProgress = true;
+      }, err => {
+        this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
+      });
   }
 }

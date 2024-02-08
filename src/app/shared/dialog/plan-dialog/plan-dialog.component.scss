@@ -84,6 +84,6 @@
 }
 
 .input-disable {
-    pointer-events: none;
-    background-color: #EFEFF0;
+    pointer-events: none !important;
+    background-color: #EFEFF0 !important;
 }

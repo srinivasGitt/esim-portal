@@ -36,10 +36,10 @@
         </p>
     </div>
     <div class="es-modal-body plan-dialog-bodyscroll">
-        <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="submit()" autocomplete="off">
+        <form class="es-modal-form" [formGroup]="planForm" novalidate (ngSubmit)="title === 'Add New Plan' ? submit() : updatePlan()" autocomplete="off">
             <div class="div-height">
                 <label for="productCategory" class="form-label es-modal-form-label">Plan Label</label>
-                <input type="text" class="form-control es-input" id="productCategory" aria-describedby="productCategory" formControlName="productCategory" [ngClass]="[f.productCategory.value.length > 0 ? 'border-purple':'']" placeholder="Enter your Plan Label">
+                <input type="text" class="form-control es-input" id="productCategory" aria-describedby="productCategory" formControlName="productCategory" [ngClass]="{'border-purple': f.productCategory.value.length > 0, 'input-disable': title === 'Edit Plan'}" placeholder="Enter your Plan Label">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.productCategory.touched && f.productCategory.pristine) || (f.productCategory.errors && submitted)">
                         <span class="small" *ngIf="f.productCategory.errors?.maxlength?.requiredLength">
@@ -252,7 +252,7 @@
             <div class="div-height d-flex justify-content-between">
                 <div class="input-width imsi-input">
                     <label for="region" class="form-label es-modal-form-label">Activation Type</label>
-                    <div class="d-flex relative container-ng-select">
+                    <div class="d-flex relative container-ng-select" [ngClass]="{'input-disable': title === 'Edit Plan'}">
                         <ng-select
                             [items]="activationType"
                             [multiple]="false"
@@ -283,7 +283,7 @@
                 </div>
                 <div class="input-width imsi-input">
                     <label for="region" class="form-label es-modal-form-label">Region</label>
-                    <div class="d-flex relative container-ng-select">
+                    <div class="d-flex relative container-ng-select" [ngClass]="{'input-disable': title === 'Edit Plan'}">
                         <ng-select
                             [items]="regionList"
                             [multiple]="false"
