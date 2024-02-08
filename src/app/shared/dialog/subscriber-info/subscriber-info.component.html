@@ -106,11 +106,13 @@
               </svg>
             </span>
             {{
+
               !subscriberDetails[details.key]
                 ? 'NA'
                 : details.isDate
                   ? (subscriberDetails[details.key] | date: 'dd/MM/yyyy Thh:mm:ss')
                   : subscriberDetails[details.key]
+
             }}
             <span
               class="icon"

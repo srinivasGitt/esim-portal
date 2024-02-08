@@ -106,6 +106,7 @@
                                 </svg>
                             </span>
                         </div>
+
                         <div class="t-box a px-1 d-flex align-items-center">
                           <span class=" subscriber-details-text text-overflow-ellipsis" *ngIf="supportRequest?.deviceInfo?.length >20" [tooltip]="supportRequest.name" placement="top" delay="100" offset="0">
                             {{supportRequest.deviceInfo ?? 'N/A'}}
@@ -115,7 +116,8 @@
                         </span>
                         <!-- {{supportRequest.deviceInfo ?? 'N/A'}} -->
                       </div>
-                        <div class="t-box a px-1">{{supportRequest.created | date : 'dd/MM/YYYY'}}</div>
+                        <div class="t-box a px-1">{{supportRequest.created | date : 'dd/MM/yyyy'}}</div>
+
                         <label class="subscriber-details-text word-break custom-label-size">
                             <div class="filter-div d-flex">
                                 <div class="d-flex w-100 status-box">
