@@ -64,6 +64,8 @@ export class SubscriptionReportComponent implements OnInit {
   currencyType: string = 'USD';
   userDetails: any;
   axisColor: any;
+  disableDownloadButton = false;
+  disableEmailButton = false;
 
   constructor(private dashboardService: DashboardService,
               private alertService: AlertService,
@@ -319,8 +321,14 @@ export class SubscriptionReportComponent implements OnInit {
         break;
     }
 
+    this.disableDownloadButton = true;
+
     this.reportService.getSubscriptionDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
+          setTimeout(() => {
+            this.disableDownloadButton = false;
+          }, 10000);
+
           if(res && res.result.length <= 0) {
             let customTitle: string = 'Info';
         
@@ -340,6 +348,11 @@ export class SubscriptionReportComponent implements OnInit {
             const blob = new Blob([papa.unparse(res.result)], { type: 'text/plain;charset=utf-8' });
             FileSaver(blob, fileName);
           }
+      }, err => {
+        setTimeout(() => {
+          this.disableDownloadButton = false;
+        }, 10000);
+        this.alertService.error(err.error.message);
       });
   }
 
@@ -384,14 +397,23 @@ export class SubscriptionReportComponent implements OnInit {
         break;
     }
 
+    this.disableEmailButton = true;
+
     this.reportService.sendSubscriptionReportEmail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
+        setTimeout(() => {
+          this.disableEmailButton = false;
+        }, 10000);
           this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
           .instance.close.subscribe((data: any) => {
             if(data){
               } 
             });
       }, err => {
+        setTimeout(() => {
+          this.disableEmailButton = false;
+        }, 10000);
+        this.alertService.error(err.error.message);
         if(err.error.message == 'No data found in given date range!') {
           let customTitle: string = 'Info';
         

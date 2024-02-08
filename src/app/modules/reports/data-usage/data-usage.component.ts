@@ -10,7 +10,7 @@ import { PaginationInstance } from 'ngx-pagination';
 import { combineLatest } from 'rxjs';
 import { ReportAlertComponent } from 'src/app/shared/dialog/report-alert/report-alert.component';
 import { ReportSuccessInfoComponent } from 'src/app/shared/dialog/report-success-info/report-success-info.component';
-import { DialogService, PlansService, SubscriptionsService } from 'src/app/shared/service';
+import { AlertService, DialogService, PlansService, SubscriptionsService } from 'src/app/shared/service';
 import { ReportService } from '../../../shared/service/report.service';
 
 const papa = require('papaparse');
@@ -79,6 +79,7 @@ export class DataUsageComponent implements OnInit {
   planPlaceholderString = 'Plan';
   isRegionDropDownOpen = false;
   isPlanDropDownOpen = false;
+  disableDownloadButton = false;
 
   constructor(
     private reportService: ReportService,
@@ -86,7 +87,8 @@ export class DataUsageComponent implements OnInit {
     private elementRef: ElementRef,
     private planService: PlansService,
     private dialogService: DialogService,
-    private subscriptionService: SubscriptionsService
+    private subscriptionService: SubscriptionsService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -254,6 +256,8 @@ export class DataUsageComponent implements OnInit {
       message: 'Data usage report has been successfully downloaded.',
     };
 
+    this.disableDownloadButton = true;
+
     this.reportService
       .downloadDataUsageReport(
         this.startDate,
@@ -263,6 +267,10 @@ export class DataUsageComponent implements OnInit {
         this.paginateConfig.currentPage - 1
       )
       .subscribe((res: any) => {
+        setTimeout(() => {
+          this.disableDownloadButton = false;
+        }, 10000);
+
         if (res?.data?.length <= 0) {
           const customTitle: string = 'Info';
 
@@ -272,6 +280,8 @@ export class DataUsageComponent implements OnInit {
               context: { title: customTitle, body: 'No data found in given date range!' },
             })
             .instance.close.subscribe((data: any) => {});
+
+            
         } else {
           this.dialogService
             .openModal(ReportSuccessInfoComponent, {
@@ -288,6 +298,11 @@ export class DataUsageComponent implements OnInit {
           const blob = new Blob([papa.unparse(res)], { type: 'text/plain;charset=utf-8' });
           FileSaver(blob, fileName);
         }
+      }, err => {
+        setTimeout(() => {
+          this.disableDownloadButton = false;
+        }, 10000);
+        this.alertService.error(err.error.message);
       });
   }
 
