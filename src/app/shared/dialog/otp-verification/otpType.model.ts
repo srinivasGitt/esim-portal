@@ -4,8 +4,10 @@ export enum otpType {
     CUSTOMER_UPDATE = 'edit customer',
     CUSTOMER_ENABLE = 'enable customer',
     CUSTOMER_DISABLE = 'disable customer',
-    AGENT_ENABLE = 'enable agent',
-    AGENT_DISABLE = 'disable agent',
+    CUSTOMER_FEATURE_ENABLE = 'enable feature',
+    CUSTOMER_FEATURE_DISABLE = 'disable feature',
+    TRS_AGENT_ENABLE = 'enable agent',
+    TRS_AGENT_DISABLE = 'disable agent',
 }
 
 export enum buttonText {

@@ -3,22 +3,6 @@
         <div class="modal-header-text-container">
             <div class="mb-3 d-flex">
                 <ng-container [ngSwitch]="config.type">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none" *ngSwitchCase="'enable customer'">
-                        <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
-                        <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
-                        <mask id="mask0_103_35545" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="16" width="29" height="29">
-                            <rect x="16" y="16" width="28.8" height="28.8" fill="#D9D9D9"/>
-                        </mask>
-                        <g mask="url(#mask0_103_35545)">
-                            <path d="M25.2996 33.6266L19.5996 27.9266L21.0246 26.5016L25.2996 30.7766L34.4746 21.6016L35.8996 23.0266L25.2996 33.6266Z" fill="white"/>
-                        </g>
-                    </svg>
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngSwitchCase="'disable customer'">
-                        <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
-                        <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
-                        <path d="M27.001 26H29.001V31H27.001V26ZM27 32H29V34H27V32Z" fill="white"/>
-                        <path d="M29.7679 20.1987C29.4199 19.5437 28.7419 19.1367 27.9999 19.1367C27.2579 19.1367 26.5799 19.5437 26.2319 20.1997L18.8939 34.0627C18.7311 34.3671 18.6505 34.7088 18.6599 35.0539C18.6694 35.399 18.7687 35.7357 18.9479 36.0307C19.1246 36.3271 19.3756 36.5723 19.676 36.742C19.9764 36.9118 20.3159 37.0003 20.6609 36.9987H35.3389C36.0469 36.9987 36.6879 36.6367 37.0529 36.0307C37.2319 35.7356 37.331 35.3989 37.3405 35.0539C37.35 34.7088 37.2695 34.3672 37.1069 34.0627L29.7679 20.1987ZM20.6609 34.9987L27.9999 21.1357L35.3439 34.9987H20.6609Z" fill="white"/>
-                    </svg>
                     <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngSwitchCase="'enable agent'">
                         <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
                         <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
@@ -48,7 +32,7 @@
                         <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
                         <path d="M28.5 17L38 21.6692V33.3421L28.5 38L19 33.3421V21.6692L28.5 17ZM35.6364 22.1181L28.5 18.6162L25.7482 19.9631L32.8389 23.4874L35.6364 22.1181ZM28.5 25.62L31.2175 24.2956L24.1154 20.7712L21.3636 22.1181L28.5 25.62ZM20.4615 23.2854V32.4441L27.7692 36.0358V26.8771L20.4615 23.2854ZM29.2308 36.0358L36.5385 32.4441V23.2854L29.2308 26.8771V36.0358Z" fill="white"/>
                     </svg>
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngSwitchCase="'edit customer'">
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngSwitchCase="(config?.type === 'edit customer' || config?.type === 'enable customer' || config?.type == 'disable customer') ? config?.type : ''">
                         <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
                         <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
                         <path d="M20.5 20.5C20.5 19.7044 20.8161 18.9413 21.3787 18.3787C21.9413 17.8161 22.7044 17.5 23.5 17.5C24.2956 17.5 25.0587 17.8161 25.6213 18.3787C26.1839 18.9413 26.5 19.7044 26.5 20.5C26.5 21.2956 26.1839 22.0587 25.6213 22.6213C25.0587 23.1839 24.2956 23.5 23.5 23.5C22.7044 23.5 21.9413 23.1839 21.3787 22.6213C20.8161 22.0587 20.5 21.2956 20.5 20.5Z" fill="white"/>
@@ -58,6 +42,11 @@
                         <path d="M31.7476 29.5C33.3751 29.5 34.7611 30.5365 35.2786 31.987C35.7886 31.7785 36.2611 31.507 36.6796 31.1725C37.8076 30.265 38.4976 28.924 38.4976 27.25C38.4976 26.6533 38.2605 26.081 37.8386 25.659C37.4166 25.2371 36.8443 25 36.2476 25H32.2426C32.4076 25.4695 32.4976 25.975 32.4976 26.5C32.4989 27.6072 32.0908 28.6757 31.3516 29.5H31.7476Z" fill="white"/>
                         <path d="M33.8305 32.392C33.94 32.656 34 32.947 34 33.25C34 34.924 33.3115 36.265 32.182 37.1725C31.0705 38.065 29.5795 38.5 28 38.5C26.4205 38.5 24.9295 38.065 23.818 37.1725C22.69 36.265 22 34.924 22 33.25C21.9992 32.9543 22.0569 32.6614 22.1697 32.388C22.2825 32.1147 22.4482 31.8663 22.6573 31.6573C22.8663 31.4482 23.1147 31.2825 23.388 31.1697C23.6614 31.0569 23.9543 30.9992 24.25 31H31.75C32.1957 30.9999 32.6313 31.1322 33.0017 31.38C33.3721 31.6278 33.6606 31.98 33.8305 32.392Z" fill="white"/>
                     </svg>
+                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngSwitchCase="(config?.type === 'enable feature' || config?.type === 'disable feature') ? config?.type : ''">
+                        <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
+                        <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
+                        <path d="M38 23.07H29V25.07H38V23.07ZM38 31.07H29V33.07H38V31.07ZM21.54 27.07L18 23.53L19.41 22.12L21.53 24.24L25.77 20L27.18 21.41L21.54 27.07ZM21.54 35.07L18 31.53L19.41 30.12L21.53 32.24L25.77 28L27.18 29.41L21.54 35.07Z" fill="white"/>
+                        </svg>
                 </ng-container>
             </div>
         </div>
