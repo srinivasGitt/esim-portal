@@ -3,3 +3,4 @@ export * from './filesize.pipe';
 export * from './filter.pipe';
 export * from './phone-number-mask.pipe';
 export * from './showentries.pipe';
+export * from './search-filter.pipe';

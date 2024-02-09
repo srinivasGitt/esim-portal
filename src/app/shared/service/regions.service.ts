@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { group } from 'console';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class RegionsService {
   serverUrl = environment.serverUrl;
+  private countryList$: BehaviorSubject<any> = new BehaviorSubject(undefined);
 
   constructor(private http: HttpClient ) { }
 
@@ -67,6 +69,10 @@ export class RegionsService {
   }
 
   getCountries() {
-    return this.http.get(`${this.serverUrl}/countries`);
+    if(this.countryList$?.value){
+      return this.countryList$.asObservable();
+    }else {
+      return this.http.get(`${this.serverUrl}/countries`).pipe((result : any) => { this.countryList$.next(result); return result;});
+    }
   }
 }
