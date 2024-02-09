@@ -1,0 +1,100 @@
+<div class="es-modal add-edit-modal">
+    <div class="modal-header-flex">
+        <div class="modal-header-text-container">
+            <div class="mb-3">
+                <svg *ngIf="!isEdit" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#33A85B"/>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#A3FFD3" stroke-width="8"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.1875 23.8763C23.1875 21.7247 24.9317 19.9805 27.0833 19.9805C29.2349 19.9805 30.9792 21.7247 30.9792 23.8763C30.9792 26.0279 29.2349 27.7721 27.0833 27.7721C24.9317 27.7721 23.1875 26.0279 23.1875 23.8763ZM27.0833 21.3555C25.6911 21.3555 24.5625 22.4841 24.5625 23.8763C24.5625 25.2685 25.6911 26.3971 27.0833 26.3971C28.4756 26.3971 29.6042 25.2685 29.6042 23.8763C29.6042 22.4841 28.4756 21.3555 27.0833 21.3555Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.9785 32.582C19.9785 30.6835 21.5175 29.1445 23.416 29.1445H23.7285C23.8976 29.1445 24.0656 29.1713 24.2264 29.2237L25.0198 29.4829C26.3603 29.9205 27.8051 29.9205 29.1455 29.4829L29.9389 29.2237C30.0997 29.1713 30.2677 29.1445 30.4369 29.1445H30.7493C32.6479 29.1445 34.1868 30.6835 34.1868 32.582V33.6713C34.1868 34.3617 33.6864 34.9504 33.005 35.0617C29.0828 35.7021 25.0826 35.7021 21.1603 35.0617C20.4789 34.9504 19.9785 34.3617 19.9785 33.6713V32.582ZM23.416 30.5195C22.2769 30.5195 21.3535 31.443 21.3535 32.582V33.6713C21.3535 33.6879 21.3655 33.702 21.3819 33.7047C25.1574 34.3211 29.008 34.3211 32.7834 33.7047C32.7998 33.702 32.8118 33.6879 32.8118 33.6713V32.582C32.8118 31.443 31.8884 30.5195 30.7493 30.5195H30.4369C30.4127 30.5195 30.3887 30.5234 30.3657 30.5308L29.5723 30.7899C27.9546 31.3181 26.2107 31.3181 24.593 30.7899L23.7996 30.5308C23.7767 30.5234 23.7526 30.5195 23.7285 30.5195H23.416Z" fill="white"/>
+                    <path d="M34.8757 22.7305C35.2553 22.7305 35.5632 23.0383 35.5632 23.418V25.0221H37.1673C37.547 25.0221 37.8548 25.3299 37.8548 25.7096C37.8548 26.0893 37.547 26.3971 37.1673 26.3971H35.5632V28.0013C35.5632 28.381 35.2553 28.6888 34.8757 28.6888C34.496 28.6888 34.1882 28.381 34.1882 28.0013V26.3971H32.584C32.2043 26.3971 31.8965 26.0893 31.8965 25.7096C31.8965 25.3299 32.2043 25.0221 32.584 25.0221H34.1882V23.418C34.1882 23.0383 34.496 22.7305 34.8757 22.7305Z" fill="white"/>
+                </svg>
+
+                <svg *ngIf="isEdit" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE"/>
+                    <rect x="4" y="4" width="48" height="48" rx="24" stroke="#6365EF" stroke-width="8"/>
+                    <path d="M24.5828 35.4805H22.5828C22.1661 35.4805 21.7495 35.2305 21.5828 34.8972C21.3328 34.5638 21.3328 34.2305 21.4995 33.8138C22.4995 31.4805 24.7495 29.8972 27.3328 29.8972C29.9162 29.8972 32.0828 27.7305 32.0828 25.1471C32.0828 22.5638 29.9162 20.4805 27.2495 20.4805C24.6661 20.4805 22.4995 22.6471 22.4995 25.2305C22.4995 26.7305 23.1661 28.0638 24.2495 28.8972C22.3328 29.6472 20.6661 31.2305 19.8328 33.2305C19.4995 34.0638 19.5828 35.0638 20.0828 35.8138C20.6661 36.6472 21.4995 37.1472 22.4995 37.1472H24.4995C24.9995 37.1472 25.3328 36.8138 25.3328 36.3138C25.3328 35.8138 25.0828 35.4805 24.5828 35.4805ZM24.1661 25.2305C24.1661 23.5638 25.5828 22.1471 27.2495 22.1471C28.9162 22.1471 30.3328 23.5638 30.3328 25.2305C30.3328 26.8972 28.9162 28.3138 27.2495 28.3138C25.5828 28.3138 24.1661 26.8972 24.1661 25.2305Z" fill="white"/>
+                    <path d="M35.6673 27.9805C34.834 27.1471 33.4173 27.1471 32.584 27.9805L28.1673 32.3971C27.1673 33.3971 26.584 34.8138 26.584 36.3138C26.584 36.8138 26.9173 37.1471 27.4173 37.1471C28.9173 37.1471 30.2507 36.5638 31.334 35.5638L35.7507 31.1471C36.1673 30.7305 36.4173 30.1471 36.4173 29.5638C36.4173 28.9805 36.084 28.3971 35.6673 27.9805ZM34.5007 29.9805L30.084 34.3971C29.584 34.8971 29.0007 35.2305 28.334 35.3971C28.5007 34.7305 28.834 34.1471 29.334 33.6471L33.7507 29.2305C33.834 29.1471 34.0007 29.0638 34.1673 29.0638C34.334 29.0638 34.4173 29.1471 34.5007 29.2305C34.584 29.3138 34.6673 29.4805 34.6673 29.5638C34.6673 29.6471 34.584 29.8138 34.5007 29.9805Z" fill="white"/>
+                </svg>
+            </div>
+        </div>
+        <div class="es-btn-close-container mt-0 mb-auto me-3">
+            <a class="es-btn-close" (click)="close()"></a>
+        </div>
+    </div>
+
+    <div>
+        <p class="modal-header-text mb-0">{{ isEdit ? 'Edit User' : 'Invite User'}}</p>
+    </div>
+    <div>
+        <p class="modal-sub-header-text mb-0">
+            {{ isEdit ? 'Edit your user details by changing the values below and saving them.' : 'Invite user by entering their details below and submitting them.'}}
+        </p>
+    </div>
+    <div class="es-modal-body">
+        <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submitForm()">
+            <div class="mb-3">
+                <label for="firstName" class="form-label es-modal-form-label">First Name <span *ngIf="userForm.get('firstName')?.value == ''">*</span></label>
+                <input type="firstName" class="form-control es-input" id="firstName" aria-describedby="firstName" formControlName="firstName">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('firstName')?.touched && userForm.get('firstName')?.pristine) && (userForm.get('firstName')?.errors)">
+                        <span class="small" *ngIf="userForm.get('firstName')?.errors?.['required']">
+                            First name is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label es-modal-form-label">Last Name <span *ngIf="userForm.get('lastName')?.value == ''">*</span></label>
+                <input type="lastName" class="form-control es-input" id="lastName" aria-describedby="lastName" formControlName="lastName">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('lastName')?.touched && userForm.get('lastName')?.pristine) && (userForm.get('lastName')?.errors)">
+                        <span class="small" *ngIf="userForm.get('lastName')?.errors?.['required']">
+                            Last name is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label es-modal-form-label">Email Address <span *ngIf="userForm.get('email')?.value == ''">*</span></label>
+                <input type="email" class="form-control es-input" id="email" aria-describedby="email" formControlName="email">
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('email')?.touched && userForm.get('email')?.pristine) && (userForm.get('email')?.errors)">
+                        <span class="small" *ngIf="userForm.get('email')?.errors?.['required']">
+                            Email is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label es-modal-form-label">Phone Number <span *ngIf="userForm.get('phoneNumber')?.value == ''">*</span></label>
+                <app-mobile-number-input [inputControl]="userForm.controls['phoneNumber']"></app-mobile-number-input>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('phoneNumber')?.touched && userForm.get('phoneNumber')?.pristine) && (userForm.get('phoneNumber')?.errors)">
+                        <span class="small" *ngIf="userForm.get('phoneNumber')?.errors?.['required']">
+                            Phone Number is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label es-modal-form-label">Role <span *ngIf="userForm.get('role')?.value == ''">*</span></label>
+                <ng-select class="form-select-control" placeholder="Select User role" formControlName="role" [clearable]="false">
+                    <ng-option value="admin"> Admin </ng-option>
+                </ng-select>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('role')?.touched && userForm.get('role')?.pristine) && (userForm.get('role')?.errors)">
+                        <span class="small" *ngIf="userForm.get('role')?.errors?.['required']">
+                            Role is required!
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <button class="btn btn-secondary my-4 w-100 me-2" (click)="close()">Cancel</button>
+                <button type="submit" class="btn my-4 w-100 ms-2" [ngClass]="{'btn-primary': !userForm.invalid, 'btn-secondary': userForm.invalid}" [disabled]="userForm.invalid">Submit</button>
+            </div>
+          </form>
+    </div>
+    <div class="es-modal-footer"></div>
+</div>

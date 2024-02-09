@@ -14,6 +14,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { SaEditInviteUserComponent } from 'src/app/shared/dialog';
 
 @Component({
   selector: 'app-customer-management',
@@ -89,15 +90,15 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   createCustomer() {
-     this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New Customer'} })
-      .instance.close.subscribe((data: any) => {
-        if (data && data.name !== null ) {
-          let vm  = this;
-          vm.customerList?.push(data);
-          this.alertService.success(data.message);
-          this.getAllCustomer();
-        }
-      });
+    this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New Customer'} })
+    .instance.close.subscribe((data: any) => {
+      if (data && data.name !== null ) {
+        let vm  = this;
+        vm.customerList?.push(data);
+        this.alertService.success(data.message);
+        this.getAllCustomer();
+      }
+    });
   }
 
   getAllCustomer() {
