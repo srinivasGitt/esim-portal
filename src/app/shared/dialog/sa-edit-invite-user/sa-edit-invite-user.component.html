@@ -24,7 +24,12 @@
     </div>
 
     <div>
-        <p class="modal-header-text mb-0">{{title}}</p>
+        <p class="modal-header-text mb-0">{{ isEdit ? 'Edit User' : 'Invite User'}}</p>
+    </div>
+    <div>
+        <p class="modal-sub-header-text mb-0">
+            {{ isEdit ? 'Edit your user details by changing the values below and saving them.' : 'Invite user by entering their details below and submitting them.'}}
+        </p>
     </div>
     <div class="es-modal-body">
         <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submitForm()">
@@ -87,7 +92,7 @@
             </div>
             <div class="d-flex">
                 <button class="btn btn-secondary my-4 w-100 me-2" (click)="close()">Cancel</button>
-                <button type="submit" class="btn my-4 w-100 ms-2" [ngClass]="{'btn-primary': !userForm.invalid, 'btn-secondary': userForm.invalid}">Submit</button>
+                <button type="submit" class="btn my-4 w-100 ms-2" [ngClass]="{'btn-primary': !userForm.invalid, 'btn-secondary': userForm.invalid}" [disabled]="userForm.invalid">Submit</button>
             </div>
           </form>
     </div>

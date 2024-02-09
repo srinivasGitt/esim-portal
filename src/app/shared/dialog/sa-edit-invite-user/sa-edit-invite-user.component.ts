@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../../service/dialog';
-import { RegionsService } from '../../service';
+import { RegionsService, UsersService } from '../../service';
 
 @Component({
   selector: 'app-sa-edit-invite-user',
@@ -19,15 +19,11 @@ export class SaEditInviteUserComponent implements OnInit {
   });
   countryDialCode: string = '+91';
   submitted: boolean = false;
-  title: string = 'Invite User';
-  isEdit: boolean = true;
+  isEdit: boolean = false;
   dialogRef: DialogComponent;
-  countryList: Array<any> = [
-    {'name': 'India', 'dial_code': '+91'},
-    {'name': 'USA', 'dial_code': '+1'},
-  ];
+  userDetails: any;
 
-  constructor(private viewContainer: ViewContainerRef) {
+  constructor(private viewContainer: ViewContainerRef, private userService: UsersService) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
@@ -40,7 +36,27 @@ export class SaEditInviteUserComponent implements OnInit {
   }
 
   submitForm(){
+    if(this.isEdit){
+      this.updateUser() 
+    } else {
+      this.inviteUser();
+    }
+  }
 
+  inviteUser(){
+    this.userService.inviteUser(this.userForm.value).subscribe(
+      (result : any) => {
+
+      }
+    )
+  }
+
+  updateUser(){
+    this.userService.updateUser(this.userDetails._id, this.userForm.value).subscribe(
+      (result : any) => {
+        
+      }
+    )
   }
 
   trackCountries(index: any, item : any) {

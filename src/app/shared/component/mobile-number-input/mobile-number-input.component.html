@@ -16,7 +16,7 @@
                 </li>
                 <span class="country-list">
                     <li class="country-options row" *ngFor="let country of countryList | searchFilter : (country?.value || '') : 'name'; trackBy: trackCountries" (click)="setDialCode(country)">
-                        <span class="col-3">{{ country.dial_code }}</span> <span class="col-9">{{ country.name }}</span>
+                        <span class="col-4 px-2">{{ country.dial_code }}</span> <span class="col-8 px-2">{{ country.name }}</span>
                     </li>
                 </span>
             </ul>
