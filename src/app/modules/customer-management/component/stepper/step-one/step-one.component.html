@@ -1,7 +1,7 @@
 <ng-container [formGroup]="form">
   <!-- Company name and website -->
   <div class="row p-3">
-    <div class="col-6 px-1 border-bottom">
+    <div class="col-6 border-bottom">
       <div class="div-height">
         <label for="companyName" class="form-label es-modal-form-label">Company Name*</label>
         <input
@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6 px-1 border-bottom">
+    <div class="col-6 border-bottom">
       <div class="div-height">
         <label for="website" class="form-label es-modal-form-label">Website Link</label>
         <input
@@ -77,7 +77,10 @@
 
   <!-- Billing Address -->
   <ng-container formGroupName="billingAddress">
-    <div class="row p-3">
+    <div class="title-section px-3 pb-2">
+      <h2 class="form-group-title">Billing Address</h2>
+    </div>
+    <div class="row px-3">
       <div class="col-6">
         <div class="div-height">
           <label for="addressLine" class="form-label es-modal-form-label">Address Line*</label>
@@ -123,7 +126,7 @@
         </div>
       </div>
     </div>
-    <div class="row p-3">
+    <div class="row px-3">
       <div class="col-6">
         <div class="div-height">
           <label for="pincode" class="form-label es-modal-form-label">PIN Code*</label>
@@ -185,7 +188,7 @@
         </div>
       </div>
     </div>
-    <div class="row p-3">
+    <div class="row px-3 pb-3">
       <div class="col-6 border-bottom">
         <div class="div-height">
           <label for="state" class="form-label es-modal-form-label">State*</label>
@@ -251,10 +254,13 @@
 
   <!-- Contact Details -->
   <ng-container formGroupName="contactDetails">
-    <div class="row">
+    <div class="title-section px-3 pb-2">
+      <h2 class="form-group-title">Contact Details*</h2>
+    </div>
+    <div class="row px-3">
       <div class="col-6">
         <div class="div-height">
-          <label for="email" class="form-label es-modal-form-label">Email Address*</label>
+          <label for="email" class="form-label es-modal-form-label">Email Address</label>
           <input
             type="text"
             class="form-control es-input"
@@ -284,7 +290,7 @@
                   (form.controls['contactDetails'].get('emailAddress')?.errors?.['email'] ||
                     form.controls['contactDetails'].get('emailAddress')?.errors?.['minlength'] ||
                     form.controls['contactDetails'].get('emailAddress')?.errors?.['maxlength']) &&
-                  !form.controls['contactDetails'].get('phoneNumber')?.errors?.['email']
+                  !form.controls['contactDetails'].get('emailAddress')?.errors?.['email']
                 "
                 >Invalid email address!</span
               >
@@ -294,7 +300,7 @@
       </div>
       <div class="col-6">
         <div class="div-height">
-          <label for="phone" class="form-label es-modal-form-label">Phone Number*</label>
+          <label for="phone" class="form-label es-modal-form-label">Phone Number</label>
           <input
             type="text"
             class="form-control es-input"

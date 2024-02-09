@@ -13,13 +13,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ShowentriesPipe } from 'src/app/shared/pipe';
 import { StepOneComponent } from './component/stepper/step-one/step-one.component';
+import { StepTwoComponent } from './component/stepper/step-two/step-two.component';
+import { StepThreeComponent } from './component/stepper/step-three/step-three.component';
 
 
 @NgModule({
   declarations: [
     CustomerManagementComponent,
     AddEditCustomerComponent,
-    StepOneComponent
+    StepOneComponent,
+    StepTwoComponent,
+    StepThreeComponent
   ],
   imports: [
     CommonModule,

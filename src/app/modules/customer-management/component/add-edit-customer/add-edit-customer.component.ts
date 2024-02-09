@@ -1,7 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ICustomResponse } from 'src/app/shared/models';
+import { Customer } from 'src/app/shared/models/customer';
+import { AlertService } from 'src/app/shared/service';
 import { CustomValidators } from 'src/app/shared/validators/custom-validators';
 import { CustomerStepperService } from '../../service/customer-stepper.service';
+import { CustomerService } from '../../service/customer.service';
 
 @Component({
   selector: 'app-add-edit-customer',
@@ -10,7 +15,7 @@ import { CustomerStepperService } from '../../service/customer-stepper.service';
 })
 export class AddEditCustomerComponent implements OnInit, OnDestroy {
   customerForm!: FormGroup;
-
+  countryCodes: Array<any> = [];
   // stepper
   currentStep: number = 0;
   stepCountArray: Array<any> = [
@@ -23,9 +28,23 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     { number: 3, title: 'Invite User', subTitle: 'User will be given admin access by default' },
   ];
 
+  // Products arrays
+  productsArray: Array<any> = [
+    { name: 'iOS Application', value: 'iosApp' },
+    { name: 'Android Application', value: 'androidApp' },
+    { name: 'API', value: 'api' },
+    { name: 'TRS', value: 'trs' },
+    { name: 'SDK', value: 'sdk' },
+    { name: 'Web Application', value: 'webapp' },
+    { name: 'Shopify Application', value: 'shopifyApp' },
+  ];
+  hasTrueValue!: boolean;
   constructor(
     private fb: FormBuilder,
-    private customerStepperService: CustomerStepperService
+    private customerStepperService: CustomerStepperService,
+    private customerService: CustomerService,
+    private router: Router,
+    private alertService: AlertService
   ) {
     // Initialize the current step
     this.customerStepperService.currentStep$.subscribe((step) => {
@@ -35,9 +54,92 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._initForm();
+    this.getCountryCodeList();
   }
 
-  _initForm() {
+  private getCountryCodeList() {
+    this.customerService.getCountryCode().subscribe((response: ICustomResponse) => {
+      this.countryCodes = response.data;
+    });
+  }
+  // Customer Form Initialize
+  // _initForm() {
+  //   this.customerForm = this.fb.group({
+  //     stepOne: this.fb.group({
+  //       companyName: [
+  //         null,
+  //         [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
+  //       ],
+  //       websiteLink: [null, [CustomValidators.websiteValidator]],
+  //       billingAddress: this.fb.group({
+  //         addressLine: [
+  //           null,
+  //           [Validators.required, Validators.minLength(10), Validators.maxLength(50)],
+  //         ],
+  //         landmark: [null, [Validators.minLength(5), Validators.maxLength(30)]],
+  //         pincode: [null, [Validators.required, Validators.pattern(/^[1-9][0-9]{4,19}$/)]], //PIN code could be either 5 or 20 digits long.
+  //         city: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+  //         state: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+  //         country: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+  //       }),
+  //       contactDetails: this.fb.group({
+  //         emailAddress: [
+  //           null,
+  //           [
+  //             Validators.required,
+  //             Validators.email,
+  //             Validators.minLength(7),
+  //             Validators.maxLength(254),
+  //           ],
+  //         ],
+  //         phoneNumber: [
+  //           null,
+  //           [
+  //             Validators.required,
+  //             Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
+  //             Validators.minLength(7),
+  //             Validators.maxLength(15),
+  //           ],
+  //         ],
+  //       }),
+  //     }),
+  //     stepTwo: this.fb.group({
+  //       products: [null],
+  //     }),
+  //     stepThree: this.fb.group({
+  //       userInvite: this.fb.group({
+  //         firstName: [
+  //           null,
+  //           [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+  //         ],
+  //         lastName: [
+  //           null,
+  //           [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+  //         ],
+  //         email: [
+  //           null,
+  //           [
+  //             Validators.required,
+  //             Validators.email,
+  //             Validators.minLength(7),
+  //             Validators.maxLength(254),
+  //           ],
+  //         ],
+  //         phone: [
+  //           null,
+  //           [
+  //             Validators.required,
+  //             Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
+  //             Validators.minLength(7),
+  //             Validators.maxLength(15),
+  //           ],
+  //         ],
+  //         role: [null, [Validators.required]],
+  //       }),
+  //     }),
+  //   });
+  // }
+  private _initForm() {
     this.customerForm = this.fb.group({
       stepOne: this.fb.group({
         companyName: [
@@ -45,78 +147,122 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
           [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
         ],
         websiteLink: [null, [CustomValidators.websiteValidator]],
-        billingAddress: this.fb.group({
-          addressLine: [
-            null,
-            [Validators.required, Validators.minLength(10), Validators.maxLength(50)],
-          ],
-          landmark: [null, [Validators.minLength(5), Validators.maxLength(30)]],
-          pincode: [null, [Validators.required, Validators.pattern(/^[1-9][0-9]{4,19}$/)]], //PIN code could be either 5 or 20 digits long.
-          city: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-          state: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-          country: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-        }),
-        contactDetails: this.fb.group({
-          emailAddress: [
-            null,
-            [
-              Validators.required,
-              Validators.email,
-              Validators.minLength(7),
-              Validators.maxLength(254),
-            ],
-          ],
-          phoneNumber: [
-            null,
-            [
-              Validators.required,
-              Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
-              Validators.minLength(7),
-              Validators.maxLength(15),
-            ],
-          ],
-        }),
+        billingAddress: this.createBillingAddressGroup(),
+        contactDetails: this.createContactDetailsGroup(),
       }),
       stepTwo: this.fb.group({
-        products: [null, [Validators.required]],
+        products: this.buildProductCheckboxes(),
       }),
       stepThree: this.fb.group({
-        userInvite: this.fb.group({
-          firstName: [
-            null,
-            [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
-          ],
-          lastName: [
-            null,
-            [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
-          ],
-          email: [
-            null,
-            [
-              Validators.required,
-              Validators.email,
-              Validators.minLength(3),
-              Validators.maxLength(254),
-            ],
-          ],
-          phone: [
-            null,
-            [
-              Validators.required,
-              Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
-              Validators.minLength(7),
-              Validators.maxLength(15),
-            ],
-          ],
-          role: ['admin', [Validators.required]],
-        }),
+        userInvite: this.createUserInviteGroup(),
       }),
     });
+
+    console.log(this.customerForm.controls);
+  }
+
+  // Billing Address Form Group
+  private createBillingAddressGroup(): FormGroup {
+    return this.fb.group({
+      addressLine: [
+        null,
+        [Validators.required, Validators.minLength(10), Validators.maxLength(50)],
+      ],
+      landmark: [null, [Validators.minLength(5), Validators.maxLength(30)]],
+      pincode: [null, [Validators.required, Validators.pattern(/^[1-9][0-9]{4,19}$/)]], //PIN code could be either 5 or 20 digits long.
+      city: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      state: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      country: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+    });
+  }
+
+  // Contact Details Form Group
+  private createContactDetailsGroup(): FormGroup {
+    return this.fb.group({
+      emailAddress: [
+        null,
+        [Validators.required, Validators.email, Validators.minLength(7), Validators.maxLength(254)],
+      ],
+      phoneNumber: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
+          Validators.minLength(7),
+          Validators.maxLength(15),
+        ],
+      ],
+    });
+  }
+
+  // Products Form Array
+  private buildProductCheckboxes() {
+    const arr = this.productsArray.map((product: any) => {
+      return this.fb.control(false);
+    });
+    return this.fb.array(arr);
+  }
+
+  // User Invite Form Group
+  private createUserInviteGroup(): FormGroup {
+    return this.fb.group({
+      firstName: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      lastName: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      email: [
+        null,
+        [Validators.required, Validators.email, Validators.minLength(7), Validators.maxLength(254)],
+      ],
+      phone: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
+          Validators.minLength(7),
+          Validators.maxLength(15),
+        ],
+      ],
+      role: [null, [Validators.required]],
+    });
+  }
+
+  hasTrueValueFunction(event: any) {
+    console.log(event);
+    this.hasTrueValue = event;
   }
 
   // Submit Customer Details
   submitCustomerDetails() {
-    console.log(this.customerForm.value);
+    if (!this.customerForm.valid) return;
+
+    const customer = this.customerForm.value;
+    const products = customer.stepTwo.products;
+
+    const productsFinalObj: any = {};
+
+    this.productsArray.forEach((product, index) => {
+      productsFinalObj[product.value] = products[index];
+    });
+
+    const customerObj: Customer = new Customer(
+      customer.stepOne.companyName,
+      customer.stepOne.websiteLink,
+      customer.stepOne.billingAddress,
+      customer.stepOne.contactDetails,
+      productsFinalObj,
+      customer.stepThree.userInvite
+    );
+    this.customerService.saveCustomer(customerObj).subscribe(
+      (response: ICustomResponse) => {
+        console.log(response);
+        this.alertService.success(response.message);
+        this.customerStepperService.resetStep();
+        this.router.navigate(['customer-management']);
+      },
+      (error) => {
+        console.log(error);
+        this.alertService.error(error.error.message);
+      }
+    );
   }
 
   // previous step function

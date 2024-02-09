@@ -2404,7 +2404,7 @@
       }
     }
 
-    .email-ellipsis{
+    .email-ellipsis {
       text-overflow: ellipsis;
       word-break: keep-all;
       white-space: nowrap;
@@ -2435,7 +2435,6 @@
 
   // Form
   .es-modal-form {
-
     .es-modal-form-label {
       color: var(--modal-form-label-text-color);
       font-size: 16px;
@@ -4127,7 +4126,7 @@
   width: 85%;
 }
 
-.w-80{
+.w-80 {
   width: 80%;
 }
 
@@ -4610,12 +4609,10 @@
   gap: 50px;
 }
 
-.pos-top{
+.pos-top {
   position: relative;
   top: -7px;
 }
-
-
 
 // SA - Customer CSS
 .customer-form-header {
@@ -4628,14 +4625,21 @@
     line-height: 32px; /* 160% */
     letter-spacing: -0.4px;
   }
+  .btn:active,
+  .back-btn:active,
+  .action-btn:active {
+    color: #000;
+    background-color: transparent !important;
+    border: none !important;
+  }
 
   .action-btn {
     width: 126px;
     height: 58px;
     padding: 13px 31px 13px 30px;
     border-radius: 100px;
-    border: 1px solid #D0D5DD;
-    background: #E6E6E6;
+    border: 1px solid #d0d5dd;
+    background: #e6e6e6;
     color: #000;
     text-align: center;
     font-family: 'SF Pro Display';
@@ -4655,7 +4659,17 @@
   }
 
   .right-div {
-    width: 78% !important;
+    width: 79% !important;
+
+    input {
+      height: 44px;
+    }
+
+    .form-check {
+      height: 56px;
+      border-radius: 8px;
+      background: rgba(99, 101, 239, 0.05);
+    }
   }
 
   .left-div,
@@ -4759,6 +4773,13 @@
       line-height: 28px; /* 175% */
       letter-spacing: -0.32px;
     }
+    .form-group-title {
+      font-family: 'SF Pro Display';
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
   }
 }
-

@@ -56,6 +56,7 @@ import {
 } from './directive';
 
 import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, ShowentriesPipe } from './pipe';
+import { SearchFilterPipe } from './pipe/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, ShowentriesPipe 
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
-    ShowentriesPipe
+    ShowentriesPipe,
+    SearchFilterPipe
   ],
   imports: [
     CommonModule,
