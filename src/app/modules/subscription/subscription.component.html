@@ -252,8 +252,8 @@
               <!-- {{ subscription.planName }} -->
             </div>
             <div class="t-box a px-1 d-flex">
-              <span *ngIf="subscription.priceBundle">{{
-                subscription.priceBundle | currency : currencyType
+              <span *ngIf="subscription?.defaultPrice?.price">{{
+                subscription.defaultPrice.price | currency : currencyType
               }}</span>
             </div>
             <div class="t-box b px-1 d-flex">
