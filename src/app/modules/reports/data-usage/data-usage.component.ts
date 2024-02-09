@@ -321,8 +321,7 @@ export class DataUsageComponent implements OnInit {
 
   selectedPlanValues(event: any) {
     if (!event.isTrusted) {
-      const selectedPlans = event.map((item: any) => item.productId);
-      console.log(selectedPlans);
+      const selectedPlans = event.map((item: any) => item.name);
       this.selectedPlans = selectedPlans;
       this.getDataUsageReport(
         this.startDate,
