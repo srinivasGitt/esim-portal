@@ -62,12 +62,11 @@
                 </label>
             </div>
         </div> -->
-
     <ng-container *ngFor="let details of detailsRow; let i = index; last as isLast">
       <div
         class="row rowHeight d-flex align-items-center gap-1"
-        *ngIf="details.display"
         [ngClass]="{ 'custom-border-bottom': !isLast }"
+        *ngIf="details.display"
       >
         <div class="col-4 pl-0">
           <label
@@ -107,9 +106,13 @@
               </svg>
             </span>
             {{
-              details.isDate
-                ? (subscriberDetails[details.key] | date: 'dd/MM/yyyy Thh:mm:ss')
-                : subscriberDetails[details.key]
+
+              !subscriberDetails[details.key]
+                ? 'NA'
+                : details.isDate
+                  ? (subscriberDetails[details.key] | date: 'dd/MM/yyyy Thh:mm:ss')
+                  : subscriberDetails[details.key]
+
             }}
             <span
               class="icon"
@@ -188,6 +191,15 @@
             <div class="small-text" *ngIf="subscriberDetails.isEmail">Email</div>
             <div class="small-text" *ngIf="subscriberDetails.relevantInfo">
               Relevant Communication
+            </div>
+            <div
+              *ngIf="
+                !subscriberDetails.isSms &&
+                !subscriberDetails.isEmail &&
+                !subscriberDetails.relevantInfo
+              "
+            >
+              NA
             </div>
           </label>
         </div>

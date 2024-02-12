@@ -70,7 +70,15 @@
                             <!-- </span> -->
                         </div>
                         <div class="t-box b px-1 d-flex align-items-center">
+
+                            <span class="w-80 word-wrap subscriber-details-text text-overflow-ellipsis" *ngIf="contactRequest.email.length >10" placement="top" delay="100" offset="0">
                                 {{contactRequest.email}}
+                            </span>
+                            <span class="w-80 word-wrap subscriber-details-text text-overflow-ellipsis" *ngIf="contactRequest.email.length <= 10">
+                                {{contactRequest.email}}
+                            </span>
+                                <!-- {{contactRequest.email}} -->
+
                                 <span class="icon-email-contact cursor-pointer" (click)="copyToClipboard($event,contactRequest.email)" [tooltip]="copyText" placement="top" delay="100" offset="10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_2161_5534" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">

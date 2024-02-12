@@ -60,10 +60,12 @@ export class SubscriptionReportComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year';
+  selectedDay: string = 'All';
   currencyType: string = 'USD';
   userDetails: any;
   axisColor: any;
+  disableDownloadButton = false;
+  disableEmailButton = false;
 
   constructor(private dashboardService: DashboardService,
               private alertService: AlertService,
@@ -92,7 +94,7 @@ export class SubscriptionReportComponent implements OnInit {
       // this.drawChart();
       this.currencyType = localStorage.getItem('currency')!;
       this.initForm()
-      this.getReports('year')
+      this.getReports('all')
   }
 
   /* Get reports data - Start */
@@ -148,7 +150,13 @@ export class SubscriptionReportComponent implements OnInit {
         }
       
         for (let i = 0; i < label.length; i++) {
-          let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+          let formattedLabelValue : any;
+          if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'last_365_days' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
+            formattedLabelValue = label[i];
+          } else {
+            formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
+          }
+          
           this.label.push(formattedLabelValue);
           this.data.push(revenue[i]);
         }
@@ -284,14 +292,43 @@ export class SubscriptionReportComponent implements OnInit {
       ],
       message: 'Subscription report has been successfully downloaded.'
     };
-
     
-    // return;
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'last_365_days';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    this.disableDownloadButton = true;
 
     this.reportService.getSubscriptionDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
+          setTimeout(() => {
+            this.disableDownloadButton = false;
+          }, 10000);
+
           if(res && res.result.length <= 0) {
             let customTitle: string = 'Info';
         
@@ -311,6 +348,11 @@ export class SubscriptionReportComponent implements OnInit {
             const blob = new Blob([papa.unparse(res.result)], { type: 'text/plain;charset=utf-8' });
             FileSaver(blob, fileName);
           }
+      }, err => {
+        setTimeout(() => {
+          this.disableDownloadButton = false;
+        }, 10000);
+        this.alertService.error(err.error.message);
       });
   }
 
@@ -327,16 +369,51 @@ export class SubscriptionReportComponent implements OnInit {
       email: this.userDetails.email
     };
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'last_365_days';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
+
+    this.disableEmailButton = true;
 
     this.reportService.sendSubscriptionReportEmail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
+        setTimeout(() => {
+          this.disableEmailButton = false;
+        }, 10000);
           this.dialogService.openModal(ReportSuccessInfoComponent, { cssClass: 'modal-sm', context: {data, message: 'Are you sure you want to initiate refund ?'} })
           .instance.close.subscribe((data: any) => {
             if(data){
               } 
             });
       }, err => {
+        setTimeout(() => {
+          this.disableEmailButton = false;
+        }, 10000);
+        this.alertService.error(err.error.message);
         if(err.error.message == 'No data found in given date range!') {
           let customTitle: string = 'Info';
         

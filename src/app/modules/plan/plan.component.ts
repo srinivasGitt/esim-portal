@@ -1,7 +1,9 @@
+import { getCurrencySymbol } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
-import { DialogService, PlansService, AlertService } from 'src/app/shared/service';
 import { PaginationInstance } from 'ngx-pagination';
+import { ConfirmComponent, PlanDialogComponent, PlanInfoComponent } from 'src/app/shared/dialog';
+import { PlanSuccessInfoComponent } from 'src/app/shared/dialog/plan-success-info/plan-success-info.component';
+import { AlertService, DialogService, PlansService } from 'src/app/shared/service';
 import { SearchService } from 'src/app/shared/service/search/search.service';
 @Component({
   selector: 'app-plan',
@@ -24,25 +26,27 @@ export class PlanComponent implements OnInit, OnDestroy {
   };
   inProgress: boolean = false;
   inSearch : boolean = false;
-  tooltipText: string = 'This plan is inactive, please enable the plan again to view it.'
+  tooltipText: string = '\u00A0\u00A0This plan is inactive, please enable the \u00A0\u00A0plan again to view it.'
   planStatus: string | null = null;
   currencyType: string = 'USD';
-  
+
   constructor(private plansService: PlansService,
               private dialogService: DialogService,
               private alertService: AlertService,
-              private _searchService: SearchService) { 
+              private _searchService: SearchService) {
                 _searchService.getResults().subscribe((results: any) => {
                   if(results) {
                     this.plansList = results?.data
                     this.paginateConfig.totalItems = results?.count[0]?.totalCount;
                     this.paginateConfig.currentPage = 1;
-                    this.inSearch = true;  
+                    this.inSearch = true;
                   }
                 })
               }
+  
   ngOnInit(): void {
     this.getAllPlans();
+    this.currencyType = getCurrencySymbol(localStorage.getItem('currency')!, 'wide') ?? getCurrencySymbol('USD', 'wide');
   }
 
   createPlan() {
@@ -77,20 +81,34 @@ export class PlanComponent implements OnInit, OnDestroy {
     );
   }
 
-  /*
   // edit plan
   editPlans(plan: any) {
+    let successData = {
+      title: `Saved Changes Successfully`,
+      icon: 'trash',
+      showCloseBtn: true,
+      buttonGroup: [
+        // { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false},
+        { cssClass: 'sucess-btn w-100', title: 'Close', value: true}
+      ],
+      message: 'Plan information has been successfully edited.'
+    };
+
     this.dialogService.openModal(PlanDialogComponent, { cssClass: 'modal-lg', context: {data: plan, title: 'Edit Plan'} })
       .instance.close.subscribe((data: any) => {
           if(data){
             this.plansList = this.plansList.map((p : any) => {if(p._id == plan._id) p = data; return p;});
-            this.alertService.success('Plan Updated');
+
+            this.dialogService.openModal(PlanSuccessInfoComponent, { cssClass: 'modal-sm', context: {data: successData, message: 'Are you sure you want to initiate refund ?'} })
+              .instance.close.subscribe((data: any) => {
+                if(data){
+                  } 
+                });
           }
         }, err => {
           this.alertService.error(err.error.message);
         });
   }
-  */
 
   deletePlan( plan : any) {
     let data = {
@@ -115,7 +133,7 @@ export class PlanComponent implements OnInit, OnDestroy {
           this.alertService.error(err.error.message, err.status);
         })
       }
-     
+
     });
   }
 
@@ -149,7 +167,7 @@ export class PlanComponent implements OnInit, OnDestroy {
 
   getPageNumber(event: any) {
     this.inProgress = true;
-    this.paginateConfig.currentPage = event; 
+    this.paginateConfig.currentPage = event;
 
     /* Pagination based on searched data */
     if(this.inSearch && this._searchService.searchedTerm.length > 3) {
@@ -158,7 +176,7 @@ export class PlanComponent implements OnInit, OnDestroy {
           this.paginateConfig.totalItems = result?.count[0]?.totalCount;
           this.inProgress = false;
       })
-    } 
+    }
     /* Pagination based on Plan status filtered data */
     else if(this.planStatus) {
       this.plansService.listPlans(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage-1, this.planStatus).subscribe((result: any) => {
@@ -187,7 +205,7 @@ export class PlanComponent implements OnInit, OnDestroy {
   showPlan(event: string) {
     this.planStatus = event
     this.filteredPlans(this.planStatus)
-    
+
   }
 
   filteredPlans(planStatus: string) {

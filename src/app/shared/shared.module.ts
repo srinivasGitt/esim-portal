@@ -56,6 +56,7 @@ import {
 } from './directive';
 
 import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
+import { PlanSuccessInfoComponent } from './dialog/plan-success-info/plan-success-info.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    PlanSuccessInfoComponent,
   ],
   imports: [
     CommonModule,

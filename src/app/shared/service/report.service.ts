@@ -50,11 +50,8 @@ export class ReportService {
   }
 
   getSubscriberGraphReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
-    console.log(dateRangeValue);
-    console.log(fromDate);
-    console.log(toDate);
     if(dateRangeValue) {
-      if(fromDate && toDate) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/subscribers/report/graph?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
       }
       else {
@@ -67,11 +64,8 @@ export class ReportService {
   }
 
   getSubscriberDownloadReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
-    console.log(dateRangeValue);
-    console.log(fromDate);
-    console.log(toDate);
     if(dateRangeValue) {
-      if(fromDate && toDate) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/subscribers/report/data?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
       }
       else {
@@ -85,7 +79,7 @@ export class ReportService {
 
   sendSubscriberReportEmail(dateRangeValue?: string, fromDate?: any, toDate?: any) {
     if(dateRangeValue) {
-      if(fromDate && toDate) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/subscribers/report/email?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
       }
       else {
@@ -99,7 +93,7 @@ export class ReportService {
 
   getSubscriptionGraphReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
     if(dateRangeValue) {
-      if(fromDate && toDate) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/subscriptions/report/graph?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
       }
       else {
@@ -113,7 +107,7 @@ export class ReportService {
 
   getSubscriptionDownloadReport(dateRangeValue?: string, fromDate?: any, toDate?: any) {
     if(dateRangeValue) {
-      if(fromDate && toDate) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/subscriptions/report/data?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
       }
       else {
@@ -127,7 +121,7 @@ export class ReportService {
 
   sendSubscriptionReportEmail(dateRangeValue?: string, fromDate?: any, toDate?: any) {
     if(dateRangeValue) {
-      if(fromDate && toDate) {
+      if(dateRangeValue === 'custom' && fromDate && toDate) {
         return this.http.get(`${this.serverUrl}/subscriptions/report/email?dateRange=${dateRangeValue}&fromDate=${fromDate}&toDate=${toDate}`)
       }
       else {

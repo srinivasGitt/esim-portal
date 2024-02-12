@@ -61,7 +61,7 @@ export class SubscriberComponent implements OnInit {
   startDate: any;
   endDate: any;
   inProgress: boolean = false;
-  selectedDay: string = 'Current Year';
+  selectedDay: string = 'All';
   currencyType: string = 'USD';
   userDetails: any;
   axisColor: any;
@@ -93,7 +93,7 @@ export class SubscriberComponent implements OnInit {
       // this.drawChart();
       this.currencyType = localStorage.getItem('currency')!;
       this.initForm()
-      this.getReports('year')
+      this.getReports('all')
   }
 
   /* Get reports data - Start */
@@ -149,7 +149,13 @@ export class SubscriberComponent implements OnInit {
         }
       
         for (let i = 0; i < label.length; i++) {
-          let formattedLabelValue : any = timeFrameValue != 'month' ? moment(label[i], 'DD-MM-YYYY').format(formatValue) : label[i]
+          let formattedLabelValue : any;
+          if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'last_365_days' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
+            formattedLabelValue = label[i];
+          } else {
+            formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
+          }
+          
           this.label.push(formattedLabelValue);
           this.data.push(revenue[i]);
         }
@@ -287,7 +293,33 @@ export class SubscriberComponent implements OnInit {
       message: 'Subscribers report has been successfully downloaded.'
     };
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'));
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'last_365_days';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
     this.reportService.getSubscriberDownloadReport(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
@@ -327,7 +359,33 @@ export class SubscriberComponent implements OnInit {
       email: this.userDetails.email
     };
 
-    let timeFrame = this.selectedDay === 'Current Week' ? 'week' : (this.selectedDay === 'Current Month' ? 'month' : (this.selectedDay === 'Current Year' ? 'year' : 'custom'))
+    let timeFrame;
+    switch (this.selectedDay) {
+      case 'Current Week':
+        timeFrame = 'week';
+        break;
+      case 'Current Month':
+        timeFrame = 'month';
+        break;
+      case 'Current Year':
+        timeFrame = 'year';
+        break;
+      case 'All':
+        timeFrame = 'all';
+        break;
+      case 'Last 365 Days':
+        timeFrame = 'last_365_days';
+        break;
+      case 'Last Month':
+        timeFrame = 'previous_month';
+        break;
+      case 'Last Week':
+        timeFrame = 'previous_week';
+        break;
+      default:
+        timeFrame = 'custom';
+        break;
+    }
 
     this.reportService.sendSubscriberReportEmail(timeFrame, this.startDate, this.endDate)
       .subscribe((res: any) => {
