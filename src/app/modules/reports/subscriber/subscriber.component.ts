@@ -152,6 +152,8 @@ export class SubscriberComponent implements OnInit {
           let formattedLabelValue : any;
           if (timeFrameValue == 'month' || timeFrameValue == 'all' || timeFrameValue == 'last_365_days' || timeFrameValue == 'previous_month' || timeFrameValue == 'previous_week') {
             formattedLabelValue = label[i];
+          } else if(timeFrameValue === 'year') {
+            formattedLabelValue = moment(label[i], 'MM-yyyy').format(formatValue);
           } else {
             formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
           }

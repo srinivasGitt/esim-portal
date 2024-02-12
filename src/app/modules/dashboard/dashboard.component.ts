@@ -237,6 +237,8 @@ export class DashboardComponent implements OnInit {
             timeFrameValue == 'previous_week'
           ) {
             formattedLabelValue = label[i];
+          }  else if(timeFrameValue === 'year') {
+            formattedLabelValue = moment(label[i], 'MM-yyyy').format(formatValue);
           } else {
             formattedLabelValue = moment(label[i], 'DD-MM-YYYY').format(formatValue);
           }
