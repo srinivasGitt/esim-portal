@@ -1,0 +1,190 @@
+<ng-container [formGroup]="form">
+  <div class="title-section px-3">
+    <h2>Invite User</h2>
+    <p class="mb-0">Add email address of the user</p>
+    <p>User will be given admin access by default</p>
+  </div>
+  <!-- Invite User -->
+  <ng-container formGroupName="userInvite">
+    <div class="row px-3">
+      <div class="col-6">
+        <div class="div-height">
+          <label for="firstName" class="form-label es-modal-form-label">First Name*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="firstName"
+            aria-describedby="firstName"
+            name="firstName"
+            formControlName="firstName"
+            placeholder="Enter the first name"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['userInvite'].get('firstName')?.touched &&
+                form.controls['userInvite'].get('firstName')?.dirty &&
+                form.controls['userInvite'].get('firstName')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="
+                  form.controls['userInvite'].get('firstName')?.errors?.['required'] ||
+                  form.controls['userInvite'].get('firstName')?.errors?.['minlength'] ||
+                  form.controls['userInvite'].get('firstName')?.errors?.['maxlength']
+                "
+                >First Name is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="div-height">
+          <label for="lastName" class="form-label es-modal-form-label">Last Name*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="lastName"
+            aria-describedby="lastName"
+            name="lastName"
+            formControlName="lastName"
+            placeholder="Enter the last name"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['userInvite'].get('lastName')?.touched &&
+                form.controls['userInvite'].get('lastName')?.dirty &&
+                form.controls['userInvite'].get('lastName')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="
+                  form.controls['userInvite'].get('lastName')?.errors?.['required'] ||
+                  form.controls['userInvite'].get('lastName')?.errors?.['minlength'] ||
+                  form.controls['userInvite'].get('lastName')?.errors?.['maxlength']
+                "
+                >Last Name is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-3">
+      <div class="col-6">
+        <div class="div-height">
+          <label for="email" class="form-label es-modal-form-label">Email Address*</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="email"
+            aria-describedby="email"
+            name="email"
+            formControlName="email"
+            placeholder="Enter the email address"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['userInvite'].get('email')?.touched &&
+                form.controls['userInvite'].get('email')?.dirty &&
+                form.controls['userInvite'].get('email')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['userInvite'].get('email')?.errors?.['required']"
+                >Email Address is required!</span
+              >
+              <span
+                class="small"
+                *ngIf="
+                  form.controls['userInvite'].get('email')?.errors?.['email'] ||
+                  form.controls['userInvite'].get('email')?.errors?.['minlength'] ||
+                  form.controls['userInvite'].get('email')?.errors?.['maxlength']
+                "
+                >Invalid email address!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="div-height">
+          <label for="phone" class="form-label es-modal-form-label">Phone Number</label>
+          <input
+            type="text"
+            class="form-control es-input"
+            id="phone"
+            aria-describedby="phone"
+            name="phone"
+            formControlName="phone"
+          />
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['userInvite'].get('phone')?.touched &&
+                form.controls['userInvite'].get('phone')?.dirty &&
+                form.controls['userInvite'].get('phone')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['userInvite'].get('phone')?.errors?.['required']"
+                >Phone Number is required!</span
+              >
+              <span
+                class="small"
+                *ngIf="
+                  form.controls['userInvite'].get('phone')?.errors?.['pattern'] &&
+                  !form.controls['userInvite'].get('phone')?.errors?.['required']
+                "
+                >Invalid phone number!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-3">
+      <div class="col-6">
+        <div class="div-height">
+          <label for="role" class="form-label es-modal-form-label">Role*</label>
+          <select formControlName="role" class="form-select">
+            <option value="null" selected disabled hidden>Choose a Role</option>
+            <option
+              *ngFor="let userRole of userRoles"
+              [value]="userRole"
+            >
+              {{ userRole }}
+            </option>
+          </select>
+          <div>
+            <span
+              class="help-block ng-invalid text-danger"
+              *ngIf="
+                form.controls['userInvite'].get('role')?.touched &&
+                form.controls['userInvite'].get('role')?.dirty &&
+                form.controls['userInvite'].get('role')?.errors
+              "
+            >
+              <span
+                class="small"
+                *ngIf="form.controls['userInvite'].get('role')?.errors?.['required']"
+                >Role is required!</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

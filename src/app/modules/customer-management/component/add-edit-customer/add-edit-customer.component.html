@@ -1,0 +1,108 @@
+<div class="common-header">
+  <!-- Customer Form Header Section -->
+  <div class="customer-form-header">
+    <div class="row justify-content-between">
+      <div class="col-4 d-flex align-items-center">
+        <span class="d-inline-block mr-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+          >
+            <mask
+              id="mask0_103_21499"
+              style="mask-type: alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="26"
+              height="26"
+            >
+              <rect width="26" height="26" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_103_21499)">
+              <path
+                d="M13.0007 21.6676L4.33398 13.0009L13.0007 4.33423L14.2736 5.5981L7.77354 12.0981H21.6673V13.9037H7.77354L14.2736 20.4037L13.0007 21.6676Z"
+                fill="black"
+              />
+            </g>
+          </svg>
+        </span>
+        <span
+          class="back-btn ms-3"
+          (click)="currentStep !== 1 ? previousStep() : ''"
+          [ngClass]="{ 'cursor-pointer': currentStep !== 1 }"
+          >Back</span
+        >
+      </div>
+      <div class="col-4 text-end">
+        <button type="button" class="btn action-btn" (click)="cancelFormAndResetStepper()">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn action-btn ms-3"
+          (click)="currentStep === 3 ? submitCustomerDetails() : nextStep()"
+          [ngClass]="{
+            'btn-primary text-white':
+              customerForm.get('stepOne')?.valid ||
+              (currentStep === 2 && hasTrueValue) ||
+              (currentStep === 3 && customerForm.get('stepThree')?.valid)
+          }"
+          [disabled]="
+            (currentStep === 1 && !customerForm.get('stepOne')?.valid) ||
+            (currentStep === 2 && !hasTrueValue) ||
+            (currentStep === 3 && !customerForm.get('stepThree')?.valid)
+          "
+        >
+          {{ currentStep === 3 ? 'Submit' : 'Next' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="row mt-3 ms-1 justify-content-between gap-1 customer-form">
+    <!-- Stepper Section -->
+    <div class="col-3 left-div p-0">
+      <div class="steps px-3 py-5 position-relative">
+        <ng-container *ngFor="let step of stepCountArray; let last = last">
+          <div class="row d-flex justify-content-between m-0">
+            <div class="col-2 circle" [ngClass]="{ active: currentStep >= step.number }">
+              <span>{{ step.number }}</span>
+            </div>
+            <div class="col-10 title-section">
+              <h2>{{ step.title }}</h2>
+              <p>{{ step.subTitle }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- Form Section -->
+    <div class="col-8 right-div">
+      <form [formGroup]="customerForm" novalidate autocomplete="off">
+        <!-- STEP ONE -->
+        <app-step-one formGroupName="stepOne" *ngIf="currentStep === 1"></app-step-one>
+
+        <!-- STEP TWO -->
+        <app-step-two
+          formGroupName="stepTwo"
+          [productsArray]="productsArray"
+          (productsArrayHasTrueValue)="hasTrueValueFunction($event)"
+          *ngIf="currentStep === 2"
+          class="p-3"
+        ></app-step-two>
+
+        <!-- STEP THREE -->
+        <app-step-three
+          formGroupName="stepThree"
+          *ngIf="currentStep === 3"
+          class="p-3"
+        ></app-step-three>
+      </form>
+    </div>
+  </div>
+</div>

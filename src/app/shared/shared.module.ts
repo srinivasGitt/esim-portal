@@ -55,7 +55,8 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
+import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, ShowentriesPipe } from './pipe';
+import { SearchFilterPipe } from './pipe/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,8 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    ShowentriesPipe,
+    SearchFilterPipe
   ],
   imports: [
     CommonModule,
@@ -122,6 +125,7 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    ShowentriesPipe
   ],
   providers: [CurrencyPipe, DatePipe],
 })
