@@ -22,4 +22,9 @@ export class CustomerService {
   saveCustomer(customerDetails: Customer): Observable<ICustomResponse> {
     return this.http.post(`${this.serverUrl}/customers`, customerDetails);
   }
+
+  // Update Customer
+  updateCustomer(customerDetails: any): Observable<ICustomResponse> {
+    return this.http.put(`${this.serverUrl}/customers`, customerDetails);
+  }
 }

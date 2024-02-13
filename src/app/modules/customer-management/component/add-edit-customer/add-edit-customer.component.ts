@@ -27,7 +27,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
       state: 'lllllllllllllllll',
     },
     companyName: 'ppppppppp',
-    contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '0999999999' },
+    contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
     products: {
       iosApp: true,
       androidApp: false,
@@ -48,7 +48,8 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   };
   // stepper
   currentStep: number = 0;
-  stepCountArray: Array<any> = [
+  stepCountArray: Array<any> = [];
+  addStepArray: Array<any> = [
     { number: 1, title: 'Add Customer Details', subTitle: 'Basic details' },
     {
       number: 2,
@@ -56,6 +57,10 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
       subTitle: 'Allocate the products for the customer',
     },
     { number: 3, title: 'Invite User', subTitle: 'User will be given admin access by default' },
+  ];
+
+  editStepArray: Array<any> = [
+    { number: 1, title: 'Edit Customer Details', subTitle: 'Edit Basic details' },
   ];
 
   // Products arrays
@@ -84,7 +89,8 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._initForm();
+    this.stepCountArray = this.customerData ? this.editStepArray : this.addStepArray;
+    this._initForm(this.customerData);
     this.getCountryCodeList();
   }
 
@@ -94,16 +100,16 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     });
   }
   // Customer Form Initialize
-  private _initForm() {
+  private _initForm(customerData: any) {
     this.customerForm = this.fb.group({
       stepOne: this.fb.group({
         companyName: [
-          null,
+          customerData?.companyName ?? null,
           [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
         ],
-        websiteLink: [null, [CustomValidators.websiteValidator]],
-        billingAddress: this.createBillingAddressGroup(),
-        contactDetails: this.createContactDetailsGroup(),
+        websiteLink: [customerData?.websiteLink ?? null, [CustomValidators.websiteValidator]],
+        billingAddress: this.createBillingAddressGroup(customerData?.billingAddress),
+        contactDetails: this.createContactDetailsGroup(customerData?.contactDetails),
       }),
       stepTwo: this.fb.group({
         products: this.buildProductCheckboxes(),
@@ -117,29 +123,44 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   }
 
   // Billing Address Form Group
-  private createBillingAddressGroup(): FormGroup {
+  private createBillingAddressGroup(billingAddress?: any): FormGroup {
     return this.fb.group({
       addressLine: [
-        null,
+        billingAddress?.addressLine ?? null,
         [Validators.required, Validators.minLength(10), Validators.maxLength(50)],
       ],
-      landmark: [null, [Validators.minLength(5), Validators.maxLength(30)]],
-      pincode: [null, [Validators.required, Validators.pattern(/^[1-9][0-9]{4,19}$/)]], //PIN code could be either 5 or 20 digits long.
-      city: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      state: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      country: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      landmark: [
+        billingAddress?.landmark ?? null,
+        [Validators.minLength(5), Validators.maxLength(30)],
+      ],
+      pincode: [
+        billingAddress?.pincode ?? null,
+        [Validators.required, Validators.pattern(/^[1-9][0-9]{4,19}$/)],
+      ], //PIN code could be either 5 or 20 digits long.
+      city: [
+        billingAddress?.city ?? null,
+        [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+      ],
+      state: [
+        billingAddress?.state ?? null,
+        [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+      ],
+      country: [
+        billingAddress?.country ?? null,
+        [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
+      ],
     });
   }
 
   // Contact Details Form Group
-  private createContactDetailsGroup(): FormGroup {
+  private createContactDetailsGroup(contactDetails?: any): FormGroup {
     return this.fb.group({
       emailAddress: [
-        null,
+        contactDetails?.emailAddress ?? null,
         [Validators.required, Validators.email, Validators.minLength(7), Validators.maxLength(254)],
       ],
       phoneNumber: [
-        null,
+        contactDetails?.phoneNumber ?? null,
         [
           Validators.required,
           // Validators.pattern(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/),
@@ -187,9 +208,17 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
 
   // Submit Customer Details
   submitCustomerDetails() {
-    if (!this.customerForm.valid) return;
+    if (this.customerData) {
+      this.updateCustomerDetails(this.customerForm.value);
+    } else {
+      this.addCustomer(this.customerForm);
+    }
+  }
 
-    const customer = this.customerForm.value;
+  addCustomer(customer: any) {
+    if (!customer.valid) return;
+
+    const customerData = customer.value;
     const products = customer.stepTwo.products;
 
     const productsFinalObj: any = {};
@@ -199,15 +228,31 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     });
 
     const customerObj: Customer = new Customer(
-      customer.stepOne.companyName,
-      customer.stepOne.websiteLink,
-      customer.stepOne.billingAddress,
-      customer.stepOne.contactDetails,
+      customerData.stepOne.companyName,
+      customerData.stepOne.websiteLink,
+      customerData.stepOne.billingAddress,
+      customerData.stepOne.contactDetails,
       productsFinalObj,
-      customer.stepThree.userInvite
+      customerData.stepThree.userInvite
     );
 
     this.customerService.saveCustomer(customerObj).subscribe(
+      (response: ICustomResponse) => {
+        console.log(response);
+        this.alertService.success(response.message);
+        this.customerStepperService.resetStep();
+        this.router.navigate(['customer-management']);
+      },
+      (error) => {
+        console.log(error);
+        this.alertService.error(error.error.message);
+      }
+    );
+  }
+
+  updateCustomerDetails(customerDetails: any) {
+    console.log(customerDetails.stepOne);
+    this.customerService.updateCustomer(customerDetails.stepOne).subscribe(
       (response: ICustomResponse) => {
         console.log(response);
         this.alertService.success(response.message);

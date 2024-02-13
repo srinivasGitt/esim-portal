@@ -42,7 +42,7 @@
         <button
           type="button"
           class="btn action-btn ms-3"
-          (click)="currentStep === 3 ? submitCustomerDetails() : nextStep()"
+          (click)="customerData || currentStep === 3 ? submitCustomerDetails() : nextStep()"
           [ngClass]="{
             'btn-primary text-white':
               customerForm.get('stepOne')?.valid ||
@@ -55,7 +55,7 @@
             (currentStep === 3 && !customerForm.get('stepThree')?.valid)
           "
         >
-          {{ currentStep === 3 ? 'Submit' : 'Next' }}
+          {{ customerData || currentStep === 3 ? 'Submit' : 'Next' }}
         </button>
       </div>
     </div>

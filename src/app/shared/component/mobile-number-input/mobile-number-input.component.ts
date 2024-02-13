@@ -24,7 +24,10 @@ export class MobileNumberInputComponent implements OnInit {
       console.log(result);
     });
     if (this.inputControl.value && this.inputControl?.value?.trim() != '') {
-      const phoneNumber = this.inputControl.value.split(' ');
+      const phoneNumber = Array.isArray(this.inputControl.value)
+        ? this.inputControl.value[0].split(' ')
+        : this.inputControl.value.split(' ');
+      console.log(this.inputControl, phoneNumber);
       if (phoneNumber.length == 2) {
         this.countryDialCode = phoneNumber[0];
         this.phoneNumber.setValue(phoneNumber[1]);
