@@ -15,7 +15,7 @@ import { ShowentriesPipe } from 'src/app/shared/pipe';
 import { StepOneComponent } from './component/stepper/step-one/step-one.component';
 import { StepTwoComponent } from './component/stepper/step-two/step-two.component';
 import { StepThreeComponent } from './component/stepper/step-three/step-three.component';
-
+import { MobileNumberInputComponent } from 'src/app/shared/component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { StepThreeComponent } from './component/stepper/step-three/step-three.co
     AddEditCustomerComponent,
     StepOneComponent,
     StepTwoComponent,
-    StepThreeComponent
+    StepThreeComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +36,6 @@ import { StepThreeComponent } from './component/stepper/step-three/step-three.co
     MatNativeDateModule,
     MatFormFieldModule,
     MatDatepickerModule,
-  ]
+  ],
 })
-export class CustomerManagementModule { }
+export class CustomerManagementModule {}

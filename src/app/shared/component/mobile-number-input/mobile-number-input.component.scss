@@ -1,0 +1,67 @@
+.phone-number-form-control {
+  border-radius: 8px;
+  border: 1px solid var(--input-border-color);
+  height: 44px;
+  .country-selection {
+    padding-right: 0;
+    width: 20% !important;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+
+    button {
+      padding: 0;
+      height: auto;
+      width: 100%;
+      padding-right: 10px;
+      border-radius: 0;
+      border-right: 1px solid var(--input-border-color);
+      background-color: transparent;
+      color: var(--table-heading-text-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 8px;
+    }
+
+    .dropdown {
+      width: 100% !important;
+    }
+  }
+  .form-control {
+    border: none;
+    background-color: transparent;
+    color: var(--modal-header-text-color);
+  }
+  .dropdown-menu {
+    padding: 10px;
+    .country-search-box {
+      .search-icon-div {
+        position: absolute;
+        left: 20px;
+        margin-top: 4px;
+        path {
+          fill: var(--dark-text-white-v2) !important;
+        }
+      }
+      .search-form-input {
+        background-color: transparent !important;
+        padding-left: 36px;
+        border: 1px solid var(--input-border-color);
+        height: 36px;
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+      }
+    }
+    .country-options:hover {
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: var(--action-background-color);
+      color: var(--table-heading-text-color);
+    }
+  }
+
+  // .mobile-input {
+  //   width: 100% !important;
+  // }
+}

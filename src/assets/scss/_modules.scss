@@ -4670,6 +4670,17 @@
       border-radius: 8px;
       background: rgba(99, 101, 239, 0.05);
     }
+
+    .form-control,
+    .phone-number-form-control {
+      border-color: rgba(105, 105, 105, 0.5);
+      &:focus {
+        background-color: transparent !important;
+        border-color: rgba(105, 105, 105, 0.5);
+        outline: 0;
+        box-shadow: none !important;
+      }
+    }
   }
 
   .left-div,
@@ -4781,5 +4792,13 @@
       letter-spacing: 0em;
       text-align: left;
     }
+  }
+
+  .border-purple {
+    border: 1px solid var(--input-border-color-hover) !important;
+  }
+
+  .border-error {
+    border: 1px solid rgb(225, 112, 112) !important;
   }
 }

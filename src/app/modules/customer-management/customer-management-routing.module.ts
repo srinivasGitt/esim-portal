@@ -6,6 +6,7 @@ import { CustomerManagementComponent } from './customer-management.component';
 const routes: Routes = [
   { path: '', component: CustomerManagementComponent },
   { path: 'add', component: AddEditCustomerComponent },
+  { path: 'edit/:id', component: AddEditCustomerComponent },
 ];
 
 @NgModule({

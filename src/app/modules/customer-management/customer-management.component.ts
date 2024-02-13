@@ -31,22 +31,26 @@ import { DialogService } from 'src/app/shared/service/dialog';
   ],
 })
 export class CustomerManagementComponent implements OnInit {
-  customerList = [{
-    _id: '1',
-    name: 'abc',
-    createdAt: '12/12/2024',
-    subscriberCount: 12
-  },{
-    _id: '2',
-    name: 'abc 1',
-    createdAt: '12/12/2024',
-    subscriberCount: 12
-  },{
-    _id: '3',
-    name: 'abc 2',
-    createdAt: '12/12/2024',
-    subscriberCount: 12
-  }]      
+  customerList = [
+    {
+      _id: '1',
+      name: 'abc',
+      createdAt: '12/12/2024',
+      subscriberCount: 12,
+    },
+    {
+      _id: '2',
+      name: 'abc 1',
+      createdAt: '12/12/2024',
+      subscriberCount: 12,
+    },
+    {
+      _id: '3',
+      name: 'abc 2',
+      createdAt: '12/12/2024',
+      subscriberCount: 12,
+    },
+  ];
   customerId: any = null;
   currentCustomerId: any = null;
   subCustomerName: any = null;
@@ -143,7 +147,7 @@ export class CustomerManagementComponent implements OnInit {
       (res: any) => {
         if (res) {
           this.customerList = res.data;
-               
+
           this.paginateConfig.totalItems = res?.count[0]?.totalCount;
           this.inProgress = false;
         }
@@ -156,21 +160,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   editCustomer(customer: any) {
-    this.dialogService
-      .openModal(CustomerComponent, {
-        cssClass: 'modal-sm',
-        context: { data: customer, title: 'Edit Customer' },
-      })
-      .instance.close.subscribe((data: any) => {
-        if (data) {
-          this.customerList = this.customerList.map((c: any) => {
-            if (c._id == customer._id) c = data;
-            return c;
-          });
-          this.alertService.success(data.message);
-          this.getAllCustomer();
-        }
-      });
+    this.router.navigate(['edit', customer._id], { relativeTo: this.route });
   }
 
   deleteCustomer(customer: any) {
@@ -266,7 +256,7 @@ export class CustomerManagementComponent implements OnInit {
         .customers(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage - 1)
         .subscribe(
           (res: any) => {
-            this.customerList = res.data;     
+            this.customerList = res.data;
             this.paginateConfig.totalItems = res?.count[0]?.totalCount;
             this.inProgress = false;
           },
@@ -324,7 +314,7 @@ export class CustomerManagementComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res) {
-            this.customerList = res.data;    
+            this.customerList = res.data;
             this.paginateConfig.totalItems = res?.count[0]?.totalCount;
             this.inProgress = false;
           }
