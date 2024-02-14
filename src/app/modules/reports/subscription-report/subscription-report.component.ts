@@ -415,13 +415,14 @@ export class SubscriptionReportComponent implements OnInit {
         setTimeout(() => {
           this.disableEmailButton = false;
         }, 10000);
-        this.alertService.error(err.error.message);
         if(err.error.message == 'No data found in given date range!') {
           let customTitle: string = 'Info';
         
           this.dialogService.openModal(ReportAlertComponent, { cssClass: 'modal-sm', context: { title: customTitle, body: 'No data found in given date range!'} })
             .instance.close.subscribe((data: any) => {
           });
+        } else {
+          this.alertService.error(err.error.message);
         }
       })
   }
