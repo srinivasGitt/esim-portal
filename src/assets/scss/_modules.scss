@@ -2031,8 +2031,8 @@
       height: 45px;
 
       .user-table-action-icon {
-        width: 15px;
-        margin-right: 25px;
+        // width: 15px;
+        // margin-right: 25px;
         cursor: pointer;
       }
 
@@ -2058,6 +2058,59 @@
         color: #fff !important;
       }
     }
+  }
+  .switch {
+    margin-bottom: 0px;
+    position: relative;
+    // display: inline-block;
+    display: flex;
+    width: 27px;
+    // margin-top: 10px !important;
+    height: 18px;
+    align-items: center;
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .round {
+      border-radius: 34px;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid var(--table-heading-text-color);
+      transition: 0.4s;
+      border-radius: 10px;
+      &:before {
+        background: var(--table-heading-text-color);
+        position: absolute;
+        content: '';
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        left: 2px;
+        bottom: 2px;
+        transition: 0.4s;
+      }
+    }
+  }
+  input:checked + .slider {
+    background-color: var(--dark-primary-background);
+    // border: 0;
+    border: 1px solid var(--dark-primary-background);
+    &:before {
+      transform: translateX(10px);
+      background-color: var(--card-background-color);
+    }
+  }
+  .slider.round:before {
+    border-radius: 50%;
   }
 }
 

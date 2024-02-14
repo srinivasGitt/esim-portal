@@ -136,7 +136,7 @@ import {
     CurrencySymbolPipe,
     NumberOnlyDirective,
     ShowentriesPipe,
-    MobileNumberInputComponent
+    MobileNumberInputComponent,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

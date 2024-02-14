@@ -17,35 +17,36 @@ import { CustomerService } from '../../service/customer.service';
 export class AddEditCustomerComponent implements OnInit, OnDestroy {
   customerForm!: FormGroup;
   countryCodes: Array<any> = [];
-  customerData: Customer = {
-    billingAddress: {
-      addressLine: 'sdfsdfsdfsf',
-      landmark: 'NY square',
-      pincode: '999999',
-      city: 'llllllllll',
-      country: 'India',
-      state: 'lllllllllllllllll',
-    },
-    companyName: 'ppppppppp',
-    contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
-    products: {
-      iosApp: true,
-      androidApp: false,
-      api: false,
-      trs: false,
-      sdk: false,
-      webapp: true,
-      shopifyApp: true,
-    },
-    userInvite: {
-      firstName: 'sdfssss',
-      lastName: 'sssssssss',
-      email: 'adb@adc.com',
-      number: '0999999999',
-      role: 'Admin',
-    },
-    websiteLink: 'www.xyz.com',
-  };
+  customerData!: Customer;
+  // customerData: Customer = {
+  //   billingAddress: {
+  //     addressLine: 'sdfsdfsdfsf',
+  //     landmark: 'NY square',
+  //     pincode: '999999',
+  //     city: 'llllllllll',
+  //     country: 'India',
+  //     state: 'lllllllllllllllll',
+  //   },
+  //   companyName: 'ppppppppp',
+  //   contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
+  //   products: {
+  //     iosApp: true,
+  //     androidApp: false,
+  //     api: false,
+  //     trs: false,
+  //     sdk: false,
+  //     webapp: true,
+  //     shopifyApp: true,
+  //   },
+  //   userInvite: {
+  //     firstName: 'sdfssss',
+  //     lastName: 'sssssssss',
+  //     email: 'adb@adc.com',
+  //     number: '0999999999',
+  //     role: 'Admin',
+  //   },
+  //   websiteLink: 'www.xyz.com',
+  // };
   // stepper
   currentStep: number = 0;
   stepCountArray: Array<any> = [];
@@ -100,7 +101,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     });
   }
   // Customer Form Initialize
-  private _initForm(customerData: any) {
+  private _initForm(customerData?: any) {
     this.customerForm = this.fb.group({
       stepOne: this.fb.group({
         companyName: [
@@ -219,7 +220,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     if (!customer.valid) return;
 
     const customerData = customer.value;
-    const products = customer.stepTwo.products;
+    const products = customerData.stepTwo.products;
 
     const productsFinalObj: any = {};
 
@@ -252,7 +253,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
 
   updateCustomerDetails(customerDetails: any) {
     console.log(customerDetails.stepOne);
-    this.customerService.updateCustomer(customerDetails.stepOne).subscribe(
+    this.customerService.updateCustomer(customerDetails._id, customerDetails.stepOne).subscribe(
       (response: ICustomResponse) => {
         console.log(response);
         this.alertService.success(response.message);
@@ -287,6 +288,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
       title: 'Cancel !',
       icon: 'cancel',
       showCloseBtn: true,
+
       buttonGroup: [{ cssClass: 'btn-danger w-100', title: 'Cancel', value: true }],
     };
 

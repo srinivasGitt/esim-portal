@@ -1,4 +1,8 @@
 export class Customer {
+  public _id?: string;
+  public subscriberCount?: number;
+  public createdAt?: string;
+  public isActive?: boolean;
   constructor(
     public companyName: string,
     public websiteLink: string,

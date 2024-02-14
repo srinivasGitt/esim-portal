@@ -18,13 +18,28 @@ export class CustomerService {
     return this.http.get(`${this.serverUrl}/countries`);
   }
 
+  // Get Country Code for Phone Input
+  getCustomersList(itemsPerPage?: number, currentPage?: number): Observable<ICustomResponse[]> {
+    if (itemsPerPage && currentPage) {
+      return this.http.get<ICustomResponse[]>(
+        `${this.serverUrl}/customers?itemsPerPage=${itemsPerPage}&currentPage=${currentPage}`
+      );
+    }
+
+    return this.http.get<ICustomResponse[]>(`${this.serverUrl}/customers`);
+  }
+
   // Save Customer
   saveCustomer(customerDetails: Customer): Observable<ICustomResponse> {
     return this.http.post(`${this.serverUrl}/customers`, customerDetails);
   }
 
   // Update Customer
-  updateCustomer(customerDetails: any): Observable<ICustomResponse> {
-    return this.http.put(`${this.serverUrl}/customers`, customerDetails);
+  updateCustomer(customerId: string, data: any): Observable<ICustomResponse> {
+    return this.http.put(`${this.serverUrl}/customers/${customerId}`, data);
+  }
+
+  activateCustomer(customerId: string, data: any): Observable<ICustomResponse> {
+    return this.http.put(`${this.serverUrl}/customers/${customerId}`, data);
   }
 }
