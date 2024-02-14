@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgModel } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit {
   isDarkTheme = false;
   screenMode:any;
   parentCustomer: any;
@@ -48,6 +48,17 @@ export class NavbarComponent implements OnInit, AfterViewInit {
           this.showSearch = true;
         }
         this.searchform?.reset()
+
+        if(!this.urlList.includes(this.routeUrl)) {
+          this.searchform.controls['searchTerm'].valueChanges.pipe(
+              debounceTime(500),
+              distinctUntilChanged(),
+              switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
+              ).subscribe(res => {
+                this.cdr.detectChanges()
+                this._searchService.setResults(res)
+              })
+        }
       }
     })
     usersService.getCurrentUser().subscribe(result => {
@@ -74,36 +85,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         searchTerm: ['']
     })
   }
-
-  ngAfterViewInit() {
-
-    // Search Input Logic
-    /*
-    if(this.searchForm?.valueChanges) {
-      const formValue = this.searchForm.valueChanges
-      formValue?.pipe(
-        filter(() => !this.searchForm.invalid),
-        pluck('searchTerm'),
-        debounceTime(500),
-        distinctUntilChanged(),
-        switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
-      )
-      .subscribe(res => {
-        this._searchService.setResults(res)
-      })
-    }
-    */
-    if(!this.urlList.includes(this.routeUrl)) {
-      this.searchform.controls['searchTerm'].valueChanges.pipe(
-          debounceTime(500),
-          distinctUntilChanged(),
-          switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
-          ).subscribe(res => {
-            this.cdr.detectChanges()
-            this._searchService.setResults(res)
-          })
-      }
-    }
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
