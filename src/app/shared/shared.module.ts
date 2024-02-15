@@ -38,6 +38,7 @@ import {
   ProfileLogComponent,
   QrCodePopupComponent,
   ReportAlertComponent,
+  SaEditInviteUserComponent,
   SubscriberInfoComponent,
   SubscriberMgmtComponent,
   SubscriptionDialogComponent,
@@ -55,8 +56,14 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, ShowentriesPipe } from './pipe';
-import { SearchFilterPipe } from './pipe/search-filter.pipe';
+import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
+import {
+  CurrencySymbolPipe,
+  FilesizePipe,
+  PhoneNumberMaskPipe,
+  SearchFilterPipe,
+  ShowentriesPipe,
+} from './pipe';
 
 @NgModule({
   declarations: [
@@ -95,8 +102,11 @@ import { SearchFilterPipe } from './pipe/search-filter.pipe';
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    SearchFilterPipe,
+    SaEditInviteUserComponent,
+    MobileNumberInputComponent,
     ShowentriesPipe,
-    SearchFilterPipe
+    SearchFilterPipe,
   ],
   imports: [
     CommonModule,
@@ -125,7 +135,8 @@ import { SearchFilterPipe } from './pipe/search-filter.pipe';
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
-    ShowentriesPipe
+    ShowentriesPipe,
+    MobileNumberInputComponent,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

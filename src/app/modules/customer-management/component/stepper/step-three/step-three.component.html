@@ -18,6 +18,13 @@
             name="firstName"
             formControlName="firstName"
             placeholder="Enter the first name"
+            [ngClass]="{
+              'border-purple': form.controls['userInvite'].get('firstName')?.valid,
+              'border-error':
+                form.controls['userInvite'].get('firstName')?.touched &&
+                form.controls['userInvite'].get('firstName')?.dirty &&
+                form.controls['userInvite'].get('firstName')?.errors
+            }"
           />
           <div>
             <span
@@ -52,6 +59,13 @@
             name="lastName"
             formControlName="lastName"
             placeholder="Enter the last name"
+            [ngClass]="{
+              'border-purple': form.controls['userInvite'].get('lastName')?.valid,
+              'border-error':
+                form.controls['userInvite'].get('lastName')?.touched &&
+                form.controls['userInvite'].get('lastName')?.dirty &&
+                form.controls['userInvite'].get('lastName')?.errors
+            }"
           />
           <div>
             <span
@@ -88,6 +102,13 @@
             name="email"
             formControlName="email"
             placeholder="Enter the email address"
+            [ngClass]="{
+              'border-purple': form.controls['userInvite'].get('email')?.valid,
+              'border-error':
+                form.controls['userInvite'].get('email')?.touched &&
+                form.controls['userInvite'].get('email')?.dirty &&
+                form.controls['userInvite'].get('email')?.errors
+            }"
           />
           <div>
             <span
@@ -118,34 +139,37 @@
       </div>
       <div class="col-6">
         <div class="div-height">
-          <label for="phone" class="form-label es-modal-form-label">Phone Number</label>
-          <input
+          <label for="number" class="form-label es-modal-form-label">Phone Number</label>
+          <!-- <input
             type="text"
             class="form-control es-input"
-            id="phone"
-            aria-describedby="phone"
-            name="phone"
-            formControlName="phone"
-          />
+            id="number"
+            aria-describedby="number"
+            name="number"
+            formControlName="number"
+          /> -->
+          <app-mobile-number-input
+            [inputControl]="form.controls['userInvite'].get('number')"
+          ></app-mobile-number-input>
           <div>
             <span
               class="help-block ng-invalid text-danger"
               *ngIf="
-                form.controls['userInvite'].get('phone')?.touched &&
-                form.controls['userInvite'].get('phone')?.dirty &&
-                form.controls['userInvite'].get('phone')?.errors
+                form.controls['userInvite'].get('number')?.touched &&
+                form.controls['userInvite'].get('number')?.dirty &&
+                form.controls['userInvite'].get('number')?.errors
               "
             >
               <span
                 class="small"
-                *ngIf="form.controls['userInvite'].get('phone')?.errors?.['required']"
+                *ngIf="form.controls['userInvite'].get('number')?.errors?.['required']"
                 >Phone Number is required!</span
               >
               <span
                 class="small"
                 *ngIf="
-                  form.controls['userInvite'].get('phone')?.errors?.['pattern'] &&
-                  !form.controls['userInvite'].get('phone')?.errors?.['required']
+                  form.controls['userInvite'].get('number')?.errors?.['pattern'] &&
+                  !form.controls['userInvite'].get('number')?.errors?.['required']
                 "
                 >Invalid phone number!</span
               >
@@ -158,12 +182,19 @@
       <div class="col-6">
         <div class="div-height">
           <label for="role" class="form-label es-modal-form-label">Role*</label>
-          <select formControlName="role" class="form-select">
+          <select
+            formControlName="role"
+            class="form-select"
+            [ngClass]="{
+              'border-purple': form.controls['userInvite'].get('role')?.valid,
+              'border-error':
+                form.controls['userInvite'].get('role')?.touched &&
+                form.controls['userInvite'].get('role')?.dirty &&
+                form.controls['userInvite'].get('role')?.errors
+            }"
+          >
             <option value="null" selected disabled hidden>Choose a Role</option>
-            <option
-              *ngFor="let userRole of userRoles"
-              [value]="userRole"
-            >
+            <option *ngFor="let userRole of userRoles" [value]="userRole">
               {{ userRole }}
             </option>
           </select>

@@ -1,4 +1,8 @@
 export class Customer {
+  public _id?: string;
+  public subscriberCount?: number;
+  public createdAt?: string;
+  public isActive?: boolean;
   constructor(
     public companyName: string,
     public websiteLink: string,
@@ -15,12 +19,13 @@ export class Customer {
       phoneNumber: string;
     },
     public products: {
-      ios: boolean;
-      androidapplication: boolean;
+      iosApp: boolean;
+      androidApp: boolean;
       api: boolean;
       trs: boolean;
       sdk: boolean;
-      webapplication: boolean;
+      webapp: boolean;
+      shopifyApp: boolean;
     },
     public userInvite: {
       firstName: string;

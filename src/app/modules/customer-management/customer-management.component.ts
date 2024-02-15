@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MAT_MOMENT_DATE_FORMATS,
@@ -8,13 +7,11 @@ import {
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginationInstance } from 'ngx-pagination';
-import { AssignProfilesComponent } from 'src/app/shared/dialog/assign-profiles/assign-profiles.component';
-import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
-import { CustomerComponent } from 'src/app/shared/dialog/customer/customer.component';
-import { ImportProfileComponent } from 'src/app/shared/dialog/import-profile/import-profile.component';
+import { Customer } from 'src/app/shared/models/customer';
+import { SearchService } from 'src/app/shared/service';
 import { AlertService } from 'src/app/shared/service/alert.service';
-import { CustomerService } from 'src/app/shared/service/customer.service';
 import { DialogService } from 'src/app/shared/service/dialog';
+import { CustomerService } from './service/customer.service';
 
 @Component({
   selector: 'app-customer-management',
@@ -31,61 +28,48 @@ import { DialogService } from 'src/app/shared/service/dialog';
   ],
 })
 export class CustomerManagementComponent implements OnInit {
-  customerList = [{
-    _id: '1',
-    name: 'abc',
-    createdAt: '12/12/2024',
-    subscriberCount: 12
-  },{
-    _id: '2',
-    name: 'abc 1',
-    createdAt: '12/12/2024',
-    subscriberCount: 12
-  },{
-    _id: '3',
-    name: 'abc 2',
-    createdAt: '12/12/2024',
-    subscriberCount: 12
-  }]      
-  customerId: any = null;
-  currentCustomerId: any = null;
-  subCustomerName: any = null;
-  customer: any;
-  monthsList: Array<string> = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+  customerList: Customer[] = [
+    {
+      _id: '1',
+      billingAddress: {
+        addressLine: 'sdfsdfsdfsf',
+        landmark: 'NY square',
+        pincode: '999999',
+        city: 'llllllllll',
+        country: 'India',
+        state: 'lllllllllllllllll',
+      },
+      companyName: 'ppppppppp',
+      contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
+      products: {
+        iosApp: true,
+        androidApp: false,
+        api: false,
+        trs: false,
+        sdk: false,
+        webapp: true,
+        shopifyApp: true,
+      },
+      userInvite: {
+        firstName: 'sdfssss',
+        lastName: 'sssssssss',
+        email: 'adb@adc.com',
+        number: '0999999999',
+        role: 'Admin',
+      },
+      websiteLink: 'www.xyz.com',
+      createdAt: '12/12/2024',
+      subscriberCount: 5,
+      isActive: false,
+    },
   ];
-  selectedFilter!: { month: number; year: number };
-  currentYear!: number;
-  currentMonth!: number;
   paginateConfig: PaginationInstance = {
     id: 'customerListPagination',
     itemsPerPage: 20,
     currentPage: 1,
   };
-  filterConfig: any = {
-    searchTerm: '',
-    searchKey: 'name',
-    filterBy: { key: 'createdAt', type: 'date', value: undefined },
-  };
   inProgress: boolean = false;
-  customForm: any;
-  selectedDay: string = 'Current Year';
-  selectedDayTerm: string = '';
-  isCustomRange: boolean = false;
-  startDate!: string;
-  endDate!: string;
-  currentDate = new Date().toISOString().slice(0, 10);
+  inSearch: boolean = false;
 
   constructor(
     private customerService: CustomerService,
@@ -94,56 +78,31 @@ export class CustomerManagementComponent implements OnInit {
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    this.initForm();
-    // this.getAllCustomer();
-  }
-
-  getSingleCustomer() {
-    this.customerService.getSingleCustomer(this.customerId).subscribe(
-      (data: any) => {
-        this.customer = data;
-      },
-      (err) => {
-        this.alertService.error(err.error.message);
+    private route: ActivatedRoute,
+    private _searchService: SearchService
+  ) {
+    _searchService.getResults().subscribe((results: any) => {
+      if (results) {
+        this.customerList = results?.data;
+        this.paginateConfig.totalItems = results?.count[0]?.totalCount;
+        this.paginateConfig.currentPage = 1;
+        this.inSearch = true;
       }
-    );
+    });
   }
 
-  getSubCustomer() {
-    this.customerService.getSubCustomer(this.subCustomerName).subscribe(
-      (data: any) => {
-        this.subCustomerName = data;
-      },
-      (err) => {
-        this.alertService.error(err.error.message);
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   createCustomer() {
-    //  this.dialogService.openModal(CustomerComponent, { cssClass: 'modal-sm', context: {data: {}, title: 'Add New Customer'} })
-    //   .instance.close.subscribe((data: any) => {
-    //     if (data && data.name !== null ) {
-    //       let vm  = this;
-    //       vm.customerList?.push(data);
-    //       this.alertService.success(data.message);
-    //       this.getAllCustomer();
-    //     }
-    //   });
     this.router.navigate(['add'], { relativeTo: this.route });
   }
 
   getAllCustomer() {
     this.inProgress = true;
-    this.customerService.customers().subscribe(
+    this.customerService.getCustomersList().subscribe(
       (res: any) => {
         if (res) {
           this.customerList = res.data;
-               
           this.paginateConfig.totalItems = res?.count[0]?.totalCount;
           this.inProgress = false;
         }
@@ -156,117 +115,47 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   editCustomer(customer: any) {
-    this.dialogService
-      .openModal(CustomerComponent, {
-        cssClass: 'modal-sm',
-        context: { data: customer, title: 'Edit Customer' },
-      })
-      .instance.close.subscribe((data: any) => {
-        if (data) {
-          this.customerList = this.customerList.map((c: any) => {
-            if (c._id == customer._id) c = data;
-            return c;
-          });
-          this.alertService.success(data.message);
-          this.getAllCustomer();
-        }
-      });
+    this.router.navigate(['edit', customer._id], { relativeTo: this.route });
   }
 
-  deleteCustomer(customer: any) {
-    const data = {
-      title: 'Delete Customer?',
-      icon: 'trash',
-      showCloseBtn: true,
-      buttonGroup: [
-        { cssClass: 'btn-danger-scondary', title: 'Cancel', value: false },
-        { cssClass: 'btn-danger ms-auto', title: 'Delete', value: true },
-      ],
-    };
-    this.dialogService
-      .openModal(ConfirmComponent, {
-        cssClass: 'modal-sm',
-        context: {
-          message: 'Are you sure you want to delete this customer? This action cannot be undone.',
-          data,
-        },
-      })
-      .instance.close.subscribe((data: any) => {
-        if (data) {
-          this.customerService.deleteCustomer(customer._id).subscribe(
-            (res: any) => {
-              this.customerList = this.customerList.filter((c: any) => c._id != customer._id);
-              this.alertService.success(res.message);
-            },
-            (err) => {
-              this.alertService.error(err.error.message, err.status);
-            }
-          );
-        }
-      });
-  }
-
-  selectCustomer(i: any) {
-    localStorage.setItem('customerId', this.customerList[i]._id);
-  }
-
-  importProfile() {
-    this.dialogService
-      .openModal(ImportProfileComponent, {
-        cssClass: 'modal-md',
-        context: { data: {}, title: 'Select File' },
-      })
-      .instance.close.subscribe(() => {});
-  }
-
-  assignProfiles(index: number) {
-    this.dialogService
-      .openModal(AssignProfilesComponent, {
-        cssClass: 'modal-md',
-        context: { data: this.customerList[index], title: 'Assign Profiles' },
-      })
-      .instance.close.subscribe((data: any) => {
-        if (data) {
-          this.customerList[index] = data;
-          this.alertService.success('Profiles assigned successfully');
-          this.getAllCustomer();
-        }
-      });
-  }
-
-  searchRecord(searchTerm?: any) {
-    if (searchTerm?.length > 2) {
-      this.filterConfig.searchTerm = searchTerm;
-    } else {
-      this.filterConfig.searchTerm = '';
-    }
-  }
-
-  initForm(): void {
-    this.customForm = new FormGroup({
-      fromDate: new FormControl<Date | null>(null),
-      toDate: new FormControl<Date | null>(null),
-    });
-  }
-
-  get f() {
-    return this.customForm.controls;
+  // Active / Deactivate Customer
+  activateCustomer(customer: any) {
+    this.customerService.activateCustomer(customer._id, { isActive: customer.isActive }).subscribe(
+      (res: any) => {
+        this.alertService.success(res.message);
+      },
+      (err) => {
+        this.alertService.error(err.error.message, err.status);
+        this.inProgress = false;
+      }
+    );
   }
 
   getPageNumber(event: any) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event;
 
-    /* Pagination based on Filter */
-    if (this.selectedDayTerm) {
-      this.getAllCustomers(this.selectedDayTerm, this.startDate, this.endDate);
+    /* Pagination based on searched data */
+    if (this.inSearch && this._searchService.searchedTerm.length > 3) {
+      this._searchService
+        .getSearchResult(
+          '/plans',
+          this._searchService.searchedTerm,
+          this.paginateConfig.itemsPerPage,
+          this.paginateConfig.currentPage - 1
+        )
+        .subscribe((result: any) => {
+          this.customerList = result.data;
+          this.paginateConfig.totalItems = result?.count[0]?.totalCount;
+          this.inProgress = false;
+        });
     } else {
       /* Pagination based on all data */
       this.customerService
-        .customers(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage - 1)
+        .getCustomersList(this.paginateConfig.itemsPerPage, this.paginateConfig.currentPage - 1)
         .subscribe(
           (res: any) => {
-            this.customerList = res.data;     
+            this.customerList = res.data;
             this.paginateConfig.totalItems = res?.count[0]?.totalCount;
             this.inProgress = false;
           },
@@ -277,63 +166,4 @@ export class CustomerManagementComponent implements OnInit {
         );
     }
   }
-
-  /* Get Customers based on Filter - Start */
-  selectTimeframe(value: any) {
-    this.selectedDayTerm = value;
-    this.getAllCustomers(this.selectedDayTerm);
-    this.paginateConfig.currentPage = 1;
-    this.customForm?.reset();
-  }
-  /* Get Customers based on Filter - End */
-
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
-    if (!this.customForm.valid) {
-      return;
-    }
-
-    const spanElement = this.elementRef.nativeElement.querySelector(
-      '.mat-date-range-input-separator'
-    );
-    if (spanElement) {
-      this.renderer.setProperty(spanElement, 'innerHTML', 'to');
-    }
-
-    this.startDate = dateRangeStart.value;
-    this.endDate = dateRangeEnd.value;
-    this.selectedDayTerm = 'custom';
-    this.inProgress = true;
-    setTimeout(() => {
-      this.getAllCustomers(this.selectedDayTerm, this.startDate, this.endDate);
-    }, 1000);
-
-    this.paginateConfig.currentPage = 1;
-  }
-
-  /* Get filtered data - Start */
-  getAllCustomers(value?: any, fromDate?: any, toDate?: any) {
-    this.inProgress = true;
-    this.customerService
-      .getFilteredCustomersList(
-        value,
-        fromDate,
-        toDate,
-        this.paginateConfig.itemsPerPage,
-        this.paginateConfig.currentPage - 1
-      )
-      .subscribe(
-        (res: any) => {
-          if (res) {
-            this.customerList = res.data;    
-            this.paginateConfig.totalItems = res?.count[0]?.totalCount;
-            this.inProgress = false;
-          }
-        },
-        (err) => {
-          this.alertService.error(err.error.message);
-          this.inProgress = false;
-        }
-      );
-  }
-  /* Get filtered data - End */
 }

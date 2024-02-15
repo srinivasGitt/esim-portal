@@ -3,7 +3,10 @@
   <div class="customer-form-header">
     <div class="row justify-content-between">
       <div class="col-4 d-flex align-items-center">
-        <span class="d-inline-block mr-3">
+        <span
+          class="d-flex align-items-center mr-3 cursor-pointer"
+          (click)="currentStep === 1 ? goToCustomerList() : previousStep()"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="26"
@@ -29,13 +32,8 @@
               />
             </g>
           </svg>
+          <span class="back-btn ms-3">Back</span>
         </span>
-        <span
-          class="back-btn ms-3"
-          (click)="currentStep !== 1 ? previousStep() : ''"
-          [ngClass]="{ 'cursor-pointer': currentStep !== 1 }"
-          >Back</span
-        >
       </div>
       <div class="col-4 text-end">
         <button type="button" class="btn action-btn" (click)="cancelFormAndResetStepper()">
@@ -44,7 +42,7 @@
         <button
           type="button"
           class="btn action-btn ms-3"
-          (click)="currentStep === 3 ? submitCustomerDetails() : nextStep()"
+          (click)="customerData || currentStep === 3 ? submitCustomerDetails() : nextStep()"
           [ngClass]="{
             'btn-primary text-white':
               customerForm.get('stepOne')?.valid ||
@@ -57,7 +55,7 @@
             (currentStep === 3 && !customerForm.get('stepThree')?.valid)
           "
         >
-          {{ currentStep === 3 ? 'Submit' : 'Next' }}
+          {{ customerData || currentStep === 3 ? 'Submit' : 'Next' }}
         </button>
       </div>
     </div>

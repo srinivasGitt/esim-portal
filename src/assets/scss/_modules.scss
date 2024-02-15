@@ -2039,8 +2039,8 @@
       height: 45px;
 
       .user-table-action-icon {
-        width: 15px;
-        margin-right: 25px;
+        // width: 15px;
+        // margin-right: 25px;
         cursor: pointer;
       }
 
@@ -2064,6 +2064,85 @@
         background-color: var(--add-button-bg-color);
         border: none;
         color: #fff !important;
+      }
+    }
+  }
+  .switch {
+    margin-bottom: 0px;
+    position: relative;
+    // display: inline-block;
+    display: flex;
+    width: 27px;
+    // margin-top: 10px !important;
+    height: 18px;
+    align-items: center;
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .round {
+      border-radius: 34px;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid var(--table-heading-text-color);
+      transition: 0.4s;
+      border-radius: 10px;
+      &:before {
+        background: var(--table-heading-text-color);
+        position: absolute;
+        content: '';
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        left: 2px;
+        bottom: 2px;
+        transition: 0.4s;
+      }
+    }
+  }
+  input:checked + .slider {
+    background-color: var(--dark-primary-background);
+    // border: 0;
+    border: 1px solid var(--dark-primary-background);
+    &:before {
+      transform: translateX(10px);
+      background-color: var(--card-background-color);
+    }
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .btn-dashboard-head {
+    width: auto !important;
+  }
+
+  .sub-customer-view-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgb(128, 130, 131);
+
+    .breadcrumb{
+      &-item {
+        font-family: 'SF Pro Display';
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: 0em;
+        color: #000;
+      }
+
+      .active {
+        color: rgba(99, 101, 239, 1);
       }
     }
   }
@@ -4678,6 +4757,17 @@
       border-radius: 8px;
       background: rgba(99, 101, 239, 0.05);
     }
+
+    .form-control,
+    .phone-number-form-control {
+      border-color: rgba(105, 105, 105, 0.5);
+      &:focus {
+        background-color: transparent !important;
+        border-color: rgba(105, 105, 105, 0.5);
+        outline: 0;
+        box-shadow: none !important;
+      }
+    }
   }
 
   .left-div,
@@ -4789,5 +4879,13 @@
       letter-spacing: 0em;
       text-align: left;
     }
+  }
+
+  .border-purple {
+    border: 1px solid var(--input-border-color-hover) !important;
+  }
+
+  .border-error {
+    border: 1px solid rgb(225, 112, 112) !important;
   }
 }
