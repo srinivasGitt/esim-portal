@@ -48,7 +48,7 @@
     <ng-container class="user-dashboard-table">
       <div class="t-grid-table-new">
         <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
-          <div class="t-box b px-2 d-flex">
+        <div class="t-box b px-2 d-flex">
             <svg
               class="my-auto"
               width="16"
@@ -152,7 +152,7 @@
             *ngFor="let customer of customerList | paginate: paginateConfig"
           >
             <!-- [routerLink]="['/customer-management', customer._id]" -->
-            <div class="t-box a px-2" routerLink="/user-management/{{ customer._id }}">
+            <div class="t-box a px-2" [routerLink]="['/customer-management', customer._id]">
               {{ customer.companyName }}
             </div>
             <div class="t-box b px-2">{{ customer.createdAt | date: 'dd-MM-yyyy' }}</div>

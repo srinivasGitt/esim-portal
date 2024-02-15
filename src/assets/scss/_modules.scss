@@ -2112,6 +2112,32 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .btn-dashboard-head {
+    width: auto !important;
+  }
+
+  .sub-customer-view-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgb(128, 130, 131);
+
+    .breadcrumb{
+      &-item {
+        font-family: 'SF Pro Display';
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: 0em;
+        color: #000;
+      }
+
+      .active {
+        color: rgba(99, 101, 239, 1);
+      }
+    }
+  }
 }
 
 // .dashboard-head-flex{

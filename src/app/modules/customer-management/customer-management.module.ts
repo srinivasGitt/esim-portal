@@ -16,6 +16,7 @@ import { StepOneComponent } from './component/stepper/step-one/step-one.componen
 import { StepTwoComponent } from './component/stepper/step-two/step-two.component';
 import { StepThreeComponent } from './component/stepper/step-three/step-three.component';
 import { MobileNumberInputComponent } from 'src/app/shared/component';
+import { SingleCustomerViewComponent } from './component/single-customer-view/single-customer-view.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MobileNumberInputComponent } from 'src/app/shared/component';
     StepOneComponent,
     StepTwoComponent,
     StepThreeComponent,
+    SingleCustomerViewComponent,
   ],
   imports: [
     CommonModule,
