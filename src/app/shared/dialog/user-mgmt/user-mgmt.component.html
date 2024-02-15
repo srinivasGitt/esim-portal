@@ -23,7 +23,7 @@
         <div class="modal-header-text-container">
             <div class="mb-3" class="add-edit-icon">
                 <div class="mb-3">
-                    <svg  width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="title === 'Add New User'" [class]="title === 'Add New User' ? 'add-user-icon' : 'edit-user-icon'">
+                    <svg  width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" *ngIf="title === 'Add New User' || title === 'Invite User'" [class]="title === 'Add New User' ? 'add-user-icon' : 'edit-user-icon'">
                         <rect class="rect1" x="4" y="4" width="48" height="48" rx="24" fill="#33A85B"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M23.1875 23.8751C23.1875 21.7235 24.9317 19.9792 27.0833 19.9792C29.2349 19.9792 30.9792 21.7235 30.9792 23.8751C30.9792 26.0267 29.2349 27.7709 27.0833 27.7709C24.9317 27.7709 23.1875 26.0267 23.1875 23.8751ZM27.0833 21.3542C25.6911 21.3542 24.5625 22.4829 24.5625 23.8751C24.5625 25.2673 25.6911 26.3959 27.0833 26.3959C28.4756 26.3959 29.6042 25.2673 29.6042 23.8751C29.6042 22.4829 28.4756 21.3542 27.0833 21.3542Z" fill="white"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M19.9785 32.5833C19.9785 30.6847 21.5175 29.1458 23.416 29.1458H23.7285C23.8976 29.1458 24.0656 29.1725 24.2264 29.225L25.0198 29.4841C26.3603 29.9217 27.8051 29.9217 29.1455 29.4841L29.9389 29.225C30.0997 29.1725 30.2677 29.1458 30.4369 29.1458H30.7493C32.6479 29.1458 34.1868 30.6847 34.1868 32.5833V33.6725C34.1868 34.363 33.6864 34.9516 33.005 35.0629C29.0828 35.7033 25.0826 35.7033 21.1603 35.0629C20.4789 34.9516 19.9785 34.363 19.9785 33.6725V32.5833ZM23.416 30.5208C22.2769 30.5208 21.3535 31.4442 21.3535 32.5833V33.6725C21.3535 33.6891 21.3655 33.7032 21.3819 33.7059C25.1574 34.3224 29.008 34.3224 32.7834 33.7059C32.7998 33.7032 32.8118 33.6891 32.8118 33.6725V32.5833C32.8118 31.4442 31.8884 30.5208 30.7493 30.5208H30.4369C30.4127 30.5208 30.3887 30.5246 30.3657 30.532L29.5723 30.7912C27.9546 31.3194 26.2107 31.3194 24.593 30.7912L23.7996 30.532C23.7767 30.5246 23.7526 30.5208 23.7285 30.5208H23.416Z" fill="white"/>
@@ -47,7 +47,9 @@
     <div>
         <p class="modal-header-text mb-0">{{title}}</p>
         <p class="modal-sub-header-text mb-0 mt-2">
-            {{ title === 'Add New User' ? 'Add a new user by entering their details below and saving them.' : 'Edit your user details by changing the values below and saving them.'}}
+            <ng-container *ngIf="title === 'Add New User'">Add a new user by entering their details below and saving them.</ng-container>
+            <ng-container *ngIf="title === 'Edit User'">Edit your user details by changing the values below and saving them.</ng-container>
+            <ng-container *ngIf="title === 'Invite User'">Invite user by entering their details below and submitting them.</ng-container>
         </p>
     </div>
     <div class="es-modal-body" *ngIf="userForm">
@@ -105,17 +107,33 @@
 
             <div class="div-height">
                 <label for="name" class="form-label es-modal-form-label">Phone Number</label>
-                <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" [ngClass]="[f.mobile.valid ? 'border-purple':'']">
+                <app-mobile-number-input [inputControl]="f.mobile"></app-mobile-number-input>
+                <!-- <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" [ngClass]="[f.mobile.valid ? 'border-purple':'']"> -->
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.mobile.touched && f.mobile.pristine) || (f.mobile.errors && submitted)">
-                        <span class="small" *ngIf="f.mobile.errors.required">
+                        <span class="small" *ngIf="f.mobile.errors?.required">
                             Phone Number is required!
                         </span>
                         <span class="small" *ngIf="f.mobile.errors?.minlength">
-                            Phone number must be of {{ f.mobile.errors?.minlength.requiredLength }} digits.
+                            Phone number must be of 7 digits. 
+                            <!-- {{ f.mobile.errors?.minlength.requiredLength }} -->
                         </span>
                         <span class="small" *ngIf="f.mobile.errors?.maxlength">
-                            Phone number must be of {{ f.mobile.errors?.maxlength.requiredLength }} digits.
+                            Phone number must be of 15 digits.
+                            <!-- {{ f.mobile.errors?.maxlength.requiredLength }} -->
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="div-height" *ngIf="isSuperAdmin">
+                <label for="role" class="form-label es-modal-form-label">Role <span *ngIf="userForm.get('role')?.value == ''">*</span></label>
+                <ng-select class="form-select-control" placeholder="Select User role" formControlName="role" [clearable]="false">
+                    <ng-option value="admin"> Admin </ng-option>
+                </ng-select>
+                <div>
+                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('role')?.touched && userForm.get('role')?.pristine) && (userForm.get('role')?.errors)">
+                        <span class="small" *ngIf="userForm.get('role')?.errors?.['required']">
+                            Role is required!
                         </span>
                     </span>
                 </div>

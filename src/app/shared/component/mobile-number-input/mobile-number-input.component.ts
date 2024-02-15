@@ -23,14 +23,15 @@ export class MobileNumberInputComponent implements OnInit {
   ngOnInit(): void {
     this.regionService.getCountries().subscribe(
       (result : any) => {
-        console.log(result);
       }
     );
     if(this.inputControl?.value?.trim() != ''){
-      const phoneNumber = this.inputControl.value.split(" ");
+      const phoneNumber = this.inputControl?.value?.split(" ") || [];
       if(phoneNumber.length == 2){
         this.countryDialCode = phoneNumber[0];
         this.phoneNumber.setValue(phoneNumber[1])
+      } else {
+        this.phoneNumber.setValue(this.inputControl.value);
       }
     }
   }

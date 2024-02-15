@@ -21,6 +21,7 @@ export class UserMgmtComponent implements OnInit {
   planList: any = [];
   submitted = false;
   customerId: any;
+  isSuperAdmin: boolean = true;
   
   constructor(
     private viewContainer: ViewContainerRef,
@@ -66,7 +67,19 @@ export class UserMgmtComponent implements OnInit {
       email: new UntypedFormControl(this.title === 'Edit User' ? {value: this.data?.email, disabled: true} : this.data?.email, [Validators.required, Validators.email]),
       firstName: new UntypedFormControl(this.data?.firstName, [Validators.required, Validators.maxLength(32), trimSpaceValidator]),
       lastName: new UntypedFormControl(this.data?.lastName, [Validators.required, Validators.maxLength(32), trimSpaceValidator]),
-      mobile: new UntypedFormControl(this.data?.mobile, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+      mobile: new UntypedFormControl(this.data?.mobile, [Validators.required, Validators.minLength(7), Validators.maxLength(15)]),
+    });
+    if(this.isSuperAdmin){
+      let value = this.data?.roles?.length > 0 ? this.data?.roles[0] : 'admin';
+       this.userForm.addControl('role', new UntypedFormControl(value, [Validators.required, Validators.maxLength(32), trimSpaceValidator]));
+    }
+    this.userForm.controls.mobile.valueChanges.subscribe((phoneNumber : any) =>{
+      const tempNo = phoneNumber?.split(" ") || [];
+      if(tempNo.length === 2){
+        const countryCodeLength = tempNo[0].length + 1;
+        this.userForm.controls.mobile.setValidators([Validators.required, Validators.minLength(countryCodeLength + 7), Validators.maxLength(countryCodeLength + 15)]);
+        this.userForm.controls.mobile.updateValueAndValidity();
+      }
     });
   }
 

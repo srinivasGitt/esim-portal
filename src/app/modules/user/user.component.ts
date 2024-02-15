@@ -11,6 +11,7 @@ import {
 import { InviteUserComponent, UserInfoComponent } from 'src/app/shared/dialog';
 import { PaginationInstance } from 'ngx-pagination';
 import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-user',
@@ -53,6 +54,7 @@ export class UserComponent implements OnInit {
   customerId: any;
   inProgress: boolean = false;
   copyText: string = 'Copy';
+  isSuperAdmin: boolean = true;
 
   constructor(
     private dialogService: DialogService,
@@ -60,7 +62,8 @@ export class UserComponent implements OnInit {
     private regionService: RegionsService,
     private planService: PlansService,
     private alertService: AlertService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private clipboard: Clipboard 
   ) {
     usersService.getCurrentUser().subscribe((res: any) => {
       this.userDetails = res;
@@ -127,7 +130,7 @@ export class UserComponent implements OnInit {
         cssClass: 'modal-sm',
         context: {
           data: {},
-          title: 'Add New User',
+          title: this.isSuperAdmin ? 'Invite User' : 'Add New User',
           customerId: this.userDetails.customerId || this.customerId,
         },
       })
@@ -161,8 +164,9 @@ export class UserComponent implements OnInit {
   }
 
   editUser(user: any) {
+    const templateRef = !this.isSuperAdmin ? UserInfoComponent : UserMgmtComponent; // Update template reference for super admin
     this.dialogService
-      .openModal(UserMgmtComponent, {
+      .openModal(templateRef, {
         cssClass: 'modal-sm',
         context: { data: user, title: 'Edit User' },
       })
@@ -317,6 +321,6 @@ export class UserComponent implements OnInit {
       return;
     }
 
-    navigator.clipboard.writeText(email);
+    this.clipboard.copy(email);
   }
 }

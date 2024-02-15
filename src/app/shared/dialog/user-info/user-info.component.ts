@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { DialogComponent } from '../../service/dialog';
 
 @Component({
@@ -10,13 +11,13 @@ export class UserInfoComponent implements OnInit {
 
   dialogRef: DialogComponent;
   userDetails: any;
-  copyText: string = 'Copy'
+  copyText: string = 'Copy';
+  isSuperAdmin: boolean = true;
 
-  constructor(private viewContainer: ViewContainerRef,
-    ) {
-      const _injector = this.viewContainer.injector;
-      this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
-    }
+  constructor(private viewContainer: ViewContainerRef, private clipboard: Clipboard) {
+    const _injector = this.viewContainer.injector;
+    this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
+  }
 
   ngOnInit(): void {
     this.userDetails = this.dialogRef.context.data;
@@ -38,7 +39,8 @@ export class UserInfoComponent implements OnInit {
     if(!email) {
       return;
     }
-    navigator.clipboard.writeText(email);
+    
+    this.clipboard.copy(email);
   }
   
 }
