@@ -203,6 +203,15 @@
   }
 }
 
+::ng-deep .mat-date-range-input-start-wrapper{
+  width: 60%;
+}
+
+::ng-deep .mat-date-range-input-separator{
+  margin-left: 0;
+  margin-right: 13px;
+}
+
 .data-usage-dropdown {
   width: 270px;
   height: 50px;

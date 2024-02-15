@@ -36,7 +36,7 @@
 
 .lang-dropdown-option {
     box-shadow: var(--box-shadow-size-color);;
-    width: 370px;
+    width:290px;
     border: none;
     cursor: pointer;
     border-radius: 13px;
@@ -91,24 +91,24 @@ button {
     border-radius: 2px;
     padding: 4px 17px;
   }
-  
+
   button.active {
     color: #fff;
     background: #008ffb;
     border: 1px solid blue;
     border-bottom: 2px solid blue;
   }
-  
+
   button:focus {
     outline: 0;
   }
-  
+
 
 
 // ::ng-deep mat-form-field{
 //     //custom css
 //     display: none !important;
-// } 
+// }
 
 // ::ng-deep .cdk-overlay-pane {
 //     top: 274px !important;
@@ -163,6 +163,15 @@ button {
 
 ::ng-deep .mat-calendar-body-cell-content .mat-focus-indicator {
     color: var(--calendar-select-color) !important;
+}
+
+::ng-deep .mat-date-range-input-start-wrapper{
+  width: 75%;
+}
+
+::ng-deep .mat-date-range-input-separator{
+  margin-left: 0;
+  margin-right: 13px;
 }
 
 
