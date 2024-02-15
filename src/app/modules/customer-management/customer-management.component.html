@@ -245,7 +245,7 @@
   <!-- Loading Spinner - End -->
 
   <!-- Pagination  -->
-  <ng-container *ngIf="!inProgress && customerList.length > 0">
+  <ng-container *ngIf="!inProgress && customerList && customerList.length > 0">
     <div class="custom-pagination-section">
       <pagination-controls
         id="customerListPagination"

@@ -29,8 +29,10 @@ export class SidebarComponent implements OnInit {
   isParentActive: any;
   clientConfig!: any;
   routeConfig: any;
-  isCustomerSelected = true;
+  isCustomerSelected = false;
   isRole = 'superAdmin';
+  adminMenuList: any = [];
+  superAdminMenuList: any = [];
 
   constructor(
     private router: Router,
@@ -42,7 +44,7 @@ export class SidebarComponent implements OnInit {
     private alertService: AlertService,
     private dialogService: DialogService,
     private localStorage: LocalStorageService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
   ) {
     router.events.subscribe((data: any) => {
       if (data instanceof NavigationEnd) {
@@ -66,7 +68,7 @@ export class SidebarComponent implements OnInit {
     usersService.getCurrentUser().subscribe((result) => {
       this.userDetails = result;
       if (this.userDetails?.roles) {
-        this.fetchSideBarMenuList(this.userDetails.roles);
+        this.fetchSideBarMenuList();
       }
     });
   }
@@ -77,16 +79,25 @@ export class SidebarComponent implements OnInit {
     } else {
       this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     }
+
+    this.customerService.getCustomer()
+      .subscribe(res => {
+        if(res) {
+          this.isCustomerSelected = true;
+        } else {
+          this.isCustomerSelected = false;
+        }
+      });
   }
 
-  async fetchSideBarMenuList(roles: Array<string>) {
+  async fetchSideBarMenuList(roles?: Array<string>) {
     this.usersService.inProgress.next(true);
     
-    if (!roles.includes('superAdmin')) {
+    if (roles && !roles.includes('superAdmin')) {
       await this.getClientConfiguration();
     }
 
-    let menuList = this.sidebarService.getSideBarMenus(roles);
+    let menuList = this.sidebarService.getSideBarMenus();
 
     if (this.clientConfig) {
       if (!this.clientConfig?.rewardPointsMasterEnabled) {
@@ -99,7 +110,23 @@ export class SidebarComponent implements OnInit {
     }
 
     this.sidebarMenuList = menuList;
+
+    this.superAdminMenuList = this.sidebarMenuList.filter(ele => ele.accessRole.includes('superAdmin'));
+    this.adminMenuList = this.sidebarMenuList.filter(ele => ele.accessRole.includes('admin'));
+
+    console.log(this.superAdminMenuList);
+    console.log(this.adminMenuList);
+
     this.usersService.inProgress.next(false);
+  }
+
+  getCustomerHierarchy() {
+    this.customerService.getCustomerHierachy()
+      .subscribe((res: any) => {
+        console.log(res);
+      }, err => {
+
+      })
   }
 
   // Client Feature Configuration

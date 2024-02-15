@@ -114,4 +114,8 @@ export class CustomerService {
     getCustomer(): Observable<any[]> {
       return this.customer.asObservable();
     }
+
+    getCustomerHierachy() {
+      return this.http.get(`${this.serverUrl}/customers/hierarchy`);
+    }
 } 

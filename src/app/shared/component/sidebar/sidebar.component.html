@@ -1,9 +1,9 @@
-<div style="position: fixed; top: 30px; left: 500px; z-index: 1000;"> 
+<!-- <div style="position: fixed; top: 30px; left: 500px; z-index: 1000;"> 
     <button class="btn btn-warning" (click)="isRole = 'admin';">Admin test</button>
     <button class="btn btn-info" (click)="isRole = 'superAdmin';">SuperAdmin test</button>
 
     <button class="btn btn-danger" (click)="isCustomerSelected = !isCustomerSelected;">Customer Selected</button>
-</div>
+</div> -->
 
 <ng-container *ngIf="isRole === 'superAdmin'">
     <div class="super-admin-main">
@@ -17,9 +17,9 @@
             </div>
         
             <ul class="sidebar-menu-list">
-                <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
+                <li *ngFor="let menu of superAdminMenuList" class="flex-column sidebar-main-title" #itemEl>
                     <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
-                        <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" (click)="isCustomerSelected = false;">
                             <span class="link-icon">
                                 <img [src]="menu.icon" [alt]="menu.title">
                             </span>
@@ -76,7 +76,7 @@
                 </div>
             
                 <ul class="sidebar-menu-list">
-                    <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
+                    <li *ngFor="let menu of adminMenuList" class="flex-column sidebar-main-title" #itemEl>
                         <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
                             <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
                                 <span class="link-icon">
@@ -139,7 +139,7 @@
         </div>
     
         <ul class="sidebar-menu-list">
-            <li *ngFor="let menu of sidebarMenuList" class="flex-column sidebar-main-title" #itemEl>
+            <li *ngFor="let menu of adminMenuList" class="flex-column sidebar-main-title" #itemEl>
                 <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
                     <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
                         <span class="link-icon">

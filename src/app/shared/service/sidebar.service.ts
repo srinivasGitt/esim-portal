@@ -7,7 +7,7 @@ export class SidebarService {
 
   constructor() { }
 
-  getSideBarMenus(roles: Array<string>) {
+  getSideBarMenus(roles?: Array<string>) {
     const navMenuList = [
       {
         title: 'Dashboard',
@@ -34,28 +34,28 @@ export class SidebarService {
         title: 'Plans',
         icon: 'assets/icons/plans-icon.svg',
         link: '/plans',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: false,
       },
       {
         title: 'Subscribers',
         icon: 'assets/icons/subscriber-icon.svg',
         link: '/subscribers',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: false,
       },
       {
         title: 'Subscriptions',
         icon: 'assets/icons/subscription-icon.svg',
         link: '/subscriptions',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: false,
       },
       {
         title: 'Inventory',
         icon: 'assets/icons/notepad.svg',
         link: '/inventory',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: false,
       },
       {
@@ -75,7 +75,7 @@ export class SidebarService {
           {
             title: 'Data Usage',
             link: '/reports/data-usage',
-            accessRole: ['admin', 'superAdmin'],
+            accessRole: ['admin'],
             hasGroup: false,
           },
           {
@@ -96,14 +96,14 @@ export class SidebarService {
         title: 'Loyalty Point Program',
         icon: 'assets/icons/fluent_reward-16-filled.svg',
         link: '/loyalty-point-program',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: false,
       },
       {
         title: 'Coupon Management',
         icon: 'assets/icons/solar_ticket-sale-bold.svg',
         link: '/coupon-management',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: false,
       },
       {
@@ -117,20 +117,20 @@ export class SidebarService {
         title: 'Help Center',
         icon: 'assets/icons/headphone.svg',
         link: '/help-center',
-        accessRole: ['admin', 'superAdmin'],
+        accessRole: ['admin'],
         hasGroup: true,
         isLinkActive: false,
         childs: [
           {
             title: 'Contact Us',
             link: '/help-center/contactus',
-            accessRole: ['admin', 'superAdmin'],
+            accessRole: ['admin'],
             hasGroup: false,
           },
           {
             title: 'Support',
             link: '/help-center/support',
-            accessRole: ['admin', 'superAdmin'],
+            accessRole: ['admin'],
             hasGroup: false,
           },
           // {
