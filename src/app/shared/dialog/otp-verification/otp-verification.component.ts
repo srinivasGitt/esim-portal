@@ -13,7 +13,7 @@ export class OtpVerificationComponent implements OnInit {
   config!: OtpVerification;
   userDetails: any;
   otpError = true;
-  otpDetails: { id: string, otp: string, requestType: string } = { id: '', otp: '', requestType: ''};
+  otpDetails: { requestId: string, otp: string, requestType: string } = { requestId: '', otp: '', requestType: ''};
   payload: any;
 
   public settings = {
@@ -31,17 +31,17 @@ export class OtpVerificationComponent implements OnInit {
     ) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
-    userService.getCurrentUser().subscribe((userDetails) => {
-      this.userDetails = userDetails;
-      const mail = this.userDetails.email.split('@');
-      this.userEmail = `${mail[0].substring(0, 3)}${'*'.repeat(mail[0].length - 3)}@${mail[1]}`;
-      this.sendOtp();
-    });
   }
 
   ngOnInit(): void {
     const indexOfS = Object.values(otpType).indexOf(this.config.type as unknown as otpType);
     this.otpDetails.requestType = Object.keys(otpType)[indexOfS];
+    this.userService.getCurrentUser().subscribe((userDetails) => {
+      this.userDetails = userDetails;
+      const mail = this.userDetails.email.split('@');
+      this.userEmail = `${mail[0].substring(0, 3)}${'*'.repeat(mail[0].length - 3)}@${mail[1]}`;
+      this.sendOtp();
+    });
   }
 
   close(): void {
@@ -57,10 +57,10 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
   sendOtp() {
-    this.authService.validateUser().subscribe(
+    this.authService.validateUser({requestType: this.otpDetails.requestType, payload: this.payload}).subscribe(
       (result : any) => {
-        if(result.id) {
-          this.otpDetails.id= result.id;
+        if(result?.data?.requestId) {
+          this.otpDetails.requestId= result.data.requestId;
           this.otpError = false;
           this.settings.errorMessage = '';
         };
@@ -72,7 +72,7 @@ export class OtpVerificationComponent implements OnInit {
   }
 
   verifyUser(){
-    this.authService.verifyUser({ ...this.otpDetails, payload: this.payload}).subscribe(
+    this.authService.verifyUser({ ...this.otpDetails}).subscribe(
       (result) => {
         this.dialogRef.close.emit(true);
       },

@@ -35,8 +35,8 @@ export class AuthService {
     return this.http.post(`${this.serverUrl}/auth/reset`, userData);
   }
 
-  validateUser(){
-    return this.http.get(`${this.serverUrl}/otp/generate`);
+  validateUser(requestData : any){
+    return this.http.post(`${this.serverUrl}/otp/generate`, requestData);
   }
 
   verifyUser(requestData : any){
