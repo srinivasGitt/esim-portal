@@ -29,11 +29,11 @@
                 <label class="subscriber-label-text">Name</label>
             </div>
             <div class="col-7">
-                <label class="subscriber-details-text text-overflow-ellipsis mt-2" *ngIf="requestDetails.name.length >20" [tooltip]="requestDetails.name" placement="top" delay="100" offset="0">
-                    {{ requestDetails.name }}
+                <label class="subscriber-details-text text-overflow-ellipsis mt-2" *ngIf="requestDetails?.name?.length >20" [tooltip]="requestDetails.name" placement="top" delay="100" offset="0">
+                    {{ requestDetails.name ?? 'N/A'}}
                 </label>
-                <label class="subscriber-details-text" *ngIf="requestDetails.name.length <= 20">
-                    {{ requestDetails.name }}
+                <label class="subscriber-details-text" *ngIf="requestDetails?.name?.length <= 20">
+                    {{ requestDetails.name ?? 'N/A'}}
                 </label>
             </div>
         </div>
@@ -85,10 +85,10 @@
                 <label class="subscriber-label-text">Device Information</label>
             </div>
             <div class="col-7">
-              <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="requestDetails.deviceInfo.length > 20" [tooltip]="requestDetails.deviceInfo" placement="top" delay="100" offset="0">
+              <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="requestDetails?.deviceInfo?.length > 20" [tooltip]="requestDetails.deviceInfo" placement="top" delay="100" offset="0">
                 {{ requestDetails.deviceInfo ?? 'N/A' }}
             </label>
-            <label class="subscriber-details-text" *ngIf="requestDetails.deviceInfo.length <= 20">
+            <label class="subscriber-details-text" *ngIf="requestDetails?.deviceInfo?.length <= 20">
                 {{requestDetails.deviceInfo ?? 'N/A'}}
             </label>
                 <!-- <label class="subscriber-details-text">
@@ -102,11 +102,11 @@
                 <label class="subscriber-label-text">Message</label>
             </div>
             <div class="col-7">
-                <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="requestDetails.message.length > 20" [tooltip]="requestDetails.message" placement="top" delay="100" offset="0">
-                    {{ requestDetails.message }}
+                <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="requestDetails?.message?.length > 20" [tooltip]="requestDetails.message" placement="top" delay="100" offset="0">
+                    {{ requestDetails.message  ?? 'N/A' }}
                 </label>
-                <label class="subscriber-details-text" *ngIf="requestDetails.message.length <= 20">
-                    {{ requestDetails.message }}
+                <label class="subscriber-details-text" *ngIf="requestDetails?.message?.length <= 20">
+                    {{ requestDetails.message ?? 'N/A'}}
                 </label>
             </div>
         </div>
