@@ -30,7 +30,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       {
-        path: 'customer-management',
+        path: 'customers',
         loadChildren: () =>
           import('./modules/customer-management/customer-management.module').then(
             (m) => m.CustomerManagementModule

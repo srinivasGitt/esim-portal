@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
   clientConfig!: any;
   routeConfig: any;
   isCustomerSelected = false;
-  isRole = 'superAdmin';
+  isRole: any;
   adminMenuList: any = [];
   superAdminMenuList: any = [];
 
@@ -68,6 +68,7 @@ export class SidebarComponent implements OnInit {
     usersService.getCurrentUser().subscribe((result) => {
       this.userDetails = result;
       if (this.userDetails?.roles) {
+        this.isRole = this.userDetails?.roles;
         this.fetchSideBarMenuList();
       }
     });
@@ -217,8 +218,29 @@ export class SidebarComponent implements OnInit {
       });
   }
 
-  showSubmenu(itemEl: HTMLElement) {
+  showSubmenu(itemEl: HTMLElement, title: any) {
     itemEl.classList.toggle('showMenu');
+
+    if(title === 'Customers') {
+      this.customerList = [
+        {
+          "_id": "string",
+          "name": "string",
+          "children": [
+            {
+              "_id": "string",
+              "name": "string",
+              "children": [
+                {
+                  "_id": "string",
+                  "name": "string"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 
   findUrl(menu: any) {

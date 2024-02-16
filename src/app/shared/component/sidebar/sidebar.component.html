@@ -5,14 +5,14 @@
     <button class="btn btn-danger" (click)="isCustomerSelected = !isCustomerSelected;">Customer Selected</button>
 </div> -->
 
-<ng-container *ngIf="isRole === 'superAdmin'">
+<ng-container *ngIf="isRole.includes('superAdmin')">
     <div class="super-admin-main">
 
         <div class="super-admin-sidebar" [ngClass]="{'super-admin-customer-selected': isCustomerSelected}" >
             <div class="sidebar-brand-parent">
                 <a class="sidebar-brand" routerLink="/">
                     <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
-                    <img class="brand-logo-small" src="http://localhost:4600/assets/images/auth/gb-logo-small.png" alt="">
+                    <img class="brand-logo-small" src="/assets/images/auth/gb-logo-small.png" alt="">
                 </a>
             </div>
         
@@ -28,7 +28,7 @@
                             </span>
                         </a>
                     </div>
-                    <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                    <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
                         <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
                             <span class="link-icon">
                                 <img [src]="menu.icon" [alt]="menu.title">
@@ -87,7 +87,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                        <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
                             <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
                                 <span class="link-icon">
                                     <img [src]="menu.icon" [alt]="menu.title">
@@ -130,7 +130,7 @@
 
 
 <!-- only admin navbar -->
-<ng-container *ngIf="isRole === 'admin'">
+<ng-container *ngIf="isRole.includes('admin')">
     <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
         <div class="sidebar-brand-parent">
             <a class="sidebar-brand" routerLink="/">
@@ -150,7 +150,7 @@
                         </span>
                     </a>
                 </div>
-                <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
                     <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
                         <span class="link-icon">
                             <img [src]="menu.icon" [alt]="menu.title">
