@@ -64,6 +64,7 @@ import {
   SearchFilterPipe,
   ShowentriesPipe,
 } from './pipe';
+import { RoleCheckPipe } from './pipe/role-check.pipe';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import {
     MobileNumberInputComponent,
     ShowentriesPipe,
     SearchFilterPipe,
+    RoleCheckPipe,
   ],
   imports: [
     CommonModule,

@@ -20,7 +20,7 @@ import {
   UserComponent,
 } from './modules';
 import { NotFoundComponent } from './shared/component';
-import { AuthGuard } from './shared/service';
+import { AuthGuard, CanMatchRoute } from './shared/service';
 
 const routes: Routes = [
   {
@@ -30,11 +30,12 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       {
-        path: 'customer-management',
+        path: 'customers',
         loadChildren: () =>
           import('./modules/customer-management/customer-management.module').then(
             (m) => m.CustomerManagementModule
           ),
+        canMatch: [CanMatchRoute]
       },
       { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },

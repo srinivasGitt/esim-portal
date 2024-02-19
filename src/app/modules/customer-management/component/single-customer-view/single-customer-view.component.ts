@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'src/app/shared/service';
 
 @Component({
   selector: 'app-single-customer-view',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleCustomerViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit(): void {
+  }
+
+  selectCustomer() {
+    this.customerService.sendCustomer('customerSelected');
   }
 
 }
