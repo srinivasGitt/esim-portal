@@ -115,9 +115,6 @@ export class SidebarComponent implements OnInit {
     this.superAdminMenuList = this.sidebarMenuList.filter(ele => ele.accessRole.includes('superAdmin'));
     this.adminMenuList = this.sidebarMenuList.filter(ele => ele.accessRole.includes('admin'));
 
-    console.log(this.superAdminMenuList);
-    console.log(this.adminMenuList);
-
     this.usersService.inProgress.next(false);
   }
 
@@ -222,24 +219,22 @@ export class SidebarComponent implements OnInit {
     itemEl.classList.toggle('showMenu');
 
     if(title === 'Customers') {
-      this.customerList = [
-        {
-          "_id": "string",
-          "name": "string",
-          "children": [
-            {
-              "_id": "string",
-              "name": "string",
-              "children": [
-                {
-                  "_id": "string",
-                  "name": "string"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      this.customerList = [{
+        "_id": "1",
+        "name": "Travel Sim",
+        "children": [
+          {
+            "_id": "string",
+            "name": "string 2",
+            "children": [
+              {
+                "_id": "string",
+                "name": "string 3"
+              }
+            ]
+          }
+        ]
+      }]
     }
   }
 
