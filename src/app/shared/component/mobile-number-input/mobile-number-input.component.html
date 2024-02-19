@@ -1,4 +1,4 @@
-<div class="d-flex phone-number-form-control" *ngIf="inputControl">
+<div class="d-flex phone-number-form-control" *ngIf="inputControl" [class.border-error]="inputControl?.touched && inputControl?.errors" [class.border-purple]="inputControl?.valid">
   <div class="form-control country-selection">
     <div class="dropdown">
       <button
