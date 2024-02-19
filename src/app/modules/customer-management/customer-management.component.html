@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
+  <div class="user-dashboard-table-container" >
     <div class="d-flex info-head-section justify-content-end mb-2">
       <label class="mt-auto mx-2 show-entries" *ngIf="customerList && customerList.length > 0">
         Showing
@@ -245,7 +245,7 @@
   <!-- Loading Spinner - End -->
 
   <!-- Pagination  -->
-  <ng-container *ngIf="!inProgress && customerList && customerList.length > 0">
+  <ng-container *ngIf="customerList && customerList.length > 0">
     <div class="custom-pagination-section">
       <pagination-controls
         id="customerListPagination"
