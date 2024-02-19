@@ -18,6 +18,8 @@
         
             <ul class="sidebar-menu-list">
                 <li *ngFor="let menu of superAdminMenuList" class="flex-column sidebar-main-title" #itemEl>
+                    
+                    <!-- non customer -->
                     <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
                         <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" (click)="isCustomerSelected = false;">
                             <span class="link-icon">
@@ -28,7 +30,9 @@
                             </span>
                         </a>
                     </div>
-                    <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+
+                    <!-- non customer -->
+                    <div *ngIf="menu.hasGroup && menu.title != 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
                         <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink: menu.title != 'Customers' && findUrl(menu)}">
                             <span class="link-icon">
                                 <img [src]="menu.icon" [alt]="menu.title">
@@ -41,6 +45,23 @@
                             </div>
                         </a>
                     </div>
+
+                    <!-- Cutomer -->
+                    <div *ngIf="menu.hasGroup && menu.title === 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                        <a [routerLinkActive]="['activeLink']" [routerLink]="['/customers']" [routerLinkActiveOptions]="{exact: true}">
+                            <span class="link-icon">
+                                <img [src]="menu.icon" [alt]="menu.title">
+                            </span>
+                            <span class="sidebar-menu-title">
+                                {{ menu.title }}
+                            </span>
+                            <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                                <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- non customer -->
                     <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
                         <ul class="sub-menu">
                             <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
@@ -56,6 +77,7 @@
                         </ul>
                     </div>
 
+                     <!-- Cutomer -->
                     <div *ngIf="menu.title === 'Customers'">   
                         <ul class="sub-menu">
                             <li *ngFor="let child of customerList" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
