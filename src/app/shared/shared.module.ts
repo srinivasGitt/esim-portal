@@ -58,6 +58,8 @@ import {
 
 import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, SearchFilterPipe } from './pipe';
 import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,7 @@ import { MobileNumberInputComponent } from './component/mobile-number-input/mobi
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    OtpVerificationComponent,
     SearchFilterPipe,
     SaEditInviteUserComponent,
     MobileNumberInputComponent
@@ -113,6 +116,7 @@ import { MobileNumberInputComponent } from './component/mobile-number-input/mobi
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    AngularOtpLibModule
   ],
   exports: [
     SubscriptionDialogComponent,

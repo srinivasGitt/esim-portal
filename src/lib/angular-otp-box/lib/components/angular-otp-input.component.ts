@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChildren } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, OnChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { KeysPipe } from '../pipes/keys.pipe';
 import { Setting } from '../models/setting';
@@ -10,32 +10,36 @@ import { CounterDirective } from '../directives/timer.directive';
 	styleUrls: ['./angular-otp-input.component.scss']
 })
 
-export class OtpInputComponent implements OnInit {
+export class OtpInputComponent implements OnInit, OnChanges {
 	@Input() setting: Setting = { 
 		length: 4, 
 		timer: 0,
 		timerType: 0
 	};
+	@Input() hasError = false;
 	@Output() onValueChange = new EventEmitter<any>();
 	@ViewChildren(CounterDirective) CounterDirective : any;
 	otpForm!: FormGroup;
 	inputControls: FormControl[] = new Array(this.setting.length);
 	componentKey = Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
 	public counter: any;
-	
-	constructor(private keysPipe: KeysPipe) {
-		
-	}
+	public finalValue: string = '';
+
+	constructor(private keysPipe: KeysPipe) {}
 
 	public ngOnInit(): void {
-		console.log(this.setting);
 		this.otpForm = new FormGroup({})
 		for (let index = 0; index < this.setting.length; index++) {
 			this.otpForm.addControl(this.getControlName(index), new FormControl())
 		}
-		console.log(this.otpForm);
 	}
 	
+	ngOnChanges(): void {
+		if(this.hasError){
+			this.otpForm?.reset();
+		}
+	}
+
 	public ngAfterViewInit(): void {
 		let containerItem = document.getElementById(`c_${this.componentKey}`);
 		if (containerItem) {
@@ -129,6 +133,7 @@ export class OtpInputComponent implements OnInit {
 				val += this.otpForm.controls[k].value;
 			}
 		});
+		this.finalValue = val;
 		this.onValueChange.emit(val);
 	}
 
@@ -158,5 +163,44 @@ export class OtpInputComponent implements OnInit {
 		ret += "" + mins + ":" + (secs < 10 ? "0" : "");
 		ret += "" + secs;
 		return ret;
+	}
+
+	// Add the onPaste method to handle the paste event
+	onPaste(event: ClipboardEvent) {
+		event.preventDefault();
+
+		// Get the pasted content from the clipboard
+		const pastedText = event.clipboardData?.getData('text') || '';
+
+		// Process the pasted content (you may want to validate and sanitize it)
+		if (pastedText?.length === this.setting?.length) {
+			this.processPastedText(pastedText);
+		}
+	}
+
+	// Add the method to process the pasted content and update the input fields
+	private processPastedText(pastedText: string) {
+		// Remove spaces from the pasted text
+		pastedText = pastedText.replace(/\s/g, '');
+		// Validate if the pasted content is a valid 6-digit number
+		const isValidNumber = /^\d{6}$/.test(pastedText);
+
+		if (isValidNumber) {
+			// Ensure the pasted content does not exceed the expected length
+			pastedText = pastedText.substring(0, this.setting.length);
+
+			// Update the form controls with the pasted content
+			for (let i = 0; i < pastedText.length; i++) {
+				const controlName = this.getControlName(i);
+				this.otpForm.controls[controlName].setValue(pastedText[i]);
+			}
+
+			// Move focus to the next input field
+			const nextInputId = this.appendKey(`otp_${pastedText.length - 1}`);
+			this.setSelected(nextInputId);
+
+			// Rebuild the value after pasting
+			this.rebuildValue();
+		}
 	}
 }

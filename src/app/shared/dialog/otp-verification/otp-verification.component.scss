@@ -1,0 +1,36 @@
+.user-action-message{
+    color: var(--modal-sub-header-text-color);
+    font-family: var(--font-family-sf-pro-display);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+.user-action-supporting-text{
+    color: var(--modal-sub-header-text-color);
+    font-family: var(--font-family-sf-pro-display);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    .user-email{
+        font-weight: 600;
+    }
+}
+
+::ng-deep #inputOTP{
+    .otp-input{
+        background: transparent !important;
+        color: var(--input-text-color) !important;
+    }
+    .reset-pass-text{
+        color: var(--add-button-bg-color);
+        font-family: var(--font-family-sf-pro-display);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 183.333% */
+        letter-spacing: -0.24px;
+        text-decoration-line: underline;
+    }
+}
