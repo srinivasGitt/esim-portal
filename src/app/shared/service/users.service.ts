@@ -105,7 +105,7 @@ export class UsersService {
   }
 
   createUsers(data: any) {
-    return this.http.post(`${this.serverUrl}/users/invite-user`, data);
+    return this.http.post(`${this.serverUrl}/users/invite`, data);
   }
 
   getAllUsers(custId: any, itemsPerPage?: number, currentPage?: number) {
