@@ -224,12 +224,39 @@ export class SidebarComponent implements OnInit {
         "name": "Travel Sim",
         "children": [
           {
-            "_id": "string",
-            "name": "string 2",
+            "_id": "2",
+            "name": "Customer 1",
             "children": [
               {
-                "_id": "string",
-                "name": "string 3"
+                "_id": "3",
+                "name": "Sub Customer 1",
+                "children": [
+                  {
+                    "_id": "4",
+                    "name": "Reseller 1",
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }, {
+        "_id": "5",
+        "name": "Roampass",
+        "children": [
+          {
+            "_id": "6",
+            "name": "Customer 2",
+            "children": [
+              {
+                "_id": "7",
+                "name": "Sub Customer 2",
+                "children": [
+                  {
+                    "_id": "8",
+                    "name": "Reseller 2",
+                  }
+                ]
               }
             ]
           }
