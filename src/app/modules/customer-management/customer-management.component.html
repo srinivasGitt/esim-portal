@@ -151,8 +151,8 @@
             class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
             *ngFor="let customer of customerList | paginate: paginateConfig"
           >
-            <!-- [routerLink]="['/customer-management', customer._id]" -->
-            <div class="t-box a px-2" [routerLink]="['/customer-management', customer._id]">
+            <!-- [routerLink]="['/customers', customer._id]" -->
+            <div class="t-box a px-2" [routerLink]="['/customers', customer._id]">
               {{ customer.companyName }}
             </div>
             <div class="t-box b px-2">{{ customer.createdAt | date: 'dd-MM-yyyy' }}</div>

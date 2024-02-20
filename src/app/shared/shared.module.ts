@@ -66,6 +66,7 @@ import {
 } from './pipe';
 import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
 import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import { RoleCheckPipe } from './pipe/role-check.pipe';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
     MobileNumberInputComponent,
     ShowentriesPipe,
     SearchFilterPipe,
+    RoleCheckPipe,
   ],
   imports: [
     CommonModule,

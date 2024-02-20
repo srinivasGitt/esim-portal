@@ -244,7 +244,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
         console.log(response);
         this.alertService.success(response.message);
         this.customerStepperService.resetStep();
-        this.router.navigate(['customer-management']);
+        this.router.navigate(['customers']);
       },
       (error) => {
         console.log(error);
@@ -260,7 +260,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
         console.log(response);
         this.alertService.success(response.message);
         this.customerStepperService.resetStep();
-        this.router.navigate(['customer-management']);
+        this.router.navigate(['customers']);
       },
       (error) => {
         console.log(error);
@@ -308,7 +308,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
           console.log(data);
           this.customerStepperService.resetStep();
           this.customerForm.reset();
-          this.router.navigate(['customer-management']);
+          this.router.navigate(['customers']);
         }
       });
   }
