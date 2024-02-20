@@ -1,32 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
-import { catchError, forkJoin, throwError } from 'rxjs';
+import { Subject, catchError, forkJoin, takeUntil, throwError } from 'rxjs';
+import { AlertService } from 'src/app/shared/service';
 import { DashboardService } from '../../service/dashboard.service';
 @Component({
   selector: 'app-super-admin-dashboard',
   templateUrl: './super-admin-dashboard.component.html',
   styleUrls: ['./super-admin-dashboard.component.scss'],
 })
-export class SuperAdminDashboardComponent implements OnInit {
-  customers = ['Travel Sim', 'Esimers', 'New Era Sim', 'simE', 'Hola Sim', 'eWorld', 'Fair Sim'];
-  data = {
-    labels: this.customers,
-    datasets: [
-      {
-        data: [650, 590, 800, 801, 506, 505, 400],
-        backgroundColor: 'rgba(99, 101, 239, 0.80)',
-        borderRadius: 8,
-        hoverBackgroundColor: 'rgba(99, 101, 239, 0.80)',
-        barThickness: 48,
-      },
-    ],
-  };
-  graphElement: any;
+export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
+  // Define a Subject to manage the subscription
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
+  // uptime properties
   uptimeData: any;
   uptimeDataOrder: Array<string> = ['crm', 'trs', 'api'];
 
+  // activity log properties
+  activityLogsData: any;
+
+  // sales report properties & objects
   platformReportsData: any;
   platformReportsDataOrderObject: any = {
     total_profile_sale: 'Total Profiles Sales',
@@ -37,33 +32,38 @@ export class SuperAdminDashboardComponent implements OnInit {
     total_sales_of_mobileapp: 'Total Sales of Mobile App',
   };
 
-  activityLogsData: any;
+  // Sales graph properties & form
+  graphElement: any;
   salesGraphData: any;
+  currentDate = new Date().toISOString().slice(0, 10);
   range: any;
   startDate: any;
   endDate: any;
   selectedDay: string = 'All';
   isCustomRange: boolean = false;
-
   customForm = new FormGroup({
     fromDate: new FormControl<Date | null>(null),
     toDate: new FormControl<Date | null>(null),
   });
-  currentDate = new Date().toISOString().slice(0, 10);
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.fetchAPIsData();
-    this.generateChart();
   }
 
   fetchAPIsData() {
     forkJoin(this.dashboardService.getSuperAdminDashboardStatisticsData())
       .pipe(
+        takeUntil(this.unsubscribe$),
         catchError((error) => {
           console.error('An error occurred:', error);
-          return throwError('Something went wrong with one of the API calls');
+          return throwError(() => {
+            this.alertService.error(error.error.message);
+          });
         })
       )
       .subscribe({
@@ -78,7 +78,8 @@ export class SuperAdminDashboardComponent implements OnInit {
           this.generateChart(this.salesGraphData);
         },
         error: (err) => {
-          console.error('Error caught by subscription:', err);
+          console.error(err);
+          this.alertService.error(err.error.message);
         },
       });
   }
@@ -99,101 +100,105 @@ export class SuperAdminDashboardComponent implements OnInit {
     return newObj;
   }
 
+  /* Draw Chart - Start */
   private generateChart(salesData?: any) {
-    const salesGraphData: any = {
-      labels: salesData.map((data: any) => data.title),
-      datasets: [
-        {
-          data: salesData.map((data: any) => data.value),
-          backgroundColor: 'rgba(99, 101, 239, 0.80)',
-          borderRadius: 8,
-          hoverBackgroundColor: 'rgba(99, 101, 239, 0.80)',
-          barThickness: 48,
-        },
-      ],
-    };
-    if (this.graphElement) this.graphElement.destroy();
-    this.graphElement = new Chart('salesChart', {
-      type: 'bar',
-      data: salesGraphData,
-      options: {
-        scales: {
-          x: {
-            grid: {
+    if (salesData && salesData.length > 0) {
+      const salesGraphData: any = {
+        labels: salesData.map((data: any) => data.title),
+        datasets: [
+          {
+            data: salesData.map((data: any) => data.value),
+            backgroundColor: 'rgba(99, 101, 239, 0.80)',
+            borderRadius: 8,
+            hoverBackgroundColor: 'rgba(99, 101, 239, 0.80)',
+            barThickness: 48,
+          },
+        ],
+      };
+      if (this.graphElement) this.graphElement.destroy();
+      this.graphElement = new Chart('salesChart', {
+        type: 'bar',
+        data: salesGraphData,
+        options: {
+          scales: {
+            x: {
+              grid: {
+                display: false,
+              },
+              ticks: {
+                color: '#6365EF',
+                font: {
+                  size: 17,
+                  family: 'SF Pro Display',
+                  weight: '400',
+                  style: 'normal',
+                },
+                padding: 20,
+              },
+            },
+            y: {
+              beginAtZero: true,
+              grid: {
+                display: false,
+              },
+              ticks: {
+                color: '#6365EF',
+                font: {
+                  size: 17,
+                  family: 'SF Pro Display',
+                  weight: '400',
+                  style: 'normal',
+                },
+                padding: 12,
+              },
+            },
+          },
+          plugins: {
+            legend: {
               display: false,
             },
-            ticks: {
-              color: '#6365EF',
-              font: {
-                size: 17,
-                family: 'SF Pro Display',
-                weight: '400',
+            tooltip: {
+              backgroundColor: '#FFF',
+              borderWidth: 2,
+              borderColor: 'rgba(99, 101, 239, 0.10)',
+              caretSize: 8,
+              titleColor: '#6B6B73',
+              bodyColor: '#6B6B73',
+              bodyFont: {
+                size: 14,
+                family: 'Inter',
+                weight: '700',
                 style: 'normal',
               },
-              padding: 20,
-            },
-          },
-          y: {
-            beginAtZero: true,
-            grid: {
-              display: false,
-            },
-            ticks: {
-              color: '#6365EF',
-              font: {
-                size: 17,
-                family: 'SF Pro Display',
-                weight: '400',
-                style: 'normal',
+              bodyAlign: 'center',
+              padding: 8,
+              xAlign: 'center',
+              yAlign: 'bottom',
+              displayColors: false,
+              multiKeyBackground: '#6B6B73',
+              callbacks: {
+                title: () => '',
               },
-              padding: 12,
+            },
+            title: {
+              text: 'Sales',
+              display: true,
+              color: 'rgba(0, 0, 0, 0.55)',
+              align: 'start',
+              position: 'top',
+              font: {
+                size: 14,
+                family: 'Inter',
+                weight: '700',
+              },
+              padding: { bottom: 30 },
             },
           },
         },
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            backgroundColor: '#FFF',
-            borderWidth: 2,
-            borderColor: 'rgba(99, 101, 239, 0.10)',
-            caretSize: 8,
-            titleColor: '#6B6B73',
-            bodyColor: '#6B6B73',
-            bodyFont: {
-              size: 14,
-              family: 'Inter',
-              weight: '700',
-              style: 'normal',
-            },
-            bodyAlign: 'center',
-            padding: 8,
-            xAlign: 'center',
-            yAlign: 'bottom',
-            displayColors: false,
-            multiKeyBackground: '#6B6B73',
-            callbacks: {
-              title: () => '',
-            },
-          },
-          title: {
-            text: 'Sales',
-            display: true,
-            color: 'rgba(0, 0, 0, 0.55)',
-            align: 'start',
-            position: 'top',
-            font: {
-              size: 14,
-              family: 'Inter',
-              weight: '700',
-            },
-            padding: { bottom: 30 },
-          },
-        },
-      },
-    });
+      });
+    }
   }
+  /* Draw Chart - End */
 
   /* Draw chart based on Filter - Start */
   selectTimeframe(value: any) {
@@ -232,4 +237,9 @@ export class SuperAdminDashboardComponent implements OnInit {
     }
   }
   /* Generate Graph based on Custom Date Range - End */
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }
