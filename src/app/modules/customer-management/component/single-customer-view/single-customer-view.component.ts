@@ -27,7 +27,7 @@ export class SingleCustomerViewComponent implements OnInit {
   ngOnInit(): void {}
 
   editCustomer(customer: any) {
-    this.router.navigate(['customer/edit', '1']);
+    this.router.navigate(['customers/edit', '1']);
   }
 
   // Invite User
