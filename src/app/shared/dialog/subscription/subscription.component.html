@@ -185,11 +185,13 @@
                             class="full-width"
                             (change)="onPlanSelection($event)"
                             (clear)="clearForm()">
-                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input id="item-{{index}}" type="radio" class="custom-radio"/> {{item.name }}
+                            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index" >
+                                <input id="item-{{index}}" type="radio" class="custom-radio text-overflow-ellipsis"/>
+                                <span class="text-overflow-ellipsis">{{item.name }}</span>
                             </ng-template>
                             <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input  id="item-{{index}}" type="radio" class="custom-radio" name="name" [checked]="item$.selected" /> {{item.name}}
+                                <input  id="item-{{index}}" type="radio" class="custom-radio" name="name" [checked]="item$.selected" />
+                                <span class="text-overflow-ellipsis">{{item.name }}</span>
                             </ng-template>
                         </ng-select>
                         <svg class="default" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -329,3 +331,4 @@
     <app-loading-spinner></app-loading-spinner>
 </ng-template>
 <!-- Loading Spinner - End -->
+
