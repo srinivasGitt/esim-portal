@@ -5,7 +5,6 @@ import { CoreComponent } from './core/core.component';
 import {
   ContactusComponent,
   CustomerManagementComponent,
-  DashboardComponent,
   DataUsageComponent,
   HelpCenterComponent,
   InventoryComponent,
@@ -20,8 +19,8 @@ import {
   SupportComponent,
   UserComponent,
 } from './modules';
-import { AuthGuard } from './shared/service';
 import { NotFoundComponent } from './shared/component';
+import { AuthGuard } from './shared/service';
 
 const routes: Routes = [
   {
@@ -29,7 +28,11 @@ const routes: Routes = [
     component: CoreComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
       { path: 'customer-management', component: CustomerManagementComponent },
       { path: 'customer-management/:id', component: CustomerManagementComponent },
       { path: 'subscribers', component: SubscribeManagementComponent },

@@ -9,7 +9,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DialogService } from './service/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangePicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -38,6 +38,7 @@ import {
   ProfileLogComponent,
   QrCodePopupComponent,
   ReportAlertComponent,
+  SaEditInviteUserComponent,
   SubscriberInfoComponent,
   SubscriberMgmtComponent,
   SubscriptionDialogComponent,
@@ -46,7 +47,6 @@ import {
   UploadInventoryComponent,
   UserInfoComponent,
   UserMgmtComponent,
-  SaEditInviteUserComponent
 } from './dialog';
 
 import {
@@ -56,10 +56,18 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, SearchFilterPipe } from './pipe';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
 import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
-import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import {
+  CurrencyByMatchingkeyPipe,
+  CurrencySymbolPipe,
+  DayOrDatePipe,
+  FilesizePipe,
+  KeyToDisplayPipe,
+  PhoneNumberMaskPipe,
+  SearchFilterPipe,
+} from './pipe';
 
 @NgModule({
   declarations: [
@@ -101,7 +109,10 @@ import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
     OtpVerificationComponent,
     SearchFilterPipe,
     SaEditInviteUserComponent,
-    MobileNumberInputComponent
+    MobileNumberInputComponent,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    CurrencyByMatchingkeyPipe,
   ],
   imports: [
     CommonModule,
@@ -116,7 +127,7 @@ import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
-    AngularOtpLibModule
+    AngularOtpLibModule,
   ],
   exports: [
     SubscriptionDialogComponent,
@@ -131,6 +142,14 @@ import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatDateRangePicker,
+    CurrencyByMatchingkeyPipe,
   ],
   providers: [CurrencyPipe, DatePipe],
 })
