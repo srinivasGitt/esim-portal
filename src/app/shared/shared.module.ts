@@ -38,6 +38,7 @@ import {
   ProfileLogComponent,
   QrCodePopupComponent,
   ReportAlertComponent,
+  SaEditInviteUserComponent,
   SubscriberInfoComponent,
   SubscriberMgmtComponent,
   SubscriptionDialogComponent,
@@ -55,9 +56,18 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
-import { DayOrDatePipe } from './pipe/day-or-date.pipe';
-import { CurrencyByMatchingkeyPipe, KeyToDisplayPipe } from './pipe/key-to-display.pipe';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
+import {
+  CurrencyByMatchingkeyPipe,
+  CurrencySymbolPipe,
+  DayOrDatePipe,
+  FilesizePipe,
+  KeyToDisplayPipe,
+  PhoneNumberMaskPipe,
+  SearchFilterPipe,
+} from './pipe';
 
 @NgModule({
   declarations: [
@@ -96,9 +106,13 @@ import { CurrencyByMatchingkeyPipe, KeyToDisplayPipe } from './pipe/key-to-displ
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    OtpVerificationComponent,
+    SearchFilterPipe,
+    SaEditInviteUserComponent,
+    MobileNumberInputComponent,
     DayOrDatePipe,
     KeyToDisplayPipe,
-    CurrencyByMatchingkeyPipe
+    CurrencyByMatchingkeyPipe,
   ],
   imports: [
     CommonModule,
@@ -113,6 +127,7 @@ import { CurrencyByMatchingkeyPipe, KeyToDisplayPipe } from './pipe/key-to-displ
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    AngularOtpLibModule,
   ],
   exports: [
     SubscriptionDialogComponent,
@@ -134,7 +149,7 @@ import { CurrencyByMatchingkeyPipe, KeyToDisplayPipe } from './pipe/key-to-displ
     MatDatepickerModule,
     MatInputModule,
     MatDateRangePicker,
-    CurrencyByMatchingkeyPipe
+    CurrencyByMatchingkeyPipe,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

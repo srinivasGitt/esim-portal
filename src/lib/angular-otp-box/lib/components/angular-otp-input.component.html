@@ -1,6 +1,6 @@
 <div class="otp-container {{setting.wrapperClass}}" id="c_{{componentKey}}" *ngIf="otpForm?.controls"
     [ngStyle]="setting.wrapperStyles" [formGroup]="otpForm">
-    <div class="d-flex otp-input-group">
+    <div class="d-flex otp-input-group" [class.has-error]="hasError" [class.valid-input]="finalValue.length === setting.length">
         <input 
             [type]="setting.numbersOnly ? 'tel' : 'text'" 
             numberOnly [disabledNumberOnly]="!setting.numbersOnly"
@@ -10,10 +10,15 @@
             autocomplete="off"
             *ngFor="let item of otpForm?.controls | keys; let i = index" 
             [formControlName]="'ctrl_' + i"
+            [placeholder]=" hasError ? '*' : ''"
             id="otp_{{i}}_{{componentKey}}"
             (keyup)="keyUp($event, i)"
+            (paste)="onPaste($event)"
         >
     </div>
+    <span class="help-block ng-invalid text-danger" *ngIf="hasError">
+        {{ setting.errorMessage || ''}}
+    </span>
     <ng-container counter [counter]="setting.timer" (value)="onCounterChange($event)">
         <div class="my-2 reset-pass-text">
             <a class="{{setting.btnClass}}" [class.disabled]="counter != 0" (click)="ressendOtp()">
