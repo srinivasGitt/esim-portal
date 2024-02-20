@@ -8,6 +8,7 @@ import { AlertService, DialogService } from 'src/app/shared/service';
 import { CustomValidators } from 'src/app/shared/validators/custom-validators';
 import { CustomerStepperService } from '../../service/customer-stepper.service';
 import { CustomerService } from '../../service/customer.service';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-customer',
@@ -17,36 +18,36 @@ import { CustomerService } from '../../service/customer.service';
 export class AddEditCustomerComponent implements OnInit, OnDestroy {
   customerForm!: FormGroup;
   countryCodes: Array<any> = [];
-  customerData!: Customer;
-  // customerData: Customer = {
-  //   billingAddress: {
-  //     addressLine: 'sdfsdfsdfsf',
-  //     landmark: 'NY square',
-  //     pincode: '999999',
-  //     city: 'llllllllll',
-  //     country: 'India',
-  //     state: 'lllllllllllllllll',
-  //   },
-  //   companyName: 'ppppppppp',
-  //   contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
-  //   products: {
-  //     iosApp: true,
-  //     androidApp: false,
-  //     api: false,
-  //     trs: false,
-  //     sdk: false,
-  //     webapp: true,
-  //     shopifyApp: true,
-  //   },
-  //   userInvite: {
-  //     firstName: 'sdfssss',
-  //     lastName: 'sssssssss',
-  //     email: 'adb@adc.com',
-  //     number: '0999999999',
-  //     role: 'Admin',
-  //   },
-  //   websiteLink: 'www.xyz.com',
-  // };
+  // customerData!: Customer;
+  customerData: Customer = {
+    billingAddress: {
+      addressLine: 'sdfsdfsdfsf',
+      landmark: 'NY square',
+      pincode: '999999',
+      city: 'llllllllll',
+      country: 'India',
+      state: 'lllllllllllllllll',
+    },
+    companyName: 'ppppppppp',
+    contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
+    products: {
+      iosApp: true,
+      androidApp: false,
+      api: false,
+      trs: false,
+      sdk: false,
+      webapp: true,
+      shopifyApp: true,
+    },
+    userInvite: {
+      firstName: 'sdfssss',
+      lastName: 'sssssssss',
+      email: 'adb@adc.com',
+      number: '0999999999',
+      role: 'Admin',
+    },
+    websiteLink: 'www.xyz.com',
+  };
   // stepper
   currentStep: number = 0;
   stepCountArray: Array<any> = [];
@@ -81,7 +82,8 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     private customerService: CustomerService,
     private router: Router,
     private alertService: AlertService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private location: LocationStrategy
   ) {
     // Initialize the current step
     this.customerStepperService.currentStep$.subscribe((step) => {
@@ -267,9 +269,9 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Go back to Customer List page
+  // Go back to Previous Page
   goToCustomerList() {
-    this.router.navigate(['customer-management']);
+    this.location.back();
   }
 
   // previous step function

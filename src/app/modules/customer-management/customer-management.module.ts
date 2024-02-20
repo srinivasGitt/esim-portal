@@ -17,6 +17,7 @@ import { StepTwoComponent } from './component/stepper/step-two/step-two.componen
 import { StepThreeComponent } from './component/stepper/step-three/step-three.component';
 import { MobileNumberInputComponent } from 'src/app/shared/component';
 import { SingleCustomerViewComponent } from './component/single-customer-view/single-customer-view.component';
+import { InviteAgentComponent } from './component/invite-agent/invite-agent.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SingleCustomerViewComponent } from './component/single-customer-view/si
     StepTwoComponent,
     StepThreeComponent,
     SingleCustomerViewComponent,
+    InviteAgentComponent,
   ],
   imports: [
     CommonModule,
