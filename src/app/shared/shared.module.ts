@@ -9,7 +9,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DialogService } from './service/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangePicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -56,6 +56,8 @@ import {
 } from './directive';
 
 import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
+import { DayOrDatePipe } from './pipe/day-or-date.pipe';
+import { KeyToDisplayPipe } from './pipe/key-to-display.pipe';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,8 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
   ],
   imports: [
     CommonModule,
@@ -122,6 +126,13 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatDateRangePicker,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

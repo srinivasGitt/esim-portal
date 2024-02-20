@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Chart } from 'chart.js';
+import { catchError, forkJoin, throwError } from 'rxjs';
+import { DashboardService } from '../../service/dashboard.service';
 
 @Component({
   selector: 'app-super-admin-dashboard',
@@ -21,18 +24,102 @@ export class SuperAdminDashboardComponent implements OnInit {
     ],
   };
   graphElement: any;
+  uptimeData: any;
+  uptimeDataOrder: Array<string> = ['crm', 'trs', 'api'];
 
-  constructor() {}
+  platformReportsData: any;
+  platformReportsDataOrderObject: any = {
+    total_profile_sale: 'Total Profiles Sales',
+    total_subscriber: 'Total Subscribers',
+    total_active_customer: 'Total Active Customers',
+    total_sales_of_trs: 'Total Sales of TRS',
+    total_sales_of_webapp: 'Total Sales of Web App',
+    total_sales_of_mobileapp: 'Total Sales of Mobile App',
+  };
+
+  activityLogsData: any;
+  salesGraphData: any;
+  range: any;
+  startDate: any;
+  endDate: any;
+  selectedDay: string = 'All';
+  isCustomRange: boolean = false;
+
+  customForm = new FormGroup({
+    fromDate: new FormControl<Date | null>(null),
+    toDate: new FormControl<Date | null>(null),
+  });
+  currentDate = new Date().toISOString().slice(0, 10);
+
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
+    this.fetchAPIsData();
     this.generateChart();
   }
 
-  private generateChart() {
+  fetchAPIsData() {
+    forkJoin(this.dashboardService.getSuperAdminDashboardStatisticsData())
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred:', error);
+          return throwError('Something went wrong with one of the API calls');
+        })
+      )
+      .subscribe({
+        next: ([result1, result2, result3]: any) => {
+          this.uptimeData = result1;
+          const platformReportsDataResponse = result2;
+          this.platformReportsData = this.filterObject(platformReportsDataResponse);
+          this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
+          const activity = result3;
+          this.activityLogsData = activity?.logs;
+          console.log('Result from API 1:', this.uptimeData);
+          console.log('Result from API 2:', this.platformReportsData);
+          console.log('Result from API 3:', this.salesGraphData);
+          console.log('Result from API 4:', this.activityLogsData);
+
+          this.generateChart(this.salesGraphData);
+        },
+        error: (err) => {
+          console.error('Error caught by subscription:', err);
+        },
+      });
+  }
+
+  // Preserve original property order
+  orderOriginal() {
+    return 0;
+  }
+
+  // Filter platformReportsDataResponse object
+  filterObject(obj: any) {
+    const newObj: any = {};
+    Object.keys(obj).forEach((key) => {
+      if (key !== 'sales_compare_graph') {
+        newObj[key] = obj[key];
+      }
+    });
+    return newObj;
+  }
+
+  private generateChart(salesData?: any) {
+    const salesGraphData: any = {
+      labels: salesData.map((data: any) => data.title),
+      datasets: [
+        {
+          data: salesData.map((data: any) => data.value),
+          backgroundColor: 'rgba(99, 101, 239, 0.80)',
+          borderRadius: 8,
+          hoverBackgroundColor: 'rgba(99, 101, 239, 0.80)',
+          barThickness: 48,
+        },
+      ],
+    };
     if (this.graphElement) this.graphElement.destroy();
     this.graphElement = new Chart('salesChart', {
       type: 'bar',
-      data: this.data,
+      data: salesGraphData,
       options: {
         scales: {
           x: {
@@ -110,5 +197,44 @@ export class SuperAdminDashboardComponent implements OnInit {
         },
       },
     });
+  }
+
+  /* Draw chart based on Filter - Start */
+  selectTimeframe(value: any) {
+    this.getReports(value);
+  }
+  /* Draw chart based on Filter - End */
+
+  /* Get reports data - Start */
+  getReports(value?: any, fromDate?: any, toDate?: any) {
+    this.dashboardService.getPlatformDataReportStatistics(value, fromDate, toDate).subscribe(
+      (res: any) => {
+        if (res) {
+          const platformReportsDataResponse = res;
+          this.platformReportsData = this.filterObject(platformReportsDataResponse);
+          this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
+          // this.inProgress = false;
+          setTimeout(() => {
+            this.generateChart(this.salesGraphData);
+          }, 10);
+        }
+      },
+      (err) => {
+        console.log(err.error.message);
+      }
+    );
+  }
+  /* Get reports data - End */
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    if (!this.customForm.valid) {
+      return;
+    }
+
+    this.startDate = dateRangeStart.value;
+    this.endDate = dateRangeEnd.value;
+    setTimeout(() => {
+      this.getReports('custom', this.startDate, this.endDate);
+    }, 1000);
   }
 }

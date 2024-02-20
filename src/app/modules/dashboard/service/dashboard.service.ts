@@ -253,4 +253,34 @@ export class DashboardService {
       return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=year`);
     }
   }
+
+  /* Super Admin Dashboard Statistics APIs - START */
+  getUptimeStatistics() {
+    return this.http.get(`${this.serverUrl}/statistics/uptime`);
+  }
+
+  getPlatformDataReportStatistics(type: string, fromDate?: string, toDate?: string) {
+    if (fromDate && toDate) {
+      return this.http.get(
+        `${this.serverUrl}/statistics/superadmin-dashboard?dateRange=${type}&fromDate=${fromDate}&toDate=${toDate}`
+      );
+    }
+    return this.http.get(`${this.serverUrl}/statistics/superadmin-dashboard?dateRange=${type}`);
+  }
+
+  getActivityLog(lastId?: string) {
+    if (lastId) {
+      return this.http.get(`${this.serverUrl}/logs/recent?lastId=${lastId}`);
+    }
+    return this.http.get(`${this.serverUrl}/logs/recent`);
+  }
+
+  getSuperAdminDashboardStatisticsData() {
+    return [
+      this.http.get(`${this.serverUrl}/statistics/uptime`),
+      this.http.get(`${this.serverUrl}/statistics/superadmin-dashboard?dateRange=week`),
+      this.http.get(`${this.serverUrl}/logs/recent`),
+    ];
+  }
+  /* Super Admin Dashboard Statistics APIs - END */
 }
