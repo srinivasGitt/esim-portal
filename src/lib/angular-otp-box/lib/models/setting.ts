@@ -9,4 +9,5 @@ export class Setting {
     timer?: number;
     btnClass?: string;
     timerType?: number; //  0: secs, 1: mins
+    errorMessage?: string;
 }

@@ -64,6 +64,8 @@ import {
   SearchFilterPipe,
   ShowentriesPipe,
 } from './pipe';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,7 @@ import {
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    OtpVerificationComponent,
     SearchFilterPipe,
     SaEditInviteUserComponent,
     MobileNumberInputComponent,
@@ -121,6 +124,7 @@ import {
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    AngularOtpLibModule
   ],
   exports: [
     SubscriptionDialogComponent,
