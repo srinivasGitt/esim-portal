@@ -9,7 +9,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DialogService } from './service/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangePicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -56,17 +56,20 @@ import {
   TooltipDirective,
 } from './directive';
 
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
 import {
+  CurrencyByMatchingkeyPipe,
   CurrencySymbolPipe,
+  DayOrDatePipe,
   FilesizePipe,
+  KeyToDisplayPipe,
   PhoneNumberMaskPipe,
+  RoleCheckPipe,
   SearchFilterPipe,
   ShowentriesPipe,
 } from './pipe';
-import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
-import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
-import { RoleCheckPipe } from './pipe/role-check.pipe';
 
 @NgModule({
   declarations: [
@@ -111,6 +114,9 @@ import { RoleCheckPipe } from './pipe/role-check.pipe';
     MobileNumberInputComponent,
     ShowentriesPipe,
     SearchFilterPipe,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    CurrencyByMatchingkeyPipe,
     RoleCheckPipe,
   ],
   imports: [
@@ -126,7 +132,7 @@ import { RoleCheckPipe } from './pipe/role-check.pipe';
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
-    AngularOtpLibModule
+    AngularOtpLibModule,
   ],
   exports: [
     SubscriptionDialogComponent,
@@ -143,6 +149,14 @@ import { RoleCheckPipe } from './pipe/role-check.pipe';
     NumberOnlyDirective,
     ShowentriesPipe,
     MobileNumberInputComponent,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatDateRangePicker,
+    CurrencyByMatchingkeyPipe,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

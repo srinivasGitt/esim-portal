@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../../../shared/service/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,23 +15,6 @@ export class DashboardService {
     private http: HttpClient,
     private _localStorage: LocalStorageService
   ) {}
-
-  /*
-   ************************************
-  Commented to check with interceptor
-  ************************************
-  getHeader() {
-    const authToken = localStorage.getItem('authToken');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Accept: 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${authToken}`,
-        'Content-Type': 'application/json',
-      })
-    };
-    return httpOptions;
-  }
-*/
 
   setAppTheme(theme: any) {
     this._themeSelection$.next(theme);
@@ -129,4 +112,34 @@ export class DashboardService {
       return this.http.get(`${this.serverUrl}/subscriptions/revenue/graph?dateRange=year`);
     }
   }
+
+  /* Super Admin Dashboard Statistics APIs - START */
+  getUptimeStatistics() {
+    return this.http.get(`${this.serverUrl}/statistics/uptime`);
+  }
+
+  getPlatformDataReportStatistics(type: string, fromDate?: string, toDate?: string) {
+    if (fromDate && toDate) {
+      return this.http.get(
+        `${this.serverUrl}/statistics/superadmin-dashboard?dateRange=${type}&fromDate=${fromDate}&toDate=${toDate}`
+      );
+    }
+    return this.http.get(`${this.serverUrl}/statistics/superadmin-dashboard?dateRange=${type}`);
+  }
+
+  getActivityLog(lastId?: string) {
+    if (lastId) {
+      return this.http.get(`${this.serverUrl}/logs/recent?lastId=${lastId}`);
+    }
+    return this.http.get(`${this.serverUrl}/logs/recent`);
+  }
+
+  getSuperAdminDashboardStatisticsData() {
+    return [
+      this.http.get(`${this.serverUrl}/statistics/uptime`),
+      this.http.get(`${this.serverUrl}/statistics/superadmin-dashboard?dateRange=week`),
+      this.http.get(`${this.serverUrl}/logs/recent`),
+    ];
+  }
+  /* Super Admin Dashboard Statistics APIs - END */
 }
