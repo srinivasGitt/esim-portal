@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from './auth';
 import { CoreComponent } from './core/core.component';
 import { ModulesModule } from './modules/modules.module';
-import { AuthService, JwtInterceptor } from './shared/service';
+import { AuthService, CanMatchRoute, JwtInterceptor, Permissions } from './shared/service';
 import { DialogComponent } from './shared/service/dialog';
 import { SharedModule } from './shared/shared.module';
 
@@ -36,7 +36,7 @@ import { SharedModule } from './shared/shared.module';
     ModulesModule,
     PasswordStrengthMeterModule.forRoot(),
   ],
-  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, CanMatchRoute, Permissions],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

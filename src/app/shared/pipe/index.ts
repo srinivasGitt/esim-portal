@@ -6,3 +6,4 @@ export * from './key-to-display.pipe';
 export * from './phone-number-mask.pipe';
 export * from './search-filter.pipe';
 export * from './showentries.pipe';
+export * from './role-check.pipe';

@@ -66,7 +66,9 @@ import {
   FilesizePipe,
   KeyToDisplayPipe,
   PhoneNumberMaskPipe,
+  RoleCheckPipe,
   SearchFilterPipe,
+  ShowentriesPipe,
 } from './pipe';
 
 @NgModule({
@@ -110,9 +112,12 @@ import {
     SearchFilterPipe,
     SaEditInviteUserComponent,
     MobileNumberInputComponent,
+    ShowentriesPipe,
+    SearchFilterPipe,
     DayOrDatePipe,
     KeyToDisplayPipe,
     CurrencyByMatchingkeyPipe,
+    RoleCheckPipe,
   ],
   imports: [
     CommonModule,
@@ -142,6 +147,8 @@ import {
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    ShowentriesPipe,
+    MobileNumberInputComponent,
     DayOrDatePipe,
     KeyToDisplayPipe,
     MatNativeDateModule,

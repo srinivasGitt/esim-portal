@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  CanMatch,
+  Route,
   Router,
   RouterStateSnapshot,
+  UrlSegment,
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage.service';
+import { SidebarService } from '../sidebar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +31,9 @@ export class AuthGuard implements CanActivate {
 
     if (token) {
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
+
       const check = tokenDecode.user.roles;
+      
       if (tokenDecode.user.currency) {
         this._localStorageService.setCurrency(tokenDecode.user.currency);
       } else {
@@ -83,4 +89,50 @@ export class AuthGuard implements CanActivate {
     this._router.navigate(['/']);
     return false;
   }
+
+}
+
+@Injectable()
+export class Permissions {
+
+  constructor(private sidebarService: SidebarService,
+    private _router: Router) {}
+
+  canAccess(user: any, route: Route, segments: UrlSegment[]): boolean {
+    console.log(user);
+    console.log(route);
+    console.log(segments);
+
+    const tokenDecode = JSON.parse(atob(user.split('.')[1]));
+    const check = tokenDecode.user.roles;
+
+    const menuList = this.sidebarService.getSideBarMenus(check);
+    const routePath = route.path?.toString();
+    if(routePath && menuList.findIndex(ele => ele.link.includes(routePath)) > -1) {
+      console.log('exist');
+    } else {
+      console.log('not exist');
+      this._router.navigate(['page-not-found']);
+    }
+
+    return true;
+  }
+}
+
+@Injectable()
+export class CanMatchRoute implements CanMatch {
+  constructor(private permissions: Permissions, 
+    private _localStorageService: LocalStorageService,
+    private _router: Router) {}
+
+  canMatch(route: Route, segments: UrlSegment[]): Observable<boolean>|Promise<boolean>|boolean {
+    const token = this._localStorageService.getToken()!;
+
+    if(token) {
+      return this.permissions.canAccess(token, route, segments);
+    }
+
+    this._router.navigate(['/']);
+    return false;
+  } 
 }

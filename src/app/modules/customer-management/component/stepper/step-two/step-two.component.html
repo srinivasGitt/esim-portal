@@ -1,0 +1,25 @@
+<ng-container [formGroup]="form">
+  <div class="title-section px-3">
+    <h2>Allocation of Product</h2>
+    <p>Allocate the products for the customer</p>
+    <!-- <p class="help-block ng-invalid text-danger pt-0" *ngIf="!hasTrueValue">
+      Please select the application(s) to continue
+    </p> -->
+  </div>
+  <!-- Allocation of Product -->
+  <div class="row">
+    <ng-container formArrayName="products">
+      <div class="col-6 px-3" *ngFor="let product of productsArray; let i = index">
+        <div class="form-check d-flex align-items-center justify-content-around ps-0 mb-3">
+          <label [for]="product.value" class="w80">{{ product.name }}</label>
+          <input
+            type="checkbox"
+            [id]="product.value"
+            [formControlName]="i"
+            [value]="product.value"
+          />
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

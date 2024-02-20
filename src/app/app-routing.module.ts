@@ -4,7 +4,6 @@ import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from
 import { CoreComponent } from './core/core.component';
 import {
   ContactusComponent,
-  CustomerManagementComponent,
   DataUsageComponent,
   HelpCenterComponent,
   InventoryComponent,
@@ -20,7 +19,7 @@ import {
   UserComponent,
 } from './modules';
 import { NotFoundComponent } from './shared/component';
-import { AuthGuard } from './shared/service';
+import { AuthGuard, CanMatchRoute } from './shared/service';
 
 const routes: Routes = [
   {
@@ -33,8 +32,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
-      { path: 'customer-management', component: CustomerManagementComponent },
-      { path: 'customer-management/:id', component: CustomerManagementComponent },
+      {
+        path: 'customers',
+        loadChildren: () =>
+          import('./modules/customer-management/customer-management.module').then(
+            (m) => m.CustomerManagementModule
+          ),
+        canMatch: [CanMatchRoute]
+      },
       { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'user-management', component: UserComponent },
