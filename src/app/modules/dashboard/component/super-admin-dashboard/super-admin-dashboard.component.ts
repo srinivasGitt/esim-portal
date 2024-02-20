@@ -72,8 +72,7 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
           const platformReportsDataResponse = result2;
           this.platformReportsData = this.filterObject(platformReportsDataResponse);
           this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
-          const activity = result3;
-          this.activityLogsData = activity?.logs;
+          this.activityLogsData = result3;
 
           this.generateChart(this.salesGraphData);
         },
