@@ -74,10 +74,6 @@ export class SuperAdminDashboardComponent implements OnInit {
           this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
           const activity = result3;
           this.activityLogsData = activity?.logs;
-          console.log('Result from API 1:', this.uptimeData);
-          console.log('Result from API 2:', this.platformReportsData);
-          console.log('Result from API 3:', this.salesGraphData);
-          console.log('Result from API 4:', this.activityLogsData);
 
           this.generateChart(this.salesGraphData);
         },
@@ -225,17 +221,15 @@ export class SuperAdminDashboardComponent implements OnInit {
   }
   /* Get reports data - End */
 
+  /* Generate Graph based on Custom Date Range - Start */
   dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     if (dateRangeStart.value && dateRangeEnd.value) {
-      // if (!this.customForm.valid) {
-      //   return;
-      // }
       this.startDate = moment(dateRangeStart.value).format('DD-MM-YYYY');
       this.endDate = moment(dateRangeEnd.value).format('DD-MM-YYYY');
-      console.log(this.startDate, this.endDate);
       setTimeout(() => {
         this.getReports('custom', this.startDate, this.endDate);
       }, 1000);
     }
   }
+  /* Generate Graph based on Custom Date Range - End */
 }
