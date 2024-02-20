@@ -5,7 +5,6 @@ import * as moment from 'moment';
   name: 'dayOrDate',
 })
 export class DayOrDatePipe implements PipeTransform {
-
   transform(value: Date): string {
     // Using moment.js to handle the dates properly
     const today = moment().startOf('day');
@@ -44,6 +43,6 @@ export class DayOrDatePipe implements PipeTransform {
 
   // extracting the time and formatting it to display like (20:45)
   private formatTime(date: Date): string {
-    return moment(date).format('HH.mm');
+    return moment(date).format('HH:mm');
   }
 }

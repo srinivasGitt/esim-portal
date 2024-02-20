@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Chart } from 'chart.js';
+import * as moment from 'moment';
 import { catchError, forkJoin, throwError } from 'rxjs';
 import { DashboardService } from '../../service/dashboard.service';
-
 @Component({
   selector: 'app-super-admin-dashboard',
   templateUrl: './super-admin-dashboard.component.html',
@@ -213,7 +213,6 @@ export class SuperAdminDashboardComponent implements OnInit {
           const platformReportsDataResponse = res;
           this.platformReportsData = this.filterObject(platformReportsDataResponse);
           this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
-          // this.inProgress = false;
           setTimeout(() => {
             this.generateChart(this.salesGraphData);
           }, 10);
@@ -227,14 +226,16 @@ export class SuperAdminDashboardComponent implements OnInit {
   /* Get reports data - End */
 
   dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
-    if (!this.customForm.valid) {
-      return;
+    if (dateRangeStart.value && dateRangeEnd.value) {
+      // if (!this.customForm.valid) {
+      //   return;
+      // }
+      this.startDate = moment(dateRangeStart.value).format('DD-MM-YYYY');
+      this.endDate = moment(dateRangeEnd.value).format('DD-MM-YYYY');
+      console.log(this.startDate, this.endDate);
+      setTimeout(() => {
+        this.getReports('custom', this.startDate, this.endDate);
+      }, 1000);
     }
-
-    this.startDate = dateRangeStart.value;
-    this.endDate = dateRangeEnd.value;
-    setTimeout(() => {
-      this.getReports('custom', this.startDate, this.endDate);
-    }, 1000);
   }
 }
