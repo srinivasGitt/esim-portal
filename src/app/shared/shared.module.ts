@@ -57,7 +57,7 @@ import {
 
 import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
 import { DayOrDatePipe } from './pipe/day-or-date.pipe';
-import { KeyToDisplayPipe } from './pipe/key-to-display.pipe';
+import { CurrencyByMatchingkeyPipe, KeyToDisplayPipe } from './pipe/key-to-display.pipe';
 
 @NgModule({
   declarations: [
@@ -98,6 +98,7 @@ import { KeyToDisplayPipe } from './pipe/key-to-display.pipe';
     CurrencySymbolPipe,
     DayOrDatePipe,
     KeyToDisplayPipe,
+    CurrencyByMatchingkeyPipe
   ],
   imports: [
     CommonModule,
@@ -133,6 +134,7 @@ import { KeyToDisplayPipe } from './pipe/key-to-display.pipe';
     MatDatepickerModule,
     MatInputModule,
     MatDateRangePicker,
+    CurrencyByMatchingkeyPipe
   ],
   providers: [CurrencyPipe, DatePipe],
 })

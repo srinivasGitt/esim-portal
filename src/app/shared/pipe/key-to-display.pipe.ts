@@ -23,3 +23,27 @@ export class KeyToDisplayPipe implements PipeTransform {
     }
   }
 }
+
+@Pipe({
+  name: 'currencyByMatchingkey',
+})
+export class CurrencyByMatchingkeyPipe implements PipeTransform {
+  transform(value: any, key: any): any {
+    switch (key) {
+      case 'total_profile_sale':
+        return '$ ' + value.toFixed(2);
+      case 'total_subscriber':
+        return value;
+      case 'total_active_customer':
+        return value;
+      case 'total_sales_of_trs':
+        return '$ ' + value.toFixed(2);
+      case 'total_sales_of_webapp':
+        return '$ ' + value.toFixed(2);
+      case 'total_sales_of_mobileapp':
+        return '$ ' + value.toFixed(2);
+      default:
+        return '';
+    }
+  }
+}
