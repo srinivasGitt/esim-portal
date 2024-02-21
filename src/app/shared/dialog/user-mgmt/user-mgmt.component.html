@@ -55,7 +55,7 @@
     <div class="es-modal-body" *ngIf="userForm">
         <form class="es-modal-form" [formGroup]="userForm" novalidate (ngSubmit)="submit()">
             <div class="div-height">
-                <label for="name" class="form-label es-modal-form-label">First Name</label>
+                <label for="name" class="form-label es-modal-form-label">First Name *</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="firstName" [ngClass]="[f.firstName.valid ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.firstName.touched && f.firstName.pristine) || (f.firstName.errors && submitted)">
@@ -73,7 +73,7 @@
             </div>
 
             <div class="div-height">
-                <label for="name" class="form-label es-modal-form-label">Last Name</label>
+                <label for="name" class="form-label es-modal-form-label">Last Name *</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="lastName" [ngClass]="[f.lastName.valid ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.lastName.touched && f.lastName.pristine) || (f.lastName.errors && submitted)">
@@ -91,22 +91,22 @@
             </div>
 
             <div class="div-height">
-                <label for="name" class="form-label es-modal-form-label">Email Address</label>
+                <label for="name" class="form-label es-modal-form-label">Email Address *</label>
                 <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="email" [ngClass]="[f.email.valid || f.email.disabled ? 'border-purple':'']">
                 <div>
                     <span class="help-block ng-invalid text-danger" *ngIf="(f.email.touched && f.email.pristine) || (f.email.errors && submitted)">
                         <span class="small" *ngIf="f.email.errors.required">
-                            Email is required!
+                            Email Address is required!
                         </span>
                         <span class="small" *ngIf="f.email.errors.email">
-                            Please enter valid email!
+                            Invalid email address!
                         </span>
                     </span>
                 </div>
             </div>
 
             <div class="div-height">
-                <label for="name" class="form-label es-modal-form-label">Phone Number</label>
+                <label for="name" class="form-label es-modal-form-label">Phone Number *</label>
                 <app-mobile-number-input [inputControl]="f.mobile"></app-mobile-number-input>
                 <!-- <input type="text" class="form-control es-input" id="name" aria-describedby="name" formControlName="mobile" (keypress)="numberOnly($event)" [ngClass]="[f.mobile.valid ? 'border-purple':'']"> -->
                 <div>
@@ -126,14 +126,14 @@
                 </div>
             </div>
             <div class="div-height" *ngIf="isSuperAdmin">
-                <label for="role" class="form-label es-modal-form-label">Role <span *ngIf="userForm.get('role')?.value == ''">*</span></label>
+                <label for="role" class="form-label es-modal-form-label">Role *</label>
                 <ng-select class="form-select-control" placeholder="Select User role" formControlName="role" [clearable]="false">
                     <ng-option value="admin"> Admin </ng-option>
                 </ng-select>
                 <div>
-                    <span class="help-block ng-invalid text-danger" *ngIf="(userForm.get('role')?.touched && userForm.get('role')?.pristine) && (userForm.get('role')?.errors)">
-                        <span class="small" *ngIf="userForm.get('role')?.errors?.['required']">
-                            Role is required!
+                    <span class="help-block ng-invalid text-danger" *ngIf="(f.role?.touched && f.role?.pristine) && (f.role?.errors)">
+                        <span class="small" *ngIf="f.role?.errors?.['required']">
+                            Role Selection is required!
                         </span>
                     </span>
                 </div>

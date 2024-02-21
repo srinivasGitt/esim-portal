@@ -84,10 +84,10 @@
     </div>
     <div class="display-name" *ngIf="userDetails?.displayName">
         <!-- <p class="modal-header-text mb-0">{{userDetails.displayName | titlecase }}</p> -->
-        <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="userDetails.displayName.length > 20" [tooltip]="userDetails.displayName" placement="top" delay="100" offset="0">
+        <label class="subscriber-details-text text-overflow-ellipsis modal-header-text" *ngIf="userDetails.displayName.length > 20" [tooltip]="userDetails.displayName" placement="top" delay="100" offset="0">
             {{ userDetails.displayName | titlecase }}
         </label>
-        <label class="subscriber-details-text" *ngIf="userDetails.displayName.length<= 20">
+        <label class="subscriber-details-text modal-header-text" *ngIf="userDetails.displayName.length<= 20">
             {{ userDetails.displayName | titlecase }}
         </label>
     </div>

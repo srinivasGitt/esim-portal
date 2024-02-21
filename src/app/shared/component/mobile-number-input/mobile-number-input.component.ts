@@ -51,6 +51,8 @@ export class MobileNumberInputComponent implements OnInit {
     this.inputControl.markAsTouched()
     if(this.phoneNumber?.value?.trim() != ''){
       this.inputControl.setValue(`${this.countryDialCode} ${this.phoneNumber.value}`);
+    } else {
+      this.inputControl.setValue('');
     }
   }
 }
