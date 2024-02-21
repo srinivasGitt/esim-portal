@@ -1,3 +1,4 @@
+import { getCurrencySymbol } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Chart } from 'chart.js';
@@ -45,7 +46,7 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
     fromDate: new FormControl<Date | null>(null),
     toDate: new FormControl<Date | null>(null),
   });
-
+  currency: string = 'USD';
   constructor(
     private dashboardService: DashboardService,
     private alertService: AlertService
@@ -102,15 +103,19 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
   /* Draw Chart - Start */
   private generateChart(salesData?: any) {
     if (salesData && salesData.length > 0) {
+      const currency = [...new Set(this.salesGraphData.map((data: any) => data.currency))][0];
+      this.currency = getCurrencySymbol(String(currency), 'wide');
       const salesGraphData: any = {
         labels: salesData.map((data: any) => data.title),
         datasets: [
           {
+            label: currency,
             data: salesData.map((data: any) => data.value),
             backgroundColor: 'rgba(99, 101, 239, 0.80)',
             borderRadius: 8,
             hoverBackgroundColor: 'rgba(99, 101, 239, 0.80)',
             barThickness: 48,
+            unitSuffix: '%',
           },
         ],
       };
@@ -176,6 +181,9 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
               displayColors: false,
               multiKeyBackground: '#6B6B73',
               callbacks: {
+                label: (context: any) => {
+                  return this.currency + context.raw.toFixed(2);
+                },
                 title: () => '',
               },
             },
