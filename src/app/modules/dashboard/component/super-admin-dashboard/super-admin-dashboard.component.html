@@ -169,7 +169,7 @@
   <div class="col" *ngFor="let reports of platformReportsData | keyvalue: orderOriginal">
     <div class="card">
       <h1>{{ reports.key | keyToDisplay }}</h1>
-      <h1>{{ reports.value | currencyByMatchingkey: reports.key }}</h1>
+      <h1>{{ reports.value | currencyByMatchingkey: reports.value }}</h1>
     </div>
   </div>
 </div>
