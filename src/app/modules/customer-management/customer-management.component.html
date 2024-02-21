@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="user-dashboard-table-container" *ngIf="!inProgress; else spinner">
+  <div class="user-dashboard-table-container">
     <div class="d-flex info-head-section justify-content-end mb-2">
       <label class="mt-auto mx-2 show-entries" *ngIf="customerList && customerList.length > 0">
         Showing
@@ -151,8 +151,8 @@
             class="t-grid-table-wrapper t-body-bg cursor-p table-row-border-top"
             *ngFor="let customer of customerList | paginate: paginateConfig"
           >
-            <!-- [routerLink]="['/customer-management', customer._id]" -->
-            <div class="t-box a px-2" routerLink="/user-management/{{ customer._id }}">
+            <!-- [routerLink]="['/customers', customer._id]" -->
+            <div class="t-box a px-2" [routerLink]="['/customers', customer._id]">
               {{ customer.companyName }}
             </div>
             <div class="t-box b px-2">{{ customer.createdAt | date: 'dd-MM-yyyy' }}</div>
@@ -201,16 +201,9 @@
                     />
                   </svg>
                 </span>
-                <!-- <span class="user-table-action-icon mx-auto" (click)="deleteCustomer(customer)" tooltip="Delete" placement="top" delay="100" offset="5">
-                    <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5.93548 0C5.50791 0 5.16129 0.348336 5.16129 0.778022V1.55604H0.774194C0.346622 1.55604 0 1.90438 0 2.33407C0 2.76375 0.346622 3.11209 0.774194 3.11209H15.2258C15.6534 3.11209 16 2.76375 16 2.33407C16 1.90438 15.6534 1.55604 15.2258 1.55604H10.8387V0.778022C10.8387 0.348336 10.4921 0 10.0645 0H5.93548Z" fill="#495058"/>
-                      <path d="M9.09491 13.2263L10.6119 14.751C10.9143 15.0548 10.9143 15.5473 10.6119 15.8512C10.3096 16.155 9.81945 16.155 9.51711 15.8512L8 14.3267L6.48289 15.8512C6.18054 16.155 5.69039 16.155 5.38805 15.8512C5.08571 15.5473 5.08571 15.0548 5.38805 14.751L6.90508 13.2263L5.38804 11.7017C5.08571 11.3979 5.08571 10.9053 5.38804 10.6015C5.69038 10.2977 6.18054 10.2977 6.48289 10.6015L8 12.126L9.51711 10.6015C9.81945 10.2977 10.3096 10.2977 10.6119 10.6015C10.9143 10.9053 10.9143 11.3979 10.6119 11.7017L9.09491 13.2263Z" fill="#495058"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M1.79797 5.87892C1.84154 5.4849 2.17295 5.18681 2.56744 5.18681H13.4334C13.8278 5.18681 14.1592 5.4849 14.2028 5.87892L14.4094 7.74756C14.7839 11.1348 14.7839 14.5535 14.4094 17.9408L14.389 18.1248C14.2404 19.4693 13.2034 20.5415 11.8702 20.7291C9.30288 21.0903 6.69787 21.0903 4.13052 20.7291C2.79732 20.5415 1.76038 19.4693 1.61171 18.1248L1.59138 17.9408C1.21685 14.5535 1.21685 11.1348 1.59138 7.74756L1.79797 5.87892ZM3.26037 6.74286L3.13029 7.9194C2.7684 11.1925 2.7684 14.4959 3.13029 17.769L3.15062 17.9529C3.22114 18.5906 3.71291 19.0991 4.3452 19.1881C6.77013 19.5292 9.23062 19.5292 11.6555 19.1881C12.2879 19.0991 12.7796 18.5906 12.8501 17.9529L12.8705 17.769C13.2324 14.4959 13.2324 11.1925 12.8705 7.9194L12.7404 6.74286H3.26037Z" fill="#495058"/>
-                    </svg>
-                  </span> -->
                 <span
                   class="user-table-action-icon"
-                  [tooltip]="customer.isActive ? 'Active' : 'Inactive'"
+                  [tooltip]="customer.isActive ? 'Enable' : 'Disable'"
                   placement="top"
                   delay="50"
                   offset="10"
@@ -245,7 +238,7 @@
   <!-- Loading Spinner - End -->
 
   <!-- Pagination  -->
-  <ng-container *ngIf="!inProgress && customerList.length > 0">
+  <ng-container *ngIf="customerList && customerList.length > 0">
     <div class="custom-pagination-section">
       <pagination-controls
         id="customerListPagination"

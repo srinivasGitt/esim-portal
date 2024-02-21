@@ -1,0 +1,185 @@
+<div class="heading-flex">
+  <div class="heading-text">
+    <h2>Platform Up-Time</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="row">
+      <div class="col" *ngFor="let uptime of uptimeData | keyvalue: orderOriginal">
+        <h1>{{ uptime.key }}</h1>
+        <h3>{{ uptime.value }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div *ngFor="let log of activityLogsData">
+      <p>{{ log.name }}</p>
+      <p>{{ log.description }}</p>
+      <p>{{ log.createdAt | dayOrDate }}</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="row">
+    <div class="col-3">
+      <div class="dashboard-head-flex">
+        <div class="filter-head d-flex py-1 px-4" style="width: 100%">
+          <div class="dropdown d-flex w-100">
+            <a
+              class="lang-dropdown sg-font-small-regular d-flex w-100 align-items-center"
+              role="button"
+              id="dropdownMenuLink-lang"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span id="languageTootltip" style="font-weight: 600">{{ selectedDay }} </span>
+              <span class="ms-auto">
+                <svg
+                  class="down-arrow"
+                  width="13"
+                  height="7"
+                  viewBox="0 0 13 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M0.211534 0.223544C0.493579 -0.0745154 0.950865 -0.0745154 1.23291 0.223544L5.98931 5.25C6.27136 5.54806 6.72864 5.54806 7.01069 5.25L11.7671 0.223545C12.0491 -0.0745139 12.5064 -0.0745139 12.7885 0.223546C13.0705 0.521604 13.0705 1.00485 12.7885 1.30291L8.03206 6.32937C7.18593 7.22354 5.81407 7.22355 4.96794 6.32937L0.211533 1.30291C-0.0705119 1.00485 -0.0705118 0.521603 0.211534 0.223544Z"
+                    fill="#1C1C1C"
+                  />
+                </svg>
+              </span>
+            </a>
+
+            <div
+              class="dropdown-menu lang-dropdown-option border-secondary"
+              aria-labelledby="dropdownMenuLink-lang"
+            >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'All' }"
+                (click)="selectTimeframe('all'); selectedDay = 'All'; isCustomRange = false"
+                >All</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Last 365 Days' }"
+                (click)="
+                  selectTimeframe('last_365_days');
+                  selectedDay = 'Last 365 Days';
+                  isCustomRange = false
+                "
+                >Last 365 Days</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Last Month' }"
+                (click)="
+                  selectTimeframe('previous_month');
+                  selectedDay = 'Last Month';
+                  isCustomRange = false
+                "
+                >Last Month</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Last Week' }"
+                (click)="
+                  selectTimeframe('previous_week'); selectedDay = 'Last Week'; isCustomRange = false
+                "
+                >Last Week</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Current Week' }"
+                (click)="
+                  selectTimeframe('week'); selectedDay = 'Current Week'; isCustomRange = false
+                "
+                >Current Week</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Current Month' }"
+                (click)="
+                  selectTimeframe('month'); selectedDay = 'Current Month'; isCustomRange = false
+                "
+                >Current Month</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Current Year' }"
+                (click)="
+                  selectTimeframe('year'); selectedDay = 'Current Year'; isCustomRange = false
+                "
+                >Current Year</a
+              >
+              <a
+                class="dropdown-item lang-dropdown-item sg-font-regular"
+                [ngClass]="{ 'hover-bg': selectedDay === 'Custom Range' }"
+                (click)="selectedDay = 'Custom Range'; isCustomRange = true"
+                >Custom Range</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="isCustomRange">
+      <div class="col-9">
+        <div class="col-4">
+          <div class="multi-color-border">
+            <label class="section-head-text">From Date - To Date</label>
+          </div>
+
+          <div class="dashboard-head-flex">
+            <div class="filter-head" style="width: 100%">
+              <mat-form-field appearance="outline">
+                <mat-date-range-input
+                  [formGroup]="customForm"
+                  [rangePicker]="picker"
+                  [max]="currentDate"
+                >
+                  <input
+                    matStartDate
+                    formControlName="fromDate"
+                    placeholder="DD-MM-YYYY"
+                    #dateRangeStart
+                  />
+                  <input
+                    matEndDate
+                    formControlName="toDate"
+                    placeholder="DD-MM-YYYY"
+                    #dateRangeEnd
+                    (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)"
+                  />
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col" *ngFor="let reports of platformReportsData | keyvalue: orderOriginal">
+    <div class="card">
+      <h1>{{ reports.key | keyToDisplay }}</h1>
+      <h1>{{ reports.value | currencyByMatchingkey: reports.key }}</h1>
+    </div>
+  </div>
+</div>
+<div class="row dashboard-border-top">
+  <div class="col-10 pt-4">
+    <div class="dashboard-graph w-100">
+      <div class="dashboard-heading d-flex align-items-center mb-2">
+        <h4>Sales Compare Graph</h4>
+      </div>
+      <canvas id="salesChart"></canvas>
+    </div>
+  </div>
+</div>

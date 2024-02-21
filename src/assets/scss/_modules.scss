@@ -131,7 +131,8 @@
 
   // Sidebar layout
   .sidebar-main {
-    width: 15vw;
+    // width: 15vw;
+    width: 333px;
     height: 100vh;
     padding: 0 20px 0 0;
     // background-color: var(--card-background-color);
@@ -140,19 +141,23 @@
       // border-radius: var(--dark-sidebar-border-radius);
       // height: calc(100vh - 40px);
       height: 100vh;
-      width: 14vw;
-      padding: 30px 8px;
+      // width: 14vw;
+      width: 333px;
+      // padding: 30px 8px;
+      padding: 46px 28px;
       // box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
       background-color: var(--card-background-color);
 
       .sidebar-brand-parent {
         // width: 80%;
         // margin: 0 auto 20px;
-        padding: 0 auto;
-        text-align: center;
+        // padding: 0 auto;
+        // text-align: center;
 
         .brand-logo {
-          width: 80%;
+          // width: 80%;
+          height: 42px;
+          width: auto;
         }
       }
 
@@ -162,7 +167,7 @@
         margin: 30px 0;
         padding: 0;
         height: calc(100vh - 170px);
-        overflow-y: scroll;
+        overflow-y: auto;
 
         .sidebar-main-title {
           display: flex;
@@ -239,7 +244,7 @@
 
       .meta-footer {
         position: relative;
-        bottom: 0;
+        bottom: 20px;
         color: var(--sidebar-link-color);
         font-weight: 400;
         font-size: var(--sidebar-text-size);
@@ -252,18 +257,21 @@
 
   // Main area layout
   .dashboard-main {
-    width: calc(100vw - 260px);
-    padding: 0 20px 0 0;
+    // width: calc(100vw - 260px);
+    flex: 1;
+    // padding: 0 20px 0 0;
+    padding: 0 20px 20px 20px;
     background-color: var(--main-background-color);
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100vh;
 
     .navbar-main {
       background: var(--main-background-color);
       position: fixed;
-      width: calc(100vw - 285px);
+      width: calc(100vw - 333px);
       padding-top: 25px;
       padding-bottom: 20px;
+      padding-right: 20px;
       z-index: 1;
     }
   }
@@ -2111,6 +2119,32 @@
   }
   .slider.round:before {
     border-radius: 50%;
+  }
+
+  .btn-dashboard-head {
+    width: auto !important;
+  }
+
+  .sub-customer-view-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgb(128, 130, 131);
+
+    .breadcrumb{
+      &-item {
+        font-family: 'SF Pro Display';
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: 0em;
+        color: #000;
+      }
+
+      .active {
+        color: rgba(99, 101, 239, 1);
+      }
+    }
   }
 }
 
