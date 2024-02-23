@@ -4,7 +4,6 @@ import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from
 import { CoreComponent } from './core/core.component';
 import {
   ContactusComponent,
-  DashboardComponent,
   DataUsageComponent,
   HelpCenterComponent,
   InventoryComponent,
@@ -28,7 +27,11 @@ const routes: Routes = [
     component: CoreComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
       {
         path: 'customers',
         loadChildren: () =>

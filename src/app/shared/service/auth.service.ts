@@ -34,4 +34,12 @@ export class AuthService {
   resetPssword(userData: any){
     return this.http.post(`${this.serverUrl}/auth/reset`, userData);
   }
+
+  validateUser(requestData : any){
+    return this.http.post(`${this.serverUrl}/otp/generate`, requestData);
+  }
+
+  verifyUser(requestData : any){
+    return this.http.post(`${this.serverUrl}/otp/verify`, requestData);
+  }
 }

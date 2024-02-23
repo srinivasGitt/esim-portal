@@ -7,6 +7,11 @@ import {
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginationInstance } from 'ngx-pagination';
+import {
+  OtpVerificationComponent,
+  buttonText,
+  otpType,
+} from 'src/app/shared/dialog/otp-verification';
 import { Customer } from 'src/app/shared/models/customer';
 import { SearchService } from 'src/app/shared/service';
 import { AlertService } from 'src/app/shared/service/alert.service';
@@ -88,15 +93,25 @@ export class CustomerManagementComponent implements OnInit {
 
   // Active / Deactivate Customer
   activateCustomer(customer: any) {
-    this.customerService.activateCustomer(customer._id, { isActive: customer.isActive }).subscribe(
-      (res: any) => {
-        this.alertService.success(res.message);
-      },
-      (err) => {
-        this.alertService.error(err.error.message, err.status);
-        this.inProgress = false;
-      }
-    );
+    this.dialogService
+      .openModal(OtpVerificationComponent, {
+        context: {
+          config: {
+            type: customer.isActive ? otpType.CUSTOMER_ENABLE : otpType.CUSTOMER_DISABLE,
+            buttonText: customer.isActive ? buttonText.enable : buttonText.disable,
+          },
+          payload: {},
+        },
+      })
+      .instance.close.subscribe(
+        (res: any) => {
+          this.alertService.success(res.message);
+        },
+        (err) => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
   }
 
   getPageNumber(event: any) {
