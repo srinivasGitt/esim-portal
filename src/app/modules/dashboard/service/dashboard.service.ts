@@ -136,7 +136,7 @@ export class DashboardService {
 
   getSuperAdminDashboardStatisticsData() {
     return [
-      this.http.get(`${this.serverUrl}/statistics/uptime`),
+      // this.http.get(`${this.serverUrl}/statistics/uptime`),
       this.http.get(`${this.serverUrl}/statistics/superadmin-dashboard?dateRange=week`),
       this.http.get(`${this.serverUrl}/logs/recent`),
     ];

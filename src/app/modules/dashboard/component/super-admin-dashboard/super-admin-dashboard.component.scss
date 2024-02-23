@@ -1,3 +1,56 @@
-// #salesChart {
-//   background-image: url('/assets/images/dashboard/chart-background.png');
-// }
+.log-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 83px;
+  border-radius: 8px;
+  background: rgba(254, 254, 254, 1);
+
+  .log-card-heading {
+    font-family: 'SF Pro Display';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0px;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .log-card-text {
+    font-family: 'SF Pro Display';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0px;
+    color: rgba(130, 130, 130, 1);
+
+    p {
+      margin-bottom: 0 ;
+    }
+  }
+}
+
+.report-card {
+  box-shadow: 0px 4px 8px 0px rgba(216, 218, 255, 1);
+  width: 302px;
+  height: 123px;
+  background: rgba(254, 254, 254, 1);
+  color: rgba(0, 0, 0, 1);
+  border: none;
+  border-radius: 16px;
+
+  h3 {
+    font-family: 'SF Pro Display';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0px;
+  }
+
+  h1 {
+    font-family: SF Pro Display;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    letter-spacing: 0px;
+  }
+}
