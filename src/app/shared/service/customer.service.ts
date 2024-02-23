@@ -31,7 +31,7 @@ export class CustomerService {
     childCustomers(){
       const headers = new HttpHeaders({})
       .set('Authorization', 'Bearer ' + this.authToken);
-      return this.http.get(`${this.serverUrl}/customers`, this.getHeader());    
+      return this.http.get(`${this.serverUrl}/customers`, this.getHeader());
     }
 
     customers(){
@@ -54,7 +54,7 @@ export class CustomerService {
       console.log(data);
       return this.http.put(`${this.serverUrl}/customers/${id}`, data, this.getHeader());
     }
- 
+
     deleteCustomer(id: any) {
       return this.http.delete(`${this.serverUrl}/customers/${id}`);
     }
@@ -63,7 +63,7 @@ export class CustomerService {
     childCustomers(){
       const headers = new HttpHeaders({})
       .set('Authorization', 'Bearer ' + this.authToken);
-      return this.http.get(`${this.serverUrl}/customers`);    
+      return this.http.get(`${this.serverUrl}/customers`);
     }
 
     customers(itemsPerPage?: number, currentPage?: number) {
@@ -110,7 +110,7 @@ export class CustomerService {
     sendCustomer(customer: any) {
       this.customer.next(customer);
     }
-  
+
     getCustomer(): Observable<any[]> {
       return this.customer.asObservable();
     }
@@ -118,4 +118,9 @@ export class CustomerService {
     getCustomerHierachy() {
       return this.http.get(`${this.serverUrl}/customers/hierarchy`);
     }
-} 
+
+  // Get Customer by CustomerId
+  getCustomerByCustomerId(customerId: string) {
+    return this.http.get(`${this.serverUrl}/customers/${customerId}/statistics`);
+  }
+}

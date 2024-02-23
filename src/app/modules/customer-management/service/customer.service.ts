@@ -42,4 +42,9 @@ export class CustomerService {
   activateCustomer(customerId: string, data: any): Observable<ICustomResponse> {
     return this.http.put(`${this.serverUrl}/customers/${customerId}`, data);
   }
+
+  // Get Customer by CustomerId
+  getCustomerByCustomerId(customerId: string) {
+    return this.http.get(`${this.serverUrl}/customers/${customerId}`);
+  }
 }
