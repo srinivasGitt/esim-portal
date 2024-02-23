@@ -43,7 +43,23 @@ export class SingleCustomerViewComponent implements OnInit {
  
   selectCustomer() {
  
-    let selectedCustomer = this.customerHierarchy.map((ele: any) => {return ele._id === this.customerId ? ele.children[0] : []});
+    console.log(this.customerId);
+
+    // this.customerHierarchy.filter((ele: any) => {return ele._id === this.customerId ? ele.children : []})
+
+    let selectedCustomer;
+    let selectCustomerFlg = false;
+
+    this.customerHierarchy.forEach((ele: any) => {
+      if(ele._id === this.customerId) {
+        selectedCustomer = ele.children;
+        selectCustomerFlg = true;
+      }
+    });
+
+    if(!selectCustomerFlg) {
+      selectedCustomer = [];
+    }
  
     console.log(selectedCustomer);
  

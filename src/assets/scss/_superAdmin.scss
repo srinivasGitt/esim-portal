@@ -118,6 +118,7 @@
       .super-admin-sidebar.super-admin-customer-selected{
         width: 100px !important;
         padding: 46px 20px !important;
+        background: rgba(99, 101, 239, 0.02);
         .brand-logo{
           display: none;
         }
@@ -137,6 +138,13 @@
 
         .meta-footer{
           display: none !important;
+        }
+
+        .accordian-base-1{
+          display: none;
+        }
+        .sidebar-anchor-tab-flex-text-container.ms-auto.link-icon{
+          display: none;
         }
       }
 
