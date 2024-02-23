@@ -1,10 +1,10 @@
 export class Customer {
   public _id?: string;
-  public subscriberCount?: number;
+  public userCount?: number;
   public createdAt?: string;
   public isActive?: boolean;
   constructor(
-    public companyName: string,
+    public name: string,
     public websiteLink: string,
     public billingAddress: {
       addressLine: string;

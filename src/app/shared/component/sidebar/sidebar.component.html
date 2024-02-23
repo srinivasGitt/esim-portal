@@ -48,7 +48,7 @@
 
                     <!-- Cutomer -->
                     <div *ngIf="menu.hasGroup && menu.title === 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
-                        <a [routerLinkActive]="['activeLink']" [routerLink]="['/customers']" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLinkActive]="['activeLink']" [routerLink]="['/customers']" [routerLinkActiveOptions]="{exact: true}" (click)="isCustomerSelected = false;">
                             <span class="link-icon">
                                 <img [src]="menu.icon" [alt]="menu.title">
                             </span>
@@ -86,28 +86,28 @@
                                 <li *ngFor="let child of customerList; index as i" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
                                     <div class="accordion-item accordion-base-item-1">
                                         <h2 class="accordion-header" id="headingOne">
-                                            <a href="" class="accordion-button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child._id" aria-expanded="false" aria-controls="collapseOne">{{ child.name }}</a>
+                                            <a href="" class="accordion-button" [routerLink]="['/customers', child._id]" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child._id" aria-expanded="false" aria-controls="collapseOne">{{ child.name }}</a>
                                         </h2>
                                         <div id="customerMgmt_{{child._id}}" class="accordion-collapse collapse accordian-base-2" aria-labelledby="'headingOne" data-bs-parent="#accordionExample">
                                             <div *ngFor="let child2 of child.children; index as j">
                                                 <div class="">
                                                     <div class="accordion-item accordion-base-item-2">
                                                         <h2 class="accordion-header" id="headingOne">
-                                                            <a href="" class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child2._id" aria-expanded="false">{{ child2.name }}</a>
+                                                            <a href="" class="accordion-button" [routerLink]="['/customers', child._id, child2._id]" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child2._id" aria-expanded="false">{{ child2.name }}</a>
                                                         </h2>
                                                         <div id="customerMgmt_{{child2._id}}" class="accordion-collapse collapse accordian-base-3" aria-labelledby="'headingOne" [attr.data-bs-parent]="'#customerMgmt_' + child._id">
                                                             <div *ngFor="let child3 of child2.children; index as k">
                                                                 <div class="">
                                                                     <div class="accordion-item accordion-base-item-3">
                                                                         <h2 class="accordion-header" id="headingOne">
-                                                                            <a href="" class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child3._id" aria-expanded="false">{{ child3.name }}</a>
+                                                                            <a href="" class="accordion-button" type="button" [routerLink]="['/customers', child._id, child2._id, child3._id]" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child3._id" aria-expanded="false">{{ child3.name }}</a>
                                                                         </h2>
                                                                         <div id="customerMgmt_{{child3._id}}" class="accordion-collapse collapse accordian-base-4" aria-labelledby="'headingOne" [attr.data-bs-parent]="'#customerMgmt_' + child2._id">
                                                                             <div *ngFor="let child4 of child3.children; index as l">
                                                                                 <div class="">
                                                                                     <div class="accordion-item accordion-base-item-4">
                                                                                         <h2 class="accordion-header" id="headingOne">
-                                                                                            <a href="" class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="false">{{ child4.name }}</a>
+                                                                                            <a href="" class="accordion-button" type="button" [routerLink]="['/customers', child._id, child2._id, child3._id, child4._id]" data-bs-toggle="collapse" aria-expanded="false">{{ child4.name }}</a>
                                                                                         </h2>
                                                                                     </div>
                                                                                 </div>
