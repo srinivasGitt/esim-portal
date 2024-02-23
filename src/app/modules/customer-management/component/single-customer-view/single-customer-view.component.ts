@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from 'src/app/shared/service';
 
 @Component({
@@ -8,13 +9,34 @@ import { CustomerService } from 'src/app/shared/service';
 })
 export class SingleCustomerViewComponent implements OnInit {
 
-  constructor(private customerService: CustomerService) { }
+  customerId: any;
+  customerHierarchy = [];
+ 
+  constructor(private customerService: CustomerService,
+  private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      this.customerId = res.id;
+    });
+ 
+    this.getCustomerHierarchy();
   }
-
+ 
+  getCustomerHierarchy() {
+    this.customerService.getCustomerHierachy()
+      .subscribe((res: any ) => {
+        this.customerHierarchy = res;
+      })
+  }
+ 
   selectCustomer() {
-    this.customerService.sendCustomer('customerSelected');
+ 
+    let selectedCustomer = this.customerHierarchy.map((ele: any) => {return ele._id === this.customerId ? ele.children[0] : []});
+ 
+    console.log(selectedCustomer);
+ 
+    this.customerService.sendCustomer(selectedCustomer);
   }
 
 }

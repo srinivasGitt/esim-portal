@@ -33,6 +33,7 @@ export class SidebarComponent implements OnInit {
   isRole: any;
   adminMenuList: any = [];
   superAdminMenuList: any = [];
+  selectedCustomerList: any = [];
 
   constructor(
     private router: Router,
@@ -85,10 +86,14 @@ export class SidebarComponent implements OnInit {
       .subscribe(res => {
         if(res) {
           this.isCustomerSelected = true;
+          this.selectedCustomerList = res;
+          console.log(this.selectedCustomerList);
         } else {
           this.isCustomerSelected = false;
+          this.selectedCustomerList = [];
         }
       });
+      this.getCustomerHierarchy();
   }
 
   async fetchSideBarMenuList(roles?: Array<string>) {
@@ -122,6 +127,7 @@ export class SidebarComponent implements OnInit {
     this.customerService.getCustomerHierachy()
       .subscribe((res: any) => {
         console.log(res);
+        this.customerList = res;
       }, err => {
 
       })
@@ -219,49 +225,49 @@ export class SidebarComponent implements OnInit {
     itemEl.classList.toggle('showMenu');
 
     if(title === 'Customers') {
-      this.customerList = [{
-        "_id": "1",
-        "name": "Travel Sim",
-        "children": [
-          {
-            "_id": "2",
-            "name": "Customer 1",
-            "children": [
-              {
-                "_id": "3",
-                "name": "Sub Customer 1",
-                "children": [
-                  {
-                    "_id": "4",
-                    "name": "Reseller 1",
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }, {
-        "_id": "5",
-        "name": "Roampass",
-        "children": [
-          {
-            "_id": "6",
-            "name": "Customer 2",
-            "children": [
-              {
-                "_id": "7",
-                "name": "Sub Customer 2",
-                "children": [
-                  {
-                    "_id": "8",
-                    "name": "Reseller 2",
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }]
+      // this.customerList = [{
+      //   "_id": "1",
+      //   "name": "Travel Sim",
+      //   "children": [
+      //     {
+      //       "_id": "2",
+      //       "name": "Customer 1",
+      //       "children": [
+      //         {
+      //           "_id": "3",
+      //           "name": "Sub Customer 1",
+      //           "children": [
+      //             {
+      //               "_id": "4",
+      //               "name": "Reseller 1",
+      //             }
+      //           ]
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // }, {
+      //   "_id": "5",
+      //   "name": "Roampass",
+      //   "children": [
+      //     {
+      //       "_id": "6",
+      //       "name": "Customer 2",
+      //       "children": [
+      //         {
+      //           "_id": "7",
+      //           "name": "Sub Customer 2",
+      //           "children": [
+      //             {
+      //               "_id": "8",
+      //               "name": "Reseller 2",
+      //             }
+      //           ]
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // }]
     }
   }
 

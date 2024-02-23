@@ -64,22 +64,69 @@
                     <!-- non customer -->
                     <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
                         <ul class="sub-menu">
-                            <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
-                                <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
-                                    <span class="">
-                                        {{ child.title }}
-                                    </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
-                                    </svg>
-                                </a>
-                            </li>
+                            <ng-container *ngFor="let child of menu.childs">
+                                <li *ngIf="child.accessRole.includes('superAdmin')" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
+                                    <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
+                                        <span class="">
+                                            {{ child.title }}
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ng-container>
                         </ul>
                     </div>
 
                      <!-- Cutomer -->
-                    <div *ngIf="menu.title === 'Customers'">   
-                        <ul class="sub-menu">
+                    <div *ngIf="menu.title === 'Customers'" class="accordian-base-1">     
+                        <div class="sub-menu">
+                            <div class="accordion" id="accordionExample">
+                                <li *ngFor="let child of customerList; index as i" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
+                                    <div class="accordion-item accordion-base-item-1">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <a href="" class="accordion-button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child._id" aria-expanded="false" aria-controls="collapseOne">{{ child.name }}</a>
+                                        </h2>
+                                        <div id="customerMgmt_{{child._id}}" class="accordion-collapse collapse accordian-base-2" aria-labelledby="'headingOne" data-bs-parent="#accordionExample">
+                                            <div *ngFor="let child2 of child.children; index as j">
+                                                <div class="">
+                                                    <div class="accordion-item accordion-base-item-2">
+                                                        <h2 class="accordion-header" id="headingOne">
+                                                            <a href="" class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child2._id" aria-expanded="false">{{ child2.name }}</a>
+                                                        </h2>
+                                                        <div id="customerMgmt_{{child2._id}}" class="accordion-collapse collapse accordian-base-3" aria-labelledby="'headingOne" [attr.data-bs-parent]="'#customerMgmt_' + child._id">
+                                                            <div *ngFor="let child3 of child2.children; index as k">
+                                                                <div class="">
+                                                                    <div class="accordion-item accordion-base-item-3">
+                                                                        <h2 class="accordion-header" id="headingOne">
+                                                                            <a href="" class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child3._id" aria-expanded="false">{{ child3.name }}</a>
+                                                                        </h2>
+                                                                        <div id="customerMgmt_{{child3._id}}" class="accordion-collapse collapse accordian-base-4" aria-labelledby="'headingOne" [attr.data-bs-parent]="'#customerMgmt_' + child2._id">
+                                                                            <div *ngFor="let child4 of child3.children; index as l">
+                                                                                <div class="">
+                                                                                    <div class="accordion-item accordion-base-item-4">
+                                                                                        <h2 class="accordion-header" id="headingOne">
+                                                                                            <a href="" class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="false">{{ child4.name }}</a>
+                                                                                        </h2>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+                        </div>                          
+
+                        <!-- <ul class="sub-menu">
                             <div class="accordion" id="accordionExample">
                                 <li *ngFor="let child of customerList; index as i" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
                                     <div class="accordion-item">
@@ -130,7 +177,7 @@
                                     </div>
                                 </li>
                             </div>
-                        </ul>
+                        </ul> -->
                     </div>
                     
                 </li>
@@ -154,6 +201,8 @@
             
                 <ul class="sidebar-menu-list">
                     <li *ngFor="let menu of adminMenuList" class="flex-column sidebar-main-title" #itemEl>
+
+                        <!-- Admin non customer -->
                         <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
                             <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}">
                                 <span class="link-icon">
@@ -164,7 +213,9 @@
                                 </span>
                             </a>
                         </div>
-                        <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+
+                        <!-- Admin non customer -->
+                        <div *ngIf="menu.hasGroup && menu.title != 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
                             <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
                                 <span class="link-icon">
                                     <img [src]="menu.icon" [alt]="menu.title">
@@ -177,7 +228,9 @@
                                 </div>
                             </a>
                         </div>
-                        <div *ngIf="menu.childs && menu.childs.length > 0">   
+
+                        <!-- Admin non customer -->
+                        <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
                             <ul class="sub-menu">
                                 <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
                                     <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
@@ -186,9 +239,80 @@
                                         </span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65967 12.3536C5.44678 12.1583 5.44678 11.8417 5.65967 11.6464L9.25 8.35355C9.4629 8.15829 9.4629 7.84171 9.25 7.64645L5.65968 4.35355C5.44678 4.15829 5.44678 3.84171 5.65968 3.64645C5.87257 3.45118 6.21775 3.45118 6.43065 3.64645L10.021 6.93934C10.6597 7.52513 10.6597 8.47487 10.021 9.06066L6.43065 12.3536C6.21775 12.5488 5.87257 12.5488 5.65967 12.3536Z" fill="#1C1C1C"/>
-                                            </svg>
+                                        </svg>
                                     </a>
                                 </li>
+                            </ul>
+                        </div>
+
+                        <!-- Admin customer -->
+                        <div *ngIf="menu.hasGroup && menu.title === 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                            <a [routerLinkActive]="['activeLink']" [routerLink]="['/customers']" [routerLinkActiveOptions]="{exact: true}">
+                                <span class="link-icon">
+                                    <img [src]="menu.icon" [alt]="menu.title">
+                                </span>
+                                <span class="sidebar-menu-title">
+                                    {{ menu.title }}
+                                </span>
+                                <div class="sidebar-anchor-tab-flex-text-container ms-auto link-icon">
+                                    <img class="sidebar-anchor-tab-flex-img arrow" [src]="'/assets/images/dashboard/icon/arrow-right' + (!isDarkTheme ? '.svg' : '-dark.svg')"  alt="">
+                                </div>
+                            </a>
+                        </div>
+ 
+                        <!-- Admin customer hirarchy -->
+                        <div *ngIf="menu.title === 'Customers'">  
+                            <ul class="sub-menu">
+                                <div class="accordion" id="accordionExample" *ngIf="selectedCustomerList?.length > 0">
+                                    <li *ngFor="let child of selectedCustomerList; index as i" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child._id" aria-expanded="false" aria-controls="collapseOne">
+                                                    {{ child.name }}
+                                                </button>
+                                            </h2>
+                                            <div id="customerMgmt_{{child._id}}" *ngIf="child.children?.length > 0" class="accordion-collapse collapse" aria-labelledby="'headingOne" data-bs-parent="#accordionExample">
+                                                <div *ngFor="let child2 of child.children; index as j">
+                                                    <div class="accordion-body">
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header" id="headingOne">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child2._id" aria-expanded="false">
+                                                                    {{ child2.name }}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="customerMgmt_{{child2._id}}" class="accordion-collapse collapse" aria-labelledby="'headingOne" [attr.data-bs-parent]="'#customerMgmt_' + child._id">
+                                                                <div *ngFor="let child3 of child2.children; index as k">
+                                                                    <div class="accordion-body">
+                                                                        <div class="accordion-item">
+                                                                            <h2 class="accordion-header" id="headingOne">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#customerMgmt_' + child3._id" aria-expanded="false">
+                                                                                    {{ child3.name }}
+                                                                                </button>
+                                                                            </h2>
+                                                                            <div id="customerMgmt_{{child3._id}}" class="accordion-collapse collapse" aria-labelledby="'headingOne" [attr.data-bs-parent]="'#customerMgmt_' + child2._id">
+                                                                                <div *ngFor="let child4 of child3.children; index as l">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="accordion-item">
+                                                                                            <h2 class="accordion-header" id="headingOne">
+                                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="false">
+                                                                                                    {{ child4.name }}
+                                                                                                </button>
+                                                                                            </h2>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
                             </ul>
                         </div>
                         
@@ -227,7 +351,7 @@
                         </span>
                     </a>
                 </div>
-                <div *ngIf="menu.hasGroup" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
+                <div *ngIf="menu.hasGroup  && menu.title != 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
                     <a [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{activeLink:  findUrl(menu)}">
                         <span class="link-icon">
                             <img [src]="menu.icon" [alt]="menu.title">
@@ -240,7 +364,7 @@
                         </div>
                     </a>
                 </div>
-                <div *ngIf="menu.childs && menu.childs.length > 0">   
+                <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
                     <ul class="sub-menu">
                         <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
                             <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
