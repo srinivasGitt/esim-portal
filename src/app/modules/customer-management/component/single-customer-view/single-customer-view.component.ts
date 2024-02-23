@@ -15,7 +15,7 @@ export class SingleCustomerViewComponent implements OnInit {
   isEnable: boolean = false;
   customerId: any;
   customerHierarchy = [];
-  
+
   constructor(private customerService: CustomerService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -25,9 +25,23 @@ export class SingleCustomerViewComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       this.customerId = res.id;
+
+      this.getCustomerDetails(this.customerId);
     });
- 
+
     this.getCustomerHierarchy();
+  }
+
+
+  private getCustomerDetails(customerId: string) {
+    this.customerService.getCustomerByCustomerId(customerId).subscribe({
+      next: (res: any) => {
+        console.log(res)
+      },
+      error: (err: any) => {
+        this.alertService.error(err.error.message);
+       }
+    })
   }
 
   editCustomer(customer: any) {
@@ -40,9 +54,9 @@ export class SingleCustomerViewComponent implements OnInit {
         this.customerHierarchy = res;
       })
   }
- 
+
   selectCustomer() {
- 
+
     console.log(this.customerId);
 
     // this.customerHierarchy.filter((ele: any) => {return ele._id === this.customerId ? ele.children : []})
@@ -60,9 +74,9 @@ export class SingleCustomerViewComponent implements OnInit {
     if(!selectCustomerFlg) {
       selectedCustomer = [];
     }
- 
+
     console.log(selectedCustomer);
- 
+
     this.customerService.sendCustomer(selectedCustomer);
   }
 
