@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class CustomerService {
+export class CustomerModuleService {
   serverUrl = environment.serverUrl;
 
   constructor(private http: HttpClient) {}
@@ -44,7 +44,10 @@ export class CustomerService {
   }
 
   // Get Customer by CustomerId
-  getCustomerByCustomerId(customerId: string) {
-    return this.http.get(`${this.serverUrl}/customers/${customerId}`);
+  getCustomerDetailsByCustomerId(customerId: string) {
+    return [
+      this.http.get(`${this.serverUrl}/customers/${customerId}`),
+      this.http.get(`${this.serverUrl}/customers/${customerId}/statistics`),
+    ];
   }
 }

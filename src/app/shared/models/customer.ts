@@ -3,6 +3,7 @@ export class Customer {
   public userCount?: number;
   public createdAt?: string;
   public isActive?: boolean;
+  public completeAddress?: string;
   constructor(
     public name: string,
     public websiteLink: string,

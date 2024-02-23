@@ -16,7 +16,7 @@ import { Customer } from 'src/app/shared/models/customer';
 import { SearchService } from 'src/app/shared/service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DialogService } from 'src/app/shared/service/dialog';
-import { CustomerService } from './service/customer.service';
+import { CustomerModuleService } from './service/customer-module.service';
 
 @Component({
   selector: 'app-customer-management',
@@ -43,7 +43,7 @@ export class CustomerManagementComponent implements OnInit {
   inSearch: boolean = false;
 
   constructor(
-    private customerService: CustomerService,
+    private customerService: CustomerModuleService,
     private dialogService: DialogService,
     private alertService: AlertService,
     private renderer: Renderer2,
