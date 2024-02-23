@@ -152,11 +152,11 @@
             *ngFor="let customer of customerList | paginate: paginateConfig"
           >
             <!-- [routerLink]="['/customers', customer._id]" -->
-            <div class="t-box a px-2" [routerLink]="['/customers', customer._id]">
-              {{ customer.companyName }}
+            <div class="t-box a px-2 cursor-pointer" [routerLink]="['/customers', customer._id]">
+              {{ customer.name }}
             </div>
             <div class="t-box b px-2">{{ customer.createdAt | date: 'dd-MM-yyyy' }}</div>
-            <div class="t-box a px-2">{{ customer.subscriberCount || 0 }}</div>
+            <div class="t-box a px-2">{{ customer.userCount || 0 }}</div>
             <div class="t-box a px-2">
               <ng-container *ngFor="let product of customer.products | keyvalue">
                 <ng-container *ngIf="product.value === true">

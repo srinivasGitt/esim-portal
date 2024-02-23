@@ -33,41 +33,7 @@ import { CustomerService } from './service/customer.service';
   ],
 })
 export class CustomerManagementComponent implements OnInit {
-  customerList: Customer[] = [
-    {
-      _id: '1',
-      billingAddress: {
-        addressLine: 'sdfsdfsdfsf',
-        landmark: 'NY square',
-        pincode: '999999',
-        city: 'llllllllll',
-        country: 'India',
-        state: 'lllllllllllllllll',
-      },
-      companyName: 'ppppppppp',
-      contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
-      products: {
-        iosApp: true,
-        androidApp: false,
-        api: false,
-        trs: false,
-        sdk: false,
-        webapp: true,
-        shopifyApp: true,
-      },
-      userInvite: {
-        firstName: 'sdfssss',
-        lastName: 'sssssssss',
-        email: 'adb@adc.com',
-        number: '0999999999',
-        role: 'Admin',
-      },
-      websiteLink: 'www.xyz.com',
-      createdAt: '12/12/2024',
-      subscriberCount: 5,
-      isActive: false,
-    },
-  ];
+  customerList: Customer[] = [];
   paginateConfig: PaginationInstance = {
     id: 'customerListPagination',
     itemsPerPage: 20,
@@ -96,7 +62,9 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllCustomer();
+  }
 
   createCustomer() {
     this.router.navigate(['add'], { relativeTo: this.route });

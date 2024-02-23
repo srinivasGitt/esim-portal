@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserMgmtComponent } from 'src/app/shared/dialog';
-import {
-  OtpVerificationComponent,
-  buttonText,
-  otpType,
-} from 'src/app/shared/dialog/otp-verification';
-import { AlertService, DialogService } from 'src/app/shared/service';
+import { OtpVerificationComponent, buttonText, otpType } from 'src/app/shared/dialog/otp-verification';
+import { AlertService, CustomerService, DialogService } from 'src/app/shared/service';
 import { InviteAgentComponent } from '../invite-agent/invite-agent.component';
 
 @Component({
@@ -17,17 +13,41 @@ import { InviteAgentComponent } from '../invite-agent/invite-agent.component';
 export class SingleCustomerViewComponent implements OnInit {
   customer: any;
   isEnable: boolean = false;
-
-  constructor(
+  customerId: any;
+  customerHierarchy = [];
+  
+  constructor(private customerService: CustomerService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialogService: DialogService,
-    private alertService: AlertService
-  ) {}
+    private alertService: AlertService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      this.customerId = res.id;
+    });
+ 
+    this.getCustomerHierarchy();
+  }
 
   editCustomer(customer: any) {
     this.router.navigate(['customers/edit', '1']);
+  }
+
+  getCustomerHierarchy() {
+    this.customerService.getCustomerHierachy()
+      .subscribe((res: any ) => {
+        this.customerHierarchy = res;
+      })
+  }
+ 
+  selectCustomer() {
+ 
+    let selectedCustomer = this.customerHierarchy.map((ele: any) => {return ele._id === this.customerId ? ele.children[0] : []});
+ 
+    console.log(selectedCustomer);
+ 
+    this.customerService.sendCustomer(selectedCustomer);
   }
 
   // Invite User
@@ -93,4 +113,5 @@ export class SingleCustomerViewComponent implements OnInit {
         console.log(data);
       });
   }
+
 }

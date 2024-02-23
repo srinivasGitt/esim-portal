@@ -231,7 +231,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     });
 
     const customerObj: Customer = new Customer(
-      customerData.stepOne.companyName,
+      customerData.stepOne.name,
       customerData.stepOne.websiteLink,
       customerData.stepOne.billingAddress,
       customerData.stepOne.contactDetails,
