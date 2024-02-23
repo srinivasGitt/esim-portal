@@ -53,10 +53,26 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.fetchAPIsData();
+    this.fetchStatisticsAndLogsAPIsData();
+    this.uptimeApi();
   }
 
-  fetchAPIsData() {
+  // Uptime API
+  uptimeApi() {
+    this.dashboardService.getUptimeStatistics().subscribe({
+      next: (response: any) => {
+        this.uptimeData = response;
+        console.log(typeof this.uptimeData.crm)
+      },
+      error: (err) => {
+        console.error(err);
+        this.alertService.error(err.error.message);
+      },
+    });
+  }
+
+  // Platform Statistics and Logs API
+  fetchStatisticsAndLogsAPIsData() {
     forkJoin(this.dashboardService.getSuperAdminDashboardStatisticsData())
       .pipe(
         takeUntil(this.unsubscribe$),
@@ -68,12 +84,12 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe({
-        next: ([result1, result2, result3]: any) => {
-          this.uptimeData = result1;
-          const platformReportsDataResponse = result2;
+        next: ([result1, result2]: any) => {
+          // this.uptimeData = result1;
+          const platformReportsDataResponse = result1;
           this.platformReportsData = this.filterObject(platformReportsDataResponse);
           this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
-          this.activityLogsData = result3;
+          this.activityLogsData = result2;
 
           this.generateChart(this.salesGraphData);
         },
