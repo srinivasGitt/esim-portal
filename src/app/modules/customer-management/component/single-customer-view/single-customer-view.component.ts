@@ -140,7 +140,7 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
   }
 
   // Enable/Disable
-  enableDisable(type: string) {
+  enableDisable(type: string, payload: any) {
     let configObj: any = {};
 
     if (type === 'product') {
@@ -159,7 +159,7 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
       .openModal(OtpVerificationComponent, {
         context: {
           config: configObj,
-          payload: {},
+          payload: payload,
         },
       })
       .instance.close.subscribe((data: any) => {

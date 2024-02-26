@@ -1,4 +1,5 @@
-<div class="common-header customer-management">
+<div class="common-header customer-management" *ngIf="customer">
+  <!-- Details Section -->
   <div class="user-dashboard-table-container">
     <div class="sub-customer-view-header">
       <div
@@ -169,7 +170,8 @@
     </div>
   </div>
 
-  <div class="user-dashboard-table-container pb-0">
+  <!-- Products Section -->
+  <div class="user-dashboard-table-container pb-0" *ngIf="customer?.products">
     <table class="table table-borderless">
       <thead>
         <tr>
@@ -225,7 +227,13 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.products.androidApp"
+                    (ngModelChange)="
+                      enableDisable('product', { androidApp: customer.products.androidApp })
+                    "
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -246,7 +254,11 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.products.iosApp"
+                    (ngModelChange)="enableDisable('product', { iosApp: customer.products.iosApp })"
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -255,7 +267,7 @@
         </tr>
         <tr>
           <td>TRS</td>
-          <td>Total Agents: 10</td>
+          <td>Total Agents: {{ customer.total_travelAgents }}</td>
           <td>
             <button type="button" class="btn btn-dashboard-head ms-auto" (click)="inviteAgent()">
               Invite Agent
@@ -271,7 +283,11 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.products.trs"
+                    (ngModelChange)="enableDisable('product', { trs: customer.products.trs })"
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -292,7 +308,11 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.products.api"
+                    (ngModelChange)="enableDisable('product', { api: customer.products.api })"
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -313,7 +333,11 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.products.sdk"
+                    (ngModelChange)="enableDisable('product', { sdk: customer.products.sdk })"
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -336,8 +360,10 @@
                 <label class="switch">
                   <input
                     type="checkbox"
-                    [(ngModel)]="isEnable"
-                    (ngModelChange)="enableDisable('product')"
+                    [(ngModel)]="customer.products.shopifyApp"
+                    (ngModelChange)="
+                      enableDisable('product', { shopifyApp: customer.products.shopifyApp })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -348,7 +374,9 @@
       </tbody>
     </table>
   </div>
-  <div class="user-dashboard-table-container pb-0">
+
+  <!-- Features Section -->
+  <div class="user-dashboard-table-container pb-0" *ngIf="customer?.configuration">
     <table class="table table-borderless">
       <thead>
         <tr>
@@ -404,8 +432,12 @@
                 <label class="switch">
                   <input
                     type="checkbox"
-                    [(ngModel)]="isEnable"
-                    (ngModelChange)="enableDisable('feature')"
+                    [(ngModel)]="customer.configuration.topupPlansMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.topupPlansMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -425,7 +457,15 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.configuration.rewardPointsMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.rewardPointsMasterEnabled
+                      })
+                    "
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -444,7 +484,15 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.configuration.couponCodesMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.couponCodesMasterEnabled
+                      })
+                    "
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -463,7 +511,15 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.configuration.oneClickInstallMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.oneClickInstallMasterEnabled
+                      })
+                    "
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -482,7 +538,15 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.configuration.multiLingualMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.multiLingualMasterEnabled
+                      })
+                    "
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
@@ -501,7 +565,15 @@
                 offset="10"
               >
                 <label class="switch">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="customer.configuration.currencyConversionMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.currencyConversionMasterEnabled
+                      })
+                    "
+                  />
                   <span class="slider"></span>
                 </label>
               </span>
