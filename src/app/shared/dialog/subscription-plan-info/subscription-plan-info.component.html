@@ -1,0 +1,114 @@
+<div class="es-modal info-modal">
+    <div class="modal-header-flex">
+      <div class="modal-header-text-container">
+        <div class="mb-3 d-flex">
+          <svg
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="4" y="4" width="48" height="48" rx="24" fill="#A5A6EE" />
+            <path
+              d="M27.5 17C21.704 17 17 21.704 17 27.5C17 33.296 21.704 38 27.5 38C33.296 38 38 33.296 38 27.5C38 21.704 33.296 17 27.5 17ZM27.5 32.75C26.9225 32.75 26.45 32.2775 26.45 31.7V27.5C26.45 26.9225 26.9225 26.45 27.5 26.45C28.0775 26.45 28.55 26.9225 28.55 27.5V31.7C28.55 32.2775 28.0775 32.75 27.5 32.75ZM28.55 24.35H26.45V22.25H28.55V24.35Z"
+              fill="white"
+            />
+            <rect
+              x="4"
+              y="4"
+              width="48"
+              height="48"
+              rx="24"
+              stroke="#6365EF"
+              stroke-width="8"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="es-btn-close-container mt-0 mb-auto me-3">
+        <a class="es-btn-close" (click)="close()"></a>
+      </div>
+    </div>
+  
+    <div>
+      <p class="modal-header-text mb-0">
+        Plan Info
+      </p>
+    </div>
+    <div class="es-modal-body">
+        <ng-container *ngFor="let details of detailsRow; let i = index; last as isLast">
+            <div
+              class="row rowHeight d-flex align-items-center gap-1"
+              [ngClass]="{ 'custom-border-bottom': !isLast }"
+              *ngIf="details.display"
+            >
+              <div class="col-4 pl-0">
+                <label
+                  class="subscriber-label-text"
+                  [ngClass]="details.title === 'Contact Preferences' ? 'text-wrap' : ''"
+                >
+                  {{ details.title }}
+                </label>
+              </div>
+              <div
+                class="col-7 ml-2 d-flex align-items-center"
+                [ngClass]="details.title === 'Activation Code' ? 'activation-code-scroll' : ''"
+              >
+                <label
+                  class="subscriber-details-text"
+                >
+                 
+                  {{
+                    !planDetails[details.key] && !details.isDate
+                      ? 'NA'
+                      : planDetails[details.key]
+                  }}
+                  <span class="icon copy" *ngIf="details.title === 'Plan Expiry'">
+                    {{ (planDetails[details.key] || planDetails.expiredDate) | date: 'dd/MM/yyyy Thh:mm:ss' }}
+                  </span>
+                  <span class="icon copy" *ngIf="details.title === 'Available Reward Points'">
+                    ({{ planDetails.rewardCashValue | currency : planDetails.currency : 'symbol' : '1.0-2' }})
+                  </span>
+      
+                  <span class="icon copy" *ngIf="details.title === 'Used Reward Points'">
+                    ({{ planDetails.rewardCashValueRedeemed | currency : planDetails.currency : 'symbol' : '1.0-2' }})
+                  </span>
+                  <span class="icon copy" *ngIf="details.title === 'Coupon Code'">
+                    ({{ planDetails.couponAmount | currency : planDetails.currency : 'symbol' : '1.0-2' }})
+                  </span>
+                  
+                </label>
+      
+                <label
+                  class="subscriber-details-text ms-auto"
+                  style="width: unset"
+                  *ngIf="
+                    details.title === 'Display Name' &&
+                    (planDetails.availableRewardPoints > 0 ||
+                    planDetails.usedRewardPoints > 0)
+                  "
+                >
+                  <div class="small-text" *ngIf="planDetails.displayName">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        d="M17.5 3.74953V13.1245C17.4995 13.2135 17.48 13.3014 17.4428 13.3822C17.4056 13.463 17.3516 13.535 17.2844 13.5933C16.0906 14.6269 14.9492 14.9995 13.8609 14.9995C12.3836 14.9995 11.0039 14.3167 9.72031 13.6831C7.64609 12.6558 5.84297 11.7659 3.75 13.4191V16.8745C3.75 17.0403 3.68415 17.1993 3.56694 17.3165C3.44973 17.4337 3.29076 17.4995 3.125 17.4995C2.95924 17.4995 2.80027 17.4337 2.68306 17.3165C2.56585 17.1993 2.5 17.0403 2.5 16.8745V3.74953C2.5006 3.66049 2.52022 3.57261 2.55754 3.49176C2.59486 3.41092 2.64903 3.33899 2.71641 3.28078C5.52891 0.844841 8.05312 2.0925 10.2781 3.19328C12.4219 4.25422 14.2805 5.1714 16.4656 3.28078C16.5559 3.20249 16.6668 3.15173 16.7851 3.13454C16.9034 3.11734 17.0241 3.13443 17.133 3.18376C17.2419 3.2331 17.3343 3.31262 17.3993 3.4129C17.4644 3.51318 17.4993 3.63 17.5 3.74953Z"
+                        fill="black"
+                      />
+                    </svg>
+                  </div>
+                </label>
+              </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="es-modal-footer d-flex mt-4">
+      <button class="btn btn-primary ms-auto w-100" (click)="close()">Ok</button>
+    </div>
+</div>

@@ -10,6 +10,7 @@ import { PaginationInstance } from 'ngx-pagination';
 import { SubscriberInfoComponent } from 'src/app/shared/dialog';
 import { ConfirmComponent } from 'src/app/shared/dialog/confirm/confirm.component';
 import { SubscriberMgmtComponent } from 'src/app/shared/dialog/subscriber-mgmt/subscriber-mgmt.component';
+import { UsersService } from 'src/app/shared/service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { DialogService } from 'src/app/shared/service/dialog';
 import { PlansService } from 'src/app/shared/service/plans.service';
@@ -69,6 +70,8 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   startDate!: string;
   endDate!: string;
   currentDate = new Date().toISOString().slice(0, 10);
+  isAdmin: boolean = false;
+  isSuperAdmin: boolean = false;
 
   constructor(
     private dialogService: DialogService,
@@ -79,7 +82,8 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private _searchService: SearchService,
     private renderer: Renderer2,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private userService: UsersService
   ) {
     _searchService.getResults().subscribe((results: any) => {
       if (results) {
@@ -92,6 +96,10 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
         this.selectedDay = 'Current Year';
         this.customForm?.reset();
       }
+    });
+    userService.validateUserRole().subscribe( (value: Array<string>) => {
+      this.isAdmin = value?.includes('admin');
+      this.isSuperAdmin = value?.includes('superAdmin');
     });
   }
 
@@ -154,7 +162,6 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
 
     this.subscriberService.getAllSubscriber().subscribe(
       (res: any) => {
-        console.log(res.data);
         this.subscriberList = res.data;
         this.paginateConfig.totalItems = res?.count[0]?.totalCount;
         // this.getAllRegions();

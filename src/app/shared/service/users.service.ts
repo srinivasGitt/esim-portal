@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
   serverUrl = environment.serverUrl;
   private _currentUser$ = new BehaviorSubject<any>(undefined);
+  private _userRoles$ = new BehaviorSubject<Array<string>>([]);
   inProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient) {}
@@ -93,9 +94,13 @@ export class UsersService {
   }
 
   setCurrentUser(userDetails: any) {
+    this._userRoles$.next(userDetails?.roles || []);
     this._currentUser$.next(userDetails);
   }
 
+  validateUserRole(){
+    return this._userRoles$.asObservable();
+  }
   changeCurrentCustomer(data: any) {
     return this.http.post(`${this.serverUrl}/users/change-customer`, data);
   }
