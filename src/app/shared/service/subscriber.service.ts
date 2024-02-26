@@ -91,4 +91,8 @@ export class subscriberService {
       return this.http.get(`${this.serverUrl}/subscribers?dateRange=year`)
     }
   }
+
+  getSubscriptionsList(subscriberId: string, paginateConfig: any){
+    return this.http.get(`${this.serverUrl}/subscribers/${subscriberId}?itemsPerPage=${paginateConfig.itemsPerPage}&currentPage=${paginateConfig.currentPage - 1}`);
+  }
 }

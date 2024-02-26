@@ -17,6 +17,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
 
 import {
   LoadingSpinnerComponent,
+  MobileNumberInputComponent,
   NavbarComponent,
   NotFoundComponent,
   SidebarComponent,
@@ -43,6 +44,7 @@ import {
   SubscriberMgmtComponent,
   SubscriptionDialogComponent,
   SubscriptionInfoComponent,
+  SubscriptionPlanInfoComponent,
   SubscriptionRefundComponent,
   UploadInventoryComponent,
   UserInfoComponent,
@@ -57,13 +59,13 @@ import {
 } from './directive';
 
 import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
-import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
 import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
 import {
   CurrencyByMatchingkeyPipe,
   CurrencySymbolPipe,
   DayOrDatePipe,
   FilesizePipe,
+  FilterPipe,
   KeyToDisplayPipe,
   PhoneNumberMaskPipe,
   RoleCheckPipe,
@@ -118,6 +120,8 @@ import {
     KeyToDisplayPipe,
     CurrencyByMatchingkeyPipe,
     RoleCheckPipe,
+    FilterPipe,
+    SubscriptionPlanInfoComponent
   ],
   imports: [
     CommonModule,
@@ -147,6 +151,7 @@ import {
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    FilterPipe,
     ShowentriesPipe,
     MobileNumberInputComponent,
     DayOrDatePipe,

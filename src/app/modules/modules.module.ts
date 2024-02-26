@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FilterPipe } from '../shared/pipe/filter.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { CouponManagementComponent } from './coupon-management/coupon-management.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
@@ -21,7 +20,6 @@ import { RevenueComponent } from './reports/revenue/revenue.component';
 import { SubscriberComponent } from './reports/subscriber/subscriber.component';
 import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
 import { SettingsComponent } from './settings/settings.component';
-import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
 
@@ -32,8 +30,6 @@ import { UserComponent } from './user/user.component';
     PlanComponent,
     ReportsComponent,
     InventoryComponent,
-    SubscribeManagementComponent,
-    FilterPipe,
     SettingsComponent,
     HelpCenterComponent,
     SupportComponent,

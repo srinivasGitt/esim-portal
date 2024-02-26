@@ -85,6 +85,7 @@ const routes: Routes = [
           rewardPointsMasterEnabled: true,
         },
       },
+      { path: 'subscribers', loadChildren: () => import('./modules/subscribe-management/subscribe-management.module').then( (m)=> m.SubscribeManagementModule) },
     ],
   },
   {
