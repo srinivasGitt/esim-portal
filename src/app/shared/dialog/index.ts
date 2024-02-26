@@ -22,3 +22,4 @@ export * from './upload-inventory/upload-inventory.component';
 export * from './user-info/user-info.component';
 export * from './user-mgmt/user-mgmt.component';
 export * from './subscription-plan-info/subscription-plan-info.component';
+export * from './sa-edit-invite-user/sa-edit-invite-user.component';

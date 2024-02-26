@@ -1,0 +1,6 @@
+::ng-deep .form-select-control{
+    --input-border-color-hover: var(--input-border-color);
+    .ng-has-value{
+        border-radius: 8px;
+    }
+}

@@ -4,8 +4,6 @@ import { ForgotPasswordComponent, ResetPasswordComponent, SigninComponent } from
 import { CoreComponent } from './core/core.component';
 import {
   ContactusComponent,
-  CustomerManagementComponent,
-  DashboardComponent,
   DataUsageComponent,
   HelpCenterComponent,
   InventoryComponent,
@@ -20,8 +18,8 @@ import {
   SupportComponent,
   UserComponent,
 } from './modules';
-import { AuthGuard } from './shared/service';
 import { NotFoundComponent } from './shared/component';
+import { AuthGuard, CanMatchRoute } from './shared/service';
 
 const routes: Routes = [
   {
@@ -29,9 +27,20 @@ const routes: Routes = [
     component: CoreComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent },
-      { path: 'customer-management', component: CustomerManagementComponent },
-      { path: 'customer-management/:id', component: CustomerManagementComponent },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: 'customers',
+        loadChildren: () =>
+          import('./modules/customer-management/customer-management.module').then(
+            (m) => m.CustomerManagementModule
+          ),
+        canMatch: [CanMatchRoute]
+      },
+      { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'user-management', component: UserComponent },
       { path: 'user-management/:custId', component: UserComponent },

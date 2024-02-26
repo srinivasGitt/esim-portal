@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class CustomerService {
   serverUrl = environment.serverUrl;
   authToken: string = '';
+  private customer = new Subject<any>();
 
   constructor(private http: HttpClient ) { }
   /*
@@ -29,7 +31,7 @@ export class CustomerService {
     childCustomers(){
       const headers = new HttpHeaders({})
       .set('Authorization', 'Bearer ' + this.authToken);
-      return this.http.get(`${this.serverUrl}/customers`, this.getHeader());    
+      return this.http.get(`${this.serverUrl}/customers`, this.getHeader());
     }
 
     customers(){
@@ -52,7 +54,7 @@ export class CustomerService {
       console.log(data);
       return this.http.put(`${this.serverUrl}/customers/${id}`, data, this.getHeader());
     }
- 
+
     deleteCustomer(id: any) {
       return this.http.delete(`${this.serverUrl}/customers/${id}`);
     }
@@ -61,7 +63,7 @@ export class CustomerService {
     childCustomers(){
       const headers = new HttpHeaders({})
       .set('Authorization', 'Bearer ' + this.authToken);
-      return this.http.get(`${this.serverUrl}/customers`);    
+      return this.http.get(`${this.serverUrl}/customers`);
     }
 
     customers(itemsPerPage?: number, currentPage?: number) {
@@ -104,4 +106,21 @@ export class CustomerService {
         return this.http.get(`${this.serverUrl}/customers?dateRange=all`)
       }
     }
-} 
+
+    sendCustomer(customer: any) {
+      this.customer.next(customer);
+    }
+
+    getCustomer(): Observable<any[]> {
+      return this.customer.asObservable();
+    }
+
+    getCustomerHierachy() {
+      return this.http.get(`${this.serverUrl}/customers/hierarchy`);
+    }
+
+  // Get Customer by CustomerId
+  getCustomerByCustomerId(customerId: string) {
+    return this.http.get(`${this.serverUrl}/customers/${customerId}/statistics`);
+  }
+}

@@ -9,7 +9,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DialogService } from './service/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangePicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -17,6 +17,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
 
 import {
   LoadingSpinnerComponent,
+  MobileNumberInputComponent,
   NavbarComponent,
   NotFoundComponent,
   SidebarComponent,
@@ -38,10 +39,12 @@ import {
   ProfileLogComponent,
   QrCodePopupComponent,
   ReportAlertComponent,
+  SaEditInviteUserComponent,
   SubscriberInfoComponent,
   SubscriberMgmtComponent,
   SubscriptionDialogComponent,
   SubscriptionInfoComponent,
+  SubscriptionPlanInfoComponent,
   SubscriptionRefundComponent,
   UploadInventoryComponent,
   UserInfoComponent,
@@ -55,8 +58,20 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, FilterPipe, PhoneNumberMaskPipe, ShowentriesPipe } from './pipe';
-import { SubscriptionPlanInfoComponent } from './dialog/subscription-plan-info/subscription-plan-info.component';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
+import {
+  CurrencyByMatchingkeyPipe,
+  CurrencySymbolPipe,
+  DayOrDatePipe,
+  FilesizePipe,
+  FilterPipe,
+  KeyToDisplayPipe,
+  PhoneNumberMaskPipe,
+  RoleCheckPipe,
+  SearchFilterPipe,
+  ShowentriesPipe,
+} from './pipe';
 
 @NgModule({
   declarations: [
@@ -95,8 +110,17 @@ import { SubscriptionPlanInfoComponent } from './dialog/subscription-plan-info/s
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
-    FilterPipe,
+    OtpVerificationComponent,
+    SearchFilterPipe,
+    SaEditInviteUserComponent,
+    MobileNumberInputComponent,
     ShowentriesPipe,
+    SearchFilterPipe,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    CurrencyByMatchingkeyPipe,
+    RoleCheckPipe,
+    FilterPipe,
     SubscriptionPlanInfoComponent
   ],
   imports: [
@@ -112,6 +136,7 @@ import { SubscriptionPlanInfoComponent } from './dialog/subscription-plan-info/s
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    AngularOtpLibModule,
   ],
   exports: [
     SubscriptionDialogComponent,
@@ -127,7 +152,16 @@ import { SubscriptionPlanInfoComponent } from './dialog/subscription-plan-info/s
     CurrencySymbolPipe,
     NumberOnlyDirective,
     FilterPipe,
-    ShowentriesPipe
+    ShowentriesPipe,
+    MobileNumberInputComponent,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatDateRangePicker,
+    CurrencyByMatchingkeyPipe,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

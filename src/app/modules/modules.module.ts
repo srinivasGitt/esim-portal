@@ -7,12 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FilterPipe } from '../shared/pipe/filter.pipe';
-import { ShowentriesPipe } from '../shared/pipe/showentries.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { CouponManagementComponent } from './coupon-management/coupon-management.component';
-import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactusComponent } from './help-center/contactus/contactus.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { SupportComponent } from './help-center/support/support.component';
@@ -21,21 +17,19 @@ import { PlanComponent } from './plan/plan.component';
 import { DataUsageComponent } from './reports/data-usage/data-usage.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RevenueComponent } from './reports/revenue/revenue.component';
+import { SubscriberComponent } from './reports/subscriber/subscriber.component';
+import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
-import { SubscriberComponent } from './reports/subscriber/subscriber.component';
-import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     SubscriptionComponent,
     PlanComponent,
-    DashboardComponent,
     ReportsComponent,
     InventoryComponent,
-    CustomerManagementComponent,
     SettingsComponent,
     HelpCenterComponent,
     SupportComponent,
@@ -58,7 +52,7 @@ import { SubscriptionReportComponent } from './reports/subscription-report/subsc
     MatFormFieldModule,
     MatDatepickerModule,
   ],
-  exports: [UserComponent, SubscriptionComponent, PlanComponent, DashboardComponent],
+  exports: [UserComponent, SubscriptionComponent, PlanComponent],
   providers: [CurrencyPipe],
 })
 export class ModulesModule {

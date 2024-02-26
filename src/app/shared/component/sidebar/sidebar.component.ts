@@ -10,6 +10,7 @@ import {
 } from '../../service';
 import { ConfigurationService } from '../../service/configuration.service';
 import { LocalStorageService } from '../../service/local-storage.service';
+import { SidebarService } from '../../service/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,17 +29,23 @@ export class SidebarComponent implements OnInit {
   isParentActive: any;
   clientConfig!: any;
   routeConfig: any;
+  isCustomerSelected = false;
+  isRole: any;
+  adminMenuList: any = [];
+  superAdminMenuList: any = [];
+  selectedCustomerList: any = [];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     private dashboardService: DashboardService,
+    private sidebarService: SidebarService,
     private usersService: UsersService,
     private alertService: AlertService,
     private dialogService: DialogService,
     private localStorage: LocalStorageService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
   ) {
     router.events.subscribe((data: any) => {
       if (data instanceof NavigationEnd) {
@@ -58,10 +65,12 @@ export class SidebarComponent implements OnInit {
     dashboardService.getAppTheme().subscribe((data: any) => {
       this.isDarkTheme = data;
     });
+
     usersService.getCurrentUser().subscribe((result) => {
       this.userDetails = result;
       if (this.userDetails?.roles) {
-        this.fetchNavBarMenuList(this.userDetails.roles);
+        this.isRole = this.userDetails?.roles;
+        this.fetchSideBarMenuList();
       }
     });
   }
@@ -70,19 +79,31 @@ export class SidebarComponent implements OnInit {
     if (!localStorage.getItem('authToken')) {
       this.router.navigate(['/signin']);
     } else {
-      // this.getAllCustomer();
       this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     }
+
+    this.customerService.getCustomer()
+      .subscribe(res => {
+        if(res) {
+          this.isCustomerSelected = true;
+          this.selectedCustomerList = res;
+          console.log(this.selectedCustomerList);
+        } else {
+          this.isCustomerSelected = false;
+          this.selectedCustomerList = [];
+        }
+      });
+      this.getCustomerHierarchy();
   }
 
-  async fetchNavBarMenuList(roles: Array<string>) {
+  async fetchSideBarMenuList(roles?: Array<string>) {
     this.usersService.inProgress.next(true);
     
-    if (!roles.includes('superAdmin')) {
+    if (roles && !roles.includes('superAdmin')) {
       await this.getClientConfiguration();
     }
 
-    let menuList = this.dashboardService.getNavBarMenus(roles);
+    let menuList = this.sidebarService.getSideBarMenus();
 
     if (this.clientConfig) {
       if (!this.clientConfig?.rewardPointsMasterEnabled) {
@@ -95,24 +116,26 @@ export class SidebarComponent implements OnInit {
     }
 
     this.sidebarMenuList = menuList;
+
+    this.superAdminMenuList = this.sidebarMenuList.filter(ele => ele.accessRole.includes('superAdmin'));
+    this.adminMenuList = this.sidebarMenuList.filter(ele => ele.accessRole.includes('admin'));
+
     this.usersService.inProgress.next(false);
+  }
+
+  getCustomerHierarchy() {
+    this.customerService.getCustomerHierachy()
+      .subscribe((res: any) => {
+        console.log(res);
+        this.customerList = res;
+      }, err => {
+
+      })
   }
 
   // Client Feature Configuration
   getClientConfiguration() {
     const clientConfig = JSON.parse(localStorage.getItem('config')!);
-
-    // this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
-    //   (res: any) => {
-    //     if (res && res.data) {
-    //       this.clientConfig = res.data;
-    //       this.localStorage.setCacheConfig(JSON.stringify(res.data));
-    //     }
-    //   },
-    //   (err) => {
-    //     this.alertService.error(err.error.message, err.status);
-    //   }
-    // );
 
     return new Promise((resolve, reject) => {
       this.configurationService.getConfigurationSetting(clientConfig?.cacheId).subscribe(
@@ -165,10 +188,6 @@ export class SidebarComponent implements OnInit {
     );
   }
 
-  customerSidebar() {
-    // this.show=!this.show;
-  }
-
   closeSidebar() {
     if (this.show === true) {
       this.show = false;
@@ -202,8 +221,54 @@ export class SidebarComponent implements OnInit {
       });
   }
 
-  showSubmenu(itemEl: HTMLElement) {
+  showSubmenu(itemEl: HTMLElement, title: any) {
     itemEl.classList.toggle('showMenu');
+
+    if(title === 'Customers') {
+      // this.customerList = [{
+      //   "_id": "1",
+      //   "name": "Travel Sim",
+      //   "children": [
+      //     {
+      //       "_id": "2",
+      //       "name": "Customer 1",
+      //       "children": [
+      //         {
+      //           "_id": "3",
+      //           "name": "Sub Customer 1",
+      //           "children": [
+      //             {
+      //               "_id": "4",
+      //               "name": "Reseller 1",
+      //             }
+      //           ]
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // }, {
+      //   "_id": "5",
+      //   "name": "Roampass",
+      //   "children": [
+      //     {
+      //       "_id": "6",
+      //       "name": "Customer 2",
+      //       "children": [
+      //         {
+      //           "_id": "7",
+      //           "name": "Sub Customer 2",
+      //           "children": [
+      //             {
+      //               "_id": "8",
+      //               "name": "Reseller 2",
+      //             }
+      //           ]
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // }]
+    }
   }
 
   findUrl(menu: any) {
