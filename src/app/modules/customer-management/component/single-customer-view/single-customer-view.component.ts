@@ -141,7 +141,9 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
   }
 
   // Enable/Disable
-  enableDisable(type: string, payload: any) {
+  enableDisable(type: string, payload: any, event: any) {
+    event.preventDefault();
+
     let configObj: any = {};
 
     if (type === 'product') {
@@ -167,6 +169,7 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
         console.log(data);
       });
   }
+
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
