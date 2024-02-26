@@ -478,20 +478,16 @@
     .btn-dashboard-head:active {
       color: #fff;
       background-color: var(--add-button-bg-color);
-      border-radius: 25px;
-      padding: 4px 26px;
-      width: 12vw;
+      border-radius: 100px;
+      padding: 4px 28px;
       height: 50px;
       border: none;
-      font-size: 0.875rem;
+      font-size: 14px;
 
       .btn-add-icon {
-        background: #fff;
-        color: var(--add-button-bg-color);
         height: 20px;
         width: 20px;
-        line-height: 17px;
-        border-radius: 50%;
+        margin-right: 26px;
       }
 
       &:hover {
@@ -782,7 +778,7 @@
       height: calc(97vh - 360px);
       padding-top: 10px;
       overflow-x: hidden;
-      font-size: 1.051vw;
+      font-size: 20px;
     }
     .t-grid-table-wrapper {
       display: grid;
@@ -790,7 +786,7 @@
       grid-gap: 1;
     }
     .table-headers {
-      font-size: 1rem;
+      font-size: 20px;
       font-weight: 500;
       color: var(--table-heading-text-color);
       svg {
@@ -824,7 +820,7 @@
     }
     .t-body-bg {
       line-height: 50px;
-      font-size: 1rem;
+      font-size: 20px;
 
       .t-box:not(.action-section) {
         color: var(--table-text-color);

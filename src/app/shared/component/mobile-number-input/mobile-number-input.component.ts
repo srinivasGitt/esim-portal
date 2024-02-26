@@ -27,10 +27,11 @@ export class MobileNumberInputComponent implements OnInit {
       const phoneNumber = Array.isArray(this.inputControl.value)
         ? this.inputControl.value[0].split(' ')
         : this.inputControl.value.split(' ');
-      console.log(this.inputControl, phoneNumber);
       if (phoneNumber.length == 2) {
         this.countryDialCode = phoneNumber[0];
         this.phoneNumber.setValue(phoneNumber[1]);
+      } else {
+        this.phoneNumber.setValue(this.inputControl.value);
       }
     }
   }
@@ -50,6 +51,8 @@ export class MobileNumberInputComponent implements OnInit {
     this.inputControl.markAsTouched();
     if (this.phoneNumber?.value && this.phoneNumber?.value?.trim() != '') {
       this.inputControl.setValue(`${this.countryDialCode} ${this.phoneNumber.value}`);
+    } else {
+      this.inputControl.setValue('');
     }
   }
 }

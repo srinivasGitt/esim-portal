@@ -84,10 +84,10 @@
     </div>
     <div class="display-name" *ngIf="userDetails?.displayName">
         <!-- <p class="modal-header-text mb-0">{{userDetails.displayName | titlecase }}</p> -->
-        <label class="subscriber-details-text text-overflow-ellipsis" *ngIf="userDetails.displayName.length > 20" [tooltip]="userDetails.displayName" placement="top" delay="100" offset="0">
+        <label class="subscriber-details-text text-overflow-ellipsis modal-header-text" *ngIf="userDetails.displayName.length > 20" [tooltip]="userDetails.displayName" placement="top" delay="100" offset="0">
             {{ userDetails.displayName | titlecase }}
         </label>
-        <label class="subscriber-details-text" *ngIf="userDetails.displayName.length<= 20">
+        <label class="subscriber-details-text modal-header-text" *ngIf="userDetails.displayName.length<= 20">
             {{ userDetails.displayName | titlecase }}
         </label>
     </div>
@@ -139,7 +139,7 @@
                           {{ userDetails.email}}
                         </span>
                     </span>
-                    <span class="icon mt-2" *ngIf="userDetails.email"  (click)="copyToClipboard($event,userDetails.email)" [tooltip]="copyText" placement="top" delay="100" offset="5">
+                    <span class="icon mt-2" *ngIf="userDetails.email && !isSuperAdmin"  (click)="copyToClipboard($event,userDetails.email)" [tooltip]="copyText" placement="top" delay="100" offset="5">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_1322_24072" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                             <rect width="20" height="20" fill="#D9D9D9"/>
