@@ -195,7 +195,7 @@
           >
             <option value="null" selected disabled hidden>Choose a Role</option>
             <option *ngFor="let userRole of userRoles" [value]="userRole">
-              {{ userRole }}
+              {{ userRole | titlecase }}
             </option>
           </select>
           <div>

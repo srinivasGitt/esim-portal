@@ -43,11 +43,16 @@ export class CustomerModuleService {
     return this.http.put(`${this.serverUrl}/customers/${customerId}`, data);
   }
 
-  // Get Customer by CustomerId
+  // Get Customer Details and Statistics by CustomerId
   getCustomerDetailsByCustomerId(customerId: string) {
     return [
       this.http.get(`${this.serverUrl}/customers/${customerId}`),
       this.http.get(`${this.serverUrl}/customers/${customerId}/statistics`),
     ];
+  }
+
+  // Get Customer by CustomerId
+  getCustomerByCustomerId(customerId: string) {
+    return this.http.get(`${this.serverUrl}/customers/${customerId}`);
   }
 }
