@@ -201,11 +201,15 @@
 <!-- Sales Graph -->
 <div class="row dashboard-border-top">
   <div class="col-pt-4 my-3">
-    <div class="dashboard-graph w-100">
+    <div class="dashboard-graph w-100" [class.custom-height]="salesGraphData.length === 0">
       <div class="dashboard-heading d-flex align-items-center mb-2">
         <h4>Sales Compare Graph</h4>
       </div>
-      <canvas id="salesChart"></canvas>
+      <canvas id="salesChart" *ngIf="salesGraphData && salesGraphData.length > 0; else msg"></canvas>
+
+      <ng-template #msg>
+        <p class="no-data-msg mt-5">There's currently no data for Sales Compare Graph at this moment.</p>
+      </ng-template>
     </div>
   </div>
 </div>
