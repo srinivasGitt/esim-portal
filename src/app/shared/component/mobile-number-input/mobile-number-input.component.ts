@@ -1,17 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { RegionsService } from '../../service';
 
 @Component({
   selector: 'app-mobile-number-input',
   templateUrl: './mobile-number-input.component.html',
-  styleUrls: ['./mobile-number-input.component.scss']
+  styleUrls: ['./mobile-number-input.component.scss'],
 })
 export class MobileNumberInputComponent implements OnInit {
-
   countryList: Array<any> = [
-    {'name': 'India', 'dial_code': '+91'},
-    {'name': 'USA', 'dial_code': '+1'},
+    { name: 'India', dial_code: '+91' },
+    { name: 'USA', dial_code: '+1' },
   ];
 
   country: FormControl = new FormControl('');
@@ -21,35 +20,36 @@ export class MobileNumberInputComponent implements OnInit {
   constructor(private regionService: RegionsService) {}
 
   ngOnInit(): void {
-    this.regionService.getCountries().subscribe(
-      (result : any) => {
-      }
-    );
-    if(this.inputControl?.value?.trim() != ''){
-      const phoneNumber = this.inputControl?.value?.split(" ") || [];
-      if(phoneNumber.length == 2){
+    this.regionService.getCountries().subscribe((result: any) => {
+      console.log(result);
+    });
+    if (this.inputControl.value && this.inputControl?.value?.trim() != '') {
+      const phoneNumber = Array.isArray(this.inputControl.value)
+        ? this.inputControl.value[0].split(' ')
+        : this.inputControl.value.split(' ');
+      if (phoneNumber.length == 2) {
         this.countryDialCode = phoneNumber[0];
-        this.phoneNumber.setValue(phoneNumber[1])
+        this.phoneNumber.setValue(phoneNumber[1]);
       } else {
         this.phoneNumber.setValue(this.inputControl.value);
       }
     }
   }
 
-  trackCountries(index: any, item : any) {
+  trackCountries(index: any, item: any) {
     return item._id;
   }
 
-  setDialCode(country : any){
+  setDialCode(country: any) {
     this.countryDialCode = country.dial_code;
-    if(this.phoneNumber?.value?.trim() != ''){
+    if (this.phoneNumber?.value && this.phoneNumber?.value?.trim() != '') {
       this.inputControl.setValue(`${this.countryDialCode} ${this.phoneNumber.value}`);
     }
   }
 
-  handleEvent(event : any){
-    this.inputControl.markAsTouched()
-    if(this.phoneNumber?.value?.trim() != ''){
+  handleEvent(event: any) {
+    this.inputControl.markAsTouched();
+    if (this.phoneNumber?.value && this.phoneNumber?.value?.trim() != '') {
       this.inputControl.setValue(`${this.countryDialCode} ${this.phoneNumber.value}`);
     } else {
       this.inputControl.setValue('');

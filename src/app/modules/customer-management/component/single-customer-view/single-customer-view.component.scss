@@ -1,0 +1,133 @@
+.contact-details,
+.address-details,
+.count-details {
+  height: 102px;
+  border-radius: 10px;
+  border: 1px;
+  font-family: SF Pro Display;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+  border: 1px solid rgba(237, 237, 237, 1);
+}
+
+.contact-details {
+  // width: 249px;
+  font-size: 14px;
+  background: linear-gradient(0deg, #ededed, #ededed);
+}
+
+.address-details {
+  // width: 167px;
+  font-size: 12px;
+  background: linear-gradient(0deg, #ededed, #ededed);
+}
+
+.count-details {
+  // width: 112px;
+  font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  h1 {
+    font-family: 'Inter';
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 0;
+  }
+}
+
+.btn-dashboard-head,
+.btn-dashboard-head:active {
+  color: #fff;
+  background-color: var(--add-button-bg-color);
+  padding: 4px 26px;
+  width: 100px;
+  height: 37px;
+  border: none;
+  font-size: 0.875rem;
+  border-radius: 100px;
+}
+
+table {
+  tr {
+    height: 50px !important;
+
+    th,
+    td {
+      vertical-align: middle;
+      font-family: SF Pro Display;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+  }
+  thead tr,
+  tbody tr:not(:last-child) {
+    border-bottom: 1px dashed rgb(212, 212, 212);
+  }
+
+    .products-tbody {
+      td:nth-child(1) {
+        width: 70%;
+      }
+      td:nth-child(2),
+      td:nth-child(3) {
+        width: 10%;
+      }
+      td:nth-child(4) {
+        width: 10%;
+      }
+    }
+
+  .feature-tbody {
+      td:nth-child(1) {
+        width: 90%;
+      }
+      td:nth-child(2) {
+        width: 10%;
+      }
+  }
+
+  .user-table-action {
+    display: flex;
+    align-items: center;
+    width: 56px;
+    background-color: var(--action-background-color);
+    border-radius: 40px;
+    height: 44px;
+    justify-content: center;
+    .user-table-action-icon {
+      cursor: pointer;
+    }
+
+    path {
+      &:not(.color-stroke) {
+        fill: var(--svg-color);
+      }
+      &.color-stroke {
+        stroke: var(--svg-color);
+      }
+    }
+  }
+}

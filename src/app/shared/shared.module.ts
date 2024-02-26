@@ -9,7 +9,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DialogService } from './service/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangePicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -38,6 +38,7 @@ import {
   ProfileLogComponent,
   QrCodePopupComponent,
   ReportAlertComponent,
+  SaEditInviteUserComponent,
   SubscriberInfoComponent,
   SubscriberMgmtComponent,
   SubscriptionDialogComponent,
@@ -46,7 +47,6 @@ import {
   UploadInventoryComponent,
   UserInfoComponent,
   UserMgmtComponent,
-  SaEditInviteUserComponent
 } from './dialog';
 
 import {
@@ -56,8 +56,20 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe, SearchFilterPipe } from './pipe';
+import { AngularOtpLibModule } from 'src/lib/angular-otp-box';
 import { MobileNumberInputComponent } from './component/mobile-number-input/mobile-number-input.component';
+import { OtpVerificationComponent } from './dialog/otp-verification/otp-verification.component';
+import {
+  CurrencyByMatchingkeyPipe,
+  CurrencySymbolPipe,
+  DayOrDatePipe,
+  FilesizePipe,
+  KeyToDisplayPipe,
+  PhoneNumberMaskPipe,
+  RoleCheckPipe,
+  SearchFilterPipe,
+  ShowentriesPipe,
+} from './pipe';
 
 @NgModule({
   declarations: [
@@ -96,9 +108,16 @@ import { MobileNumberInputComponent } from './component/mobile-number-input/mobi
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    OtpVerificationComponent,
     SearchFilterPipe,
     SaEditInviteUserComponent,
-    MobileNumberInputComponent
+    MobileNumberInputComponent,
+    ShowentriesPipe,
+    SearchFilterPipe,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    CurrencyByMatchingkeyPipe,
+    RoleCheckPipe,
   ],
   imports: [
     CommonModule,
@@ -113,6 +132,7 @@ import { MobileNumberInputComponent } from './component/mobile-number-input/mobi
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    AngularOtpLibModule,
   ],
   exports: [
     SubscriptionDialogComponent,
@@ -127,6 +147,16 @@ import { MobileNumberInputComponent } from './component/mobile-number-input/mobi
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    ShowentriesPipe,
+    MobileNumberInputComponent,
+    DayOrDatePipe,
+    KeyToDisplayPipe,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatDateRangePicker,
+    CurrencyByMatchingkeyPipe,
   ],
   providers: [CurrencyPipe, DatePipe],
 })

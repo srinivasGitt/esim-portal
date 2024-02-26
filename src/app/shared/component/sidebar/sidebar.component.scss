@@ -1,6 +1,6 @@
 .sidebar-left{
     background-color:var(--dark-background);
-    height: 100% ;
+    height: 100%;
     margin-right: 5px;
     flex-shrink: 0;
 }
@@ -154,7 +154,7 @@
     border-left: 2px solid rgba(0, 0, 0, 0.14);
     padding-left: 15px;
     margin-top: 5px;
-    width: 195px;
+    // width: 195px;
     margin-left: -8px;
 }
 
@@ -175,11 +175,121 @@ svg{
 }
 
 .sidebar-sub-title {
-    display: flex;
+    // display: flex;
     align-items: center;
     // height: 48px;
-    margin: 8px auto;
+    // margin: 8px auto;
     font-weight: 400;
     font-size: var(--sidebar-text-size);
     font-family: var(--font-family-inter);
 }
+
+
+// accordian style
+
+.accordian-base-1{
+    padding-left: 5px;
+    padding-right: 7px;
+    margin-left: 20px;
+    border-left: 1px solid lightgray;
+    max-height: 149px;
+    overflow: auto;
+
+    .accordion-base-item-1{
+        background-color: rgba(0, 0, 0, 0.05);
+        margin-bottom: 0;
+        border: none;
+
+        .accordion-button{
+            background-color: transparent;
+            outline: none;
+            box-shadow: none;
+            font-size: 14px;
+
+            &:after {
+                margin-right: 15px;
+                width: 12px;
+                height: 12px;
+                background-size: contain;
+            }
+
+            &:hover{
+                background-color: transparent;
+            }
+        }
+
+        .accordian-base-2{
+            // padding-left: 10px;
+            .accordion-base-item-2{
+                margin-bottom: 0;
+                border: none;
+                background-color: rgba(0, 0, 0, 0.05);
+                .accordion-header{
+                    padding: 10px;
+                    margin-left: 10px;
+                    .accordion-button.collapsed{
+                        border-left: 3px solid rgba(98, 100, 239, 0.10);
+                    }
+                    .accordion-button{
+                        border-left: 3px solid rgba(98, 100, 239);
+                        border-radius: 0px;
+                        padding-top: 0;
+                        padding-bottom: 0;
+
+                        &:after {
+                            margin-right: 5px;
+                        }
+                    }
+                }
+
+                .accordian-base-3{
+                    // padding-left: 10px;
+                    .accordion-base-item-3{
+                        margin-bottom: 0;
+                        border: none;
+                        background-color: rgba(0, 0, 0, 0.05);
+                        .accordion-header{
+                            padding: 10px;
+                            margin-left: 20px;
+                            .accordion-button.collapsed{
+                                border-left: 3px solid rgba(98, 100, 239, 0.10);
+                            }
+                            .accordion-button{
+                                border-left: 3px solid rgba(98, 100, 239);
+                                border-radius: 0px;
+                                padding-top: 0;
+                                padding-bottom: 0;
+                            }
+                        }
+
+                        .accordian-base-4{
+                            // padding-left: 10px;
+                            .accordion-base-item-4{
+                                margin-bottom: 0;
+                                border: none;
+                                background-color: rgba(0, 0, 0, 0.05);
+                                .accordion-header{
+                                    padding: 10px;
+                                    margin-left: 30px;
+                                    .accordion-button.collapsed{
+                                        border-left: 3px solid rgba(98, 100, 239, 0.10);
+                                    }
+                                    .accordion-button{
+                                        border-left: 3px solid rgba(98, 100, 239);
+                                        border-radius: 0px;
+                                        padding-top: 0;
+                                        padding-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+

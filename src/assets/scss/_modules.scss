@@ -131,7 +131,8 @@
 
   // Sidebar layout
   .sidebar-main {
-    width: 15vw;
+    // width: 15vw;
+    width: 333px;
     height: 100vh;
     padding: 0 20px 0 0;
     // background-color: var(--card-background-color);
@@ -140,19 +141,23 @@
       // border-radius: var(--dark-sidebar-border-radius);
       // height: calc(100vh - 40px);
       height: 100vh;
-      width: 14vw;
-      padding: 30px 8px;
+      // width: 14vw;
+      width: 333px;
+      // padding: 30px 8px;
+      padding: 46px 28px;
       // box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
       background-color: var(--card-background-color);
 
       .sidebar-brand-parent {
         // width: 80%;
         // margin: 0 auto 20px;
-        padding: 0 auto;
-        text-align: center;
+        // padding: 0 auto;
+        // text-align: center;
 
         .brand-logo {
-          width: 80%;
+          // width: 80%;
+          height: 42px;
+          width: auto;
         }
       }
 
@@ -162,7 +167,7 @@
         margin: 30px 0;
         padding: 0;
         height: calc(100vh - 170px);
-        overflow-y: scroll;
+        overflow-y: auto;
 
         .sidebar-main-title {
           display: flex;
@@ -239,7 +244,7 @@
 
       .meta-footer {
         position: relative;
-        bottom: 0;
+        bottom: 20px;
         color: var(--sidebar-link-color);
         font-weight: 400;
         font-size: var(--sidebar-text-size);
@@ -252,18 +257,21 @@
 
   // Main area layout
   .dashboard-main {
-    width: calc(100vw - 260px);
-    padding: 0 20px 0 0;
+    // width: calc(100vw - 260px);
+    flex: 1;
+    // padding: 0 20px 0 0;
+    padding: 0 20px 20px 20px;
     background-color: var(--main-background-color);
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100vh;
 
     .navbar-main {
       background: var(--main-background-color);
       position: fixed;
-      width: calc(100vw - 285px);
+      width: calc(100vw - 333px);
       padding-top: 25px;
       padding-bottom: 20px;
+      padding-right: 20px;
       z-index: 1;
     }
   }
@@ -2027,8 +2035,8 @@
       height: 45px;
 
       .user-table-action-icon {
-        width: 15px;
-        margin-right: 25px;
+        // width: 15px;
+        // margin-right: 25px;
         cursor: pointer;
       }
 
@@ -2052,6 +2060,85 @@
         background-color: var(--add-button-bg-color);
         border: none;
         color: #fff !important;
+      }
+    }
+  }
+  .switch {
+    margin-bottom: 0px;
+    position: relative;
+    // display: inline-block;
+    display: flex;
+    width: 27px;
+    // margin-top: 10px !important;
+    height: 18px;
+    align-items: center;
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .round {
+      border-radius: 34px;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid var(--table-heading-text-color);
+      transition: 0.4s;
+      border-radius: 10px;
+      &:before {
+        background: var(--table-heading-text-color);
+        position: absolute;
+        content: '';
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        left: 2px;
+        bottom: 2px;
+        transition: 0.4s;
+      }
+    }
+  }
+  input:checked + .slider {
+    background-color: var(--dark-primary-background);
+    // border: 0;
+    border: 1px solid var(--dark-primary-background);
+    &:before {
+      transform: translateX(10px);
+      background-color: var(--card-background-color);
+    }
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .btn-dashboard-head {
+    width: auto !important;
+  }
+
+  .sub-customer-view-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgb(128, 130, 131);
+
+    .breadcrumb{
+      &-item {
+        font-family: 'SF Pro Display';
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: 0em;
+        color: #000;
+      }
+
+      .active {
+        color: rgba(99, 101, 239, 1);
       }
     }
   }
@@ -2400,7 +2487,7 @@
       }
     }
 
-    .email-ellipsis{
+    .email-ellipsis {
       text-overflow: ellipsis;
       word-break: keep-all;
       white-space: nowrap;
@@ -2431,6 +2518,12 @@
 
   // Form
   .es-modal-form {
+    .es-modal-form-label {
+      color: var(--modal-form-label-text-color);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
     .form-control {
       // border-color: var(--dark-right-border);
       &[type='number'],
@@ -4116,7 +4209,7 @@
   width: 85%;
 }
 
-.w-80{
+.w-80 {
   width: 80%;
 }
 
@@ -4599,7 +4692,196 @@
   gap: 50px;
 }
 
-.pos-top{
+.pos-top {
   position: relative;
   top: -7px;
+}
+
+// SA - Customer CSS
+.customer-form-header {
+  .back-btn {
+    color: #000;
+    font-family: 'SF Pro Display';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 160% */
+    letter-spacing: -0.4px;
+  }
+  .btn:active,
+  .back-btn:active,
+  .action-btn:active {
+    color: #000;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .action-btn {
+    width: 126px;
+    height: 58px;
+    padding: 13px 31px 13px 30px;
+    border-radius: 100px;
+    border: 1px solid #d0d5dd;
+    background: #e6e6e6;
+    color: #000;
+    text-align: center;
+    font-family: 'SF Pro Display';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 145.455% */
+    letter-spacing: -0.44px;
+  }
+}
+
+.customer-form {
+  height: 80vh;
+
+  .left-div {
+    width: 20% !important;
+  }
+
+  .right-div {
+    width: 79% !important;
+
+    input {
+      height: 44px;
+    }
+
+    .form-check {
+      height: 56px;
+      border-radius: 8px;
+      background: rgba(99, 101, 239, 0.05);
+    }
+
+    .form-control,
+    .phone-number-form-control {
+      border-color: rgba(105, 105, 105, 0.5);
+      &:focus {
+        background-color: transparent !important;
+        border-color: rgba(105, 105, 105, 0.5);
+        outline: 0;
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  .left-div,
+  .right-div {
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 7px 10px 36px 0px rgba(65, 35, 184, 0.15);
+  }
+
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    // margin-top: 30px;
+    // margin-bottom: 30px;
+    height: 100%;
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      color: #a5a6ee;
+      border-radius: 50%;
+      border: 1px solid #a5a6ee;
+      background: #ffffff;
+      padding: 8.296px;
+    }
+
+    .active {
+      color: #ffffff;
+      border: 1px solid #6365ef;
+      background: #6365ef !important;
+    }
+  }
+
+  input::placeholder {
+    color: var(--placeholder-color);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  label {
+    color: #000 !important;
+    font-family: 'SF Pro Display' !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 130% !important; /* 20.8px */
+  }
+
+  .use-div {
+    border-radius: 10px;
+    background: rgba(105, 112, 241, 0.1);
+    padding: 10px;
+  }
+
+  .fill-none {
+    fill: none !important;
+  }
+
+  .fill-color {
+    fill: var(--table-heading-text-color);
+  }
+
+  .stroke-color {
+    stroke: var(--table-heading-text-color);
+  }
+
+  .position-absolute {
+    position: absolute;
+    top: 36px;
+    right: 10px;
+  }
+
+  .line {
+    display: block;
+    height: 1px;
+    background-color: #a5a6ee !important;
+    // margin: auto 0;
+    // width: 50%;
+    margin-left: -90%;
+    transform: rotate(90deg);
+  }
+
+  .title-section {
+    h2 {
+      color: #000;
+      font-family: 'SF Pro Display';
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 28px; /* 127.273% */
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.5);
+      font-family: 'SF Pro Display';
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px; /* 175% */
+      letter-spacing: -0.32px;
+    }
+    .form-group-title {
+      font-family: 'SF Pro Display';
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+  }
+
+  .border-purple {
+    border: 1px solid var(--input-border-color-hover) !important;
+  }
+
+  .border-error {
+    border: 1px solid rgb(225, 112, 112) !important;
+  }
 }
