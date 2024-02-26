@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, catchError, forkJoin, takeUntil, throwError } from 'rxjs';
-import { UserMgmtComponent } from 'src/app/shared/dialog';
+import { InviteAgentComponent, UserMgmtComponent } from 'src/app/shared/dialog';
 import {
   OtpVerificationComponent,
   buttonText,
@@ -9,7 +9,6 @@ import {
 } from 'src/app/shared/dialog/otp-verification';
 import { AlertService, CustomerService, DialogService } from 'src/app/shared/service';
 import { CustomerModuleService } from '../../service/customer-module.service';
-import { InviteAgentComponent } from '../invite-agent/invite-agent.component';
 
 @Component({
   selector: 'app-single-customer-view',
@@ -111,11 +110,12 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
         context: {
           data: {},
           title: 'Invite User',
-          customerId: '1',
+          customerId: this.customer._id,
         },
       })
       .instance.close.subscribe((data: any) => {
         if (data) {
+          this.getCustomerDetails(this.customerId);
           this.alertService.success(data.message);
         }
       });
@@ -129,12 +129,13 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
         context: {
           data: {},
           title: 'Invite Agent',
-          customerId: '1',
+          customerId: this.customer._id,
         },
       })
       .instance.close.subscribe((data: any) => {
         if (data) {
-          this.alertService.success(data.message);
+          this.getCustomerDetails(this.customerId);
+          this.alertService.success(data.message, 'agent');
         }
       });
   }
