@@ -7,8 +7,8 @@ import { ICustomResponse } from 'src/app/shared/models';
 import { Customer } from 'src/app/shared/models/customer';
 import { AlertService, DialogService } from 'src/app/shared/service';
 import { CustomValidators } from 'src/app/shared/validators/custom-validators';
+import { CustomerModuleService } from '../../service/customer-module.service';
 import { CustomerStepperService } from '../../service/customer-stepper.service';
-import { CustomerService } from '../../service/customer.service';
 
 @Component({
   selector: 'app-add-edit-customer',
@@ -72,14 +72,14 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     { name: 'API', value: 'api' },
     { name: 'TRS', value: 'trs' },
     { name: 'SDK', value: 'sdk' },
-    { name: 'Web Application', value: 'webapp' },
+    { name: 'Web Application', value: 'webApp' },
     { name: 'Shopify Application', value: 'shopifyApp' },
   ];
   hasTrueValue!: boolean;
   constructor(
     private fb: FormBuilder,
     private customerStepperService: CustomerStepperService,
-    private customerService: CustomerService,
+    private customerService: CustomerModuleService,
     private router: Router,
     private alertService: AlertService,
     private dialogService: DialogService,
@@ -94,7 +94,7 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.stepCountArray = this.customerData ? this.editStepArray : this.addStepArray;
     this._initForm(this.customerData);
-    this.getCountryCodeList();
+    // this.getCountryCodeList();
   }
 
   private getCountryCodeList() {
@@ -106,8 +106,8 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   private _initForm(customerData?: any) {
     this.customerForm = this.fb.group({
       stepOne: this.fb.group({
-        companyName: [
-          customerData?.companyName ?? null,
+        name: [
+          customerData?.name ?? null,
           [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
         ],
         websiteLink: [customerData?.websiteLink ?? null, [CustomValidators.websiteValidator]],

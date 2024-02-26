@@ -1,15 +1,30 @@
-<div class="common-header customer-management">
+<div class="common-header customer-management" *ngIf="customer">
+  <!-- Details Section -->
   <div class="user-dashboard-table-container">
     <div class="sub-customer-view-header">
-      <div style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb" class="d-flex align-items-center">
+      <div
+        style="--bs-breadcrumb-divider: '>'"
+        aria-label="breadcrumb"
+        class="d-flex align-items-center"
+      >
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item">Customers</li>
-          <li class="breadcrumb-item active" aria-current="page">Customer Name</li>
+          <li class="breadcrumb-item active" aria-current="page">{{ customer.name }}</li>
         </ol>
       </div>
       <div class="dashboard-head-flex mb-0 gap-2">
-        <button type="button" class="btn btn-dashboard-head ms-auto" (click)="editCustomer(customer)">Edit Customer</button>
-        <button type="button" class="btn btn-dashboard-head ms-auto d-flex align-items-center justify-content-center gap-2" (click)="selectCustomer()">
+        <button
+          type="button"
+          class="btn btn-dashboard-head ms-auto"
+          (click)="editCustomer(customer)"
+        >
+          Edit Customer
+        </button>
+        <button
+          type="button"
+          class="btn btn-dashboard-head ms-auto d-flex align-items-center justify-content-center gap-2"
+          (click)="selectCustomer()"
+        >
           <svg
             width="16"
             height="15"
@@ -24,38 +39,72 @@
           </svg>
           <span>Switch to Customer CRM</span>
         </button>
-        <button type="button" class="btn btn-dashboard-head ms-auto d-flex align-items-center justify-content-center gap-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 15.75C9.93 15.75 8.25 14.07 8.25 12C8.25 9.93 9.93 8.25 12 8.25C14.07 8.25 15.75 9.93 15.75 12C15.75 14.07 14.07 15.75 12 15.75ZM12 9.75C10.76 9.75 9.75 10.76 9.75 12C9.75 13.24 10.76 14.25 12 14.25C13.24 14.25 14.25 13.24 14.25 12C14.25 10.76 13.24 9.75 12 9.75Z" fill="white"/>
-            <path d="M15.21 22.1903C15 22.1903 14.79 22.1603 14.58 22.1103C13.96 21.9403 13.44 21.5503 13.11 21.0003L12.99 20.8003C12.4 19.7803 11.59 19.7803 11 20.8003L10.89 20.9903C10.56 21.5503 10.04 21.9503 9.42 22.1103C8.79 22.2803 8.14 22.1903 7.59 21.8603L5.87 20.8703C5.56778 20.6971 5.30266 20.4661 5.08981 20.1904C4.87695 19.9146 4.72055 19.5997 4.62953 19.2635C4.53851 18.9272 4.51466 18.5764 4.55936 18.2309C4.60405 17.8855 4.71641 17.5523 4.89 17.2503C5.18 16.7403 5.26 16.2803 5.09 15.9903C4.92 15.7003 4.49 15.5303 3.9 15.5303C2.44 15.5303 1.25 14.3403 1.25 12.8803V11.1203C1.25 9.66029 2.44 8.47029 3.9 8.47029C4.49 8.47029 4.92 8.30029 5.09 8.01029C5.26 7.72029 5.19 7.26029 4.89 6.75029C4.54 6.14029 4.45 5.42029 4.63 4.74029C4.81 4.05029 5.25 3.48029 5.87 3.13029L7.6 2.14029C8.73 1.47029 10.22 1.86029 10.9 3.01029L11.02 3.21029C11.61 4.23029 12.42 4.23029 13.01 3.21029L13.12 3.02029C13.8 1.86029 15.29 1.47029 16.43 2.15029L18.15 3.14029C18.4522 3.31345 18.7173 3.5445 18.9302 3.82022C19.143 4.09593 19.2995 4.4109 19.3905 4.74712C19.4815 5.08333 19.5053 5.43419 19.4606 5.77963C19.4159 6.12507 19.3036 6.45831 19.13 6.76029C18.84 7.27029 18.76 7.73029 18.93 8.02029C19.1 8.31029 19.53 8.48029 20.12 8.48029C21.58 8.48029 22.77 9.67029 22.77 11.1303V12.8903C22.77 14.3503 21.58 15.5403 20.12 15.5403C19.53 15.5403 19.1 15.7103 18.93 16.0003C18.76 16.2903 18.83 16.7503 19.13 17.2603C19.48 17.8703 19.58 18.5903 19.39 19.2703C19.3031 19.6086 19.1483 19.9258 18.9352 20.2025C18.722 20.4793 18.4549 20.7098 18.15 20.8803L16.42 21.8703C16.04 22.0803 15.63 22.1903 15.21 22.1903ZM12 18.4903C12.89 18.4903 13.72 19.0503 14.29 20.0403L14.4 20.2303C14.52 20.4403 14.72 20.5903 14.96 20.6503C15.2 20.7103 15.44 20.6803 15.64 20.5603L17.37 19.5603C17.634 19.408 17.8273 19.1577 17.9078 18.8637C17.9883 18.5697 17.9496 18.2559 17.8 17.9903C17.23 17.0103 17.16 16.0003 17.6 15.2303C18.04 14.4603 18.95 14.0203 20.09 14.0203C20.73 14.0203 21.24 13.5103 21.24 12.8703V11.1103C21.24 10.4803 20.73 9.96029 20.09 9.96029C18.95 9.96029 18.04 9.52029 17.6 8.75029C17.16 7.98029 17.23 6.97029 17.8 5.99029C17.95 5.73029 17.99 5.42029 17.91 5.12029C17.83 4.82029 17.64 4.58029 17.38 4.42029L15.65 3.43029C15.5456 3.36909 15.4302 3.32908 15.3104 3.31254C15.1905 3.29601 15.0686 3.30328 14.9515 3.33393C14.8345 3.36458 14.7247 3.41802 14.6283 3.49118C14.532 3.56434 14.451 3.65579 14.39 3.76029L14.28 3.95029C13.71 4.94029 12.88 5.50029 11.99 5.50029C11.1 5.50029 10.27 4.94029 9.7 3.95029L9.59 3.75029C9.46573 3.54592 9.26661 3.39812 9.03501 3.33836C8.80342 3.27859 8.55764 3.31157 8.35 3.43029L6.62 4.43029C6.35598 4.58258 6.16272 4.83291 6.0822 5.12688C6.00169 5.42085 6.04043 5.73471 6.19 6.00029C6.76 6.98029 6.83 7.99029 6.39 8.76029C5.95 9.53029 5.04 9.97029 3.9 9.97029C3.26 9.97029 2.75 10.4803 2.75 11.1203V12.8803C2.75 13.5103 3.26 14.0303 3.9 14.0303C5.04 14.0303 5.95 14.4703 6.39 15.2403C6.83 16.0103 6.76 17.0203 6.19 18.0003C6.04 18.2603 6 18.5703 6.08 18.8703C6.16 19.1703 6.35 19.4103 6.61 19.5703L8.34 20.5603C8.55 20.6903 8.8 20.7203 9.03 20.6603C9.27 20.6003 9.47 20.4403 9.6 20.2303L9.71 20.0403C10.28 19.0603 11.11 18.4903 12 18.4903Z" fill="white"/>
+        <button
+          type="button"
+          class="btn btn-dashboard-head ms-auto d-flex align-items-center justify-content-center gap-2"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 15.75C9.93 15.75 8.25 14.07 8.25 12C8.25 9.93 9.93 8.25 12 8.25C14.07 8.25 15.75 9.93 15.75 12C15.75 14.07 14.07 15.75 12 15.75ZM12 9.75C10.76 9.75 9.75 10.76 9.75 12C9.75 13.24 10.76 14.25 12 14.25C13.24 14.25 14.25 13.24 14.25 12C14.25 10.76 13.24 9.75 12 9.75Z"
+              fill="white"
+            />
+            <path
+              d="M15.21 22.1903C15 22.1903 14.79 22.1603 14.58 22.1103C13.96 21.9403 13.44 21.5503 13.11 21.0003L12.99 20.8003C12.4 19.7803 11.59 19.7803 11 20.8003L10.89 20.9903C10.56 21.5503 10.04 21.9503 9.42 22.1103C8.79 22.2803 8.14 22.1903 7.59 21.8603L5.87 20.8703C5.56778 20.6971 5.30266 20.4661 5.08981 20.1904C4.87695 19.9146 4.72055 19.5997 4.62953 19.2635C4.53851 18.9272 4.51466 18.5764 4.55936 18.2309C4.60405 17.8855 4.71641 17.5523 4.89 17.2503C5.18 16.7403 5.26 16.2803 5.09 15.9903C4.92 15.7003 4.49 15.5303 3.9 15.5303C2.44 15.5303 1.25 14.3403 1.25 12.8803V11.1203C1.25 9.66029 2.44 8.47029 3.9 8.47029C4.49 8.47029 4.92 8.30029 5.09 8.01029C5.26 7.72029 5.19 7.26029 4.89 6.75029C4.54 6.14029 4.45 5.42029 4.63 4.74029C4.81 4.05029 5.25 3.48029 5.87 3.13029L7.6 2.14029C8.73 1.47029 10.22 1.86029 10.9 3.01029L11.02 3.21029C11.61 4.23029 12.42 4.23029 13.01 3.21029L13.12 3.02029C13.8 1.86029 15.29 1.47029 16.43 2.15029L18.15 3.14029C18.4522 3.31345 18.7173 3.5445 18.9302 3.82022C19.143 4.09593 19.2995 4.4109 19.3905 4.74712C19.4815 5.08333 19.5053 5.43419 19.4606 5.77963C19.4159 6.12507 19.3036 6.45831 19.13 6.76029C18.84 7.27029 18.76 7.73029 18.93 8.02029C19.1 8.31029 19.53 8.48029 20.12 8.48029C21.58 8.48029 22.77 9.67029 22.77 11.1303V12.8903C22.77 14.3503 21.58 15.5403 20.12 15.5403C19.53 15.5403 19.1 15.7103 18.93 16.0003C18.76 16.2903 18.83 16.7503 19.13 17.2603C19.48 17.8703 19.58 18.5903 19.39 19.2703C19.3031 19.6086 19.1483 19.9258 18.9352 20.2025C18.722 20.4793 18.4549 20.7098 18.15 20.8803L16.42 21.8703C16.04 22.0803 15.63 22.1903 15.21 22.1903ZM12 18.4903C12.89 18.4903 13.72 19.0503 14.29 20.0403L14.4 20.2303C14.52 20.4403 14.72 20.5903 14.96 20.6503C15.2 20.7103 15.44 20.6803 15.64 20.5603L17.37 19.5603C17.634 19.408 17.8273 19.1577 17.9078 18.8637C17.9883 18.5697 17.9496 18.2559 17.8 17.9903C17.23 17.0103 17.16 16.0003 17.6 15.2303C18.04 14.4603 18.95 14.0203 20.09 14.0203C20.73 14.0203 21.24 13.5103 21.24 12.8703V11.1103C21.24 10.4803 20.73 9.96029 20.09 9.96029C18.95 9.96029 18.04 9.52029 17.6 8.75029C17.16 7.98029 17.23 6.97029 17.8 5.99029C17.95 5.73029 17.99 5.42029 17.91 5.12029C17.83 4.82029 17.64 4.58029 17.38 4.42029L15.65 3.43029C15.5456 3.36909 15.4302 3.32908 15.3104 3.31254C15.1905 3.29601 15.0686 3.30328 14.9515 3.33393C14.8345 3.36458 14.7247 3.41802 14.6283 3.49118C14.532 3.56434 14.451 3.65579 14.39 3.76029L14.28 3.95029C13.71 4.94029 12.88 5.50029 11.99 5.50029C11.1 5.50029 10.27 4.94029 9.7 3.95029L9.59 3.75029C9.46573 3.54592 9.26661 3.39812 9.03501 3.33836C8.80342 3.27859 8.55764 3.31157 8.35 3.43029L6.62 4.43029C6.35598 4.58258 6.16272 4.83291 6.0822 5.12688C6.00169 5.42085 6.04043 5.73471 6.19 6.00029C6.76 6.98029 6.83 7.99029 6.39 8.76029C5.95 9.53029 5.04 9.97029 3.9 9.97029C3.26 9.97029 2.75 10.4803 2.75 11.1203V12.8803C2.75 13.5103 3.26 14.0303 3.9 14.0303C5.04 14.0303 5.95 14.4703 6.39 15.2403C6.83 16.0103 6.76 17.0203 6.19 18.0003C6.04 18.2603 6 18.5703 6.08 18.8703C6.16 19.1703 6.35 19.4103 6.61 19.5703L8.34 20.5603C8.55 20.6903 8.8 20.7203 9.03 20.6603C9.27 20.6003 9.47 20.4403 9.6 20.2303L9.71 20.0403C10.28 19.0603 11.11 18.4903 12 18.4903Z"
+              fill="white"
+            />
           </svg>
-          <span>Settings</span></button>
+          <span>Settings</span>
+        </button>
       </div>
     </div>
     <div class="mt-3">
       <div class="row justify-content-between g-0">
         <div class="col-2">
-          <div class=" contact-details d-flex flex-column justify-content-between py-2 px-3">
+          <div class="contact-details d-flex flex-column justify-content-between py-2 px-3">
             <div>
-              <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.40039 0.800781C2.60474 0.800781 1.84168 1.11685 1.27907 1.67946C0.716461 2.24207 0.400391 3.00513 0.400391 3.80078V12.2008C0.400391 12.9964 0.716461 13.7595 1.27907 14.3221C1.84168 14.8847 2.60474 15.2008 3.40039 15.2008H16.6004C17.396 15.2008 18.1591 14.8847 18.7217 14.3221C19.2843 13.7595 19.6004 12.9964 19.6004 12.2008V3.80078C19.6004 3.00513 19.2843 2.24207 18.7217 1.67946C18.1591 1.11685 17.396 0.800781 16.6004 0.800781H3.40039ZM12.4004 6.20078C12.4004 6.04165 12.4636 5.88904 12.5761 5.77652C12.6886 5.66399 12.8413 5.60078 13.0004 5.60078H16.6004C16.7595 5.60078 16.9121 5.66399 17.0247 5.77652C17.1372 5.88904 17.2004 6.04165 17.2004 6.20078C17.2004 6.35991 17.1372 6.51252 17.0247 6.62505C16.9121 6.73757 16.7595 6.80078 16.6004 6.80078H13.0004C12.8413 6.80078 12.6886 6.73757 12.5761 6.62505C12.4636 6.51252 12.4004 6.35991 12.4004 6.20078ZM13.0004 9.20078H16.6004C16.7595 9.20078 16.9121 9.26399 17.0247 9.37652C17.1372 9.48904 17.2004 9.64165 17.2004 9.80078C17.2004 9.95991 17.1372 10.1125 17.0247 10.225C16.9121 10.3376 16.7595 10.4008 16.6004 10.4008H13.0004C12.8413 10.4008 12.6886 10.3376 12.5761 10.225C12.4636 10.1125 12.4004 9.95991 12.4004 9.80078C12.4004 9.64165 12.4636 9.48904 12.5761 9.37652C12.6886 9.26399 12.8413 9.20078 13.0004 9.20078ZM2.80039 8.90078C2.80039 8.66209 2.89521 8.43317 3.06399 8.26439C3.23278 8.0956 3.4617 8.00078 3.70039 8.00078H7.30039C7.41862 8.00062 7.53573 8.02379 7.64499 8.06897C7.75426 8.11414 7.85353 8.18043 7.93714 8.26403C8.02074 8.34764 8.08703 8.44691 8.1322 8.55618C8.17738 8.66544 8.20055 8.78255 8.20039 8.90078V9.80078C8.20039 9.80078 8.20039 9.82838 8.19559 9.87878C8.14234 10.3083 7.92996 10.7022 7.60039 10.9828C7.21039 11.3212 6.56479 11.6008 5.50039 11.6008C2.80039 11.6008 2.80039 9.80078 2.80039 9.80078V8.90078ZM5.50039 6.80078C5.10257 6.80078 4.72104 6.64275 4.43973 6.36144C4.15843 6.08014 4.00039 5.69861 4.00039 5.30078C4.00039 4.90296 4.15843 4.52143 4.43973 4.24012C4.72104 3.95882 5.10257 3.80078 5.50039 3.80078C5.89822 3.80078 6.27975 3.95882 6.56105 4.24012C6.84236 4.52143 7.00039 4.90296 7.00039 5.30078C7.00039 5.69861 6.84236 6.08014 6.56105 6.36144C6.27975 6.64275 5.89822 6.80078 5.50039 6.80078ZM10.6004 5.60078C10.6004 5.91904 10.474 6.22427 10.2489 6.44931C10.0239 6.67435 9.71865 6.80078 9.40039 6.80078C9.08213 6.80078 8.77691 6.67435 8.55186 6.44931C8.32682 6.22427 8.20039 5.91904 8.20039 5.60078C8.20039 5.28252 8.32682 4.9773 8.55186 4.75225C8.77691 4.52721 9.08213 4.40078 9.40039 4.40078C9.71865 4.40078 10.0239 4.52721 10.2489 4.75225C10.474 4.9773 10.6004 5.28252 10.6004 5.60078ZM9.32239 10.3732C9.36264 10.2118 9.38795 10.0472 9.39799 9.88118L9.40039 9.84758V8.90078C9.40039 8.57918 9.32839 8.27318 9.19879 8.00078H10.0004C10.3187 8.00078 10.6239 8.12721 10.8489 8.35225C11.074 8.5773 11.2004 8.88252 11.2004 9.20078C11.2004 9.67817 11.0107 10.136 10.6732 10.4736C10.3356 10.8111 9.87778 11.0008 9.40039 11.0008H9.08599C9.20359 10.7704 9.27799 10.5532 9.32239 10.3732Z" fill="black"/>
+              <svg
+                width="20"
+                height="16"
+                viewBox="0 0 20 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.40039 0.800781C2.60474 0.800781 1.84168 1.11685 1.27907 1.67946C0.716461 2.24207 0.400391 3.00513 0.400391 3.80078V12.2008C0.400391 12.9964 0.716461 13.7595 1.27907 14.3221C1.84168 14.8847 2.60474 15.2008 3.40039 15.2008H16.6004C17.396 15.2008 18.1591 14.8847 18.7217 14.3221C19.2843 13.7595 19.6004 12.9964 19.6004 12.2008V3.80078C19.6004 3.00513 19.2843 2.24207 18.7217 1.67946C18.1591 1.11685 17.396 0.800781 16.6004 0.800781H3.40039ZM12.4004 6.20078C12.4004 6.04165 12.4636 5.88904 12.5761 5.77652C12.6886 5.66399 12.8413 5.60078 13.0004 5.60078H16.6004C16.7595 5.60078 16.9121 5.66399 17.0247 5.77652C17.1372 5.88904 17.2004 6.04165 17.2004 6.20078C17.2004 6.35991 17.1372 6.51252 17.0247 6.62505C16.9121 6.73757 16.7595 6.80078 16.6004 6.80078H13.0004C12.8413 6.80078 12.6886 6.73757 12.5761 6.62505C12.4636 6.51252 12.4004 6.35991 12.4004 6.20078ZM13.0004 9.20078H16.6004C16.7595 9.20078 16.9121 9.26399 17.0247 9.37652C17.1372 9.48904 17.2004 9.64165 17.2004 9.80078C17.2004 9.95991 17.1372 10.1125 17.0247 10.225C16.9121 10.3376 16.7595 10.4008 16.6004 10.4008H13.0004C12.8413 10.4008 12.6886 10.3376 12.5761 10.225C12.4636 10.1125 12.4004 9.95991 12.4004 9.80078C12.4004 9.64165 12.4636 9.48904 12.5761 9.37652C12.6886 9.26399 12.8413 9.20078 13.0004 9.20078ZM2.80039 8.90078C2.80039 8.66209 2.89521 8.43317 3.06399 8.26439C3.23278 8.0956 3.4617 8.00078 3.70039 8.00078H7.30039C7.41862 8.00062 7.53573 8.02379 7.64499 8.06897C7.75426 8.11414 7.85353 8.18043 7.93714 8.26403C8.02074 8.34764 8.08703 8.44691 8.1322 8.55618C8.17738 8.66544 8.20055 8.78255 8.20039 8.90078V9.80078C8.20039 9.80078 8.20039 9.82838 8.19559 9.87878C8.14234 10.3083 7.92996 10.7022 7.60039 10.9828C7.21039 11.3212 6.56479 11.6008 5.50039 11.6008C2.80039 11.6008 2.80039 9.80078 2.80039 9.80078V8.90078ZM5.50039 6.80078C5.10257 6.80078 4.72104 6.64275 4.43973 6.36144C4.15843 6.08014 4.00039 5.69861 4.00039 5.30078C4.00039 4.90296 4.15843 4.52143 4.43973 4.24012C4.72104 3.95882 5.10257 3.80078 5.50039 3.80078C5.89822 3.80078 6.27975 3.95882 6.56105 4.24012C6.84236 4.52143 7.00039 4.90296 7.00039 5.30078C7.00039 5.69861 6.84236 6.08014 6.56105 6.36144C6.27975 6.64275 5.89822 6.80078 5.50039 6.80078ZM10.6004 5.60078C10.6004 5.91904 10.474 6.22427 10.2489 6.44931C10.0239 6.67435 9.71865 6.80078 9.40039 6.80078C9.08213 6.80078 8.77691 6.67435 8.55186 6.44931C8.32682 6.22427 8.20039 5.91904 8.20039 5.60078C8.20039 5.28252 8.32682 4.9773 8.55186 4.75225C8.77691 4.52721 9.08213 4.40078 9.40039 4.40078C9.71865 4.40078 10.0239 4.52721 10.2489 4.75225C10.474 4.9773 10.6004 5.28252 10.6004 5.60078ZM9.32239 10.3732C9.36264 10.2118 9.38795 10.0472 9.39799 9.88118L9.40039 9.84758V8.90078C9.40039 8.57918 9.32839 8.27318 9.19879 8.00078H10.0004C10.3187 8.00078 10.6239 8.12721 10.8489 8.35225C11.074 8.5773 11.2004 8.88252 11.2004 9.20078C11.2004 9.67817 11.0107 10.136 10.6732 10.4736C10.3356 10.8111 9.87778 11.0008 9.40039 11.0008H9.08599C9.20359 10.7704 9.27799 10.5532 9.32239 10.3732Z"
+                  fill="black"
+                />
               </svg>
             </div>
             <div>
-              <div>+919879879879</div>
-              <div>amigolongeremail@amigotest.com</div>
+              <div>{{ customer?.contactDetails?.phoneNumber }}</div>
+              <div>{{ customer?.contactDetails?.emailAddress }}</div>
             </div>
           </div>
         </div>
         <div class="col-2">
           <div class="address-details d-flex flex-column justify-content-between py-2 px-3">
             <div>
-              <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 10C8.55 10 9.02083 9.80417 9.4125 9.4125C9.80417 9.02083 10 8.55 10 8C10 7.45 9.80417 6.97917 9.4125 6.5875C9.02083 6.19583 8.55 6 8 6C7.45 6 6.97917 6.19583 6.5875 6.5875C6.19583 6.97917 6 7.45 6 8C6 8.55 6.19583 9.02083 6.5875 9.4125C6.97917 9.80417 7.45 10 8 10ZM8 20C5.31667 17.7167 3.3125 15.5958 1.9875 13.6375C0.6625 11.6792 0 9.86667 0 8.2C0 5.7 0.804167 3.70833 2.4125 2.225C4.02083 0.741667 5.88333 0 8 0C10.1167 0 11.9792 0.741667 13.5875 2.225C15.1958 3.70833 16 5.7 16 8.2C16 9.86667 15.3375 11.6792 14.0125 13.6375C12.6875 15.5958 10.6833 17.7167 8 20Z" fill="#1C1B1F"/>
+              <svg
+                width="16"
+                height="20"
+                viewBox="0 0 16 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 10C8.55 10 9.02083 9.80417 9.4125 9.4125C9.80417 9.02083 10 8.55 10 8C10 7.45 9.80417 6.97917 9.4125 6.5875C9.02083 6.19583 8.55 6 8 6C7.45 6 6.97917 6.19583 6.5875 6.5875C6.19583 6.97917 6 7.45 6 8C6 8.55 6.19583 9.02083 6.5875 9.4125C6.97917 9.80417 7.45 10 8 10ZM8 20C5.31667 17.7167 3.3125 15.5958 1.9875 13.6375C0.6625 11.6792 0 9.86667 0 8.2C0 5.7 0.804167 3.70833 2.4125 2.225C4.02083 0.741667 5.88333 0 8 0C10.1167 0 11.9792 0.741667 13.5875 2.225C15.1958 3.70833 16 5.7 16 8.2C16 9.86667 15.3375 11.6792 14.0125 13.6375C12.6875 15.5958 10.6833 17.7167 8 20Z"
+                  fill="#1C1B1F"
+                />
               </svg>
             </div>
             <div>
-              <div>2692 Melody lane, Atwater CA California- 95301</div>
+              <div>{{ customer.completeAddress }}</div>
               <div>&copy; 2023 Amigo</div>
             </div>
           </div>
@@ -66,7 +115,7 @@
               <h3>Total Subscribers</h3>
             </div>
             <div>
-              <h1>4</h1>
+              <h1>{{ customer.total_subscriber }}</h1>
             </div>
           </div>
         </div>
@@ -76,7 +125,7 @@
               <h3>Total Subscriptions</h3>
             </div>
             <div>
-              <h1>25</h1>
+              <h1>{{ customer.total_subscriptions }}</h1>
             </div>
           </div>
         </div>
@@ -86,7 +135,7 @@
               <h3>Total Sub-Customers</h3>
             </div>
             <div>
-              <h1>5</h1>
+              <h1>{{ customer.total_sub_customer }}</h1>
             </div>
           </div>
         </div>
@@ -96,9 +145,7 @@
               <h3>Creation Date</h3>
             </div>
             <div>
-              <h1>
-                14 Jan 2024
-              </h1>
+              <h1>{{ customer.createdAt | date: 'dd MMM yyyy' }}</h1>
             </div>
           </div>
         </div>
@@ -108,9 +155,13 @@
               <h3>Total No. of Users</h3>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <div><h1>83</h1></div>
               <div>
-                <button type="button" class="btn btn-dashboard-head ms-auto" (click)="inviteUser()">Invite User</button>
+                <h1>{{ customer.total_user }}</h1>
+              </div>
+              <div>
+                <button type="button" class="btn btn-dashboard-head ms-auto" (click)="inviteUser()">
+                  Invite User
+                </button>
               </div>
             </div>
           </div>
@@ -119,17 +170,18 @@
     </div>
   </div>
 
-  <div class="user-dashboard-table-container pb-0">
+  <!-- Products Section -->
+  <div class="user-dashboard-table-container pb-0" *ngIf="customer?.products">
     <table class="table table-borderless">
       <thead>
         <tr>
           <th colspan="3">
             <svg
-            width="20"
-            height="23"
-            viewBox="0 0 20 23"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="23"
+              viewBox="0 0 20 23"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M10.25 0.40625L20 5.28125V17.4688L10.25 22.332L0.5 17.4688V5.28125L10.25 0.40625ZM17.5742 5.75L10.25 2.09375L7.42578 3.5L14.7031 7.17969L17.5742 5.75ZM10.25 9.40625L13.0391 8.02344L5.75 4.34375L2.92578 5.75L10.25 9.40625ZM2 6.96875V16.5312L9.5 20.2812V10.7188L2 6.96875ZM11 20.2812L18.5 16.5312V6.96875L11 10.7188V20.2812Z"
@@ -168,15 +220,19 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.products.androidApp"
+                    (ngModelChange)="
+                      enableDisable('product', { androidApp: customer.products.androidApp })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -191,15 +247,17 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.products.iosApp"
+                    (ngModelChange)="enableDisable('product', { iosApp: customer.products.iosApp })"
                   />
                   <span class="slider"></span>
                 </label>
@@ -209,24 +267,26 @@
         </tr>
         <tr>
           <td>TRS</td>
+          <td>Total Agents: {{ customer.total_travelAgents }}</td>
           <td>
-            Total Agents: 10
-          </td>
-          <td>
-            <button type="button" class="btn btn-dashboard-head ms-auto" (click)="inviteAgent()">Invite Agent</button>
+            <button type="button" class="btn btn-dashboard-head ms-auto" (click)="inviteAgent()">
+              Invite Agent
+            </button>
           </td>
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.products.trs"
+                    (ngModelChange)="enableDisable('product', { trs: customer.products.trs })"
                   />
                   <span class="slider"></span>
                 </label>
@@ -241,15 +301,17 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.products.api"
+                    (ngModelChange)="enableDisable('product', { api: customer.products.api })"
                   />
                   <span class="slider"></span>
                 </label>
@@ -264,15 +326,17 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.products.sdk"
+                    (ngModelChange)="enableDisable('product', { sdk: customer.products.sdk })"
                   />
                   <span class="slider"></span>
                 </label>
@@ -287,15 +351,19 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              [tooltip]="isEnable ? 'Disable' : 'Enable'"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                [tooltip]="isEnable ? 'Disable' : 'Enable'"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
-                    type="checkbox" [(ngModel)]="isEnable" (ngModelChange)="enableDisable('product')"
+                    type="checkbox"
+                    [(ngModel)]="customer.products.shopifyApp"
+                    (ngModelChange)="
+                      enableDisable('product', { shopifyApp: customer.products.shopifyApp })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -306,17 +374,19 @@
       </tbody>
     </table>
   </div>
-  <div class="user-dashboard-table-container pb-0">
+
+  <!-- Features Section -->
+  <div class="user-dashboard-table-container pb-0" *ngIf="customer?.configuration">
     <table class="table table-borderless">
       <thead>
         <tr>
           <th>
             <svg
-            width="20"
-            height="23"
-            viewBox="0 0 20 23"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="23"
+              viewBox="0 0 20 23"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M10.25 0.40625L20 5.28125V17.4688L10.25 22.332L0.5 17.4688V5.28125L10.25 0.40625ZM17.5742 5.75L10.25 2.09375L7.42578 3.5L14.7031 7.17969L17.5742 5.75ZM10.25 9.40625L13.0391 8.02344L5.75 4.34375L2.92578 5.75L10.25 9.40625ZM2 6.96875V16.5312L9.5 20.2812V10.7188L2 6.96875ZM11 20.2812L18.5 16.5312V6.96875L11 10.7188V20.2812Z"
@@ -353,15 +423,21 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              [tooltip]="isEnable ? 'Disable' : 'Enable'"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                [tooltip]="isEnable ? 'Disable' : 'Enable'"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
-                    type="checkbox" [(ngModel)]="isEnable" (ngModelChange)="enableDisable('feature')"
+                    type="checkbox"
+                    [(ngModel)]="customer.configuration.topupPlansMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.topupPlansMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -374,15 +450,21 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.configuration.rewardPointsMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.rewardPointsMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -395,15 +477,21 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.configuration.couponCodesMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.couponCodesMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -416,15 +504,21 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.configuration.oneClickInstallMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.oneClickInstallMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -437,15 +531,21 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.configuration.multiLingualMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.multiLingualMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>
@@ -458,15 +558,21 @@
           <td>
             <div class="user-table-action">
               <span
-              class="user-table-action-icon"
-              tooltip="Active"
-              placement="top"
-              delay="50"
-              offset="10"
+                class="user-table-action-icon"
+                tooltip="Active"
+                placement="top"
+                delay="50"
+                offset="10"
               >
                 <label class="switch">
                   <input
                     type="checkbox"
+                    [(ngModel)]="customer.configuration.currencyConversionMasterEnabled"
+                    (ngModelChange)="
+                      enableDisable('feature', {
+                        shopifyApp: customer.configuration.currencyConversionMasterEnabled
+                      })
+                    "
                   />
                   <span class="slider"></span>
                 </label>

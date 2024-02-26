@@ -3,52 +3,52 @@
   <div class="row p-3">
     <div class="col-6 border-bottom pb-2">
       <div class="div-height">
-        <label for="companyName" class="form-label es-modal-form-label">Company Name*</label>
+        <label for="name" class="form-label es-modal-form-label">Company Name*</label>
         <input
           type="text"
           class="form-control es-input"
-          id="companyName"
-          aria-describedby="companyName"
-          name="companyName"
-          formControlName="companyName"
+          id="name"
+          aria-describedby="name"
+          name="name"
+          formControlName="name"
           placeholder="Enter the full company name"
           [ngClass]="{
-            'border-purple': form.get('companyName')?.valid,
+            'border-purple': form.get('name')?.valid,
             'border-error':
-              form.get('companyName')?.touched &&
-              form.get('companyName')?.dirty &&
-              (form.get('companyName')?.errors?.['required'] ||
-                form.get('companyName')?.errors?.['spacesOnly'] ||
-                form.get('companyName')?.errors?.['minlength'] ||
-                form.get('companyName')?.errors?.['maxlength'])
+              form.get('name')?.touched &&
+              form.get('name')?.dirty &&
+              (form.get('name')?.errors?.['required'] ||
+                form.get('name')?.errors?.['spacesOnly'] ||
+                form.get('name')?.errors?.['minlength'] ||
+                form.get('name')?.errors?.['maxlength'])
           }"
         />
         <div>
           <span
             class="help-block ng-invalid text-danger"
             *ngIf="
-              form.get('companyName')?.touched &&
-              form.get('companyName')?.dirty &&
-              form.get('companyName')?.errors
+              form.get('name')?.touched &&
+              form.get('name')?.dirty &&
+              form.get('name')?.errors
             "
           >
-            <span class="small" *ngIf="form.get('companyName')?.errors?.['required']"
+            <span class="small" *ngIf="form.get('name')?.errors?.['required']"
               >Company Name is required!</span
             >
-            <span class="small" *ngIf="form.get('companyName')?.errors?.['spacesOnly']"
+            <span class="small" *ngIf="form.get('name')?.errors?.['spacesOnly']"
               >Value contains spaces only!</span
             >
             <span
               class="small"
               *ngIf="
-                form.get('companyName')?.errors?.['minlength'] ||
-                form.get('companyName')?.errors?.['maxlength']
+                form.get('name')?.errors?.['minlength'] ||
+                form.get('name')?.errors?.['maxlength']
               "
             >
               Company name must have min.
-              {{ form.get('companyName')?.errors?.['minlength']?.['requiredLength'] }}
+              {{ form.get('name')?.errors?.['minlength']?.['requiredLength'] }}
               or max.
-              {{ form.get('companyName')?.errors?.['maxlength']?.['requiredLength'] }}
+              {{ form.get('name')?.errors?.['maxlength']?.['requiredLength'] }}
               characters.
             </span>
           </span>
