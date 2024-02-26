@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PaginationInstance } from 'ngx-pagination';
-import { SubscriberInfoComponent } from 'src/app/shared/dialog';
+import { SubscriptionPlanInfoComponent } from 'src/app/shared/dialog';
 import { DialogService, subscriberService } from 'src/app/shared/service';
 
 @Component({
@@ -10,31 +11,9 @@ import { DialogService, subscriberService } from 'src/app/shared/service';
 })
 export class SubscriberSubscriptionsComponent implements OnInit {
 
-  @Input() subscriberDetails: any;
-  @Output() closeEvent = new EventEmitter(false);
+  subscriberDetails: any;
   inProgress: boolean = false;
-
-  subscriptions: Array<any> = [
-    {
-      name: 'Best plan for india fsdfs 154sas 14454ad sfdsfsdfsdfsdfdff  54545454',
-      iccid: '12145353112154545454545454545',
-      planExpired: new Date(),
-      earnRewardPoints: 20,
-      usedRewardPoints: 10,
-      couponCode: 'NEWUSER ($5)',
-      status: 'active'
-    },
-    {
-      name: 'Best plan for india2',
-      iccid: '121453531121545',
-      planExpired: new Date(),
-      earnRewardPoints: 20,
-      usedRewardPoints: 10,
-      couponCode: 'NEWUSER ($5)',
-      status: 'active'
-    }
-  ];
-
+  subscriptionList: Array<any> = [];
   paginateConfig: PaginationInstance = {
     id: 'subscriptionsListPagination',
     itemsPerPage: 20,
@@ -42,33 +21,38 @@ export class SubscriberSubscriptionsComponent implements OnInit {
     totalItems: 0,
   };
 
-  constructor(private dialogService: DialogService, private subscriberService: subscriberService) { }
-
-  ngOnInit(): void {
-    this.getSubscriptionList();
+  constructor(private dialogService: DialogService, private subscriberService: subscriberService,private route: ActivatedRoute) {
+    route.params.subscribe((param : any) =>{
+      this.getSubscriptionList(param.id);
+    });
   }
 
-  back(){
-    this.closeEvent.emit(true);
+  ngOnInit(): void {
   }
 
   getPageNumber(event: any) {
     this.inProgress = true;
     this.paginateConfig.currentPage = event;
-
+    if(this.subscriberDetails?._id){
+      this.getSubscriptionList(this.subscriberDetails?._id);
+    }
   }
 
-  getSubscriptionList(){
-    this.subscriberService.getSubscriptionsList(this.subscriberDetails._id).subscribe(
+  getSubscriptionList(subscriberId: any){
+    this.inProgress = true;
+    this.subscriberService.getSubscriptionsList(subscriberId, this.paginateConfig).subscribe(
       (result : any) =>{
         this.subscriberDetails = result;
+        this.paginateConfig.totalItems = this.subscriberDetails?.subscriptions[0]?.count[0]?.totalCount || 0;
+        this.subscriptionList = this.subscriberDetails?.subscriptions[0]?.data || [];
+        this.inProgress = false;
       }
     );
   }
 
-  showSubscriber(subscriber: any) {
+  showSubscription(subscription: any) {
     this.dialogService
-      .openModal(SubscriberInfoComponent, { cssClass: '', context: { data: subscriber } })
+      .openModal(SubscriptionPlanInfoComponent, { cssClass: '', context: { data: { ...subscription, created: this.subscriberDetails.created, displayName: this.subscriberDetails.displayName, email: this.subscriberDetails.email }} })
       .instance.close.subscribe(
         (data: any) => {},
         (err) => {}

@@ -92,7 +92,7 @@ export class subscriberService {
     }
   }
 
-  getSubscriptionsList(subscriberId: string){
-    return this.http.get(`${this.serverUrl}/subscriptions/${subscriberId}`);
+  getSubscriptionsList(subscriberId: string, paginateConfig: any){
+    return this.http.get(`${this.serverUrl}/subscribers/${subscriberId}?itemsPerPage=${paginateConfig.itemsPerPage}&currentPage=${paginateConfig.currentPage - 1}`);
   }
 }

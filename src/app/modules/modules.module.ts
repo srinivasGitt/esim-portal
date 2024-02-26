@@ -22,12 +22,10 @@ import { DataUsageComponent } from './reports/data-usage/data-usage.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RevenueComponent } from './reports/revenue/revenue.component';
 import { SettingsComponent } from './settings/settings.component';
-import { SubscribeManagementComponent } from './subscribe-management/subscribe-management.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UserComponent } from './user/user.component';
 import { SubscriberComponent } from './reports/subscriber/subscriber.component';
 import { SubscriptionReportComponent } from './reports/subscription-report/subscription-report.component';
-import { SubscriberSubscriptionsComponent } from './subscribe-management/subscriber-subscriptions/subscriber-subscriptions.component';
 
 @NgModule({
   declarations: [
@@ -38,9 +36,6 @@ import { SubscriberSubscriptionsComponent } from './subscribe-management/subscri
     ReportsComponent,
     InventoryComponent,
     CustomerManagementComponent,
-    SubscribeManagementComponent,
-    FilterPipe,
-    ShowentriesPipe,
     SettingsComponent,
     HelpCenterComponent,
     SupportComponent,
@@ -49,8 +44,7 @@ import { SubscriberSubscriptionsComponent } from './subscribe-management/subscri
     RevenueComponent,
     DataUsageComponent,
     SubscriberComponent,
-    SubscriptionReportComponent,
-    SubscriberSubscriptionsComponent,
+    SubscriptionReportComponent
   ],
   imports: [
     CommonModule,

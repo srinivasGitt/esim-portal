@@ -32,7 +32,6 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'customer-management', component: CustomerManagementComponent },
       { path: 'customer-management/:id', component: CustomerManagementComponent },
-      { path: 'subscribers', component: SubscribeManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'user-management', component: UserComponent },
       { path: 'user-management/:custId', component: UserComponent },
@@ -77,6 +76,7 @@ const routes: Routes = [
           rewardPointsMasterEnabled: true,
         },
       },
+      { path: 'subscribers', loadChildren: () => import('./modules/subscribe-management/subscribe-management.module').then( (m)=> m.SubscribeManagementModule) },
     ],
   },
   {

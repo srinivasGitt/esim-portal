@@ -1,6 +1,6 @@
 <div class="common-header subscriber-subscriptions">
     <div class="dashboard-head-flex mt-2">
-        <a class="me-3 cursor-pointer" (click)="back()">
+        <a class="me-3 cursor-pointer" routerLink="../">
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_103_38948" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
                 <rect y="0.5" width="24" height="24" fill="#D9D9D9"/>
@@ -23,13 +23,13 @@
                     <path d="M30 33.4996V29.9996C30 28.1431 29.2625 26.3626 27.9497 25.0499C26.637 23.7371 24.8565 22.9996 23 22.9996H9C7.14348 22.9996 5.36301 23.7371 4.05025 25.0499C2.7375 26.3626 2 28.1431 2 29.9996V33.4996M23.0003 9.00081C23.0003 12.8672 19.866 16.0016 15.9995 16.0016C12.1331 16.0016 8.99872 12.8672 8.99872 9.00081C8.99872 5.13437 12.1331 2 15.9995 2C19.866 2 23.0003 5.13437 23.0003 9.00081Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <h2 class="ms-4 me-3 my-auto subscriber-name"> {{ subscriberDetails.displayName }} </h2>
-                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="my-auto" tooltip="Referral" placement="top" delay="100" offset="8">
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="my-auto" tooltip="Referral" placement="top" delay="100" offset="8" *ngIf="subscriberDetails.referral">
                     <path d="M15.5 2.74953V12.1245C15.4995 12.2135 15.48 12.3014 15.4428 12.3822C15.4056 12.463 15.3516 12.535 15.2844 12.5933C14.0906 13.6269 12.9492 13.9995 11.8609 13.9995C10.3836 13.9995 9.00391 13.3167 7.72031 12.6831C5.64609 11.6558 3.84297 10.7659 1.75 12.4191V15.8745C1.75 16.0403 1.68415 16.1993 1.56694 16.3165C1.44973 16.4337 1.29076 16.4995 1.125 16.4995C0.95924 16.4995 0.800269 16.4337 0.683058 16.3165C0.565848 16.1993 0.5 16.0403 0.5 15.8745V2.74953C0.500599 2.66049 0.520217 2.57261 0.557539 2.49176C0.594861 2.41092 0.649026 2.33899 0.716406 2.28078C3.52891 -0.155159 6.05312 1.0925 8.27812 2.19328C10.4219 3.25422 12.2805 4.1714 14.4656 2.28078C14.5559 2.20249 14.6668 2.15173 14.7851 2.13454C14.9034 2.11734 15.0241 2.13443 15.133 2.18376C15.2419 2.2331 15.3343 2.31262 15.3993 2.4129C15.4644 2.51318 15.4993 2.63 15.5 2.74953Z" fill="white"/>
                 </svg>
             </div>
             <div class="ms-auto">
                 <h5 class="header"> Available Reward Points</h5>
-                <h5 class="details">{{ subscriberDetails.rewardPoints }}</h5>
+                <h5 class="details">{{ subscriberDetails.rewardPointsEarned }} ({{ subscriberDetails.cashValueOfRewardsPoints | currency : subscriberDetails.currencyObj.currency : 'symbol' : '1.0-2'}})</h5>
             </div>
             <div class="mx-4">
                 <h5 class="header"> Email Address</h5>
@@ -37,10 +37,10 @@
             </div>
             <div>
                 <h5 class="header"> Date Created</h5>
-                <h5 class="details">{{ subscriberDetails.createdAt | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</h5>
+                <h5 class="details">{{ subscriberDetails.created | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</h5>
             </div>
         </div>
-    
+        
         <div class="t-grid-table-new">
             <div class="t-grid-table-wrapper t-head-bg border-bottom-light table-headers">
                 <div class="t-box a px-2 d-flex">
@@ -106,22 +106,25 @@
                 </div>
             </div>
             <div class="t-body-overflow">
-                <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light table-row-border-bottom bg-body-table-dark-bg"  *ngFor="let subscriber of subscriptions | paginate: paginateConfig ">
-                    <div class="t-box a px-2 text-overflow-ellipsis" *ngIf="subscriber?.name?.length > 20" [tooltip]="subscriber?.name" placement="top" delay="100" offset="0">{{ subscriber.name }}</div>
-                    <div class="t-box a px-2" *ngIf="subscriber?.name?.length <= 20">{{ subscriber.name }}</div>
-                    <div class="t-box a px-2 text-overflow-ellipsis" [tooltip]="subscriber?.iccid" placement="top" delay="100" offset="0">{{ subscriber.iccid }}</div>
-                    <div class="t-box a px-2 text-overflow-ellipsis" [tooltip]="planExpireEle?.innerHTML || ''" placement="top" delay="100" offset="0" #planExpireEle>{{ subscriber.planExpired | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</div>
-                    <div class="t-box a px-2">{{ subscriber.earnRewardPoints }}</div>
-                    <div class="t-box a px-2">{{ subscriber.usedRewardPoints }}</div>
-                    <div class="t-box a px-2">{{ subscriber.couponCode }}</div>
-                    <div class="t-box a px-2">{{ subscriber.status }}</div>
+                <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light table-row-border-bottom bg-body-table-dark-bg"  *ngFor="let subscription of subscriptionList | paginate: paginateConfig ">
+                    <div class="t-box a px-2 text-overflow-ellipsis" *ngIf="subscription?.name?.length > 20" [tooltip]="subscription?.name" placement="top" delay="100" offset="0">{{ subscription.name }}</div>
+                    <div class="t-box a px-2" *ngIf="subscription?.name?.length <= 20">{{ subscription.name }}</div>
+                    <div class="t-box a px-2 text-overflow-ellipsis" [tooltip]="subscription?.iccid" placement="top" delay="100" offset="0">{{ subscription.iccid }}</div>
+                    <div class="t-box a px-2 text-overflow-ellipsis" [tooltip]="planExpireEle?.innerHTML || ''" placement="top" delay="100" offset="0" #planExpireEle>{{ subscription.expiredDate | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</div>
+                    <div class="t-box a px-2">{{ subscription.earnedPoints }}</div>
+                    <div class="t-box a px-2">{{ subscription.rewardPointsRedeemed }} ( {{subscription.rewardCashValueRedeemed | currency : subscription.currency : 'symbol' : '1.0-2' }} )</div>
+                    <div class="t-box a px-2">{{ subscription.couponCode }} ( {{subscription.couponAmount | currency : subscription.currency : 'symbol' : '1.0-2' }} )</div>
+                    <div class="t-box a px-2">{{ subscription.status }}</div>
                     <div class="t-box b px-2 action-section">
                         <div class="user-table-action">
-                            <div class="user-table-action-icon" (click)="showSubscriber(subscriber)" tooltip="Info" placement="top" delay="100" offset="15">
+                            <div class="user-table-action-icon" (click)="showSubscription(subscription)" tooltip="Info" placement="top" delay="100" offset="15">
                                 <img src="/assets/images/dashboard/icon/information.svg">
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="t-grid-table-wrapper t-body-bg no-records" *ngIf="!subscriptionList || subscriptionList?.length == 0">
+                    <div class="pt-3 pb-2 mx-auto">No records found!</div>
                 </div>
             </div>
         </div>
@@ -132,7 +135,7 @@
     </ng-template>
     <!-- Loading Spinner - End -->
     <!-- Pagination -->
-    <ng-container *ngIf="!inProgress && subscriptions && subscriptions.length > 0">
+    <ng-container *ngIf="!inProgress && subscriptionList && subscriptionList.length > 0">
         <div class="custom-pagination-section">
             <pagination-controls
                 id="subscriptionsListPagination"

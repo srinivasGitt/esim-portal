@@ -72,7 +72,6 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   currentDate = new Date().toISOString().slice(0, 10);
   isAdmin: boolean = false;
   isSuperAdmin: boolean = false;
-  subscriberDetails: any;
 
   constructor(
     private dialogService: DialogService,
@@ -231,10 +230,6 @@ export class SubscribeManagementComponent implements OnInit, OnDestroy {
   }
 
   showSubscriber(subscriber: any) {
-    if(this.isSuperAdmin){
-      this.subscriberDetails = subscriber;
-      return;
-    }
     this.dialogService
       .openModal(SubscriberInfoComponent, { cssClass: '', context: { data: subscriber } })
       .instance.close.subscribe(

@@ -1,4 +1,4 @@
-<div class="common-header subscriber-management" [class.d-none]="subscriberDetails">
+<div class="common-header subscriber-management">
   <!-- <div class="d-flex search-form">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search" #searchInput (keyup.enter)="searchRecord(searchInput.value)" (search)="searchRecord()">
         <span class="search-icon-div">
@@ -185,15 +185,18 @@
                             <div class="t-box b px-2 activation-code-section">{{ subscriber.activationCode }}</div>
                         </ng-container>
                         <ng-container *ngIf="isSuperAdmin">
-                            <div class="t-box a px-2 iccid-text">{{ subscriber.noOfPlans || 0 }}</div>
-                            <div class="t-box b px-2 activation-code-section">{{ subscriber.activePlans || 0 }}</div>
+                            <div class="t-box a px-2 iccid-text">{{ subscriber.totalPlans }}</div>
+                            <div class="t-box b px-2 activation-code-section">{{ subscriber.activePlans }}</div>
                         </ng-container>
-                        <div class="t-box a px-2">{{ subscriber.created  | date : "dd-MM-yyyy" }}</div>
+                        <div class="t-box a px-2">{{ subscriber.created  | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</div>
                         <div class="t-box b px-2 action-section">
                             <div class="user-table-action">
-                                <div class="user-table-action-icon" (click)="showSubscriber(subscriber)" tooltip="Info" placement="top" delay="100" offset="15">
+                                <div *ngIf="!isSuperAdmin" class="user-table-action-icon" (click)="showSubscriber(subscriber)" tooltip="Info" placement="top" delay="100" offset="15">
                                     <img src="/assets/images/dashboard/icon/information.svg">
                                 </div>
+                                <a [routerLink]="'./'+ subscriber._id" *ngIf="isSuperAdmin" class="user-table-action-icon" tooltip="Info" placement="top" delay="100" offset="15">
+                                    <img src="/assets/images/dashboard/icon/information.svg">
+                                </a>
                                 <div class="user-table-action-icon" (click)="deleteSubscriber(subscriber)" tooltip="Delete" placement="top" delay="100" offset="15">
                                     <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.93548 0C5.50791 0 5.16129 0.348336 5.16129 0.778022V1.55604H0.774194C0.346622 1.55604 0 1.90438 0 2.33407C0 2.76375 0.346622 3.11209 0.774194 3.11209H15.2258C15.6534 3.11209 16 2.76375 16 2.33407C16 1.90438 15.6534 1.55604 15.2258 1.55604H10.8387V0.778022C10.8387 0.348336 10.4921 0 10.0645 0H5.93548Z" fill="#495058"/>
@@ -232,5 +235,3 @@
     </div>
   </ng-container>
 </div>
-
-<app-subscriber-subscriptions *ngIf="subscriberDetails" [subscriberDetails]="subscriberDetails" (closeEvent)="subscriberDetails = undefined;"></app-subscriber-subscriptions>

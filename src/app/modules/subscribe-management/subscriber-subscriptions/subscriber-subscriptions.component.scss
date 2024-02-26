@@ -48,8 +48,15 @@
         }
         .t-grid-table-wrapper {
             display: grid;
-            grid-template-columns: 3fr 2fr 2fr 2.1fr 2fr 2.5fr 1.5fr 130px;
-            grid-gap: 1;
+            &:not(.no-records){
+                grid-template-columns: 3fr 2fr 2fr 2.1fr 2fr 2.5fr 1.5fr 130px;
+                grid-gap: 1;
+            }
+            &.no-records{
+                border-top: 1px dashed var(--table-row-seperator-color);
+                color: #7A7A7A;
+                font-style: italic;
+            }
         }
         .table-headers {
             font-size: 20px;

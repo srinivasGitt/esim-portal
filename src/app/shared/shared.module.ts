@@ -55,7 +55,8 @@ import {
   TooltipDirective,
 } from './directive';
 
-import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
+import { CurrencySymbolPipe, FilesizePipe, FilterPipe, PhoneNumberMaskPipe, ShowentriesPipe } from './pipe';
+import { SubscriptionPlanInfoComponent } from './dialog/subscription-plan-info/subscription-plan-info.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,9 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     FilesizePipe,
     PhoneNumberMaskPipe,
     CurrencySymbolPipe,
+    FilterPipe,
+    ShowentriesPipe,
+    SubscriptionPlanInfoComponent
   ],
   imports: [
     CommonModule,
@@ -122,6 +126,8 @@ import { CurrencySymbolPipe, FilesizePipe, PhoneNumberMaskPipe } from './pipe';
     StatusColorDirective,
     CurrencySymbolPipe,
     NumberOnlyDirective,
+    FilterPipe,
+    ShowentriesPipe
   ],
   providers: [CurrencyPipe, DatePipe],
 })
