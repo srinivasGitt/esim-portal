@@ -67,14 +67,14 @@
                   <span class="icon copy" *ngIf="details.title === 'Plan Expiry'">
                     {{ (planDetails[details.key] || planDetails.expiredDate) | date: 'dd/MM/yyyy Thh:mm:ss' }}
                   </span>
-                  <span class="icon copy" *ngIf="details.title === 'Available Reward Points'">
-                    ({{ planDetails.rewardCashValue | currency : planDetails.currency : 'symbol' : '1.0-2' }})
+                  <span class="icon copy" *ngIf="details.title === 'Earned Reward Points' && planDetails.cashValueOfEarnedPoints">
+                    ({{ planDetails.cashValueOfEarnedPoints | currency : planDetails.currency : 'symbol' : '1.0-2' }})
                   </span>
       
-                  <span class="icon copy" *ngIf="details.title === 'Used Reward Points'">
+                  <span class="icon copy" *ngIf="details.title === 'Used Reward Points' && planDetails.rewardCashValueRedeemed">
                     ({{ planDetails.rewardCashValueRedeemed | currency : planDetails.currency : 'symbol' : '1.0-2' }})
                   </span>
-                  <span class="icon copy" *ngIf="details.title === 'Coupon Code'">
+                  <span class="icon copy" *ngIf="details.title === 'Coupon Code' && planDetails.couponAmount">
                     ({{ planDetails.couponAmount | currency : planDetails.currency : 'symbol' : '1.0-2' }})
                   </span>
                   
