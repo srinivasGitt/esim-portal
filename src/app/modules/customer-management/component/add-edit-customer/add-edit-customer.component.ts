@@ -3,6 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog';
+import {
+  OtpVerificationComponent,
+  buttonText,
+  otpType,
+} from 'src/app/shared/dialog/otp-verification';
 import { ICustomResponse } from 'src/app/shared/models';
 import { Customer } from 'src/app/shared/models/customer';
 import { AlertService, DialogService } from 'src/app/shared/service';
@@ -249,17 +254,37 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   }
 
   updateCustomerDetails(customerId: string, customerDetails: any) {
-    console.log(customerDetails.stepOne);
-    this.customerService.updateCustomer(customerId, customerDetails.stepOne).subscribe(
-      (response: ICustomResponse) => {
-        this.alertService.success(response.message);
-        this.customerStepperService.resetStep();
-        this.router.navigate(['customers']);
-      },
-      (error) => {
-        this.alertService.error(error.error.message);
-      }
-    );
+    // this.customerService.updateCustomer(customerId, customerDetails.stepOne).subscribe(
+    //   (response: ICustomResponse) => {
+    //     this.alertService.success(response.message);
+    //     this.customerStepperService.resetStep();
+    //     this.router.navigate(['customers']);
+    //   },
+    //   (error) => {
+    //     this.alertService.error(error.error.message);
+    //   }
+    // );
+    this.dialogService
+      .openModal(OtpVerificationComponent, {
+        context: {
+          config: {
+            type: otpType.CUSTOMER_UPDATE,
+            buttonText: buttonText.submit,
+          },
+          payload: { customerId: customerId, ...customerDetails.stepOne },
+        },
+      })
+      .instance.close.subscribe(
+        (res: any) => {
+          this.customerStepperService.resetStep();
+          this.router.navigate(['customers']);
+          this.alertService.success(res.message);
+        },
+        (err) => {
+          this.alertService.error(err.error.message, err.status);
+          this.inProgress = false;
+        }
+      );
   }
 
   // Go back to Previous Page

@@ -1,19 +1,22 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { DialogComponent } from '../../service/dialog';
 import { AuthService, UsersService } from '../../service';
+import { DialogComponent } from '../../service/dialog';
 import { OtpVerification, otpType } from './otpType.model';
 @Component({
   selector: 'app-otp-verification',
   templateUrl: './otp-verification.component.html',
-  styleUrls: ['./otp-verification.component.scss']
+  styleUrls: ['./otp-verification.component.scss'],
 })
 export class OtpVerificationComponent implements OnInit {
-
   dialogRef: DialogComponent;
   config!: OtpVerification;
   userDetails: any;
   otpError = true;
-  otpDetails: { requestId: string, otp: string, requestType: string } = { requestId: '', otp: '', requestType: ''};
+  otpDetails: { requestId: string; otp: string; requestType: string } = {
+    requestId: '',
+    otp: '',
+    requestType: '',
+  };
   payload: any;
 
   public settings = {
@@ -22,13 +25,14 @@ export class OtpVerificationComponent implements OnInit {
     timer: 60,
     timerType: 1,
     btnText: 'Resend OTP',
-    errorMessage: 'The OTP you have entered is invalid'
-  }
+    errorMessage: 'The OTP you have entered is invalid',
+  };
   userEmail!: string;
-  constructor(private viewContainer: ViewContainerRef,
+  constructor(
+    private viewContainer: ViewContainerRef,
     private userService: UsersService,
     private authService: AuthService
-    ) {
+  ) {
     const _injector = this.viewContainer.injector;
     this.dialogRef = _injector.get<DialogComponent>(DialogComponent);
   }
@@ -48,38 +52,42 @@ export class OtpVerificationComponent implements OnInit {
     this.dialogRef.close.emit();
   }
 
-  onOTPChange(value : any){
-    if(value.length === this.settings.length) {
+  onOTPChange(value: any) {
+    if (value.length === this.settings.length) {
       this.otpDetails.otp = value;
       this.otpError = false;
-    } else if(value === -2){
+    } else if (value === -2) {
       this.sendOtp();
     }
   }
   sendOtp() {
-    this.authService.validateUser({requestType: this.otpDetails.requestType, payload: this.payload}).subscribe(
-      (result : any) => {
-        if(result?.data?.requestId) {
-          this.otpDetails.requestId= result.data.requestId;
-          this.otpError = false;
-          this.settings.errorMessage = '';
-        };
-      },
-      (error) => {
-        this.otpError = true;
-        this.settings.errorMessage = error.error.message;
-      });
+    this.authService
+      .validateUser({ requestType: this.otpDetails.requestType, payload: this.payload })
+      .subscribe(
+        (result: any) => {
+          if (result?.data?.requestId) {
+            this.otpDetails.requestId = result.data.requestId;
+            this.otpError = false;
+            this.settings.errorMessage = '';
+          }
+        },
+        (error) => {
+          this.otpError = true;
+          this.settings.errorMessage = error.error.message;
+        }
+      );
   }
 
-  verifyUser(){
-    this.authService.verifyUser({ ...this.otpDetails}).subscribe(
+  verifyUser() {
+    this.authService.verifyUser({ ...this.otpDetails }).subscribe(
       (result) => {
-        this.dialogRef.close.emit(true);
+        this.dialogRef.close.emit(result);
       },
       (error) => {
         this.otpError = true;
         this.settings.errorMessage = error.error.message;
-      });
+      }
+    );
   }
 }
 // this.dialogService.openModal(OtpVerificationComponent, { context : { config: { type: otpType.CUSTOMER_ENABLE, buttonText: buttonText.enable}, payload: {}}})
