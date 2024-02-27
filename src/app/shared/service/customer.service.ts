@@ -119,8 +119,4 @@ export class CustomerService {
       return this.http.get(`${this.serverUrl}/customers/hierarchy`);
     }
 
-  // Get Customer by CustomerId
-  getCustomerByCustomerId(customerId: string) {
-    return this.http.get(`${this.serverUrl}/customers/${customerId}/statistics`);
-  }
 }

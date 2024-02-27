@@ -72,6 +72,7 @@ import {
   SearchFilterPipe,
   ShowentriesPipe,
 } from './pipe';
+import { InviteAgentComponent } from './dialog/invite-agent/invite-agent.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,8 @@ import {
     CurrencyByMatchingkeyPipe,
     RoleCheckPipe,
     FilterPipe,
-    SubscriptionPlanInfoComponent
+    SubscriptionPlanInfoComponent,
+    InviteAgentComponent
   ],
   imports: [
     CommonModule,

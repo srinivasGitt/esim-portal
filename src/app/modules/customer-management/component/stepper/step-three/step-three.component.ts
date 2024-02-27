@@ -9,7 +9,7 @@ import { FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 export class StepThreeComponent implements OnInit {
   @Input() formGroupName!: string;
   form!: FormGroup;
-  userRoles: Array<string> = ['Admin'];
+  userRoles: Array<string> = ['admin'];
   constructor(private rootFormGroup: FormGroupDirective) {}
 
   ngOnInit(): void {

@@ -1,14 +1,14 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from 'src/app/shared/dialog';
 import { ICustomResponse } from 'src/app/shared/models';
 import { Customer } from 'src/app/shared/models/customer';
 import { AlertService, DialogService } from 'src/app/shared/service';
 import { CustomValidators } from 'src/app/shared/validators/custom-validators';
+import { CustomerModuleService } from '../../service/customer-module.service';
 import { CustomerStepperService } from '../../service/customer-stepper.service';
-import { CustomerService } from '../../service/customer.service';
 
 @Component({
   selector: 'app-add-edit-customer',
@@ -19,35 +19,8 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   customerForm!: FormGroup;
   countryCodes: Array<any> = [];
   customerData!: Customer;
-  // customerData: Customer = {
-  //   billingAddress: {
-  //     addressLine: 'sdfsdfsdfsf',
-  //     landmark: 'NY square',
-  //     pincode: '999999',
-  //     city: 'llllllllll',
-  //     country: 'India',
-  //     state: 'lllllllllllllllll',
-  //   },
-  //   companyName: 'ppppppppp',
-  //   contactDetails: { emailAddress: 'adb@adc.com', phoneNumber: '+91 999999999' },
-  //   products: {
-  //     iosApp: true,
-  //     androidApp: false,
-  //     api: false,
-  //     trs: false,
-  //     sdk: false,
-  //     webapp: true,
-  //     shopifyApp: true,
-  //   },
-  //   userInvite: {
-  //     firstName: 'sdfssss',
-  //     lastName: 'sssssssss',
-  //     email: 'adb@adc.com',
-  //     number: '0999999999',
-  //     role: 'Admin',
-  //   },
-  //   websiteLink: 'www.xyz.com',
-  // };
+  customerId!: string;
+
   // stepper
   currentStep: number = 0;
   stepCountArray: Array<any> = [];
@@ -72,15 +45,20 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     { name: 'API', value: 'api' },
     { name: 'TRS', value: 'trs' },
     { name: 'SDK', value: 'sdk' },
-    { name: 'Web Application', value: 'webapp' },
+    { name: 'Web Application', value: 'webApp' },
     { name: 'Shopify Application', value: 'shopifyApp' },
   ];
+
+  // flags
   hasTrueValue!: boolean;
+  inProgress: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private customerStepperService: CustomerStepperService,
-    private customerService: CustomerService,
+    private customerService: CustomerModuleService,
     private router: Router,
+    private activateRoute: ActivatedRoute,
     private alertService: AlertService,
     private dialogService: DialogService,
     private location: LocationStrategy
@@ -92,22 +70,42 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.stepCountArray = this.customerData ? this.editStepArray : this.addStepArray;
-    this._initForm(this.customerData);
-    this.getCountryCodeList();
-  }
+    this.activateRoute.params.subscribe((res: any) => {
+      this.customerId = res.id;
 
-  private getCountryCodeList() {
-    this.customerService.getCountryCode().subscribe((response: ICustomResponse) => {
-      this.countryCodes = response.data;
+      if (this.customerId) {
+        this.getCustomerDetails(this.customerId);
+      } else {
+        this.stepCountArray = this.addStepArray;
+        this._initForm();
+      }
     });
   }
+
+  private getCustomerDetails(customerId: string) {
+    this.inProgress = true;
+    this.customerService.getCustomerByCustomerId(customerId).subscribe({
+      next: (response: any) => {
+        this.customerData = response[0];
+        this.stepCountArray = this.editStepArray;
+        setTimeout(() => {
+          this._initForm(this.customerData);
+          this.inProgress = false;
+        }, 1000);
+      },
+      error: (err: any) => {
+        this.alertService.error(err.error.message);
+        this.inProgress = false;
+      },
+    });
+  }
+
   // Customer Form Initialize
   private _initForm(customerData?: any) {
     this.customerForm = this.fb.group({
       stepOne: this.fb.group({
-        companyName: [
-          customerData?.companyName ?? null,
+        name: [
+          customerData?.name ?? null,
           [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
         ],
         websiteLink: [customerData?.websiteLink ?? null, [CustomValidators.websiteValidator]],
@@ -121,8 +119,6 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
         userInvite: this.createUserInviteGroup(),
       }),
     });
-
-    console.log(this.customerForm.controls);
   }
 
   // Billing Address Form Group
@@ -205,14 +201,13 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
   }
 
   hasTrueValueFunction(event: any) {
-    console.log(event);
     this.hasTrueValue = event;
   }
 
   // Submit Customer Details
   submitCustomerDetails() {
-    if (this.customerData) {
-      this.updateCustomerDetails(this.customerForm.value);
+    if (this.customerId) {
+      this.updateCustomerDetails(this.customerId, this.customerForm.value);
     } else {
       this.addCustomer(this.customerForm);
     }
@@ -253,17 +248,15 @@ export class AddEditCustomerComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateCustomerDetails(customerDetails: any) {
+  updateCustomerDetails(customerId: string, customerDetails: any) {
     console.log(customerDetails.stepOne);
-    this.customerService.updateCustomer(customerDetails._id, customerDetails.stepOne).subscribe(
+    this.customerService.updateCustomer(customerId, customerDetails.stepOne).subscribe(
       (response: ICustomResponse) => {
-        console.log(response);
         this.alertService.success(response.message);
         this.customerStepperService.resetStep();
         this.router.navigate(['customers']);
       },
       (error) => {
-        console.log(error);
         this.alertService.error(error.error.message);
       }
     );

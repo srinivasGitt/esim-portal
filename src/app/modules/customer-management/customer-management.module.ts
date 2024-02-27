@@ -1,23 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { CustomerManagementRoutingModule } from './customer-management-routing.module';
-import { CustomerManagementComponent } from './customer-management.component';
-import { AddEditCustomerComponent } from './component/add-edit-customer/add-edit-customer.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ShowentriesPipe } from 'src/app/shared/pipe';
-import { StepOneComponent } from './component/stepper/step-one/step-one.component';
-import { StepTwoComponent } from './component/stepper/step-two/step-two.component';
-import { StepThreeComponent } from './component/stepper/step-three/step-three.component';
-import { MobileNumberInputComponent } from 'src/app/shared/component';
+import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AddEditCustomerComponent } from './component/add-edit-customer/add-edit-customer.component';
 import { SingleCustomerViewComponent } from './component/single-customer-view/single-customer-view.component';
-import { InviteAgentComponent } from './component/invite-agent/invite-agent.component';
+import { StepOneComponent } from './component/stepper/step-one/step-one.component';
+import { StepThreeComponent } from './component/stepper/step-three/step-three.component';
+import { StepTwoComponent } from './component/stepper/step-two/step-two.component';
+import { CustomerManagementRoutingModule } from './customer-management-routing.module';
+import { CustomerManagementComponent } from './customer-management.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +24,6 @@ import { InviteAgentComponent } from './component/invite-agent/invite-agent.comp
     StepTwoComponent,
     StepThreeComponent,
     SingleCustomerViewComponent,
-    InviteAgentComponent,
   ],
   imports: [
     CommonModule,

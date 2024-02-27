@@ -1,11 +1,11 @@
-<!-- <div style="position: fixed; top: 30px; left: 500px; z-index: 1000;"> 
+<!-- <div style="position: fixed; top: 30px; left: 500px; z-index: 1000;">
     <button class="btn btn-warning" (click)="isRole = 'admin';">Admin test</button>
     <button class="btn btn-info" (click)="isRole = 'superAdmin';">SuperAdmin test</button>
 
     <button class="btn btn-danger" (click)="isCustomerSelected = !isCustomerSelected;">Customer Selected</button>
 </div> -->
 
-<ng-container *ngIf="isRole.includes('superAdmin')">
+<ng-container *ngIf="isRole && isRole.includes('superAdmin')">
     <div class="super-admin-main">
 
         <div class="super-admin-sidebar" [ngClass]="{'super-admin-customer-selected': isCustomerSelected}" >
@@ -15,10 +15,10 @@
                     <img class="brand-logo-small" src="/assets/images/auth/gb-logo-small.png" alt="">
                 </a>
             </div>
-        
+
             <ul class="sidebar-menu-list">
                 <li *ngFor="let menu of superAdminMenuList" class="flex-column sidebar-main-title" #itemEl>
-                    
+
                     <!-- non customer -->
                     <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
                         <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" (click)="isCustomerSelected = false;">
@@ -62,7 +62,7 @@
                     </div>
 
                     <!-- non customer -->
-                    <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
+                    <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">
                         <ul class="sub-menu">
                             <ng-container *ngFor="let child of menu.childs">
                                 <li *ngIf="child.accessRole.includes('superAdmin')" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
@@ -80,7 +80,7 @@
                     </div>
 
                      <!-- Cutomer -->
-                    <div *ngIf="menu.title === 'Customers'" class="accordian-base-1">     
+                    <div *ngIf="menu.title === 'Customers'" class="accordian-base-1">
                         <div class="sub-menu">
                             <div class="accordion" id="accordionExample">
                                 <li *ngFor="let child of customerList; index as i" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
@@ -124,7 +124,7 @@
                                     </div>
                                 </li>
                             </div>
-                        </div>                          
+                        </div>
 
                         <!-- <ul class="sub-menu">
                             <div class="accordion" id="accordionExample">
@@ -179,10 +179,10 @@
                             </div>
                         </ul> -->
                     </div>
-                    
+
                 </li>
             </ul>
-        
+
             <div class="d-flex align-items-center meta-footer">
                 <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
                 </span>
@@ -198,7 +198,7 @@
                     </a>
                     <a href="" class="customer-name">Travel Sim</a>
                 </div>
-            
+
                 <ul class="sidebar-menu-list">
                     <li *ngFor="let menu of adminMenuList" class="flex-column sidebar-main-title" #itemEl>
 
@@ -230,7 +230,7 @@
                         </div>
 
                         <!-- Admin non customer -->
-                        <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
+                        <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">
                             <ul class="sub-menu">
                                 <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
                                     <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
@@ -259,9 +259,9 @@
                                 </div>
                             </a>
                         </div>
- 
+
                         <!-- Admin customer hirarchy -->
-                        <div *ngIf="menu.title === 'Customers'">  
+                        <div *ngIf="menu.title === 'Customers'">
                             <ul class="sub-menu">
                                 <div class="accordion" id="accordionExample" *ngIf="selectedCustomerList?.length > 0">
                                     <li *ngFor="let child of selectedCustomerList; index as i" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
@@ -315,10 +315,10 @@
                                 </div>
                             </ul>
                         </div>
-                        
+
                     </li>
                 </ul>
-            
+
                 <div class="d-flex align-items-center meta-footer">
                     <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
                     </span>
@@ -331,14 +331,14 @@
 
 
 <!-- only admin navbar -->
-<ng-container *ngIf="isRole.includes('admin')">
+<ng-container *ngIf="isRole && isRole.includes('admin')">
     <div class="sidebar-inner" [ngClass]="{'d-none': show}"  id="sidebar-1">
         <div class="sidebar-brand-parent">
             <a class="sidebar-brand" routerLink="/">
                 <img class="brand-logo" [src]="'/assets/images/auth/logo' + (isDarkTheme ? '-dark.svg' : '.svg')" alt="">
             </a>
         </div>
-    
+
         <ul class="sidebar-menu-list">
             <li *ngFor="let menu of adminMenuList" class="flex-column sidebar-main-title" #itemEl>
                 <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
@@ -364,7 +364,7 @@
                         </div>
                     </a>
                 </div>
-                <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">   
+                <div *ngIf="menu.title != 'Customers' && menu.childs && menu.childs.length > 0">
                     <ul class="sub-menu">
                         <li *ngFor="let child of menu.childs" class="sidebar-sub-title" [routerLinkActive]="['activeLinkChild']" [routerLinkActiveOptions]="{exact: true}">
                             <a class="nav-link" [routerLink]="[child.link]" *ngIf="!child.external">
@@ -378,10 +378,10 @@
                         </li>
                     </ul>
                 </div>
-                
+
             </li>
         </ul>
-    
+
         <div class="d-flex align-items-center meta-footer">
             <span>Powered By &nbsp;<img src="assets/images/navbar/gb-small.png" alt="gb-small">
             </span>

@@ -1,4 +1,4 @@
-<div class="common-header">
+<div class="common-header" *ngIf="!inProgress; else spinner">
   <!-- Customer Form Header Section -->
   <div class="customer-form-header">
     <div class="row justify-content-between">
@@ -81,7 +81,7 @@
     </div>
     <!-- Form Section -->
     <div class="col-8 right-div">
-      <form [formGroup]="customerForm" novalidate autocomplete="off">
+      <form [formGroup]="customerForm" novalidate autocomplete="off" (cdkAutofill)="false">
         <!-- STEP ONE -->
         <app-step-one formGroupName="stepOne" *ngIf="currentStep === 1"></app-step-one>
 
@@ -104,3 +104,9 @@
     </div>
   </div>
 </div>
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->

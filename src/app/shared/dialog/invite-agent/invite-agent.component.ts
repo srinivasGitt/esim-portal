@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from 'src/app/shared/service';
-import { DialogComponent } from 'src/app/shared/service/dialog';
-import { trimSpaceValidator } from 'src/app/shared/validators/trimSpaceValidator';
+import { AlertService } from '../../service';
+import { AgentService } from '../../service/agent.service';
+import { DialogComponent } from '../../service/dialog';
+import { trimSpaceValidator } from '../../validators/trimSpaceValidator';
 
 @Component({
   selector: 'app-invite-agent',
@@ -14,9 +15,11 @@ export class InviteAgentComponent implements OnInit {
   inviteAgentForm!: FormGroup;
   title: string = 'Invite Agent';
   submitted = false;
+  customerId!: string;
 
   constructor(
     private viewContainer: ViewContainerRef,
+    private agentService: AgentService,
     private alertService: AlertService
   ) {
     const _injector = this.viewContainer.injector;
@@ -24,6 +27,7 @@ export class InviteAgentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.customerId = this.dialogRef.context.customerId;
     this.initForm();
   }
 
@@ -56,6 +60,25 @@ export class InviteAgentComponent implements OnInit {
       return;
     }
 
+    const agent = this.inviteAgentForm.value;
+    const phoneNumberData = agent.mobile.split(' ');
+
+    const finalAgentObj = {
+      customerId: this.customerId,
+      name: agent.name,
+      email: agent.email,
+      countryCode: phoneNumberData[0],
+      mobile: phoneNumberData[1],
+    };
+
+    this.agentService.inviteAgent(finalAgentObj).subscribe({
+      next: (result) => {
+        this.dialogRef.close.emit(result);
+      },
+      error: (err) => {
+        this.alertService.error(err.error.message);
+      },
+    });
     console.log(this.inviteAgentForm.value);
   }
 
