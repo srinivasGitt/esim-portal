@@ -8,13 +8,10 @@
     <!-- Uptime Statistics -->
     <div class="row" *ngIf="uptimeData">
       <div class="row no-gutters">
-        <div
-          class="col-4 pe-0 mb-2"
-          *ngFor="let uptime of uptimeData | keyvalue: orderOriginal"
-        >
+        <div class="col-4 pe-0 mb-2" *ngFor="let uptime of uptimeData | keyvalue: orderOriginal">
           <div class="card report-card d-flex flex-column justify-content-around px-3 py-2">
             <h3>{{ $any(uptime.key) | uppercase }}</h3>
-            <h1>{{ ($any(uptime.value)/100)  | percent:'1.2'}}</h1>
+            <h1>{{ $any(uptime.value) / 100 | percent: '1.2' }}</h1>
           </div>
         </div>
       </div>
@@ -182,16 +179,21 @@
     </div>
   </div>
   <!-- Activity Logs -->
-  <div class="col-4 dashboard-border-left">
+  <div class="col-4 dashboard-border-left log-div">
     <div class="row px-3">
-      <div class="col-12 log-card px-3 py-2 mb-3" *ngFor="let log of activityLogsData">
-        <h1 class="log-card-heading">{{ log.name }}</h1>
-        <div class="row log-card-text">
-          <div class="col-8">
-            <p>{{ log.description }}</p>
-          </div>
-          <div class="col-4">
-            <p>{{ log.createdAt | dayOrDate }}</p>
+      <div class="log-card px-3 py-3 mb-3 gap-3" *ngFor="let log of activityLogsData">
+        <div>
+          <img src="assets/logs/{{ log.name }}.svg" alt="{{ log.name }}" />
+        </div>
+        <div>
+          <h1 class="log-card-heading">{{ log.name }}</h1>
+          <div class="row log-card-text">
+            <div class="col-8">
+              <p>{{ log.description }}</p>
+            </div>
+            <div class="col-4">
+              <p>{{ log.createdAt | dayOrDate }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -205,11 +207,22 @@
       <div class="dashboard-heading d-flex align-items-center mb-2">
         <h4>Sales Compare Graph</h4>
       </div>
-      <canvas id="salesChart" *ngIf="salesGraphData && salesGraphData.length > 0; else msg"></canvas>
+      <!-- <canvas
+        id="salesChart"
+        *ngIf="salesGraphData && salesGraphData.length > 0; else msg"
+      ></canvas>
 
       <ng-template #msg>
-        <p class="no-data-msg mt-5">There's currently no data for Sales Compare Graph at this moment.</p>
-      </ng-template>
+        <p class="no-data-msg mt-5">
+          There's currently no data for Sales Compare Graph at this moment.
+        </p>
+      </ng-template> -->
+      <canvas
+        id="salesChart"
+      ></canvas>
+      <p class="no-data-msg mt-5" *ngIf="salesGraphData.length === 0">
+        There's currently no data for Sales Compare Graph at this moment.
+      </p>
     </div>
   </div>
 </div>
