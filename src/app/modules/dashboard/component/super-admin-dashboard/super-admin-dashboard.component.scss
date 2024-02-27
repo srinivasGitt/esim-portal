@@ -1,8 +1,7 @@
 .log-card {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 83px;
+  min-height: 83px;
+  max-height: auto;
   border-radius: 8px;
   background: rgba(254, 254, 254, 1);
 
