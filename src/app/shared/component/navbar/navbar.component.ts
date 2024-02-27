@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   userDetails: any;
   showSearch: boolean = true;
   routeUrl!: string;
+  placeHolder: string = '';
 
   tooltip = 'Need Assistance?';
   supportLink = 'https://support.glowingbud.com/';
@@ -30,9 +31,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   urlList = [
     '/',
     '/reports',
-    '/user-management',
     '/setting',
-    '/help-center',
     '/loyalty-point-program',
     '/reports/revenue',
     '/reports/data-usage',
@@ -57,14 +56,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     router.events.subscribe((route) => {
       if (route instanceof NavigationEnd) {
         this.routeUrl = route.url;
-        const routeArrayLength = this.routeUrl;
+        const routeArray = this.routeUrl;
         if (this.urlList.includes(route.url)) {
           this.showSearch = false;
         } else {
-          if ((routeArrayLength.match(/\//g) || []).length > 1) {
+          if ((routeArray.match(/\//g) || []).length > 1 && route.url === 'help-center' ) {
             this.showSearch = false;
           } else {
             this.showSearch = true;
+            this.placeHolder = this.definePlaceholder(this.routeUrl);
           }
         }
         this.searchform?.reset();
@@ -164,6 +164,24 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         this.alertService.error(err.error.message);
       }
     );
+  }
+
+  private definePlaceholder(urlEndPoint: any): string {
+    const splittedUrl = urlEndPoint.split('/');
+    const first = splittedUrl[1];
+
+    const mappings: any = {
+      customers: 'Search by Customer Name',
+      'user-management': 'Search by User Name or User Email ID',
+      agent: 'Search by Agent Name or Email ID',
+      plans: 'Search by Plan Name or IMSI',
+      subscribers: 'Search by Display Name or User Email ID',
+      subscriptions: 'Search by User Email ID or Plan Name',
+      inventory: 'Search by ICCID or IMSI',
+      'help-center': 'Search by Name or User Email ID',
+    };
+    const result = mappings[first] || 'Search';
+    return result;
   }
 
   signout() {
