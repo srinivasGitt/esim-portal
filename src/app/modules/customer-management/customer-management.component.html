@@ -212,7 +212,7 @@
                     <input
                       type="checkbox"
                       [(ngModel)]="customer.isActive"
-                      (ngModelChange)="activateCustomer(customer)"
+                      (click)="activateCustomer(customer, $event)"
                     />
                     <span class="slider"></span>
                   </label>

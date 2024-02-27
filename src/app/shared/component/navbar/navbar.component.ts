@@ -5,52 +5,93 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AlertService, CustomerService, DashboardService, UsersService } from '../../service';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { SearchService } from '../../service/search/search.service';
-declare var $: any;
+declare let $: any;
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
   isDarkTheme = false;
-  screenMode:any;
+  screenMode: any;
   parentCustomer: any;
   customerList: any = [];
   userDetails: any;
   showSearch: boolean = true;
   routeUrl!: string;
 
-  tooltip = 'Need Assistance?'
-  supportLink = 'https://support.glowingbud.com/'
+  tooltip = 'Need Assistance?';
+  supportLink = 'https://support.glowingbud.com/';
 
-  @ViewChild('searchForm',{static: false}) searchForm!: NgModel;
+  @ViewChild('searchForm', { static: false }) searchForm!: NgModel;
   initValue: string = '';
   searchform!: FormGroup;
-  urlList = ['/', '/reports', '/customers', '/user-management', '/setting', '/help-center', '/loyalty-point-program', '/reports/revenue', '/reports/data-usage',
-  '/reports/subscriber', '/reports/subscription'];
+  urlList = [
+    '/',
+    '/reports',
+    '/user-management',
+    '/setting',
+    '/help-center',
+    '/loyalty-point-program',
+    '/reports/revenue',
+    '/reports/data-usage',
+    '/reports/subscriber',
+    '/reports/subscription',
+  ];
 
-  constructor(private customerService: CustomerService,
-              private dashboardService: DashboardService,
-              private alertService : AlertService,
-              private usersService: UsersService,
-              public router: Router,
-              private _localStorage: LocalStorageService,
-              private _searchService: SearchService, private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(
+    private customerService: CustomerService,
+    private dashboardService: DashboardService,
+    private alertService: AlertService,
+    private usersService: UsersService,
+    public router: Router,
+    private _localStorage: LocalStorageService,
+    private _searchService: SearchService,
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.formInit();
 
-      // show/hide search box
-      router.events.subscribe((route) => {
-        if(route instanceof NavigationEnd) {
-        this.routeUrl = route.url
-        if(this.urlList.includes(route.url)) {
+    // show/hide search box
+    router.events.subscribe((route) => {
+      if (route instanceof NavigationEnd) {
+        this.routeUrl = route.url;
+        const routeArrayLength = this.routeUrl;
+        if (this.urlList.includes(route.url)) {
           this.showSearch = false;
         } else {
-          this.showSearch = true;
+          if ((routeArrayLength.match(/\//g) || []).length > 1) {
+            this.showSearch = false;
+          } else {
+            this.showSearch = true;
+          }
         }
-        this.searchform?.reset()
+        this.searchform?.reset();
+
+        if (!this.urlList.includes(this.routeUrl)) {
+          this.searchform
+            ?.get('searchTerm')
+            ?.valueChanges.pipe(
+              debounceTime(500),
+              distinctUntilChanged(),
+              switchMap((data) => {
+                if (data !== null) {
+                  return this._searchService.getSearchResult(this.routeUrl, data);
+                } else {
+                  return [];
+                }
+              })
+            )
+            .subscribe((res) => {
+              console.log(res);
+              this.cdr.detectChanges();
+              this._searchService.setResults(res);
+            });
+        }
       }
-    })
-    usersService.getCurrentUser().subscribe(result => {
+    });
+    usersService.getCurrentUser().subscribe((result) => {
       this.userDetails = result;
     });
   }
@@ -58,25 +99,24 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     if (!this._localStorage.getToken()) {
       this.router.navigate(['/signin']);
-    }else{
+    } else {
       // this.getAllCustomer();
     }
-    const theme = this._localStorage.getTheme()
-    theme == 'dark' ? this.isDarkTheme = true : this.isDarkTheme = false;
+    const theme = this._localStorage.getTheme();
+    theme == 'dark' ? (this.isDarkTheme = true) : (this.isDarkTheme = false);
     this.dashboardService.setAppTheme(this.isDarkTheme);
-    this._localStorage.setTheme(this.isDarkTheme)
-    if(this.isDarkTheme) $('#body').toggleClass('darkMode');
-    this.formInit()
+    this._localStorage.setTheme(this.isDarkTheme);
+    if (this.isDarkTheme) $('#body').toggleClass('darkMode');
+    // this.formInit()
   }
 
   formInit(): void {
     this.searchform = this.fb.group({
-        searchTerm: ['']
-    })
+      searchTerm: [''],
+    });
   }
 
   ngAfterViewInit() {
-
     // Search Input Logic
     /*
     if(this.searchForm?.valueChanges) {
@@ -93,39 +133,40 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       })
     }
     */
-    if(!this.urlList.includes(this.routeUrl)) {
-      this.searchform.controls['searchTerm'].valueChanges.pipe(
+    if (!this.urlList.includes(this.routeUrl)) {
+      this.searchform.controls['searchTerm'].valueChanges
+        .pipe(
           debounceTime(500),
           distinctUntilChanged(),
-          switchMap(data => this._searchService.getSearchResult(this.routeUrl, data))
-          ).subscribe(res => {
-            this.cdr.detectChanges()
-            this._searchService.setResults(res)
-          })
-      }
+          switchMap((data) => this._searchService.getSearchResult(this.routeUrl, data))
+        )
+        .subscribe((res) => {
+          this.cdr.detectChanges();
+          this._searchService.setResults(res);
+        });
     }
+  }
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
     this.dashboardService.setAppTheme(this.isDarkTheme);
-    this._localStorage.setTheme(this.isDarkTheme)
+    this._localStorage.setTheme(this.isDarkTheme);
     $('#body').toggleClass('darkMode');
   }
 
   getAllCustomer() {
-    this.customerService.customers()
-     .subscribe(
+    this.customerService.customers().subscribe(
       (data: any) => {
-        this.parentCustomer = data.name;       //parent customer name
+        this.parentCustomer = data.name; //parent customer name
         this.customerList = data.childCustomer; //anuyat under child
-      }, err => {
+      },
+      (err) => {
         this.alertService.error(err.error.message);
       }
-   );
+    );
   }
 
-  signout(){
-    this._localStorage.clearStorage()
+  signout() {
+    this._localStorage.clearStorage();
   }
-
 }

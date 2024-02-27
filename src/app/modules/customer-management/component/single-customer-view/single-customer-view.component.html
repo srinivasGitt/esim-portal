@@ -221,7 +221,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.products.androidApp ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -230,8 +230,8 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.products.androidApp"
-                    (ngModelChange)="
-                      enableDisable('product', { androidApp: customer.products.androidApp })
+                    (click)="
+                      enableDisable('product', { androidApp: customer.products.androidApp }, $event)
                     "
                   />
                   <span class="slider"></span>
@@ -248,7 +248,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.products.iosApp ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -257,7 +257,7 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.products.iosApp"
-                    (ngModelChange)="enableDisable('product', { iosApp: customer.products.iosApp })"
+                    (click)="enableDisable('product', { iosApp: customer.products.iosApp }, $event)"
                   />
                   <span class="slider"></span>
                 </label>
@@ -277,7 +277,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.products.trs ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -286,7 +286,7 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.products.trs"
-                    (ngModelChange)="enableDisable('product', { trs: customer.products.trs })"
+                    (click)="enableDisable('product', { trs: customer.products.trs }, $event)"
                   />
                   <span class="slider"></span>
                 </label>
@@ -302,7 +302,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.products.api ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -311,7 +311,7 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.products.api"
-                    (ngModelChange)="enableDisable('product', { api: customer.products.api })"
+                    (click)="enableDisable('product', { api: customer.products.api }, $event)"
                   />
                   <span class="slider"></span>
                 </label>
@@ -327,7 +327,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.products.sdk ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -336,7 +336,7 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.products.sdk"
-                    (ngModelChange)="enableDisable('product', { sdk: customer.products.sdk })"
+                    (click)="enableDisable('product', { sdk: customer.products.sdk }, $event)"
                   />
                   <span class="slider"></span>
                 </label>
@@ -352,7 +352,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                [tooltip]="isEnable ? 'Disable' : 'Enable'"
+                [tooltip]="customer.products.shopifyApp ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -361,8 +361,8 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.products.shopifyApp"
-                    (ngModelChange)="
-                      enableDisable('product', { shopifyApp: customer.products.shopifyApp })
+                    (click)="
+                      enableDisable('product', { shopifyApp: customer.products.shopifyApp }, $event)
                     "
                   />
                   <span class="slider"></span>
@@ -424,7 +424,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                [tooltip]="isEnable ? 'Disable' : 'Enable'"
+                [tooltip]="customer.configuration.topupPlansMasterEnabled ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -433,10 +433,14 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.configuration.topupPlansMasterEnabled"
-                    (ngModelChange)="
-                      enableDisable('feature', {
-                        shopifyApp: customer.configuration.topupPlansMasterEnabled
-                      })
+                    (click)="
+                      enableDisable(
+                        'feature',
+                        {
+                          shopifyApp: customer.configuration.topupPlansMasterEnabled
+                        },
+                        $event
+                      )
                     "
                   />
                   <span class="slider"></span>
@@ -451,7 +455,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.configuration.rewardPointsMasterEnabled ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -460,10 +464,14 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.configuration.rewardPointsMasterEnabled"
-                    (ngModelChange)="
-                      enableDisable('feature', {
-                        shopifyApp: customer.configuration.rewardPointsMasterEnabled
-                      })
+                    (click)="
+                      enableDisable(
+                        'feature',
+                        {
+                          shopifyApp: customer.configuration.rewardPointsMasterEnabled
+                        },
+                        $event
+                      )
                     "
                   />
                   <span class="slider"></span>
@@ -478,7 +486,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.configuration.couponCodesMasterEnabled ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -487,10 +495,14 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.configuration.couponCodesMasterEnabled"
-                    (ngModelChange)="
-                      enableDisable('feature', {
-                        shopifyApp: customer.configuration.couponCodesMasterEnabled
-                      })
+                    (click)="
+                      enableDisable(
+                        'feature',
+                        {
+                          shopifyApp: customer.configuration.couponCodesMasterEnabled
+                        },
+                        $event
+                      )
                     "
                   />
                   <span class="slider"></span>
@@ -505,7 +517,9 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="
+                  customer.configuration.oneClickInstallMasterEnabled ? 'Enable' : 'Disable'
+                "
                 placement="top"
                 delay="50"
                 offset="10"
@@ -514,10 +528,14 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.configuration.oneClickInstallMasterEnabled"
-                    (ngModelChange)="
-                      enableDisable('feature', {
-                        shopifyApp: customer.configuration.oneClickInstallMasterEnabled
-                      })
+                    (click)="
+                      enableDisable(
+                        'feature',
+                        {
+                          shopifyApp: customer.configuration.oneClickInstallMasterEnabled
+                        },
+                        $event
+                      )
                     "
                   />
                   <span class="slider"></span>
@@ -532,7 +550,7 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="customer.configuration.multiLingualMasterEnabled ? 'Enable' : 'Disable'"
                 placement="top"
                 delay="50"
                 offset="10"
@@ -541,10 +559,14 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.configuration.multiLingualMasterEnabled"
-                    (ngModelChange)="
-                      enableDisable('feature', {
-                        shopifyApp: customer.configuration.multiLingualMasterEnabled
-                      })
+                    (click)="
+                      enableDisable(
+                        'feature',
+                        {
+                          shopifyApp: customer.configuration.multiLingualMasterEnabled
+                        },
+                        $event
+                      )
                     "
                   />
                   <span class="slider"></span>
@@ -559,7 +581,9 @@
             <div class="user-table-action">
               <span
                 class="user-table-action-icon"
-                tooltip="Active"
+                [tooltip]="
+                  customer.configuration.currencyConversionMasterEnabled ? 'Enable' : 'Disable'
+                "
                 placement="top"
                 delay="50"
                 offset="10"
@@ -568,10 +592,14 @@
                   <input
                     type="checkbox"
                     [(ngModel)]="customer.configuration.currencyConversionMasterEnabled"
-                    (ngModelChange)="
-                      enableDisable('feature', {
-                        shopifyApp: customer.configuration.currencyConversionMasterEnabled
-                      })
+                    (click)="
+                      enableDisable(
+                        'feature',
+                        {
+                          shopifyApp: customer.configuration.currencyConversionMasterEnabled
+                        },
+                        $event
+                      )
                     "
                   />
                   <span class="slider"></span>

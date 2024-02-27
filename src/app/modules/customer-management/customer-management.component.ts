@@ -92,7 +92,9 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   // Active / Deactivate Customer
-  activateCustomer(customer: any) {
+  activateCustomer(customer: any, event: any) {
+    event.preventDefault();
+    
     this.dialogService
       .openModal(OtpVerificationComponent, {
         context: {
