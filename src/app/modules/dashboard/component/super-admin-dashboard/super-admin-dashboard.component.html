@@ -220,6 +220,9 @@
       <canvas
         id="salesChart"
       ></canvas>
+      <p class="no-data-msg mt-5" *ngIf="salesGraphData.length === 0">
+        There's currently no data for Sales Compare Graph at this moment.
+      </p>
     </div>
   </div>
 </div>

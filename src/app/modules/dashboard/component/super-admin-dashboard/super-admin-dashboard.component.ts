@@ -91,7 +91,9 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
           this.salesGraphData = platformReportsDataResponse.sales_compare_graph;
           this.activityLogsData = result2;
 
-          this.generateChart(this.salesGraphData);
+          setTimeout(() => {
+            this.generateChart(this.salesGraphData);
+          }, 10);
         },
         error: (err) => {
           console.error(err);
@@ -118,7 +120,7 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
 
   /* Draw Chart - Start */
   private generateChart(salesData?: any) {
-    if (salesData && salesData.length > 0) {
+    if (salesData) {
       const currency = [...new Set(this.salesGraphData.map((data: any) => data.currency))][0];
       this.currency = getCurrencySymbol(String(currency), 'wide');
       const salesGraphData: any = {
@@ -140,6 +142,8 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
         type: 'bar',
         data: salesGraphData,
         options: {
+          responsive: true,
+          maintainAspectRatio: salesData?.length != 0,
           scales: {
             x: {
               grid: {
@@ -155,6 +159,16 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
                 },
                 padding: 20,
               },
+              title: {
+                display: salesData?.length == 0,
+                text: 'Customer',
+                color: 'rgba(0, 0, 0, 0.55)',
+                font: {
+                  size: 14,
+                  family: 'Inter',
+                  weight: '700',
+                },
+              }
             },
             y: {
               beginAtZero: true,
@@ -164,12 +178,12 @@ export class SuperAdminDashboardComponent implements OnInit, OnDestroy {
               ticks: {
                 color: '#6365EF',
                 font: {
-                  size: 17,
+                  size: salesData.length != 0 ? 17 : 0,
                   family: 'SF Pro Display',
                   weight: '400',
                   style: 'normal',
                 },
-                padding: 12,
+                padding: salesData.length != 0 ? 12 : 14
               },
             },
           },
