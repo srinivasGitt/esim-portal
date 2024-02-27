@@ -94,13 +94,13 @@ export class CustomerManagementComponent implements OnInit {
   // Active / Deactivate Customer
   activateCustomer(customer: any, event: any) {
     event.preventDefault();
-    
+
     this.dialogService
       .openModal(OtpVerificationComponent, {
         context: {
           config: {
-            type: customer.isActive ? otpType.CUSTOMER_ENABLE : otpType.CUSTOMER_DISABLE,
-            buttonText: customer.isActive ? buttonText.enable : buttonText.disable,
+            type: customer.isActive ? otpType.CUSTOMER_DISABLE : otpType.CUSTOMER_ENABLE,
+            buttonText: customer.isActive ? buttonText.disable : buttonText.enable,
           },
           payload: {},
         },

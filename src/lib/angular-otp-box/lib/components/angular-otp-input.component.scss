@@ -20,7 +20,7 @@
         }
     }
     .otp-input:not(:last-child) {
-        margin-right: 8px;
+        // margin-right: 8px;
         border-right: 1.5px solid;
         border-image: linear-gradient( transparent 0%, var(--input-border-color)50%, transparent 100% )1 100%;
     }

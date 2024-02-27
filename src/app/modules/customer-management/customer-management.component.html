@@ -152,12 +152,12 @@
             *ngFor="let customer of customerList | paginate: paginateConfig"
           >
             <!-- [routerLink]="['/customers', customer._id]" -->
-            <div class="t-box a px-2 cursor-pointer" [routerLink]="['/customers', customer._id]">
+            <div class="t-box a px-2 cursor-pointer" [class.active-color]="customer.isActive" [routerLink]="['/customers', customer._id]">
               {{ customer.name }}
             </div>
-            <div class="t-box b px-2">{{ customer.createdAt | date: 'dd-MM-yyyy' }}</div>
-            <div class="t-box a px-2">{{ customer.userCount || 0 }}</div>
-            <div class="t-box a px-2">
+            <div class="t-box b px-2" [class.active-color]="customer.isActive">{{ customer.createdAt | date: 'dd-MM-yyyy' }}</div>
+            <div class="t-box a px-2" [class.active-color]="customer.isActive">{{ customer.userCount || 0 }}</div>
+            <div class="t-box a px-2" [class.active-color]="customer.isActive">
               <ng-container *ngFor="let product of customer.products | keyvalue">
                 <ng-container *ngIf="product.value === true">
                   <img

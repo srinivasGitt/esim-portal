@@ -2018,6 +2018,11 @@
         }
       }
     }
+
+    .active-color {
+      color: var(--table-text-hover-active-color) !important;
+    }
+
     .table-row-border-top {
       border-top: 1px dashed #636668;
     }
