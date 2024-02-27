@@ -68,6 +68,9 @@ export class UserComponent implements OnInit {
     usersService.getCurrentUser().subscribe((res: any) => {
       this.userDetails = res;
     });
+    usersService.validateUserRole().subscribe( (value: Array<string>) => {
+      this.isSuperAdmin = value?.includes('superAdmin');
+    });
   }
 
   ngOnInit(): void {

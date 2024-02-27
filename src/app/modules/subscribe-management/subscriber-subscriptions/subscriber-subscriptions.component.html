@@ -29,7 +29,7 @@
             </div>
             <div class="ms-auto">
                 <h5 class="header"> Available Reward Points</h5>
-                <h5 class="details">{{ subscriberDetails.rewardPointsEarned }} ({{ subscriberDetails.cashValueOfRewardsPoints | currency : subscriberDetails.currencyObj.currency : 'symbol' : '1.0-2'}})</h5>
+                <h5 class="details">{{ subscriberDetails.rewardPoints }} ({{ subscriberDetails.cashValueOfRewardsPoints | currency : subscriberDetails.currencyObj.currency : 'symbol' : '1.0-2'}})</h5>
             </div>
             <div class="mx-4">
                 <h5 class="header"> Email Address</h5>
@@ -109,11 +109,25 @@
                 <div class="t-grid-table-wrapper t-body-bg cursor-p border-bottom-light table-row-border-bottom bg-body-table-dark-bg"  *ngFor="let subscription of subscriptionList | paginate: paginateConfig ">
                     <div class="t-box a px-2 text-overflow-ellipsis" *ngIf="subscription?.name?.length > 20" [tooltip]="subscription?.name" placement="top" delay="100" offset="0">{{ subscription.name }}</div>
                     <div class="t-box a px-2" *ngIf="subscription?.name?.length <= 20">{{ subscription.name }}</div>
-                    <div class="t-box a px-2 text-overflow-ellipsis" [tooltip]="subscription?.iccid" placement="top" delay="100" offset="0">{{ subscription.iccid }}</div>
-                    <div class="t-box a px-2 text-overflow-ellipsis" [tooltip]="planExpireEle?.innerHTML || ''" placement="top" delay="100" offset="0" #planExpireEle>{{ subscription.expiredDate | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</div>
-                    <div class="t-box a px-2">{{ subscription.earnedPoints }}</div>
-                    <div class="t-box a px-2">{{ subscription.rewardPointsRedeemed }} ( {{subscription.rewardCashValueRedeemed | currency : subscription.currency : 'symbol' : '1.0-2' }} )</div>
-                    <div class="t-box a px-2">{{ subscription.couponCode }} ( {{subscription.couponAmount | currency : subscription.currency : 'symbol' : '1.0-2' }} )</div>
+                    <div class="t-box a px-2 text-overflow-ellipsis">
+                        <span [tooltip]="subscription?.iccid" placement="top" delay="100" offset="0"> {{ subscription.iccid }} </span>
+                    </div>
+                    <div class="t-box a px-2 text-overflow-ellipsis">
+                        <span  [tooltip]="planExpireEle?.innerHTML || ''" placement="top" delay="100" offset="0" #planExpireEle> {{ (subscription.expiryDate || subscription.expiredDate) | date : "dd-MM-yyyy 'T'HH:mm:ss" }}</span>
+                        <span *ngIf="!(subscription.expiryDate || subscription.expiredDate)">NA</span>
+                    </div>
+                    <div class="t-box a px-2">
+                        <span *ngIf="subscription.earnedPoints">{{ subscription.earnedPoints }} ( {{subscription.cashValueOfEarnedPoints | currency : subscription.currency : 'symbol' : '1.0-2' }} )</span>
+                        <span *ngIf="!subscription.earnedPoints">NA</span>
+                    </div>
+                    <div class="t-box a px-2">
+                        <span *ngIf="subscription.rewardPointsRedeemed">{{ subscription.rewardPointsRedeemed }} ( {{subscription.rewardCashValueRedeemed | currency : subscription.currency : 'symbol' : '1.0-2' }} )</span>
+                        <span *ngIf="!subscription.rewardPointsRedeemed">NA</span>
+                    </div>
+                    <div class="t-box a px-2">
+                        <span *ngIf="subscription.couponCode">{{ subscription.couponCode }} ( {{subscription.couponAmount | currency : subscription.currency : 'symbol' : '1.0-2' }} )</span>
+                        <span *ngIf="!subscription.couponCode">NA</span>
+                    </div>
                     <div class="t-box a px-2">{{ subscription.status }}</div>
                     <div class="t-box b px-2 action-section">
                         <div class="user-table-action">
