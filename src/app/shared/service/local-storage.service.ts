@@ -60,4 +60,12 @@ export class LocalStorageService {
     this._router.navigate(['/signin']);
   }
 
+  setSelectedCustomer(value: string) {
+    localStorage.setItem('isCustomerSelected', value);
+  }
+
+  getSelectedCustomer() {
+    return localStorage.getItem('isCustomerSelected');
+  }
+
 }

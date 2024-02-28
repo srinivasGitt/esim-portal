@@ -82,6 +82,9 @@ export class SidebarComponent implements OnInit {
       this.clientConfig = JSON.parse(this.localStorage.getCacheConfig()!);
     }
 
+    console.log(this.localStorage.getSelectedCustomer());
+    this.isCustomerSelected = !this.localStorage.getSelectedCustomer() || this.localStorage.getSelectedCustomer() === 'false' ? false : true;
+
     this.customerService.getCustomer()
       .subscribe(res => {
         if(res) {
@@ -223,57 +226,17 @@ export class SidebarComponent implements OnInit {
 
   showSubmenu(itemEl: HTMLElement, title: any) {
     itemEl.classList.toggle('showMenu');
-
-    if(title === 'Customers') {
-      // this.customerList = [{
-      //   "_id": "1",
-      //   "name": "Travel Sim",
-      //   "children": [
-      //     {
-      //       "_id": "2",
-      //       "name": "Customer 1",
-      //       "children": [
-      //         {
-      //           "_id": "3",
-      //           "name": "Sub Customer 1",
-      //           "children": [
-      //             {
-      //               "_id": "4",
-      //               "name": "Reseller 1",
-      //             }
-      //           ]
-      //         }
-      //       ]
-      //     }
-      //   ]
-      // }, {
-      //   "_id": "5",
-      //   "name": "Roampass",
-      //   "children": [
-      //     {
-      //       "_id": "6",
-      //       "name": "Customer 2",
-      //       "children": [
-      //         {
-      //           "_id": "7",
-      //           "name": "Sub Customer 2",
-      //           "children": [
-      //             {
-      //               "_id": "8",
-      //               "name": "Reseller 2",
-      //             }
-      //           ]
-      //         }
-      //       ]
-      //     }
-      //   ]
-      // }]
-    }
   }
 
   findUrl(menu: any) {
     return menu.childs.findIndex((ele: any) => ele.link === window.location.pathname) > -1
       ? true
       : false;
+  }
+
+  clearCustomerSelection() {
+    this.isCustomerSelected = false;
+    this.localStorage.setSelectedCustomer(String(false));
+    this.customerService.sendCustomer(false);
   }
 }

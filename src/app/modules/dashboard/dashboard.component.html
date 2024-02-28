@@ -1,4 +1,4 @@
 <div class="main-content-div-area">
-  <app-admin-dashboard *ngIf="!isSuperAdmin"></app-admin-dashboard>
-  <app-super-admin-dashboard *ngIf="isSuperAdmin"></app-super-admin-dashboard>
+  <app-admin-dashboard *ngIf="isCustomerSelected"></app-admin-dashboard>
+  <app-super-admin-dashboard *ngIf="!isCustomerSelected"></app-super-admin-dashboard>
 </div>

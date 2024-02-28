@@ -21,7 +21,7 @@
 
                     <!-- non customer -->
                     <div *ngIf="!menu.hasGroup" class="pt-0 pb-0 sidebar-title">
-                        <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" (click)="isCustomerSelected = false;">
+                        <a [routerLink]="[menu.link]" [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact: true}" (click)="clearCustomerSelection();">
                             <span class="link-icon">
                                 <img [src]="menu.icon" [alt]="menu.title">
                             </span>
@@ -48,7 +48,7 @@
 
                     <!-- Cutomer -->
                     <div *ngIf="menu.hasGroup && menu.title === 'Customers'" (click)="showSubmenu(itemEl, menu.title)" class="pt-0 pb-0 cursor-pointer sidebar-title">
-                        <a [routerLinkActive]="['activeLink']" [routerLink]="['/customers']" [routerLinkActiveOptions]="{exact: true}" (click)="isCustomerSelected = false;">
+                        <a [routerLinkActive]="['activeLink']" [routerLink]="['/customers']" [routerLinkActiveOptions]="{exact: true}" (click)="clearCustomerSelection();">
                             <span class="link-icon">
                                 <img [src]="menu.icon" [alt]="menu.title">
                             </span>
