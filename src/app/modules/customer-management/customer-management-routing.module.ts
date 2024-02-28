@@ -8,10 +8,10 @@ const routes: Routes = [
   { path: '', component: CustomerManagementComponent },
   { path: 'add', component: AddEditCustomerComponent },
   { path: 'edit/:id', component: AddEditCustomerComponent },
-  { path: ':id', component: SingleCustomerViewComponent },
-  { path: ':id/:child2', component: SingleCustomerViewComponent },
-  { path: ':id/:child2/:child3', component: SingleCustomerViewComponent },
-  { path: ':id/:child2/:child3/:child4', component: SingleCustomerViewComponent },
+  { path: ':custId', component: SingleCustomerViewComponent },
+  { path: ':pid/:custId', component: SingleCustomerViewComponent },
+  { path: ':pid/:child1/:custId', component: SingleCustomerViewComponent },
+  { path: ':pid/:child1/:child2/:custId', component: SingleCustomerViewComponent },
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@ import {
   buttonText,
   otpType,
 } from 'src/app/shared/dialog/otp-verification';
-import { AlertService, CustomerService, DialogService } from 'src/app/shared/service';
+import { AlertService, CustomerService, DialogService, LocalStorageService } from 'src/app/shared/service';
 import { CustomerModuleService } from '../../service/customer-module.service';
 
 @Component({
@@ -30,13 +30,13 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogService: DialogService,
     private alertService: AlertService,
-    private customerModuleService: CustomerModuleService
+    private customerModuleService: CustomerModuleService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
-      this.customerId = res.id;
-
+      this.customerId = res.custId;
       this.getCustomerDetails(this.customerId);
     });
 
@@ -100,6 +100,7 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
     console.log(selectedCustomer);
 
     this.customerService.sendCustomer(selectedCustomer);
+    this.localStorageService.setSelectedCustomer(String(true));
   }
 
   // Invite User
