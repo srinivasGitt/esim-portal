@@ -72,6 +72,10 @@ export class SingleCustomerViewComponent implements OnInit, OnDestroy {
     this.router.navigate(['customers/edit', customer._id]);
   }
 
+  customerSettings(customer: any) {
+    this.router.navigate(['customers/customerSettings', customer._id]);
+  }
+
   getCustomerHierarchy() {
     this.customerService.getCustomerHierachy().subscribe((res: any) => {
       this.customerHierarchy = res;

@@ -15,6 +15,7 @@ import { StepThreeComponent } from './component/stepper/step-three/step-three.co
 import { StepTwoComponent } from './component/stepper/step-two/step-two.component';
 import { CustomerManagementRoutingModule } from './customer-management-routing.module';
 import { CustomerManagementComponent } from './customer-management.component';
+import { SettingsComponent } from './component/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CustomerManagementComponent } from './customer-management.component';
     StepTwoComponent,
     StepThreeComponent,
     SingleCustomerViewComponent,
+    SettingsComponent,
   ],
   imports: [
     CommonModule,

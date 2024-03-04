@@ -1,0 +1,181 @@
+<div class="common-header settings-component" *ngIf="!inProgress; else spinner">
+  <div class="customer-form-header">
+    <div class="row justify-content-between">
+      <div class="col-4 d-flex align-items-center">
+        <span
+          class="d-flex align-items-center mr-3 cursor-pointer"
+          (click)="gotoSingleCustomer(customer)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+          >
+            <mask
+              id="mask0_103_21499"
+              style="mask-type: alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="26"
+              height="26"
+            >
+              <rect width="26" height="26" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_103_21499)">
+              <path
+                d="M13.0007 21.6676L4.33398 13.0009L13.0007 4.33423L14.2736 5.5981L7.77354 12.0981H21.6673V13.9037H7.77354L14.2736 20.4037L13.0007 21.6676Z"
+                fill="black"
+              />
+            </g>
+          </svg>
+          <span class="back-btn ms-3">Settings</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-box">
+    <div class="col-3 right-border">
+      <div class="left-div mt-5">
+        <div class="position-relative ">
+          <div>
+            <ul>
+              <li class=" setting-options" [ngClass]="{ 'active': selectedItem === 'item1' }" (click)="selectItem('item1')">
+               <div class="option-division">
+                <svg class="option-svg option-svg1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M11.9316 1.0918L21.6816 5.9668V18.1543L11.9316 23.0176L2.18164 18.1543V5.9668L11.9316 1.0918ZM19.2559 6.43555L11.9316 2.7793L9.10742 4.18555L16.3848 7.86523L19.2559 6.43555ZM11.9316 10.0918L14.7207 8.70898L7.43164 5.0293L4.60742 6.43555L11.9316 10.0918ZM3.68164 7.6543V17.2168L11.1816 20.9668V11.4043L3.68164 7.6543ZM12.6816 20.9668L20.1816 17.2168V7.6543L12.6816 11.4043V20.9668Z"/>
+                  </svg>
+                Accessibility
+               </div>
+              </li>
+              <li class="setting-options" [ngClass]="{ 'active': selectedItem === 'item2' }" (click)="selectItem('item2')">
+                <div class="d-flex option-division">
+                  <svg class="option-svg mt-1" xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+                    <path d="M5 6V10L8 13L14 7L10 3H4L1.5 1M16 5L19 8V15M12 9L15 12M10 11L13 14M6 15L9 18H19" stroke="black"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  Connectivity
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 position-div">
+      <div class="right-div">
+        <ng-container *ngIf="accessibility">
+      <div class="access" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+          <path d="M11.9316 1.5918L21.6816 6.4668V18.6543L11.9316 23.5176L2.18164 18.6543V6.4668L11.9316 1.5918ZM19.2559 6.93555L11.9316 3.2793L9.10742 4.68555L16.3848 8.36523L19.2559 6.93555ZM11.9316 10.5918L14.7207 9.20898L7.43164 5.5293L4.60742 6.93555L11.9316 10.5918ZM3.68164 8.1543V17.7168L11.1816 21.4668V11.9043L3.68164 8.1543ZM12.6816 21.4668L20.1816 17.7168V8.1543L12.6816 11.9043V21.4668Z" fill="#473BAA"/>
+          </svg>
+        Accessibility
+       </div>
+
+       <div class="checkbox mt-4 d-flex" [formGroup]="checkboxForm">
+        <div class="right-options">
+          <div class="col-6 option1" [ngClass]="{ 'editable': editMode}">
+            <label for="checkbox1" class="checkbox-label" [ngClass]="{ 'editableTxt': editMode}">Customer Can Upload Inventory
+            <input type="checkbox" id="checkbox1" name="checkbox1" class="checkbox" formControlName="checkbox1" [disabled]="!editMode" (change)="updateFormValidity()">
+            <svg *ngIf="!checkboxForm.get('checkbox1').value" class="custombox unchecked opt1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="0.5" y="0.5" width="15" height="15" rx="4.5" stroke="#6365EF"/>
+              </svg>
+            <svg *ngIf="checkboxForm.get('checkbox1').value" class="custombox checked opt1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M4.31673 0.768576C7.4043 0.423496 10.5957 0.423496 13.6832 0.768576C14.8424 0.898136 15.8601 1.52501 16.5038 2.43541L8.5 10.4391L6.03033 7.96952C5.73744 7.67662 5.26256 7.67662 4.96967 7.96952C4.67678 8.26242 4.67678 8.73722 4.96967 9.03012L7.9697 12.0301C8.2626 12.323 8.7374 12.323 9.0303 12.0301L17.1458 3.91472C17.1682 4.02429 17.1862 4.13555 17.1994 4.24831C17.5686 7.40522 17.5686 10.5944 17.1994 13.7513C16.9845 15.5883 15.5096 17.0269 13.6832 17.2311C10.5957 17.5761 7.4043 17.5761 4.31673 17.2311C2.49035 17.0269 1.01545 15.5883 0.800604 13.7513C0.431374 10.5944 0.431374 7.40522 0.800604 4.24831C1.01545 2.41135 2.49035 0.972696 4.31673 0.768576Z" fill="#6365EF"/>
+              </svg>
+            </label>
+           </div>
+           <div class="col-6 option1 mt-5" [ngClass]="{ 'editable': editMode}">
+            <label for="checkbox3" class="checkbox-label" [ngClass]="{ 'editableTxt': editMode}">Customer Can Add Plans
+            <input type="checkbox" id="checkbox3" name="checkbox3" class="checkbox" formControlName="checkbox3" [disabled]="!editMode" (change)="updateFormValidity()">
+            <svg *ngIf="!checkboxForm.get('checkbox3').value" class="custombox unchecked opt3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="0.5" y="0.5" width="15" height="15" rx="4.5" stroke="#6365EF"/>
+              </svg>
+            <svg *ngIf="checkboxForm.get('checkbox3').value" class="custombox checked opt3" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M4.31673 0.768576C7.4043 0.423496 10.5957 0.423496 13.6832 0.768576C14.8424 0.898136 15.8601 1.52501 16.5038 2.43541L8.5 10.4391L6.03033 7.96952C5.73744 7.67662 5.26256 7.67662 4.96967 7.96952C4.67678 8.26242 4.67678 8.73722 4.96967 9.03012L7.9697 12.0301C8.2626 12.323 8.7374 12.323 9.0303 12.0301L17.1458 3.91472C17.1682 4.02429 17.1862 4.13555 17.1994 4.24831C17.5686 7.40522 17.5686 10.5944 17.1994 13.7513C16.9845 15.5883 15.5096 17.0269 13.6832 17.2311C10.5957 17.5761 7.4043 17.5761 4.31673 17.2311C2.49035 17.0269 1.01545 15.5883 0.800604 13.7513C0.431374 10.5944 0.431374 7.40522 0.800604 4.24831C1.01545 2.41135 2.49035 0.972696 4.31673 0.768576Z" fill="#6365EF"/>
+              </svg>
+            </label>
+           </div>
+
+        </div>
+
+         <div class="left-option">
+         <div class="col-6 option2" [ngClass]="{ 'editable': editMode}">
+          <label for="checkbox2" class="checkbox-label" [ngClass]="{ 'editableTxt': editMode}">Customer Can Create Sub-Customers
+          <input type="checkbox" id="checkbox2" name="checkbox2" class="checkbox" formControlName="checkbox2" [disabled]="!editMode" (change)="updateFormValidity() ">
+          <svg *ngIf="!checkboxForm.get('checkbox2').value" class="custombox unchecked opt2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="0.5" y="0.5" width="15" height="15" rx="4.5" stroke="#6365EF"/>
+            </svg>
+          <svg *ngIf="checkboxForm.get('checkbox2').value" class="custombox checked opt2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4.31673 0.768576C7.4043 0.423496 10.5957 0.423496 13.6832 0.768576C14.8424 0.898136 15.8601 1.52501 16.5038 2.43541L8.5 10.4391L6.03033 7.96952C5.73744 7.67662 5.26256 7.67662 4.96967 7.96952C4.67678 8.26242 4.67678 8.73722 4.96967 9.03012L7.9697 12.0301C8.2626 12.323 8.7374 12.323 9.0303 12.0301L17.1458 3.91472C17.1682 4.02429 17.1862 4.13555 17.1994 4.24831C17.5686 7.40522 17.5686 10.5944 17.1994 13.7513C16.9845 15.5883 15.5096 17.0269 13.6832 17.2311C10.5957 17.5761 7.4043 17.5761 4.31673 17.2311C2.49035 17.0269 1.01545 15.5883 0.800604 13.7513C0.431374 10.5944 0.431374 7.40522 0.800604 4.24831C1.01545 2.41135 2.49035 0.972696 4.31673 0.768576Z" fill="#6365EF"/>
+            </svg>
+          </label>
+         </div>
+         <div *ngIf="showUserInput" class="mt-4">
+          <label for="numberOfUsers" class="labelTxt">Level of Sub-Customers to be added</label>
+         <div *ngIf="showUserInput" class="user-input option2 col-6">
+          <div class="input-wrapper mt-2 d-flex">
+            <input type="number" class="number-input" id="numberOfUsers" formControlName="numberOfUsers" [value]="numberOfUsers">
+            <span *ngIf="numberOfUsers !== 0" class="shared-span">{{numberOfUsers}}</span>
+            <span class="increment d-flex gap-2 shared-span">
+              <svg (click)="decrementUsers()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <g opacity="0.8">
+                <path d="M13.75 9.58203H6.25V10.4154H13.75V9.58203Z" fill="#D32F2F"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0026 2.08203C5.63035 2.08203 2.08594 5.62645 2.08594 9.9987C2.08594 14.3709 5.63035 17.9154 10.0026 17.9154C14.3749 17.9154 17.9193 14.3709 17.9193 9.9987C17.9193 5.62645 14.3749 2.08203 10.0026 2.08203ZM2.91927 9.9987C2.91927 6.08668 6.09059 2.91536 10.0026 2.91536C13.9146 2.91536 17.0859 6.08668 17.0859 9.9987C17.0859 13.9107 13.9146 17.082 10.0026 17.082C6.09059 17.082 2.91927 13.9107 2.91927 9.9987Z" fill="#D32F2F"/>
+                </g>
+                </svg>
+                <svg (click)="incrementUsers()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <g opacity="0.8">
+                  <path d="M12.5026 10.4154H10.4193V12.4987C10.4193 12.6092 10.3754 12.7152 10.2972 12.7933C10.2191 12.8715 10.1131 12.9154 10.0026 12.9154C9.8921 12.9154 9.78612 12.8715 9.70798 12.7933C9.62984 12.7152 9.58594 12.6092 9.58594 12.4987V10.4154H7.5026C7.3921 10.4154 7.28612 10.3715 7.20798 10.2933C7.12984 10.2152 7.08594 10.1092 7.08594 9.9987C7.08594 9.88819 7.12984 9.78221 7.20798 9.70407C7.28612 9.62593 7.3921 9.58203 7.5026 9.58203H9.58594V7.4987C9.58594 7.38819 9.62984 7.28221 9.70798 7.20407C9.78612 7.12593 9.8921 7.08203 10.0026 7.08203C10.1131 7.08203 10.2191 7.12593 10.2972 7.20407C10.3754 7.28221 10.4193 7.38819 10.4193 7.4987V9.58203H12.5026C12.6131 9.58203 12.7191 9.62593 12.7972 9.70407C12.8754 9.78221 12.9193 9.88819 12.9193 9.9987C12.9193 10.1092 12.8754 10.2152 12.7972 10.2933C12.7191 10.3715 12.6131 10.4154 12.5026 10.4154Z" fill="#00C853"/>
+                  <path d="M9.99875 18.2754C8.36131 18.2757 6.76055 17.7905 5.39893 16.881C4.03731 15.9715 2.976 14.6786 2.34922 13.1658C1.72245 11.6531 1.55837 9.98847 1.87774 8.38247C2.19711 6.77648 2.98558 5.30127 4.14342 4.14342C5.30127 2.98558 6.77648 2.19711 8.38247 1.87774C9.98847 1.55837 11.6531 1.72245 13.1658 2.34922C14.6786 2.976 15.9715 4.03731 16.881 5.39893C17.7905 6.76055 18.2757 8.36131 18.2754 9.99875C18.2728 12.193 17.3999 14.2967 15.8483 15.8483C14.2967 17.3999 12.193 18.2728 9.99875 18.2754ZM9.99875 2.55292C8.52624 2.55259 7.08669 2.98893 5.86217 3.80676C4.63764 4.62459 3.68314 5.78718 3.11936 7.14749C2.55559 8.50781 2.40787 10.0048 2.69488 11.449C2.98189 12.8933 3.69074 14.22 4.73179 15.2614C5.77285 16.3028 7.09934 17.0121 8.54352 17.2996C9.98769 17.5871 11.4847 17.4399 12.8452 16.8766C14.2057 16.3133 15.3686 15.3592 16.1869 14.1349C17.0051 12.9107 17.4419 11.4713 17.4421 9.99875C17.4401 8.02504 16.6553 6.13269 15.2599 4.73683C13.8645 3.34097 11.9725 2.55557 9.99875 2.55292Z" fill="#00C853"/>
+                  </g>
+                  </svg>
+            </span>
+          </div>
+          </div>
+         </div>
+
+         <div class="col-6 option2 mt-5" [ngClass]="{ 'editable': editMode}">
+          <label for="checkbox4" class="checkbox-label" [ngClass]="{ 'editableTxt': editMode}">Customer Can Refund Subscriptions
+          <input type="checkbox" id="checkbox4" name="checkbox4" class="checkbox" formControlName="checkbox4" [disabled]="!editMode" (change)="updateFormValidity() ">
+          <svg *ngIf="!checkboxForm.get('checkbox4').value" class="custombox unchecked opt4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="0.5" y="0.5" width="15" height="15" rx="4.5" stroke="#6365EF"/>
+            </svg>
+          <svg *ngIf="checkboxForm.get('checkbox4').value" class="custombox checked opt4" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4.31673 0.768576C7.4043 0.423496 10.5957 0.423496 13.6832 0.768576C14.8424 0.898136 15.8601 1.52501 16.5038 2.43541L8.5 10.4391L6.03033 7.96952C5.73744 7.67662 5.26256 7.67662 4.96967 7.96952C4.67678 8.26242 4.67678 8.73722 4.96967 9.03012L7.9697 12.0301C8.2626 12.323 8.7374 12.323 9.0303 12.0301L17.1458 3.91472C17.1682 4.02429 17.1862 4.13555 17.1994 4.24831C17.5686 7.40522 17.5686 10.5944 17.1994 13.7513C16.9845 15.5883 15.5096 17.0269 13.6832 17.2311C10.5957 17.5761 7.4043 17.5761 4.31673 17.2311C2.49035 17.0269 1.01545 15.5883 0.800604 13.7513C0.431374 10.5944 0.431374 7.40522 0.800604 4.24831C1.01545 2.41135 2.49035 0.972696 4.31673 0.768576Z" fill="#6365EF"/>
+            </svg>
+          </label>
+         </div>
+
+         <div>
+          <button class="edit mt-5" *ngIf="!editMode" (click)="toggleEditMode()">
+            Edit
+          </button>
+         </div>
+
+        <div class="save-btn d-flex mt-5 mb-4">
+          <button class="cancel" *ngIf="editMode" (click)="cancelEditMode()">
+            Cancel
+          </button>
+          <button class="save" *ngIf="editMode" (click)="saveChanges()" [disabled]="!changesMade">
+            Save Changes
+          </button>
+        </div>
+      </div>
+       </div>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Loading Spinner - Start -->
+<ng-template #spinner class="loader-align">
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<!-- Loading Spinner - End -->
+
